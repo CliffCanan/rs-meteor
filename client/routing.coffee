@@ -17,10 +17,6 @@ Router.map ->
   @route "checkAvailability",
     name: "checkAvailability"
     path: "/checkAvailability"
-  @route "checkAvailabilityPopup",
-    name: "checkAvailabilityPopup"
-    path: "/checkAvailabilityPopup"
-
 
 Router.onAfterAction share.sendPageview
 
