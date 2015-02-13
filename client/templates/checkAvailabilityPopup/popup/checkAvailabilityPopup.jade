@@ -1,0 +1,22 @@
+template(name="checkAvailabilityPopup")
+  .container
+    .panel.panel-default
+      .panel-body
+        .form-group
+          .col-xs-12
+            .row
+              label Check Availability
+            .row
+              | We gladly help you to check <i>here will be ptoperty name</i> for availability. Please enter your contact details and our agent will write to you asap.
+            .row
+              +input(placeholder="Name")
+            .row
+              +input(placeholder="Email address")
+            .row
+              +textarea(placeholder="Question")
+            .row
+              | MOVE-IN DATE
+              +datepicker(name="moveInDate" placeholder="mm/dd/yyyy")
+              //set today +1
+
+

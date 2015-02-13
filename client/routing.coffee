@@ -14,6 +14,12 @@ Router.map ->
       Meteor.loginWithToken(@params.token)
       share.autologinDetected = true
       Router.go("index")
+  @route "checkAvailability",
+    name: "checkAvailability"
+    path: "/checkAvailability"
+  @route "checkAvailabilityPopup",
+    name: "checkAvailabilityPopup"
+    path: "/checkAvailabilityPopup"
 
 
 Router.onAfterAction share.sendPageview
