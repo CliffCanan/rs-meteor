@@ -43,3 +43,51 @@ share.loadFixtures = ->
         "hashedToken": Accounts._hashLoginToken(_id),
         "when": now
       }}})
+
+  #images = [{\"name\":\"img_2121%20Market%20%281%29.jpg\",\"url\":\"components/com_trsproperties/assets/uploader/server/php/files/img_2121%20Market%20%281%29.jpg\",\"thumb\":\"components/com_trsproperties/assets/uploader/server/php/files/thumbnail/img_2121%20Market%20%281%29.jpg\"},{\"name\":\"img_2121%20Market2%20%281%29.jpg\",\"url\":\"components/com_trsproperties/assets/uploader/server/php/files/img_2121%20Market2%20%281%29.jpg\",\"thumb\":\"components/com_trsproperties/assets/uploader/server/php/files/thumbnail/img_2121%20Market2%20%281%29.jpg\"},{\"name\":\"img_2121%20Market3%20%281%29.jpg\",\"url\":\"components/com_trsproperties/assets/uploader/server/php/files/img_2121%20Market3%20%281%29.jpg\",\"thumb\":\"components/com_trsproperties/assets/uploader/server/php/files/thumbnail/img_2121%20Market3%20%281%29.jpg\"},{\"name\":\"img_2121%20Market4%20%281%29.jpg\",\"url\":\"components/com_trsproperties/assets/uploader/server/php/files/img_2121%20Market4%20%281%29.jpg\",\"thumb\":\"components/com_trsproperties/assets/uploader/server/php/files/thumbnail/img_2121%20Market4%20%281%29.jpg\"},{\"name\":\"img_2121%20Market6%20%281%29.jpg\",\"url\":\"components/com_trsproperties/assets/uploader/server/php/files/img_2121%20Market6%20%281%29.jpg\",\"thumb\":\"components/com_trsproperties/assets/uploader/server/php/files/thumbnail/img_2121%20Market6%20%281%29.jpg\"},{\"name\":\"img_2121%20Market7%20%281%29.jpg\",\"url\":\"components/com_trsproperties/assets/uploader/server/php/files/img_2121%20Market7%20%281%29.jpg\",\"thumb\":\"components/com_trsproperties/assets/uploader/server/php/files/thumbnail/img_2121%20Market7%20%281%29.jpg\"}]
+
+  buildings =
+    first:
+      title: "2121 Market Street"
+      summary: "2121 Market, most prominently known for it\'s price, is conveniently located directly above a Trader Joe\'s. Safe to say, you truly get what you pay for with this property."
+      postalCode: "19103"
+      street: "2121 Market Street"
+      price: "$1140"
+      bedrooms: ""
+      bathrooms: ""
+      contactPerson: ""
+      phone: "914-500-8662"
+      sqft: ""
+      plotArea: ""
+      yearOfCompletion: ""
+      features: [
+        "On-site laundry"
+        "Pet friendly"
+        "High ceilings"
+        "Shared Laundry"
+      ]
+      images: ""
+      description: ""
+      specialOffer: ""
+      website: ""
+      special: ""
+      type: ""
+      design: ""
+      floor: ""
+      fee: ""
+      available: ""
+      secondDeposit: ""
+      minTerm: ""
+      parking: ""
+      basement: ""
+      other: ""
+      remarks: ""
+      furnished: ""
+      pets: ""
+      applyAt: ""
+      country: ""
+      city: ""
+      location: ""
+      mls: ""
+      propertyType: ""
+      laundry: ""

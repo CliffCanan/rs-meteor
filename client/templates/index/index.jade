@@ -1,2 +1,69 @@
 template(name="index")
-  +connection
+  main
+    section.head-section-wrap
+      .head-section
+        h2.head-section-title
+          | Find Your Perfect Home
+        p.main-desc
+          | Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+          | mauris
+          | condimentum nibh, ut fermentum massa justo sit amet risus.
+        .select-city-wrap
+          .select-city-shadow
+            span.select-city
+              i.fa.fa-globe
+              | Select a City
+          .city-list
+            a.city-item(href="/") New York
+            a.city-item(href="/") London
+            a.city-item(href="/") Tokyo
+            a.city-item(href="/") Los Vegas
+            a.city-item(href="/") Los Angeles
+        a.more-info(href="/") Scroll for more
+    section.testimonials-wrap
+      .testimonials
+        article
+          blockquote
+            p.quote-desc
+              | "Tucked between the hustle and bustle of Chestnut and Walnut Streets, The Sansom offers both
+              | access to and refuge from the fast pace of city living. The Sansom is located just northeast of
+              | Rittenhouse Square, in the heart of one of Philadelphias. Most vibrant neighborhoods."
+            footer
+              cite.quote-author
+                | John Malkovich
+                a.quote-author-link(href="/") Actor in Movies
+          img(src="/images/testimonials-1.png", alt="John Malkovich")
+        article
+          blockquote
+            p.quote-desc
+              | "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis
+              | mollis,
+              | est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Integer
+              | posuere erat a ante venenatis."
+            footer
+              cite.quote-author
+                | Maia Morgenstern
+                a.quote-author-link(href="/") Actress in Movies
+          img(src="/images/testimonials-2.png", alt="Maia Morgenstern")
+        article
+          blockquote
+            p.quote-desc
+              | "Tucked between the hustle and bustle of Chestnut and Walnut Streets, The Sansom offers both
+              | access to and refuge from the fast pace of city living. The Sansom is located just northeast of
+              | Rittenhouse Square, in the heart of one of Philadelphias.Most vibrant neighborhoods."
+            footer
+              cite.quote-author
+                | Anthony Hopkins
+                a.quote-author-link(href="/") Hannibal Lektor
+          img(src="/images/testimonials-3.png", alt="Anthony Hopkins")
+        article
+          blockquote
+            p.quote-desc
+              | “Tucked between the hustle and bustle of Chestnut and Walnut Streets, The Sansom offers both
+              | access to and refuge from the fast pace of city living. The Sansom is located just northeast of
+              | Rittenhouse Square, in the heart of one of Philadelphias.Most vibrant neighborhoods. ”
+            footer
+              cite.quote-author
+                | Christopher Walken
+                a.quote-author-link(href="/") Actor in Movies
+          img(src="/images/testimonials-4.png", alt="Christopher Walken")
