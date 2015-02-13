@@ -3,33 +3,26 @@ Template.connection.helpers
     status = Meteor.connection.status()
     switch status.status
       when "connected"
-        {
-          cls: "fa-bolt"
-          content: "Connected to server, life is good!"
-        }
+        cls: "fa-bolt"
+        content: "Connected to server, life is good!"
       when "connecting"
         if status.retryCount
-          {
-            cls: "fa-spinner fa-spin text-warning"
-            content: "Reconnecting to server..."
-          }
+          cls: "fa-spinner fa-spin text-warning"
+          content: "Reconnecting to server..."
         else
-          {
-            cls: "hidden"
-            content: "Connecting to server..."
-          }
+          cls: "hidden"
+          content: "Connecting to server..."
       when "waiting"
         retryDate = new Date(status.retryTime)
         retryTimeString = retryDate.toTimeString()
-        {
-          cls: "fa-exclamation-circle text-warning"
-          content: "Disconnected from server. Tried to reconnect #{status.retryCount} times, will try again at #{retryTimeString.substr(0, retryTimeString.indexOf(" "))} (<a href='#' class='reconnect'>reconnect now</a>)."
-        }
+        cls: "fa-exclamation-circle text-warning"
+        content: "Disconnected from server. Tried to reconnect #{status.retryCount} times, will try again at #{retryTimeString.substr(0, retryTimeString.indexOf(" "))} (<a href='#' class='reconnect'>reconnect now</a>)."
       when "failed"
-        {
-          cls: "fa-exclamation-triangle text-danger"
-          content: "Disconnected from server. " + status.reason
-        }
+        cls: "fa-exclamation-triangle text-danger"
+        content: "Disconnected from server. " + status.reason
+      when "offline"
+        cls: "fa-exclamation-triangle text-danger"
+        content: "You are offline (<a href='#' class='reconnect'>reconnect now</a>)."
       else
         throw new Error("Unknown status: '#{status.status}'")
 
