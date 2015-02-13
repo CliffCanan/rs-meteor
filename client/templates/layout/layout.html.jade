@@ -19,6 +19,7 @@ template(name="layout")
   .page-wrapper
     //+connection
     +yield(region="header")
-    +yield
+    main
+      +yield
     +yield(region="footer")
   #fb-root
