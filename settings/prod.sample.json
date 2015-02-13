@@ -1,0 +1,19 @@
+{
+  "baseUrl": "https://rentscene.com",
+  "kadira": {
+    "appId": "",
+    "appSecret": ""
+  },
+  "public": {
+    "version": "__VERSION__",
+    "isDebug": false,
+    "ga": {
+      "property": "",
+      "disabled": true
+    },
+    "mixpanel": {
+      "token": "",
+      "disabled": false
+    }
+  }
+}

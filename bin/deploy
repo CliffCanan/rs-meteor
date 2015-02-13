@@ -1,0 +1,7 @@
+#!/bin/bash
+
+DIRNAME=$(cd `dirname $0` && pwd)
+
+# Using full data reload for a while
+meteor deploy --settings settings/prod.json rentscene.meteor.com
+$DIRNAME/logs

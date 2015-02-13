@@ -1,0 +1,13 @@
+#!/bin/bash
+
+DIRNAME=$(cd `dirname $0` && pwd)
+USERNAME=$(<~/.meteor/rentscene.com.username)
+PASSWORD=$(<~/.meteor/rentscene.com.password)
+HOST="proximus.modulusmongo.net"
+PORT="27017"
+DB="rentscene_meteor_com"
+OUT_DIR="/tmp"
+
+rm -rf $OUT_DIR/$DB/meteor_accounts_loginServiceConfiguration*
+$DIRNAME/reload
+mongorestore --drop -h 127.0.0.1:3001 --db meteor $OUT_DIR/$DB

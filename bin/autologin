@@ -1,0 +1,51 @@
+#!/bin/bash
+
+DIRNAME=$(cd `dirname $0` && pwd)
+
+EMAIL=$1
+if [[ "$EMAIL" == "" ]]
+then
+        echo "Usage:"
+        echo "$0 email"
+        exit 1
+fi
+
+if [[ -z "$2" ]]
+then
+  PROTOCOL="https"
+  DOMAIN="rentscene.com"
+  USERNAME=$(<~/.meteor/${DOMAIN}.username)
+  PASSWORD=$(<~/.meteor/${DOMAIN}.password)
+  HOST="proximus.modulusmongo.net"
+  PORT="27017"
+  DB="gaXyho3v"
+else
+  PROTOCOL="http"
+  DOMAIN="localhost:3000"
+  HOST="localhost"
+  PORT="3001"
+  DB="meteor"
+fi
+
+echo "~ Adding autologin token ~"
+ADD_TO_SET_QUERY="db.users.update({'emails.address': /${EMAIL}/}, {\$addToSet: {'services.resume.loginTokens': {hashedToken: 'DdrbIMgRCDZ7rONz7GhEULQam64h7wQd9u+2hruV/Ao=', when: new Date()}}})"
+echo $ADD_TO_SET_QUERY
+if [[ "$HOST" == "localhost" ]]
+then
+  mongo $HOST:$PORT/$DB --eval "$ADD_TO_SET_QUERY"
+else
+  mongo -u $USERNAME -p $PASSWORD $HOST:$PORT/$DB --eval "$ADD_TO_SET_QUERY"
+fi
+
+URL="${PROTOCOL}://${DOMAIN}/autologin/m4hKXPGWvdghFx6kD"
+google-chrome --user-data-dir=$HOME/chrome-autologin $URL
+
+echo "~ Removing autologin token ~"
+PULL_QUERY="db.users.update({'services.resume.loginTokens.hashedToken': 'DdrbIMgRCDZ7rONz7GhEULQam64h7wQd9u+2hruV/Ao='}, {\$pull: {'services.resume.loginTokens': {hashedToken: 'DdrbIMgRCDZ7rONz7GhEULQam64h7wQd9u+2hruV/Ao='}}}, {multi: true})"
+# echo $PULL_QUERY
+if [[ "$HOST" == "localhost" ]]
+then
+  mongo $HOST:$PORT/$DB --eval "$PULL_QUERY"
+else
+  mongo -u $USERNAME -p $PASSWORD $HOST:$PORT/$DB --eval "$PULL_QUERY"
+fi

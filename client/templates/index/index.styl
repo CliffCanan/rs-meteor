@@ -1,0 +1,95 @@
+@import "nib"
+
+.index
+  position relative
+  height 100%
+  padding-bottom -115px
+  .panel
+    margin-bottom 130px
+    table
+      th:first-child, td:first-child
+        padding-left 12px
+        padding-right 12px
+  .filters
+    margin 25px 0
+    .control-links
+      margin-top 5px
+      margin-bottom 5px
+    .delete-filter
+      padding-left 0
+      padding-right 0
+
+.connect-wrapper
+  line-height 45px
+
+.Trello-label
+  display inline-block
+  min-width 20px
+  min-height 30px
+  padding 3px 6px
+  border-radius 3px
+  font-weight: 700;
+  color #ffffff
+  text-shadow: 0 0 5px rgba(0,0,0,.2),0 0 2px #000;
+  margin 4px
+  white-space nowrap
+
+.Trello-color-green
+  background-color #3cb500
+.Trello-color-yellow
+  background-color #fad900
+.Trello-color-orange
+  background-color #ff9f19
+.Trello-color-red
+  background-color #eb4646
+.Trello-color-purple
+  background-color #a632db
+.Trello-color-blue
+  background-color #0079bf
+.Trello-color-pink
+  background-color: #ff78cb
+.Trello-color-sky
+  background-color: #00c2e0;
+.Trello-color-lime
+  background-color: #51e898
+.Trello-color-black
+  background-color: #4d4d4d
+
+.Trello-member {
+  background-color: #dbdbdb;
+  border-radius: 3px;
+  color: #4d4d4d;
+  display: block;
+  float: left;
+  height: 30px;
+  margin: 4px;
+  overflow: hidden;
+  position: relative;
+  width: 30px;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 0;
+  text-decoration: none;
+  .Trello-member-avatar {
+    height: 30px;
+    width: 30px;
+  }
+  .Trello-member-initials {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    height: 30px;
+    left: 0;
+    line-height: 30px;
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+  }
+}
