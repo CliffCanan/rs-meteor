@@ -20,6 +20,7 @@ Router.map ->
     onBeforeAction: ->
       share.setPageTitle("Rent Scene - Apartments and Condos for Rent", false)
       @next()
+  @route "checkAvailability"
   @route "city",
     path: "/:city"
     onBeforeAction: ->
@@ -31,7 +32,6 @@ Router.map ->
       Meteor.loginWithToken(@params.token)
       share.autologinDetected = true
       Router.go("index")
-  @route "checkAvailability", {}
 
 Router.onAfterAction share.sendPageview
 
