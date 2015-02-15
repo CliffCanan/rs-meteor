@@ -2,7 +2,6 @@
 
 DIRNAME=$(cd `dirname $0` && pwd)
 
-# Using full data reload for a while
 meteor deploy --settings settings/dev.json rentscene.meteor.com
 meteor authorized rentscene.meteor.com --add starfall
 meteor authorized rentscene.meteor.com --add wsoul
