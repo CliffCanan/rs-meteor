@@ -19,10 +19,11 @@ Template.checkAvailability.rendered = ->
       moveInDate:
         validators:
           notEmpty:
-            message: 'Please enter Move-in date'
+            message: 'Please enter Move-in date in MM/DD/YYYY format'
           date:
             format: 'MM/DD/YYYY'
-            message: 'Please enter date in MM/DD/YYYY format'
+            min: new Date()
+            message: 'Please enter future date in MM/DD/YYYY format'
   ).on("success.form.fv", grab encapsulate (event) ->
       $('#chechAvailabilityPopup').modal('hide')
       $('#chechAvailabilityMessageSentPopup').modal('show')
