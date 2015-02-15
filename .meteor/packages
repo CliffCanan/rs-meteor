@@ -18,8 +18,4 @@ accounts-password
 force-ssl
 meteorhacks:kadira
 meteorhacks:npm
-
-
 npm-container
-cfs:standard-packages
-cfs:filesystem
