@@ -53,4 +53,4 @@ Template.checkAvailability.events
   "click .continue-browsing": grab encapsulate (event, template) ->
     $('#checkAvailabilityMessageSentPopup').modal('hide')
   "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
-    $('form').formValidation 'revalidateField', 'moveInDate'
+    template.$('form').formValidation 'revalidateField', 'moveInDate'
