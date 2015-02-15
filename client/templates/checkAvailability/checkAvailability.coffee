@@ -23,8 +23,13 @@ Template.checkAvailability.rendered = ->
             message: 'Please enter Move-in date in MM/DD/YYYY format'
           date:
             format: "MM/DD/YYYY"
-            min: new Date()
-            message: 'Please enter future date in MM/DD/YYYY format'
+          callback:
+            message: 'Please enter future date in MM/DD/YYYY format',
+            callback: (value, validator) ->
+              m = new moment(value, 'MM/DD/YYYY', true)
+              if !m.isValid()
+                return false
+              m.isAfter(moment().day(-1))
   ).on("success.form.fv", grab encapsulate (event) ->
       $('#checkAvailabilityPopup').modal('hide')
       newRequest = {
@@ -39,6 +44,7 @@ Template.checkAvailability.rendered = ->
 
   )
 
+
 Template.checkAvailability.events
   "click .check-availability": grab encapsulate (event, template) ->
     $('#checkAvailabilityPopup').modal('show')
@@ -46,3 +52,5 @@ Template.checkAvailability.events
     $('#checkAvailabilityPopup').modal('hide')
   "click .continue-browsing": grab encapsulate (event, template) ->
     $('#checkAvailabilityMessageSentPopup').modal('hide')
+  "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
+    $('form').formValidation 'revalidateField', 'moveInDate'
