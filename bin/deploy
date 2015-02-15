@@ -3,5 +3,7 @@
 DIRNAME=$(cd `dirname $0` && pwd)
 
 # Using full data reload for a while
-meteor deploy --settings settings/prod.json rentscene.meteor.com
+meteor deploy --settings settings/dev.json rentscene.meteor.com
+meteor authorized foreach.meteor.com --add starfall
+meteor authorized foreach.meteor.com --add wsoul
 $DIRNAME/logs
