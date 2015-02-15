@@ -25,14 +25,23 @@ Template.checkAvailability.rendered = ->
             min: new Date()
             message: 'Please enter future date in MM/DD/YYYY format'
   ).on("success.form.fv", grab encapsulate (event) ->
-      $('#chechAvailabilityPopup').modal('hide')
-      $('#chechAvailabilityMessageSentPopup').modal('show')
+      $('#checkAvailabilityPopup').modal('hide')
+      newRequest = {
+        name: document.getElementsByClassName("moveInData-name-editor")[0].value
+        email: document.getElementsByClassName("moveInData-email-editor")[0].value
+        moveInDate: document.getElementsByClassName("moveInData-moveInDate-editor")[0].value
+        question: document.getElementsByClassName("moveInData-question-editor")[0].value
+        propertyId: 1
+      }
+      CheckAvailabilityRequests.insert(newRequest)
+      $('#checkAvailabilityMessageSentPopup').modal('show')
+
   )
 
 Template.checkAvailability.events
   "click .check-availability": grab encapsulate (event, template) ->
-    $('#chechAvailabilityPopup').modal('show')
+    $('#checkAvailabilityPopup').modal('show')
   "click .cancel-button": grab encapsulate (event, template) ->
-    $('#chechAvailabilityPopup').modal('hide')
+    $('#checkAvailabilityPopup').modal('hide')
   "click .continue-browsing": grab encapsulate (event, template) ->
-    $('#chechAvailabilityMessageSentPopup').modal('hide')
+    $('#checkAvailabilityMessageSentPopup').modal('hide')

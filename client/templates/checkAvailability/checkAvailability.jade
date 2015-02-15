@@ -1,7 +1,7 @@
 template(name="checkAvailability")
   button.btn.btn-primary.check-availability Check Availability
 
-  #chechAvailabilityPopup.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+  #checkAvailabilityPopup.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
         .modal-header
@@ -20,12 +20,12 @@ template(name="checkAvailability")
               +textarea(family="moveInData" property="question" placeholder="Question")
             .form-group
               label MOVE-IN DATE
-              +datepicker(field="moveInDate" name="moveInDate" placeholder="mm/dd/yyyy" class="moveInDate" name="moveInDate")
+              +datepicker(family="moveInData" field="moveInDate" placeholder="mm/dd/yyyy" class="moveInData-moveInDate-editor" name="moveInDate")
             .form-group
               button.btn.btn-primary(type="submit") Submit
               button.btn.btn-default.cancel-button Cancel
 
-  #chechAvailabilityMessageSentPopup.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+  #checkAvailabilityMessageSentPopup.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
         .modal-header
