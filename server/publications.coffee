@@ -13,6 +13,7 @@ Meteor.publish "allUsers", ->
     return []
   Meteor.users.find()
 
-Meteor.publish("CheckAvailabilityRequests", ->
-  CheckAvailabilityRequests.find({}, {})
-)
+Meteor.publish "CheckAvailabilityRequests", ->
+  unless @userId
+    return []
+  CheckAvailabilityRequests.find()
