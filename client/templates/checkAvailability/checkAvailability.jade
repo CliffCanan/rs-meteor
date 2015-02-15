@@ -4,12 +4,12 @@ template(name="checkAvailability")
   #checkAvailabilityPopup.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
-        .modal-header
-          button.close(type='button', data-dismiss='modal', aria-label='Close')
-            span(aria-hidden='true') ×
-          h4#myModalLabel.modal-title Check Availability
-        .modal-body
-          form
+        form
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#myModalLabel.modal-title Check Availability
+          .modal-body
             .form-group
               | We gladly help you to check <i>here will be property name</i> for availability. Please enter your contact details and our agent will write to you asap.
             .form-group
@@ -21,6 +21,7 @@ template(name="checkAvailability")
             .form-group
               label MOVE-IN DATE
               +datepicker(family="moveInData" field="moveInDate" placeholder="mm/dd/yyyy" class="moveInData-moveInDate-editor" name="moveInDate")
+          .modal-footer
             .form-group
               button.btn.btn-primary(type="submit") Submit
               button.btn.btn-default.cancel-button Cancel

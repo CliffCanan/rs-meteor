@@ -2,6 +2,7 @@ Template.checkAvailability.helpers
 #  helper: ->
 
 Template.checkAvailability.rendered = ->
+#  form = @$("form")
   @$("form").formValidation(
     framework: 'bootstrap'
     live: 'disabled'
@@ -21,7 +22,7 @@ Template.checkAvailability.rendered = ->
           notEmpty:
             message: 'Please enter Move-in date in MM/DD/YYYY format'
           date:
-            format: 'MM/DD/YYYY'
+            format: "MM/DD/YYYY"
             min: new Date()
             message: 'Please enter future date in MM/DD/YYYY format'
   ).on("success.form.fv", grab encapsulate (event) ->
