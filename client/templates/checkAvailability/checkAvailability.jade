@@ -9,20 +9,21 @@ template(name="checkAvailability")
             span(aria-hidden='true') ×
           h4#myModalLabel.modal-title Check Availability
         .modal-body
-          .form-group
-            | We gladly help you to check <i>here will be property name</i> for availability. Please enter your contact details and our agent will write to you asap.
-          .form-group
-            +input(placeholder="Name")
-          .form-group
-            +input(placeholder="Email address")
-          .form-group
-            +textarea(placeholder="Question")
-          .form-group
-            label MOVE-IN DATE
-            +datepicker(field="moveInDate" name="moveInDate" placeholder="mm/dd/yyyy" class="moveInDate")
-        .modal-footer
-          button.btn.btn-primary.submit-button(type="submit") Submit
-          button.btn.btn-default Cancel
+          form
+            .form-group
+              | We gladly help you to check <i>here will be property name</i> for availability. Please enter your contact details and our agent will write to you asap.
+            .form-group
+              +input(family="moveInData" property="name" placeholder="Name")
+            .form-group
+              +input(family="moveInData" property="email" placeholder="Email address")
+            .form-group
+              +textarea(family="moveInData" property="question" placeholder="Question")
+            .form-group
+              label MOVE-IN DATE
+              +datepicker(field="moveInDate" name="moveInDate" placeholder="mm/dd/yyyy" class="moveInDate" name="moveInDate")
+            .form-group
+              button.btn.btn-primary(type="submit") Submit
+              button.btn.btn-default.cancel-button Cancel
 
   #chechAvailabilityMessageSentPopup.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
