@@ -34,6 +34,10 @@ Template.textarea.events
   "focus .property-editor": encapsulate (event, template) ->
     editor = EditorCache.editors[template.data.family]
     editor.setEditingProperty(template.data._id, template.data.property)
+  "blur .property-editor": encapsulate (event, template) ->
+    $editor = $(event.target)
+    editor = EditorCache.editors[template.data.family]
+    editor.saveProperty(template.data._id, template.data.property, $editor.val())
   "keydown .property-editor": encapsulate (event, template) ->
     $editor = $(event.target)
     editor = EditorCache.editors[template.data.family]
