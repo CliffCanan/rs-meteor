@@ -1,10 +1,14 @@
 header
-  background rgba(39, 43, 48, .1)
+  background #272b30
   height 70px
   width 100%
   position fixed
   top 0
   left 0
+  z-index 1000
+
+  .home-page &
+    background rgba(39, 43, 48, .1)
 
   .header-wrap
     width 1280px
@@ -40,12 +44,19 @@ header
         display inline-block
         line-height 30px
 
+        &.live-chat
+          display none
+
+          .home-page &
+            display inline-block
+
         .navigation-item-link
           font-family 'Montserrat', Helvetica, sans-serif
           font-size 14px
           color #fff
           padding 10px
           text-decoration none
+
 
           &.active, &:hover
             color #ffcc33

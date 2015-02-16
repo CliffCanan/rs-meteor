@@ -1,5 +1,6 @@
 template(name="index")
-  section.head-section-wrap
+  .home-page-bg
+  section.head-section-wrap.clearfix
     .head-section
       h2.head-section-title
         | Find Your Perfect Home
@@ -12,14 +13,19 @@ template(name="index")
           span.select-city
             i.fa.fa-globe
             | Select a City
-        .city-list
-          a.city-item(href="/") New York
-          a.city-item(href="/") London
-          a.city-item(href="/") Tokyo
-          a.city-item(href="/") Los Vegas
-          a.city-item(href="/") Los Angeles
+        ul.city-list.list-unstyled
+          li.city-item
+            a.city-item-link(href="/") New York
+          li.city-item
+            a.city-item-link(href="/") London
+          li.city-item
+            a.city-item-link(href="/") Tokyo
+          li.city-item
+            a.city-item-link(href="/") Los Vegas
+          li.city-item
+            a.city-item-link(href="/") Los Angeles
       a.more-info(href="/") Scroll for more
-  section.testimonials-wrap
+  section.testimonials-wrap.clearfix
     .testimonials
       article
         blockquote
@@ -66,3 +72,28 @@ template(name="index")
               | Christopher Walken
               a.quote-author-link(href="/") Actor in Movies
         img(src="/images/testimonials-4.png", alt="Christopher Walken")
+  section.footer-section.clearfix
+    h2.footer-section-title
+      | Housing Search - Simplified!
+    ul.services-list.list-unstyled
+      li.services-item
+        img(src="/images/personal.png", alt="Personal Service")
+        h3.footer-section-sub-title
+          | Personal Service
+        p.footer-section-desc
+          | Work with an expert agent through every step of your housing search.
+        a.footer-section-btn.btn.btn-default(href="/") Contact Us
+      li.services-item
+        img(src="/images/photo-camera.png", alt="Tour Virtually")
+        h3.footer-section-sub-title
+          | Tour Virtually
+        p.footer-section-desc
+          | Can't make it in person? Receive videos of your unit and rent with confidence.
+        a.footer-section-btn.btn.btn-default(href="/") Request a Video
+      li.services-item
+        img(src="/images/key.png", alt="Personal Service")
+        h3.footer-section-sub-title
+            | Personal Service
+        p.footer-section-desc
+            | Access accurate pictures, videos and details on thousands of listings.
+        a.footer-section-btn.btn.btn-default(href="/") View Listings

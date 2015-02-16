@@ -1,95 +1,207 @@
-@import "nib"
+.home-page-bg
+  display block
+  left 0
+  top 0
+  background url(/images/homepage-img.jpg) no-repeat center top
+  background-size cover
+  width 100%
+  height 960px
+  position absolute
+  z-index -1
 
-.index
+.head-section-wrap
   position relative
-  height 100%
-  padding-bottom -115px
-  .panel
-    margin-bottom 130px
-    table
-      th:first-child, td:first-child
-        padding-left 12px
-        padding-right 12px
-  .filters
-    margin 25px 0
-    .control-links
-      margin-top 5px
-      margin-bottom 5px
-    .delete-filter
-      padding-left 0
-      padding-right 0
+  width 100%
+  height 890px
 
-.connect-wrapper
-  line-height 45px
+.head-section
+  width 1280px
+  margin 0 auto
+  text-align center
+  padding 50px 30px 0
+  box-sizing border-box
 
-.Trello-label
+.head-section-title
+  font-family 'Montserrat', Helvetica, sans-serif
+  font-size 46px
+  font-weight bold
+  text-transform uppercase
+  color #fff
+  margin 0
+  padding 20px 0
+
+.main-desc
+  width 820px
   display inline-block
-  min-width 20px
-  min-height 30px
-  padding 3px 6px
-  border-radius 3px
-  font-weight: 700;
-  color #ffffff
-  text-shadow: 0 0 5px rgba(0,0,0,.2),0 0 2px #000;
-  margin 4px
-  white-space nowrap
+  color #fff
+  font-size 24px
+  margin 0
+  padding 0
 
-.Trello-color-green
-  background-color #3cb500
-.Trello-color-yellow
-  background-color #fad900
-.Trello-color-orange
-  background-color #ff9f19
-.Trello-color-red
-  background-color #eb4646
-.Trello-color-purple
-  background-color #a632db
-.Trello-color-blue
-  background-color #0079bf
-.Trello-color-pink
-  background-color: #ff78cb
-.Trello-color-sky
-  background-color: #00c2e0;
-.Trello-color-lime
-  background-color: #51e898
-.Trello-color-black
-  background-color: #4d4d4d
+.select-city-wrap
+  margin 40px 0 0
+  position relative
 
-.Trello-member {
-  background-color: #dbdbdb;
-  border-radius: 3px;
-  color: #4d4d4d;
-  display: block;
-  float: left;
-  height: 30px;
-  margin: 4px;
-  overflow: hidden;
-  position: relative;
-  width: 30px;
-  cursor: pointer;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  z-index: 0;
-  text-decoration: none;
-  .Trello-member-avatar {
-    height: 30px;
-    width: 30px;
-  }
-  .Trello-member-initials {
-    display: block;
-    font-size: 12px;
-    font-weight: 700;
-    height: 30px;
-    left: 0;
-    line-height: 30px;
-    overflow: hidden;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    width: 100%;
-  }
-}
+.select-city-shadow
+  width 330px
+  height 60px
+  background rgba(0, 0, 0, .3)
+  border-radius 5px
+  display inline-block
+  position relative
+
+.select-city
+  font-family 'Montserrat', Helvetica, sans-serif
+  font-size 16px
+  display inline-block
+  background-color #4588fa
+  color #fff
+  padding 15px
+  width 320px
+  border-radius 5px
+  box-sizing border-box
+  text-align left
+  position absolute
+  top 5px
+  left 5px
+  cursor pointer
+  &:after
+    content "\25BC"
+    display inline-block
+    float right
+
+.city-list
+  background #fff
+  width 320px
+  border-radius 5px
+  margin 0 auto
+  text-align left
+
+.city-item
+  text-decoration none
+  .city-item-link
+    padding 15px
+    font-family 'Montserrat', Helvetica, sans-serif
+    font-size 16px
+    color #555
+    display block
+    &:hover
+      background-color #4588fa
+      color #fff
+      text-decoration none
+      &:first-child
+        border-radius 5px 5px 0 0
+      &:last-child
+        border-radius 0 0 5px 5px
+
+.more-info
+  position absolute
+  left 20px
+  bottom 20px
+  display block
+  text-align left
+  color #fff
+  font-family 'Montserrat', Helvetica, sans-serif
+  font-size 14px
+  text-decoration none
+  &.active, &:hover, &:focus
+    color #ffcc33
+    text-decoration none
+  &:before
+    content ""
+    background url(/images/scroll-icon.png) no-repeat left center
+    display inline-block
+    width 22px
+    height 36px
+    vertical-align middle
+    padding 0 28px 0 0
+  &:hover:before, &:focus:before
+    background url(/images/scroll-icon-hover.png) no-repeat left center
+
+.testimonials-wrap
+  background #ececec
+  width 100%
+  min-height 510px
+
+.testimonials
+  width 1280px
+  margin 0 auto
+  padding 60px 0
+  text-align center
+  overflow hidden
+
+article
+  float left
+  margin 0 20px 0 0
+
+blockquote
+  border 1px solid #c7c7c7
+  border-radius 5px
+  background #fff
+  width 290px
+  min-height 290px
+  padding 20px
+  box-sizing border-box
+  margin 0 0 15px
+  text-align left
+  font-size 12px
+  line-height 20px
+  position relative
+  &:after
+    position absolute
+    bottom -13px
+    left 50%
+    display inline-block
+    content "\25BC"
+    color #fff
+    text-shadow 0 2px 2px rgba(0, 0, 0, 0.3)
+
+.quote-desc
+  padding 0
+  margin 0
+
+.quote-author
+  position absolute
+  bottom 10px
+  font-weight bold
+  font-family 'Montserrat', Helvetica, sans-serif
+  box-sizing border-box
+
+.quote-author-link
+  font-family 'Raleway', Helvetica, sans-serif
+  color #cc9900
+  display block
+  padding 0
+  text-decoration none
+  &:hover
+    color #ffcc33
+    text-decoration none
+
+.footer-section
+  background #fff
+  width 100%
+  min-height 550px
+  text-align center
+
+.footer-section-title
+  font-family 'Montserrat', Helvetica, sans-serif
+  font-size 26px
+  padding 40px 0
+
+.services-list
+  .services-item
+    display inline-block
+    width 320px
+    box-sizing border-box
+    margin 0 20px 0 0
+    .footer-section-sub-title
+      font-family 'Montserrat', Helvetica, sans-serif
+      font-size 18px
+    .footer-section-desc
+      font-family 'Raleway', Helvetica, sans-serif
+      font-size 16px
+    .footer-section-btn
+      color #4588fa
+
+
+
