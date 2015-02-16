@@ -30,7 +30,7 @@ Template.checkAvailability.rendered = ->
 #      add property Id
       CheckAvailabilityRequests.insert(form.serializeFormJSON())
       $('#checkAvailabilityMessageSentPopup').modal('show')
-      form.trigger('reset');
+      form.trigger('reset')
   )
 
 
