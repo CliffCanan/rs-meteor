@@ -34,6 +34,6 @@ ContactUsRequests.after.insert (userId, request) ->
       from: transformedRequest.email
       to: 'rentscenetest+' + transformedRequest.city + '@gmail.com'
       replyTo: transformedRequest.email
-      subject: 'New check availability request from ' + transformedRequest.name + ' in ' + transformedRequest.city
+      subject: 'New contact us message from ' + transformedRequest.name + ' in ' + transformedRequest.city
       html: Spacebars.toHTML({request: transformedRequest, settings: Meteor.settings}, Assets.getText("requests/contactUsEmail.html"))
 
