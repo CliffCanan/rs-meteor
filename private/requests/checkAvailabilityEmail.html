@@ -1,9 +1,8 @@
-<h1>Humble {{request.name}} has just checked {{request.property}} in {{request.city}} for availability!</h1>
+<p>Good day! <b>{{request.name}}</b> has just checked <i>{{request.property}}</i> in <b>{{request.city}}</b> for availability!</p>
 
-<p>Desirable move-in date is {{request.moveInDate}} .</p>
+<p>Desirable move-in date is {{request.moveInDate}}.</p>
 <p>{{#if request.question}}Also, the customer has a question: {{/if}}</p>
 <blockquote>{{#if request.question}}&quot;{{request.question}}&quot;{{/if}}</blockquote>
-<p>Please answer to {{request.email}} .</p>
 <p>Have a nice day!</p>
 
-<p style="color: #bbbbbb;">P.S. You can reply inline;)</p>
+<p style="color: #bbbbbb;"> P.S. Hit "reply" to send a message to the customer ;)</p>

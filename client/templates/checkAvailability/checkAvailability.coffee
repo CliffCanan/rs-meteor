@@ -32,7 +32,7 @@ Template.checkAvailability.rendered = ->
   ).on("success.form.fv", grab encapsulate (event) ->
       $('#checkAvailabilityPopup').modal('hide')
       json = form.serializeFormJSON()
-      json.property = "PropertyIdOrName"
+      json.property = "Property Name"
       CheckAvailabilityRequests.insert(json)
       $('#checkAvailabilityMessageSentPopup').modal('show')
       form.trigger('reset')
