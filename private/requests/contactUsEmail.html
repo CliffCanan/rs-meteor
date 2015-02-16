@@ -1,14 +1,12 @@
-<h1>Good day!</h1>
-
-<p>{{request.name}} has just contacted you for help to find {{request.bedrooms}}-bedroom apartment in {{request.city}}!</p>
-{{#if request.maxMonthlyRent}}<p> Max monthly rate: {{request.maxMonthlyRent}}. </p>{{/if}}
-{{#if request.contactUsMoveInDate}}<p> Desirable move-in date: {{request.contactUsMoveInDate}}. </p>{{/if}}
+<p>Good day! <b>{{request.name}}</b> has just asked you to help find an apartment in <b>{{request.city}}</b>!</p>
+<p>Required amount of bedrooms: {{request.bedrooms}} </p>
+{{#if request.maxMonthlyRent}}<p>Max monthly rate: {{request.maxMonthlyRent}}.</p>{{/if}}
+{{#if request.contactUsMoveInDate}}<p>Desirable move-in date: {{request.contactUsMoveInDate}}.</p>{{/if}}
 {{#if request.yes}}<p>Also, the customer would like a tour{{#if request.contactUsTourDate}} on {{request.contactUsTourDate}} {{else}}.{{/if}}</p>{{/if}}
-{{#if request.notSure}}<p>Also, the customer isn't sure, if a tour is needed{{#if request.contactUsTourDate}} on {{request.contactUsTourDate}} {{else}}.{{/if}}</p>{{/if}}
-{{#if request.no}}<p>No tour is needed.{{#if request.contactUsTourDate}} But there is a tour date: {{request.contactUsTourDate}} .{{/if}}</p>{{/if}}
-{{#if request.question}}<p>{{request.name}} has the following question/comment: </p>{{/if}}
+{{#if request.notSure}}<p>Also, the customer is unsure if a tour is needed{{#if request.contactUsTourDate}} on {{request.contactUsTourDate}} {{else}}.{{/if}}</p>{{/if}}
+{{#if request.no}}<p>No tour is needed.{{#if request.contactUsTourDate}} But the customer has chosen tour date: {{request.contactUsTourDate}}.{{/if}}</p>{{/if}}
+{{#if request.question}}<p>{{request.name}} has the following comment: </p>{{/if}}
 {{#if request.question}}<blockquote>&quot;{{request.question}}&quot;</blockquote>{{/if}}
-<p>Please answer to {{request.email}} .</p>
 <p>Have a nice day!</p>
 
-<p style="color: #bbbbbb;">P.S. You can reply inline;)</p>
+<p style="color: #bbbbbb;"> P.S. Hit "reply" to a send message to the customer ;)</p>

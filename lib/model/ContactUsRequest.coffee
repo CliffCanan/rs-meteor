@@ -31,7 +31,7 @@ ContactUsRequests.after.insert (userId, request) ->
   if Meteor.isServer
     transformedRequest = share.Transformations.ContactUsRequest(request)
     Email.send
-      from: transformedRequest.email
+      from: transformedRequest.name + ' <' + transformedRequest.email + '>'
       to: 'rentscenetest+' + transformedRequest.city + '@gmail.com'
       replyTo: transformedRequest.email
       subject: 'New contact us message from ' + transformedRequest.name + ' in ' + transformedRequest.city

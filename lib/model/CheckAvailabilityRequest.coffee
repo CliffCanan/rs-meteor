@@ -13,7 +13,6 @@ share.Transformations.CheckAvailabilityRequest = _.partial(share.transform, Chec
   changes.updatedAt = changes.updatedAt or now
 
 CheckAvailabilityRequests.before.insert (userId, CheckAvailabilityRequest) ->
-  cl CheckAvailabilityRequest
   CheckAvailabilityRequest._id ||= Random.id()
   now = new Date()
   _.defaults(CheckAvailabilityRequest,
@@ -32,7 +31,7 @@ CheckAvailabilityRequests.after.insert (userId, request) ->
   if Meteor.isServer
     transformedRequest = share.Transformations.CheckAvailabilityRequest(request)
     Email.send
-      from: transformedRequest.email
+      from: transformedRequest.name + ' <' + transformedRequest.email + '>'
       to: "rentscenetest+" + transformedRequest.city + "@gmail.com"
       replyTo: transformedRequest.email
       subject: "New check availability request from " + transformedRequest.name + " in " + transformedRequest.city
