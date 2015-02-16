@@ -22,6 +22,16 @@ template(name="checkAvailability")
               label MOVE-IN DATE
               +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="mm/dd/yyyy" class="moveInData-moveInDate-editor" name="moveInDate")
           .modal-footer
+            .form-group.has-warning
+              select.form-control(name="city")
+                option(value="") Choose city
+                option(value="Atlanta") Atlanta, GA
+                option(value="Boston") Boston, MA
+                option(value="Chicago") Chicago, IL
+                option(value="LosAngeles") Los Angeles, CA
+                option(value="Philadelphia") Philadelphia, PA
+                option(value="Stamford") Stamford, CT
+                option(value="Washington") Washington, DC
             .form-group
               button.btn.btn-primary(type="submit") Submit
               button.btn.btn-default.cancel-button Cancel

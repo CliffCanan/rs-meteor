@@ -25,10 +25,15 @@ Template.checkAvailability.rendered = ->
             format: "MM/DD/YYYY"
             min: moment().subtract(1, "d").toDate()
             message: 'Please enter future date in MM/DD/YYYY format'
+      city:
+        validators:
+          notEmpty:
+            message: 'For now we need city!'
   ).on("success.form.fv", grab encapsulate (event) ->
       $('#checkAvailabilityPopup').modal('hide')
-#      add property Id
-      CheckAvailabilityRequests.insert(form.serializeFormJSON())
+      json = form.serializeFormJSON()
+      json.property = "PropertyIdOrName"
+      CheckAvailabilityRequests.insert(json)
       $('#checkAvailabilityMessageSentPopup').modal('show')
       form.trigger('reset')
   )

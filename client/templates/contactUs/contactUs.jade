@@ -29,23 +29,33 @@ template(name="contactUs")
               label Are you planning a visit to city to view apartments?
             .form-group
               label.radio-inline
-                input#inlineRadio1(type='radio', name='inlineRadioOptions', value='yes', checked)
+                input#inlineRadio1(type='radio', name='tourOption', value='yes', checked)
                 | Yes
               label.radio-inline
-                input#inlineRadio2(type='radio', name='inlineRadioOptions', value='no')
+                input#inlineRadio2(type='radio', name='tourOption', value='no')
                 | No
               label.radio-inline
-                input#inlineRadio3(type='radio', name='inlineRadioOptions', value='notSure')
+                input#inlineRadio3(type='radio', name='tourOption', value='notSure')
                 | Not Sure
 
             .form-inline
               .form-group
-                +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="Tour date" class="moveInData-moveInDate-editor" name="moveInDate")
+                +datepicker(id="contactUsTourDate" placeholder="Tour date" class="tour-date" name="contactUsTourDate")
               .form-group
-                +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="Move-in date" class="moveInData-moveInDate-editor" name="moveInDate")
+                +datepicker(id="contactUsMoveInDate" placeholder="Move-in date" class="move-in-data" name="contactUsMoveInDate")
             .form-group
               textarea.form-control(name="question" placeholder="Question/Comments")
           .modal-footer
+            .form-group.has-warning
+              select.form-control(name="city")
+                option(value="") Choose city
+                option(value="Atlanta") Atlanta, GA
+                option(value="Boston") Boston, MA
+                option(value="Chicago") Chicago, IL
+                option(value="LosAngeles") Los Angeles, CA
+                option(value="Philadelphia") Philadelphia, PA
+                option(value="Stamford") Stamford, CT
+                option(value="Washington") Washington, DC
             .form-group
               button.btn.btn-primary(type="submit") Submit
               button.btn.btn-default.cancel-button Cancel

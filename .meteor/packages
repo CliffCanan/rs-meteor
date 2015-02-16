@@ -23,3 +23,5 @@ meteorhacks:npm
 npm-container
 cfs:standard-packages
 cfs:filesystem
+email
+dburles:spacebars-tohtml
