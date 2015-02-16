@@ -17,3 +17,7 @@ Meteor.publish "CheckAvailabilityRequests", ->
   unless @userId
     return []
   CheckAvailabilityRequests.find()
+Meteor.publish "ContactUsRequests", ->
+  unless @userId
+    return []
+  ContactUsRequests.find()

@@ -13,15 +13,25 @@ template(name="checkAvailability")
             .form-group
               | We gladly help you to check <i>here will be property name</i> for availability. Please enter your contact details and our agent will write to you asap.
             .form-group
-              +input(family="moveInData" property="name" placeholder="Name")
+              input.form-control(name="name" placeholder="Name")
             .form-group
-              +input(family="moveInData" property="email" placeholder="Email address")
+              input.form-control(name="email" placeholder="Email address")
             .form-group
-              +textarea(family="moveInData" property="question" placeholder="Question")
+              textarea.form-control(name="question" placeholder="Question")
             .form-group
               label MOVE-IN DATE
               +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="mm/dd/yyyy" class="moveInData-moveInDate-editor" name="moveInDate")
           .modal-footer
+            .form-group.has-warning
+              select.form-control(name="city")
+                option(value="") Choose city
+                option(value="Atlanta") Atlanta, GA
+                option(value="Boston") Boston, MA
+                option(value="Chicago") Chicago, IL
+                option(value="LosAngeles") Los Angeles, CA
+                option(value="Philadelphia") Philadelphia, PA
+                option(value="Stamford") Stamford, CT
+                option(value="Washington") Washington, DC
             .form-group
               button.btn.btn-primary(type="submit") Submit
               button.btn.btn-default.cancel-button Cancel

@@ -2,8 +2,8 @@ Template.checkAvailability.helpers
 #  helper: ->
 
 Template.checkAvailability.rendered = ->
-#  form = @$("form")
-  @$("form").formValidation(
+  form = @$("form")
+  form.formValidation(
     framework: 'bootstrap'
     live: 'disabled'
     fields:
@@ -23,25 +23,19 @@ Template.checkAvailability.rendered = ->
             message: 'Please enter Move-in date in MM/DD/YYYY format'
           date:
             format: "MM/DD/YYYY"
-          callback:
-            message: 'Please enter future date in MM/DD/YYYY format',
-            callback: (value, validator) ->
-              m = new moment(value, 'MM/DD/YYYY', true)
-              if !m.isValid()
-                return false
-              m.isAfter(moment().day(-1))
+            min: moment().subtract(1, "d").toDate()
+            message: 'Please enter future date in MM/DD/YYYY format'
+      city:
+        validators:
+          notEmpty:
+            message: 'For now we need city!'
   ).on("success.form.fv", grab encapsulate (event) ->
       $('#checkAvailabilityPopup').modal('hide')
-      newRequest = {
-        name: document.getElementsByClassName("moveInData-name-editor")[0].value
-        email: document.getElementsByClassName("moveInData-email-editor")[0].value
-        moveInDate: document.getElementsByClassName("moveInData-moveInDate-editor")[0].value
-        question: document.getElementsByClassName("moveInData-question-editor")[0].value
-        propertyId: 1
-      }
-      CheckAvailabilityRequests.insert(newRequest)
+      json = form.serializeFormJSON()
+      json.property = "PropertyIdOrName"
+      CheckAvailabilityRequests.insert(json)
       $('#checkAvailabilityMessageSentPopup').modal('show')
-
+      form.trigger('reset')
   )
 
 

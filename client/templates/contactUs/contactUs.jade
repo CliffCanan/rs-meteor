@@ -1,0 +1,61 @@
+template(name="contactUs")
+  #contactUsPopup.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        form
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#myModalLabel.modal-title Let us start your apartment search today!
+          .modal-body
+            .form-group
+              | Dealing with brokers on Craigslist can be frustrating and time consuming. We'll save your time by organizing all your tours, and we will give you unbiased advice.
+            .form-group
+              input.form-control(name="name" placeholder="Full name")
+            .form-group
+              input.form-control(name="email" placeholder="Email address")
+            .form-inline
+              .form-group
+                select.form-control(name="bedrooms")
+                  option(value="") Nr.bedrooms
+                  option(value="one") 1
+                  option(value="two") 2
+                  option(value="three") 3
+                  option(value="four") 4
+                  option(value="fiveAndMore") 5+
+              .form-group
+                input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
+            .form-group
+              label Are you planning a visit to city to view apartments?
+            .form-group
+              label.radio-inline
+                input#inlineRadio1(type='radio', name='tourOption', value='yes', checked)
+                | Yes
+              label.radio-inline
+                input#inlineRadio2(type='radio', name='tourOption', value='no')
+                | No
+              label.radio-inline
+                input#inlineRadio3(type='radio', name='tourOption', value='notSure')
+                | Not Sure
+
+            .form-inline
+              .form-group
+                +datepicker(id="contactUsTourDate" placeholder="Tour date" class="tour-date" name="contactUsTourDate")
+              .form-group
+                +datepicker(id="contactUsMoveInDate" placeholder="Move-in date" class="move-in-data" name="contactUsMoveInDate")
+            .form-group
+              textarea.form-control(name="question" placeholder="Question/Comments")
+          .modal-footer
+            .form-group.has-warning
+              select.form-control(name="city")
+                option(value="") Choose city
+                option(value="Atlanta") Atlanta, GA
+                option(value="Boston") Boston, MA
+                option(value="Chicago") Chicago, IL
+                option(value="LosAngeles") Los Angeles, CA
+                option(value="Philadelphia") Philadelphia, PA
+                option(value="Stamford") Stamford, CT
+                option(value="Washington") Washington, DC
+            .form-group
+              button.btn.btn-primary(type="submit") Submit
+              button.btn.btn-default.cancel-button Cancel

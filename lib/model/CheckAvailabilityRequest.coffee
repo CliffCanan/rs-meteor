@@ -27,3 +27,13 @@ CheckAvailabilityRequests.before.update (userId, CheckAvailabilityRequest, field
   modifier.$set = modifier.$set or {}
   CheckAvailabilityRequestPreSave.call(@, modifier.$set)
   true
+
+CheckAvailabilityRequests.after.insert (userId, request) ->
+  if Meteor.isServer
+    transformedRequest = share.Transformations.CheckAvailabilityRequest(request)
+    Email.send
+      from: transformedRequest.email
+      to: "rentscene+" + transformedRequest.city + "@gmail.com"
+      replyTo: transformedRequest.email
+      subject: "New contact request from " + transformedRequest.name + " in " + transformedRequest.city
+      html: Spacebars.toHTML({request: transformedRequest, settings: Meteor.settings}, Assets.getText("requests/checkAvailabilityEmail.html"))
