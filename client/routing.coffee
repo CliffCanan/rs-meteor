@@ -15,14 +15,15 @@ Router.configure
     "header": {to: "header"}
 
 Router.map ->
-  @route "index",
-    path: "/"
+  @route "/",
+    name: "index"
     onBeforeAction: ->
       share.setPageTitle("Rent Scene - Apartments and Condos for Rent", false)
       @next()
-  @route "checkAvailability"
-  @route "city",
-    path: "/:city"
+  @route "/checkAvailability",
+    name: "checkAvailability"
+  @route "/:city",
+    name: "city"
     onBeforeAction: ->
       share.setPageTitle("Rental Apartments and Condos in " + cities[@params.city])
       @next()

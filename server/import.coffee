@@ -1,7 +1,7 @@
 dataFields =
   100: "title"
   101: "summary"
-  102: "postal_code"
+  102: "postalCode"
   103: "street"
   104: "price"
   105: "bedrooms"
@@ -21,7 +21,7 @@ dataFields =
   119: "type"
   120: "design"
   121: "floor"
-  122: "fee"
+  122: "appFee"
   123: "availableAt"
   124: "secondDeposit"
   125: "minTerm"
@@ -37,7 +37,26 @@ dataFields =
   136: "location"
   137: "mlsNo"
   138: "propertyType"
-  139: "laundry"
+  139: "floorPlans"
+  140: "laundry"
+  141: "security"
+  142: "fitnessCenter"
+  143: "isAvailable"
+  144: "videos"
+  145: "parentId"
+  146: "unitNumber"
+  147: "adminAvailability"
+  148: "adminEscorted"
+  149: "adminAppFee"
+  150: "adminOfficeHours"
+  151: "adminScheduling"
+  152: "adminContact"
+  153: "adminNotes"
+
+  155: "adminSame"
+  156: "utilities"
+  157: "featured"
+  158: "neighborhood"
 
 
 tables = [
@@ -63,9 +82,14 @@ tables = [
       console.log("connected as id " + connection.threadId)
 
       buildings = {}
+      connection.query("SET CHARACTER_SET_CLIENT utf8;" +
+        "SET CHARACTER_SET_CONNECTION utf8;" +
+        "SET CHARACTER_SET_RESULTS utf8;" +
+        "SET CHARACTER_SET utf8;" +
+        "SET NAMES utf8;")
       connection.query "SELECT * FROM skp8s_trsproperties_article", (error, rows, fields) ->
         throw error if (error)
-        for article in rows
+        for article in rows.slice(0, 100)
           building = buildings[article.id] =
             name: article.name
             isPublished: !!article.published
@@ -86,9 +110,18 @@ tables = [
             if building
               fieldName = dataFields[data.fieldid]
               if fieldName is "features"
-                building[fieldName] = data.value.split(", ")
+                building.features = data.value.split(", ")
+              else if fieldName in ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
+                if data.value.length
+                  try
+                    object = JSON.parse(data.value)
+                    building[fieldName] =
+                      value: object.radio
+                      comment: object.comment
               else if fieldName is "images"
                 # TODO: process images
+              else if fieldName is "videos"
+                # TODO: process videos
               else
                 building[fieldName] = data.value
 
@@ -115,7 +148,9 @@ tables = [
                     building[property_type].from = parseInt(data.price_value)
 
               fs = Meteor.npmRequire("fs")
-              fs.writeFile "/tmp/res.json", JSON.stringify(buildings), (error) ->
+              js2coffee = Meteor.npmRequire("js2coffee")
+              coffee = js2coffee.build("this.buildingsFixtures = " + JSON.stringify(buildings));
+              fs.writeFile process.env.PWD + "/server/buildings.coffee", coffee.code, (error) ->
                 if error
                   console.log(error)
                 else
