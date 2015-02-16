@@ -1,3 +1,12 @@
+@cities =
+  atlanta: "ATLANTA, GA"
+  boston: "BOSTON, MA"
+  chicago: "CHICAGO, IL"
+  "los-angeles": "LOS ANGELES, CA"
+  philadelphia: "PHILADELPHIA, PA"
+  stamford: "STAMFORD, CT"
+  washington: "WASHINGTON, DC"
+
 share = share or {}
 
 #share.combine = (funcs...) ->

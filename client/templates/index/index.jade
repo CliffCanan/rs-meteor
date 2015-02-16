@@ -14,16 +14,9 @@ template(name="index")
             i.fa.fa-globe
             | Select a City
         ul.city-list.list-unstyled
-          li.city-item
-            a.city-item-link(href="/") New York
-          li.city-item
-            a.city-item-link(href="/") London
-          li.city-item
-            a.city-item-link(href="/") Tokyo
-          li.city-item
-            a.city-item-link(href="/") Los Vegas
-          li.city-item
-            a.city-item-link(href="/") Los Angeles
+          each cities
+            li.city-item
+              a.city-item-link(href="/{{key}}") {{value}}
       a.more-info(href="/") Scroll for more
   section.testimonials-wrap.clearfix
     .testimonials

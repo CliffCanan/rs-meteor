@@ -1,4 +1,6 @@
 Template.layout.helpers
+  isHomePage: ->
+    Iron.controller().location.get().path is "/"
 
 Template.layout.rendered = ->
 

@@ -16,7 +16,7 @@ head
   link(href="//fonts.googleapis.com/css?family=Montserrat", rel="stylesheet", type="text/css")
 
 template(name="layout")
-  .page-wrapper.home-page
+  .page-wrapper(class="{{#if isHomePage}}home-page{{/if}}")
     //+connection
     +yield(region="header")
     main
