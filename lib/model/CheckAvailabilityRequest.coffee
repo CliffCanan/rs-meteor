@@ -33,7 +33,7 @@ CheckAvailabilityRequests.after.insert (userId, request) ->
     transformedRequest = share.Transformations.CheckAvailabilityRequest(request)
     Email.send
       from: transformedRequest.email
-      to: "rentscene+" + transformedRequest.city + "@gmail.com"
+      to: "rentscenetest+" + transformedRequest.city + "@gmail.com"
       replyTo: transformedRequest.email
       subject: "New contact request from " + transformedRequest.name + " in " + transformedRequest.city
       html: Spacebars.toHTML({request: transformedRequest, settings: Meteor.settings}, Assets.getText("requests/checkAvailabilityEmail.html"))
