@@ -13,11 +13,11 @@ template(name="checkAvailability")
             .form-group
               | We gladly help you to check <i>here will be property name</i> for availability. Please enter your contact details and our agent will write to you asap.
             .form-group
-              +input(family="moveInData" property="name" placeholder="Name")
+              input.form-control(name="name" placeholder="Name")
             .form-group
-              +input(family="moveInData" property="email" placeholder="Email address")
+              input.form-control(name="email" placeholder="Email address")
             .form-group
-              +textarea(family="moveInData" property="question" placeholder="Question")
+              textarea.form-control(name="question" placeholder="Question")
             .form-group
               label MOVE-IN DATE
               +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="mm/dd/yyyy" class="moveInData-moveInDate-editor" name="moveInDate")
