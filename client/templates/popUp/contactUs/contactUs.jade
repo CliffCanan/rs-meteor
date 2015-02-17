@@ -1,5 +1,6 @@
 template(name="contactUs")
-  #contactUsPopup.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+  +messageSent
+  #contactUsPopup.modal.fade(tabindex='-1', role='dialog', data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
         form
@@ -56,6 +57,9 @@ template(name="contactUs")
                 option(value="Philadelphia") Philadelphia, PA
                 option(value="Stamford") Stamford, CT
                 option(value="Washington") Washington, DC
+            if serverError
+              .form-group
+                .alert.alert-danger(role="alert")
+                  strong Sorry! Server error occured! We probably already fixing it:)
             .form-group
               button.btn.btn-primary(type="submit") Submit
-              button.btn.btn-default.cancel-button Cancel

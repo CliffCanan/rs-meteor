@@ -1,7 +1,9 @@
 template(name="checkAvailability")
+  +messageSent
   button.btn.btn-primary.check-availability Check Availability
+  .addthis_sharing_toolbox
 
-  #checkAvailabilityPopup.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+  #checkAvailabilityPopup.modal.fade(tabindex='-1', role='dialog',data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
         form
@@ -32,18 +34,11 @@ template(name="checkAvailability")
                 option(value="Philadelphia") Philadelphia, PA
                 option(value="Stamford") Stamford, CT
                 option(value="Washington") Washington, DC
+            if serverError
+              .form-group
+                .alert.alert-danger(role="alert")
+                  strong Sorry! Server error occured! We probably already fixing it:)
             .form-group
               button.btn.btn-primary(type="submit") Submit
-              button.btn.btn-default.cancel-button Cancel
+              //button.btn.btn-default.cancel-button Cancel
 
-  #checkAvailabilityMessageSentPopup.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-    .modal-dialog
-      .modal-content
-        .modal-header
-          button.close(type='button', data-dismiss='modal', aria-label='Close')
-            span(aria-hidden='true') ×
-          h4#myModalLabel.modal-title Message sent!
-        .modal-body
-          | You're awesome.
-        .modal-footer
-          button.btn.btn-default.continue-browsing Continue browsing

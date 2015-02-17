@@ -1,5 +1,6 @@
 Template.checkAvailability.helpers
-#  helper: ->
+  serverError: ->
+   Session.get("serverError")
 
 Template.checkAvailability.rendered = ->
   form = @$("form")
@@ -33,18 +34,21 @@ Template.checkAvailability.rendered = ->
       $('#checkAvailabilityPopup').modal('hide')
       json = form.serializeFormJSON()
       json.property = "Property Name"
-      CheckAvailabilityRequests.insert(json)
-      $('#checkAvailabilityMessageSentPopup').modal('show')
-      form.trigger('reset')
+      CheckAvailabilityRequests.insert(json, callback = (error, id) ->
+          if error
+            Session.set("serverError", true)
+          else
+            Session.set("serverError", false)
+            form.trigger('reset')
+            form.data('formValidation').resetForm()
+            $('#messageSentPopup').modal('show')
+      )
+
   )
 
 
 Template.checkAvailability.events
   "click .check-availability": grab encapsulate (event, template) ->
     $('#checkAvailabilityPopup').modal('show')
-  "click .cancel-button": grab encapsulate (event, template) ->
-    $('#checkAvailabilityPopup').modal('hide')
-  "click .continue-browsing": grab encapsulate (event, template) ->
-    $('#checkAvailabilityMessageSentPopup').modal('hide')
   "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'moveInDate'

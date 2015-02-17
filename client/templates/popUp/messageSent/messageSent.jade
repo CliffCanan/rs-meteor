@@ -1,0 +1,12 @@
+template(name="messageSent")
+  #messageSentPopup.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') ×
+          h4#myModalLabel.modal-title Message sent!
+        .modal-body
+          | You're awesome.
+        .modal-footer
+          button.btn.btn-default.continue-browsing Continue browsing
