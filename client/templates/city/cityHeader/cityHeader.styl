@@ -74,8 +74,8 @@
       padding-bottom 15px
       background #fff
 
-  .features-section
-    width 500px
+  .features-section, .location-list
+    width 470px
     box-sizing border-box
     padding 25px
     box-shadow 0 1px 0 rgba(0, 0, 0, 0.3)
@@ -87,7 +87,123 @@
       font-size 14px
       padding 0 0 10px
       margin 0
+      line-height 20px
     .filter-list
+      padding 15px 0
+      .css-checkbox
+        position absolute
+        z-index -1000
+        left -1000px
+        overflow hidden
+        clip rect(0 0 0 0)
+        height 1px
+        width 1px
+        margin -1px
+        padding 0
+        border 0
+        & + label
+          &.css-label
+            padding-left 30px
+            height 25px
+            display inline-block
+            line-height 25px
+            background-repeat no-repeat
+            background-position 0 0
+            font-size 16px
+            vertical-align middle
+            cursor pointer
+        &:checked
+          & + label
+            &.css-label
+              background-position 0 -25px
       label
-        font-size 16px
-        color #272b30
+        &.css-label
+          background-image url(/images/checkbox.png)
+          -webkit-touch-callout none
+          -webkit-user-select none
+          -khtml-user-select none
+          -moz-user-select none
+          -ms-user-select none
+          user-select none
+
+    .city-features-date
+      font-size 12px
+      display block
+      margin 0 0 25px
+      .form-control
+        margin 0 0 0 40px
+        display inline-block
+        height 34px
+        width 120px
+        padding 6px 12px
+        font-size 14px
+        background-color #fff
+        background-image none
+        border 1px solid #ccc
+        border-radius 4px
+        box-shadow inset 0 1px 1px rgba(0,0,0,.075)
+        transition border-color ease-in-out .15s,box-shadow ease-in-out .15s
+
+    .clear-btn
+      padding 0 25px
+      cursor pointer
+
+  .location-list
+    width 325px
+    .filter-field
+      margin 10px 0 25px
+      .form-control
+        display inline-block
+        height 34px
+        width 270px
+        padding 6px 12px
+        font-size 12px
+        background-color #fff
+        background-image none
+        border 1px solid #ccc
+        border-radius 4px
+        box-shadow inset 0 1px 1px rgba(0,0,0,.075)
+        transition border-color ease-in-out .15s,box-shadow ease-in-out .15s
+
+    .filter-select
+      width 150px
+      height 34px
+      font-size 12px
+      padding 6px 12px
+      background-color #fff
+      background-image none
+      border 1px solid #ccc
+      border-radius 4px
+      box-shadow inset 0 1px 1px rgba(0,0,0,.075)
+      transition border-color ease-in-out .15s,box-shadow ease-in-out .15s
+      margin 0 0 25px
+
+    .city-motion-list
+      padding 5px 0
+      .city-motion-item
+        float left
+        background-repeat no-repeat
+        background-position center center
+        padding 0 18px
+        cursor pointer
+      .city-motion-walk
+        width 8px
+        height 20px
+        display inline-block
+        background-image url(/images/walk.png)
+        &:hover
+          background-image url(/images/walk-active.png)
+      .city-motion-car
+        width 18px
+        height 20px
+        display inline-block
+        background-image url(/images/car.png)
+        &:hover
+          background-image url(/images/car-active.png)
+      .city-motion-bike
+        width 20px
+        height 20px
+        display inline-block
+        background-image url(/images/bike.png)
+        &:hover
+          background-image url(/images/bike-active.png)

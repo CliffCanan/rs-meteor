@@ -36,40 +36,49 @@ template(name="cityHeader")
       button.features-btn.dropdown-toggle.btn.btn-default(type='button', id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true")
         i.fa.fa-check
         | Feautures
-      ul.features-section.dropdown-menu(role='menu', aria-labelledby="dropdownMenu1")
+      .features-section.dropdown-menu(role='menu', aria-labelledby="dropdownMenu1")
         h3.filter-title
           | Filter the search results by the criteria that you need, in order to find your best apartment!
-        .checkbox.filter-list
-          label.checkbox-inline
-            input(type='checkbox' value='')
-            | Doorman
-          label.checkbox-inline
-            input(type='checkbox' value='')
-            | Fitness Center
-          label.checkbox-inline
-            input(type='checkbox' value='')
-            | Pet friendly
-          label.checkbox-inline
-            input(type='checkbox' value='')
-            | Managed buildings
-          label.checkbox-inline
-            input(type='checkbox' value='')
-            | Brownstone
-          label.checkbox-inline
-            input(type='checkbox' value='')
-            | Loundry In-unit
-          label.checkbox-inline
-            input(type='checkbox' value='')
-            | Parking
-          label.checkbox-inline
-            input(type='checkbox' value='')
-            | Utilities inclided
-          label.checkbox-inline
-            input(type='checkbox' value='')
-            | Private listings
-          label.city-features-date
-            input(type='checkbox' value='')
-            | Availible from/before
+        .filter-list.clearfix
+          li.checkbox-wrap.col-md-6
+            input.css-checkbox(type='checkbox' value='')
+            label.css-label
+              | Doorman
+          li.checkbox-wrap.col-md-6
+            input.css-checkbox(type='checkbox' value='')
+            label.css-label
+              | Fitness Center
+          li.checkbox-wrap.col-md-6
+            input.css-checkbox(type='checkbox' value='')
+            label.css-label
+              | Pet friendly
+          li.checkbox-wrap.col-md-6
+            input.css-checkbox(type='checkbox' value='')
+            label.css-label
+              | Managed buildings
+          li.checkbox-wrap.col-md-6
+            input.css-checkbox(type='checkbox' value='')
+            label.css-label
+              | Brownstone
+          li.checkbox-wrap.col-md-6
+            input.css-checkbox(type='checkbox' value='')
+            label.css-label
+              | Loundry In-unit
+          li.checkbox-wrap.col-md-6
+            input.css-checkbox(type='checkbox' value='')
+            label.css-label
+              | Parking
+          li.checkbox-wrap.col-md-6
+            input.css-checkbox(type='checkbox' value='')
+            label.css-label
+              | Utilities inclided
+          li.checkbox-wrap.col-md-6
+            input.css-checkbox(type='checkbox' value='')
+            label.css-label
+              | Private listings
+        label.city-features-date
+          | Availible from/before
+          input.form-control(type='text' value='')
         button.btn.btn-primary.apply-changes-btn(type="button")
           | Apply Changes
         span.clear-btn
@@ -77,15 +86,15 @@ template(name="cityHeader")
     .dropdown.pull-left
       button.features-btn.dropdown-toggle.btn.btn-default(type='button', id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true")
         | Favorite location
-      ul.dropdown-menu(role='menu', aria-labelledby="dropdownMenu2")
+      ul.dropdown-menu.location-list(role='menu', aria-labelledby="dropdownMenu2")
         h3.filter-title
           | Enter your most common destination (work, school, etc) to find apartments close to it
-        label
-          input(type="text", placeholder="Destination Address")
-        select.form-contro
+        label.filter-field
+          input.form-control(type="text", placeholder="Destination Address")
+        select.form-control.filter-select.pull-left
           option Less then 10 minutes
           option Less then 30 minutes
-        ul.city-motion-list
+        ul.city-motion-list.pull-right.list-unstyled
           li.city-motion-item.city-motion-walk
           li.city-motion-item.city-motion-car
           li.city-motion-item.city-motion-bike
