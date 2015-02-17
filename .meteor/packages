@@ -5,12 +5,14 @@
 # but you can also edit it by hand.
 
 meteor-platform
+audit-argument-checks
 mquandalle:jade
 coffeescript
 spiderable
 stylus
 iron:router
 meteorhacks:fast-render
+meteorhacks:subs-manager
 matb33:collection-hooks
 percolate:migrations
 percolatestudio:percolatestudio-mixpanel

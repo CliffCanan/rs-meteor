@@ -13,9 +13,13 @@ Meteor.publish "allUsers", ->
     return []
   Meteor.users.find()
 
-Meteor.publish "buildings", (cityId) ->
+Meteor.publish "buildings", (cityId, buildingSlug) ->
   check(cityId, Match.InArray(cityIds))
-  Buildings.find({cityId: cityId})
+  check(buildingSlug, Match.Optional(Match.Id))
+  selector = {cityId: cityId}
+  if buildingSlug
+    selector.slug = buildingSlug
+  Buildings.find(selector)
 
 Meteor.publish "CheckAvailabilityRequests", ->
   unless @userId
