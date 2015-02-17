@@ -34,17 +34,15 @@ Template.checkAvailability.rendered = ->
       json = form.serializeFormJSON()
       json.property = "Property Name"
       CheckAvailabilityRequests.insert(json)
-      $('#checkAvailabilityMessageSentPopup').modal('show')
       form.trigger('reset')
+      form.data('formValidation').resetForm()
+      $('#messageSentPopup').modal('show')
   )
 
 
 Template.checkAvailability.events
   "click .check-availability": grab encapsulate (event, template) ->
     $('#checkAvailabilityPopup').modal('show')
-  "click .cancel-button": grab encapsulate (event, template) ->
-    $('#checkAvailabilityPopup').modal('hide')
-  "click .continue-browsing": grab encapsulate (event, template) ->
-    $('#checkAvailabilityMessageSentPopup').modal('hide')
+
   "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'moveInDate'

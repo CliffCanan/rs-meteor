@@ -45,12 +45,12 @@ Template.contactUs.rendered = ->
       json.notSure = json.tourOption is "notSure"
       ContactUsRequests.insert(json)
       form.trigger('reset')
+      form.data('formValidation').resetForm()
+      $('#messageSentPopup').modal('show')
   )
 
 
 Template.contactUs.events
-  "click .cancel-button": grab encapsulate (event, template) ->
-    $('#contactUsPopup').modal('hide')
   "change .tour-date": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'contactUsTourDate'
   "change .move-in-data": grab encapsulate (event, template) ->

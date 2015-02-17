@@ -1,5 +1,6 @@
 template(name="contactUs")
-  #contactUsPopup.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+  +messageSent
+  #contactUsPopup.modal.fade(tabindex='-1', role='dialog', data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
         form
@@ -58,4 +59,3 @@ template(name="contactUs")
                 option(value="Washington") Washington, DC
             .form-group
               button.btn.btn-primary(type="submit") Submit
-              button.btn.btn-default.cancel-button Cancel
