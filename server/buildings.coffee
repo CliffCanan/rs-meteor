@@ -58,6 +58,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'isAvailable': ''
     'bedrooms': ''
@@ -140,6 +141,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'floorPlans': ''
     'propertyType': '1'
@@ -225,6 +227,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'adminScheduling': 'Schedule according to MLS instructions.'
     'utilities':
@@ -313,6 +316,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'floorPlans': ''
     'laundry':
@@ -398,6 +402,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'floorPlans': ''
     'bedrooms': ''
@@ -489,6 +494,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'floorPlans': ''
     'bedrooms': ''
@@ -567,6 +573,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': 'PMC'
     'propertyType': '1'
     'laundry':
@@ -650,6 +657,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'unitNumber': ''
     'featured': ''
@@ -742,6 +750,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'floorPlans': ''
     'laundry':
@@ -833,6 +842,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'floorPlans': ''
     'bedrooms': ''
@@ -921,6 +931,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'bedrooms': ''
     'floorPlans': ''
@@ -1012,6 +1023,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0ODY0MzY7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NjU3NjM7fQ=='
     'mlsNo': '6338552'
     'neighborhood': 'Center City West'
@@ -1033,6 +1045,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'secondDeposit': ''
     'minTerm': ''
@@ -1161,6 +1174,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'adminAvailability': 'http://www.icon1616.com/'
     'specialOffer': ''
@@ -1208,6 +1222,7 @@
     'propertyType': '1'
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'applyAt': ''
     'pets':
@@ -1337,6 +1352,7 @@
     'applyAt': ''
     'country': 'United States'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'mlsNo': ''
     'postalCode': '19102'
     'title': 'The Touraine - 1520 Spruce St'
@@ -1420,6 +1436,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0OTc5MTtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTY3NTYyNjt9'
     'mlsNo': '6244568'
     'neighborhood': 'Center City West'
@@ -1477,6 +1494,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MjUzODg7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NTgwODI7fQ=='
     'mlsNo': '6388611'
     'neighborhood': 'Center City West'
@@ -1538,6 +1556,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NTM5NTU7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2ODI3NDt9'
     'mlsNo': '6387694'
     'neighborhood': 'Center City West'
@@ -1635,6 +1654,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NjgwMjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2ODA3NDU7fQ=='
     'mlsNo': '6388179'
     'neighborhood': 'Center City West'
@@ -1699,6 +1719,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MjUzODg7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NTgwODI7fQ=='
     'mlsNo': '6389538'
     'neighborhood': 'Center City West'
@@ -1754,6 +1775,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NDEwODI7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3MzgyNzE7fQ=='
     'mlsNo': '6388952'
     'neighborhood': 'Schuylkill Southwest'
@@ -1812,6 +1834,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0OTA0NTtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTczNTk5OTt9'
     'mlsNo': '6386163'
     'utilities':
@@ -1887,6 +1910,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0Nzg3MjM7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2MzY0MDE7fQ=='
     'mlsNo': '6385034'
     'neighborhood': 'Center City East'
@@ -1942,6 +1966,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0Nzg3MjM7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2MzY0MDE7fQ=='
     'mlsNo': '6385910'
     'neighborhood': 'Center City East'
@@ -2005,6 +2030,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MDgzNjtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTY1OTEyO30='
     'mlsNo': '6389054'
     'neighborhood': 'Center City West'
@@ -2054,6 +2080,7 @@
     ]
     'bathrooms': '1 - 2'
     'city': 'Stamford'
+    'cityId': 'stamford'
     'parking':
       'value': '2'
       'comment': 'Covered Lot'
@@ -2136,6 +2163,7 @@
       'value': '2'
       'comment': ''
     'city': 'Washington DC'
+    'cityId': 'washington-dc'
     'bathrooms': '1-2'
     'appFee': ''
     'laundry': {}
@@ -2210,6 +2238,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0OTgyMjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2OTI2MDE7fQ=='
     'mlsNo': '6428354'
     'laundry':
@@ -2312,6 +2341,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MjE1NzM7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3MDIxNDM7fQ=='
     'mlsNo': '6428536'
     'laundry': {}
@@ -2362,6 +2392,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1NDA2NDM7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NTM5MjU7fQ=='
     'mlsNo': '6430081'
     'laundry': {}
@@ -2467,6 +2498,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MTU2NzU7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NTAxMDQ7fQ=='
     'mlsNo': '6392755'
     'laundry': {}
@@ -2579,6 +2611,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0ODI1NTg7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NjAxMjQ7fQ=='
     'mlsNo': '6438721 PMC'
     'laundry':
@@ -2677,6 +2710,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzMwNztzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTcwMzA1O30='
     'mlsNo': '6439880'
     'laundry': {}
@@ -2714,6 +2748,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0ODgxO3M6OToibG9uZ2l0dWRlIjtkOi03NS4xNTI3MDA5O30='
     'mlsNo': '6440205 pmc'
     'laundry':
@@ -2817,6 +2852,7 @@
       'comment': ''
     'mlsNo': '6438695 PMC'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0OTAxMjc7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzE1NDc7fQ=='
     'country': 'U.S.A'
     'applyAt': ''
@@ -2903,6 +2939,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NjA5MTI7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3MDk5NTg7fQ=='
     'mlsNo': '6436509'
     'laundry': {}
@@ -2965,6 +3002,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0ODU3Mzk7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NTg3MTg7fQ=='
     'mlsNo': '6433443'
     'laundry': {}
@@ -3056,6 +3094,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzMzMTtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTY2MTMxMTt9'
     'mlsNo': '6437971'
     'laundry':
@@ -3160,6 +3199,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NjEzOTE7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3MTM0MzU7fQ=='
     'mlsNo': '6439201'
     'laundry':
@@ -3242,6 +3282,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MTY0OTE7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzQ3NjM7fQ=='
     'mlsNo': '6427411'
     'laundry': {}
@@ -3362,6 +3403,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MjE1NzM7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3MDIxNDM7fQ=='
     'mlsNo': '6441368'
     'laundry':
@@ -3435,6 +3477,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0ODA3MzI7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3MTc5NDM7fQ=='
     'mlsNo': '6438840'
     'laundry':
@@ -3500,6 +3543,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MjE1NzM7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3MDIxNDM7fQ=='
     'mlsNo': '6426210'
     'laundry':
@@ -3612,6 +3656,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0MzQ5MjU7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3MDI5ODt9'
     'mlsNo': '6437995'
     'laundry':
@@ -3690,6 +3735,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0ODUyO3M6OToibG9uZ2l0dWRlIjtkOi03NS4xNzg5MjU7fQ=='
     'mlsNo': '6441405'
     'laundry': {}
@@ -3776,6 +3822,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NjE4NTg7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NDE1Nzt9'
     'mlsNo': '6441385'
     'laundry': {}
@@ -3850,6 +3897,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0Nzg0O3M6OToibG9uZ2l0dWRlIjtkOi03NS4xNDg1Mjk7fQ=='
     'mlsNo': '6441784'
     'laundry':
@@ -3938,6 +3986,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NTEyNztzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTcwOTI3O30='
     'mlsNo': '6442006 Shapiro'
     'laundry': {}
@@ -4019,6 +4068,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzI4MjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzkxNDI7fQ=='
     'mlsNo': '6441905'
     'laundry': {}
@@ -4103,6 +4153,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzI4MjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzkxNDI7fQ=='
     'mlsNo': '6441900 Shapiro'
     'laundry': {}
@@ -4190,6 +4241,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzI4MjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzkxNDI7fQ=='
     'mlsNo': '6441886 Shapiro'
     'laundry':
@@ -4298,6 +4350,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MjQ5Mzc7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NTgxNTE7fQ=='
     'availableAt': '08/20/2014'
     'appFee': '25'
@@ -4367,6 +4420,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0OTc1MTU7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NTM5ODI7fQ=='
     'mlsNo': '6442134'
     'laundry': {}
@@ -4434,6 +4488,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MTU2NzU7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NTAxMDQ7fQ=='
     'mlsNo': '6407692'
     'laundry':
@@ -4525,6 +4580,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MDY1ODY7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2MTQyNjk7fQ=='
     'mlsNo': '6384698'
     'laundry': {}
@@ -4585,6 +4641,7 @@
     'mlsNo': '6425142'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MTU2NzU7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NTAxMDQ7fQ=='
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'furnished': 'Y'
     'pets':
       'value': '3'
@@ -4657,6 +4714,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MTU2NzU7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NTAxMDQ7fQ=='
     'mlsNo': '6422046'
     'laundry': {}
@@ -4708,6 +4766,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1Mzc2MTtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTYwNjYyO30='
     'mlsNo': '6328185'
     'laundry': {}
@@ -4761,6 +4820,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1Mzc2MTtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTYwNjYyO30='
     'mlsNo': '6416212'
     'laundry': {}
@@ -4825,6 +4885,7 @@
     ]
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MjMzNTtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTYzNzg5O30='
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'applyAt': ''
     'country': 'U.S.A'
     'furnished': 'N'
@@ -4887,6 +4948,7 @@
     ]
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MDQwNDtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTYyMDM7fQ=='
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'country': 'U.S.A'
     'pets':
       'value': 1
@@ -4979,6 +5041,7 @@
     ]
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MDQwNDtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTYyMDM7fQ=='
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'country': 'U.S.A'
     'pets':
       'value': 1
@@ -5015,6 +5078,7 @@
     ]
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MDY3NTU7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2MDE5ODU7fQ=='
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'country': 'U.S.A'
     'applyAt': ''
     'furnished': 'N'
@@ -5085,6 +5149,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MDQwNDtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTYyMDM7fQ=='
     'mlsNo': '6430051'
     'laundry': {}
@@ -5145,6 +5210,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MDQwNDtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTYyMDM7fQ=='
     'mlsNo': '6430049'
     'laundry': {}
@@ -5187,6 +5253,7 @@
     'similar': []
     'position': null
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'country': 'U.S.A'
     'applyAt': ''
     'pets':
@@ -5255,6 +5322,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MDY3NTU7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2MDE5ODU7fQ=='
     'mlsNo': '6217512'
     'laundry': {}
@@ -5370,6 +5438,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0OTYwNjtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTYxNDg7fQ=='
     'mlsNo': '6432242'
     'laundry':
@@ -5399,6 +5468,7 @@
     'neighborhood': 'Center City East'
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1Mzc2MTtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTYwNjYyO30='
     'mlsNo': '6346462'
     'laundry': {}
@@ -5464,6 +5534,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1NTcwNDtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTcxNTEzO30='
     'mlsNo': '6417271'
     'laundry': {}
@@ -5520,6 +5591,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MzgxODk7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2MDg2MjY7fQ=='
     'mlsNo': '6437389'
     'laundry': {}
@@ -5624,6 +5696,7 @@
       'comment': ''
     'mlsNo': '6442299'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzAxNzM7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3Mjg2O30='
     'country': 'U.S.A'
     'applyAt': ''
@@ -5682,6 +5755,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NjkwMTk7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3MTgwMzg7fQ=='
     'mlsNo': '6442383'
     'laundry': {}
@@ -5770,6 +5844,7 @@
     'mlsNo': '6442437 Shapiro'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NTEyNztzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTcwOTI3O30='
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'country': 'U.S.A'
     'applyAt': ''
     'pets':
@@ -5837,6 +5912,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NTEyNztzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTcwOTI3O30='
     'mlsNo': '6442414 Shapiro'
     'laundry':
@@ -5931,6 +6007,7 @@
     'propertyType': '0'
     'featured': ''
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MzMyNTk7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NDEyNzt9'
     'mlsNo': '6399484'
     'laundry': {}
@@ -6012,6 +6089,7 @@
     'neighborhood': 'Center City East'
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MDM2OTE7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE0NTkyNzI7fQ=='
     'mlsNo': '6419537'
     'laundry': {}
@@ -6095,6 +6173,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzI4MjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzkxNDI7fQ=='
     'mlsNo': '6441903 Shapiro'
     'laundry':
@@ -6178,6 +6257,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzI4MjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzkxNDI7fQ=='
     'mlsNo': '6441907 Shapiro'
     'laundry': {}
@@ -6272,6 +6352,7 @@
     'neighborhood': 'Center City West'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzI4MjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzkxNDI7fQ=='
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'country': 'U.S.A'
     'applyAt': ''
     'pets':
@@ -6366,6 +6447,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NDc3ODk7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE1Nzk0Mzt9'
     'mlsNo': '6442010 Shapiro'
     'laundry': {}
@@ -6448,6 +6530,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0MjQwNDtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTQ4NTc0OTt9'
     'floor': ''
     'appFee': ''
@@ -6517,6 +6600,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0MjQwNDtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTQ4NTc0OTt9'
     'mlsNo': '6442455 Shapiro'
     'laundry': {}
@@ -6600,6 +6684,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0Njc1MTg7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3MTE1Nzk7fQ=='
     'mlsNo': '6444528'
     'laundry':
@@ -6662,6 +6747,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0Nzk1NDtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTY1ODgyO30='
     'mlsNo': '6444600'
     'laundry':
@@ -6762,6 +6848,7 @@
     ]
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NTEwOTg7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NTkxMzg7fQ=='
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'country': 'U.S.A'
     'applyAt': ''
     'pets':
@@ -6841,6 +6928,7 @@
       'value': '0'
       'comment': ''
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NTEwOTg7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NTkxMzg7fQ=='
     'mlsNo': '6444546 PMC'
     'laundry':
@@ -6915,6 +7003,7 @@
     'position': null
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0OTAxMjc7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzE1NDc7fQ=='
     'mlsNo': '6444455 PMC'
     'laundry':
@@ -7058,6 +7147,7 @@
     'mlsNo': '6444462 PMC'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0OTAxMjc7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzE1NDc7fQ=='
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'description': '***Special for applications submitted before 8/31: $100 off rent, plus no pet deposit*** Beautifully maintained mid-rise elevator building mere steps away from Center City\'s Avenue of the Arts, and 2 blocks from Rittenhouse Square! Gorgeous newly renovated lobby, spectacular views, abundant windows high ceilings, marble baths, on-site laundry. Interior photos of another unit with same floorplan. *Optional upgrades available: Granite counter tops and new cabinets $150/mo extra; Stainless appliances $50/mo;'
     'specialOffer': ''
     'website': 'YTozOntzOjU6ImxhYmVsIjtzOjA6IiI7czo4OiJwcm90b2NvbCI7czowOiIiO3M6MzoidXJsIjtOO30='
@@ -7115,6 +7205,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0ODk5NDtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTc5NDAxO30='
     'mlsNo': '6444374 PMC'
     'laundry':
@@ -7245,6 +7336,7 @@
     ]
     'bathrooms': '4 baths'
     'city': 'Washinton DC'
+    'cityId': 'washinton-dc'
     'parking':
       'value': '2'
       'comment': '1 Car Garage'
@@ -7314,6 +7406,7 @@
     ]
     'bathrooms': '1 - 3 Baths'
     'city': 'Washington DC'
+    'cityId': 'washington-dc'
     'parking':
       'value': '2'
       'comment': 'Garage'
@@ -7351,6 +7444,7 @@
     'position': 5812
     'bathrooms': '1 - 2 Baths'
     'city': 'McLean'
+    'cityId': 'mclean'
     'parking':
       'value': '2'
       'comment': ''
@@ -7489,6 +7583,7 @@
     'features': [ 'Basketball Court(s),Business Center,Covered Parking,Emergency Maintenance,Extra Storage,High Speed Internet Access,Swimming Pool,Tennis Court(s),On Site Management,Vaulted ceilings' ]
     'bathrooms': '1 - 2 Baths'
     'city': 'Washington DC'
+    'cityId': 'washington-dc'
     'parking':
       'value': '2'
       'comment': 'Covered'
@@ -7527,6 +7622,7 @@
     'mlsNo': '6442805'
     'country': 'U.S.A'
     'city': 'Montgomery'
+    'cityId': 'montgomery'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjQwLjA5MTM1NjY7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE0MTgzODM7fQ=='
     'floor': ''
     'appFee': ''
@@ -7583,6 +7679,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MjQ5Mzc7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NTgxNTE7fQ=='
     'mlsNo': '6459401'
     'laundry': {}
@@ -7652,6 +7749,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MjQ5Mzc7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NTgxNTE7fQ=='
     'mlsNo': '6459448'
     'laundry': {}
@@ -7716,6 +7814,7 @@
     'applyAt': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NTEyNztzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTcwOTI3O30='
     'mlsNo': '6442189'
     'laundry': {}
@@ -7785,6 +7884,7 @@
     'features': [ '' ]
     'bathrooms': '1'
     'city': 'Philadelphia'
+    'cityId': 'philadelphia'
     'parking':
       'value': '0'
       'comment': ''

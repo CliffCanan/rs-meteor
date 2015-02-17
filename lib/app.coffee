@@ -5,7 +5,14 @@
   "los-angeles": "LOS ANGELES, CA"
   philadelphia: "PHILADELPHIA, PA"
   stamford: "STAMFORD, CT"
-  washington: "WASHINGTON, DC"
+  "washington-dc": "WASHINGTON, DC"
+
+@citiesArray =
+  for key, value of cities
+    key: key
+    value: value
+
+@cityIds = Object.keys(cities)
 
 share = share or {}
 

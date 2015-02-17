@@ -44,5 +44,5 @@ share.loadFixtures = ->
         "when": now
       }}})
 
-  buildingsFixtures = {} or buildingsFixtures or {}
-  insertData(buildingsFixtures, Buildings)
+  buildings = buildingsFixtures or {}
+  insertData(buildings, Buildings)

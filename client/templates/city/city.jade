@@ -2,55 +2,55 @@ template(name="city")
   .city-page-wrap
     .city-sub-header
       select.form-control.city-sub-header-select.fa.fa-globe
-        option Philadelphia, PA
-        option Boston, MA
-        option Chicago, IL
-        option Los Angeles, CA
-        option Boston, MA
+        each cities
+          option(value="{{key}}") {{value}}
       select.form-control.city-sub-header-select.fa.fa-bed
-        option 2 bedrooms
-        option 3 bedrooms
-        option 1 bedroom
+        option(value="1bedroom") 1 bedroom
+        option(value="2bedrooms") 2 bedrooms
+        option(value="3bedrooms") 3 bedrooms
+        option(value="4bedrooms") 4 bedrooms
+        option(value="5bedrooms") 5 bedrooms
+        option(value="studio") studio
       .city-subheader-price
         span.city-subheader-price-val
           | Price
         b &#36;500
-        input.slider.span2(type='text', value='', data-slider-min='10', data-slider-max='1000', data-slider-step='5', data-slider-value='[250,450]')
+        input.slider.span2(type="text", value="", data-slider-min="10", data-slider-max="1000", data-slider-step="5", data-slider-value="[250,450]")
         b &#36;12235
       .dropdown
-        button.fa.fa-check(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+        button.fa.fa-check(type="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false")
           | Feautures
           span.caret
-        ul.dropdown-menu(role='menu', aria-labelledby='dLabel')
+        ul.dropdown-menu(role="menu", aria-labelledby="dLabel")
           h3.city-features-title
             | Filter the search results by the criteria that you need, in order to find your best apartment!
           .checkbox
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Doorman
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Fitness Center
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Pet friendly
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Managed buildings
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Brownstone
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Loundry In-unit
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Parking
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Utilities inclided
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Private listings
           label.city-features-date
             | Availible from/before
