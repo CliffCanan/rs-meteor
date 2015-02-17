@@ -1,7 +1,9 @@
 Template.contactUs.helpers
-#  helper: ->
+  serverError: ->
+    Session.get("serverError")
 
 Template.contactUs.rendered = ->
+  Session.set("serverError", false)
   form = @$("form")
   form.formValidation(
     framework: 'bootstrap'
@@ -38,15 +40,20 @@ Template.contactUs.rendered = ->
            notEmpty:
              message: 'For now we need city!'
   ).on("success.form.fv", grab encapsulate (event) ->
-      $('#contactUsPopup').modal('hide')
       json = form.serializeFormJSON()
       json.yes = json.tourOption is "yes"
       json.no = json.tourOption is "no"
       json.notSure = json.tourOption is "notSure"
-      ContactUsRequests.insert(json)
-      form.trigger('reset')
-      form.data('formValidation').resetForm()
-      $('#messageSentPopup').modal('show')
+      ContactUsRequests.insert(json, callback = (error, id) ->
+        if error
+           Session.set("serverError", true)
+        else
+          Session.set("serverError", false)
+          form.trigger('reset')
+          form.data('formValidation').resetForm()
+          $('#contactUsPopup').modal('hide')
+          $('#messageSentPopup').modal('show')
+      )
   )
 
 

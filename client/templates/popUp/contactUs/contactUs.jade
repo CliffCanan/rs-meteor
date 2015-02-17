@@ -57,5 +57,9 @@ template(name="contactUs")
                 option(value="Philadelphia") Philadelphia, PA
                 option(value="Stamford") Stamford, CT
                 option(value="Washington") Washington, DC
+            if serverError
+              .form-group
+                .alert.alert-danger(role="alert")
+                  strong Sorry! Server error occured! We probably already fixing it:)
             .form-group
               button.btn.btn-primary(type="submit") Submit
