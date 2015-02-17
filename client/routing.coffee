@@ -13,10 +13,12 @@ Router.map ->
       @next()
   @route "/checkAvailability",
     name: "checkAvailability"
-  @route "/:city",
+  @route "/:cityId",
     name: "city"
+    subscriptions: ->
+      Meteor.subscribe("buildings", @params.cityId)
     onBeforeAction: ->
-      share.setPageTitle("Rental Apartments and Condos in " + cities[@params.city])
+      share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId])
       @next()
   @route "/autologin/:token",
     name: "autologin"
