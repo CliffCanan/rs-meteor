@@ -1,28 +1,46 @@
 template(name="city")
   .city-page-wrap
-    .city-sub-header
-      select.form-control.city-sub-header-select.fa.fa-globe
-        option Philadelphia, PA
-        option Boston, MA
-        option Chicago, IL
-        option Los Angeles, CA
-        option Boston, MA
-      select.form-control.city-sub-header-select.fa.fa-bed
-        option 2 bedrooms
-        option 3 bedrooms
-        option 1 bedroom
-      .city-subheader-price
+    .city-sub-header.clearfix
+      .city-sub-header-list-wrap.pull-left
+        span.city-sub-header-title.btn.btn-default
+          i.fa.fa-globe
+          | Philadelphia
+          span.caret
+        ul.city-sub-header-list.list-unstyled
+          li.city-sub-header-item
+            | Philadelphia, PA
+          li.city-sub-header-item
+            | Boston, MA
+          li.city-sub-header-item
+            | Chicago, IL
+          li.city-sub-header-item
+            | Los Angeles, CA
+          li.city-sub-header-item
+            | Boston, MA
+      .city-sub-header-list-wrap.pull-left
+        span.city-sub-header-title.btn.btn-default
+          i.fa.fa-bed
+          | 2 bedrooms
+          span.caret
+        ul.city-sub-header-list.list-unstyled
+          li.city-sub-header-item
+              | 2 bedrooms
+          li.city-sub-header-item
+              | 3 bedrooms
+          li.city-sub-header-item
+              | 1 bedroom
+      .city-subheader-price.pull-left
         span.city-subheader-price-val
           | Price
         b &#36;500
         input.slider.span2(type='text', value='', data-slider-min='10', data-slider-max='1000', data-slider-step='5', data-slider-value='[250,450]')
         b &#36;12235
-      .dropdown
-        button.fa.fa-check(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+      .dropdown.pull-left
+        button.features-btn.dropdown-toggle.btn.btn-default(type='button', id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true")
+          i.fa.fa-check
           | Feautures
-          span.caret
-        ul.dropdown-menu(role='menu', aria-labelledby='dLabel')
-          h3.city-features-title
+        ul.features-section.dropdown-menu(role='menu', aria-labelledby="dropdownMenu1")
+          h3.filter-title
             | Filter the search results by the criteria that you need, in order to find your best apartment!
           .checkbox
             label
@@ -55,3 +73,59 @@ template(name="city")
           label.city-features-date
             | Availible from/before
             input
+          button.btn.btn-primary.apply-changes-btn(type="button")
+            | Apply Changes
+          span.clear-btn
+            | Clear Filter
+      .dropdown.pull-left
+        button.features-btn.dropdown-toggle.btn.btn-default(type='button', id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true")
+          | Favorite location
+        ul.dropdown-menu(role='menu', aria-labelledby="dropdownMenu2")
+          h3.filter-title
+            | Enter your most common destination (work, school, etc) to find apartments close to it
+          label
+            input(type="text", placeholder="Destination Address")
+          select.form-contro
+            option Less then 10 minutes
+            option Less then 30 minutes
+          ul.city-motion-list
+            li.city-motion-item.city-motion-walk
+            li.city-motion-item.city-motion-car
+            li.city-motion-item.city-motion-bike
+          button.btn.btn-primary.apply-changes-btn(type="button")
+            | Apply Changes
+          span.clear-btn
+            | Clear Filter
+
+    .main-city-list-wrap.clearfix
+      ul.main-city-list.list-unstyled
+        li.main-city-item
+          a.main-city-img-link(href="/")
+            img
+          .main-city-item-wrap
+            h2.main-city-item-title
+              a.main-city-item-link(href="/")
+                | The Dorchester - 226 W. Rittenhouse ljhhggghjhh
+            span.main-city-info-btn.pull-right
+            .main-city-info
+              i.fa.fa-building
+              span.main-city-price
+                | &#36;2,345&#43;
+              span.main-city-desc
+                | Studio, 1,2,3 bedrooms
+        li.main-city-item
+          a.main-city-img-link(href="/")
+            img
+          .main-city-item-wrap
+            h2.main-city-item-title
+              a.main-city-item-link(href="/")
+                | 222 Rittenhouse
+            span.main-city-info-btn.pull-right
+            .main-city-info
+              i.fa.fa-key
+              span.main-city-price
+                | &#36;1,600&#43;
+              span.main-city-desc
+                | Studio, 1,2,3 bedrooms
+
+
