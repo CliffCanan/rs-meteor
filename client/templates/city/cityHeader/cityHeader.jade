@@ -33,60 +33,60 @@ template(name="cityHeader")
       input.slider.span2(type="text", value="", data-slider-min="10", data-slider-max="1000", data-slider-step="5", data-slider-value="[250,450]")
       b &#36;12235
     .dropdown.pull-left
-      button.features-btn.dropdown-toggle.btn.btn-default(type='button', id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true")
+      button.features-btn.dropdown-toggle.btn.btn-default(type="button")
         i.fa.fa-check
         | Feautures
-      .features-section.dropdown-menu(role='menu', aria-labelledby="dropdownMenu1")
+      .features-section.dropdown-menu
         h3.filter-title
           | Filter the search results by the criteria that you need, in order to find your best apartment!
-        .filter-list.clearfix
+        ul.filter-list.list-unstyled.clearfix
           li.checkbox-wrap.col-md-6
-            input.css-checkbox(type='checkbox' value='')
+            input.css-checkbox(type="checkbox", value="")
             label.css-label
               | Doorman
           li.checkbox-wrap.col-md-6
-            input.css-checkbox(type='checkbox' value='')
+            input.css-checkbox(type="checkbox", value="")
             label.css-label
               | Fitness Center
           li.checkbox-wrap.col-md-6
-            input.css-checkbox(type='checkbox' value='')
+            input.css-checkbox(type="checkbox", value="")
             label.css-label
               | Pet friendly
           li.checkbox-wrap.col-md-6
-            input.css-checkbox(type='checkbox' value='')
+            input.css-checkbox(type="checkbox", value="")
             label.css-label
               | Managed buildings
           li.checkbox-wrap.col-md-6
-            input.css-checkbox(type='checkbox' value='')
+            input.css-checkbox(type="checkbox", value="")
             label.css-label
               | Brownstone
           li.checkbox-wrap.col-md-6
-            input.css-checkbox(type='checkbox' value='')
+            input.css-checkbox(type="checkbox", value="")
             label.css-label
               | Loundry In-unit
           li.checkbox-wrap.col-md-6
-            input.css-checkbox(type='checkbox' value='')
+            input.css-checkbox(type="checkbox", value="")
             label.css-label
               | Parking
           li.checkbox-wrap.col-md-6
-            input.css-checkbox(type='checkbox' value='')
+            input.css-checkbox(type="checkbox", value="")
             label.css-label
               | Utilities inclided
           li.checkbox-wrap.col-md-6
-            input.css-checkbox(type='checkbox' value='')
+            input.css-checkbox(type="checkbox", value="")
             label.css-label
               | Private listings
         label.city-features-date
           | Availible from/before
-          input.form-control(type='text' value='')
+          input.form-control(type="text", value="")
         button.btn.btn-primary.apply-changes-btn(type="button")
           | Apply Changes
         span.clear-btn
           | Clear Filter
     .dropdown.pull-left
-      button.features-btn.dropdown-toggle.btn.btn-default(type='button', id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true")
+      button.features-btn.dropdown-toggle.btn.btn-default(type="button")
         | Favorite location
-      ul.dropdown-menu.location-list(role='menu', aria-labelledby="dropdownMenu2")
+      .dropdown-menu
         h3.filter-title
           | Enter your most common destination (work, school, etc) to find apartments close to it
         label.filter-field
