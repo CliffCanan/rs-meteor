@@ -4,19 +4,11 @@ template(name="city")
       .city-sub-header-list-wrap.pull-left
         span.city-sub-header-title.btn.btn-default
           i.fa.fa-globe
-          | Philadelphia
+          | Philadelphia, CA
           span.caret
         ul.city-sub-header-list.list-unstyled
-          li.city-sub-header-item
-            | Philadelphia, PA
-          li.city-sub-header-item
-            | Boston, MA
-          li.city-sub-header-item
-            | Chicago, IL
-          li.city-sub-header-item
-            | Los Angeles, CA
-          li.city-sub-header-item
-            | Boston, MA
+          each cities
+            li.city-sub-header-item {{value}}
       .city-sub-header-list-wrap.pull-left
         span.city-sub-header-title.btn.btn-default
           i.fa.fa-bed
@@ -24,16 +16,22 @@ template(name="city")
           span.caret
         ul.city-sub-header-list.list-unstyled
           li.city-sub-header-item
-              | 2 bedrooms
+            | 1 bedroom
           li.city-sub-header-item
-              | 3 bedrooms
+            | 2 bedrooms
           li.city-sub-header-item
-              | 1 bedroom
+            | 3 bedrooms
+          li.city-sub-header-item
+            | 4 bedrooms
+          li.city-sub-header-item
+            | 5 bedrooms
+          li.city-sub-header-item
+            | studio
       .city-subheader-price.pull-left
         span.city-subheader-price-val
           | Price
         b &#36;500
-        input.slider.span2(type='text', value='', data-slider-min='10', data-slider-max='1000', data-slider-step='5', data-slider-value='[250,450]')
+        input.slider.span2(type="text", value="", data-slider-min="10", data-slider-max="1000", data-slider-step="5", data-slider-value="[250,450]")
         b &#36;12235
       .dropdown.pull-left
         button.features-btn.dropdown-toggle.btn.btn-default(type='button', id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true")
@@ -44,31 +42,31 @@ template(name="city")
             | Filter the search results by the criteria that you need, in order to find your best apartment!
           .checkbox
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Doorman
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Fitness Center
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Pet friendly
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Managed buildings
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Brownstone
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Loundry In-unit
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Parking
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Utilities inclided
             label
-              input(type='checkbox' value='')
+              input(type="checkbox", value="")
               | Private listings
           label.city-features-date
             | Availible from/before

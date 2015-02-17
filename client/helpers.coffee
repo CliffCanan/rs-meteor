@@ -1,25 +1,22 @@
-UI.registerHelper("share", ->
+Template.registerHelper "share", ->
   share
-)
 
-UI.registerHelper("Settings", ->
+Template.registerHelper "Settings", ->
   Meteor.settings
-)
 
-UI.registerHelper("Router", ->
+Template.registerHelper "Router", ->
   Router
-)
 
-UI.registerHelper "Session", (key) ->
+Template.registerHelper "Session", (key) ->
   Session.get(key)
 
-UI.registerHelper "SessionEquals", (key, value) ->
+Template.registerHelper "SessionEquals", (key, value) ->
   Session.equals(key, value)
 
-UI.registerHelper "currentUserId", ->
+Template.registerHelper "currentUserId", ->
   Meteor.userId()
 
-UI.registerHelper("condition", (v1, operator, v2, options) ->
+Template.registerHelper "condition", (v1, operator, v2, options) ->
   switch operator
     when "==", "eq", "is"
       v1 is v2
@@ -49,43 +46,37 @@ UI.registerHelper("condition", (v1, operator, v2, options) ->
       v1 not in v2
     else
       throw "Undefined operator \"" + operator + "\""
-)
 
-UI.registerHelper("not", (value) ->
+Template.registerHelper "not", (value) ->
   not value
-)
 
-UI.registerHelper("key_value", (object, keyKey, valueKey, hash) ->
+Template.registerHelper "key_value", (object, keyKey, valueKey, hash) ->
   for key, value of object
     result = {}
     result[keyKey] = key
     result[valueKey] = value
     result
-)
 
-UI.registerHelper("momentFromNow", (date) ->
+Template.registerHelper "momentFromNow", (date) ->
   moment(date).fromNow()
-)
 
-UI.registerHelper("encodeURIComponent", (value) ->
+Template.registerHelper "encodeURIComponent", (value) ->
   encodeURIComponent(value)
-)
 
-UI.registerHelper("currentUserEmail", ->
+Template.registerHelper "currentUserEmail", ->
   Meteor.user().emails[0].address
-)
 
-UI.registerHelper("currentUrl", ->
+Template.registerHelper "currentUrl", ->
   location.protocol + "//" + location.hostname + (if location.port then ':' + location.port else '') + Iron.Location.get().path
-)
 
-UI.registerHelper("_", (key, hash) ->
+Template.registerHelper "_", (key, hash) ->
   params = {} # default
   params = hash.hash  if hash
   result = i18n.t(key, params)
   new Spacebars.SafeString(result)
-)
 
-UI.registerHelper("isEmpty", (object, hash) ->
+Template.registerHelper "isEmpty", (object, hash) ->
   _.isEmpty(object)
-)
+
+Template.registerHelper "cities", ->
+  citiesArray
