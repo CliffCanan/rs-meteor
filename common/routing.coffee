@@ -25,20 +25,20 @@ Router.map ->
       return null  unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
-      share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId])
+      share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
       @next()
-  @route "/:cityId/:neighborhood/:buildingSlug",
+  @route "/:cityId/:neighborhoodSlug/:slug",
     name: "building"
     fastRender: true
     subscriptions: ->
-      Meteor.subscribe("buildings", @params.cityId, @params.buildingSlug)
+      Meteor.subscribe("buildings", @params.cityId, @params.slug)
     data: ->
-      return null  unless building = Buildings.findOne({cityId: @params.cityId, slug: @params.buildingSlug})
-      _.extend @params
+      return null  unless building = Buildings.findOne({cityId: @params.cityId, slug: @params.slug})
+      _.extend @params,
         building: building
     onBeforeAction: ->
       if @building
-        share.setPageTitle(@building.name + ", " + cities[@params.cityId])
+        share.setPageTitle(@building.name + ", " + cities[@params.cityId].long)
       @next()
   @route "/autologin/:token",
     name: "autologin"

@@ -5,33 +5,19 @@ template(name="city")
 
     .main-city-list-wrap.clearfix
       ul.main-city-list.list-unstyled
-        li.main-city-item
-          a.main-city-img-link(href="/")
-            img
-          .main-city-item-wrap
-            h2.main-city-item-title
-              a.main-city-item-link(href="/")
-                | The Dorchester - 226 W. Rittenhouse ljhhggghjhh
-            span.main-city-info-btn.pull-right
-            .main-city-info
-              i.fa.fa-building
-              span.main-city-price
-                | &#36;2,345&#43;
-              span.main-city-desc
-                | Studio, 1,2,3 bedrooms
-        li.main-city-item
-          a.main-city-img-link(href="/")
-            img
-          .main-city-item-wrap
-            h2.main-city-item-title
-              a.main-city-item-link(href="/")
-                | 222 Rittenhouse
-            span.main-city-info-btn.pull-right
-            .main-city-info
-              i.fa.fa-key
-              span.main-city-price
-                | &#36;1,600&#43;
-              span.main-city-desc
-                | Studio, 1,2,3 bedrooms
+        each buildings
+          li.main-city-item
+            a.main-city-img-link(href="{{pathFor route='building'}}")
+              img
+            .main-city-item-wrap
+              h2.main-city-item-title
+                a.main-city-item-link(href="{{pathFor route='building'}}") {{name}}
+              span.main-city-info-btn.pull-right
+              .main-city-info
+                i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
+                span.main-city-price
+                  | &#36;2,345&#43;
+                span.main-city-desc
+                  | Studio, 1,2,3 bedrooms
 
 

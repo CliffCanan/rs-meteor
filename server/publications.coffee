@@ -15,7 +15,7 @@ Meteor.publish "allUsers", ->
 
 Meteor.publish "buildings", (cityId, buildingSlug) ->
   check(cityId, Match.InArray(cityIds))
-  check(buildingSlug, Match.Optional(Match.Id))
+  check(buildingSlug, Match.Optional(String))
   selector = {cityId: cityId}
   if buildingSlug
     selector.slug = buildingSlug

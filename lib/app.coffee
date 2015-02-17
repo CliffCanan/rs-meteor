@@ -1,16 +1,30 @@
 @cities =
-  atlanta: "ATLANTA, GA"
-  boston: "BOSTON, MA"
-  chicago: "CHICAGO, IL"
-  "los-angeles": "LOS ANGELES, CA"
-  philadelphia: "PHILADELPHIA, PA"
-  stamford: "STAMFORD, CT"
-  "washington-dc": "WASHINGTON, DC"
+  atlanta:
+    short: "Atlanta"
+    long: "ATLANTA, GA"
+  boston:
+    short: "Boston"
+    long: "BOSTON, MA"
+  chicago:
+    short: "Chicago"
+    long: "CHICAGO, IL"
+  "los-angeles":
+    short: "Los Angeles"
+    long: "LOS ANGELES, CA"
+  philadelphia:
+    short: "Philadelphia"
+    long: "PHILADELPHIA, PA"
+  stamford:
+    short: "Stamford"
+    long: "STAMFORD, CT"
+  "washington-dc":
+    short: "Washington"
+    long: "WASHINGTON, DC"
 
 @citiesArray =
   for key, value of cities
     key: key
-    value: value
+    value: value.long
 
 @cityIds = Object.keys(cities)
 

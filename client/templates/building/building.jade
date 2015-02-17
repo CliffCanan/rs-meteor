@@ -1,14 +1,8 @@
 template(name="building")
-  .content-wrapper
-    form
-      .form-group
-        | We gladly help you to check <i>here will be property name</i> for availability. Please enter your contact details and our agent will write to you asap.
-      .form-group
-        input.form-control(name="name" placeholder="Name")
-      .form-group
-        input.form-control(name="email" placeholder="Email address")
-      .form-group
-        textarea.form-control(name="question" placeholder="Question")
-      .form-group
-        label MOVE-IN DATE
-        +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="mm/dd/yyyy" class="moveInData-moveInDate-editor" name="moveInDate")
+  with building
+    .content-wrapper
+      a(href="/") Home
+      | >
+      a(href="/{{cityId}}") {{cityName}}
+      | >
+      | {{name}}

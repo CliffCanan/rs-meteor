@@ -1,6 +1,8 @@
 class Building
   constructor: (doc) ->
     _.extend(@, doc)
+  cityName: ->
+    cities[@cityId].short
 
 share.Transformations.Building = _.partial(share.transform, Building)
 
