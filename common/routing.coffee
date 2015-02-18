@@ -16,6 +16,8 @@ Router.map ->
       @next()
   @route "/check-availability",
     name: "checkAvailability"
+  @route "/login",
+    name: "login"
   @route "/:cityId",
     name: "city"
     fastRender: true
