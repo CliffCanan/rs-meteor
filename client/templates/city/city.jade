@@ -1,23 +1,26 @@
 template(name="city")
-  .city-page-wrap
+  .city-page-wrap.row
 
     +cityHeader
 
-    .main-city-list-wrap.clearfix
-      ul.main-city-list.list-unstyled
+    .main-city-list-wrap.clearfix.container-fluid.pull-left
+      ul.main-city-list.list-unstyled.row
         each buildings
-          li.main-city-item
-            a.main-city-img-link(href="{{pathFor route='building'}}")
-              img(src="{{randomImage}}")
-            .main-city-item-wrap
-              h2.main-city-item-title
-                a.main-city-item-link(href="{{pathFor route='building'}}") {{name}}
-              span.main-city-info-btn.pull-right
-              .main-city-info
-                i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
-                span.main-city-price
-                  | {{priceFrom}}
-                span.main-city-desc
-                  | {{bedroomTypes}}
+          li.col-lg-4.col-md-6.col-sm-6.col-xs-12
+            .main-city-item
+              a.main-city-img-link(href="{{pathFor route='building'}}")
+                img(src="{{randomImage}}")
+              .main-city-item-wrap
+                h2.main-city-item-title
+                  a.main-city-item-link(href="{{pathFor route='building'}}") {{name}}
+                span.main-city-info-btn.fa.fa-question-circle.pull-right
+                .main-city-info.clearfix
+                  i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
+                  span.main-city-price
+                    | {{priceFrom}}
+                  span.main-city-desc
+                    | {{bedroomTypes}}
 
 
+    .city-side-bar.pull-right.clearfix
+      .map

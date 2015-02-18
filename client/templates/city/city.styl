@@ -1,29 +1,39 @@
 .city-page-wrap
-  width 1280px
+  max-width 1280px
   height 100%
 
-
 .main-city-list-wrap
+  overflow auto
   background #fff
   height 100%
   width 100%
   padding 30px
+  margin-top 70px
   box-sizing border-box
   .main-city-list
     .main-city-item
-      display inline-block
-      width 382px
-      height 340px
-      margin 0 10px
+      margin 0 0 3rem 0
       padding 15px
+      padding-bottom 0
       box-sizing border-box
       border 1px solid #eeeeee
       border-radius 3px
+      min-height 340px
+      .main-city-img-link
+        display block
+        img
+          width 100%
       .main-city-item-wrap
         padding 5px 0 0
+        .main-city-info-btn
+          color #4588fa
+          padding 10px 0 0
+          cursor pointer
         .main-city-item-title
           padding 0
           margin 10px 0
+          width 285px
+          float left
           .main-city-item-link
             font-family 'Montserrat', Helvetica, sans-serif
             font-size 18px
@@ -35,22 +45,33 @@
             display block
 
         .main-city-info
+          clear both
           font-family 'Montserrat', Helvetica, sans-serif
           i
             font-size 20px
-            padding 0 10px
+            padding 0 10px 0 0
 
           .main-city-price
             font-size 18px
             color #cc9900
             padding 0 10px 0 0
+            display inline-block
+            vertical-align middle
 
           .main-city-desc
             border-left 1px solid #c7c7c7
             font-size 16px
             color #272b30
-            padding 0 10px
+            padding 0 0 0 10px
+            text-overflow ellipsis
+            white-space nowrap
+            overflow hidden
+            width 200px
+            display inline-block
+            vertical-align middle
 
-
+.city-side-bar
+  max-width 640px
+  width 100%
 
 
