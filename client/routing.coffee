@@ -13,6 +13,8 @@ Router.map ->
       @next()
   @route "/checkAvailability",
     name: "checkAvailability"
+  @route "/login",
+    name: "login"
   @route "/:city",
     name: "city"
     onBeforeAction: ->
@@ -24,6 +26,7 @@ Router.map ->
       Meteor.loginWithToken(@params.token)
       share.autologinDetected = true
       Router.go("index")
+
 
 Router.onAfterAction share.sendPageview
 
