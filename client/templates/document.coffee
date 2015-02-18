@@ -7,3 +7,9 @@ $document.on "click", ".logout", encapsulate (event) ->
 
 $document.on "click", ".reconnect", grab encapsulate (event) ->
   Meteor.reconnect()
+
+$document.on "click", (e) ->
+  $(".dropdown.open").each ->
+    $dd = $(@)
+    if not $dd.is(e.target) and $dd.has(e.target).length is 0
+      $dd.removeClass("open")

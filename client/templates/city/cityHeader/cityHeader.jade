@@ -1,0 +1,105 @@
+template(name="cityHeader")
+  .city-sub-header.clearfix
+    .city-sub-header-list-wrap.dropdown.pull-left
+      button.city-sub-header-title.dropdown-toggle.btn.btn-default
+        i.fa.fa-globe
+        | Philadelphia, CA
+        span.caret
+      ul.city-sub-header-list.dropdown-menu.list-unstyled
+        each cities
+          li.city-sub-header-item {{value}}
+    .city-sub-header-list-wrap.dropdown.pull-left
+      button.city-sub-header-title.dropdown-toggle.btn.btn-default
+        i.fa.fa-bed
+        | 2 bedrooms
+        span.caret
+      ul.city-sub-header-list.dropdown-menu.list-unstyled
+        li.city-sub-header-item
+          | 1 bedroom
+        li.city-sub-header-item
+          | 2 bedrooms
+        li.city-sub-header-item
+          | 3 bedrooms
+        li.city-sub-header-item
+          | 4 bedrooms
+        li.city-sub-header-item
+          | 5 bedrooms
+        li.city-sub-header-item
+          | studio
+    .city-subheader-price.pull-left
+      span.city-subheader-price-val
+        | Price
+      b &#36;500
+      input.slider.span2(type="text", value="", data-slider-min="10", data-slider-max="1000", data-slider-step="5", data-slider-value="[250,450]")
+      b &#36;12235
+    .dropdown.pull-left
+      button.features-btn.dropdown-toggle.btn.btn-default(type="button")
+        i.fa.fa-check
+        | Features
+      .features-section.dropdown-menu
+        h3.filter-title
+          | Filter the search results by the criteria that you need, in order to find your best apartment!
+        ul.filter-list.list-unstyled.clearfix
+          li.checkbox-wrap.col-md-6
+            input#doorman.css-checkbox(type="checkbox", value="")
+            label.css-label(for="doorman")
+              | Doorman
+          li.checkbox-wrap.col-md-6
+            input#fitness.css-checkbox(type="checkbox", value="")
+            label.css-label(for="fitness")
+              | Fitness Center
+          li.checkbox-wrap.col-md-6
+            input#pet.css-checkbox(type="checkbox", value="")
+            label.css-label(for="pet")
+              | Pet friendly
+          li.checkbox-wrap.col-md-6
+            input#managedBuildings.css-checkbox(type="checkbox", value="")
+            label.css-label(for="managedBuildings")
+              | Managed buildings
+          li.checkbox-wrap.col-md-6
+            input#brownstone.css-checkbox(type="checkbox", value="")
+            label.css-label(for="brownstone")
+              | Brownstone
+          li.checkbox-wrap.col-md-6
+            input#loundry.css-checkbox(type="checkbox", value="")
+            label.css-label(for="loundry")
+              | Loundry In-unit
+          li.checkbox-wrap.col-md-6
+            input#parkingFeatures.css-checkbox(type="checkbox", value="")
+            label.css-label(for="parkingFeatures")
+              | Parking
+          li.checkbox-wrap.col-md-6
+            input#utilities.css-checkbox(type="checkbox", value="")
+            label.css-label(for="utilities")
+              | Utilities inclided
+          li.checkbox-wrap.col-md-6
+            input#listings.css-checkbox(type="checkbox", value="")
+            label.css-label(for="listings")
+              | Private listings
+        label.city-features-date
+          | Availible from/before
+          input.form-control(type="text", value="")
+        button.btn.btn-primary.apply-changes-btn(type="button")
+          | Apply Changes
+        span.clear-btn
+          | Clear Filter
+    .dropdown.pull-left
+      button.features-btn.dropdown-toggle.btn.btn-default(type="button")
+        | Favorite location
+      .features-section.location-list.dropdown-menu
+        h3.filter-title
+          | Enter your most common destination (work, school, etc) to find apartments close to it
+        label.filter-field
+          input.form-control(type="text", placeholder="Destination Address")
+        select.form-control.filter-select.pull-left
+          option Less then 10 minutes
+          option Less then 30 minutes
+        ul.city-motion-list.pull-right.list-unstyled
+          li.city-motion-item.city-motion-walk
+          li.city-motion-item.city-motion-car
+          li.city-motion-item.city-motion-bike
+        .button-wtap.clearfix
+          button.btn.btn-primary.apply-changes-btn(type="button")
+            | Apply Changes
+          span.clear-btn
+            | Clear Filter

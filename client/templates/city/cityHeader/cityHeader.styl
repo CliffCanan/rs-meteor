@@ -1,0 +1,216 @@
+.city-sub-header
+  background-color #ebebeb
+  padding 18px 30px
+  height 70px
+  width 100%
+  position fixed
+  top 70px
+  left 0
+  z-index 1000
+  box-sizing border-box
+
+.city-sub-header-list-wrap
+  margin 0 10px 0 0
+  .city-sub-header-title
+    font-family 'Montserrat', Helvetica, sans-serif
+    font-size 14px
+    color #272b30
+    font-weight normal
+    padding 5px 15px
+  .city-sub-header-list
+    box-sizing: border-box;
+    min-width 100px
+    padding 0 20px
+    box-shadow 0 1px 0 rgba(0,0,0,0.3)
+    top 38px
+    border 1px solid #cfcfcf
+    border-top 0
+    border-radius 0 0 3px 3px
+    width 100%
+    .city-sub-header-item
+      padding 10px 0
+      font-family 'Montserrat', Helvetica, sans-serif
+      font-size 14px
+      color #272b30
+      cursor pointer
+      &:hover
+        color #4588fa
+
+.city-subheader-price
+  margin 0 25px
+  padding 8px 0
+  .city-subheader-price-val
+    font-size 12px
+    font-weight bold
+    text-transform uppercase
+
+  b
+    font-family 'Montserrat', Helvetica, sans-serif
+    font-size 14px
+    color #272b30
+    display inline-block
+    padding 0 5px
+
+  .slider.slider-horizontal
+    .slider-track
+      height 7px
+      .slider-handle
+        background-color #4588fa
+        width 15px
+        height 15px
+        opacity 1
+      .slider-selection
+        box-shadow none
+        background #8f9092
+
+.dropdown
+  margin 0 0 0 10px
+  .features-btn
+    font-family 'Montserrat', Helvetica, sans-serif
+    font-size 14px
+    color #272b30
+
+.open
+  & > .dropdown-toggle
+    &.btn-default
+      padding-bottom 15px
+      background #fff
+      border-color #ccc
+      color #272b30
+
+  .features-section, .location-list
+    width 490px
+    box-sizing border-box
+    padding 25px
+    box-shadow 0 1px 0 rgba(0, 0, 0, 0.3)
+    top 38px
+    border 1px solid #cfcfcf
+    border-top 0
+    border-radius 0 3px 3px 3px
+    .filter-title
+      font-size 14px
+      padding 0 0 10px
+      margin 0
+      line-height 20px
+    .filter-list
+      padding 15px 0
+      .css-checkbox
+        position absolute
+        z-index -1000
+        left -1000px
+        overflow hidden
+        clip rect(0 0 0 0)
+        height 1px
+        width 1px
+        margin -1px
+        padding 0
+        border 0
+        & + label
+          &.css-label
+            padding-left 30px
+            height 25px
+            display inline-block
+            line-height 25px
+            background-repeat no-repeat
+            background-position 0 0
+            font-size 16px
+            vertical-align middle
+            cursor pointer
+        &:checked
+          & + label
+            &.css-label
+              background-position 0 -25px
+      label
+        &.css-label
+          background-image url(/images/checkbox.png)
+          -webkit-touch-callout none
+          -webkit-user-select none
+          -khtml-user-select none
+          -moz-user-select none
+          -ms-user-select none
+          user-select none
+
+    .city-features-date
+      font-size 12px
+      display block
+      margin 0 0 25px
+      .form-control
+        margin 0 0 0 40px
+        display inline-block
+        height 34px
+        width 120px
+        padding 6px 12px
+        font-size 14px
+        background-color #fff
+        background-image none
+        border 1px solid #ccc
+        border-radius 4px
+        box-shadow inset 0 1px 1px rgba(0,0,0,.075)
+        transition border-color ease-in-out .15s,box-shadow ease-in-out .15s
+
+    .clear-btn
+      padding 0 25px
+      cursor pointer
+
+  .location-list
+    width 380px
+    .filter-field
+      margin 10px 0 25px
+      .form-control
+        display inline-block
+        height 34px
+        width 270px
+        padding 6px 12px
+        font-size 12px
+        background-color #fff
+        background-image none
+        border 1px solid #ccc
+        border-radius 4px
+        box-shadow inset 0 1px 1px rgba(0,0,0,.075)
+        transition border-color ease-in-out .15s,box-shadow ease-in-out .15s
+
+    .filter-select
+      width 150px
+      height 34px
+      font-size 12px
+      padding 6px 12px
+      background-color #fff
+      background-image none
+      border 1px solid #ccc
+      border-radius 4px
+      box-shadow inset 0 1px 1px rgba(0,0,0,.075)
+      transition border-color ease-in-out .15s,box-shadow ease-in-out .15s
+
+    .city-motion-list
+      padding 5px 0
+      .city-motion-item
+        float left
+        background-repeat no-repeat
+        background-position center center
+        padding 0 18px
+        cursor pointer
+      .city-motion-walk
+        width 8px
+        height 20px
+        display inline-block
+        background-image url(/images/walk.png)
+        &:hover
+          background-image url(/images/walk-active.png)
+      .city-motion-car
+        width 18px
+        height 20px
+        display inline-block
+        background-image url(/images/car.png)
+        &:hover
+          background-image url(/images/car-active.png)
+      .city-motion-bike
+        width 20px
+        height 20px
+        display inline-block
+        background-image url(/images/bike.png)
+        &:hover
+          background-image url(/images/bike-active.png)
+
+    .button-wtap
+      padding  20px 0 0
+      clear both

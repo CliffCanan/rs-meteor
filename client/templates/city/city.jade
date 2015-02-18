@@ -1,57 +1,26 @@
 template(name="city")
-  .city-page-wrap
-    .city-sub-header
-      select.form-control.city-sub-header-select.fa.fa-globe
-        option Philadelphia, PA
-        option Boston, MA
-        option Chicago, IL
-        option Los Angeles, CA
-        option Boston, MA
-      select.form-control.city-sub-header-select.fa.fa-bed
-        option 2 bedrooms
-        option 3 bedrooms
-        option 1 bedroom
-      .city-subheader-price
-        span.city-subheader-price-val
-          | Price
-        b &#36;500
-        input.slider.span2(type='text', value='', data-slider-min='10', data-slider-max='1000', data-slider-step='5', data-slider-value='[250,450]')
-        b &#36;12235
-      .dropdown
-        button.fa.fa-check(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-          | Feautures
-          span.caret
-        ul.dropdown-menu(role='menu', aria-labelledby='dLabel')
-          h3.city-features-title
-            | Filter the search results by the criteria that you need, in order to find your best apartment!
-          .checkbox
-            label
-              input(type='checkbox' value='')
-              | Doorman
-            label
-              input(type='checkbox' value='')
-              | Fitness Center
-            label
-              input(type='checkbox' value='')
-              | Pet friendly
-            label
-              input(type='checkbox' value='')
-              | Managed buildings
-            label
-              input(type='checkbox' value='')
-              | Brownstone
-            label
-              input(type='checkbox' value='')
-              | Loundry In-unit
-            label
-              input(type='checkbox' value='')
-              | Parking
-            label
-              input(type='checkbox' value='')
-              | Utilities inclided
-            label
-              input(type='checkbox' value='')
-              | Private listings
-          label.city-features-date
-            | Availible from/before
-            input
+  .city-page-wrap.row
+
+    +cityHeader
+
+    .main-city-list-wrap.clearfix.container-fluid.pull-left
+      ul.main-city-list.list-unstyled.row
+        each buildings
+          li.col-lg-4.col-md-6.col-sm-6.col-xs-12
+            .main-city-item
+              a.main-city-img-link(href="{{pathFor route='building'}}")
+                img(src="{{randomImage}}")
+              .main-city-item-wrap
+                h2.main-city-item-title
+                  a.main-city-item-link(href="{{pathFor route='building'}}") {{name}}
+                span.main-city-info-btn.fa.fa-question-circle.pull-right
+                .main-city-info.clearfix
+                  i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
+                  span.main-city-price
+                    | {{priceFrom}}
+                  span.main-city-desc
+                    | {{bedroomTypes}}
+
+
+    .city-side-bar.pull-right.clearfix
+      .map

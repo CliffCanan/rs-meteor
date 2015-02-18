@@ -100,58 +100,67 @@ tables = [
             if similar.length
               building.similar = similar.split(",")
 
-        connection.query "SELECT * FROM skp8s_trsproperties_field_data", (error, rows, fields) ->
+        connection.query "SELECT * FROM skp8s_trsproperties_buildings", (error, rows, fields) ->
           throw error if (error)
           for data in rows
-            building = buildings[data.articleid]
+            building = buildings[data.id]
             if building
-              fieldName = dataFields[data.fieldid]
-              if fieldName is "features"
-                building.features = data.value.split(", ")
-              else if fieldName in ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
-                if data.value.length
-                  try
-                    object = JSON.parse(data.value)
-                    building[fieldName] =
-                      value: object.radio
-                      comment: object.comment
-              else if fieldName is "images"
-                # TODO: process images
-              else if fieldName is "videos"
-                # TODO: process videos
-              else
-                building[fieldName] = data.value.replace(cleanReg, "")
+              building.isOnAvailabileList = !data.removed
 
-          connection.query "SELECT * FROM skp8s_trsproperties_field_geo", (error, rows, fields) ->
+          connection.query "SELECT * FROM skp8s_trsproperties_field_data", (error, rows, fields) ->
             throw error if (error)
             for data in rows
               building = buildings[data.articleid]
               if building
-                building.latitude = data.latitude
-                building.longitude = data.longitude
+                fieldName = dataFields[data.fieldid]
+                if fieldName is "features"
+                  building.features = data.value.split(", ")
+                else if fieldName is "city"
+                  building.city = data.value
+                  building.cityId = slugify(data.value)
+                else if fieldName in ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
+                  if data.value.length
+                    try
+                      object = JSON.parse(data.value)
+                      building[fieldName] =
+                        value: object.radio
+                        comment: object.comment
+                else if fieldName is "images"
+                  # TODO: process images
+                else if fieldName is "videos"
+                  # TODO: process videos
+                else
+                  building[fieldName] = data.value.replace(cleanReg, "")
 
-            connection.query "SELECT * FROM skp8s_trsproperties_prices", (error, rows, fields) ->
+            connection.query "SELECT * FROM skp8s_trsproperties_field_geo", (error, rows, fields) ->
               throw error if (error)
               for data in rows
-                building = buildings[data.propertyId]
+                building = buildings[data.articleid]
                 if building
-                  property_type = data["property_type"]
-                  building[property_type] = building[property_type] or {}
-                  if data.price_type is "range"
-                    range = data.price_value.split("-")
-                    building[property_type].from = range[0]
-                    building[property_type].to = range[1]
+                  building.latitude = data.latitude
+                  building.longitude = data.longitude
+
+              connection.query "SELECT * FROM skp8s_trsproperties_prices", (error, rows, fields) ->
+                throw error if (error)
+                for data in rows
+                  building = buildings[data.propertyId]
+                  if building
+                    property_type = data["property_type"]
+                    building[property_type] = building[property_type] or {}
+                    if data.price_type is "range"
+                      range = data.price_value.split("-")
+                      building[property_type].from = range[0]
+                      building[property_type].to = range[1]
+                    else
+                      building[property_type].from = parseInt(data.price_value)
+
+                fs = Meteor.npmRequire("fs")
+                js2coffee = Meteor.npmRequire("js2coffee")
+                coffee = js2coffee.build("this.buildingsFixtures = " + JSON.stringify(buildings));
+                fs.writeFile process.env.PWD + "/server/buildings.coffee", coffee.code, (error) ->
+                  if error
+                    console.log(error)
                   else
-                    building[property_type].from = parseInt(data.price_value)
-
-              fs = Meteor.npmRequire("fs")
-              js2coffee = Meteor.npmRequire("js2coffee")
-              coffee = js2coffee.build("this.buildingsFixtures = " + JSON.stringify(buildings));
-              fs.writeFile process.env.PWD + "/server/buildings.coffee", coffee.code, (error) ->
-                if error
-                  console.log(error)
-                else
-                  console.log("The file was saved!")
-
+                    console.log("The file was saved!")
 
 #mysqlImport()

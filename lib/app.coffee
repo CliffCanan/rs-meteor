@@ -1,11 +1,40 @@
 @cities =
-  atlanta: "ATLANTA, GA"
-  boston: "BOSTON, MA"
-  chicago: "CHICAGO, IL"
-  "los-angeles": "LOS ANGELES, CA"
-  philadelphia: "PHILADELPHIA, PA"
-  stamford: "STAMFORD, CT"
-  washington: "WASHINGTON, DC"
+  atlanta:
+    short: "Atlanta"
+    long: "ATLANTA, GA"
+  boston:
+    short: "Boston"
+    long: "BOSTON, MA"
+  chicago:
+    short: "Chicago"
+    long: "CHICAGO, IL"
+  "los-angeles":
+    short: "Los Angeles"
+    long: "LOS ANGELES, CA"
+  philadelphia:
+    short: "Philadelphia"
+    long: "PHILADELPHIA, PA"
+  stamford:
+    short: "Stamford"
+    long: "STAMFORD, CT"
+  "washington-dc":
+    short: "Washington"
+    long: "WASHINGTON, DC"
+
+@citiesArray =
+  for key, value of cities
+    key: key
+    value: value.long
+
+@cityIds = Object.keys(cities)
+
+@slugify = (text) ->
+  text.toString().toLowerCase()
+  .replace(/\s+/g, '-')# Replace spaces with -
+  .replace(/[^\w\-]+/g, '')# Remove all non - word chars
+  .replace(/\-\-+/g, '-')# Replace multiple - with single -
+  .replace(/^-+/, '')# Trim - from start of text
+  .replace(/-+$/, '') # Trim - from end of text
 
 share = share or {}
 
