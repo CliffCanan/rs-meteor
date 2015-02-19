@@ -19,9 +19,14 @@ share.loadFixtures = ->
     FirstAdmin:
       profile:
         name: "First Admin"
+        role: "admin"
     SecondAdmin:
       profile:
         name: "Second Admin"
+        role: "admin"
+    Tatiana:
+      name: "Tatiana"
+      role: "customer"
   for _id, user of users
     _.defaults(user,
       username: _id
@@ -32,7 +37,6 @@ share.loadFixtures = ->
           verified: true
         }
       ]
-      role: "admin"
       createdAt: lastWeek
     )
 
@@ -47,3 +51,14 @@ share.loadFixtures = ->
 
   buildings = buildingsFixtures or {}
   insertData(buildings, Buildings)
+
+  userList =
+    testUserList:
+      customerId: "Tatiana"
+      buildingsIds: [
+        "2401",
+        "2403",
+        "2404",
+        "2406"
+      ]
+  usersInserted = insertData(userList, UserLists)

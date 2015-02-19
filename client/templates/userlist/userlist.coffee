@@ -1,5 +1,10 @@
 Template.userlist.helpers
-#  helper: ->
+#  Only for Dave
+  customerName: ->
+    @userList.customerId
+
+  buildings: ->
+    Buildings.find(_id: {$in: @userList.buildingsIds}).fetch()
 
 Template.userlist.rendered = ->
 
