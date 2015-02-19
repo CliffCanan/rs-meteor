@@ -32,6 +32,7 @@ share.loadFixtures = ->
           verified: true
         }
       ]
+      role: "admin"
       createdAt: lastWeek
     )
 

@@ -18,6 +18,8 @@ Router.map ->
     name: "checkAvailability"
   @route "/login",
     name: "login"
+  @route "/userlist/:userlistId",
+    name: "userlist"
   @route "/:cityId",
     name: "city"
     fastRender: true

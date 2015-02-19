@@ -30,3 +30,6 @@ Meteor.publish "ContactUsRequests", ->
   unless @userId
     return []
   ContactUsRequests.find()
+
+Meteor.publish "UserLists", ->
+  UserLists.find()

@@ -44,11 +44,17 @@ Template.contactUs.rendered = ->
       json.yes = json.tourOption is "yes"
       json.no = json.tourOption is "no"
       json.notSure = json.tourOption is "notSure"
+      window.localStorage['userToken'] = {
+        type: 'fruit',
+        color: 'yellow'
+      }
+
       ContactUsRequests.insert(json, callback = (error, id) ->
         if error
            Session.set("serverError", true)
         else
           Session.set("serverError", false)
+
           form.trigger('reset')
           form.data('formValidation').resetForm()
           $('#contactUsPopup').modal('hide')
