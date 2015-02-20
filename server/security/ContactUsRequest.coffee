@@ -18,6 +18,7 @@ ContactUsRequests.allow
       question: String
       userListId: String
       agentName: String
+      agentId: String
       updatedAt: Date
       createdAt: Date
     )

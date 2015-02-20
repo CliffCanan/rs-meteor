@@ -1,6 +1,13 @@
 Template.userlist.helpers
-  admin: ->
+  agent: ->
+    if Meteor.user() isnt null
+      if @userList
+        if not @userList.agentId
+          UserLists.update({_id: @userList._id}, {$set: {agentId: Meteor.user()._id, agentName: Meteor.user().name}})
     Meteor.user() isnt null
+  agentName: ->
+    if @userList
+      @userList.agentName
   noCity: ->
     if @userList
       if @userList.cityId is undefined
@@ -36,7 +43,7 @@ Template.userlist.helpers
               building.bedrooms += ", "
             building.bedrooms += "4"
 
-          if building.bedrooms.length > 0  and building.bedrooms isnt "Studio"
+          if building.bedrooms.length > 0 and building.bedrooms isnt "Studio"
 
             building.bedrooms += " Bedrooms"
     buildingsFound
@@ -46,5 +53,6 @@ Template.userlist.rendered = ->
 Template.userlist.events
   "click .add-building": (event, template) ->
     $('#addBuildingPopup').modal('show')
-
+  "click .remove-property": (event, template) ->
+    UserLists.update({_id: template.data.userList._id},{$pull:{buildingsIds: event.currentTarget.id}})
 

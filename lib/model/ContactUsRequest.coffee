@@ -52,11 +52,12 @@ ContactUsRequests.before.insert (userId, ContactUsRequest) ->
 
   ContactUsRequest.userListId = userListId
   if userListAgent
-    ContactUsRequest.agentName = userListAgent.name
+    ContactUsRequest.agentName = userListAgent.profile.name
+    ContactUsRequest.agentId = userListAgent._id
   else
     ContactUsRequest.agentName = ""
+    ContactUsRequest.agentId = ""
 
-  cl "ContactUsRequest", ContactUsRequest
   ContactUsRequest._id ||= Random.id()
   now = new Date()
   _.defaults(ContactUsRequest,

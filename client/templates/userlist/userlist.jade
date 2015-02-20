@@ -1,11 +1,19 @@
 template(name="userlist")
-  strong.user-greating Hello, {{customerName}}! Here are your recomended properties.
-
-  if admin
-    button.btn.btn-success.add-building Add building
-    button.btn.btn-success.add-unit Add units
-    if noCity
-      | ""
+  .row
+    .container-fluid
+      .col-xs-12
+        if agent
+          .col-xs-5
+            strong.user-greating Hello, {{agentName}}! Here are your recomended properties for {{customerName}}.
+          .col-xs-1
+            button.btn.btn-success.add-building Add building
+          .col-xs-1
+            button.btn.btn-success.add-unit(disabled="disabled") Add units
+          if noCity
+            | ""
+        else
+          .col-xs-5
+            strong.user-greating Hello, {{customerName}}! Here are your recomended properties.
   each buildings
     .container-fluid
       .row
@@ -44,10 +52,10 @@ template(name="userlist")
                     i.fa.fa-minus-circle(style="color:#5D8AA8;") No Onsite Laudry
                 .col-xs-1
                   .row
-                    button.close(type='button', aria-label='Close')
+                    button.close.favourite-property(type='button', aria-label='Favourite' id="{{_id}}")
                       span.fa.fa-heart(aria-hidden='true' style="color:#FFA812;")
                   .row
-                    button.close(type='button', aria-label='Close')
+                    button.close.remove-property(type='button', aria-label='Remove' id="{{_id}}")
                       span(aria-hidden='true') ×
   .city-side-bar.pull-right.clearfix
     .map
