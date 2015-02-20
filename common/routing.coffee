@@ -18,21 +18,17 @@ Router.map ->
     name: "checkAvailability"
   @route "/login",
     name: "login"
-  @route "/userlist/:userlistId",
+  @route "/userlist/:userListId",
     name: "userlist"
     subscriptions: ->
-      userList = UserLists.findOne({_id: @params.userlistId})
-      if userList
-        Meteor.subscribe("userListBuildings", userList.buildingsIds)
+      subs.subscribe("userListBuildings", @params.userListId)
     data: ->
-      cl @params.userlistId
-      userList = UserLists.findOne({_id: @params.userlistId})
-      cl userList
-      unless userList
-        return null
+      userList = UserLists.findOne({_id: @params.userListId})
       return _.defaults({}, @params,
         userList: userList
       )
+    onBeforeAction: ->
+      @next()
   @route "/:cityId",
     name: "city"
     fastRender: true

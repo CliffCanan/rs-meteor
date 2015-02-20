@@ -56,6 +56,7 @@ share.loadFixtures = ->
   userList =
     testUserList:
       customerId: "Tatiana"
+      customerName: "Tatiana"
       buildingsIds: [
         "2401",
         "2403",

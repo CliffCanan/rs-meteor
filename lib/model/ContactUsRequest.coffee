@@ -27,8 +27,6 @@ ContactUsRequests.before.insert (userId, ContactUsRequest) ->
         autoSaved: true
       }
     , callback = (error, id) ->
-        cl error
-        cl id
         unless error
           return id
     )
@@ -36,9 +34,13 @@ ContactUsRequests.before.insert (userId, ContactUsRequest) ->
     userId = user._id
 
   userList =  UserLists.findOne({customerId: userId})
+
   if not userList
     userListId = UserLists.insert({
         customerId: userId
+        customerName: ContactUsRequest.name
+        cityId: ContactUsRequest.city
+        buildingsIds: []
       }
     , callback = (error, id) ->
         unless error

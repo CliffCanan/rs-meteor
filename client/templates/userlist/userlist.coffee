@@ -1,11 +1,50 @@
 Template.userlist.helpers
+  admin: ->
+    Meteor.user() isnt null
+  noCity: ->
+    if @userList
+      if @userList.cityId is undefined
+        $('#chooseCityPopup').modal('show')
+        return true
+    return false
   customerName: ->
-    Meteor.users.findOne(_id: @userList.customerId).name
+    if @userList
+      @userList.customerName
   buildings: ->
-    UserListBuildings.find(_id: {$in: @userList.buildingsIds}).fetch()
+    buildingsFound = []
+    if @userList
+      if @userList.buildingsIds
+        buildingsFound = Buildings.find(_id: {$in: @userList.buildingsIds}).fetch()
+      if buildingsFound
+        for building in buildingsFound
+          if building.studio
+            building.bedrooms = "Studio"
+          if building["1bedroom"]
+            if building.bedrooms.length > 0
+              building.bedrooms += ", "
+            building.bedrooms += "1"
+          if building["2bedroom"]
+            if building.bedrooms.length > 0
+              building.bedrooms += ", "
+            building.bedrooms += "2"
+          if building["3bedroom"]
+            if building.bedrooms.length > 0
+              building.bedrooms += ", "
+            building.bedrooms += "3"
+          if building["4bedroom"]
+            if building.bedrooms.length > 0
+              building.bedrooms += ", "
+            building.bedrooms += "4"
+
+          if building.bedrooms.length > 0  and building.bedrooms isnt "Studio"
+
+            building.bedrooms += " Bedrooms"
+    buildingsFound
 
 Template.userlist.rendered = ->
 
-
 Template.userlist.events
-#  "click .selector": (event, template) ->
+  "click .add-building": (event, template) ->
+    $('#addBuildingPopup').modal('show')
+
+
