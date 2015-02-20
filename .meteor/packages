@@ -5,7 +5,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-audit-argument-checks
 mquandalle:jade
 coffeescript
 spiderable
@@ -17,10 +16,14 @@ matb33:collection-hooks
 percolate:migrations
 percolatestudio:percolatestudio-mixpanel
 accounts-password
-force-ssl
 meteorhacks:kadira
 meteorhacks:npm
 npm-container
 email
 dburles:spacebars-tohtml
 mrt:accounts-ui-bootstrap-3
+cfs:standard-packages
+cfs:filesystem
+cfs:graphicsmagick
+cfs:ejson-file
+mrt:smart-publish

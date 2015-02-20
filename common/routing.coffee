@@ -33,7 +33,7 @@ Router.map ->
     name: "building"
     fastRender: true
     subscriptions: ->
-      Meteor.subscribe("buildings", @params.cityId, @params.slug)
+      Meteor.subscribe("building", @params.cityId, @params.slug)
     data: ->
       return null  unless building = Buildings.findOne({cityId: @params.cityId, slug: @params.slug})
       _.extend @params,
