@@ -1,10 +1,8 @@
 Template.userlist.helpers
-#  Only for Dave
   customerName: ->
-    @userList.customerId
-
+    Meteor.users.findOne(_id: @userList.customerId).name
   buildings: ->
-    Buildings.find(_id: {$in: @userList.buildingsIds}).fetch()
+    UserListBuildings.find(_id: {$in: @userList.buildingsIds}).fetch()
 
 Template.userlist.rendered = ->
 

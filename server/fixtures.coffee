@@ -27,6 +27,7 @@ share.loadFixtures = ->
     Tatiana:
       name: "Tatiana"
       role: "customer"
+      autoSaved: true
   for _id, user of users
     _.defaults(user,
       username: _id

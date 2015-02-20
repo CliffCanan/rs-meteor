@@ -18,10 +18,12 @@ Router.map ->
     name: "checkAvailability"
   @route "/login",
     name: "login"
-  @route "/userlist/:cityId/:userlistId",
+  @route "/userlist/:userlistId",
     name: "userlist"
     subscriptions: ->
-      subs.subscribe("buildings", @params.cityId)
+      userList = UserLists.findOne({_id: @params.userlistId})
+      if userList
+        Meteor.subscribe("userListBuildings", userList.buildingsIds)
     data: ->
       cl @params.userlistId
       userList = UserLists.findOne({_id: @params.userlistId})

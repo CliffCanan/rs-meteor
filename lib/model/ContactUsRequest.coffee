@@ -24,6 +24,7 @@ ContactUsRequests.before.insert (userId, ContactUsRequest) ->
         name: ContactUsRequest.name
         email: ContactUsRequest.email
         role: "customer"
+        autoSaved: true
       }
     , callback = (error, id) ->
         cl error

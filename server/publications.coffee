@@ -21,6 +21,9 @@ Meteor.publish "buildings", (cityId, buildingSlug) ->
     selector.slug = buildingSlug
   Buildings.find(selector)
 
+Meteor.publish "userListBuildings", (ids) ->
+  UserListBuildings.find({_id: {$in: ids}})
+
 Meteor.publish "CheckAvailabilityRequests", ->
   unless @userId
     return []
