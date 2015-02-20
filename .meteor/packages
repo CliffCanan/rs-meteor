@@ -27,3 +27,4 @@ cfs:filesystem
 cfs:graphicsmagick
 cfs:ejson-file
 mrt:smart-publish
+meteorhacks:zones
