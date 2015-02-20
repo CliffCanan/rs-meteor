@@ -1,8 +1,5 @@
 {
   "dependencies": {
-    "base64-arraybuffer": {
-      "version": "0.1.2"
-    },
     "js2coffee": {
       "version": "2.0.3",
       "dependencies": {

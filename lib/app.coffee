@@ -28,6 +28,22 @@
 
 @cityIds = Object.keys(cities)
 
+@btypes =
+  "": "Any"
+  "1bedroom": "1 bedroom"
+  "2bedroom": "2 bedrooms"
+  "3bedroom": "3 bedrooms"
+  "4bedroom": "4 bedrooms"
+  "5bedroom": "5 bedrooms"
+  "studio": "studio"
+
+@btypesArray =
+  for key, value of btypes
+    key: key
+    value: value
+
+@btypesIds = Object.keys(btypes)
+
 @slugify = (text) ->
   text.toString().toLowerCase()
   .replace(/\s+/g, '-')# Replace spaces with -

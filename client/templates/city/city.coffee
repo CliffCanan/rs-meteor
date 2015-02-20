@@ -1,8 +1,9 @@
 Template.city.helpers
   buildings: ->
-    Buildings.find()
+    Buildings.find({cityId: @cityId})
   mainImage: ->
-    @images?[0]?.getFileRecord()
+    file = @images?[0]?.getFileRecord()
+    file  if file.url
   randomImage: ->
 #    images = [
 #      "/images/search-img1.jpg"
