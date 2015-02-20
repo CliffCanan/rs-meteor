@@ -50,8 +50,16 @@ share.loadFixtures = ->
         "when": now
       }}})
 
-  buildings = buildingsFixtures or {}
-  insertData(buildings, Buildings)
+  insertData(buildingsFixtures, Buildings)
+
+  if BuildingImages.find().count() is 0
+    for buildingId, images of buildingImagesFixtures
+      building = Buildings.findOne(buildingId)
+      if building
+        for dataURI in images
+          cl "inserting file for building " + building._id
+          file = BuildingImages.insert(dataURI)
+          Buildings.update(_id: building._id, {$addToSet: {images: file}})
 
   userList =
     testUserList:

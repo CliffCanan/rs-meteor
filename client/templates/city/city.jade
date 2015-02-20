@@ -9,7 +9,8 @@ template(name="city")
           li.col-lg-4.col-md-6.col-sm-6.col-xs-12
             .main-city-item
               a.main-city-img-link(href="{{pathFor route='building'}}")
-                img(src="{{randomImage}}")
+                with mainImage
+                  img(src="{{url store='thumbs'}}")
               .main-city-item-wrap
                 h2.main-city-item-title
                   a.main-city-item-link(href="{{pathFor route='building'}}") {{name}}
