@@ -19,11 +19,11 @@ share.loadFixtures = ->
     FirstAdmin:
       profile:
         name: "First Admin"
-        role: "admin"
+        role: "agent"
     SecondAdmin:
       profile:
         name: "Second Admin"
-        role: "admin"
+        role: "agent"
     Tatiana:
       name: "Tatiana"
       role: "customer"
