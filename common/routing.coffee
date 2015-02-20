@@ -18,6 +18,17 @@ Router.map ->
     name: "checkAvailability"
   @route "/login",
     name: "login"
+  @route "/userlist/:userListId",
+    name: "userlist"
+    subscriptions: ->
+      subs.subscribe("userListBuildings", @params.userListId)
+    data: ->
+      userList = UserLists.findOne({_id: @params.userListId})
+      return _.defaults({}, @params,
+        userList: userList
+      )
+    onBeforeAction: ->
+      @next()
   @route "/:cityId",
     name: "city"
     fastRender: true

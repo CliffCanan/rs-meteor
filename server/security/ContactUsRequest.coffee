@@ -16,6 +16,9 @@ ContactUsRequests.allow
       no: Boolean
       notSure: Boolean
       question: String
+      userListId: String
+      agentName: String
+      agentId: String
       updatedAt: Date
       createdAt: Date
     )

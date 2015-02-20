@@ -1,0 +1,64 @@
+template(name="userlist")
+  .row
+    .container-fluid
+      .col-xs-12
+        if agent
+          .col-xs-5
+            strong.user-greating Hello, {{agentName}}! Here are recomended properties for {{customerName}}.
+          .col-xs-1
+            button.btn.btn-success.add-building Add building
+          .col-xs-1
+            button.btn.btn-success.add-unit(disabled="disabled") Add units
+          if noCity
+            | ""
+        else
+          .col-xs-5
+            strong.user-greating Hello, {{customerName}}! Here are your recomended properties.
+  each buildings
+    .container-fluid
+      .row
+        .col-xs-12
+          .panel.panel-default
+            .panel-body
+              .row
+                .col-xs-1
+                  button.close
+                    span.fa.fa-arrows-alt(aria-hidden='true')
+                .col-xs-1
+                  img(src="/images/search-img3.jpg" height="50px" width="75px")
+                .col-xs-2
+                  .row
+                    label {{name}}
+                  .row
+                    i.fa.fa-building-o
+                    // TODO: There is could be 'price' field in property and priceFrom will be empty
+                    small(style="color:#FFA812;") {{priceFrom}}
+
+                    small | {{bedrooms}}
+                    i.fa.fa-question-circle(style="color:#337ab7;")
+                  .row
+                    button.btn.btn-primary View building
+                .col-xs-4
+                  .row
+                    i.fa.fa-check Pets allowed
+                    i.fa.fa-check 1 Bedroom
+                    i.fa.fa-check Available {{availableAt}}
+                  .row
+                    i.fa.fa-check Parking included
+                    i.fa.fa-check Doorman
+                    i.fa.fa-minus-circle(style="color:#5D8AA8;") No Fitness Center {{fitnessCenter.value}}
+                  .row
+                    i.fa.fa-minus-circle(style="color:#5D8AA8;") No Smoking
+                    i.fa.fa-minus-circle(style="color:#5D8AA8;") No Onsite Laudry
+                .col-xs-1
+                  .row
+                    button.close.favourite-property(type='button', aria-label='Favourite' id="{{_id}}")
+                      span.fa.fa-heart(aria-hidden='true' style="color:#FFA812;")
+                  .row
+                    button.close.remove-property(type='button', aria-label='Remove' id="{{_id}}")
+                      span(aria-hidden='true') ×
+  .city-side-bar.pull-right.clearfix
+    .map
+
+  +chooseCity
+  +addBuilding

@@ -19,9 +19,15 @@ share.loadFixtures = ->
     FirstAdmin:
       profile:
         name: "First Admin"
+        role: "agent"
     SecondAdmin:
       profile:
         name: "Second Admin"
+        role: "agent"
+    Tatiana:
+      name: "Tatiana"
+      role: "customer"
+      autoSaved: true
   for _id, user of users
     _.defaults(user,
       username: _id
@@ -54,3 +60,15 @@ share.loadFixtures = ->
           cl "inserting file for building " + building._id
           file = BuildingImages.insert(dataURI)
           Buildings.update(_id: building._id, {$addToSet: {images: file}})
+
+  userList =
+    testUserList:
+      customerId: "Tatiana"
+      customerName: "Tatiana"
+      buildingsIds: [
+        "2401",
+        "2403",
+        "2404",
+        "2406"
+      ]
+  usersInserted = insertData(userList, UserLists)

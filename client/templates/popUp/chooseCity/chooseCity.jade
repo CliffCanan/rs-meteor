@@ -1,0 +1,21 @@
+template(name="chooseCity")
+  #chooseCityPopup.modal.fade(tabindex='-1', role='dialog',data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        form
+          .modal-header
+            h4#myModalLabel.modal-title Please, choose city first
+          .modal-body
+            .form-group
+              select.form-control(name="city")
+                option(value="") Choose city
+                option(value="atlanta") Atlanta, GA
+                option(value="boston") Boston, MA
+                option(value="chicago") Chicago, IL
+                option(value="los-angeles") Los Angeles, CA
+                option(value="philadelphia") Philadelphia, PA
+                option(value="stamford") Stamford, CT
+                option(value="washington-dc") Washington, DC
+          .modal-footer
+            .form-group
+              button.btn.btn-primary.save-button Save

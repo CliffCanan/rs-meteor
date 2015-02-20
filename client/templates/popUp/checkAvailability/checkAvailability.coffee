@@ -43,7 +43,6 @@ Template.checkAvailability.rendered = ->
             form.data('formValidation').resetForm()
             $('#messageSentPopup').modal('show')
       )
-
   )
 
 
