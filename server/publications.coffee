@@ -39,7 +39,9 @@ Meteor.publish "allBuildings", ->
 Meteor.publish "userListBuildings", (userListId)->
   check(userListId, Match.Any)
   userList = UserLists.findOne({_id:userListId})
-  Buildings.find({_id: {$in: userList.buildingsIds}})
+  if userList
+    Buildings.find({_id: {$in: userList.buildingsIds}})
+
 
 Meteor.publish "CheckAvailabilityRequests", ->
   unless @userId
