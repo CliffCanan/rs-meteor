@@ -3,17 +3,17 @@ template(name="city")
 
     +cityHeader
 
-    .main-city-list-wrap.clearfix.container-fluid.pull-left
+    .main-city-list-wrap.clearfix.container.pull-left
       ul.main-city-list.list-unstyled.row
         each buildings
           li.col-lg-4.col-md-6.col-sm-6.col-xs-12
             .main-city-item
-              a.main-city-img-link(href="{{pathFor route='building'}}")
+              a.main-city-img-link(href="{{pathFor route='building'}}", title="building")
                 with mainImage
-                  img(src="{{url store='thumbs'}}")
+                  img(src="{{url store='thumbs'}}", alt="building")
               .main-city-item-wrap
                 h2.main-city-item-title
-                  a.main-city-item-link(href="{{pathFor route='building'}}") {{name}}
+                  a.main-city-item-link(href="{{pathFor route='building'}}", title="{{name}}") {{name}}
                 span.main-city-info-btn.fa.fa-question-circle.pull-right
                 .main-city-info.clearfix
                   i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")

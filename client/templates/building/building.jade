@@ -1,8 +1,244 @@
 template(name="building")
   with building
     .content-wrapper
-      a(href="/") Home
-      | >
-      a(href="/{{cityId}}") {{cityName}}
-      | >
-      | {{name}}
+      ol.breadcrumb
+        li
+          a(href="/", title='home') Home
+        li
+          a(href="/{{cityId}}") {{cityName}}
+        li.active {{name}}
+
+      article.building-page.clearfix.row
+        aside.building-main-info.col-lg-5
+          h2.building-main-info-title
+            | Adelphia House - 1229 Chestnut Street
+          button.btn.btn-primary.building-main-info-btn.hidden-lg(type='button')
+            | Check Availability
+          .building-main-price-wrap
+            .building-main-price-opt
+              span.building-main-price
+                | {{priceFrom}}
+              span.building-main-rooms
+                | {{bedroomTypes}}
+            .building-main-price-opt
+              span.building-main-price
+                | {{priceFrom}}
+              span.building-main-rooms
+                | {{bedroomTypes}}
+            .building-main-price-opt
+              span.building-main-price
+                | {{priceFrom}}
+              span.building-main-rooms
+                | {{bedroomTypes}}
+          ul.building-main-prop-list.list-unstyled
+            li.building-main-prop
+              i.fa.fa-check
+              | Pet Allowed
+            li.building-main-prop
+              i.fa.fa-check
+              | 1 Bedroom
+            li.building-main-prop
+              i.fa.fa-minus-circle
+              | Doorman
+            li.building-main-prop
+              i.fa.fa-check
+              | Parking included
+            li.building-main-prop
+              i.fa.fa-minus-circle
+              | No smoking
+          button.btn.btn-primary.building-main-info-btn.visible-lg-block(type="button")
+            | Check Availability
+          .building-main-info-desc-wrap.visible-lg-block
+            p.building-main-info-desc
+              | Tucked between the hustle and bustle of Chestnut and Walnut Streets, The Sansom offers both access to and
+              | refuge from the fast pace of city living. The Sansom is located just northeast of Rittenhouse Square, in
+              | the heart of one of Philadelphias most vibrant neighborhoods. With ready access to some of the citys best
+              | retailers, restaurants, and employers, residents of The Sansom will like wise appreciate its location
+              | "just off the beaten path" on Sansom Street.
+            p.building-main-info-desc
+              | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community amenities.
+              | Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens, two-bedrooms, and
+              | studios. The apartments feature exceptional finishes, including granite countertops, stainless steel
+              | kitchen appliances, hardwood floors, and in-unit washer/dryers.
+            a.building-main-info-more(href="/", title="more")
+              | more
+            ul.building-share-list.list-unstyled.clearfix
+              li.building-share.pull-left
+                a.building-share-icon.fa.fa-facebook(href="/", title="facebook")
+              li.building-share.pull-left
+                a.building-share-icon.fa.fa-twitter(href="/", title="twitter")
+              li.building-share.pull-left
+                a.building-share-icon.fa.fa-paper-plane(href="/", title="share")
+              li.building-share.pull-left
+                a.building-share-icon.fa.fa-plus(href="/", title="plus")
+        .building-info-wrap.col-lg-7
+          .building-img-wrap
+            img.building-img(src="/images/building-img.jpg", alt="")
+          .building-main-info-desc-wrap.hidden-lg
+            p.building-main-info-desc
+              | Tucked between the hustle and bustle of Chestnut and Walnut Streets, The Sansom offers both access to and
+              | refuge from the fast pace of city living. The Sansom is located just northeast of Rittenhouse Square, in
+              | the heart of one of Philadelphias most vibrant neighborhoods. With ready access to some of the citys best
+              | retailers, restaurants, and employers, residents of The Sansom will like wise appreciate its location
+              | "just off the beaten path" on Sansom Street.
+            p.building-main-info-desc
+              | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community amenities.
+              | Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens, two-bedrooms, and
+              | studios. The apartments feature exceptional finishes, including granite countertops, stainless steel
+              | kitchen appliances, hardwood floors, and in-unit washer/dryers.
+            a.building-main-info-more(href="/", title="more")
+              | more
+            ul.building-share-list.list-unstyled.clearfix.hidden-lg
+              li.building-share.pull-left
+                a.building-share-icon.fa.fa-facebook(href="/", title="facebook")
+              li.building-share.pull-left
+                a.building-share-icon.fa.fa-twitter(href="/", title="twitter")
+              li.building-share.pull-left
+                a.building-share-icon.fa.fa-paper-plane(href="/", title="share")
+              li.building-share.pull-left
+                a.building-share-icon.fa.fa-plus(href="/", title="plus")
+          section.building-info-section
+            h2.building-info-title
+              i.fa.fa-key
+              | 10 Available Units
+            p.building-info-desc
+              | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
+              | mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum
+              | id ligula porta felis euismod semper.
+            .building-unit-list-wrap
+              ul.building-unit-list.list-unstyled.row
+                li.building-unit-item-wrap.col-lg-6.col-xs-10
+                  .building-unit-item
+                    img.pull-left(src="/images/unit-img.jpg", alt="")
+                    .building-unit-info.clearfix
+                      h3.building-unit-info-title
+                        | Unit 238, 300 sq feet
+                      .building-unit-info-price
+                        i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
+                        span.unit-price
+                          | {{priceFrom}}
+                        span.unit-type
+                          | {{bedroomTypes}}
+                      button.building-unit-btn.btn.btn-default(type="button")
+                        | Check Availability
+                      button.building-unit-btn.btn.btn-default(type="button")
+                        | Full Listing
+                    ul.building-unit-prop-list.list-unstyled
+                      li.building-unit-prop
+                        i.fa.fa-check
+                        | Earliest move-in: May 14
+                      li.building-unit-prop
+                        i.fa.fa-check
+                        | 2 baths
+                li.building-unit-item-wrap.col-lg-6.col-xs-10
+                  .building-unit-item
+                    img.pull-left(src="/images/unit-img.jpg")
+                    .building-unit-info.clearfix
+                      h3.building-unit-info-title
+                        | Unit 238, 300 sq feet
+                      .building-unit-info-price
+                        span.unit-price
+                          | {{priceFrom}}
+                        span.unit-type
+                          | {{bedroomTypes}}
+                      button.building-unit-btn.btn.btn-default(type="button")
+                        | Check Availability
+                      button.building-unit-btn.btn.btn-default(type="button")
+                        | Full Listing
+                    ul.building-unit-prop-list.list-unstyled
+                      li.building-unit-prop
+                        i.fa.fa-check
+                        | Earliest move-in: May 14
+                      li.building-unit-prop
+                        i.fa.fa-check
+                        | 2 baths
+              a.building-unit-item-more(href="/", title="more")
+                | View all 10 Units
+          section.building-info-section
+            h2.building-info-title
+              i.fa.fa-check
+              | Additional Features
+            ul.building-features-list.list-unstyled.row
+              li.building-features.col-md-4
+                | Deck
+              li.building-features.col-md-4
+                | Yoga
+              li.building-features.col-md-4
+                | Lobby
+              li.building-features.col-md-4
+                | Pool
+          section.building-info-section
+            h2.building-info-title
+              i.fa.fa-star
+              | User reviews
+            .building-reviews-wrap.row
+              .building-review-wrap.col-lg-6.col-xs-10
+                .building-review
+                  .building-reviewer.pull-left
+                    span.building-reviewer-name
+                      | Mark Wilmotts
+                    time
+                      | 07/23/2014
+                  span.rating-box.pull-right
+                    i.fa.fa-star
+                    | 8/10
+                  h3.building-reviewer-title
+                    | The place is a blest!
+                  p.building-reviewer-desc
+                    | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community
+                    | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
+                    | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
+                    | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
+                  a.building-reviewer-more(href="/", title="more")
+                    | View more
+              .building-review-wrap.col-lg-6.col-xs-10
+                .building-review
+                  .building-reviewer.pull-left
+                    span.building-reviewer-name
+                      | Mark Wilmotts
+                    time
+                      | 07/23/2014
+                  span.rating-box.pull-right
+                    i.fa.fa-star
+                    | 8/10
+                  h3.building-reviewer-title
+                    | The place is a blest!
+                  p.building-reviewer-desc
+                    | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community
+                    | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
+                    | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
+                    | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
+                  a.building-reviewer-more(href="/", title="more")
+                    | View more
+        footer.clearfix
+          h3.building-page-footer
+            | Similar Properties
+          ul.building-page-similar.list-unstyled.row
+            li.building-page-similar-item.col-lg-3.col-xs-10.col-md-4.col-sm-6
+              img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+              .building-page-similar-info.clearfix
+                span.building-page-similar-desc
+                  | {{bedroomTypes}}
+                span.building-page-similar-price
+                  | {{priceFrom}}
+            li.building-page-similar-item.col-lg-3.col-xs-10.col-md-4.col-sm-6
+              img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+              .building-page-similar-info.clearfix
+                span.building-page-similar-desc
+                  | {{bedroomTypes}}
+                span.building-page-similar-price
+                  | {{priceFrom}}
+            li.building-page-similar-item.col-lg-3.col-xs-10.col-md-4.col-sm-6
+              img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+              .building-page-similar-info.clearfix
+                span.building-page-similar-desc
+                  | {{bedroomTypes}}
+                span.building-page-similar-price
+                  | {{priceFrom}}
+            li.building-page-similar-item.col-lg-3.col-xs-10.col-md-4.col-sm-6
+              img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+              .building-page-similar-info.clearfix
+                span.building-page-similar-desc
+                  | {{bedroomTypes}}
+                span.building-page-similar-price
+                  | {{priceFrom}}
