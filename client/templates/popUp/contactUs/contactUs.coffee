@@ -49,6 +49,7 @@ Template.contactUs.rendered = ->
            Session.set("serverError", true)
         else
           Session.set("serverError", false)
+
           form.trigger('reset')
           form.data('formValidation').resetForm()
           $('#contactUsPopup').modal('hide')

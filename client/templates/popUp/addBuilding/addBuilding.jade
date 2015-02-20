@@ -1,0 +1,22 @@
+template(name="addBuilding")
+  #addBuildingPopup.modal.fade(tabindex='-1', role='dialog',data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        form
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#myModalLabel.modal-title Add item to the list
+          .modal-body
+            .form-group
+              input(placeholder="FilterResults")
+
+            .form-group(style="max-height: 420px; overflow-y: auto;")
+              each buildings
+                .input-group
+                  p
+                    input.add-building(type="checkbox" id="{{_id}}")
+                    label(for="{{_id}}") {{name}}
+          .modal-footer
+            .form-group
+              button.btn.btn-primary.add-button Add

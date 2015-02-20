@@ -1,0 +1,20 @@
+{
+  "servers": [
+    {
+      "host": "do.venus",
+      "username": "root",
+      "pem": "~/.ssh/id_rsa_for_mup"
+    }
+  ],
+  "setupMongo": true,
+  "setupNode": true,
+  "nodeVersion": "0.10.33",
+  "setupPhantom": false,
+  "appName": "rentscene",
+  "app": "~/workspace/rentscene",
+  "env": {
+    "ROOT_URL": "http://128.199.88.135",
+    "isMup": true
+  },
+  "deployCheckWaitTime": 30
+}

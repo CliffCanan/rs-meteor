@@ -13,6 +13,51 @@ share.Transformations.ContactUsRequest = _.partial(share.transform, ContactUsReq
   changes.updatedAt = changes.updatedAt or now
 
 ContactUsRequests.before.insert (userId, ContactUsRequest) ->
+
+
+
+  user = Meteor.users.findOne({email: ContactUsRequest.email})
+  cl "user", user
+
+  if not user
+    userId = Meteor.users.insert({
+        name: ContactUsRequest.name
+        email: ContactUsRequest.email
+        role: "customer"
+        autoSaved: true
+      }
+    , callback = (error, id) ->
+        unless error
+          return id
+    )
+  else
+    userId = user._id
+
+  userList =  UserLists.findOne({customerId: userId})
+
+  if not userList
+    userListId = UserLists.insert({
+        customerId: userId
+        customerName: ContactUsRequest.name
+        cityId: ContactUsRequest.city
+        buildingsIds: []
+      }
+    , callback = (error, id) ->
+        unless error
+          return id
+    )
+  else
+    userListId = userList._id
+    userListAgent = Meteor.users.findOne({_id: userList.agentId})
+
+  ContactUsRequest.userListId = userListId
+  if userListAgent
+    ContactUsRequest.agentName = userListAgent.profile.name
+    ContactUsRequest.agentId = userListAgent._id
+  else
+    ContactUsRequest.agentName = ""
+    ContactUsRequest.agentId = ""
+
   ContactUsRequest._id ||= Random.id()
   now = new Date()
   _.defaults(ContactUsRequest,

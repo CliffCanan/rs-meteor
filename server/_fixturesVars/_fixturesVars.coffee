@@ -1,0 +1,2 @@
+@buildingsFixtures = {}
+@buildingImagesFixtures = {}
