@@ -1,6 +1,5 @@
 Template.header.helpers
   loggedInUser: ->
-    cl Meteor.user()
     Meteor.user()
 
 Template.header.rendered = ->

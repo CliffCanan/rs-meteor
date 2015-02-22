@@ -31,6 +31,9 @@ share.loadFixtures = ->
       profile:
         name: "David Phillips"
         isRealName: true
+      emails:
+        address: "david.tj.phillips@gmail.com"
+        verified: true
       role: "super"
     Tori:
       profile:
@@ -39,17 +42,22 @@ share.loadFixtures = ->
       role: "staff"
 
   for _id, user of users
-    _.defaults(user,
-      isAliasedByMixpanel: true
-      emails: [
-        {
-          address: _id.toLowerCase() + "@rentscene.com"
-          verified: true
-        }
-      ]
-      createdAt: lastWeek
-    )
-
+    if _id is "DavidPhillips"
+      _.defaults(user,
+        isAliasedByMixpanel: true
+        createdAt: lastWeek
+      )
+    else
+      _.defaults(user,
+        isAliasedByMixpanel: true
+        emails: [
+          {
+            address: _id.toLowerCase() + "@rentscene.com"
+            verified: true
+          }
+        ]
+        createdAt: lastWeek
+      )
   usersInserted = insertData(users, Meteor.users)
   if usersInserted
     for _id, user of users

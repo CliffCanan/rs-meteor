@@ -1,5 +1,6 @@
 Template.userMenu.helpers
-#  helper: ->
+  userName: ->
+    Meteor.user().profile.name
 
 Template.userMenu.rendered = ->
 
