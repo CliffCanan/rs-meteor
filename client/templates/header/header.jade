@@ -21,4 +21,7 @@ template(name="header")
             | Live Chat
         //  should be at the end of the page
         li.navigation-item.admin-login
-          +loginButtons
+          if loggedInUser
+            +userMenu
+          else
+            +loginButtons

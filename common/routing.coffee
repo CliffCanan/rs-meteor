@@ -59,6 +59,14 @@ Router.map ->
       Meteor.loginWithToken(@params.token)
       share.autologinDetected = true
       Router.go("index")
+  @route "/admin/userspanel",
+    name: "usersPanel"
+    subscriptions: ->
+      Meteor.subscribe("allUsers")
+    data: ->
+      return null  unless users = Meteor.users.find()
+      _.extend @params,
+        users: users
   @route "/(.*)",
     name: "notFound"
 

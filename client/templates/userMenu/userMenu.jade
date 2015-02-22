@@ -1,0 +1,12 @@
+template(name="userMenu")
+  a.navigation-item-link(href="/" type='button', data-toggle='dropdown', aria-expanded='true')
+    | User
+    ul.dropdown-menu.dropdown-menu-right(role='menu', aria-labelledby='dropdownMenu1')
+      li(role='presentation')
+        a(href="/admin/usersPanel", role='menuitem', tabindex='-1')
+          i.fa.fa-fw.fa-dollar
+          | Manage users
+      li(role='presentation')
+        a.logout(href="#", role='menuitem', tabindex='-1')
+          i.fa.fa-fw.fa-power-off
+          | Logout

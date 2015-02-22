@@ -1,5 +1,4 @@
 Template._loginButtonsLoggedOutDropdown.rendered = ->
-  Accounts._loginButtonsSession.set("inSignupFlow", true)
   $a = @$("a.dropdown-toggle")
   $a.addClass("navigation-item-link")
   $a.find(".caret").remove()
@@ -18,7 +17,6 @@ Template._loginButtonsLoggedOutDropdown.rendered = ->
   @$(".col-sm-12").addClass("col-xs-12").removeClass("col-sm-12")
 
 Template._loginButtonsLoggedInDropdown.rendered = ->
-  Accounts._loginButtonsSession.set("inSignupFlow", true)
   $a = @$("a.dropdown-toggle")
   $a.addClass("navigation-item-link")
   $a.find(".caret").remove()

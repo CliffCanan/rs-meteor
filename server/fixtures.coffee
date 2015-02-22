@@ -16,21 +16,30 @@ share.loadFixtures = ->
   lastWeek = new Date(now.getTime() - 7 * 24 * 3600 * 1000)
 
   users =
-    FirstAdmin:
+    Admin:
       profile:
-        name: "First Admin"
-        role: "agent"
-    SecondAdmin:
+        name: "Admin"
+        isRealName: true
+      role: "admin"
+    JaneSmith:
       profile:
-        name: "Second Admin"
-        role: "agent"
-    Tatiana:
-      name: "Tatiana"
+        name: "Jane Smith"
+        isRealName: true
       role: "customer"
       autoSaved: true
+    DavidPhillips:
+      profile:
+        name: "David Phillips"
+        isRealName: true
+      role: "super"
+    Tori:
+      profile:
+        name: "Tori"
+        isRealName: true
+      role: "staff"
+
   for _id, user of users
     _.defaults(user,
-      username: _id
       isAliasedByMixpanel: true
       emails: [
         {
@@ -63,8 +72,8 @@ share.loadFixtures = ->
 
   userList =
     testUserList:
-      customerId: "Tatiana"
-      customerName: "Tatiana"
+      customerId: "JaneSmith"
+      customerName: "Jane Smith"
       buildingsIds: [
         "2401",
         "2403",

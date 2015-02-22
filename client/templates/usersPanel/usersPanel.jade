@@ -1,0 +1,32 @@
+template(name="usersPanel")
+  if isAdmin
+    .stats.container
+      .row
+        .col-xs-12
+          .panel.panel-default.panel-top
+            .panel-heading
+              h4 Users
+            .panel-body
+              table.table.table-striped
+                thead
+                  tr
+                    th Name
+                    th Email
+                    th Role
+                    th Created At
+                tbody
+                  each users
+                    tr(data-id="{{_id}}")
+                      td
+                        | {{profile.name}}
+                      td
+                        | {{emails.email}}
+                      td
+                        select.form-control(name="roles" disabled=isStaff)
+                          option(value="customer" selected="{{condition role 'is' 'customer'}}") Customer
+                          option(value="staff" selected="{{condition role 'is' 'staff'}}") Staff
+                          option(value="admin" selected="{{condition role 'is' 'admin'}}") Admin
+                          option(value="superAdmin" selected="{{condition role 'is' 'super'}}" disabled=isntSuperAdmin) Super Admin
+                      td {{createdAt}}
+  else
+    h4 Sorry, you don't have permissions
