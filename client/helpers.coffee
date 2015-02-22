@@ -80,3 +80,6 @@ Template.registerHelper "isEmpty", (object, hash) ->
 
 Template.registerHelper "cities", ->
   citiesArray
+
+Template.registerHelper "btypes", ->
+  btypesArray

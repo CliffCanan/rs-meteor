@@ -1,0 +1,229 @@
+.content-wrapper
+  max-width 1280px
+  height 100%
+  .breadcrumb
+    padding 10px 0
+    background #fff
+    & > li
+        &.active
+          color #272b30
+        & + li
+          &:before
+            padding 0 15px
+            color #272b30
+            content ">"
+        a
+          color #4588fa
+
+  .building-page
+    max-width 1280px
+    .building-main-info
+      @media screen and (min-width: 1200px)
+        float right
+      padding 0 20px
+      box-sizing border-box
+      .building-main-info-title
+        font-family 'Montserrat', Helvetica, sans-serif
+        font-size 26px
+        font-weight bold
+        margin 0 20px 0 0
+        padding 0 0 20px
+        color #272b30
+        float left
+        width 300px
+        @media screen and (min-width: 1200px)
+          width 100%
+          float none
+          margin 0
+      .building-main-price-wrap
+        clear both
+        max-width 290px
+        margin 20px 0
+        border 1px solid #999
+        border-radius 3px
+        padding 10px
+        box-sizing border-box
+        .building-main-price-opt
+          font-family 'Montserrat', Helvetica, sans-serif
+          font-size 18px
+          font-weight bold
+          border-bottom 1px solid #999
+          padding 20px
+          &:last-child
+            border 0 none
+        .building-main-price
+          color #cc9900
+          padding 0 20px 0 0
+          display inline-block
+          vertical-align middle
+        .building-main-rooms
+          border-left 1px solid #c7c7c7
+          color #272b30
+          padding 0 0 0 20px
+          display inline-block
+          vertical-align middle
+      .building-main-prop-list
+        .building-main-prop
+          color #272b30
+          font-size 16px
+          padding 15px 0
+          .fa
+            padding 0 10px 0
+      .building-main-info-btn
+        background-color #4588fa
+        @media screen and (min-width: 1200px)
+          width 300px
+        font-weight bold
+        &:hover
+          background-color #337ab7
+
+.building-main-info-desc-wrap
+  .building-main-info-desc
+    padding 25px 0 0
+    font-size 16px
+
+  .building-share-list
+    margin 20px 0
+    .building-share
+      padding 0 10px 0 0
+      .building-share-icon
+        display inline-block
+        border-radius 50%
+        color #fff
+        &.fa-facebook
+          background-color #3b5b9d
+          padding 5px 8px
+        &.fa-twitter
+          background-color #2aa9e2
+          padding 5px 6px
+        &.fa-paper-plane
+          background-color #339900
+          padding 5px
+        &.fa-plus
+          background-color #666
+          padding 5px 7px
+        &:hover
+          text-decoration none
+          opacity 0.7
+
+.building-info-wrap
+  @media screen and (min-width: 1200px)
+    float left
+
+  .building-img-wrap
+    max-width 800px
+    .building-img
+      width 100%
+
+  .building-info-title
+    background-color #ebebeb
+    padding 10px 20px
+    margin-bottom 15px
+    font-family 'Montserrat', Helvetica, sans-serif
+    font-size 12px
+    font-weight bold
+    .fa
+      padding 0 10px 0 0
+
+  .building-unit-item
+    border 1px solid #999
+    border-radius 3px
+    padding 1rem
+    margin 0 0 15px
+    .building-unit-info
+      padding 0 0 0 15px
+      overflow hidden
+      .building-unit-info-title
+        font-family 'Montserrat', Helvetica, sans-serif
+        font-size 16px
+        color #272b30
+        display inline-block
+        margin 0
+        padding 0 0 5px
+      .building-unit-info-price
+        font-family 'Montserrat', Helvetica, sans-serif
+        margin 0 0 5px
+        .unit-price
+          font-size 18px
+          color #cc9900
+          padding 0 10px 0 0
+          display inline-block
+          vertical-align middle
+        .unit-type
+          border-left 1px solid #c7c7c7
+          font-size 16px
+          color #272b30
+          padding 0 0 0 10px
+          display inline-block
+          vertical-align middle
+
+      .building-unit-btn
+        color #4588fa
+
+    .building-unit-prop-list
+      clear both
+      padding 10px 0 0
+      .building-unit-prop
+        display inline-block
+        padding 0 10px 0 0
+        line-height 30px
+
+  .building-features
+    font-size 16px
+    color #272b30
+
+  .building-review
+    border 1px solid #999
+    border-radius 3px
+    padding 1rem
+    margin 0 0 1rem
+
+    .building-reviewer
+      .building-reviewer-name
+        font-size 13px
+        font-family 'Montserrat', Helvetica, sans-serif
+        display block
+      time
+        font-size 12px
+
+    .rating-box
+      font-family 'Montserrat', Helvetica, sans-serif
+      font-size 20px
+      color #272b30
+      i
+        color #cc9900
+
+    .building-reviewer-title
+      clear both
+      font-family 'Montserrat', Helvetica, sans-serif
+      font-size 20px
+      font-weight bold
+      color #272b30
+      padding 10px 0 0
+
+    .building-reviewer-desc
+      font-size 16px
+
+footer
+  clear both
+  .building-page-similar-item
+    padding-left 0
+    .building-page-similar-img
+      max-width 250px
+    .building-page-similar-info
+      font-family 'Montserrat', Helvetica, sans-serif
+      padding 10px 0
+      .building-page-similar-price
+        font-size 18px
+        color #cc9900
+        padding 0 0 0 10px
+        display inline-block
+        vertical-align middle
+
+      .building-page-similar-desc
+        padding 0 10px 0 0
+        font-size 16px
+        color #272b30
+        font-weight bold
+        display inline-block
+        vertical-align middle

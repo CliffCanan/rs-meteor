@@ -13,8 +13,7 @@
   "appName": "rentscene",
   "app": "~/workspace/rentscene",
   "env": {
-    "ROOT_URL": "http://128.199.88.135",
-    "isMup": true
+    "ROOT_URL": "http://128.199.88.135"
   },
   "deployCheckWaitTime": 30
 }
