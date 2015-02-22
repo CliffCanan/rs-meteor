@@ -1,44 +1,34 @@
 template(name="checkAvailability")
   +messageSent
-  button.btn.btn-primary.check-availability Check Availability
-  .addthis_sharing_toolbox
-
-  #checkAvailabilityPopup.modal.fade(tabindex='-1', role='dialog',data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
-    .modal-dialog
-      .modal-content
-        form
-          .modal-header
-            button.close(type='button', data-dismiss='modal', aria-label='Close')
-              span(aria-hidden='true') ×
-            h4#myModalLabel.modal-title Check Availability
-          .modal-body
-            .form-group
-              | We gladly help you to check <i>here will be property name</i> for availability. Please enter your contact details and our agent will write to you asap.
-            .form-group
-              input.form-control(name="name" placeholder="Name")
-            .form-group
-              input.form-control(name="email" placeholder="Email address")
-            .form-group
-              textarea.form-control(name="question" placeholder="Question")
-            .form-group
-              label MOVE-IN DATE
-              +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="mm/dd/yyyy" class="moveInData-moveInDate-editor" name="moveInDate")
-          .modal-footer
-            .form-group.has-warning
-              select.form-control(name="city")
-                option(value="") Choose city
-                option(value="atlanta") Atlanta, GA
-                option(value="boston") Boston, MA
-                option(value="chicago") Chicago, IL
-                option(value="los-angeles") Los Angeles, CA
-                option(value="philadelphia") Philadelphia, PA
-                option(value="stamford") Stamford, CT
-                option(value="washington-dc") Washington, DC
-            if serverError
+  //button.btn.btn-primary.check-availability Check Availability
+  //.addthis_sharing_toolbox
+  with building
+    #checkAvailabilityPopup.modal.fade(tabindex='-1', role='dialog',data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
+      .modal-dialog
+        .modal-content
+          form
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+              h4#myModalLabel.modal-title Check Availability
+            .modal-body
               .form-group
-                .alert.alert-danger(role="alert")
-                  strong Sorry! Server error occured! We probably already fixing it:)
-            .form-group
-              button.btn.btn-primary(type="submit") Submit
-              //button.btn.btn-default.cancel-button Cancel
+                | We gladly help you to check <i>here will be property name</i> for availability. Please enter your contact details and our agent will write to you asap.
+              .form-group
+                input.form-control(name="name" placeholder="Name")
+              .form-group
+                input.form-control(name="email" placeholder="Email address")
+              .form-group
+                textarea.form-control(name="question" placeholder="Question")
+              .form-group
+                label MOVE-IN DATE
+                +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="mm/dd/yyyy" class="moveInData-moveInDate-editor" name="moveInDate")
+            .modal-footer
+              if serverError
+                .form-group
+                  .alert.alert-danger(role="alert")
+                    strong Sorry! Server error occured! We probably already fixing it:)
+              .form-group
+                button.btn.btn-primary(type="submit") Submit
+                //button.btn.btn-default.cancel-button Cancel
 

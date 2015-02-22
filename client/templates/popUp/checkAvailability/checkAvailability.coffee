@@ -4,6 +4,7 @@ Template.checkAvailability.helpers
 
 Template.checkAvailability.rendered = ->
   form = @$("form")
+  building = @.data.building
   form.formValidation(
     framework: 'bootstrap'
     live: 'disabled'
@@ -33,7 +34,11 @@ Template.checkAvailability.rendered = ->
   ).on("success.form.fv", grab encapsulate (event) ->
       $('#checkAvailabilityPopup').modal('hide')
       json = form.serializeFormJSON()
-      json.property = "Property Name"
+      json.cityName = building.city
+      json.cityId = building.cityId
+      json.buildingName = building.name
+      json.buildingId = building._id
+      json.link = building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
       CheckAvailabilityRequests.insert(json, callback = (error, id) ->
           if error
             Session.set("serverError", true)
@@ -45,9 +50,6 @@ Template.checkAvailability.rendered = ->
       )
   )
 
-
 Template.checkAvailability.events
-  "click .check-availability": grab encapsulate (event, template) ->
-    $('#checkAvailabilityPopup').modal('show')
   "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'moveInDate'

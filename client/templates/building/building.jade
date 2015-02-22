@@ -1,4 +1,5 @@
 template(name="building")
+  +checkAvailability(building=building)
   with building
     .content-wrapper
       ol.breadcrumb
@@ -46,7 +47,7 @@ template(name="building")
             li.building-main-prop
               i.fa.fa-minus-circle
               | No smoking
-          button.btn.btn-primary.building-main-info-btn.visible-lg-block(type="button")
+          button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
             | Check Availability
           .building-main-info-desc-wrap.visible-lg-block
             p.building-main-info-desc
@@ -242,3 +243,5 @@ template(name="building")
                   | {{bedroomTypes}}
                 span.building-page-similar-price
                   | {{priceFrom}}
+
+
