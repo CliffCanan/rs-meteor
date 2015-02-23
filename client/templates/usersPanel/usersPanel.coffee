@@ -11,4 +11,5 @@ Template.usersPanel.helpers
 Template.usersPanel.rendered = ->
 
 Template.usersPanel.events
-#  "click .selector": (event, template) ->
+  "change .user-role": (event, template) ->
+    Meteor.users.update({_id: @._id}, {$set : {role: event.currentTarget.value}})
