@@ -42,9 +42,7 @@ Template.userlist.helpers
             if building.bedrooms.length > 0
               building.bedrooms += ", "
             building.bedrooms += "4"
-
           if building.bedrooms.length > 0 and building.bedrooms isnt "Studio"
-
             building.bedrooms += " Bedrooms"
     buildingsFound
 
