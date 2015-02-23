@@ -9,17 +9,17 @@ template(name="checkAvailability")
           form.availability-form
             .modal-header
               button.close(type='button', data-dismiss='modal', aria-label='Close')
-                span(aria-hidden='true') ×
+                i.fa.fa-times(aria-hidden='true')
               h4#myModalLabel.modal-title Check Availability
             .modal-body
-              fieldset.form-group.availability-field
+              p.form-group.availability-field
                 | We gladly help you to check <i>here will be property name</i> for availability. Please enter your contact details and our agent will write to you asap.
               fieldset.form-group.availability-field
                 input.form-control(name="name" placeholder="Name")
               fieldset.form-group.availability-field
                 input.form-control(name="email" placeholder="Email address")
               fieldset.form-group.availability-field
-                textarea.form-control(name="question" placeholder="Question")
+                textarea.form-control(name="question" placeholder="Question", rows="4")
               fieldset.form-inline.availability-field
                 .form-group
                   label.availability-text(for="datetimeForm")

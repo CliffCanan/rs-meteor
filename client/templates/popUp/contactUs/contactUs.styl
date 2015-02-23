@@ -1,70 +1,80 @@
 .modal-dialog
   max-width 425px
-  .modal-header
-    border 0 none
-    font-family 'Montserrat', Helvetica, sans-serif
-    font-size 18px
-    color #272b30
-    padding 3rem 3rem 0
-    box-sizing border-box
-    .close
-      opacity 1
-      i
-        color #272b30
-    .modal-title
-      max-width 260px
-
-  .modal-body
-    padding 3rem 3rem 0
-    box-sizing border-box
-    .contact-us-field
-      margin-bottom 2rem
+  .contact-us-form
+    padding 20px
+    .modal-header
+      border 0 none
       font-family 'Montserrat', Helvetica, sans-serif
-      font-size 14px
+      font-size 18px
       color #272b30
-      .form-group
+      box-sizing border-box
+      padding 0 0 20px
+      .close
+        opacity 1
+        i
+          color #272b30
+      .modal-title
+        max-width 260px
 
-      .radio-inline
-        .css-checkbox
-          position absolute
-          z-index -1000
-          left -1000px
-          overflow hidden
-          clip rect(0 0 0 0)
-          height 1px
-          width 1px
-          margin -1px
-          padding 0
-          border 0
-          & + label
-            &.css-label
-              padding-left 20px
-              height 15px
-              display inline-block
-              line-height 15px
-              background-repeat no-repeat
-              background-position 0 0
-              font-size 14px
-              vertical-align middle
-              cursor pointer
-          &:checked
+    .modal-body
+      box-sizing border-box
+      padding 0
+      .contact-us-field
+        margin-bottom 20px
+        font-family 'Montserrat', Helvetica, sans-serif
+        font-size 14px
+        color #272b30
+        &.row
+          margin-bottom 0
+        .form-control
+          &::-webkit-input-placeholder
+            color #272b30
+        .form-group
+          .form-control
+            color #272b30
+            &::-webkit-input-placeholder
+              color #272b30
+        .radio-inline
+          .css-checkbox
+            position absolute
+            z-index -1000
+            left -1000px
+            overflow hidden
+            clip rect(0 0 0 0)
+            height 1px
+            width 1px
+            margin -1px
+            padding 0
+            border 0
             & + label
               &.css-label
-                background-position 0 -15px
+                padding-left 20px
+                height 15px
+                display inline-block
+                line-height 15px
+                background-repeat no-repeat
+                background-position 0 0
+                font-size 14px
+                vertical-align middle
+                cursor pointer
+            &:checked
+              & + label
+                &.css-label
+                  background-position 0 -15px
 
-        label
-          &.css-label
-            background-image url(http://csscheckbox.com/checkboxes/u/csscheckbox_d9b7f2885e3d68982a32bc3f2d9e48e2.png)
-            -webkit-touch-callout none
-            -webkit-user-select none
-            -khtml-user-select none
-            -moz-user-select none
-            -ms-user-select none
-            user-select none
+          label
+            &.css-label
+              background-image url(http://csscheckbox.com/checkboxes/u/csscheckbox_d9b7f2885e3d68982a32bc3f2d9e48e2.png)
+              -webkit-touch-callout none
+              -webkit-user-select none
+              -khtml-user-select none
+              -moz-user-select none
+              -ms-user-select none
+              user-select none
 
-  .modal-footer
-    border 0 none
-    padding 0 3rem 3rem
-    .form-group
-      .btn
-        background-color #4588fa
+    .modal-footer
+      border 0 none
+      padding 0
+      .form-group
+        .btn
+          background-color #4588fa
