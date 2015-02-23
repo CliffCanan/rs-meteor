@@ -18,7 +18,7 @@ template(name="contactUs")
             fieldset.row.contact-us-field
               .form-group.col-lg-6
                 select.form-control(name="bedrooms")
-                  option(value="") Nr.bedrooms
+                  option(value="") Nr. bedrooms
                   option(value="studio") Studio
                   option(value="1") 1 bedroom
                   option(value="2") 2 bedroom
@@ -48,7 +48,7 @@ template(name="contactUs")
               .form-group.col-lg-6
                 +datepicker(id="contactUsMoveInDate" placeholder="Move in date" class="move-in-data" name="contactUsMoveInDate")
             fieldset.form-group.contact-us-field
-              textarea.form-control(name="question" placeholder="Question/Comments")
+              textarea.form-control(name="question" placeholder="Question/Comments", rows="4")
           .modal-footer
             //.form-group.has-warning
             //  select.form-control(name="city")
