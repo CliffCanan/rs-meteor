@@ -3,4 +3,4 @@
 DIRNAME=$(cd `dirname $0` && pwd)
 
 mup deploy
-mup logs -n 100
+$DIRNAME/logs
