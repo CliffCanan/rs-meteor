@@ -6,29 +6,31 @@ template(name="checkAvailability")
     #checkAvailabilityPopup.modal.fade(tabindex='-1', role='dialog',data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
       .modal-dialog
         .modal-content
-          form
+          form.availability-form
             .modal-header
               button.close(type='button', data-dismiss='modal', aria-label='Close')
                 span(aria-hidden='true') ×
               h4#myModalLabel.modal-title Check Availability
             .modal-body
-              .form-group
+              fieldset.form-group.availability-field
                 | We gladly help you to check <i>here will be property name</i> for availability. Please enter your contact details and our agent will write to you asap.
-              .form-group
+              fieldset.form-group.availability-field
                 input.form-control(name="name" placeholder="Name")
-              .form-group
+              fieldset.form-group.availability-field
                 input.form-control(name="email" placeholder="Email address")
-              .form-group
+              fieldset.form-group.availability-field
                 textarea.form-control(name="question" placeholder="Question")
-              .form-group
-                label MOVE-IN DATE
-                +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="mm/dd/yyyy" class="moveInData-moveInDate-editor" name="moveInDate")
+              fieldset.form-inline.availability-field
+                .form-group
+                  label.availability-text(for="datetimeForm")
+                    | MOVE-IN DATE
+                  +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="mm/dd/yyyy" class="moveInData-moveInDate-editor" name="moveInDate")
             .modal-footer
               if serverError
                 .form-group
                   .alert.alert-danger(role="alert")
                     strong Sorry! Server error occured! We probably already fixing it:)
-              .form-group
+              fieldset.form-group.availability-field.clearfix
                 button.btn.btn-primary(type="submit") Submit
                 //button.btn.btn-default.cancel-button Cancel
 

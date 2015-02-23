@@ -3,20 +3,20 @@ template(name="contactUs")
   #contactUsPopup.modal.fade(tabindex='-1', role='dialog', data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
-        form
+        form.contact-us-form
           .modal-header
             button.close(type='button', data-dismiss='modal', aria-label='Close')
-              span(aria-hidden='true') ×
+              i.fa.fa-times(aria-hidden='true')
             h4#myModalLabel.modal-title Let us start your apartment search today!
           .modal-body
-            .form-group
+            p.form-group
               | Dealing with brokers on Craigslist can be frustrating and time consuming. We'll save your time by organizing all your tours, and we will give you unbiased advice.
-            .form-group
+            fieldset.form-group.contact-us-field
               input.form-control(name="name" placeholder="Full name")
-            .form-group
+            fieldset.form-group.contact-us-field
               input.form-control(name="email" placeholder="Email address")
-            .form-inline
-              .form-group
+            fieldset.row.contact-us-field
+              .form-group.col-lg-6
                 select.form-control(name="bedrooms")
                   option(value="") Nr.bedrooms
                   option(value="studio") Studio
@@ -24,39 +24,42 @@ template(name="contactUs")
                   option(value="2") 2 bedroom
                   option(value="3") 3 bedroom
                   option(value="4") 4 bedroom
-              .form-group
+              .form-group.col-lg-6
                 input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
-            .form-group
+            fieldset.form-group.contact-us-field
               label Are you planning a visit to city to view apartments?
-            .form-group
-              label.radio-inline
-                input#inlineRadio1(type='radio', name='tourOption', value='yes', checked)
-                | Yes
-              label.radio-inline
-                input#inlineRadio2(type='radio', name='tourOption', value='no')
-                | No
-              label.radio-inline
-                input#inlineRadio3(type='radio', name='tourOption', value='notSure')
-                | Not Sure
+            fieldset.form-group.contact-us-field
+              span.radio-inline
+                input#inlineRadio1.css-checkbox(type='radio', name='tourOption', value='yes', checked)
+                label.css-label(for="inlineRadio1")
+                  | Yes
+              span.radio-inline
+                input#inlineRadio2.css-checkbox(type='radio', name='tourOption', value='no')
+                label.css-label(for="inlineRadio2")
+                  | No
+              span.radio-inline
+                input#inlineRadio3.css-checkbox(type='radio', name='tourOption', value='notSure')
+                label.css-label(for="inlineRadio3")
+                  | Not Sure
 
-            .form-inline
-              .form-group
+            fieldset.row.contact-us-field
+              .form-group.col-lg-6
                 +datepicker(id="contactUsTourDate" placeholder="Tour date" class="tour-date" name="contactUsTourDate")
-              .form-group
-                +datepicker(id="contactUsMoveInDate" placeholder="Move-in date" class="move-in-data" name="contactUsMoveInDate")
-            .form-group
+              .form-group.col-lg-6
+                +datepicker(id="contactUsMoveInDate" placeholder="Move in date" class="move-in-data" name="contactUsMoveInDate")
+            fieldset.form-group.contact-us-field
               textarea.form-control(name="question" placeholder="Question/Comments")
           .modal-footer
-            .form-group.has-warning
-              select.form-control(name="city")
-                option(value="") Choose city
-                option(value="atlanta") Atlanta, GA
-                option(value="boston") Boston, MA
-                option(value="chicago") Chicago, IL
-                option(value="los-angeles") Los Angeles, CA
-                option(value="philadelphia") Philadelphia, PA
-                option(value="stamford") Stamford, CT
-                option(value="washington") Washington, DC
+            //.form-group.has-warning
+            //  select.form-control(name="city")
+            //    option(value="") Choose city
+            //    option(value="atlanta") Atlanta, GA
+            //    option(value="boston") Boston, MA
+            //    option(value="chicago") Chicago, IL
+            //    option(value="los-angeles") Los Angeles, CA
+            //    option(value="philadelphia") Philadelphia, PA
+            //    option(value="stamford") Stamford, CT
+            //    option(value="washington") Washington, DC
             if serverError
               .form-group
                 .alert.alert-danger(role="alert")

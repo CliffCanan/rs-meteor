@@ -81,6 +81,36 @@
   .building-main-info-desc
     padding 25px 0 0
     font-size 16px
+    margin 0
+
+  .building-main-info-desc-more
+    display none
+    &:checked
+      & ~ .building-main-info-desc
+        .building-desc-more-target
+          opacity 1
+          font-size inherit
+          max-height 999em
+      & ~ .building-main-more-trigger
+        &:before
+          content 'less'
+          color #4588fa
+          font-family 'Montserrat', Helvetica, sans-serif
+          font-size 14px
+          cursor pointer
+    & ~ .building-main-more-trigger
+      &:before
+        content 'more'
+        color #4588fa
+        font-family 'Montserrat', Helvetica, sans-serif
+        font-size 14px
+        cursor pointer
+
+  .building-desc-more-target
+    opacity 0
+    max-height 0
+    font-size 0
+    transition .25s ease
 
   .building-share-list
     margin 20px 0
@@ -159,6 +189,7 @@
 
       .building-unit-btn
         color #4588fa
+        font-size 12px
 
     .building-unit-prop-list
       clear both
@@ -202,28 +233,101 @@
       padding 10px 0 0
 
     .building-reviewer-desc
-      font-size 16px
+      font-size 16p
+
+    .building-review-more
+      display none
+      &:checked
+        & ~ .building-review-target
+          font-size inherit
+          max-height 999em
+          display block
+          opacity 1
+        & ~ .building-review-trigger
+          &:before
+            content 'View less'
+            color #4588fa
+            font-family 'Montserrat', Helvetica, sans-serif
+            font-size 14px
+            cursor pointer
+      & ~ .building-review-trigger
+        &:before
+          content 'View more'
+          color #4588fa
+          font-family 'Montserrat', Helvetica, sans-serif
+          font-size 14px
+          cursor pointer
+
+    .building-review-target
+      max-height 0
+      font-size 0
+      display none
+      opacity 0
+      transition .25s ease
+
+    .building-review-list
+      margin 15px 0
+      padding 0
+      .building-review-item
+        font-family 'Montserrat', Helvetica, sans-serif
+        font-size 14px
+        margin-bottom 10px
+        .building-review-field
+          display inline-block
+        .building-review-rate
+          font-size 16px
+          color #272b30
+          float right
+        .building-review-bar
+          background-color #ebebeb
+          padding 0
+          clear both
+          .building-review-rate-5
+            width 100%
+          .building-review-rate-4
+            width 80%
+          .building-review-rate-3
+            width 60%
+          .building-review-rate-2
+            width 40%
+          .building-review-rate-1
+            width 20%
+          .building-review-rating
+            .building-review-bar-animate
+              animation progress 2s linear
+              -moz-animation progress 2s linear
+              -webkit-animation progress 2s linear
+              -ms-animation progress 2s linear
+              -o-animation progress 2s linear
+              background-color #cc9900
+              display block
+              height 5px
 
 footer
   clear both
+  padding 0 15px
   .building-page-similar-item
     padding-left 0
-    .building-page-similar-img
-      max-width 250px
-    .building-page-similar-info
-      font-family 'Montserrat', Helvetica, sans-serif
-      padding 10px 0
-      .building-page-similar-price
-        font-size 18px
-        color #cc9900
-        padding 0 0 0 10px
-        display inline-block
-        vertical-align middle
+    .building-page-similar-link
+      display inline-block
+      &:hover
+        text-decoration none
+      .building-page-similar-img
+        max-width 250px
+      .building-page-similar-info
+        font-family 'Montserrat', Helvetica, sans-serif
+        padding 10px 0
+        .building-page-similar-price
+          font-size 18px
+          color #cc9900
+          padding 0 0 0 10px
+          display inline-block
+          vertical-align middle
 
-      .building-page-similar-desc
-        padding 0 10px 0 0
-        font-size 16px
-        color #272b30
-        font-weight bold
-        display inline-block
-        vertical-align middle
+        .building-page-similar-desc
+          padding 0 10px 0 0
+          font-size 16px
+          color #272b30
+          font-weight bold
+          display inline-block
+          vertical-align middle

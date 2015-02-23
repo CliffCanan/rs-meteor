@@ -13,7 +13,7 @@ template(name="building")
         aside.building-main-info.col-lg-5
           h2.building-main-info-title
             | Adelphia House - 1229 Chestnut Street
-          button.btn.btn-primary.building-main-info-btn.hidden-lg(type='button')
+          button.btn.btn-primary.building-main-info-btn.hidden-lg.check-availability(type='button')
             | Check Availability
           .building-main-price-wrap
             .building-main-price-opt
@@ -50,6 +50,7 @@ template(name="building")
           button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
             | Check Availability
           .building-main-info-desc-wrap.visible-lg-block
+            input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
             p.building-main-info-desc
               | Tucked between the hustle and bustle of Chestnut and Walnut Streets, The Sansom offers both access to and
               | refuge from the fast pace of city living. The Sansom is located just northeast of Rittenhouse Square, in
@@ -59,10 +60,11 @@ template(name="building")
             p.building-main-info-desc
               | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community amenities.
               | Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens, two-bedrooms, and
-              | studios. The apartments feature exceptional finishes, including granite countertops, stainless steel
-              | kitchen appliances, hardwood floors, and in-unit washer/dryers.
-            a.building-main-info-more(href="/", title="more")
-              | more
+              | studios. The apartments feature
+              span.building-desc-more-target
+                |exceptional finishes, including granite countertops, stainless steel
+                | kitchen appliances, hardwood floors, and in-unit washer/dryers.
+            label.building-main-more-trigger(for="mainDescMoreLarge")
             ul.building-share-list.list-unstyled.clearfix
               li.building-share.pull-left
                 a.building-share-icon.fa.fa-facebook(href="/", title="facebook")
@@ -76,6 +78,7 @@ template(name="building")
           .building-img-wrap
             img.building-img(src="/images/building-img.jpg", alt="")
           .building-main-info-desc-wrap.hidden-lg
+            input#mainDescMore.building-main-info-desc-more(type="checkbox")
             p.building-main-info-desc
               | Tucked between the hustle and bustle of Chestnut and Walnut Streets, The Sansom offers both access to and
               | refuge from the fast pace of city living. The Sansom is located just northeast of Rittenhouse Square, in
@@ -85,10 +88,11 @@ template(name="building")
             p.building-main-info-desc
               | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community amenities.
               | Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens, two-bedrooms, and
-              | studios. The apartments feature exceptional finishes, including granite countertops, stainless steel
-              | kitchen appliances, hardwood floors, and in-unit washer/dryers.
-            a.building-main-info-more(href="/", title="more")
-              | more
+              | studios. The apartments feature
+              span.building-desc-more-target
+                |exceptional finishes, including granite countertops, stainless steel
+                | kitchen appliances, hardwood floors, and in-unit washer/dryers.
+            label.building-main-more-trigger(for="mainDescMore")
             ul.building-share-list.list-unstyled.clearfix.hidden-lg
               li.building-share.pull-left
                 a.building-share-icon.fa.fa-facebook(href="/", title="facebook")
@@ -175,6 +179,7 @@ template(name="building")
             .building-reviews-wrap.row
               .building-review-wrap.col-lg-6.col-xs-10
                 .building-review
+                  input#reviewMore-1.building-review-more(type="checkbox")
                   .building-reviewer.pull-left
                     span.building-reviewer-name
                       | Mark Wilmotts
@@ -190,10 +195,59 @@ template(name="building")
                     | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
                     | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
                     | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
-                  a.building-reviewer-more(href="/", title="more")
-                    | View more
+                  ul.building-review-list.building-review-target.clearfix.list-unstyled
+                    li.building-review-item.col-lg-6
+                      span.building-review-field
+                        | Noise
+                      span.building-review-rate
+                        | 5/5
+                      .building-review-bar
+                        .building-review-rate-5.building-review-rating
+                          span.building-review-bar-animate
+                    li.building-review-item.col-lg-6
+                      span.building-review-field
+                        | Maintenance
+                      span.building-review-rate
+                        | 4/5
+                      .building-review-bar
+                        .building-review-rate-4.building-review-rating
+                          span.building-review-bar-animate
+                    li.building-review-item.col-lg-6
+                      span.building-review-field
+                        | Staff
+                      span.building-review-rate
+                        | 3/5
+                      .building-review-bar
+                        .building-review-rate-3.building-review-rating
+                          span.building-review-bar-animate
+                    li.building-review-item.col-lg-6
+                      span.building-review-field
+                        | Facilities
+                      span.building-review-rate
+                        | 2/5
+                      .building-review-bar
+                        .building-review-rate-2.building-review-rating
+                          span.building-review-bar-animate
+                    li.building-review-item.col-lg-6
+                      span.building-review-field
+                        | Staff
+                      span.building-review-rate
+                        | 1/5
+                      .building-review-bar
+                        .building-review-rate-1.building-review-rating
+                          span.building-review-bar-animate
+                    li.building-review-item.col-lg-6
+                      span.building-review-field
+                        | Facilities
+                      span.building-review-rate
+                        | 5/5
+                      .building-review-bar
+                        .building-review-rate-5
+                          span.building-review-bar-animate
+                  label.building-review-trigger(for="reviewMore-1")
               .building-review-wrap.col-lg-6.col-xs-10
                 .building-review
+                  input#reviewMore-2.building-review-more(type="checkbox")
                   .building-reviewer.pull-left
                     span.building-reviewer-name
                       | Mark Wilmotts
@@ -209,39 +263,91 @@ template(name="building")
                     | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
                     | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
                     | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
-                  a.building-reviewer-more(href="/", title="more")
-                    | View more
+                  ul.building-review-list.building-review-target.clearfix.list-unstyled
+                    li.building-review-item.col-lg-6
+                      span.building-review-field
+                        | Noise
+                      span.building-review-rate
+                        | 5/5
+                      .building-review-bar
+                        .building-review-rate-5.building-review-rating
+                          span.building-review-bar-animate
+                    li.building-review-item.col-lg-6
+                      span.building-review-field
+                        | Maintenance
+                      span.building-review-rate
+                        | 4/5
+                      .building-review-bar
+                        .building-review-rate-4.building-review-rating
+                          span.building-review-bar-animate
+                    li.building-review-item.col-lg-6
+                      span.building-review-field
+                        | Staff
+                      span.building-review-rate
+                        | 3/5
+                      .building-review-bar
+                        .building-review-rate-3.building-review-rating
+                          span.building-review-bar-animate
+                    li.building-review-item.col-lg-6
+                      span.building-review-field
+                        | Facilities
+                      span.building-review-rate
+                        | 2/5
+                      .building-review-bar
+                        .building-review-rate-2.building-review-rating
+                          span.building-review-bar-animate
+                    li.building-review-item.col-lg-6
+                      span.building-review-field
+                        | Staff
+                      span.building-review-rate
+                        | 1/5
+                      .building-review-bar
+                        .building-review-rate-1.building-review-rating
+                          span.building-review-bar-animate
+                    li.building-review-item.col-lg-6
+                      span.building-review-field
+                        | Facilities
+                      span.building-review-rate
+                        | 5/5
+                      .building-review-bar
+                        .building-review-rate-5
+                          span.building-review-bar-animate
+                  label.building-review-trigger(for="reviewMore-2")
         footer.clearfix
           h3.building-page-footer
             | Similar Properties
-          ul.building-page-similar.list-unstyled.row
-            li.building-page-similar-item.col-lg-3.col-xs-10.col-md-4.col-sm-6
-              img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-              .building-page-similar-info.clearfix
-                span.building-page-similar-desc
-                  | {{bedroomTypes}}
-                span.building-page-similar-price
-                  | {{priceFrom}}
-            li.building-page-similar-item.col-lg-3.col-xs-10.col-md-4.col-sm-6
-              img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-              .building-page-similar-info.clearfix
-                span.building-page-similar-desc
-                  | {{bedroomTypes}}
-                span.building-page-similar-price
-                  | {{priceFrom}}
-            li.building-page-similar-item.col-lg-3.col-xs-10.col-md-4.col-sm-6
-              img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-              .building-page-similar-info.clearfix
-                span.building-page-similar-desc
-                  | {{bedroomTypes}}
-                span.building-page-similar-price
-                  | {{priceFrom}}
-            li.building-page-similar-item.col-lg-3.col-xs-10.col-md-4.col-sm-6
-              img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-              .building-page-similar-info.clearfix
-                span.building-page-similar-desc
-                  | {{bedroomTypes}}
-                span.building-page-similar-price
-                  | {{priceFrom}}
+          ul.building-page-similar.list-unstyled
+            li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
+              a.building-page-similar-link(href="/", title="similar")
+                img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+                .building-page-similar-info.clearfix
+                  span.building-page-similar-desc
+                    | {{bedroomTypes}}
+                  span.building-page-similar-price
+                    | {{priceFrom}}
+            li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
+              a.building-page-similar-link(href="/", title="similar")
+                img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+                .building-page-similar-info.clearfix
+                  span.building-page-similar-desc
+                    | {{bedroomTypes}}
+                  span.building-page-similar-price
+                    | {{priceFrom}}
+            li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
+              a.building-page-similar-link(href="/", title="similar")
+                img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+                .building-page-similar-info.clearfix
+                  span.building-page-similar-desc
+                    | {{bedroomTypes}}
+                  span.building-page-similar-price
+                    | {{priceFrom}}
+            li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
+              a.building-page-similar-link(href="/", title="similar")
+                img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+                .building-page-similar-info.clearfix
+                  span.building-page-similar-desc
+                    | {{bedroomTypes}}
+                  span.building-page-similar-price
+                    | {{priceFrom}}
 
 
