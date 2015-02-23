@@ -22,7 +22,7 @@ template(name="usersPanel")
                       td
                         | {{emails.email}}
                       td
-                        select.form-control(name="roles" disabled=isStaff)
+                        select.form-control.user-role(name="roles" disabled=isStaff)
                           option(value="customer" selected="{{condition role 'is' 'customer'}}") Customer
                           option(value="staff" selected="{{condition role 'is' 'staff'}}") Staff
                           option(value="admin" selected="{{condition role 'is' 'admin'}}") Admin
