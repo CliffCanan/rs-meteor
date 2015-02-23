@@ -29,7 +29,6 @@
 @cityIds = Object.keys(cities)
 
 @btypes =
-  "": "Any"
   "1bedroom": "1 bedroom"
   "2bedroom": "2 bedrooms"
   "3bedroom": "3 bedrooms"

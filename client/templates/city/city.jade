@@ -1,4 +1,7 @@
 template(name="city")
+  .city-side-bar.pull-right.clearfix
+    #gmap
+
   .city-page-wrap.row
 
     +cityHeader
@@ -21,7 +24,3 @@ template(name="city")
                     | {{priceFrom}}
                   span.main-city-desc
                     | {{bedroomTypes}}
-
-
-    .city-side-bar.pull-right.clearfix
-      .map

@@ -14,4 +14,3 @@ Template.city.helpers
     "/images/search-img3.jpg"
 
 Template.city.rendered = ->
-  $('.slider').slider()
