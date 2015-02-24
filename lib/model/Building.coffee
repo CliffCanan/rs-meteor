@@ -3,6 +3,9 @@ class Building
     _.extend(@, doc)
   cityName: ->
     cities[@cityId].short
+  mainImage: ->
+    file = @images?[0]?.getFileRecord()
+    file  if file.url
   bedroomTypes: ->
     types = []
     postfix = ""
@@ -11,9 +14,9 @@ class Building
     if @["1bedroom"]
       types.push(1)
       postfix = " Bedroom"
-    for i in [2..5]
+    for i in [1..4]
       if @[btypesIds[i]]
-        types.push(i)
+        types.push(i + 1)
         postfix = " Bedrooms"
     types.join(", ") + postfix
   priceFrom: ->

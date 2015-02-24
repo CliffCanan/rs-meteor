@@ -1,6 +1,6 @@
 .city-page-wrap
-  max-width 1280px
   height 100%
+  padding 0
 
 .main-city-list-wrap
   overflow auto
@@ -8,7 +8,6 @@
   height 100%
   width 100%
   padding 30px
-  margin-top 70px
   box-sizing border-box
   .main-city-list
     .main-city-item
@@ -20,7 +19,7 @@
       border-radius 3px
       .main-city-img-link
         display block
-        height 280px
+        max-height 280px
         overflow hidden
         img
           width 100%
@@ -34,7 +33,6 @@
         .main-city-item-title
           padding 0
           margin 10px 0
-          width 285px
           float left
           .main-city-item-link
             font-family 'Montserrat', Helvetica, sans-serif
@@ -68,12 +66,16 @@
             text-overflow ellipsis
             white-space nowrap
             overflow hidden
-            width 200px
             display inline-block
             vertical-align middle
 
 .city-side-bar
-  max-width 640px
-  width 100%
+  height 100%
+  padding 0
+  float none
+  @media screen and (min-width: 1200px)
+    float right
+  #gmap
+    height 100%
 
 
