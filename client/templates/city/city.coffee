@@ -1,6 +1,13 @@
 Template.city.helpers
   buildings: ->
-    Buildings.find({cityId: @cityId})
+    selector = {cityId: @cityId}
+    if btype = @query.btype
+      selector[btype] = {$exists: true}
+    if priceMin = @query.priceMin
+      selector.priceMin = {$gte: parseInt(priceMin)}
+    if priceMax = @query.priceMax
+      selector.priceMin = {$lte: parseInt(priceMax)}
+    Buildings.find(selector)
   randomImage: ->
 #    images = [
 #      "/images/search-img1.jpg"
@@ -28,8 +35,12 @@ Template.city.rendered = ->
   infoWindowId = null
   @autorun ->
     data = Router.current().data()
+    actualMarkerIds = []
     @template.__helpers[" buildings"].call(data).forEach (building) ->
-      unless markers[building._id]
+      actualMarkerIds.push(building._id)
+      if marker = markers[building._id]
+        marker.setMap(map)
+      else
         marker = new google.maps.Marker
           _id: building._id
           title: building.title
@@ -56,15 +67,15 @@ Template.city.rendered = ->
             google.maps.event.addListener infowindow, "closeclick", ->
               markers[infoWindowId].setIcon(defaultIcon)
 
-  #          google.maps.event.addListener infowindow, "domready", ->
-  #            jQuery("#hook").parent().parent().css("left", "0")
-  #
-  #            jQuery(".gm-style-iw").width(220).css("top", "0")
-  #            jQuery(".gm-style-iw").parent().width(220)
-  #
-  #            elements = jQuery(".gm-style-iw").parent().find("div").eq(0).children()
-  #            for element in elements
-  #              jQuery(element).width(220)
+#            google.maps.event.addListener infowindow, "domready", ->
+#              jQuery("#hook").parent().parent().css("left", "0")
+#
+#              jQuery(".gm-style-iw").width(220).css("top", "0")
+#              jQuery(".gm-style-iw").parent().width(220)
+#
+#              elements = jQuery(".gm-style-iw").parent().find("div").eq(0).children()
+#              for element in elements
+#                jQuery(element).width(220)
 
         google.maps.event.addListener marker, "mouseover", do (marker) ->->
           marker.setIcon(activeIcon)
@@ -72,3 +83,7 @@ Template.city.rendered = ->
         google.maps.event.addListener marker, "mouseout", do (marker) ->->
           if marker._id isnt infoWindowId
             marker.setIcon(defaultIcon)
+
+    for id, marker of markers
+      unless id in actualMarkerIds
+        marker.setMap(null)
