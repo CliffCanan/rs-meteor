@@ -1,5 +1,4 @@
 .content-wrapper
-  max-width 1280px
   height 100%
   .breadcrumb
     padding 10px 0
@@ -15,8 +14,16 @@
         a
           color #4588fa
 
+  .building-sidebar
+    height 100%
+    padding 0
+    float none
+    @media screen and (min-width: 1200px)
+      float right
+
   .building-page
     max-width 1280px
+    margin 0
     .building-main-info
       @media screen and (min-width: 1200px)
         float right
@@ -26,7 +33,7 @@
         font-family 'Montserrat', Helvetica, sans-serif
         font-size 26px
         font-weight bold
-        margin 0 20px 0 0
+        margin 0 20px 20px 0
         padding 0
         color #272b30
         float left
@@ -41,14 +48,14 @@
         margin 20px 0
         border 1px solid #999
         border-radius 3px
-        padding 10px
+        padding 0
         box-sizing border-box
         .building-main-price-opt
           font-family 'Montserrat', Helvetica, sans-serif
           font-size 18px
           font-weight bold
           border-bottom 1px solid #999
-          padding 20px
+          padding 15px 25px
           &:last-child
             border 0 none
         .building-main-price
@@ -58,7 +65,6 @@
           vertical-align middle
         .building-main-rooms
           border-left 1px solid #c7c7c7
-          color #272b30
           padding 0 0 0 20px
           display inline-block
           vertical-align middle

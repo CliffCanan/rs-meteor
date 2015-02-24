@@ -9,13 +9,15 @@ template(name="building")
           a(href="/{{cityId}}") {{cityName}}
         li.active {{name}}
 
-      article.building-page.clearfix.row
+      //.building-sidebar.clearfix.col-lg-3
+
+      article.building-page.clearfix
         aside.building-main-info.col-lg-5
           h2.building-main-info-title
             | Adelphia House - 1229 Chestnut Street
           button.btn.btn-primary.building-main-info-btn.hidden-lg.check-availability(type='button')
             | Check Availability
-          .building-main-price-wrap
+          .building-main-price-wrap.clearfix
             .building-main-price-opt
               span.building-main-price
                 | {{priceFrom}}
@@ -32,19 +34,19 @@ template(name="building")
               span.building-main-rooms
                 | {{bedroomTypes}}
           ul.building-main-prop-list.list-unstyled
-            li.building-main-prop
+            li.building-main-prop.col-lg-6
               i.fa.fa-check
               | Pet Allowed
-            li.building-main-prop
+            li.building-main-prop.col-lg-6
               i.fa.fa-check
               | 1 Bedroom
-            li.building-main-prop
+            li.building-main-prop.col-lg-6
               i.fa.fa-minus-circle
               | Doorman
-            li.building-main-prop
+            li.building-main-prop.col-lg-6
               i.fa.fa-check
               | Parking included
-            li.building-main-prop
+            li.building-main-prop.col-lg-6
               i.fa.fa-minus-circle
               | No smoking
           button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
@@ -176,7 +178,7 @@ template(name="building")
             h2.building-info-title
               i.fa.fa-star
               | User reviews
-            .building-reviews-wrap.row
+            .building-reviews-wrap
               .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
                 .building-review
                   input#reviewMore-1.building-review-more(type="checkbox")
