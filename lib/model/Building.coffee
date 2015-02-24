@@ -3,6 +3,9 @@ class Building
     _.extend(@, doc)
   cityName: ->
     cities[@cityId].short
+  mainImage: ->
+    file = @images?[0]?.getFileRecord()
+    file  if file.url
   bedroomTypes: ->
     types = []
     postfix = ""

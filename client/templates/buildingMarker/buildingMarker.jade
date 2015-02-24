@@ -1,0 +1,10 @@
+template(name="buildingMarker")
+  #hook.cpr-property-container-map
+    .cpr-property-map-image-container
+      a(href="{{pathFor route='building'}}")
+        .uk-overlay.cpr-overlay
+          img.cpr-property-map-featured-image(src="{{mainImage.url store='thumbs'}}")
+        .gradient_caption.cpr-property-map-bedrooms {{bedroomTypes}}
+    .cpr-property-details-map
+      span.cpr-property-map-title {{title}}
+      span.text-success.cpr-property-map-price {{priceFrom}}
