@@ -23,8 +23,8 @@ Template.city.rendered = ->
     mapTypeId: google.maps.MapTypeId.ROADMAP
   infowindow = new google.maps.InfoWindow()
   markers = {}
-  defaultIcon = new google.maps.MarkerImage("/images/default-pin.png", null, null, null, new google.maps.Size(17, 30))
-  activeIcon = new google.maps.MarkerImage("/images/active-pin.png", null, null, null, new google.maps.Size(28, 50))
+  defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(17, 30))
+  activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(28, 50))
   @autorun ->
     newLocationsIds = []
     data = Router.current().data()
