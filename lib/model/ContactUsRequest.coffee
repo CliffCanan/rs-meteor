@@ -58,6 +58,10 @@ ContactUsRequests.before.insert (userId, ContactUsRequest) ->
     ContactUsRequest.agentName = ""
     ContactUsRequest.agentId = ""
 
+  if not ContactUsRequest.city
+    ContactUsRequest.city = ""
+  if not ContactUsRequest.cityId
+    ContactUsRequest.cityId = ""
   ContactUsRequest._id ||= Random.id()
   now = new Date()
   _.defaults(ContactUsRequest,

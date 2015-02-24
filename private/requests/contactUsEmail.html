@@ -1,4 +1,4 @@
-<p>Good day! <b>{{request.name}}</b> has just asked you to help find an apartment in <b>{{request.city}}</b>!</p>
+<p>Good day! <b>{{request.name}}</b> has just asked you to help find an apartment<b>{{#if request.city}} in request.city{{/if}}</b>!</p>
 <p>Required amount of bedrooms: {{request.bedrooms}} </p>
 {{#if request.maxMonthlyRent}}<p>Max monthly rate: {{request.maxMonthlyRent}}.</p>{{/if}}
 {{#if request.contactUsMoveInDate}}<p>Desirable move-in date: {{request.contactUsMoveInDate}}.</p>{{/if}}

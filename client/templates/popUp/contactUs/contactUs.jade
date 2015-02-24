@@ -27,7 +27,7 @@ template(name="contactUs")
               .form-group.col-lg-6
                 input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
             fieldset.form-group.contact-us-field
-              label Are you planning a visit to city to view apartments?
+              label Are you planning a visit {{city}} to view apartments?
             fieldset.form-group.contact-us-field
               span.radio-inline
                 input#inlineRadio1.css-checkbox(type='radio', name='tourOption', value='yes', checked)
@@ -63,6 +63,8 @@ template(name="contactUs")
             if serverError
               .form-group
                 .alert.alert-danger(role="alert")
-                  strong Sorry! Server error occured! We probably already fixing it:)
+                  strong Sorry! Server error occured! We are probably already fixing it:)
             .form-group
-              button.btn.btn-primary(type="submit") Submit
+              button.btn.btn-primary.submit-button(type="submit")
+                .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
+                | Submit

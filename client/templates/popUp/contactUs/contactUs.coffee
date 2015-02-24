@@ -1,6 +1,9 @@
 Template.contactUs.helpers
   serverError: ->
     Session.get("serverError")
+  city: ->
+    if @cityId
+      "to " + cities[@cityId].short
 
 Template.contactUs.rendered = ->
   Session.set("serverError", false)
@@ -40,10 +43,15 @@ Template.contactUs.rendered = ->
            notEmpty:
              message: 'For now we need city!'
   ).on("success.form.fv", grab encapsulate (event) ->
+      form.find(".submit-button").prop("disabled", true)
+      form.find(".loading").show()
       json = form.serializeFormJSON()
       json.yes = json.tourOption is "yes"
       json.no = json.tourOption is "no"
       json.notSure = json.tourOption is "notSure"
+      if @cityId
+        json.cityId = @cityId
+        json.city = cities[@cityId].short
       ContactUsRequests.insert(json, callback = (error, id) ->
         if error
            Session.set("serverError", true)
@@ -54,7 +62,10 @@ Template.contactUs.rendered = ->
           form.data('formValidation').resetForm()
           $('#contactUsPopup').modal('hide')
           $('#messageSentPopup').modal('show')
+          form.find(".submit-button").prop("disabled", false)
+          form.find(".loading").hide()
       )
+
   )
 
 

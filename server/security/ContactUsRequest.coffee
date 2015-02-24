@@ -12,6 +12,7 @@ ContactUsRequests.allow
       contactUsTourDate: String
       tourOption: String
       city: String
+      cityId: String
       yes: Boolean
       no: Boolean
       notSure: Boolean
