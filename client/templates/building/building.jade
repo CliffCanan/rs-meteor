@@ -74,7 +74,7 @@ template(name="building")
                 a.building-share-icon.fa.fa-paper-plane(href="/", title="share")
               li.building-share.pull-left
                 a.building-share-icon.fa.fa-plus(href="/", title="plus")
-            //.addthis_sharing_toolbox
+            +social
         .building-info-wrap.col-lg-7
           .building-img-wrap
             img.building-img(src="/images/building-img.jpg", alt="")
@@ -349,6 +349,6 @@ template(name="building")
                   span.building-page-similar-desc
                     | {{bedroomTypes}}
                   span.building-page-similar-price
-                    | {{priceFrom}}
+                    | {{priceFrom}} {{helper}}
 
 

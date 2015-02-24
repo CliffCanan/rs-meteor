@@ -28,3 +28,4 @@ cfs:graphicsmagick
 cfs:ejson-file
 mrt:smart-publish
 meteorhacks:zones
+manuelschoebel:wait-on-lib
