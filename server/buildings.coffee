@@ -61,7 +61,7 @@
     'neighborhood': 'Center City East'
     'latitude': 39.950404
     'longitude': -75.16203
-    '1bedroom': 'from': 1430
+    'bedroom1': 'from': 1430
   '6176':
     'name': '1300 Chestnut St 502'
     'isPublished': true
@@ -124,7 +124,7 @@
     'neighborhood': 'Center City East'
     'latitude': 39.950404
     'longitude': -75.16203
-    '1bedroom': 'from': 1440
+    'bedroom1': 'from': 1440
   '6177':
     'name': '1201-5 Chestnut St'
     'isPublished': true
@@ -191,7 +191,7 @@
     'neighborhood': 'Center City East'
     'latitude': 39.9506755
     'longitude': -75.1601985
-    '1bedroom': 'from': 1605
+    'bedroom1': 'from': 1605
   '6178':
     'name': '1300 Chestnut St 307'
     'isPublished': true
@@ -254,7 +254,7 @@
     'neighborhood': 'Center City East'
     'latitude': 39.950404
     'longitude': -75.16203
-    '1bedroom': 'from': 1575
+    'bedroom1': 'from': 1575
   '6179':
     'name': '1300 Chestnut St 302'
     'isPublished': true
@@ -317,7 +317,7 @@
     'neighborhood': 'Center City East'
     'latitude': 39.950404
     'longitude': -75.16203
-    '1bedroom': 'from': 1495
+    'bedroom1': 'from': 1495
   '6180':
     'name': '1300 Chestnut St 907'
     'isPublished': true
@@ -380,7 +380,7 @@
     'neighborhood': 'Center City East'
     'latitude': 39.950404
     'longitude': -75.16203
-    '1bedroom': 'from': 1650
+    'bedroom1': 'from': 1650
   '6181':
     'name': '1201-5 Chestnut St'
     'isPublished': true
@@ -447,7 +447,7 @@
     'neighborhood': 'Center City East'
     'latitude': 39.9506755
     'longitude': -75.1601985
-    '2bedroom': 'from': 2520
+    'bedroom2': 'from': 2520
   '6182':
     'name': '1220 Sansom St 9S'
     'isPublished': true
@@ -530,7 +530,7 @@
     'specialOffer': ''
     'latitude': 39.949606
     'longitude': -75.16148
-    '2bedroom': 'from': 1890
+    'bedroom2': 'from': 1890
   '6183':
     'name': '1222-26 Arch St 309'
     'isPublished': true
@@ -591,7 +591,7 @@
     'postalCode': '19107 19107'
     'latitude': 39.953761
     'longitude': -75.160662
-    '1bedroom': 'from': 1660
+    'bedroom1': 'from': 1660
   '6184':
     'name': '1222-26 Arch St 104'
     'isPublished': true
@@ -652,7 +652,7 @@
     'title': '1222-26 Arch St 104'
     'latitude': 39.955704
     'longitude': -75.171513
-    '2bedroom': 'from': 1790
+    'bedroom2': 'from': 1790
   '6185':
     'name': '1228-32 Arch St 5A'
     'isPublished': true
@@ -711,7 +711,7 @@
     'heatingAndCooling': 'Y'
     'latitude': 39.9538189
     'longitude': -75.1608626
-    '2bedroom': 'from': 2500
+    'bedroom2': 'from': 2500
   '6186':
     'name': '1836 Delancey St #4'
     'isPublished': true
@@ -795,7 +795,7 @@
     'secondDeposit': '$1,850'
     'latitude': 39.9470173
     'longitude': -75.17286
-    '1bedroom': 'from': 1850
+    'bedroom1': 'from': 1850
   '6187':
     'name': '1808 Delancey St'
     'isPublished': false
@@ -882,7 +882,7 @@
     'bedrooms': ''
     'latitude': 39.9469019
     'longitude': -75.1718038
-    '4bedroom': 'from': 7000
+    'bedroom4': 'from': 7000
   '6188':
     'name': '1720 Lombard St 505'
     'isPublished': true
@@ -965,7 +965,7 @@
       'comment': ''
     'latitude': 39.945127
     'longitude': -75.170927
-    '2bedroom': 'from': 2095
+    'bedroom2': 'from': 2095
   '6189':
     'name': '1720 Lombard St 504'
     'isPublished': true
@@ -1048,7 +1048,7 @@
       'comment': ''
     'latitude': 39.945127
     'longitude': -75.170927
-    '1bedroom': 'from': 1650
+    'bedroom1': 'from': 1650
   '6192':
     'name': '2026-58 Market St 215'
     'isPublished': true
@@ -1131,7 +1131,7 @@
     'yearOfCompletion': '1915'
     'latitude': 39.9533259
     'longitude': -75.174127
-    '1bedroom': 'from': 1850
+    'bedroom1': 'from': 1850
   '6193':
     'name': '2026-58 Market St 305'
     'isPublished': true
@@ -1214,7 +1214,7 @@
     'title': '2026-58 Market St 305'
     'latitude': 39.9503691
     'longitude': -75.1459272
-    '1bedroom': 'from': 1750
+    'bedroom1': 'from': 1750
   '6194':
     'name': '1530 Spruce St 624'
     'isPublished': true
@@ -1303,7 +1303,7 @@
     'summary': ''
     'latitude': 39.9472824
     'longitude': -75.1679142
-    '2bedroom': 'from': 2295
+    'bedroom2': 'from': 2295
   '6195':
     'name': '1530 Spruce St 525'
     'isPublished': true
@@ -1388,7 +1388,7 @@
       'comment': ''
     'latitude': 39.9472824
     'longitude': -75.1679142
-    '2bedroom': 'from': 2095
+    'bedroom2': 'from': 2095
   '6196':
     'name': '1530 Spruce St 221'
     'isPublished': false
@@ -1473,4 +1473,4 @@
       'comment': ''
     'latitude': 39.9472824
     'longitude': -75.1679142
-    '1bedroom': 'from': 1750
+    'bedroom1': 'from': 1750

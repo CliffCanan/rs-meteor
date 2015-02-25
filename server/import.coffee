@@ -172,10 +172,17 @@ dataFields =
 
             connection.query "SELECT * FROM skp8s_trsproperties_prices", (error, rows, fields) ->
               throw error  if (error)
+              ptypes =
+                "1bedroom": "bedroom1"
+                "2bedroom": "bedroom2"
+                "3bedroom": "bedroom3"
+                "4bedroom": "bedroom4"
+                "5bedroom": "bedroom5"
+                "studio": "studio"
               for data in rows
                 building = buildings[data.propertyId]
                 if building
-                  property_type = data["property_type"]
+                  property_type = ptypes[data["property_type"]]
                   building[property_type] = building[property_type] or {}
                   if data.price_type is "range"
                     range = data.price_value.split("-")
