@@ -1,9 +1,9 @@
-Template.social.created = ->
-  addthis.init()
-
 Template.social.helpers
   helper: ->
-    addthis.layers.refresh()
+#    inspect later
+    try
+      addthis.layers.refresh()
+    catch error
     return ""
 
 Template.social.rendered = ->

@@ -14,7 +14,7 @@ template(name="building")
       article.building-page.clearfix
         aside.building-main-info.col-lg-5
           h2.building-main-info-title
-            | Adelphia House - 1229 Chestnut Street
+            | {{name}}
           button.btn.btn-primary.building-main-info-btn.hidden-lg.check-availability(type='button')
             | Check Availability
           .building-main-price-wrap.clearfix
@@ -34,9 +34,11 @@ template(name="building")
               span.building-main-rooms
                 | {{bedroomTypes}}
           ul.building-main-prop-list.list-unstyled
-            li.building-main-prop.col-lg-6
-              i.fa.fa-check
-              | Pet Allowed
+            if hasPetsInfo
+              with pets
+                li.building-main-prop.col-lg-6
+                  i.fa.fa-check
+                  | {{pets}}
             li.building-main-prop.col-lg-6
               i.fa.fa-check
               | 1 Bedroom
@@ -49,16 +51,15 @@ template(name="building")
             li.building-main-prop.col-lg-6
               i.fa.fa-minus-circle
               | No smoking
+            li.building-main-prop.col-lg-6
+              i.fa.fa-check
+              | Year: {{yearOfCompletion}}
           button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
             | Check Availability
           .building-main-info-desc-wrap.visible-lg-block
             input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
             p.building-main-info-desc
-              | Tucked between the hustle and bustle of Chestnut and Walnut Streets, The Sansom offers both access to and
-              | refuge from the fast pace of city living. The Sansom is located just northeast of Rittenhouse Square, in
-              | the heart of one of Philadelphias most vibrant neighborhoods. With ready access to some of the citys best
-              | retailers, restaurants, and employers, residents of The Sansom will like wise appreciate its location
-              | "just off the beaten path" on Sansom Street.
+              | {{description}}
             p.building-main-info-desc
               | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community amenities.
               | Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens, two-bedrooms, and
@@ -167,14 +168,9 @@ template(name="building")
               i.fa.fa-check
               | Additional Features
             ul.building-features-list.list-unstyled.row
-              li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
-                | Deck
-              li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
-                | Yoga
-              li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
-                | Lobby
-              li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
-                | Pool
+              each features
+                li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
+                  | {{.}}
           section.building-info-section
             h2.building-info-title
               i.fa.fa-star
