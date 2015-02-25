@@ -15,7 +15,7 @@
   height 890px
 
 .head-section
-  width 1280px
+  max-width 1280px
   margin 0 auto
   text-align center
   padding 50px 30px 0
@@ -31,7 +31,7 @@
   padding 20px 0
 
 .main-desc
-  width 820px
+  max-width 820px
   display inline-block
   color #fff
   font-size 24px
@@ -124,7 +124,7 @@
   min-height 510px
 
 .testimonials
-  width 1280px
+  max-width 1280px
   margin 0 auto
   padding 60px 0
   text-align center
@@ -132,14 +132,15 @@
 
 article
   float left
-  margin 0 20px 0 0
+  margin 0 20px 20px 0
 
 blockquote
   border 1px solid #c7c7c7
   border-radius 5px
   background #fff
-  width 290px
-  min-height 290px
+  min-height 250px
+  @media screen and (min-width: 1200px)
+    min-height 315px
   padding 20px
   box-sizing border-box
   margin 0 0 15px
@@ -159,23 +160,30 @@ blockquote
 .quote-desc
   padding 0
   margin 0
+  font-size 14px
 
-.quote-author
-  position absolute
-  bottom 10px
-  font-weight bold
-  font-family 'Montserrat', Helvetica, sans-serif
-  box-sizing border-box
+.quote-footer
+  font-size 100%
+  &:before
+    content ""
+  .quote-author
+    position absolute
+    bottom 10px
+    font-weight bold
+    font-family 'Montserrat', Helvetica, sans-serif
+    box-sizing border-box
+    font-size 15px
 
-.quote-author-link
-  font-family 'Raleway', Helvetica, sans-serif
-  color #cc9900
-  display block
-  padding 0
-  text-decoration none
-  &:hover
-    color #ffcc33
+  .quote-author-link
+    font-family 'Raleway', Helvetica, sans-serif
+    color #cc9900
+    display block
+    padding 0
     text-decoration none
+    font-size 13px
+    &:hover
+      color #ffcc33
+      text-decoration none
 
 .footer-section
   background #fff
@@ -193,7 +201,7 @@ blockquote
     display inline-block
     width 320px
     box-sizing border-box
-    margin 0 20px 0 0
+    margin 0 20px 20px 0
     .footer-section-sub-title
       font-family 'Montserrat', Helvetica, sans-serif
       font-size 18px

@@ -1,97 +1,100 @@
 template(name="cityHeader")
   .city-sub-header.clearfix
-    .city-select.city-sub-header-list-wrap.dropdown.pull-left
-      button.city-sub-header-title.dropdown-toggle.btn.btn-default
-        i.fa.fa-globe
-        span.button-text {{currentCity}}
-        span.caret
-      ul.city-sub-header-list.dropdown-menu.list-unstyled
-        each cities
-          li.city-sub-header-item(data-value="{{key}}") {{value}}
-    .bedroom-type-select.city-sub-header-list-wrap.dropdown.pull-left
-      button.city-sub-header-title.dropdown-toggle.btn.btn-default
-        i.fa.fa-bed
-        span.button-text {{currentBedroomType}}
-        span.caret
-      ul.city-sub-header-list.dropdown-menu.list-unstyled
-        li.city-sub-header-item(data-value="") Any
-        each btypes
-          li.city-sub-header-item(data-value="{{key}}") {{value}}
-    with sliderData
-      .city-subheader-price.pull-left
-        span.city-subheader-price-val
-          | Price
-        b &#36;{{min}}
-        input.price-slider.span2(type="text", data-slider-min="{{min}}", data-slider-max="{{max}}", data-slider-step="5", data-slider-value="[{{value.min}},{{value.max}}]", data-slider-tooltip_split="true")
-        b &#36;{{max}}
-    .dropdown.pull-left
-      button.features-btn.dropdown-toggle.btn.btn-default(type="button")
-        i.fa.fa-check
-        | Features
-      .features-section.dropdown-menu
-        h3.filter-title
-          | Filter the search results by the criteria that you need, in order to find your best apartment!
-        ul.filter-list.list-unstyled.clearfix
-          li.checkbox-wrap.col-md-6
-            input#doorman.css-checkbox(type="checkbox", value="")
-            label.css-label(for="doorman")
-              | Doorman
-          li.checkbox-wrap.col-md-6
-            input#fitness.css-checkbox(type="checkbox", value="")
-            label.css-label(for="fitness")
-              | Fitness Center
-          li.checkbox-wrap.col-md-6
-            input#pet.css-checkbox(type="checkbox", value="")
-            label.css-label(for="pet")
-              | Pet friendly
-          li.checkbox-wrap.col-md-6
-            input#managedBuildings.css-checkbox(type="checkbox", value="")
-            label.css-label(for="managedBuildings")
-              | Managed buildings
-          li.checkbox-wrap.col-md-6
-            input#brownstone.css-checkbox(type="checkbox", value="")
-            label.css-label(for="brownstone")
-              | Brownstone
-          li.checkbox-wrap.col-md-6
-            input#loundry.css-checkbox(type="checkbox", value="")
-            label.css-label(for="loundry")
-              | Loundry In-unit
-          li.checkbox-wrap.col-md-6
-            input#parkingFeatures.css-checkbox(type="checkbox", value="")
-            label.css-label(for="parkingFeatures")
-              | Parking
-          li.checkbox-wrap.col-md-6
-            input#utilities.css-checkbox(type="checkbox", value="")
-            label.css-label(for="utilities")
-              | Utilities inclided
-          li.checkbox-wrap.col-md-6
-            input#listings.css-checkbox(type="checkbox", value="")
-            label.css-label(for="listings")
-              | Private listings
-        label.city-features-date
-          | Availible from/before
-          input.form-control(type="text", value="")
-        button.btn.btn-primary.apply-changes-btn(type="button")
-          | Apply Changes
-        span.clear-btn
-          | Clear Filter
-    .dropdown.pull-left
-      button.features-btn.dropdown-toggle.btn.btn-default(type="button")
-        | Favorite location
-      .features-section.location-list.dropdown-menu
-        h3.filter-title
-          | Enter your most common destination (work, school, etc) to find apartments close to it
-        label.filter-field
-          input.form-control(type="text", placeholder="Destination Address")
-        select.form-control.filter-select.pull-left
-          option Less than 10 minutes
-          option Less than 30 minutes
-        ul.city-motion-list.pull-right.list-unstyled
-          li.city-motion-item.city-motion-walk
-          li.city-motion-item.city-motion-car
-          li.city-motion-item.city-motion-bike
-        .button-wtap.clearfix
+    .col-lg-4.col-md-4.col-sm-4.col-xs-12
+      .city-select.city-sub-header-list-wrap.dropdown.pull-left.city-filter
+        button.city-sub-header-title.dropdown-toggle.btn.btn-default
+          i.fa.fa-globe
+          span.button-text {{currentCity}}
+          span.caret
+        ul.city-sub-header-list.dropdown-menu.list-unstyled
+          each cities
+            li.city-sub-header-item(data-value="{{key}}") {{value}}
+      .bedroom-type-select.city-sub-header-list-wrap.dropdown.pull-left.city-filter
+        button.city-sub-header-title.dropdown-toggle.btn.btn-default
+          i.fa.fa-bed
+          span.button-text {{currentBedroomType}}
+          span.caret
+        ul.city-sub-header-list.dropdown-menu.list-unstyled
+          li.city-sub-header-item(data-value="") Any
+          each btypes
+            li.city-sub-header-item(data-value="{{key}}") {{value}}
+    .col-lg-4.col-md-4.col-sm-4.col-xs-12
+      with sliderData
+        .city-subheader-price.pull-left
+          span.city-subheader-price-val
+            | Price
+          b &#36;{{min}}
+          input.price-slider.span2(type="text", data-slider-min="{{min}}", data-slider-max="{{max}}", data-slider-step="5", data-slider-value="[{{value.min}},{{value.max}}]", data-slider-tooltip_split="true")
+          b &#36;{{max}}
+    .col-lg-4.col-md-4.col-sm-4.col-xs-12
+      .dropdown.pull-left.city-filter
+        button.features-btn.dropdown-toggle.btn.btn-default(type="button")
+          i.fa.fa-check
+          | Features
+        .features-section.dropdown-menu
+          h3.filter-title
+            | Filter the search results by the criteria that you need, in order to find your best apartment!
+          ul.filter-list.list-unstyled.clearfix
+            li.checkbox-wrap.col-md-6
+              input#doorman.css-checkbox(type="checkbox", value="")
+              label.css-label(for="doorman")
+                | Doorman
+            li.checkbox-wrap.col-md-6
+              input#fitness.css-checkbox(type="checkbox", value="")
+              label.css-label(for="fitness")
+                | Fitness Center
+            li.checkbox-wrap.col-md-6
+              input#pet.css-checkbox(type="checkbox", value="")
+              label.css-label(for="pet")
+                | Pet friendly
+            li.checkbox-wrap.col-md-6
+              input#managedBuildings.css-checkbox(type="checkbox", value="")
+              label.css-label(for="managedBuildings")
+                | Managed buildings
+            li.checkbox-wrap.col-md-6
+              input#brownstone.css-checkbox(type="checkbox", value="")
+              label.css-label(for="brownstone")
+                | Brownstone
+            li.checkbox-wrap.col-md-6
+              input#loundry.css-checkbox(type="checkbox", value="")
+              label.css-label(for="loundry")
+                | Loundry In-unit
+            li.checkbox-wrap.col-md-6
+              input#parkingFeatures.css-checkbox(type="checkbox", value="")
+              label.css-label(for="parkingFeatures")
+                | Parking
+            li.checkbox-wrap.col-md-6
+              input#utilities.css-checkbox(type="checkbox", value="")
+              label.css-label(for="utilities")
+                | Utilities inclided
+            li.checkbox-wrap.col-md-6
+              input#listings.css-checkbox(type="checkbox", value="")
+              label.css-label(for="listings")
+                | Private listings
+          label.city-features-date
+            | Availible from/before
+            input.form-control(type="text", value="")
           button.btn.btn-primary.apply-changes-btn(type="button")
             | Apply Changes
           span.clear-btn
             | Clear Filter
+      .dropdown.pull-left.city-filter
+        button.features-btn.dropdown-toggle.btn.btn-default(type="button")
+          | Favorite location
+        .features-section.location-list.dropdown-menu
+          h3.filter-title
+            | Enter your most common destination (work, school, etc) to find apartments close to it
+          label.filter-field
+            input.form-control(type="text", placeholder="Destination Address")
+          select.form-control.filter-select.pull-left
+            option Less than 10 minutes
+            option Less than 30 minutes
+          ul.city-motion-list.pull-right.list-unstyled
+            li.city-motion-item.city-motion-walk
+            li.city-motion-item.city-motion-car
+            li.city-motion-item.city-motion-bike
+          .button-wtap.clearfix
+            button.btn.btn-primary.apply-changes-btn(type="button")
+              | Apply Changes
+            span.clear-btn
+              | Clear Filter
