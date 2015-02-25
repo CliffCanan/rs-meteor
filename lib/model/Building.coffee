@@ -11,7 +11,7 @@ class Building
     postfix = ""
     if @studio
       types.push("Studio")
-    if @["1bedroom"]
+    if @bedroom1
       types.push(1)
       postfix = " Bedroom"
     for i in [1..4]
