@@ -6,7 +6,7 @@ Template.city.helpers
     if priceMin = @query.priceMin
       selector.priceMin = {$gte: parseInt(priceMin)}
     if priceMax = @query.priceMax
-      selector.priceMin = {$lte: parseInt(priceMax)}
+      selector.priceMax = {$lte: parseInt(priceMax)}
     Buildings.find(selector)
   randomImage: ->
 #    images = [
