@@ -9,13 +9,15 @@ template(name="building")
           a(href="/{{cityId}}") {{cityName}}
         li.active {{name}}
 
-      article.building-page.clearfix.row
+      //.building-sidebar.clearfix.col-lg-3
+
+      article.building-page.clearfix
         aside.building-main-info.col-lg-5
           h2.building-main-info-title
             | Adelphia House - 1229 Chestnut Street
           button.btn.btn-primary.building-main-info-btn.hidden-lg.check-availability(type='button')
             | Check Availability
-          .building-main-price-wrap
+          .building-main-price-wrap.clearfix
             .building-main-price-opt
               span.building-main-price
                 | {{priceFrom}}
@@ -32,19 +34,19 @@ template(name="building")
               span.building-main-rooms
                 | {{bedroomTypes}}
           ul.building-main-prop-list.list-unstyled
-            li.building-main-prop
+            li.building-main-prop.col-lg-6
               i.fa.fa-check
               | Pet Allowed
-            li.building-main-prop
+            li.building-main-prop.col-lg-6
               i.fa.fa-check
               | 1 Bedroom
-            li.building-main-prop
+            li.building-main-prop.col-lg-6
               i.fa.fa-minus-circle
               | Doorman
-            li.building-main-prop
+            li.building-main-prop.col-lg-6
               i.fa.fa-check
               | Parking included
-            li.building-main-prop
+            li.building-main-prop.col-lg-6
               i.fa.fa-minus-circle
               | No smoking
           button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
@@ -113,7 +115,7 @@ template(name="building")
               | id ligula porta felis euismod semper.
             .building-unit-list-wrap
               ul.building-unit-list.list-unstyled.row
-                li.building-unit-item-wrap.col-lg-6.col-xs-10
+                li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
                   .building-unit-item
                     img.pull-left(src="/images/unit-img.jpg", alt="")
                     .building-unit-info.clearfix
@@ -136,7 +138,7 @@ template(name="building")
                       li.building-unit-prop
                         i.fa.fa-check
                         | 2 baths
-                li.building-unit-item-wrap.col-lg-6.col-xs-10
+                li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
                   .building-unit-item
                     img.pull-left(src="/images/unit-img.jpg")
                     .building-unit-info.clearfix
@@ -165,20 +167,20 @@ template(name="building")
               i.fa.fa-check
               | Additional Features
             ul.building-features-list.list-unstyled.row
-              li.building-features.col-md-4
+              li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
                 | Deck
-              li.building-features.col-md-4
+              li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
                 | Yoga
-              li.building-features.col-md-4
+              li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
                 | Lobby
-              li.building-features.col-md-4
+              li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
                 | Pool
           section.building-info-section
             h2.building-info-title
               i.fa.fa-star
               | User reviews
-            .building-reviews-wrap.row
-              .building-review-wrap.col-lg-6.col-xs-10
+            .building-reviews-wrap
+              .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
                 .building-review
                   input#reviewMore-1.building-review-more(type="checkbox")
                   .building-reviewer.pull-left
@@ -197,7 +199,7 @@ template(name="building")
                     | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
                     | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
                   ul.building-review-list.building-review-target.clearfix.list-unstyled
-                    li.building-review-item.col-lg-6
+                    li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       span.building-review-field
                         | Noise
                       span.building-review-rate
@@ -205,7 +207,7 @@ template(name="building")
                       .building-review-bar
                         .building-review-rate-5.building-review-rating
                           span.building-review-bar-animate
-                    li.building-review-item.col-lg-6
+                    li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       span.building-review-field
                         | Maintenance
                       span.building-review-rate
@@ -213,7 +215,7 @@ template(name="building")
                       .building-review-bar
                         .building-review-rate-4.building-review-rating
                           span.building-review-bar-animate
-                    li.building-review-item.col-lg-6
+                    li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       span.building-review-field
                         | Staff
                       span.building-review-rate
@@ -221,7 +223,7 @@ template(name="building")
                       .building-review-bar
                         .building-review-rate-3.building-review-rating
                           span.building-review-bar-animate
-                    li.building-review-item.col-lg-6
+                    li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       span.building-review-field
                         | Facilities
                       span.building-review-rate
@@ -229,7 +231,7 @@ template(name="building")
                       .building-review-bar
                         .building-review-rate-2.building-review-rating
                           span.building-review-bar-animate
-                    li.building-review-item.col-lg-6
+                    li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       span.building-review-field
                         | Staff
                       span.building-review-rate
@@ -237,7 +239,7 @@ template(name="building")
                       .building-review-bar
                         .building-review-rate-1.building-review-rating
                           span.building-review-bar-animate
-                    li.building-review-item.col-lg-6
+                    li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       span.building-review-field
                         | Facilities
                       span.building-review-rate
@@ -246,7 +248,7 @@ template(name="building")
                         .building-review-rate-5.building-review-rating
                           span.building-review-bar-animate
                   label.building-review-trigger(for="reviewMore-1")
-              .building-review-wrap.col-lg-6.col-xs-10
+              .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
                 .building-review
                   input#reviewMore-2.building-review-more(type="checkbox")
                   .building-reviewer.pull-left
@@ -265,7 +267,7 @@ template(name="building")
                     | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
                     | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
                   ul.building-review-list.building-review-target.clearfix.list-unstyled
-                    li.building-review-item.col-lg-6
+                    li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       span.building-review-field
                         | Noise
                       span.building-review-rate
@@ -273,7 +275,7 @@ template(name="building")
                       .building-review-bar
                         .building-review-rate-5.building-review-rating
                           span.building-review-bar-animate
-                    li.building-review-item.col-lg-6
+                    li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       span.building-review-field
                         | Maintenance
                       span.building-review-rate
@@ -281,7 +283,7 @@ template(name="building")
                       .building-review-bar
                         .building-review-rate-4.building-review-rating
                           span.building-review-bar-animate
-                    li.building-review-item.col-lg-6
+                    li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       span.building-review-field
                         | Staff
                       span.building-review-rate
@@ -289,7 +291,7 @@ template(name="building")
                       .building-review-bar
                         .building-review-rate-3.building-review-rating
                           span.building-review-bar-animate
-                    li.building-review-item.col-lg-6
+                    li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       span.building-review-field
                         | Facilities
                       span.building-review-rate
@@ -297,7 +299,7 @@ template(name="building")
                       .building-review-bar
                         .building-review-rate-2.building-review-rating
                           span.building-review-bar-animate
-                    li.building-review-item.col-lg-6
+                    li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       span.building-review-field
                         | Staff
                       span.building-review-rate
@@ -305,7 +307,7 @@ template(name="building")
                       .building-review-bar
                         .building-review-rate-1.building-review-rating
                           span.building-review-bar-animate
-                    li.building-review-item.col-lg-6
+                    li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       span.building-review-field
                         | Facilities
                       span.building-review-rate

@@ -22,7 +22,7 @@ template(name="cityHeader")
         span.city-subheader-price-val
           | Price
         b &#36;{{min}}
-        input.slider.span2(type="text", data-slider-min="{{min}}", data-slider-max="{{max}}", data-slider-step="5", data-slider-value="[{{value.min}},{{value.max}}]", data-slider-tooltip_split="true")
+        input.price-slider.span2(type="text", data-slider-min="{{min}}", data-slider-max="{{max}}", data-slider-step="5", data-slider-value="[{{value.min}},{{value.max}}]", data-slider-tooltip_split="true")
         b &#36;{{max}}
     .dropdown.pull-left
       button.features-btn.dropdown-toggle.btn.btn-default(type="button")

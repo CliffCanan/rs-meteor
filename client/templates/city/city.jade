@@ -1,13 +1,13 @@
 template(name="city")
-  .city-side-bar.pull-right.clearfix
+  .city-side-bar.clearfix.col-lg-3
     #gmap
 
-  .city-page-wrap.row
+  .city-page-wrap.col-lg-9
 
     +cityHeader
 
-    .main-city-list-wrap.clearfix.container.pull-left
-      ul.main-city-list.list-unstyled.row
+    .main-city-list-wrap.clearfix.pull-left
+      ul.main-city-list.list-unstyled
         each buildings
           li.col-lg-4.col-md-6.col-sm-6.col-xs-12
             .main-city-item
