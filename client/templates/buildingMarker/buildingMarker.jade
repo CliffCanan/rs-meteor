@@ -2,8 +2,9 @@ template(name="buildingMarker")
   #hook.cpr-property-container-map
     .cpr-property-map-image-container
       a.cpr-property-map-image-link(href="{{pathFor route='building'}}")
-        .uk-overlay.cpr-overlay
-          img.cpr-property-map-featured-image(src="{{mainImage.url store='thumbs'}}")
+        with mainImage
+          .uk-overlay.cpr-overlay
+            img.cpr-property-map-featured-image(src="{{url store='thumbs'}}")
         h2.gradient_caption.cpr-property-map-bedrooms {{title}}
     .cpr-property-details-map
       i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")

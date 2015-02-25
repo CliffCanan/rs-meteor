@@ -44,6 +44,7 @@
 @btypesIds = Object.keys(btypes)
 
 @slugify = (text) ->
+  return "" unless text?.length
   text.toString().toLowerCase()
   .replace(/\s+/g, '-')# Replace spaces with -
   .replace(/[^\w\-]+/g, '')# Remove all non - word chars

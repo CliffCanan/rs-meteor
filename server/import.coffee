@@ -61,7 +61,9 @@ dataFields =
   158: "neighborhood"
 
 
-@mysqlImport = ->
+@mysqlImport = (full = false) ->
+  return  if full and Buildings.find().count()
+
   mysql = Meteor.npmRequire("mysql")
   http = Meteor.npmRequire("http")
   request = Meteor.npmRequire("request")
@@ -77,29 +79,37 @@ dataFields =
     user: "root"
     database: "rentscene"
 
-  connection.connect (error) ->
-    if error
-      console.error("error connecting: " + error.stack)
-    else
-      console.log("connected as id " + connection.threadId)
+  try
+    Meteor.wrapAsync(connection.connect, connection)()
+  catch error
+    console.error("error connecting: " + error.stack)
 
-      buildings = {}
-      buildingImages = []
-      connection.query "SELECT * FROM skp8s_trsproperties_article", (error, rows, fields) ->
-        throw error  if (error)
-        for article in rows.slice(40, 60)    # get 20 first items
-          building = buildings[article.id] =
-            name: article.name
-            isPublished: !!article.published
-            createdAt: new Date(article.createdtime)
-            onMap: !!article.onMap
-            similar: []
-            position: article.ordering
+  console.log("connected as id " + connection.threadId)
 
-          if article.similar
-            similar = article.similar.replace(/["\[\]]/g, "")
-            if similar.length
-              building.similar = similar.split(",")
+
+  buildings = {}
+  buildingImages = []
+
+  syncQuery = Meteor.wrapAsync(connection.query, connection)
+  try
+    rows = syncQuery("SELECT * FROM skp8s_trsproperties_article")
+
+    for article in (if full then rows else rows.slice(40, 60))    # get 20 first items
+      building = buildings[article.id] =
+        _id: "" + article.id
+        name: article.name
+        isPublished: !!article.published
+        createdAt: new Date(article.createdtime)
+        onMap: !!article.onMap
+        similar: []
+        position: article.ordering
+
+      if article.similar
+        similar = article.similar.replace(/["\[\]]/g, "")
+        if similar.length
+          building.similar = similar.split(",")
+  catch error
+    throw error
 
 #connection.query "SELECT * FROM skp8s_trsproperties_buildings", (error, rows, fields) ->
 #  throw error  if (error)
@@ -108,94 +118,110 @@ dataFields =
 #    if building
 #      building.isOnAvailabileList = !data.removed
 
-        connection.query "SELECT * FROM skp8s_trsproperties_field_data", (error, rows, fields) ->
-          throw error  if (error)
-          for data in rows
-            buildingId = "" + data.articleid
-            building = buildings[buildingId]
-            if building
-              fieldName = dataFields[data.fieldid]
-              if fieldName is "features"
-                building.features = data.value.split(", ")
-              else if fieldName is "city"
-                building.city = data.value
-                building.cityId = slugify(data.value)
-              else if fieldName in ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
-                if data.value.length
-                  try
-                    object = JSON.parse(data.value)
-                    building[fieldName] =
-                      value: object.radio
-                      comment: object.comment
-              else if fieldName is "images"
-                try
-                  images = JSON.parse(data.value)
-                  for image, i in images
-                    do (image, i, buildingId) ->
-                      if image.url and image.name
-                        request.get {url: "http://rentscene.com/" + image.url, encoding: "binary"}, (error, response, body) ->
-                          if not error and response.statusCode is 200
-                            buildingImages.push(image)
-                            imageType = response.headers["content-type"]
-                            base64 = new Buffer(body, "binary").toString("base64")
-                            dataURI = 'data:' + imageType + ';base64,' + base64
-                            coffee = "@buildingImagesFixtures['" + buildingId + "'] = @buildingImagesFixtures['" + buildingId + "'] or []"
-                            coffee += "\n@buildingImagesFixtures['" + buildingId + "'].push('" + dataURI + "')"
+  try
+    rows = syncQuery("SELECT * FROM skp8s_trsproperties_field_data")
 
-                            filename = "/tmp/buildingImages/" + buildingId + "_" + i + ".coffee"
-                            fs.writeFile filename, coffee, (error) ->
-                              if error
-                                cl error
-                              else
-                                cl filename + " file was saved!"
-                catch error
-                  cl error
-              else if fieldName is "videos"
-                # TODO: process videos
-              else
-                building[fieldName] = data.value.replace(cleanReg, "")
-
-          coffee = js2coffee.build("this.buildingImagesFixtures = " + JSON.stringify(buildingImages))
-          fs.writeFile "/tmp/buildingImages.coffee", coffee.code, (error) ->
-            if error
-              console.log(error)
-            else
-              console.log("The buildingImages.coffee file was saved!")
-
-          connection.query "SELECT * FROM skp8s_trsproperties_field_geo", (error, rows, fields) ->
-            throw error  if (error)
-            for data in rows
-              building = buildings[data.articleid]
-              if building
-                building.latitude = data.latitude
-                building.longitude = data.longitude
-
-            connection.query "SELECT * FROM skp8s_trsproperties_prices", (error, rows, fields) ->
-              throw error  if (error)
-              ptypes =
-                "1bedroom": "bedroom1"
-                "2bedroom": "bedroom2"
-                "3bedroom": "bedroom3"
-                "4bedroom": "bedroom4"
-                "5bedroom": "bedroom5"
-                "studio": "studio"
-              for data in rows
-                building = buildings[data.propertyId]
-                if building
-                  property_type = ptypes[data["property_type"]]
-                  building[property_type] = building[property_type] or {}
-                  if data.price_type is "range"
-                    range = data.price_value.split("-")
-                    building[property_type].from = range[0]
-                    building[property_type].to = range[1]
-                  else
-                    building[property_type].from = parseInt(data.price_value)
-
-              coffee = js2coffee.build("this.buildingsFixtures = " + JSON.stringify(buildings))
-              fs.writeFile "/tmp/buildings.coffee", coffee.code, (error) ->
-                if error
-                  console.log(error)
+    for data in rows
+      buildingId = "" + data.articleid
+      building = buildings[buildingId]
+      if building
+        fieldName = dataFields[data.fieldid]
+        if fieldName is "features"
+          building.features = data.value.split(", ")
+        else if fieldName is "city"
+          building.city = data.value
+          building.cityId = slugify(data.value)
+        else if fieldName in ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
+          if data.value.length
+            try
+              object = JSON.parse(data.value)
+              building[fieldName] =
+                value: object.radio
+                comment: object.comment
+        else if fieldName is "images"
+          if data.value.length
+            images = JSON.parse(data.value)
+            if images
+              for image, i in images
+                if full
+                  image.buildingId = buildingId
+                  buildingImages.push(image)
                 else
-                  console.log("The buildings.coffee file was saved!")
+                  do (image, i, buildingId) ->
+                    if image.url and image.name
+                      request.get {url: "http://rentscene.com/" + image.url, encoding: "binary"}, (error, response, body) ->
+                        if not error and response.statusCode is 200
+                          imageType = response.headers["content-type"]
+                          base64 = new Buffer(body, "binary").toString("base64")
+                          dataURI = 'data:' + imageType + ';base64,' + base64
+                          coffee = "@buildingImagesFixtures['" + buildingId + "'] = @buildingImagesFixtures['" + buildingId + "'] or []"
+                          coffee += "\n@buildingImagesFixtures['" + buildingId + "'].push('" + dataURI + "')"
 
-#mysqlImport()
+                          filename = "/tmp/buildingImages/" + buildingId + "_" + i + ".coffee"
+                          fs.writeFile filename, coffee, (error) ->
+                            if error
+                              cl error
+                            else
+                              cl filename + " file was saved!"
+        else if fieldName is "videos"
+          # TODO: process videos
+        else
+          building[fieldName] = data.value.replace(cleanReg, "")
+  catch
+    throw error
+
+  try
+    rows = syncQuery("SELECT * FROM skp8s_trsproperties_field_geo")
+
+    for data in rows
+      building = buildings[data.articleid]
+      if building
+        building.latitude = data.latitude
+        building.longitude = data.longitude
+  catch error
+    throw error
+
+  try
+    rows = syncQuery("SELECT * FROM skp8s_trsproperties_prices")
+
+    ptypes =
+      "1bedroom": "bedroom1"
+      "2bedroom": "bedroom2"
+      "3bedroom": "bedroom3"
+      "4bedroom": "bedroom4"
+      "5bedroom": "bedroom5"
+      "studio": "studio"
+    for data in rows
+      building = buildings[data.propertyId]
+      if building
+        property_type = ptypes[data["property_type"]]
+        building[property_type] = building[property_type] or {}
+        if data.price_type is "range"
+          range = data.price_value.split("-")
+          building[property_type].from = range[0]
+          building[property_type].to = range[1]
+        else
+          building[property_type].from = parseInt(data.price_value)
+  catch
+    throw error
+
+  if full
+    for _id, building of buildings
+      Buildings.insert(building)
+    for image in buildingImages
+      building = Buildings.findOne(image.buildingId)
+      if building
+        url = "http://rentscene.com/" + image.url
+        cl "inserting image for building " + building._id + " " + url
+        try
+          file = BuildingImages.insert(url)
+          Buildings.update(_id: building._id, {$addToSet: {images: file}})
+        catch error
+          cl "error"
+  else
+    coffee = js2coffee.build("this.buildingsFixtures = " + JSON.stringify(buildings))
+    fs.writeFile "/tmp/buildings.coffee", coffee.code, (error) ->
+      if error
+        console.log(error)
+      else
+        console.log("The buildings.coffee file was saved!")

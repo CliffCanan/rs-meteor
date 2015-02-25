@@ -13,14 +13,14 @@ Meteor.publish "allUsers", ->
     return []
   Meteor.users.find()
 
-Meteor.smartPublish "buildings", (cityId) ->
+Meteor.smartPublish "buildings", (cityId, limit = 90) ->
   check(cityId, Match.InArray(cityIds))
 
   @addDependency "buildings", "images", (building) ->
     _id = building.images?[0]?._id
     if _id then [BuildingImages.find(_id)] else []
 
-  Buildings.find({cityId: cityId})
+  Buildings.find({cityId: cityId}) #, {limit: limit})
 
 Meteor.smartPublish "building", (cityId, buildingSlug) ->
   check(cityId, Match.InArray(cityIds))

@@ -5,7 +5,7 @@ class Building
     cities[@cityId].short
   mainImage: ->
     file = @images?[0]?.getFileRecord()
-    file  if file.url
+    file  if file?.url
   bedroomTypes: ->
     types = []
     postfix = ""

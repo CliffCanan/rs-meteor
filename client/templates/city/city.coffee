@@ -1,3 +1,5 @@
+markers = {}
+
 Template.city.helpers
   buildings: ->
     selector = {cityId: @cityId}
@@ -55,10 +57,7 @@ Template.city.rendered = ->
             if infoWindowId
               markers[infoWindowId].setIcon(defaultIcon)
             mixpanel.track("property-container-map")
-            html = ''
-            image = building.images[0]
-            if image
-              html += Blaze.toHTMLWithData(Template.buildingMarker, building)
+            html = Blaze.toHTMLWithData(Template.buildingMarker, building)
             infowindow.setContent(html)
             infowindow.open(map, marker)
             infoWindowId = marker._id
@@ -87,3 +86,14 @@ Template.city.rendered = ->
     for id, marker of markers
       unless id in actualMarkerIds
         marker.setMap(null)
+
+Template.city.events
+  "mouseover .main-city-list li": (event, template) ->
+    marker = markers[@_id]
+    if marker
+      google.maps.event.trigger(marker, "mouseover")
+
+  "mouseout .main-city-list li": (event, template) ->
+    marker = markers[@_id]
+    if marker
+      google.maps.event.trigger(marker, "mouseout")
