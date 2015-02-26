@@ -178,7 +178,11 @@ Template.building.helpers
     return parent.name
 
 Template.building.rendered = ->
+  $carousel = $(".carousel")
+  $(".item:first", $carousel).addClass("active")
+  $carousel.carousel()
   addthis?.init()
+
 
 Template.building.events
   "click .check-availability": grab encapsulate (event, template) ->

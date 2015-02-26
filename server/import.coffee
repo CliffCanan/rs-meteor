@@ -6,8 +6,8 @@ dataFields =
   102: "postalCode"
   103: "street"
   104: "price"
-  105: "bedrooms"
-  106: "bathrooms"
+  105: "bedroomsCount"
+  106: "bathroomsCount"
   107: "contactPerson"
   108: "phone"
   109: "sqft"
@@ -74,6 +74,67 @@ dataFields =
 
   mkdirp.sync("/tmp/buildingImages")
 
+  buildings = {}
+  buildingImages = []
+
+  parseValueCommentField = (building, fieldName, oldValue) ->
+    if oldValue.length
+      value = parseInt(oldValue)
+      unless isNaN(value)
+        building[fieldName] =
+          value: value
+      else
+        try
+          object = JSON.parse(oldValue)
+          building[fieldName] =
+            value: object.radio
+            comment: object.comment
+
+  parseDeltaField = (building, fieldName, oldValue) ->
+    if oldValue.length
+      value = oldValue.split("-")
+      from = parseInt(value[0])
+      unless isNaN(from)
+        building[fieldName] =
+          from: from
+        if value.length > 1
+          to = parseInt(value[1])
+          unless isNaN(to)
+            building[fieldName].to = to
+        else
+          unless value[0].indexOf("+")
+            building[fieldName].to = from
+
+  parseImages = (building, oldValue, full) ->
+    if oldValue.length
+      images = JSON.parse(oldValue)
+      if images
+        for image, i in images
+          if full
+            image.buildingId = buildingId
+            buildingImages.push(image)
+          else
+            buildingId = building._id
+            do (image, i, buildingId) ->
+              if image.url and image.name
+                url = image.url
+                unless image.url.indexOf("http://rentscene.com/") is 0
+                  url = "http://rentscene.com/" + url
+                request.get {url: url, encoding: "binary"}, (error, response, body) ->
+                  if not error and response.statusCode is 200
+                    imageType = response.headers["content-type"]
+                    base64 = new Buffer(body, "binary").toString("base64")
+                    dataURI = 'data:' + imageType + ';base64,' + base64
+                    coffee = "@buildingImagesFixtures['" + buildingId + "'] = @buildingImagesFixtures['" + buildingId + "'] or []"
+                    coffee += "\n@buildingImagesFixtures['" + buildingId + "'].push('" + dataURI + "')"
+
+                    filename = "/tmp/buildingImages/" + buildingId + "_" + i + ".coffee"
+                    fs.writeFile filename, coffee, (error) ->
+                      if error
+                        cl error
+                      else
+                        cl filename + " file was saved!"
+
   connection = mysql.createConnection
     host: "localhost"
     user: "root"
@@ -85,10 +146,6 @@ dataFields =
     console.error("error connecting: " + error.stack)
 
   console.log("connected as id " + connection.threadId)
-
-
-  buildings = {}
-  buildingImages = []
 
   syncQuery = Meteor.wrapAsync(connection.query, connection)
   try
@@ -132,37 +189,13 @@ dataFields =
           building.city = data.value
           building.cityId = slugify(data.value)
         else if fieldName in ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
-          if data.value.length
-            try
-              object = JSON.parse(data.value)
-              building[fieldName] =
-                value: object.radio
-                comment: object.comment
+          parseValueCommentField(building, fieldName, data.value)
+        else if fieldName is "availableAt"
+          building.availableAt = new Date(data.value)
+        else if fieldName in ["price", "sqft"]
+          parseDeltaField(building, fieldName, data.value)
         else if fieldName is "images"
-          if data.value.length
-            images = JSON.parse(data.value)
-            if images
-              for image, i in images
-                if full
-                  image.buildingId = buildingId
-                  buildingImages.push(image)
-                else
-                  do (image, i, buildingId) ->
-                    if image.url and image.name
-                      request.get {url: "http://rentscene.com/" + image.url, encoding: "binary"}, (error, response, body) ->
-                        if not error and response.statusCode is 200
-                          imageType = response.headers["content-type"]
-                          base64 = new Buffer(body, "binary").toString("base64")
-                          dataURI = 'data:' + imageType + ';base64,' + base64
-                          coffee = "@buildingImagesFixtures['" + buildingId + "'] = @buildingImagesFixtures['" + buildingId + "'] or []"
-                          coffee += "\n@buildingImagesFixtures['" + buildingId + "'].push('" + dataURI + "')"
-
-                          filename = "/tmp/buildingImages/" + buildingId + "_" + i + ".coffee"
-                          fs.writeFile filename, coffee, (error) ->
-                            if error
-                              cl error
-                            else
-                              cl filename + " file was saved!"
+          parseImages(building, data.value, full)
         else if fieldName is "videos"
           # TODO: process videos
         else
@@ -206,15 +239,38 @@ dataFields =
     throw error
 
   if full
+    try
+      rows = syncQuery("SELECT * FROM skp8s_trsproperties_units")
+
+      for data in rows
+        parent = buildings[data.prop_id]
+        if parent
+          building = buildings[data.id] =
+            _id: data.id
+            parentId: building._id
+            unitNumber: data.number
+            description: data.description
+            bedroomsCount: data.beds
+            bathroomsCount: data.baths
+            availableAt: new Date(data.available)
+          for fieldName in ["security", "laundry"]
+            parseValueCommentField(building, fieldName, data[fieldName])
+          for fieldName in ["price", "sqft"]
+            parseDeltaField(building, fieldName, data[fieldName])
+          parseImages(building, data.images, full)
+    catch
+      throw error
+
+  if full
     for _id, building of buildings
       Buildings.insert(building)
     for image in buildingImages
       building = Buildings.findOne(image.buildingId)
       if building
-        url = "http://rentscene.com/" + image.url
-        cl "inserting image for building " + building._id + " " + url
+        path = "/var/rentscene-images/" + image.url.replace("http://rentscene.com/", "")
+        cl "inserting image for building " + building._id + " " + path
         try
-          file = BuildingImages.insert(url)
+          file = BuildingImages.insert(path)
           Buildings.update(_id: building._id, {$addToSet: {images: file}})
         catch error
           cl "error"
