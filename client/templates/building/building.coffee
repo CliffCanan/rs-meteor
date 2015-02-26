@@ -182,7 +182,22 @@ Template.building.helpers
     parent = Buildings.findOne({_id: @parentId})
     return parent.name
 
+  showAllBuildingUnits: ->
+    Session.get("showAllBuildingUnits")
+  buildingUnitsArray: ->
+    array = []
+    i = 0
+    for unit in @buildingUnits().fetch()
+      array.push(
+        {
+          index: i++
+          unit: [unit]
+        }
+      )
+    array
+
 Template.building.rendered = ->
+  Session.set("showAllBuildingUnits", false)
   $carousel = $(".carousel")
   $(".item:first", $carousel).addClass("active")
   $carousel.carousel()
@@ -197,6 +212,12 @@ Template.building.events
   "click .unit-check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
     $('#checkAvailabilityPopup').modal('show')
+
+  "click .building-unit-item-more": grab encapsulate (event, template) ->
+    Session.set("showAllBuildingUnits", true)
+
+  "click .building-unit-item-less": grab encapsulate (event, template) ->
+    Session.set("showAllBuildingUnits", false)
 
 petsAllowance =["Unknown","Pets Allowed", "Pets Allowed", "Pets Not Allowed"]
 parkingAvailability =["Unknown", "Parking Included", "Parking Available", "No Parking"]
