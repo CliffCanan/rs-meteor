@@ -31,7 +31,7 @@ Meteor.smartPublish "building", (cityId, slug) ->
     [BuildingImages.find({_id: {$in: imageIds}})]
   Buildings.find({cityId: cityId, slug: slug})
 
-Meteor.publish "buildingParent", (cityId, slug) ->
+Meteor.smartPublish "buildingParent", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
   check(slug, Match.Optional(String))
   building = Buildings.findOne({cityId: cityId, slug: slug})
@@ -40,9 +40,13 @@ Meteor.publish "buildingParent", (cityId, slug) ->
   else
     []
 
-Meteor.publish "buildingUnits", (cityId, slug) ->
+Meteor.smartPublish "buildingUnits", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
   check(slug, Match.Optional(String))
+  @addDependency "buildings", "images", (building) ->
+    imageIds = _.map building.images, (file) ->
+      file._id
+    [BuildingImages.find({_id: {$in: imageIds}})]
   building = Buildings.findOne({cityId: cityId, slug: slug})
   [Buildings.find({cityId: cityId, parentId: building._id})]
 
