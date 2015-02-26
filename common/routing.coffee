@@ -21,7 +21,7 @@ Router.map ->
   @route "/userlist/:userListId",
     name: "userlist"
     subscriptions: ->
-      subs.subscribe("userListBuildings", @params.userListId)
+      subs.subscribe("allBuildings", @params.userListId)
     data: ->
       userList = UserLists.findOne({_id: @params.userListId})
       return _.defaults({}, @params,
