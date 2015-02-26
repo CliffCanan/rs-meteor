@@ -68,11 +68,11 @@ template(name="building")
             if availableAt
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                 i.fa.fa-check
-                | Available: {{availableAt}}
+                | Available: {{moment availableAt 'MM/DD/YYYY'}}
             if bathrooms
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                 i.fa.fa-check
-                if condition bathroomsCount 'is' '1'
+                if condition bathroomsCount 'is' 1
                   | {{bathroomsCount}} Bathroom
                 else
                   | {{bathroomsCount}} Bathrooms
@@ -90,7 +90,7 @@ template(name="building")
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{hasFitnessCenterComment}}")
                 if isFitnessCenterAllowed
                   i.fa.fa-check
-                    | {{fitnessCenterAllow}}
+                  | {{fitnessCenterAllow}}
                   if hasFitnessCenterComment
                     i.fa.fa-question-circle
                 else
@@ -100,7 +100,7 @@ template(name="building")
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{hasUtilitiesComment}}")
                 if isUtilitiesAllowed
                   i.fa.fa-check
-                    | {{utilitiesAllow}}
+                  | {{utilitiesAllow}}
                   if hasUtilitiesComment
                     i.fa.fa-question-circle
                 else
@@ -172,10 +172,11 @@ template(name="building")
                   each buildingUnits
                     li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       .building-unit-item
-                        img.pull-left(src="/images/unit-img.jpg", alt="")
+                        with mainImage
+                          img.pull-left(src="{{url store='thumbs'}}")
                         .building-unit-info.clearfix
                           h3.building-unit-info-title
-                            | {{name}}
+                            a(href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}") {{name}}
                           .building-unit-info-price
                             i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
                             span.unit-price
@@ -189,10 +190,10 @@ template(name="building")
                         ul.building-unit-prop-list.list-unstyled
                           li.building-unit-prop
                             i.fa.fa-check
-                            | Earliest move-in: {{availableAt}}
+                            | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
                           li.building-unit-prop
                             i.fa.fa-check
-                            if condition bathroomsCount 'is' '1'
+                            if condition bathroomsCount 'is' 1
                               | {{bathroomsCount}} Bathroom
                             else
                               | {{bathroomsCount}} Bathrooms

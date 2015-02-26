@@ -60,6 +60,9 @@ Template.registerHelper "key_value", (object, keyKey, valueKey, hash) ->
 Template.registerHelper "momentFromNow", (date) ->
   moment(date).fromNow()
 
+Template.registerHelper "moment", (date, format) ->
+  moment(date).format(format)
+
 Template.registerHelper "encodeURIComponent", (value) ->
   encodeURIComponent(value)
 
