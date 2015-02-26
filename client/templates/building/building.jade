@@ -162,7 +162,9 @@ template(name="building")
           section.building-info-section
             h2.building-info-title
               i.fa.fa-key
-              | 10 Available Units
+              if buildingUnitsCount
+                | {{buildingUnitsCount}}
+              | Available Units
             p.building-info-desc
               | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
               | mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum
@@ -196,8 +198,9 @@ template(name="building")
                             | {{bathrooms}} Bathroom
                           else
                             | {{bathrooms}} Bathrooms
-              a.building-unit-item-more(href="/", title="more")
-                | View all {{buildingUnitsCount}} Units
+              if buildingUnitsCount
+                a.building-unit-item-more(href="/", title="more")
+                  | View all {{buildingUnitsCount}} Units
           section.building-info-section
             h2.building-info-title
               i.fa.fa-check
