@@ -2,7 +2,6 @@ process.env.MAIL_URL = 'smtp://postmaster@sandbox23e08b6535214d63a9b1f2e8543cbc7
 
 Meteor.startup ->
   Buildings._ensureIndex({slug: 1}, {unique: true, background: true})
-  Buildings._ensureIndex({neighborhoodSlug: 1}, {unique: true, background: true})
 
   if Meteor.settings.public.isDebug
     share.loadFixtures()
