@@ -6,10 +6,12 @@ Template.city.helpers
     selector = {cityId: @cityId}
     if btype = @query.btype
       selector[btype] = {$exists: true}
-    if priceMin = @query.priceMin
-      selector.priceMin = {$gte: parseInt(priceMin)}
-    if priceMax = @query.priceMax
-      selector.priceMax = {$lte: parseInt(priceMax)}
+    if (priceMin = @query.priceMin) or (priceMax = @query.priceMax)
+      selector.priceMin = {}
+      if priceMin
+        selector.priceMin.$gte = parseInt(priceMin)
+      if priceMax
+        selector.priceMin.$lte = parseInt(priceMax)
     Buildings.find(selector)
   randomImage: ->
 #    images = [
