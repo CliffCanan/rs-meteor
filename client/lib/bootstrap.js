@@ -394,6 +394,10 @@ if (typeof jQuery === 'undefined') {
     return this
   }
 
+  Carousel.prototype.destroy = function () {
+    this.$element.off('.' + this.type).removeData('bs.' + this.type)
+  }
+
   Carousel.prototype.next = function () {
     if (this.sliding) return
     return this.slide('next')
