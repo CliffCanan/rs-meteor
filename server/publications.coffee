@@ -42,7 +42,6 @@ Meteor.publish "userListBuildings", (userListId)->
   if userList
     Buildings.find({_id: {$in: userList.buildingsIds}})
 
-
 Meteor.publish "CheckAvailabilityRequests", ->
   unless @userId
     return []

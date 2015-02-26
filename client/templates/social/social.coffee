@@ -7,7 +7,8 @@ Template.social.helpers
     return ""
 
 Template.social.rendered = ->
-  addthis.init()
+  if addthis
+    addthis.init()
 
 Template.social.events
 #  "click .selector": (event, template) ->

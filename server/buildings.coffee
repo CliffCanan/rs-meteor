@@ -125,6 +125,7 @@
     'latitude': 39.950404
     'longitude': -75.16203
     'bedroom1': 'from': 1440
+    'parentId': '6175'
   '6177':
     'name': '1201-5 Chestnut St'
     'isPublished': true
@@ -255,6 +256,7 @@
     'latitude': 39.950404
     'longitude': -75.16203
     'bedroom1': 'from': 1575
+    'parentId': '6175'
   '6179':
     'name': '1300 Chestnut St 302'
     'isPublished': true
@@ -318,6 +320,7 @@
     'latitude': 39.950404
     'longitude': -75.16203
     'bedroom1': 'from': 1495
+    'parentId': '6175'
   '6180':
     'name': '1300 Chestnut St 907'
     'isPublished': true
@@ -381,6 +384,7 @@
     'latitude': 39.950404
     'longitude': -75.16203
     'bedroom1': 'from': 1650
+    'parentId': '6175'
   '6181':
     'name': '1201-5 Chestnut St'
     'isPublished': true

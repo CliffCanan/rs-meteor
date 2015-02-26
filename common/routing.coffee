@@ -46,13 +46,20 @@ Router.map ->
     subscriptions: ->
       Meteor.subscribe("building", @params.cityId, @params.slug)
     data: ->
-      return null  unless building = Buildings.findOne({cityId: @params.cityId, slug: @params.slug})
+      building = Buildings.findOne({cityId: @params.cityId, slug: @params.slug})
+      if building
+        units = Buildings.find({cityId: @params.cityId, parentId: building._id}).fetch()
+        building.units = units
+      return null unless building
       _.extend @params,
         building: building
     onBeforeAction: ->
       if @building
         share.setPageTitle(@building.name + ", " + cities[@params.cityId].long)
       @next()
+  @route "/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug",
+    action: ->
+      Router.go("/:cityId/:neighborhoodSlug/:unitSlug")
   @route "/autologin/:token",
     name: "autologin"
     onBeforeAction: ->

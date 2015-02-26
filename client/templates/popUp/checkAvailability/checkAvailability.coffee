@@ -1,10 +1,16 @@
 Template.checkAvailability.helpers
   serverError: ->
-   Session.get("serverError")
+    Session.get("serverError")
+  propertyName: ->
+    if Session.get("currentUnit")
+      return Session.get("currentUnit").name
 
 Template.checkAvailability.rendered = ->
   form = @$("form")
-  building = @.data.building
+  if Session.get("currentUnit")
+    building = Session.get("currentUnit")
+  else
+    building = @.data.building
   form.formValidation(
     framework: 'bootstrap'
     live: 'disabled'
