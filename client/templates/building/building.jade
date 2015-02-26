@@ -176,7 +176,7 @@ template(name="building")
                           img.pull-left(src="{{url store='thumbs'}}")
                         .building-unit-info.clearfix
                           h3.building-unit-info-title
-                            | {{name}}
+                            a(href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}") {{name}}
                           .building-unit-info-price
                             i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
                             span.unit-price
