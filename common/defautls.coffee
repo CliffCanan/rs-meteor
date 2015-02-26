@@ -22,7 +22,7 @@ buildingPreSave = (modifier) ->
 Buildings.before.insert (userId, building) ->
   _.extend building,
     slug: generateSlug(building.name, "slug")
-    neighborhoodSlug: generateSlug(building.neighborhood, "neighborhoodSlug")
+    neighborhoodSlug: slugify(building.neighborhood)
 
   buildingPreSave(building)
   true
@@ -31,7 +31,7 @@ Buildings.before.update (userId, building, fieldNames, modifier, options) ->
   if newVal = modifier.$set.name
     modifier.$set.slug = generateSlug(newVal, "slug")
   if newVal = modifier.$set.neighborhood
-    modifier.$set.neighborhoodSlug = generateSlug(newVal, "neighborhoodSlug")
+    modifier.$set.neighborhoodSlug = slugify(newVal)
 
   modifier.$set = modifier.$set or {}
   buildingPreSave(modifier.$set)
