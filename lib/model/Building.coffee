@@ -28,7 +28,7 @@ class Building
     if fromCount
       "$" + @priceMin + (if fromCount > 1 then "+" else "")
   buildingUnits: ->
-    Buildings.find({parentId: @_id})
+    Buildings.find({parentId: @_id}, {sort: {createdAt: -1, _id: 1}})
   parent: ->
     Buildings.findOne(@parentId)  if @parentId
 

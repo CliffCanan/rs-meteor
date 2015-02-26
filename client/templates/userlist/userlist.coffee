@@ -21,7 +21,7 @@ Template.userlist.helpers
     buildingsFound = []
     if @userList
       if @userList.buildingsIds
-        buildingsFound = Buildings.find(_id: {$in: @userList.buildingsIds})
+        buildingsFound = Buildings.find({_id: {$in: @userList.buildingsIds}}, {sort: {createdAt: -1, _id: 1}})
     buildingsFound
 
 Template.userlist.rendered = ->
