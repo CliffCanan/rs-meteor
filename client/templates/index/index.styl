@@ -79,6 +79,12 @@
 
 .city-item
   text-decoration none
+  &:hover
+    background-color #4588fa
+    &:first-child
+      border-radius 5px 5px 0 0
+    &:last-child
+      border-radius 0 0 5px 5px
   .city-item-link
     padding 15px
     font-family 'Montserrat', Helvetica, sans-serif
@@ -86,13 +92,8 @@
     color #555
     display block
     &:hover
-      background-color #4588fa
       color #fff
       text-decoration none
-      &:first-child
-        border-radius 5px 5px 0 0
-      &:last-child
-        border-radius 0 0 5px 5px
 
 .more-info
   position absolute
@@ -131,8 +132,8 @@
   overflow hidden
 
 article
-  float left
-  margin 0 20px 20px 0
+  margin 0 0 20px
+  min-height 280px
 
 blockquote
   border 1px solid #c7c7c7
@@ -145,13 +146,12 @@ blockquote
   box-sizing border-box
   margin 0 0 15px
   text-align left
-  font-size 12px
   line-height 20px
   position relative
   &:after
     position absolute
-    bottom -13px
-    left 50%
+    bottom -12px
+    left 48%
     display inline-block
     content "\25BC"
     color #fff
@@ -161,6 +161,8 @@ blockquote
   padding 0
   margin 0
   font-size 14px
+  font-weight bold
+  line-height 22px
 
 .quote-footer
   font-size 100%

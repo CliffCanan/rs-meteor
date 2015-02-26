@@ -7,11 +7,11 @@
   background #fff
   height 100%
   width 100%
-  padding 30px
+  padding 18px 30px
   box-sizing border-box
   .main-city-list
     .main-city-item
-      margin 0 0 3rem 0
+      margin 0 0 2rem 0
       padding 15px
       padding-bottom 0
       box-sizing border-box
@@ -20,7 +20,7 @@
       .main-city-img-link
         position relative
         display block
-        max-height 280px
+        height 200px
         overflow hidden
         &:after
           content '\A'
@@ -52,7 +52,7 @@
           padding 0
           margin 10px 0
           float left
-          width 270px
+          width 260px
           @media screen and (min-width: 970px)
             width 350px
           @media screen and (min-width: 1200px)
@@ -91,6 +91,11 @@
             overflow hidden
             display inline-block
             vertical-align middle
+            width 140px
+            @media screen and (min-width: 970px)
+              width 160px
+            @media screen and (min-width: 1200px)
+              width 100px
 
 .city-side-bar
   height 100%
