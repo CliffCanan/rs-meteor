@@ -190,8 +190,11 @@ Template.building.helpers
       carousel.pause()
       carousel.destroy()
     $firstItem = $carousel.find(".item:first")
-    $firstItem.addClass("active")
-    $carousel.carousel()
+    if $firstItem.length
+      $firstItem.addClass("active")
+      $carousel.show().carousel()
+    else
+      $carousel.hide()
     return ""
 
   showAllBuildingUnits: ->
