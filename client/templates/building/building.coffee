@@ -181,6 +181,17 @@ Template.building.helpers
   parentName: ->
     parent = Buildings.findOne({_id: @parentId})
     return parent.name
+  ironRouterHack: ->
+    Router.current() # reactivity
+    addthis?.init()
+    $carousel = $(".carousel")
+    carousel = $carousel.data("bs.carousel")
+    if carousel
+      carousel.pause()
+      carousel.destroy()
+    $firstItem = $carousel.find(".item:first")
+    $firstItem.addClass("active")
+    $carousel.carousel()
 
   showAllBuildingUnits: ->
     Session.get("showAllBuildingUnits")
@@ -198,11 +209,6 @@ Template.building.helpers
 
 Template.building.rendered = ->
   Session.set("showAllBuildingUnits", false)
-  $carousel = $(".carousel")
-  $(".item:first", $carousel).addClass("active")
-  $carousel.carousel()
-  addthis?.init()
-
 
 Template.building.events
   "click .check-availability": grab encapsulate (event, template) ->
