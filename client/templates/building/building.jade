@@ -159,57 +159,57 @@ template(name="building")
                 a.building-share-icon.fa.fa-paper-plane(href="/", title="share")
               li.building-share.pull-left
                 a.building-share-icon.fa.fa-plus(href="/", title="plus")
-          section.building-info-section
-            h2.building-info-title
-              i.fa.fa-key
-              if buildingUnitsCount
-                | {{buildingUnitsCount}}
-              | Available Units
-            p.building-info-desc
-              | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
-              | mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum
-              | id ligula porta felis euismod semper.
-            .building-unit-list-wrap
-              ul.building-unit-list.list-unstyled.row
-                each buildingUnits
-                  li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-                    .building-unit-item
-                      img.pull-left(src="/images/unit-img.jpg", alt="")
-                      .building-unit-info.clearfix
-                        h3.building-unit-info-title
-                          | {{name}}
-                        .building-unit-info-price
-                          i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
-                          span.unit-price
-                            | {{priceFrom}}
-                          span.unit-type
-                            | {{bedroomTypes}}
-                        button.building-unit-btn.btn.btn-default.check-availability(type="button")
-                          | Check Availability
-                        a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building'}}")
-                          | Full Listing
-                      ul.building-unit-prop-list.list-unstyled
-                        li.building-unit-prop
-                          i.fa.fa-check
-                          | Earliest move-in: {{availableAt}}
-                        li.building-unit-prop
-                          i.fa.fa-check
-                          if condition bathrooms 'is' '1'
-                            | {{bathrooms}} Bathroom
-                          else
-                            | {{bathrooms}} Bathrooms
-              if buildingUnitsCount
+          if buildingUnitsCount
+            section.building-info-section
+              h2.building-info-title
+                i.fa.fa-key
+                | {{buildingUnitsCount}} Available Units
+              p.building-info-desc
+                | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
+                | mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum
+                | id ligula porta felis euismod semper.
+              .building-unit-list-wrap
+                ul.building-unit-list.list-unstyled.row
+                  each buildingUnits
+                    li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
+                      .building-unit-item
+                        img.pull-left(src="/images/unit-img.jpg", alt="")
+                        .building-unit-info.clearfix
+                          h3.building-unit-info-title
+                            | {{name}}
+                          .building-unit-info-price
+                            i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
+                            span.unit-price
+                              | {{priceFrom}}
+                            span.unit-type
+                              | {{bedroomTypes}}
+                          button.building-unit-btn.btn.btn-default.check-availability(type="button")
+                            | Check Availability
+                          a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building'}}")
+                            | Full Listing
+                        ul.building-unit-prop-list.list-unstyled
+                          li.building-unit-prop
+                            i.fa.fa-check
+                            | Earliest move-in: {{availableAt}}
+                          li.building-unit-prop
+                            i.fa.fa-check
+                            if condition bathrooms 'is' '1'
+                              | {{bathrooms}} Bathroom
+                            else
+                              | {{bathrooms}} Bathrooms
                 a.building-unit-item-more(href="/", title="more")
                   | View all {{buildingUnitsCount}} Units
           section.building-info-section
             h2.building-info-title
               i.fa.fa-check
               | Additional Features
-            ul.building-features-list.list-unstyled.row
-              each features
-                li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
-                  i.fa.fa-check
-                  | {{.}}
+            ul.building-features-list.list-unstyled.container-fluid
+              each featureRows
+                .row
+                  each .
+                    li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
+                      i.fa.fa-check
+                      | {{.}}
           section.building-info-section(style="display:none;")
             h2.building-info-title
               i.fa.fa-star

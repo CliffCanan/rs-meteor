@@ -21,6 +21,14 @@ Template.building.helpers
     return @pets?.comment
   arePetsAllowed: ->
     @pets.value isnt "3" or 3
+  featureRows: ->
+    featureRows = []
+    for feature in @features
+      if not lastRow or lastRow.length >= 4
+        lastRow = []
+        featureRows.push(lastRow)
+      lastRow.push(feature)
+    featureRows
   units: ->
     units = []
     if @studio
@@ -48,7 +56,7 @@ Template.building.helpers
       unit.type = "4 Bedrooms"
       unit.price = @bedroom4.from
       units.push(unit)
-    return units
+    units
 
   hasParkingInfo: ->
     if @parking and @parking.value
@@ -174,8 +182,7 @@ Template.building.helpers
     return parent.name
 
 Template.building.rendered = ->
-  if addthis
-    addthis.init()
+  addthis?.init()
 
 Template.building.events
   "click .check-availability": grab encapsulate (event, template) ->
