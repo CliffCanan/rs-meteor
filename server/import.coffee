@@ -105,16 +105,16 @@ dataFields =
           unless value[0].indexOf("+") > 0
             building[fieldName].to = from
 
-  parseImages = (building, oldValue, full) ->
+  parseImages = (building, oldValue) ->
     if oldValue.length
       images = JSON.parse(oldValue)
       if images
+        buildingId = building._id
         for image, i in images
           if full
             image.buildingId = buildingId
             buildingImages.push(image)
           else
-            buildingId = building._id
             do (image, i, buildingId) ->
               if image.url and image.name
                 url = image.url
@@ -166,7 +166,7 @@ dataFields =
         if similar.length
           building.similar = similar.split(",")
   catch error
-    throw error
+    cl error
 
 #connection.query "SELECT * FROM skp8s_trsproperties_buildings", (error, rows, fields) ->
 #  throw error  if (error)
@@ -202,14 +202,14 @@ dataFields =
           if data.value.length and data.value isnt "0"
             building.parentId = data.value
         else if fieldName is "images"
-          parseImages(building, data.value, full)
+          parseImages(building, data.value)
         else if fieldName is "videos"
           # TODO: process videos
         else
           if data.value.length
             building[fieldName] = data.value.replace(cleanReg, "")
   catch
-    throw error
+    cl error
 
   try
     rows = syncQuery("SELECT * FROM skp8s_trsproperties_field_geo")
@@ -220,7 +220,7 @@ dataFields =
         building.latitude = data.latitude
         building.longitude = data.longitude
   catch error
-    throw error
+    cl error
 
   try
     rows = syncQuery("SELECT * FROM skp8s_trsproperties_prices")
@@ -244,7 +244,7 @@ dataFields =
         else
           building[property_type].from = parseInt(data.price_value)
   catch
-    throw error
+    cl error
 
   if full
     try
@@ -254,7 +254,7 @@ dataFields =
         parent = buildings[data.prop_id]
         if parent
           building = buildings[data.id] =
-            _id: data.id
+            _id: "" + data.id
             parentId: building._id
             unitNumber: data.number
             description: data.description
@@ -265,9 +265,9 @@ dataFields =
             parseValueCommentField(building, fieldName, data[fieldName])
           for fieldName in ["price", "sqft"]
             parseDeltaField(building, fieldName, data[fieldName])
-          parseImages(building, data.images, full)
+          parseImages(building, data.images)
     catch
-      throw error
+      cl error
 
   if full
     for _id, building of buildings
@@ -281,7 +281,7 @@ dataFields =
           file = BuildingImages.insert(path)
           Buildings.update(_id: building._id, {$addToSet: {images: file}})
         catch error
-          cl "error"
+          cl "image inserting error"
   else
     coffee = js2coffee.build("this.buildingsFixtures = " + JSON.stringify(buildings))
     fs.writeFile "/tmp/buildings.coffee", coffee.code, (error) ->
