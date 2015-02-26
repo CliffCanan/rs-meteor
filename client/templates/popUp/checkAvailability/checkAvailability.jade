@@ -13,7 +13,7 @@ template(name="checkAvailability")
               h4#myModalLabel.modal-title Check Availability
             .modal-body
               p.form-group.availability-field
-                | We gladly help you to check <i>{{propertyName}}</i> for availability. Please enter your contact details and our agent will write to you asap.
+                | We will gladly help you check availability of {{propertyName}}. Please specify your contact details, and our agent will contact you soon.
               fieldset.form-group.availability-field
                 input.form-control(name="name" placeholder="Name")
               fieldset.form-group.availability-field
@@ -23,7 +23,7 @@ template(name="checkAvailability")
               fieldset.form-inline.availability-field
                 .form-group
                   label.availability-text(for="datetimeForm")
-                    | MOVE-IN DATE
+                    | Move-in date
                   +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="mm/dd/yyyy" class="moveInData-moveInDate-editor" name="moveInDate")
             .modal-footer
               if serverError
