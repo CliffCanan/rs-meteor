@@ -78,7 +78,7 @@ dataFields =
   buildingImages = []
 
   parseValueCommentField = (building, fieldName, oldValue) ->
-    if oldValue.length
+    if oldValue?.length
       value = parseInt(oldValue)
       unless isNaN(value)
         building[fieldName] =
@@ -91,7 +91,7 @@ dataFields =
             comment: object.comment
 
   parseDeltaField = (building, fieldName, oldValue) ->
-    if oldValue.length
+    if oldValue?.length
       value = oldValue.replace(",", "").split("-")
       from = parseInt(value[0])
       unless isNaN(from)
@@ -106,7 +106,7 @@ dataFields =
             building[fieldName].to = from
 
   parseImages = (building, oldValue) ->
-    if oldValue.length
+    if oldValue?.length
       images = JSON.parse(oldValue)
       if images
         buildingId = building._id
@@ -276,12 +276,12 @@ dataFields =
       building = Buildings.findOne(image.buildingId)
       if building
         path = "/var/rentscene-images/" + decodeURIComponent(image.url.replace("http://rentscene.com/", ""))
-        cl "inserting image for building " + building._id + " " + path
+#        cl "inserting image for building " + building._id + " " + path
         try
           file = BuildingImages.insert(path)
           Buildings.update(_id: building._id, {$addToSet: {images: file}})
         catch error
-          cl "image inserting error"
+          cl "image inserting error for building " + building._id + " " + path
   else
     coffee = js2coffee.build("this.buildingsFixtures = " + JSON.stringify(buildings))
     fs.writeFile "/tmp/buildings.coffee", coffee.code, (error) ->
