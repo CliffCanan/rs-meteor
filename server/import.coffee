@@ -92,7 +92,7 @@ dataFields =
 
   parseDeltaField = (building, fieldName, oldValue) ->
     if oldValue.length
-      value = oldValue.split("-")
+      value = oldValue.replace(",", "").split("-")
       from = parseInt(value[0])
       unless isNaN(from)
         building[fieldName] =
@@ -102,7 +102,7 @@ dataFields =
           unless isNaN(to)
             building[fieldName].to = to
         else
-          unless value[0].indexOf("+")
+          unless value[0].indexOf("+") > 0
             building[fieldName].to = from
 
   parseImages = (building, oldValue, full) ->
@@ -194,12 +194,20 @@ dataFields =
           building.availableAt = new Date(data.value)
         else if fieldName in ["price", "sqft"]
           parseDeltaField(building, fieldName, data.value)
+        else if fieldName in ["bedroomsCount", "bathroomsCount"]
+          value = parseInt(data.value)
+          unless isNaN(value)
+            building[fieldName] = value
+        else if fieldName is "parentId"
+          if data.value.length and data.value isnt "0"
+            building.parentId = data.value
         else if fieldName is "images"
           parseImages(building, data.value, full)
         else if fieldName is "videos"
           # TODO: process videos
         else
-          building[fieldName] = data.value.replace(cleanReg, "")
+          if data.value.length
+            building[fieldName] = data.value.replace(cleanReg, "")
   catch
     throw error
 

@@ -34,7 +34,7 @@ template(name="userlist")
                     // TODO: There is could be 'price' field in property and priceFrom will be empty
                     small(style="color:#FFA812;") {{priceFrom}}
 
-                    small | {{bedrooms}}
+                    small | {{bedroomTypes}}
                     i.fa.fa-question-circle(style="color:#337ab7;")
                   .row
                     a.btn.btn-primary.view-building(href="{{pathFor route='building'}}" role="Button") View building

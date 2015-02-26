@@ -21,29 +21,7 @@ Template.userlist.helpers
     buildingsFound = []
     if @userList
       if @userList.buildingsIds
-        buildingsFound = Buildings.find(_id: {$in: @userList.buildingsIds}).fetch()
-      if buildingsFound
-        for building in buildingsFound
-          if building.studio
-            building.bedrooms = "Studio"
-          if building.bedroom1
-            if building.bedrooms.length > 0
-              building.bedrooms += ", "
-            building.bedrooms += "1"
-          if building.bedroom2
-            if building.bedrooms.length > 0
-              building.bedrooms += ", "
-            building.bedrooms += "2"
-          if building.bedroom3
-            if building.bedrooms.length > 0
-              building.bedrooms += ", "
-            building.bedrooms += "3"
-          if building.bedroom4
-            if building.bedrooms.length > 0
-              building.bedrooms += ", "
-            building.bedrooms += "4"
-          if building.bedrooms.length > 0 and building.bedrooms isnt "Studio"
-            building.bedrooms += " Bedrooms"
+        buildingsFound = Buildings.find(_id: {$in: @userList.buildingsIds})
     buildingsFound
 
 Template.userlist.rendered = ->

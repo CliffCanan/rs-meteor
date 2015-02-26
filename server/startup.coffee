@@ -3,6 +3,7 @@ process.env.MAIL_URL = 'smtp://postmaster@sandbox23e08b6535214d63a9b1f2e8543cbc7
 Meteor.startup ->
   if Meteor.settings.public.isDebug
     share.loadFixtures()
+#    mysqlImport()
   else
     mysqlImport(true)
 
