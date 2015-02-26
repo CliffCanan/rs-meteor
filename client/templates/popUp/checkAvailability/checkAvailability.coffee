@@ -35,7 +35,8 @@ Template.checkAvailability.rendered = ->
           notEmpty:
             message: 'For now we need city!'
   ).on("success.form.fv", grab encapsulate (event) ->
-      $('#checkAvailabilityPopup').modal('hide')
+      form.find(".submit-button").prop("disabled", true)
+      form.find(".loading").show()
       if Session.get("currentUnit")
         building = Session.get("currentUnit")
       json = form.serializeFormJSON()
@@ -44,15 +45,18 @@ Template.checkAvailability.rendered = ->
       json.buildingName = building.name
       json.buildingId = building._id
 
-      json.link = building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
+      json.link = "city/"+building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
       CheckAvailabilityRequests.insert(json, callback = (error, id) ->
           if error
             Session.set("serverError", true)
           else
             Session.set("serverError", false)
+            $('#checkAvailabilityPopup').modal('hide')
             form.trigger('reset')
             form.data('formValidation').resetForm()
             $('#messageSentPopup').modal('show')
+            form.find(".submit-button").prop("disabled", false)
+            form.find(".loading").hide()
       )
   )
 

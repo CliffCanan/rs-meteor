@@ -6,10 +6,10 @@ template(name="building")
         li
           a(href="/", title='home') Home
         li
-          a(href="/{{cityId}}") {{cityName}}
-        if hasParent
+          a(href="{{pathFor route='city'}}") {{cityName}}
+        with parent
           li
-            a(href="/{{cityId}}/{{parentNeighborhoodSlug}}/{{parentSlug}}") {{parentName}}
+            a(href="{{pathFor route='building' data=getBuildingData}}") {{name}}
         li.active {{name}}
 
       //.building-sidebar.clearfix.col-lg-3

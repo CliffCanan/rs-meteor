@@ -16,7 +16,7 @@ template(name="index")
         ul.city-list.list-unstyled
           each cities
             li.city-item
-              a.city-item-link(href="/{{key}}") {{value}}
+              a.city-item-link(href="{{pathFor route='city' data=getCityData}}") {{value}}
       a.more-info(href="/") Scroll for more
   section.testimonials-wrap.clearfix
     .testimonials

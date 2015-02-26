@@ -31,6 +31,8 @@ template(name="checkAvailability")
                   .alert.alert-danger(role="alert")
                     strong Sorry! Server error occured! We are probably already fixing it:)
               fieldset.form-group.availability-field.clearfix
-                button.btn.btn-primary(type="submit") Submit
+                button.btn.btn-primary.submit-button(type="submit")
+                  .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
+                  | Submit
                 //button.btn.btn-default.cancel-button Cancel
 

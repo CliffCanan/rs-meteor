@@ -163,7 +163,12 @@ Template.building.helpers
     if @fitnessCenter
       return fitnessCenterAvailability[@fitnessCenter.value]
   fitnessCenterComment: ->
-    return @fitnessCenter?.comment  
+    return @fitnessCenter?.comment
+
+  getBuildingData: ->
+    cityId: @cityId
+    neighborhoodSlug: @neighborhoodSlug
+    buildingSlug: @slug
     
   hasParent: ->
     return @parentId and @parentId isnt '' and @parentId isnt '0'
@@ -194,7 +199,7 @@ Template.building.events
     $('#checkAvailabilityPopup').modal('show')
 
 petsAllowance =["Unknown","Pets Allowed", "Pets Allowed", "Pets Not Allowed"]
-parkingAvailability =["Unknown", "Included", "Available", "No Parking"]
+parkingAvailability =["Unknown", "Parking Included", "Parking Available", "No Parking"]
 laundryAvailability =["Unknown","In-unit Laundry", "On-site Laundry", "No Laundry"]
 securityAvailability =["Unknown","Doorman", "No Doorman"]
 utilitiesAvailability = ["Unknown","Utilities Included", "Utilities Extra Charge"]
