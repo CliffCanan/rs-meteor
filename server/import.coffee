@@ -255,7 +255,7 @@ dataFields =
         if parent
           building = buildings[data.id] =
             _id: "" + data.id
-            parentId: building._id
+            parentId: data.prop_id
             unitNumber: data.number
             description: data.description
             bedroomsCount: data.beds
