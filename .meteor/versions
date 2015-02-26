@@ -83,7 +83,7 @@ npm-bcrypt@0.7.7
 npm-container@1.0.0
 observe-sequence@1.0.4
 ordered-dict@1.0.2
-percolate:migrations@0.7.2
+percolate:migrations@0.7.3
 percolatestudio:percolatestudio-mixpanel@0.5.0
 raix:eventemitter@0.1.1
 random@1.0.2
