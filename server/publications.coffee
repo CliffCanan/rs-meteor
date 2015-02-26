@@ -50,7 +50,7 @@ Meteor.smartPublish "buildingUnits", (cityId, slug) ->
     imageIds = _.map building.images, (file) ->
       file._id
     [BuildingImages.find({_id: {$in: imageIds}})]
-  [Buildings.find({cityId: cityId, parentId: parentBuilding._id})]
+  [Buildings.find({parentId: parentBuilding._id})]
 
 Meteor.publish "allBuildings", ->
   Buildings.find()
