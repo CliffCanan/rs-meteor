@@ -27,6 +27,8 @@ class Building
         fromCount++
     if fromCount
       "$" + @priceMin + (if fromCount > 1 then "+" else "")
+  buildingUnits: ->
+    Buildings.find({parentId: @_id})
 
 share.Transformations.Building = _.partial(share.transform, Building)
 
@@ -40,7 +42,7 @@ buildingPreSave = (userId, changes) ->
 Buildings.before.insert (userId, building) ->
   building._id ||= Random.id()
   now = new Date()
-  building = _.extend building,
+  _.extend building,
     ownerId: userId
     createdAt: now
   buildingPreSave.call(@, userId, building)

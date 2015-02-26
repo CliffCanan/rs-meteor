@@ -1,8 +1,4 @@
 Template.building.helpers
-  buildingUnits: ->
-    return @units
-  buildingUnitsCount: ->
-    return @units.length
   hasPetsInfo: ->
     if @pets and @pets.value
       if typeof @pets.value is "number"

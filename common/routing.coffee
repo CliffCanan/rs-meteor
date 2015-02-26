@@ -40,26 +40,24 @@ Router.map ->
     onBeforeAction: ->
       share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
       @next()
-  @route "/:cityId/:neighborhoodSlug/:slug",
+  @route "/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
     name: "building"
     fastRender: true
     subscriptions: ->
-      Meteor.subscribe("building", @params.cityId, @params.slug)
+      [
+        subs.subscribe("building", @params.cityId, @params.unitSlug or @params.buildingSlug)
+        subs.subscribe("buildingParent", @params.cityId, @params.unitSlug or @params.buildingSlug)
+        subs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug)
+      ]
     data: ->
-      building = Buildings.findOne({cityId: @params.cityId, slug: @params.slug})
-      if building
-        units = Buildings.find({cityId: @params.cityId, parentId: building._id}).fetch()
-        building.units = units
+      building = Buildings.findOne({cityId: @params.cityId, slug: @params.unitSlug or @params.buildingSlug})
       return null unless building
-      _.extend @params,
+      _.extend {}, @params,
         building: building
     onBeforeAction: ->
       if @building
         share.setPageTitle(@building.name + ", " + cities[@params.cityId].long)
       @next()
-  @route "/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug",
-    action: ->
-      Router.go("/:cityId/:neighborhoodSlug/:unitSlug")
   @route "/autologin/:token",
     name: "autologin"
     onBeforeAction: ->
