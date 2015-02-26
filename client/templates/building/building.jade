@@ -208,7 +208,7 @@ template(name="building")
                                 img.pull-left(src="{{url store='thumbs'}}")
                               .building-unit-info.clearfix
                                 h3.building-unit-info-title
-                                  a(href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}") {{name}}
+                                  a(href="{{pathFor route='building' buildingSlug=../../slug unitSlug=slug}}") {{name}}
                                 .building-unit-info-price
                                   i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
                                   span.unit-price
@@ -217,7 +217,7 @@ template(name="building")
                                     | {{bedroomTypes}}
                                 button.building-unit-btn.btn.btn-default.check-availability(type="button")
                                   | Check Availability
-                                a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}")
+                                a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building' buildingSlug=../../slug unitSlug=slug}}")
                                   | Full Listing
                               ul.building-unit-prop-list.list-unstyled
                                 li.building-unit-prop

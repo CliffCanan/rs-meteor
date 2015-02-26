@@ -192,6 +192,7 @@ Template.building.helpers
     $firstItem = $carousel.find(".item:first")
     $firstItem.addClass("active")
     $carousel.carousel()
+    return ""
 
   showAllBuildingUnits: ->
     Session.get("showAllBuildingUnits")
