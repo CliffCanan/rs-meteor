@@ -24,7 +24,7 @@ Meteor.smartPublish "buildings", (cityId, limit = 90) ->
 
 Meteor.smartPublish "building", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
-  check(slug, Match.Optional(String))
+  check(slug, String)
   @addDependency "buildings", "images", (building) ->
     imageIds = _.map building.images, (file) ->
       file._id
@@ -33,7 +33,7 @@ Meteor.smartPublish "building", (cityId, slug) ->
 
 Meteor.smartPublish "buildingParent", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
-  check(slug, Match.Optional(String))
+  check(slug, String)
   childBuilding = Buildings.findOne({cityId: cityId, slug: slug})
   return [] if not childBuilding
   if childBuilding.parentId
@@ -43,7 +43,7 @@ Meteor.smartPublish "buildingParent", (cityId, slug) ->
 
 Meteor.smartPublish "buildingUnits", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
-  check(slug, Match.Optional(String))
+  check(slug, String)
   parentBuilding = Buildings.findOne({cityId: cityId, slug: slug})
   return [] if not parentBuilding
   @addDependency "buildings", "images", (building) ->

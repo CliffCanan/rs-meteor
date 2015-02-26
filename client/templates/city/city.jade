@@ -12,12 +12,11 @@ template(name="city")
           li.col-lg-4.col-md-6.col-sm-6.col-xs-12
             .main-city-item
               a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{name}}")
-                with mainImage
-                  img(src="{{url store='thumbs'}}")
+                img(src="{{#if mainImage}}{{mainImage.url store='thumbs'}}{{else}}/images/placeholder.png{{/if}}")
               .main-city-item-wrap
                 h2.main-city-item-title
                   a.main-city-item-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{name}}") {{name}}
-                span.main-city-info-btn.fa.fa-question-circle.pull-right
+                //span.main-city-info-btn.fa.fa-question-circle.pull-right
                 .main-city-info.clearfix
                   i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
                   span.main-city-price

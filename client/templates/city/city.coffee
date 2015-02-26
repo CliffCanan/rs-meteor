@@ -3,7 +3,7 @@ markers = {}
 Template.city.helpers
   # TODO: filter by price depend on btype
   buildings: ->
-    selector = {cityId: @cityId}
+    selector = {parentId: {$exists: false}, cityId: @cityId}
     if btype = @query.btype
       selector[btype] = {$exists: true}
     if (priceMin = @query.priceMin) or (priceMax = @query.priceMax)
@@ -13,6 +13,7 @@ Template.city.helpers
       if priceMax
         selector.priceMin.$lte = parseInt(priceMax)
     Buildings.find(selector)
+    Buildings.find(selector, {sort: {createdAt: -1, _id: 1}})
   randomImage: ->
 #    images = [
 #      "/images/search-img1.jpg"

@@ -1,16 +1,16 @@
 Template.addBuilding.helpers
   buildings: ->
     filter = Session.get("filter")
-    $set = {}
+    selector = {}
     if @userList
-      $set.cityId = @userList.cityId
+      selector.cityId = @userList.cityId
       if filter
-        $set.name = {}
-        $set.name.$regex = ".*"+filter+".*"
+        selector.name = {}
+        selector.name.$regex = ".*"+filter+".*"
       if @userList.buildingsIds
-        $set._id = {}
-        $set._id.$nin = @userList.buildingsIds
-      return Buildings.find($set)
+        selector._id = {}
+        selector._id.$nin = @userList.buildingsIds
+      return Buildings.find(selector, {sort: {createdAt: -1, _id: 1}})
 
 
 Template.addBuilding.rendered = ->
