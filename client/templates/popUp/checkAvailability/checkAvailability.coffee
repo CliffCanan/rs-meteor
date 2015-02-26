@@ -7,10 +7,7 @@ Template.checkAvailability.helpers
 
 Template.checkAvailability.rendered = ->
   form = @$("form")
-  if Session.get("currentUnit")
-    building = Session.get("currentUnit")
-  else
-    building = @.data.building
+  building = @.data.building
   form.formValidation(
     framework: 'bootstrap'
     live: 'disabled'
@@ -39,11 +36,14 @@ Template.checkAvailability.rendered = ->
             message: 'For now we need city!'
   ).on("success.form.fv", grab encapsulate (event) ->
       $('#checkAvailabilityPopup').modal('hide')
+      if Session.get("currentUnit")
+        building = Session.get("currentUnit")
       json = form.serializeFormJSON()
       json.cityName = building.city
       json.cityId = building.cityId
       json.buildingName = building.name
       json.buildingId = building._id
+
       json.link = building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
       CheckAvailabilityRequests.insert(json, callback = (error, id) ->
           if error

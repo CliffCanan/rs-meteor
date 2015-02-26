@@ -68,7 +68,7 @@ template(name="building")
             if availableAt
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                 i.fa.fa-check
-                | Available: {{availableAt}}
+                | Available: {{moment availableAt 'MM/DD/YYYY'}}
             if bathrooms
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                 i.fa.fa-check
@@ -190,7 +190,7 @@ template(name="building")
                         ul.building-unit-prop-list.list-unstyled
                           li.building-unit-prop
                             i.fa.fa-check
-                            | Earliest move-in: {{availableAt}}
+                            | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
                           li.building-unit-prop
                             i.fa.fa-check
                             if condition bathroomsCount 'is' 1
