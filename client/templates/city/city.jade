@@ -16,7 +16,7 @@ template(name="city")
               .main-city-item-wrap
                 h2.main-city-item-title
                   a.main-city-item-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{name}}") {{name}}
-                span.main-city-info-btn.fa.fa-question-circle.pull-right
+                //span.main-city-info-btn.fa.fa-question-circle.pull-right
                 .main-city-info.clearfix
                   i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
                   span.main-city-price
