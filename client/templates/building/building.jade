@@ -72,7 +72,7 @@ template(name="building")
             if bathrooms
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                 i.fa.fa-check
-                if condition bathroomsCount 'is' '1'
+                if condition bathroomsCount 'is' 1
                   | {{bathroomsCount}} Bathroom
                 else
                   | {{bathroomsCount}} Bathrooms
@@ -192,7 +192,7 @@ template(name="building")
                             | Earliest move-in: {{availableAt}}
                           li.building-unit-prop
                             i.fa.fa-check
-                            if condition bathroomsCount 'is' '1'
+                            if condition bathroomsCount 'is' 1
                               | {{bathroomsCount}} Bathroom
                             else
                               | {{bathroomsCount}} Bathrooms
