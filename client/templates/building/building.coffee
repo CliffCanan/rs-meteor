@@ -187,6 +187,7 @@ Template.building.rendered = ->
 Template.building.events
   "click .check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
+    cl @
     $('#checkAvailabilityPopup').modal('show')
 
   "click .unit-check-availability": grab encapsulate (event, template) ->

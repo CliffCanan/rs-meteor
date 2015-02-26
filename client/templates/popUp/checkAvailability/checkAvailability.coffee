@@ -7,6 +7,7 @@ Template.checkAvailability.helpers
 
 Template.checkAvailability.rendered = ->
   form = @$("form")
+  cl "in ChAv", Session.get("currentUnit")
   if Session.get("currentUnit")
     building = Session.get("currentUnit")
   else
@@ -44,6 +45,10 @@ Template.checkAvailability.rendered = ->
       json.cityId = building.cityId
       json.buildingName = building.name
       json.buildingId = building._id
+      cl Session.get("currentUnit")
+      if Session.get("currentUnit")
+        building = Session.get("currentUnit")
+      cl "success", building
       json.link = building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
       CheckAvailabilityRequests.insert(json, callback = (error, id) ->
           if error
