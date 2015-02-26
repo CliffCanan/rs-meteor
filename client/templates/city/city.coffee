@@ -1,6 +1,7 @@
 markers = {}
 
 Template.city.helpers
+  # TODO: filter by price depend on btype
   buildings: ->
     selector = {cityId: @cityId}
     if btype = @query.btype
