@@ -275,7 +275,7 @@ dataFields =
     for image in buildingImages
       building = Buildings.findOne(image.buildingId)
       if building
-        path = "/var/rentscene-images/" + image.url.replace("http://rentscene.com/", "")
+        path = "/var/rentscene-images/" + decodeURIComponent(image.url.replace("http://rentscene.com/", ""))
         cl "inserting image for building " + building._id + " " + path
         try
           file = BuildingImages.insert(path)
