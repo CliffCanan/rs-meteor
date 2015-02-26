@@ -6,10 +6,10 @@ template(name="building")
         li
           a(href="/", title='home') Home
         li
-          a(href="/{{cityId}}") {{cityName}}
-        if hasParent
+          a(href="{{pathFor route='city'}}") {{cityName}}
+        with parent
           li
-            a(href="/{{cityId}}/{{parentNeighborhoodSlug}}/{{parentSlug}}") {{parentName}}
+            a(href="{{pathFor route='building' data=getBuildingData}}") {{name}}
         li.active {{name}}
 
       //.building-sidebar.clearfix.col-lg-3
@@ -68,7 +68,7 @@ template(name="building")
             if availableAt
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                 i.fa.fa-check
-                | Available: {{availableAt}}
+                | Available: {{moment availableAt 'MM/DD/YYYY'}}
             if bathrooms
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                 i.fa.fa-check
@@ -169,36 +169,73 @@ template(name="building")
                 | id ligula porta felis euismod semper.
               .building-unit-list-wrap
                 ul.building-unit-list.list-unstyled.row
-                  each buildingUnits
-                    li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-                      .building-unit-item
-                        with mainImage
-                          img.pull-left(src="{{url store='thumbs'}}")
-                        .building-unit-info.clearfix
-                          h3.building-unit-info-title
-                            | {{name}}
-                          .building-unit-info-price
-                            i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
-                            span.unit-price
-                              | {{priceFrom}}
-                            span.unit-type
-                              | {{bedroomTypes}}
-                          button.building-unit-btn.btn.btn-default.check-availability(type="button")
-                            | Check Availability
-                          a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}")
-                            | Full Listing
-                        ul.building-unit-prop-list.list-unstyled
-                          li.building-unit-prop
-                            i.fa.fa-check
-                            | Earliest move-in: {{availableAt}}
-                          li.building-unit-prop
-                            i.fa.fa-check
-                            if condition bathroomsCount 'is' 1
-                              | {{bathroomsCount}} Bathroom
-                            else
-                              | {{bathroomsCount}} Bathrooms
-                a.building-unit-item-more(href="/", title="more")
-                  | View all {{buildingUnits.count}} Units
+                  if showAllBuildingUnits
+                    each buildingUnits
+                      li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
+                        .building-unit-item
+                          with mainImage
+                            img.pull-left(src="{{url store='thumbs'}}")
+                          .building-unit-info.clearfix
+                            h3.building-unit-info-title
+                              a(href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}") {{name}}
+                            .building-unit-info-price
+                              i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
+                              span.unit-price
+                                | {{priceFrom}}
+                              span.unit-type
+                                | {{bedroomTypes}}
+                            button.building-unit-btn.btn.btn-default.check-availability(type="button")
+                              | Check Availability
+                            a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}")
+                              | Full Listing
+                          ul.building-unit-prop-list.list-unstyled
+                            li.building-unit-prop
+                              i.fa.fa-check
+                              | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
+                            li.building-unit-prop
+                              i.fa.fa-check
+                              if condition bathroomsCount 'is' 1
+                                | {{bathroomsCount}} Bathroom
+                              else
+                                | {{bathroomsCount}} Bathrooms
+                  else
+                    each buildingUnitsArray
+                      if condition index "lte" 1
+                        each unit
+                          li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
+                            .building-unit-item
+                              with mainImage
+                                img.pull-left(src="{{url store='thumbs'}}")
+                              .building-unit-info.clearfix
+                                h3.building-unit-info-title
+                                  a(href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}") {{name}}
+                                .building-unit-info-price
+                                  i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
+                                  span.unit-price
+                                    | {{priceFrom}}
+                                  span.unit-type
+                                    | {{bedroomTypes}}
+                                button.building-unit-btn.btn.btn-default.check-availability(type="button")
+                                  | Check Availability
+                                a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}")
+                                  | Full Listing
+                              ul.building-unit-prop-list.list-unstyled
+                                li.building-unit-prop
+                                  i.fa.fa-check
+                                  | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
+                                li.building-unit-prop
+                                  i.fa.fa-check
+                                  if condition bathroomsCount 'is' 1
+                                    | {{bathroomsCount}} Bathroom
+                                  else
+                                    | {{bathroomsCount}} Bathrooms
+              if condition buildingUnits.count "gt" 2
+                if showAllBuildingUnits
+                  a.building-unit-item-less(href="/", title="less")
+                    | Hide Units
+                else
+                  a.building-unit-item-more(href="/", title="more")
+                    | View all {{buildingUnits.count}} Units
           section.building-info-section
             h2.building-info-title
               i.fa.fa-check
@@ -387,5 +424,5 @@ template(name="building")
         //            | {{bedroomTypes}}
         //          span.building-page-similar-price
         //            | {{priceFrom}} {{helper}}
-
+      | {{ironRouterHack}}
 

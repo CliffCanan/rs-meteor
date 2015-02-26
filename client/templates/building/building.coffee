@@ -163,7 +163,12 @@ Template.building.helpers
     if @fitnessCenter
       return fitnessCenterAvailability[@fitnessCenter.value]
   fitnessCenterComment: ->
-    return @fitnessCenter?.comment  
+    return @fitnessCenter?.comment
+
+  getBuildingData: ->
+    cityId: @cityId
+    neighborhoodSlug: @neighborhoodSlug
+    buildingSlug: @slug
     
   hasParent: ->
     return @parentId and @parentId isnt '' and @parentId isnt '0'
@@ -176,13 +181,34 @@ Template.building.helpers
   parentName: ->
     parent = Buildings.findOne({_id: @parentId})
     return parent.name
+  ironRouterHack: ->
+    Router.current() # reactivity
+    addthis?.init()
+    $carousel = $(".carousel")
+    carousel = $carousel.data("bs.carousel")
+    if carousel
+      carousel.pause()
+      carousel.destroy()
+    $firstItem = $carousel.find(".item:first")
+    $firstItem.addClass("active")
+    $carousel.carousel()
+
+  showAllBuildingUnits: ->
+    Session.get("showAllBuildingUnits")
+  buildingUnitsArray: ->
+    array = []
+    i = 0
+    for unit in @buildingUnits().fetch()
+      array.push(
+        {
+          index: i++
+          unit: [unit]
+        }
+      )
+    array
 
 Template.building.rendered = ->
-  $carousel = $(".carousel")
-  $(".item:first", $carousel).addClass("active")
-  $carousel.carousel()
-  addthis?.init()
-
+  Session.set("showAllBuildingUnits", false)
 
 Template.building.events
   "click .check-availability": grab encapsulate (event, template) ->
@@ -193,8 +219,14 @@ Template.building.events
     Session.set("currentUnit", @)
     $('#checkAvailabilityPopup').modal('show')
 
+  "click .building-unit-item-more": grab encapsulate (event, template) ->
+    Session.set("showAllBuildingUnits", true)
+
+  "click .building-unit-item-less": grab encapsulate (event, template) ->
+    Session.set("showAllBuildingUnits", false)
+
 petsAllowance =["Unknown","Pets Allowed", "Pets Allowed", "Pets Not Allowed"]
-parkingAvailability =["Unknown", "Included", "Available", "No Parking"]
+parkingAvailability =["Unknown", "Parking Included", "Parking Available", "No Parking"]
 laundryAvailability =["Unknown","In-unit Laundry", "On-site Laundry", "No Laundry"]
 securityAvailability =["Unknown","Doorman", "No Doorman"]
 utilitiesAvailability = ["Unknown","Utilities Included", "Utilities Extra Charge"]

@@ -29,7 +29,7 @@ Router.map ->
       )
     onBeforeAction: ->
       @next()
-  @route "/:cityId",
+  @route "/city/:cityId",
     name: "city"
     fastRender: true
     subscriptions: ->
@@ -40,7 +40,7 @@ Router.map ->
     onBeforeAction: ->
       share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
       @next()
-  @route "/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
+  @route "/city/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
     name: "building"
     fastRender: true
     subscriptions: ->

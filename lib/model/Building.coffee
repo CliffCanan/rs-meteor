@@ -29,6 +29,8 @@ class Building
       "$" + @priceMin + (if fromCount > 1 then "+" else "")
   buildingUnits: ->
     Buildings.find({parentId: @_id})
+  parent: ->
+    Buildings.findOne(@parentId)  if @parentId
 
 share.Transformations.Building = _.partial(share.transform, Building)
 
