@@ -37,7 +37,7 @@ template(name="userlist")
                     small | {{bedroomTypes}}
                     i.fa.fa-question-circle(style="color:#337ab7;")
                   .row
-                    a.btn.btn-primary.view-building(href="{{pathFor route='building'}}" role="Button") View building
+                    a.btn.btn-primary.view-building(href="{{pathFor route='building' buildingSlug=slug}}" role="Button") View building
                 .col-xs-4
                   .row
                     i.fa.fa-check Pets allowed

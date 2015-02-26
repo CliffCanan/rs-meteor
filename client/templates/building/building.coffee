@@ -1,8 +1,4 @@
 Template.building.helpers
-  buildingUnits: ->
-    return @units
-  buildingUnitsCount: ->
-    return @units.length
   hasPetsInfo: ->
     if @pets and @pets.value
       if typeof @pets.value is "number"
@@ -182,7 +178,11 @@ Template.building.helpers
     return parent.name
 
 Template.building.rendered = ->
+  $carousel = $(".carousel")
+  $(".item:first", $carousel).addClass("active")
+  $carousel.carousel()
   addthis?.init()
+
 
 Template.building.events
   "click .check-availability": grab encapsulate (event, template) ->

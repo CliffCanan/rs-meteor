@@ -14,7 +14,7 @@ UserListPreSave = (userId, changes) ->
 UserLists.before.insert (userId, UserList) ->
   UserList._id ||= Random.id()
   now = new Date()
-  UserList = _.extend UserList,
+  _.extend UserList,
     createdAt: now
   UserListPreSave.call(@, userId, UserList)
   true

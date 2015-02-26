@@ -27,7 +27,7 @@ template(name="building")
                   | ${{price}}
                 span.building-main-rooms
                   | {{type}}
-          ul.building-main-prop-list.list-unstyled
+          ul.building-main-prop-list.list-unstyled.clearfix
             if hasPetsInfo
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{petsComment}}")
                 if arePetsAllowed
@@ -132,26 +132,37 @@ template(name="building")
             //    a.building-share-icon.fa.fa-plus(href="/", title="plus")
             +social
         .building-info-wrap.col-lg-7
-          .building-img-wrap
-            each images
-              img.building-img(src="{{url}}")
+          .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel")
+            .carousel-inner(role="listbox")
+              each images
+                .item
+                  img.building-img(src="{{url}}")
+            a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
+              i.fa.fa-chevron-left.building-img-icon(aria-hidden="true")
+              span.sr-only
+                | Previous
+            a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
+              i.fa.fa-chevron-right.building-img-icon(aria-hidden="true")
+              span.sr-only
+                | Next
           .building-main-info-desc-wrap.hidden-lg
             p.building-main-info-desc
               | {{description}}
-            ul.building-share-list.list-unstyled.clearfix.hidden-lg
-              li.building-share.pull-left
-                a.building-share-icon.fa.fa-facebook(href="/", title="facebook")
-              li.building-share.pull-left
-                a.building-share-icon.fa.fa-twitter(href="/", title="twitter")
-              li.building-share.pull-left
-                a.building-share-icon.fa.fa-paper-plane(href="/", title="share")
-              li.building-share.pull-left
-                a.building-share-icon.fa.fa-plus(href="/", title="plus")
-          if buildingUnitsCount
+            //ul.building-share-list.list-unstyled.clearfix.hidden-lg
+            //  li.building-share.pull-left
+            //    a.building-share-icon.fa.fa-facebook(href="/", title="facebook")
+            //  li.building-share.pull-left
+            //    a.building-share-icon.fa.fa-twitter(href="/", title="twitter")
+            //  li.building-share.pull-left
+            //    a.building-share-icon.fa.fa-paper-plane(href="/", title="share")
+            //  li.building-share.pull-left
+            //    a.building-share-icon.fa.fa-plus(href="/", title="plus")
+            +social
+          if buildingUnits.count
             section.building-info-section
               h2.building-info-title
                 i.fa.fa-key
-                | {{buildingUnitsCount}} Available Units
+                | {{buildingUnits.count}} Available Units
               p.building-info-desc
                 | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
                 | mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum
@@ -173,7 +184,7 @@ template(name="building")
                               | {{bedroomTypes}}
                           button.building-unit-btn.btn.btn-default.check-availability(type="button")
                             | Check Availability
-                          a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building'}}")
+                          a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}")
                             | Full Listing
                         ul.building-unit-prop-list.list-unstyled
                           li.building-unit-prop
@@ -186,7 +197,7 @@ template(name="building")
                             else
                               | {{bathroomsCount}} Bathrooms
                 a.building-unit-item-more(href="/", title="more")
-                  | View all {{buildingUnitsCount}} Units
+                  | View all {{buildingUnits.count}} Units
           section.building-info-section
             h2.building-info-title
               i.fa.fa-check

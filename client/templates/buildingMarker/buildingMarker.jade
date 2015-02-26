@@ -1,7 +1,7 @@
 template(name="buildingMarker")
   #hook.cpr-property-container-map
     .cpr-property-map-image-container
-      a.cpr-property-map-image-link(href="{{pathFor route='building'}}")
+      a.cpr-property-map-image-link(href="{{pathFor route='building' buildingSlug=slug}}")
         with mainImage
           .uk-overlay.cpr-overlay
             img.cpr-property-map-featured-image(src="{{url store='thumbs'}}")
