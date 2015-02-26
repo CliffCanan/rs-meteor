@@ -172,7 +172,8 @@ template(name="building")
                   each buildingUnits
                     li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
                       .building-unit-item
-                        img.pull-left(src="/images/unit-img.jpg", alt="")
+                        with mainImage
+                          img.pull-left(src="{{url store='thumbs'}}")
                         .building-unit-info.clearfix
                           h3.building-unit-info-title
                             | {{name}}
