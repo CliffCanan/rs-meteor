@@ -133,7 +133,8 @@ template(name="building")
             +social
         .building-info-wrap.col-lg-7
           .building-img-wrap
-            img.building-img(src="/images/building-img.jpg", alt="")
+            each images
+              img.building-img(src="{{url}}")
           .building-main-info-desc-wrap.hidden-lg
             p.building-main-info-desc
               | {{description}}
