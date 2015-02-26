@@ -7,6 +7,9 @@ template(name="building")
           a(href="/", title='home') Home
         li
           a(href="/{{cityId}}") {{cityName}}
+        if hasParent
+          li
+            a(href="/{{cityId}}/{{parentNeighborhoodSlug}}/{{parentSlug}}") {{parentName}}
         li.active {{name}}
 
       //.building-sidebar.clearfix.col-lg-3
@@ -35,9 +38,16 @@ template(name="building")
                 else
                   i.fa.fa-minus-circle
                   | {{petsAllow}}
-            li.building-main-prop.col-lg-6
-              i.fa.fa-minus-circle
-              | Doorman
+            if hasSecurityInfo
+              li.building-main-prop.col-lg-6(data-toggle="tooltip" data-placement="top" title="{{hasSecurityComment}}")
+                if isSecurityAllowed
+                  i.fa.fa-check
+                  | {{securityAllow}}
+                  if hasSecurityComment
+                    i.fa.fa-question-circle
+                else
+                  i.fa.fa-minus-circle
+                  | {{securityAllow}}
             if hasParkingInfo
               li.building-main-prop.col-lg-6(data-toggle="tooltip" data-placement="top" title="{{hasParkingComment}}")
                 if isParkingAllowed
@@ -59,33 +69,13 @@ template(name="building")
               li.building-main-prop.col-lg-6
                 i.fa.fa-check
                 | Available: {{availableAt}}
-            if yearOfCompletion
-              li.building-main-prop.col-lg-6
-                i.fa.fa-check
-                | Year: {{yearOfCompletion}}
-            if design
-              li.building-main-prop.col-lg-6
-                i.fa.fa-check
-                | Design: {{design}}
-            if floor
-              li.building-main-prop.col-lg-6
-                i.fa.fa-check
-                | Floor: {{floor}}
-            if appFee
-              li.building-main-prop.col-lg-6
-                i.fa.fa-check
-                | Application Fee: {{appFee}}
             if bathrooms
               li.building-main-prop.col-lg-6
                 i.fa.fa-check
-                | {{bathrooms}} Bathrooms
-            li.building-main-prop.col-lg-6
-              if hasHeatingAndCooling
-                i.fa.fa-check
-                | Heating and Cooling
-              else
-                i.fa.fa-minus-circle
-                | No Heating and Cooling
+                if condition bathrooms 'is' '1'
+                  | {{bathrooms}} Bathroom
+                else
+                  | {{bathrooms}} Bathrooms
             if hasLaundryInfo
               li.building-main-prop.col-lg-6(data-toggle="tooltip" data-placement="top" title="{{hasLaundryComment}}")
                 if isLaundryAllowed
@@ -96,6 +86,27 @@ template(name="building")
                 else
                   i.fa.fa-minus-circle
                   | {{laundryAllow}}
+            if hasFitnessCenterInfo
+              li.building-main-prop.col-lg-6(data-toggle="tooltip" data-placement="top" title="{{hasFitnessCenterComment}}")
+                if isFitnessCenterAllowed
+                  i.fa.fa-check
+                    | {{fitnessCenterAllow}}
+                  if hasFitnessCenterComment
+                    i.fa.fa-question-circle
+                else
+                  i.fa.fa-minus-circle
+                  | {{fitnessCenterAllow}}
+            if hasUtilitiesInfo
+              li.building-main-prop.col-lg-6(data-toggle="tooltip" data-placement="top" title="{{hasUtilitiesComment}}")
+                if isUtilitiesAllowed
+                  i.fa.fa-check
+                    | {{utilitiesAllow}}
+                  if hasUtilitiesComment
+                    i.fa.fa-question-circle
+                else
+                  i.fa.fa-minus-circle
+                  | {{utilitiesAllow}}
+
           button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
             | Check Availability
           .building-main-info-desc-wrap.visible-lg-block
@@ -158,53 +169,35 @@ template(name="building")
               | id ligula porta felis euismod semper.
             .building-unit-list-wrap
               ul.building-unit-list.list-unstyled.row
-                li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-                  .building-unit-item
-                    img.pull-left(src="/images/unit-img.jpg", alt="")
-                    .building-unit-info.clearfix
-                      h3.building-unit-info-title
-                        | Unit 238, 300 sq feet
-                      .building-unit-info-price
-                        i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
-                        span.unit-price
-                          | {{priceFrom}}
-                        span.unit-type
-                          | {{bedroomTypes}}
-                      button.building-unit-btn.btn.btn-default(type="button")
-                        | Check Availability
-                      button.building-unit-btn.btn.btn-default(type="button")
-                        | Full Listing
-                    ul.building-unit-prop-list.list-unstyled
-                      li.building-unit-prop
-                        i.fa.fa-check
-                        | Earliest move-in: May 14
-                      li.building-unit-prop
-                        i.fa.fa-check
-                        | 2 baths
-                li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-                  .building-unit-item
-                    img.pull-left(src="/images/unit-img.jpg")
-                    .building-unit-info.clearfix
-                      h3.building-unit-info-title
-                        | Unit 238, 300 sq feet
-                      .building-unit-info-price
-                        span.unit-price
-                          | {{priceFrom}}
-                        span.unit-type
-                          | {{bedroomTypes}}
-                      button.building-unit-btn.btn.btn-default(type="button")
-                        | Check Availability
-                      button.building-unit-btn.btn.btn-default(type="button")
-                        | Full Listing
-                    ul.building-unit-prop-list.list-unstyled
-                      li.building-unit-prop
-                        i.fa.fa-check
-                        | Earliest move-in: May 14
-                      li.building-unit-prop
-                        i.fa.fa-check
-                        | 2 baths
+                each buildingUnits
+                  li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
+                    .building-unit-item
+                      img.pull-left(src="/images/unit-img.jpg", alt="")
+                      .building-unit-info.clearfix
+                        h3.building-unit-info-title
+                          | {{name}}
+                        .building-unit-info-price
+                          i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
+                          span.unit-price
+                            | {{priceFrom}}
+                          span.unit-type
+                            | {{bedroomTypes}}
+                        button.building-unit-btn.btn.btn-default.check-availability(type="button")
+                          | Check Availability
+                        a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building'}}")
+                          | Full Listing
+                      ul.building-unit-prop-list.list-unstyled
+                        li.building-unit-prop
+                          i.fa.fa-check
+                          | Earliest move-in: {{availableAt}}
+                        li.building-unit-prop
+                          i.fa.fa-check
+                          if condition bathrooms 'is' '1'
+                            | {{bathrooms}} Bathroom
+                          else
+                            | {{bathrooms}} Bathrooms
               a.building-unit-item-more(href="/", title="more")
-                | View all 10 Units
+                | View all {{buildingUnitsCount}} Units
           section.building-info-section
             h2.building-info-title
               i.fa.fa-check
