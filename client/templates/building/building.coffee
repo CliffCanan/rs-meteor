@@ -1,4 +1,7 @@
 Template.building.helpers
+  getDescription: ->
+    parent = @parent()
+    return if @description? then @description else parent.description
   hasPetsInfo: ->
     if @pets and @pets.value
       if typeof @pets.value is "number"

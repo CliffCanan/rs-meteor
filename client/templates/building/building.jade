@@ -108,7 +108,7 @@ template(name="building")
           .building-main-info-desc-wrap.visible-lg-block
             input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
             p.building-main-info-desc
-              | {{description}}
+              | {{getDescription}}
             //p.building-main-info-desc
             //  | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community amenities.
             //  | Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens, two-bedrooms, and
@@ -128,7 +128,7 @@ template(name="building")
             //    a.building-share-icon.fa.fa-plus(href="/", title="plus")
             +social
         .building-info-wrap.col-lg-7
-          .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel")
+          .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel" data-interval="false")
             .carousel-inner(role="listbox")
               each images
                 .item
