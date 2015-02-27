@@ -7,18 +7,21 @@ class Building
     file = @images?[0]?.getFileRecord()
     file  if file?.url
   bedroomTypes: ->
-    types = []
-    postfix = ""
-    if @studio
-      types.push("Studio")
-    if @bedroom1
-      types.push(1)
-      postfix = " Bedroom"
-    for i in [1..4]
-      if @[btypesIds[i]]
-        types.push(i + 1)
-        postfix = " Bedrooms"
-    types.join(", ") + postfix
+    if @agroIsUnit
+      btypes[@btype]?.upper
+    else
+      types = []
+      postfix = ""
+      if @priceStudioFrom
+        types.push("Studio")
+      if @priceBedroom1From
+        types.push(1)
+        postfix = " Bedroom"
+      for i in [2..5]
+        if @["priceBedroom" + i + "From"]
+          types.push(i)
+          postfix = " Bedrooms"
+      types.join(", ") + postfix
   displayBuildingPrice: ->
     if @agroPriceTotalFrom
       "$" + @agroPriceTotalFrom + (if @agroPriceTotalFrom is @agroPriceTotalTo then "+" else "")
@@ -45,7 +48,7 @@ class Building
     for type in bedroomTypesArray
       if prices[type]?
         minPriceUnit = {}
-        minPriceUnit.type = btypes[type]
+        minPriceUnit.type = btypes[type].lower
         minPriceUnit.from = Math.min.apply(null, prices[type])
         minPrices.push(minPriceUnit)
     return minPrices

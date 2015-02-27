@@ -242,7 +242,7 @@ dataFields =
       if building
         property_type = ptypes[data["property_type"]]
         if building.parentId
-          building.ptype = property_type
+          building.btype = property_type
           parseDeltaField(building, "price", data.price_value)
         else
           fieldName = "price" + property_type.charAt(0).toUpperCase() + property_type.slice(1)
@@ -260,7 +260,7 @@ dataFields =
           building = buildings[data.id] =
             _id: "" + data.id
             parentId: "" + data.prop_id
-            ptype: if data.beds is 0 then "studio" else btypesIds[data.beds - 1]
+            btype: if data.beds is 0 then "studio" else btypesIds[data.beds - 1]
             title: data.number or "Multiple Units"
             description: data.description
             bedrooms: data.beds
