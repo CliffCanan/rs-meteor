@@ -1,12 +1,14 @@
 generateAgroIsUnit = (building) ->
   isUnit = true
   unless building.parentId
+    prices = 0
     for type in btypesIds
       fieldName = "price" + type.charAt(0).toUpperCase() + type.slice(1)
       if building[fieldName + "From"]
-        isUnit = false
-        break
-    if isUnit
+        prices++
+    if prices > 1
+      isUnit = false
+    else
       if Buildings.find({parentId: building._id}).count()
         isUnit = false
   Buildings.direct.update({_id: building._id}, {$set: {agroIsUnit: isUnit}})

@@ -270,6 +270,8 @@ dataFields =
             parseValueCommentField(building, fieldName, data[fieldName])
           for fieldName in ["price", "sqft"]
             parseDeltaField(building, fieldName, data[fieldName])
+          fieldName = "price" + building.btype.charAt(0).toUpperCase() + building.btype.slice(1)
+          parseDeltaField(building, fieldName, data["price"])
           parseImages(building, data.images)
     catch
       cl error

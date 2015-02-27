@@ -5,7 +5,8 @@ Template.city.helpers
   buildings: ->
     selector = {parentId: {$exists: false}, cityId: @cityId}
     if btype = @query.btype
-      selector[btype] = {$exists: true}
+      fieldName = "price" + btype.charAt(0).toUpperCase() + btype.slice(1) + "From"
+      selector[fieldName] = {$exists: true}
     priceMin = parseInt(@query.priceMin)
     priceMax = parseInt(@query.priceMax)
     unless isNaN(priceMin)
