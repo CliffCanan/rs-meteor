@@ -300,7 +300,8 @@ dataFields =
       else
         unless _id in removed
           Buildings.insert(building)
-    for image in buildingImages
+    buildingImagesLength = buildingImages.length
+    for image, i in buildingImages
       building = Buildings.findOne(image.buildingId)
       if building
         path = "/var/rentscene-images/" + decodeURIComponent(image.url.replace("http://rentscene.com/", ""))
@@ -309,7 +310,9 @@ dataFields =
           file = BuildingImages.insert(path)
           Buildings.update(_id: building._id, {$addToSet: {images: file}})
         catch error
-          cl "image inserting error for building " + building._id + " " + path
+#          cl "image inserting error for building " + building._id + " " + path
+      if i % 100 is 0
+        cl "Imported #{i}/#{buildingImagesLength} images"
   else
     for removeId in removed
       if buildings[removeId]
