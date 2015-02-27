@@ -241,12 +241,9 @@ dataFields =
       building = buildings[data.propertyId]
       if building
         property_type = ptypes[data["property_type"]]
-        if building.parentId
-          building.btype = property_type
-          parseDeltaField(building, "price", data.price_value)
-        else
-          fieldName = "price" + property_type.charAt(0).toUpperCase() + property_type.slice(1)
-          parseDeltaField(building, fieldName, data.price_value)
+        building.btype = property_type
+        fieldName = "price" + property_type.charAt(0).toUpperCase() + property_type.slice(1)
+        parseDeltaField(building, fieldName, data.price_value)
   catch
     cl error
 

@@ -21,10 +21,10 @@ template(name="building")
           button.btn.btn-primary.building-main-info-btn.hidden-lg.check-availability(type='button')
             | Check Availability
           .building-main-price-wrap.clearfix
-            each getPrices
+            each prices
               .building-main-price-opt
                 span.building-main-price
-                  | ${{from}}
+                  | {{from}}
                 span.building-main-rooms
                   | {{type}}
           ul.building-main-prop-list.list-unstyled.clearfix
