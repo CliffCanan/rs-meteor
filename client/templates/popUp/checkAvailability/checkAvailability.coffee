@@ -37,6 +37,7 @@ Template.checkAvailability.rendered = ->
   ).on("success.form.fv", grab encapsulate (event) ->
       form.find(".submit-button").prop("disabled", true)
       form.find(".loading").show()
+#      change to Id
       if Session.get("currentUnit")
         building = Session.get("currentUnit")
       json = form.serializeFormJSON()

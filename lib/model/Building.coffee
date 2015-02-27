@@ -31,6 +31,27 @@ class Building
     Buildings.find({parentId: @_id}, {sort: {createdAt: -1, _id: 1}})
   parent: ->
     Buildings.findOne(@parentId)  if @parentId
+  prices: ->
+    prices = {}
+    units = @buildingUnits().fetch()
+    bedroomTypesArray = ["studio", "bedroom1", "bedroom2", "bedroom3", "bedroom4", "bedroom5"]
+    for type in bedroomTypesArray
+      for unit in units
+        if unit[type]?
+            prices[type] ?= []
+            prices[type].push(unit[type].from)
+      if @[type]?
+          prices[type] ?= []
+          prices[type].push(@[type].from)
+    minPrices = []
+    for type in bedroomTypesArray
+      if prices[type]?
+        minPriceUnit = {}
+        minPriceUnit.type = btypes[type]
+        minPriceUnit.from = Math.min.apply(null, prices[type])
+        minPrices.push(minPriceUnit)
+    return minPrices
+
 
 share.Transformations.Building = _.partial(share.transform, Building)
 
