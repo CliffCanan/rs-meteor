@@ -294,8 +294,9 @@ dataFields =
         if _id in removed
           Buildings.remove(building._id)
         else
+          id = building._id
           delete building._id
-          Buildings.update(building._id, {$set: building})
+          Buildings.update(id, {$set: building})
       else
         unless _id in removed
           Buildings.insert(building)
