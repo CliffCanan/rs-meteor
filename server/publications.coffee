@@ -41,6 +41,10 @@ Meteor.smartPublish "buildingParent", (cityId, slug) ->
   childBuilding = Buildings.findOne({cityId: cityId, slug: slug})
   return [] if not childBuilding
   if childBuilding.parentId
+    @addDependency "buildings", "images", (building) ->
+      imageIds = _.map building.images, (file) ->
+        file._id
+      [BuildingImages.find({_id: {$in: imageIds}})]
     [Buildings.find({_id: childBuilding.parentId})]
   else
     []
