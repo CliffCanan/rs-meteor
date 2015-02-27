@@ -5,8 +5,8 @@ Template.addBuilding.helpers
     if @userList
       selector.cityId = @userList.cityId
       if filter
-        selector.name = {}
-        selector.name.$regex = ".*"+filter+".*"
+        selector.title = {}
+        selector.title.$regex = ".*"+filter+".*"
       if @userList.buildingsIds
         selector._id = {}
         selector._id.$nin = @userList.buildingsIds

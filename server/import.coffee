@@ -6,8 +6,8 @@ dataFields =
   102: "postalCode"
   103: "street"
   104: "price"
-  105: "bedroomsCount"
-  106: "bathroomsCount"
+  105: "bedrooms"
+  106: "bathrooms"
   107: "contactPerson"
   108: "phone"
   109: "sqft"
@@ -62,17 +62,18 @@ dataFields =
 
 
 @mysqlImport = (full = false) ->
-  return  if full and Buildings.find().count()
+  isUpdate = full and Buildings.find().count()
 
   mysql = Meteor.npmRequire("mysql")
   http = Meteor.npmRequire("http")
   request = Meteor.npmRequire("request")
   fs = Meteor.npmRequire("fs")
   path = Meteor.npmRequire("path")
-  mkdirp = Meteor.npmRequire("mkdirp")
   js2coffee = Meteor.npmRequire("js2coffee")
 
-  mkdirp.sync("/tmp/buildingImages")
+  unless full
+    mkdirp = Meteor.npmRequire("mkdirp")
+    mkdirp.sync("/tmp/buildingImages")
 
   buildings = {}
   buildingImages = []
@@ -81,32 +82,29 @@ dataFields =
     if oldValue?.length
       value = parseInt(oldValue)
       unless isNaN(value)
-        building[fieldName] =
-          value: value
+        building[fieldName] = value
       else
         try
           object = JSON.parse(oldValue)
-          building[fieldName] =
-            value: object.radio
-            comment: object.comment
+          building[fieldName] = object.radio
+          building[fieldName + "Comment"] = object.comment
 
   parseDeltaField = (building, fieldName, oldValue) ->
     if oldValue?.length
       value = oldValue.replace(",", "").split("-")
       from = parseInt(value[0])
       unless isNaN(from)
-        building[fieldName] =
-          from: from
+        building[fieldName + "From"] = from
         if value.length > 1
           to = parseInt(value[1])
           unless isNaN(to)
-            building[fieldName].to = to
+            building[fieldName + "To"] = to
         else
           unless value[0].indexOf("+") > 0
-            building[fieldName].to = from
+            building[fieldName + "To"] = from
 
   parseImages = (building, oldValue) ->
-    if oldValue?.length
+    if not isUpdate and oldValue?.length
       images = JSON.parse(oldValue)
       if images
         buildingId = building._id
@@ -116,7 +114,7 @@ dataFields =
             buildingImages.push(image)
           else
             do (image, i, buildingId) ->
-              if image.url and image.name
+              if image.url
                 url = image.url
                 unless image.url.indexOf("http://rentscene.com/") is 0
                   url = "http://rentscene.com/" + url
@@ -154,10 +152,9 @@ dataFields =
     for article in (if full then rows else rows.slice(40, 60))    # get 20 first items
       building = buildings[article.id] =
         _id: "" + article.id
-        name: article.name
         isPublished: !!article.published
         createdAt: new Date(article.createdtime)
-        onMap: !!article.onMap
+        isOnMap: !!article.onMap
         similar: []
         position: article.ordering
 
@@ -187,20 +184,28 @@ dataFields =
           building.features = data.value.split(", ")
         else if fieldName is "city"
           building.city = data.value
-          building.cityId = slugify(data.value)
+          if building.city is ["Delaware", "Phildelphia"]
+            building.cityId = "philadelphia"
+          else if building.city in ["McLean", "Montgomery", "Washington", "Washinton DC", "Wasington DC"]
+            building.cityId = "washington-dc"
+          else if building.city is "SANDY SPRINGS GA"
+            building.cityId = "atlanta"
+          else
+            building.cityId = slugify(data.value)
         else if fieldName in ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
           parseValueCommentField(building, fieldName, data.value)
         else if fieldName is "availableAt"
           building.availableAt = new Date(data.value)
         else if fieldName in ["price", "sqft"]
           parseDeltaField(building, fieldName, data.value)
-        else if fieldName in ["bedroomsCount", "bathroomsCount"]
-          value = parseInt(data.value)
-          unless isNaN(value)
-            building[fieldName] = value
         else if fieldName is "parentId"
           if data.value.length and data.value isnt "0"
             building.parentId = data.value
+        else if fieldName is "unitNumber"
+          if data.value.length
+            building.title = data.value
+        else if fieldName is "title"
+          building.title = building.title or data.value
         else if fieldName is "images"
           parseImages(building, data.value)
         else if fieldName is "videos"
@@ -236,13 +241,12 @@ dataFields =
       building = buildings[data.propertyId]
       if building
         property_type = ptypes[data["property_type"]]
-        building[property_type] = building[property_type] or {}
-        if data.price_type is "range"
-          range = data.price_value.split("-")
-          building[property_type].from = range[0]
-          building[property_type].to = range[1]
+        if building.parentId
+          building.ptype = property_type
+          parseDeltaField(building, "price", data.price_value)
         else
-          building[property_type].from = parseInt(data.price_value)
+          fieldName = "price" + property_type.charAt(0).toUpperCase() + property_type.slice(1)
+          parseDeltaField(building, fieldName, data.price_value)
   catch
     cl error
 
@@ -256,10 +260,10 @@ dataFields =
           building = buildings[data.id] =
             _id: "" + data.id
             parentId: "" + data.prop_id
-            unitNumber: data.number
+            title: data.number or "Multiple Units"
             description: data.description
-            bedroomsCount: data.beds
-            bathroomsCount: data.baths
+            bedrooms: data.beds
+            bathrooms: data.baths
             availableAt: new Date(data.available)
           for fieldName in ["security", "laundry"]
             parseValueCommentField(building, fieldName, data[fieldName])
@@ -269,9 +273,32 @@ dataFields =
     catch
       cl error
 
+  for _id, building of buildings
+    if building.parentId
+      parent = buildings[parseInt(building.parentId)]
+      if parent?.cityId
+        building.cityId = parent.cityId
+      if parent?.neighborhood
+        building.neighborhood = parent.neighborhood
+
+  # remove invalid objects
+  removed = []
+  for _id, building of buildings
+    unless building.title or building.cityId not in cityIds or (building.parentId and not buildings[parseInt(building.parentId)])
+      cl "building removed " + JSON.stringify(building)
+      removed.push(_id)
+
   if full
     for _id, building of buildings
-      Buildings.insert(building)
+      if isUpdate
+        if _id in removed
+          Buildings.remove(building._id)
+        else
+          delete building._id
+          Buildings.update(building._id, {$set: building})
+      else
+        unless _id in removed
+          Buildings.insert(building)
     for image in buildingImages
       building = Buildings.findOne(image.buildingId)
       if building
@@ -283,6 +310,9 @@ dataFields =
         catch error
           cl "image inserting error for building " + building._id + " " + path
   else
+    for removeId in removed
+      if buildings[removeId]
+        delete buildings[removeId]
     coffee = js2coffee.build("this.buildingsFixtures = " + JSON.stringify(buildings))
     fs.writeFile "/tmp/buildings.coffee", coffee.code, (error) ->
       if error

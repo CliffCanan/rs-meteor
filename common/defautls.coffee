@@ -21,14 +21,14 @@ buildingPreSave = (modifier) ->
 
 Buildings.before.insert (userId, building) ->
   _.extend building,
-    slug: generateSlug(building.name, "slug")
+    slug: generateSlug(building.title, "slug")
     neighborhoodSlug: slugify(building.neighborhood)
 
   buildingPreSave(building)
   true
 
 Buildings.before.update (userId, building, fieldNames, modifier, options) ->
-  if newVal = modifier.$set.name
+  if newVal = modifier.$set.title
     modifier.$set.slug = generateSlug(newVal, "slug")
   if newVal = modifier.$set.neighborhood
     modifier.$set.neighborhoodSlug = slugify(newVal)

@@ -58,7 +58,7 @@ Router.map ->
         building: building
     onBeforeAction: ->
       if @building
-        share.setPageTitle(@building.name + ", " + cities[@params.cityId].long)
+        share.setPageTitle(@building.title + ", " + cities[@params.cityId].long)
       @next()
   @route "/autologin/:token",
     name: "autologin"

@@ -71,11 +71,7 @@ template(name="building")
                 | Available: {{moment availableAt 'MM/DD/YYYY'}}
             if bathrooms
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
-                i.fa.fa-check
-                if condition bathroomsCount 'is' 1
-                  | {{bathroomsCount}} Bathroom
-                else
-                  | {{bathroomsCount}} Bathrooms
+                i.fa.fa-check {{bathrooms}}
             if hasLaundryInfo
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{hasLaundryComment}}")
                 if isLaundryAllowed
@@ -193,11 +189,7 @@ template(name="building")
                               i.fa.fa-check
                               | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
                             li.building-unit-prop
-                              i.fa.fa-check
-                              if condition bathroomsCount 'is' 1
-                                | {{bathroomsCount}} Bathroom
-                              else
-                                | {{bathroomsCount}} Bathrooms
+                              i.fa.fa-check {{bathrooms}}
                   else
                     each buildingUnitsArray
                       if condition index "lte" 1
@@ -224,11 +216,7 @@ template(name="building")
                                   i.fa.fa-check
                                   | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
                                 li.building-unit-prop
-                                  i.fa.fa-check
-                                  if condition bathroomsCount 'is' 1
-                                    | {{bathroomsCount}} Bathroom
-                                  else
-                                    | {{bathroomsCount}} Bathrooms
+                                  i.fa.fa-check {{bathrooms}}
               if condition buildingUnits.count "gt" 2
                 if showAllBuildingUnits
                   a.building-unit-item-less(href="/", title="less")

@@ -3,7 +3,7 @@ Template.checkAvailability.helpers
     Session.get("serverError")
   propertyName: ->
     if Session.get("currentUnit")
-      return Session.get("currentUnit").name
+      return Session.get("currentUnit").title
 
 Template.checkAvailability.rendered = ->
   form = @$("form")
@@ -42,7 +42,7 @@ Template.checkAvailability.rendered = ->
       json = form.serializeFormJSON()
       json.cityName = building.city
       json.cityId = building.cityId
-      json.buildingName = building.name
+      json.buildingName = building.title
       json.buildingId = building._id
 
       json.link = "city/"+building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
