@@ -1,6 +1,6 @@
-generateSlug = (value, field) ->
+generateSlug = (_id, value, field) ->
   slug = slugify(value)
-  selector = {}
+  selector = {_id: {$ne: _id}}
   selector[field] = slug
   i = 1
   slug = selector[field] = slugify(value) + "-" + i++  while Buildings.findOne(selector)
@@ -21,7 +21,7 @@ buildingPreSave = (modifier) ->
 
 Buildings.before.insert (userId, building) ->
   _.extend building,
-    slug: generateSlug(building.title, "slug")
+    slug: generateSlug(building._id, building.title, "slug")
     neighborhoodSlug: slugify(building.neighborhood)
 
   buildingPreSave(building)
@@ -29,7 +29,7 @@ Buildings.before.insert (userId, building) ->
 
 Buildings.before.update (userId, building, fieldNames, modifier, options) ->
   if newVal = modifier.$set.title
-    modifier.$set.slug = generateSlug(newVal, "slug")
+    modifier.$set.slug = generateSlug(building._id, newVal, "slug")
   if newVal = modifier.$set.neighborhood
     modifier.$set.neighborhoodSlug = slugify(newVal)
 
