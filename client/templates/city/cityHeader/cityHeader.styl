@@ -1,6 +1,12 @@
 .city-sub-header
   background-color #ebebeb
-  padding 18px 30px 0
+  padding 10px 5px 0
+  @media screen and (min-width: 768px)
+    padding 15px 15px 0
+  @media screen and (min-width: 1200px)
+    padding 18px 30px 0
+  @media screen and (min-width: 992px)
+    padding 18px 25px 0
   box-sizing border-box
 
 .city-sub-header-list-wrap
@@ -94,7 +100,7 @@
       color #272b30
 
   .features-section, .location-list
-    width 490px
+    max-width 490px
     box-sizing border-box
     padding 25px
     box-shadow 0 1px 0 rgba(0, 0, 0, 0.3)
@@ -167,14 +173,17 @@
       padding 0 25px
       cursor pointer
 
+  .features-section
+    min-width 300px
+
   .location-list
-    width 380px
+    max-width 380px
     .filter-field
       margin 10px 0 25px
       .form-control
         display inline-block
         height 34px
-        width 270px
+        max-width 270px
         padding 6px 12px
         font-size 12px
         background-color #fff
