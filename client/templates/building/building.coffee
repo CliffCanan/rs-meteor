@@ -181,6 +181,7 @@ Template.building.helpers
   parentName: ->
     parent = Buildings.findOne({_id: @parentId})
     return parent.name
+
   ironRouterHack: ->
     Router.current() # reactivity
     addthis?.init()
@@ -196,7 +197,8 @@ Template.building.helpers
     else
       $carousel.hide()
     return ""
-
+  getPrices: ->
+    @prices()
   showAllBuildingUnits: ->
     Session.get("showAllBuildingUnits")
   buildingUnitsArray: ->
