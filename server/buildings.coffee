@@ -50,6 +50,7 @@
     'neighborhood': 'Center City East'
     'latitude': 39.950404
     'longitude': -75.16203
+    'btype': 'bedroom1'
     'priceBedroom1From': 1430
     'priceBedroom1To': 1430
   '6176':
@@ -103,9 +104,9 @@
     'neighborhood': 'Center City East'
     'latitude': 39.950404
     'longitude': -75.16203
+    'btype': 'bedroom1'
     'priceBedroom1From': 1440
     'priceBedroom1To': 1440
-    'btype': 'bedroom1'
     'parentId': '6175'
   '6177':
     '_id': '6177'
@@ -164,6 +165,7 @@
     'neighborhood': 'Center City East'
     'latitude': 39.9506755
     'longitude': -75.1601985
+    'btype': 'bedroom1'
     'priceBedroom1From': 1605
     'priceBedroom1To': 1605
   '6178':
@@ -217,9 +219,9 @@
     'neighborhood': 'Center City East'
     'latitude': 39.950404
     'longitude': -75.16203
+    'btype': 'bedroom1'
     'priceBedroom1From': 1575
     'priceBedroom1To': 1575
-    'btype': 'bedroom1'
     'parentId': '6175'
   '6179':
     '_id': '6179'
@@ -272,9 +274,9 @@
     'neighborhood': 'Center City East'
     'latitude': 39.950404
     'longitude': -75.16203
+    'btype': 'bedroom1'
     'priceBedroom1From': 1495
     'priceBedroom1To': 1495
-    'btype': 'bedroom1'
     'parentId': '6175'
   '6180':
     '_id': '6180'
@@ -327,9 +329,9 @@
     'neighborhood': 'Center City East'
     'latitude': 39.950404
     'longitude': -75.16203
+    'btype': 'bedroom1'
     'priceBedroom1From': 1650
     'priceBedroom1To': 1650
-    'btype': 'bedroom1'
     'parentId': '6175'
   '6181':
     '_id': '6181'
@@ -388,6 +390,7 @@
     'neighborhood': 'Center City East'
     'latitude': 39.9506755
     'longitude': -75.1601985
+    'btype': 'bedroom2'
     'priceBedroom2From': 2520
     'priceBedroom2To': 2520
   '6182':
@@ -442,6 +445,7 @@
     'description': 'Located in the heart of Center City, 1220 Sansom is an intimate building featuring just two apartment homes per floor. With upgraded baths, kitchens, onsite laundry facilities, also dramatic views of the city. Offers quick access to restaurants, shopping, City Hall, the Convention Center, the Avenue of the Arts, and all forms of public transportation.'
     'latitude': 39.949606
     'longitude': -75.16148
+    'btype': 'bedroom2'
     'priceBedroom2From': 1890
     'priceBedroom2To': 1890
   '6183':
@@ -493,6 +497,7 @@
     'postalCode': '19107 19107'
     'latitude': 39.953761
     'longitude': -75.160662
+    'btype': 'bedroom1'
     'priceBedroom1From': 1660
     'priceBedroom1To': 1660
   '6184':
@@ -544,6 +549,7 @@
     'title': '1222-26 Arch St 104'
     'latitude': 39.955704
     'longitude': -75.171513
+    'btype': 'bedroom2'
     'priceBedroom2From': 1790
     'priceBedroom2To': 1790
   '6185':
@@ -594,6 +600,7 @@
     'heatingAndCooling': 'Y'
     'latitude': 39.9538189
     'longitude': -75.1608626
+    'btype': 'bedroom2'
     'priceBedroom2From': 2500
     'priceBedroom2To': 2500
   '6186':
@@ -648,6 +655,7 @@
     'secondDeposit': '$1,850'
     'latitude': 39.9470173
     'longitude': -75.17286
+    'btype': 'bedroom1'
     'priceBedroom1From': 1850
     'priceBedroom1To': 1850
   '6187':
@@ -709,6 +717,7 @@
     'street': '1808 Delancey St'
     'latitude': 39.9469019
     'longitude': -75.1718038
+    'btype': 'bedroom4'
     'priceBedroom4From': 7000
     'priceBedroom4To': 7000
   '6188':
@@ -763,6 +772,7 @@
     'securityComment': ''
     'latitude': 39.945127
     'longitude': -75.170927
+    'btype': 'bedroom2'
     'priceBedroom2From': 2095
     'priceBedroom2To': 2095
   '6189':
@@ -817,6 +827,7 @@
     'fitnessCenterComment': ''
     'latitude': 39.945127
     'longitude': -75.170927
+    'btype': 'bedroom1'
     'priceBedroom1From': 1650
     'priceBedroom1To': 1650
   '6192':
@@ -870,6 +881,7 @@
     'yearOfCompletion': '1915'
     'latitude': 39.9533259
     'longitude': -75.174127
+    'btype': 'bedroom1'
     'priceBedroom1From': 1850
     'priceBedroom1To': 1850
   '6193':
@@ -923,6 +935,7 @@
     'title': '2026-58 Market St 305'
     'latitude': 39.9503691
     'longitude': -75.1459272
+    'btype': 'bedroom1'
     'priceBedroom1From': 1750
     'priceBedroom1To': 1750
   '6194':
@@ -985,8 +998,8 @@
     'latitude': 39.9472824
     'longitude': -75.1679142
     'btype': 'bedroom2'
-    'priceFrom': 2295
-    'priceTo': 2295
+    'priceBedroom2From': 2295
+    'priceBedroom2To': 2295
   '6195':
     '_id': '6195'
     'isPublished': true
@@ -1044,8 +1057,8 @@
     'latitude': 39.9472824
     'longitude': -75.1679142
     'btype': 'bedroom2'
-    'priceFrom': 2095
-    'priceTo': 2095
+    'priceBedroom2From': 2095
+    'priceBedroom2To': 2095
   '6196':
     '_id': '6196'
     'isPublished': false
@@ -1104,5 +1117,5 @@
     'latitude': 39.9472824
     'longitude': -75.1679142
     'btype': 'bedroom1'
-    'priceFrom': 1750
-    'priceTo': 1750
+    'priceBedroom1From': 1750
+    'priceBedroom1To': 1750
