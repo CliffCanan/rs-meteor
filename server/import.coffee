@@ -181,7 +181,7 @@ dataFields =
       if building
         fieldName = dataFields[data.fieldid]
         if fieldName is "features"
-          building.features = data.value.split(", ")
+          building.features = (feature.trim() for feature in data.value.split(","))
         else if fieldName is "city"
           building.city = data.value
           if building.city is ["Delaware", "Phildelphia"]
@@ -195,7 +195,8 @@ dataFields =
         else if fieldName in ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
           parseValueCommentField(building, fieldName, data.value)
         else if fieldName is "availableAt"
-          building.availableAt = new Date(data.value)
+          if data.value.trim()
+            building.availableAt = new Date(data.value)
         else if fieldName in ["price", "sqft"]
           parseDeltaField(building, fieldName, data.value)
         else if fieldName is "parentId"
