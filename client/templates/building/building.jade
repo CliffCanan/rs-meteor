@@ -28,36 +28,17 @@ template(name="building")
                 span.building-main-rooms
                   | {{type}}
           ul.building-main-prop-list.list-unstyled.clearfix
-            if hasPetsInfo
-              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{petsComment}}")
-                if arePetsAllowed
-                  i.fa.fa-check
-                  | {{petsAllow}}
-                  if hasPetsComment
-                    i.fa.fa-question-circle
-                else
-                  i.fa.fa-minus-circle
-                  | {{petsAllow}}
-            if hasSecurityInfo
-              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{hasSecurityComment}}")
-                if isSecurityAllowed
-                  i.fa.fa-check
-                  | {{securityAllow}}
-                  if hasSecurityComment
-                    i.fa.fa-question-circle
-                else
-                  i.fa.fa-minus-circle
-                  | {{securityAllow}}
-            if hasParkingInfo
-              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{hasParkingComment}}")
-                if isParkingAllowed
-                  i.fa.fa-check
-                  | {{parkingAllow}}
-                  if hasParkingComment
-                    i.fa.fa-question-circle
-                else
-                  i.fa.fa-minus-circle
-                  | {{parkingAllow}}
+            each complicatedFields
+              if hasInfo field
+                li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{hasComment field}}")
+                  if isAvailable field
+                    i.fa.fa-check
+                    | {{fieldInfo field}}
+                    if hasComment field
+                      i.fa.fa-question-circle
+                  else
+                    i.fa.fa-minus-circle
+                    | {{fieldInfo field}}
             li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
               if isFurnished
                 i.fa.fa-check
@@ -72,43 +53,12 @@ template(name="building")
             if bathrooms
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                 i.fa.fa-check {{bathrooms}}
-            if hasLaundryInfo
-              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{hasLaundryComment}}")
-                if isLaundryAllowed
-                  i.fa.fa-check
-                  | {{laundryAllow}}
-                  if hasLaundryComment
-                    i.fa.fa-question-circle
-                else
-                  i.fa.fa-minus-circle
-                  | {{laundryAllow}}
-            if hasFitnessCenterInfo
-              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{hasFitnessCenterComment}}")
-                if isFitnessCenterAllowed
-                  i.fa.fa-check
-                  | {{fitnessCenterAllow}}
-                  if hasFitnessCenterComment
-                    i.fa.fa-question-circle
-                else
-                  i.fa.fa-minus-circle
-                  | {{fitnessCenterAllow}}
-            if hasUtilitiesInfo
-              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{hasUtilitiesComment}}")
-                if isUtilitiesAllowed
-                  i.fa.fa-check
-                  | {{utilitiesAllow}}
-                  if hasUtilitiesComment
-                    i.fa.fa-question-circle
-                else
-                  i.fa.fa-minus-circle
-                  | {{utilitiesAllow}}
-
           button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
             | Check Availability
           .building-main-info-desc-wrap.visible-lg-block
             input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
             p.building-main-info-desc
-              | {{description}}
+              | {{getDescription}}
             //p.building-main-info-desc
             //  | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community amenities.
             //  | Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens, two-bedrooms, and
@@ -128,7 +78,7 @@ template(name="building")
             //    a.building-share-icon.fa.fa-plus(href="/", title="plus")
             +social
         .building-info-wrap.col-lg-7
-          .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel")
+          .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel" data-interval="false")
             .carousel-inner(role="listbox")
               each images
                 .item

@@ -1,22 +1,34 @@
 Template.building.helpers
-  hasPetsInfo: ->
-    if @pets and @pets.value
-      if typeof @pets.value is "number"
-        return @pets.value isnt 0
-      else
-        return @pets.value isnt "0"
+  getDescription: ->
+    parent = @parent()
+    return if @description? then @description else parent.description
+
+  hasInfo: (field) ->
+    if @thisUnit[field]?
+      return @thisUnit[field] isnt 0
+    else if @thisUnit.parent()?[field]?
+      return @thisUnit.parent()[field] isnt 0
     else
       return false
-  petsAllow: ->
-    if @pets
-      return petsAllowance[@pets.value]
-  petsComment: ->
-    if @pets
-      return @pets.comment
-  hasPetsComment: ->
-    return @pets?.comment
-  arePetsAllowed: ->
-    @pets.value isnt "3" or 3
+  hasComment: (field) ->
+    parent = @thisUnit.parent()
+    return if @thisUnit[field+"Comment"]? then @thisUnit[field+"Comment"] else parent[field+"Comment"]
+  isAvailable: (field) ->
+    parent = @thisUnit.parent()
+    if @thisUnit[field]?
+      return availability[field][@thisUnit[field]].indexOf("No") is -1
+    else
+      return availability[field][parent[field]].indexOf("No") is -1
+  fieldInfo: (field) ->
+    parent = @thisUnit.parent()
+    return if @thisUnit[field]? then availability[field][@thisUnit[field]] else availability[field][parent[field]]
+
+  complicatedFields: ->
+    fields = []
+    for field in ["pets", "parking", "laundry", "security", "utilities", "fitnessCenter"]
+      fields.push({field:field, thisUnit:@})
+    return fields
+
   featureRows: ->
     featureRows = []
     for feature in @features
@@ -54,116 +66,12 @@ Template.building.helpers
       units.push(unit)
     units
 
-  hasParkingInfo: ->
-    if @parking and @parking.value
-      if typeof @parking.value is "number"
-        return @parking.value isnt 0
-      else
-        return @parking.value isnt "0"
-    else
-      return false
-  hasParkingComment: ->
-    return @parking?.comment
-  isParkingAllowed: ->
-    if typeof @parking.value is "number"
-      return @parking.value isnt 3
-    else
-      return @parking.value isnt "3"
-  parkingAllow: ->
-    if @parking
-      return parkingAvailability[@parking.value]
-  parkingComment: ->
-    return @parking?.comment
   isFurnished: ->
     if @furnished
       return @furnished is "Y"
   hasHeatingAndCooling: ->
     if @heatingAndCooling
       return @heatingAndCooling is "Y"
-
-  hasLaundryInfo: ->
-    if @laundry and @laundry.value
-      if typeof @laundry.value is "number"
-        return @laundry.value isnt 0
-      else
-        return @laundry.value isnt "0"
-    else
-      return false
-  hasLaundryComment: ->
-    return @laundry?.comment
-  isLaundryAllowed: ->
-    if typeof @laundry.value is "number"
-      return @laundry.value isnt 3
-    else
-      return @laundry.value isnt "3"
-  laundryAllow: ->
-    if @laundry
-      return laundryAvailability[@laundry.value]
-  laundryComment: ->
-    return @laundry?.comment
-
-  hasSecurityInfo: ->
-    if @security and @security.value
-      if typeof @security.value is "number"
-        return @security.value isnt 0
-      else
-        return @security.value isnt "0"
-    else
-      return false
-  hasSecurityComment: ->
-    return @security?.comment
-  isSecurityAllowed: ->
-    if typeof @security?.value is "number"
-      return @security.value isnt 3
-    else
-      return @security.value isnt "3"
-  securityAllow: ->
-    if @security
-      return securityAvailability[@security.value]
-  securityComment: ->
-    return @security?.comment
-
-  hasUtilitiesInfo: ->
-    if @utilities and @utilities.value
-      if typeof @utilities.value is "number"
-        return @utilities.value isnt 0
-      else
-        return @utilities.value isnt "0"
-    else
-      return false
-  hasUtilitiesComment: ->
-    return @utilities?.comment
-  isUtilitiesAllowed: ->
-    if typeof @utilities?.value is "number"
-      return @utilities.value isnt 3
-    else
-      return @utilities.value isnt "3"
-  utilitiesAllow: ->
-    if @utilities
-      return utilitiesAvailability[@utilities.value]
-  utilitiesComment: ->
-    return @utilities?.comment
-    
-  hasFitnessCenterInfo: ->
-    if @fitnessCenter and @fitnessCenter.value
-      if typeof @fitnessCenter.value is "number"
-        return @fitnessCenter.value isnt 0
-      else
-        return @fitnessCenter.value isnt "0"
-    else
-      return false
-  hasFitnessCenterComment: ->
-    return @fitnessCenter?.comment
-  isFitnessCenterAllowed: ->
-    if typeof @fitnessCenter?.value is "number"
-      return @fitnessCenter.value isnt 3
-    else
-      return @fitnessCenter.value isnt "3"
-  fitnessCenterAllow: ->
-    if @fitnessCenter
-      return fitnessCenterAvailability[@fitnessCenter.value]
-  fitnessCenterComment: ->
-    return @fitnessCenter?.comment
 
   getBuildingData: ->
     cityId: @cityId
@@ -231,9 +139,14 @@ Template.building.events
   "click .building-unit-item-less": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", false)
 
-petsAllowance =["Unknown","Pets Allowed", "Pets Allowed", "Pets Not Allowed"]
-parkingAvailability =["Unknown", "Parking Included", "Parking Available", "No Parking"]
-laundryAvailability =["Unknown","In-unit Laundry", "On-site Laundry", "No Laundry"]
-securityAvailability =["Unknown","Doorman", "No Doorman"]
-utilitiesAvailability = ["Unknown","Utilities Included", "Utilities Extra Charge"]
-fitnessCenterAvailability = ["Unknown","Fitness Center", "No Fitness Center"]
+availability = {
+  pets: ["Unknown","Pets Allowed", "Pets Allowed", "Pets Not Allowed"]
+  parking: ["Unknown", "Parking Included", "Parking Available", "No Parking"]
+  laundry: ["Unknown","In-unit Laundry", "On-site Laundry", "No Laundry"]
+  security: ["Unknown","Doorman", "No Doorman"]
+  utilities: ["Unknown","Utilities Included", "Utilities Extra Charge"]
+  fitnessCenter: ["Unknown","Fitness Center", "No Fitness Center"]
+}
+
+
+
