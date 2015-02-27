@@ -33,25 +33,35 @@ class Building
   parent: ->
     Buildings.findOne(@parentId)  if @parentId
   prices: ->
-    prices = {}
-    units = @buildingUnits().fetch()
-    bedroomTypesArray = ["studio", "bedroom1", "bedroom2", "bedroom3", "bedroom4", "bedroom5"]
-    for type in bedroomTypesArray
-      for unit in units
-        if unit[type]?
-            prices[type] ?= []
-            prices[type].push(unit[type].from)
-      if @[type]?
-          prices[type] ?= []
-          prices[type].push(@[type].from)
-    minPrices = []
-    for type in bedroomTypesArray
-      if prices[type]?
-        minPriceUnit = {}
-        minPriceUnit.type = btypes[type].lower
-        minPriceUnit.from = Math.min.apply(null, prices[type])
-        minPrices.push(minPriceUnit)
-    return minPrices
+    prices = []
+    for key, value of btypes
+      fieldName = "price" + key.charAt(0).toUpperCase() + key.slice(1)
+      fromFieldName = fieldName + "From"
+      toFieldName = fieldName + "To"
+      if @[fromFieldName]
+        prices.push
+          from: "$" + @[fromFieldName] + (if @[fromFieldName] is @[toFieldName] then "" else "+")
+          type: value.lower
+    prices
+#    prices = {}
+#    units = @buildingUnits().fetch()
+#    bedroomTypesArray = ["studio", "bedroom1", "bedroom2", "bedroom3", "bedroom4", "bedroom5"]
+#    for type in bedroomTypesArray
+#      for unit in units
+#        if unit[type]?
+#            prices[type] ?= []
+#            prices[type].push(unit[type].from)
+#      if @[type]?
+#          prices[type] ?= []
+#          prices[type].push(@[type].from)
+#    minPrices = []
+#    for type in bedroomTypesArray
+#      if prices[type]?
+#        minPriceUnit = {}
+#        minPriceUnit.type = btypes[type].lower
+#        minPriceUnit.from = Math.min.apply(null, prices[type])
+#        minPrices.push(minPriceUnit)
+#    return minPrices
 
 
 share.Transformations.Building = _.partial(share.transform, Building)

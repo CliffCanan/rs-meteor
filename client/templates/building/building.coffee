@@ -74,7 +74,7 @@ Template.building.helpers
     cityId: @cityId
     neighborhoodSlug: @neighborhoodSlug
     buildingSlug: @slug
-    
+
   hasParent: ->
     return @parentId and @parentId isnt '' and @parentId isnt '0'
   parentNeighborhoodSlug: ->
@@ -102,8 +102,6 @@ Template.building.helpers
     else
       $carousel.hide()
     return ""
-  getPrices: ->
-    @prices()
   showAllBuildingUnits: ->
     Session.get("showAllBuildingUnits")
   buildingUnitsArray: ->
