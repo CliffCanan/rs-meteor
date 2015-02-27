@@ -31,19 +31,21 @@ Template.building.helpers
 
   featureRows: ->
     featureRows = []
-    for feature in @features
-      if not lastRow or lastRow.length >= 4
-        lastRow = []
-        featureRows.push(lastRow)
-      lastRow.push(feature)
+    if @features
+      for feature in @features
+        if not lastRow or lastRow.length >= 4
+          lastRow = []
+          featureRows.push(lastRow)
+        lastRow.push(feature)
     if featureRows.length is 0
       parent = @parent()
       if parent
-        for feature in parent.features
-          if not lastRow or lastRow.length >= 4
-            lastRow = []
-            featureRows.push(lastRow)
-          lastRow.push(feature)
+        if parent.features
+          for feature in parent.features
+            if not lastRow or lastRow.length >= 4
+              lastRow = []
+              featureRows.push(lastRow)
+            lastRow.push(feature)
     featureRows
   units: ->
     units = []
