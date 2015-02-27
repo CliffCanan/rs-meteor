@@ -31,17 +31,20 @@ Router.map ->
       )
     onBeforeAction: ->
       @next()
-  @route "/city/:cityId/:page?",
+  @route "/city/:cityId",
     name: "city"
     fastRender: true
     subscriptions: ->
-      citySubs.subscribe("buildings", @params.cityId, @params.page)
+      citySubs.subscribe("buildings", @params.cityId, if Meteor.isClient then Session.get("cityPage") or 1 else 1)
     data: ->
       return null  unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
       share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
       @next()
+    onRun: ->
+      Session.set("cityPage", 1)
+      Session.set("morePages", true)
   @route "/city/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
     name: "building"
     fastRender: true

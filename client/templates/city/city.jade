@@ -23,23 +23,6 @@ template(name="city")
                     | {{displayBuildingPrice}}
                   span.main-city-desc
                     | {{bedroomTypes}}
-      ul.main-city-list.list-unstyled.row
-        nav
-          ul.pagination
-            li
-              a(href='#', aria-label='Previous')
-                span(aria-hidden='true') &laquo;
-            li
-              a(href="1") 1
-            li
-              a(href='2') 2
-            li
-              a(href='3') 3
-            li
-              a(href='4') 4
-            li
-              a(href='5') 5
-            li
-              a(href='#', aria-label='Next')
-                span(aria-hidden='true') &raquo;
+      if Session "morePages"
+        .load-more Load more
 

@@ -107,3 +107,9 @@ Template.city.events
     marker = markers[@_id]
     if marker
       google.maps.event.trigger(marker, "mouseout")
+
+  "click .load-more": (event, template) ->
+    event.preventDefault()
+    page = Session.get("cityPage")
+    Session.set("cityPage", ++page)
+
