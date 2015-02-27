@@ -80,9 +80,9 @@ ContactUsRequests.after.insert (userId, request) ->
   if Meteor.isServer
     transformedRequest = share.Transformations.ContactUsRequest(request)
     Email.send
-      from: transformedRequest.name + ' <' + transformedRequest.email + '>'
+      from: "bender@rentscene.com"
       to: 'rentscenetest+' + transformedRequest.cityId + '@gmail.com'
-      replyTo: transformedRequest.email
+      replyTo: transformedRequest.name + ' <' + transformedRequest.email + '>'
       subject: 'New contact us message from ' + transformedRequest.name + ' in ' + transformedRequest.cityName
       html: Spacebars.toHTML({request: transformedRequest, settings: Meteor.settings}, Assets.getText("requests/contactUsEmail.html"))
 

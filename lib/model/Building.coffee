@@ -4,8 +4,13 @@ class Building
   cityName: ->
     cities[@cityId].short
   mainImage: ->
-    file = @images?[0]?.getFileRecord()
+    file = @getImages()?[0]
     file  if file?.url
+  getImages: ->
+    unless @images?.length
+      @parent().images  if @parentId
+    else
+      @images
   bedroomTypes: ->
     if @agroIsUnit
       btypes[@btype]?.upper

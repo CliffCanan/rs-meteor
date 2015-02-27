@@ -35,10 +35,10 @@ share.Transformations.user = _.partial(share.transform, User)
 #  if Meteor.isServer
 #    transformedRequest = share.Transformations.User(request)
 #    Email.send
-#      from: transformedRequest.name + ' <' + transformedRequest.email + '>'
+#      from: "bender@rentscene.com"
 #      to: 'rentscenetest+' + transformedRequest.city + '@gmail.com'
-#      replyTo: transformedRequest.email
-#      subject: 'New contact us message from ' + transformedRequest.name + ' in ' + transformedRequest.city
+#      replyTo: transformedRequest.name + ' <' + transformedRequest.email + '>'
+#      subject: 'New contact us message from ' + transformedRequest.name + ' in ' + transformedRequest.cityName
 #      html: Spacebars.toHTML({request: transformedRequest, settings: Meteor.settings}, Assets.getText("requests/contactUsEmail.html"))
 
 
