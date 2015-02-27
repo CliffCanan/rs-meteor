@@ -29,17 +29,29 @@
 @cityIds = Object.keys(cities)
 
 @btypes =
-  bedroom1: "1 bedroom"
-  bedroom2: "2 bedrooms"
-  bedroom3: "3 bedrooms"
-  bedroom4: "4 bedrooms"
-  bedroom5: "5 bedrooms"
-  studio: "studio"
+  bedroom1:
+    lower: "1 bedroom"
+    upper: "1 Bedroom"
+  bedroom2:
+    lower: "2 bedrooms"
+    upper: "2 Bedrooms"
+  bedroom3:
+    lower: "3 bedrooms"
+    upper: "3 Bedrooms"
+  bedroom4:
+    lower: "4 bedrooms"
+    upper: "4 Bedrooms"
+  bedroom5:
+    lower: "5 bedrooms"
+    upper: "5 Bedrooms"
+  studio:
+    lower: "studio"
+    upper: "Studio"
 
 @btypesArray =
   for key, value of btypes
     key: key
-    value: value
+    value: value.lower
 
 @btypesIds = Object.keys(btypes)
 

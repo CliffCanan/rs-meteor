@@ -2,7 +2,7 @@ Template.cityHeader.helpers
   currentCity: ->
     cities[@cityId].long
   currentBedroomType: ->
-    btypes[@query.btype] ? "Any"
+    btypes[@query.btype]?.lower ? "Any"
 
 Template.cityHeader.rendered = ->
 

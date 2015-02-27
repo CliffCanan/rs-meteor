@@ -105,6 +105,7 @@
     'longitude': -75.16203
     'priceBedroom1From': 1440
     'priceBedroom1To': 1440
+    'btype': 'bedroom1'
     'parentId': '6175'
   '6177':
     '_id': '6177'
@@ -218,6 +219,7 @@
     'longitude': -75.16203
     'priceBedroom1From': 1575
     'priceBedroom1To': 1575
+    'btype': 'bedroom1'
     'parentId': '6175'
   '6179':
     '_id': '6179'
@@ -272,6 +274,7 @@
     'longitude': -75.16203
     'priceBedroom1From': 1495
     'priceBedroom1To': 1495
+    'btype': 'bedroom1'
     'parentId': '6175'
   '6180':
     '_id': '6180'
@@ -326,6 +329,7 @@
     'longitude': -75.16203
     'priceBedroom1From': 1650
     'priceBedroom1To': 1650
+    'btype': 'bedroom1'
     'parentId': '6175'
   '6181':
     '_id': '6181'
@@ -400,9 +404,9 @@
     'postalCode': '19107 19107'
     'street': '1220 Sansom St 9S'
     'title': '1220 Sansom St 9S'
-    'fitnessCenter': '0'
+    'fitnessCenter': 0
     'fitnessCenterComment': ''
-    'security': '0'
+    'security': 0
     'securityComment': ''
     'propertyType': '0'
     'neighborhood': 'Center City East'
@@ -414,20 +418,20 @@
     'availableAt': '2014-08-30T17:00:00.000Z'
     'secondDeposit': '$1,890'
     'minTerm': '12'
-    'parking': '3'
+    'parking': 3
     'parkingComment': ''
     'remarks': 'Located in the heart of Center City, 1220 Sansom is an intimate building featuring just two apartment homes per floor. With upgraded baths, kitchens, onsite laundry facilities, also dramatic views of the city. Offers quick access to restaurants, shopping, City Hall, the Convention Center, the Avenue of the Arts, and all forms of public transportation.'
     'furnished': 'N'
-    'pets': '1'
+    'pets': 1
     'petsComment': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
     'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0OTYwNjtzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTYxNDg7fQ=='
     'mlsNo': '6432242'
-    'laundry': '0'
+    'laundry': 0
     'laundryComment': ''
-    'utilities': '0'
+    'utilities': 0
     'utilitiesComment': ''
     'features': [
       'Utilities: Central Air Conditioning:  Kit: Full Kitchen Bsmt: NoBasement Interior: CommonLndry  Tenant Pays Electric'
@@ -609,11 +613,11 @@
     'street': '1836 Delancey St #4'
     'neighborhood': 'Center City West'
     'propertyType': '0'
-    'security': '0'
+    'security': 0
     'securityComment': ''
-    'fitnessCenter': '0'
+    'fitnessCenter': 0
     'fitnessCenterComment': ''
-    'utilities': '0'
+    'utilities': 0
     'utilitiesComment': ''
     'features': [
       'Utilities: Central Air Conditioning'
@@ -622,17 +626,17 @@
       'Stainless Steel Appliances'
       'Hardwood Flooring'
     ]
-    'laundry': '0'
+    'laundry': 0
     'laundryComment': ''
     'mlsNo': '6442299'
     'city': 'Philadelphia'
     'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzAxNzM7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3Mjg2O30='
     'country': 'U.S.A'
-    'pets': '1'
+    'pets': 1
     'petsComment': 'Deposit $300'
     'furnished': 'N'
-    'parking': '3'
+    'parking': 3
     'parkingComment': ''
     'remarks': 'Newly renovated 1 bedroom/1 bathroom unit on Delancey Street in Rittenhouse Square! This unit features beautiful granite countertops, stainless steel appliances, many windows and original hardwood flooring throughout. Both washer and dryer are located inside of the unit. In walking distance from great restaurants and entertainment in Center City Philadelphia!'
     'minTerm': '12'
@@ -656,11 +660,11 @@
     'propertyType': '0'
     'adminEscorted': 'Listing agent must accompany.'
     'isAvailable': '1'
-    'security': '0'
+    'security': 0
     'securityComment': ''
     'neighborhood': 'Center City West'
     'furnished': 'N'
-    'pets': '3'
+    'pets': 3
     'petsComment': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
@@ -668,7 +672,7 @@
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NjkwMTk7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3MTgwMzg7fQ=='
     'mlsNo': '6442383'
     'laundry': 1
-    'utilities': '0'
+    'utilities': 0
     'utilitiesComment': ''
     'features': [
       'Utilities: GasHeat'
@@ -682,11 +686,11 @@
       'Deck with City Views'
       'Original Details'
     ]
-    'fitnessCenter': '0'
+    'fitnessCenter': 0
     'fitnessCenterComment': ''
     'remarks': 'Fantastic opportunity to lease - Sought after 1800 block of Delancey Place. Rarely available for lease... Garage, Elevator, Formal Living Room, Dining Room, Eat-in-Kitchen, Library, 4 B/R\'s, 4 Baths, Deck with city views. Original details and lovely finishes. Listing agent must accompany.'
     'minTerm': '12'
-    'parking': '2'
+    'parking': 2
     'parkingComment': ''
     'secondDeposit': '$7,000'
     'availableAt': '2014-08-17T17:00:00.000Z'
@@ -714,12 +718,12 @@
     'isOnMap': false
     'similar': []
     'position': null
-    'fitnessCenter': '0'
+    'fitnessCenter': 0
     'fitnessCenterComment': ''
     'neighborhood': 'Center City West'
-    'laundry': '0'
+    'laundry': 0
     'laundryComment': ''
-    'utilities': '0'
+    'utilities': 0
     'utilitiesComment': ''
     'features': [
       'Utilities: Central Air Conditioning'
@@ -732,12 +736,12 @@
     'city': 'Philadelphia'
     'cityId': 'philadelphia'
     'country': 'U.S.A'
-    'pets': '2'
+    'pets': 2
     'petsComment': 'Cats Only. Add $15 a month'
     'furnished': 'N'
     'remarks': 'Beekman Place is a center city gem. Recently renovated! Gas and electric included in rent, central air, washer/dryer in many units, nearby fitness center open to residence 24/7. It boasts a superior location, an undeniable charm, a wide variety of attractive apartment layouts, unmatched security, a most attentive management and even an interesting past. Each unit has its own uniqueness and flair. There are just 40 units, making it a very manageable and comfortable size. Just 2.5 blocks from the square itself, Beekman Place is on a quiet residential tree-lined street.'
     'minTerm': '12'
-    'parking': '3'
+    'parking': 3
     'parkingComment': ''
     'secondDeposit': '$2,095'
     'availableAt': '2014-08-17T17:00:00.000Z'
@@ -755,7 +759,7 @@
     'sqftFrom': 650
     'sqftTo': 650
     'propertyType': '0'
-    'security': '0'
+    'security': 0
     'securityComment': ''
     'latitude': 39.945127
     'longitude': -75.170927
@@ -774,9 +778,9 @@
     'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NTEyNztzOjk6ImxvbmdpdHVkZSI7ZDotNzUuMTcwOTI3O30='
     'mlsNo': '6442414 Shapiro'
-    'laundry': '0'
+    'laundry': 0
     'laundryComment': ''
-    'utilities': '0'
+    'utilities': 0
     'utilitiesComment': ''
     'features': [
       'Utilities: Central Air Conditioning'
@@ -784,11 +788,11 @@
       'Gas And Electric Included'
       'Washer and Dryer'
     ]
-    'pets': '2'
+    'pets': 2
     'petsComment': 'Cats Only. Add $15 a month'
     'furnished': 'N'
     'minTerm': '12'
-    'parking': '3'
+    'parking': 3
     'parkingComment': ''
     'remarks': 'Beekman Place is a center city gem. Recently renovated! Gas and electric included in rent, central air, washer/dryer in many units, nearby fitness center open to residence 24/7. It boasts a superior location, an undeniable charm, a wide variety of attractive apartment layouts, unmatched security, a most attentive management and even an interesting past. Each unit has its own uniqueness and flair. There are just 40 units, making it a very manageable and comfortable size. Just 2.5 blocks from the square itself, Beekman Place is on a quiet residential tree-lined street.'
     'secondDeposit': '$1,650'
@@ -807,9 +811,9 @@
     'yearOfCompletion': '1015'
     'heatingAndCooling': 'Y'
     'propertyType': '0'
-    'security': '0'
+    'security': 0
     'securityComment': ''
-    'fitnessCenter': '0'
+    'fitnessCenter': 0
     'fitnessCenterComment': ''
     'latitude': 39.945127
     'longitude': -75.170927
@@ -823,9 +827,9 @@
     'similar': []
     'position': null
     'title': '2026-58 Market St 215'
-    'security': '1'
+    'security': 1
     'securityComment': ''
-    'fitnessCenter': '1'
+    'fitnessCenter': 1
     'fitnessCenterComment': ''
     'neighborhood': 'Center City West'
     'propertyType': '0'
@@ -834,7 +838,7 @@
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MzMyNTk7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NDEyNzt9'
     'mlsNo': '6399484'
     'laundry': 1
-    'utilities': '0'
+    'utilities': 0
     'utilitiesComment': ''
     'features': [
       'Utilities: Central Air Conditioning'
@@ -845,11 +849,11 @@
       'Fitness Center'
     ]
     'country': 'U.S.A'
-    'pets': '1'
+    'pets': 1
     'petsComment': 'Deposit $250'
     'furnished': 'N'
     'minTerm': '12'
-    'parking': '2'
+    'parking': 2
     'parkingComment': ''
     'remarks': 'Brand new apartments available for rent at 2040 Market Street. This 1 bedroom apartment includes large living area with open kitchen and breakfast bar, granite counter tops and stainless steel appliances. Enjoy living in this elevator doorman building with a gym. Parking available for additional cost.'
     'secondDeposit': '$1,895'
@@ -875,9 +879,9 @@
     'isOnMap': false
     'similar': []
     'position': null
-    'security': '1'
+    'security': 1
     'securityComment': ''
-    'fitnessCenter': '1'
+    'fitnessCenter': 1
     'fitnessCenterComment': ''
     'propertyType': '0'
     'neighborhood': 'Center City East'
@@ -887,7 +891,7 @@
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MDM2OTE7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE0NTkyNzI7fQ=='
     'mlsNo': '6419537'
     'laundry': 1
-    'utilities': '0'
+    'utilities': 0
     'utilitiesComment': ''
     'features': [
       'Utilities: Central Air Conditioning'
@@ -897,11 +901,11 @@
       'Stainless Steel Appliances'
       'Fitness Center'
     ]
-    'pets': '1'
+    'pets': 1
     'petsComment': 'Deposit $250'
     'furnished': 'N'
     'remarks': 'Brand new 1 bedroom apartment available for rent at 2040 MARKET STREET. This incredible light filled home includes large LIVING AREA with OPEN kitchen and breakfast bar, granite counter tops and stainless steel appliances. Enjoy living in this elevator doorman building with a GYM. PARKING AVAILABLE FOR ADDITIONAL COST.'
-    'parking': '2'
+    'parking': 2
     'parkingComment': ''
     'minTerm': '12'
     'type': 'UnitFlat'
@@ -932,18 +936,18 @@
     'title': '624'
     'propertyType': '0'
     'parentId': '3083'
-    'security': '0'
+    'security': 0
     'securityComment': ''
-    'fitnessCenter': '1'
+    'fitnessCenter': 1
     'fitnessCenterComment': ''
     'country': 'U.S.A'
     'city': 'Philadelphia'
     'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzI4MjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzkxNDI7fQ=='
     'mlsNo': '6441903 Shapiro'
-    'laundry': '0'
+    'laundry': 0
     'laundryComment': ''
-    'utilities': '0'
+    'utilities': 0
     'utilitiesComment': ''
     'features': [
       'Utilities: Central Air Conditioning'
@@ -957,14 +961,14 @@
       'Granite Countertops'
       'Stainless Steel Appliances'
     ]
-    'pets': '2'
+    'pets': 2
     'petsComment': 'Cats Only. Add $15 a month'
     'furnished': 'N'
     'remarks': 'Special: 1 month free on a 12 month lease! Special: 1 month free on a 12 month lease! Renovation Possible At Increased Rent, Can UpgradeTo Granite CtrTop & S.S. Appliances @ $50 Increase'
     'availableAt': '2014-08-15T17:00:00.000Z'
     'secondDeposit': '$2,295'
     'minTerm': '6'
-    'parking': '3'
+    'parking': 3
     'parkingComment': ''
     'description': 'Special: 1 month free on a 12 month lease! A boutique apartment building with all modern charm. Upgraded kitchens, central air, high ceilings, washer/dryer in most units, free gym and a secure video entrance. Natural sunlight, spacious layouts, hardwood floors, and no spared architectural details in the units. The building has a personal and inviting atmosphere. The Newport is an historic building in the Rittenhouse-Fitler Historic District. *If specific unit does not have stainless steel appliances already, for an additional $50 a month, owner will further upgrade the kitchen.'
     'website': 'YTozOntzOjU6ImxhYmVsIjtzOjA6IiI7czo4OiJwcm90b2NvbCI7czowOiIiO3M6MzoidXJsIjtOO30='
@@ -980,7 +984,7 @@
     'street': '1530 Spruce St 624'
     'latitude': 39.9472824
     'longitude': -75.1679142
-    'ptype': 'bedroom2'
+    'btype': 'bedroom2'
     'priceFrom': 2295
     'priceTo': 2295
   '6195':
@@ -990,11 +994,11 @@
     'isOnMap': true
     'similar': []
     'position': null
-    'fitnessCenter': '1'
+    'fitnessCenter': 1
     'fitnessCenterComment': ''
     'neighborhood': 'Center City West'
     'furnished': 'N'
-    'pets': '2'
+    'pets': 2
     'petsComment': 'Cats Only. Add $15 a month'
     'country': 'U.S.A'
     'city': 'Philadelphia'
@@ -1002,7 +1006,7 @@
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzI4MjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzkxNDI7fQ=='
     'mlsNo': '6441907 Shapiro'
     'laundry': 1
-    'utilities': '0'
+    'utilities': 0
     'utilitiesComment': ''
     'features': [
       'Utilities: Central Air Conditioning'
@@ -1015,7 +1019,7 @@
       'Hardwood Floors'
     ]
     'minTerm': '6'
-    'parking': '0'
+    'parking': 0
     'parkingComment': ''
     'remarks': 'Special: 1 month free on a 12 month lease! Special: 1 month free on a 12 month lease! Renovation Possible At Increased Rent, Can UpgradeTo Granite CtrTop & S.S. Appliances @ $50 Increase'
     'secondDeposit': '$2,095'
@@ -1035,11 +1039,11 @@
     'title': '525'
     'propertyType': '0'
     'parentId': '3083'
-    'security': '0'
+    'security': 0
     'securityComment': ''
     'latitude': 39.9472824
     'longitude': -75.1679142
-    'ptype': 'bedroom2'
+    'btype': 'bedroom2'
     'priceFrom': 2095
     'priceTo': 2095
   '6196':
@@ -1049,11 +1053,11 @@
     'isOnMap': true
     'similar': []
     'position': null
-    'fitnessCenter': '1'
+    'fitnessCenter': 1
     'fitnessCenterComment': ''
     'mlsNo': '6441902 Shapiro'
     'laundry': 1
-    'utilities': '0'
+    'utilities': 0
     'utilitiesComment': ''
     'features': [
       'Utilities: Central Air Conditioning'
@@ -1070,11 +1074,11 @@
     'city': 'Philadelphia'
     'cityId': 'philadelphia'
     'country': 'U.S.A'
-    'pets': '2'
+    'pets': 2
     'petsComment': 'Cats Only. Add $15 a month'
     'furnished': 'N'
     'remarks': 'Special: 1 month free on a 12 month lease! Special: 1 month free on a 12 month lease! Renovation Possible At Increased Rent, Can UpgradeTo Granite CtrTop & S.S. Appliances @ $50 Increase'
-    'parking': '0'
+    'parking': 0
     'parkingComment': ''
     'minTerm': '6'
     'secondDeposit': '$1,750'
@@ -1095,10 +1099,10 @@
     'propertyType': '0'
     'isAvailable': '1'
     'parentId': '3083'
-    'security': '0'
+    'security': 0
     'securityComment': ''
     'latitude': 39.9472824
     'longitude': -75.1679142
-    'ptype': 'bedroom1'
+    'btype': 'bedroom1'
     'priceFrom': 1750
     'priceTo': 1750
