@@ -145,9 +145,11 @@ template(name="building")
                               | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
                             li.building-unit-prop
                               if condition bathrooms 'is' '1'
-                                i.fa.fa-check {{bathrooms}} Bathroom
+                                i.fa.fa-check
+                                | {{bathrooms}} Bathroom
                               else
-                                i.fa.fa-check {{bathrooms}} Bathrooms
+                                i.fa.fa-check
+                                | {{bathrooms}} Bathrooms
                   else
                     each buildingUnitsArray
                       if condition index "lte" 1
@@ -175,9 +177,11 @@ template(name="building")
                                   | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
                                 li.building-unit-prop
                                   if condition bathrooms 'is' '1'
-                                    i.fa.fa-check {{bathrooms}} Bathroom
+                                    i.fa.fa-check
+                                    | {{bathrooms}} Bathroom
                                   else
-                                    i.fa.fa-check {{bathrooms}} Bathrooms
+                                    i.fa.fa-check
+                                    | {{bathrooms}} Bathrooms
               if condition buildingUnits.count "gt" 2
                 if showAllBuildingUnits
                   a.building-unit-item-less(href="/", title="less")

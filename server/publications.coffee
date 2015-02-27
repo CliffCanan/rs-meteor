@@ -24,7 +24,7 @@ Meteor.smartPublish "buildings", (cityId, page) ->
   @addDependency "buildings", "images", (building) ->
     _id = building.images?[0]?._id
     if _id then [BuildingImages.find(_id)] else []
-  Buildings.find({parentId: {$exists: false}, cityId: cityId}, {limit: limit})
+  Buildings.find({parentId: {$exists: false}, cityId: cityId}, {limit: limit, sort: {createdAt: -1, _id: 1}})
 
 Meteor.smartPublish "building", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))

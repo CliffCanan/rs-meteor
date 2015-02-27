@@ -51,7 +51,7 @@ Template.contactUs.rendered = ->
       json.notSure = json.tourOption is "notSure"
       if @cityId
         json.cityId = @cityId
-        json.city = cities[@cityId].short
+        json.cityName = cities[@cityId].short
       ContactUsRequests.insert(json, callback = (error, id) ->
         if error
            Session.set("serverError", true)
