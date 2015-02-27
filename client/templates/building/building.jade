@@ -74,13 +74,13 @@ template(name="building")
             //label.building-main-more-trigger(for="mainDescMoreLarge")
             //ul.building-share-list.list-unstyled.clearfix
             //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-facebook(href="/", title="facebook")
+            //    a.building-share-icon.fa.fa-fw.fa-facebook(href="/", title="facebook")
             //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-twitter(href="/", title="twitter")
+            //    a.building-share-icon.fa.fa-fw.fa-twitter(href="/", title="twitter")
             //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-paper-plane(href="/", title="share")
+            //    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
             //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-plus(href="/", title="plus")
+            //    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
             +social
         .building-info-wrap.col-lg-7
           .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel" data-interval="false")
@@ -89,11 +89,11 @@ template(name="building")
                 .item
                   img.building-img(src="{{url}}")
             a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
-              i.fa.fa-chevron-left.building-img-icon(aria-hidden="true")
+              i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
               span.sr-only
                 | Previous
             a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
-              i.fa.fa-chevron-right.building-img-icon(aria-hidden="true")
+              i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
               span.sr-only
                 | Next
           .building-main-info-desc-wrap.hidden-lg
@@ -101,18 +101,18 @@ template(name="building")
               | {{{getDescription}}}
             //ul.building-share-list.list-unstyled.clearfix.hidden-lg
             //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-facebook(href="/", title="facebook")
+            //    a.building-share-icon.fa.fa-fw.fa-facebook(href="/", title="facebook")
             //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-twitter(href="/", title="twitter")
+            //    a.building-share-icon.fa.fa-fw.fa-twitter(href="/", title="twitter")
             //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-paper-plane(href="/", title="share")
+            //    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
             //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-plus(href="/", title="plus")
+            //    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
             +social
           if buildingUnits.count
             section.building-info-section
               h2.building-info-title
-                i.fa.fa-key
+                i.fa.fa-fw.fa-key
                 | {{buildingUnits.count}} Available Units
               p.building-info-desc
                 | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
@@ -148,7 +148,7 @@ template(name="building")
                                 i.fa.fa-check
                                 | {{bathrooms}} Bathroom
                               else
-                                i.fa.fa-check
+                                i.fa.fa-fw.fa-check
                                 | {{bathrooms}} Bathrooms
                   else
                     each buildingUnitsArray
@@ -173,14 +173,14 @@ template(name="building")
                                   | Full Listing
                               ul.building-unit-prop-list.list-unstyled
                                 li.building-unit-prop
-                                  i.fa.fa-check
+                                  i.fa.fa-fw.fa-check
                                   | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
                                 li.building-unit-prop
                                   if condition bathrooms 'is' '1'
-                                    i.fa.fa-check
+                                    i.fa.fa-fw.fa-check
                                     | {{bathrooms}} Bathroom
                                   else
-                                    i.fa.fa-check
+                                    i.fa.fa-fw.fa-check
                                     | {{bathrooms}} Bathrooms
               if condition buildingUnits.count "gt" 2
                 if showAllBuildingUnits
@@ -191,18 +191,18 @@ template(name="building")
                     | View all {{buildingUnits.count}} Units
           section.building-info-section
             h2.building-info-title
-              i.fa.fa-check
+              i.fa.fa-fw.fa-check
               | Additional Features
             ul.building-features-list.list-unstyled.container-fluid
               each featureRows
                 .row
                   each .
                     li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
-                      i.fa.fa-check
+                      i.fa.fa-fw.fa-check
                       | {{.}}
           //section.building-info-section
           //  h2.building-info-title
-          //    i.fa.fa-star
+          //    i.fa.fa-fw.fa-star
           //    | User reviews
           //  .building-reviews-wrap
           //    .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
@@ -214,7 +214,7 @@ template(name="building")
           //          time
           //            | 07/23/2014
           //        span.rating-box.pull-right
-          //          i.fa.fa-star
+          //          i.fa.fa-fw.fa-star
           //          | 8/10
           //        h3.building-reviewer-title
           //          | The place is a blest!
@@ -282,7 +282,7 @@ template(name="building")
           //          time
           //            | 07/23/2014
           //        span.rating-box.pull-right
-          //          i.fa.fa-star
+          //          i.fa.fa-fw.fa-star
           //          | 8/10
           //        h3.building-reviewer-title
           //          | The place is a blest!
