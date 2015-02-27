@@ -31,11 +31,11 @@ Router.map ->
       )
     onBeforeAction: ->
       @next()
-  @route "/city/:cityId",
+  @route "/city/:cityId/:page?",
     name: "city"
     fastRender: true
     subscriptions: ->
-      citySubs.subscribe("buildings", @params.cityId)
+      citySubs.subscribe("buildings", @params.cityId, @params.page)
     data: ->
       return null  unless @params.cityId in cityIds
       @params

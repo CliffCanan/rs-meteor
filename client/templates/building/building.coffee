@@ -12,7 +12,7 @@ Template.building.helpers
       return false
   hasComment: (field) ->
     parent = @thisUnit.parent()
-    return if @thisUnit[field+"Comment"]? then @thisUnit[field+"Comment"] else parent[field+"Comment"]
+    return if @thisUnit[field+"Comment"]? then @thisUnit[field+"Comment"] else parent?[field+"Comment"]
   isAvailable: (field) ->
     parent = @thisUnit.parent()
     if @thisUnit[field]?
@@ -21,7 +21,7 @@ Template.building.helpers
       return availability[field][parent[field]].indexOf("No") is -1
   fieldInfo: (field) ->
     parent = @thisUnit.parent()
-    return if @thisUnit[field]? then availability[field][@thisUnit[field]] else availability[field][parent[field]]
+    return if @thisUnit[field]? then availability[field][@thisUnit[field]] else availability[field][parent?[field]]
 
   complicatedFields: ->
     fields = []

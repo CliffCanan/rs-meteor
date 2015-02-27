@@ -13,14 +13,15 @@ Meteor.publish "allUsers", ->
     return []
   Meteor.users.find()
 
-Meteor.smartPublish "buildings", (cityId, limit = 90) ->
+Meteor.smartPublish "buildings", (cityId, page) ->
+  page ?= 0
   check(cityId, Match.InArray(cityIds))
 
   @addDependency "buildings", "images", (building) ->
     _id = building.images?[0]?._id
     if _id then [BuildingImages.find(_id)] else []
-
-  Buildings.find({parentId: {$exists: false}, cityId: cityId}) #, {limit: limit})
+  cl "page", page
+  Buildings.find({parentId: {$exists: false}, cityId: cityId}, {skip: (if page > 0 then ((page-1)*2) else 0), limit:2})
 
 Meteor.smartPublish "building", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
