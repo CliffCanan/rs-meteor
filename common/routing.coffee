@@ -1,4 +1,6 @@
 subs = new SubsManager()
+citySubs = new SubsManager()
+buildingSubs = new SubsManager()
 
 Router.configure
   layoutTemplate: "layout"
@@ -33,7 +35,7 @@ Router.map ->
     name: "city"
     fastRender: true
     subscriptions: ->
-      subs.subscribe("buildings", @params.cityId)
+      citySubs.subscribe("buildings", @params.cityId)
     data: ->
       return null  unless @params.cityId in cityIds
       @params
@@ -45,9 +47,9 @@ Router.map ->
     fastRender: true
     subscriptions: ->
       [
-        subs.subscribe("building", @params.cityId, @params.unitSlug or @params.buildingSlug)
-        subs.subscribe("buildingParent", @params.cityId, @params.unitSlug or @params.buildingSlug)
-        subs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug)
+        buildingSubs.subscribe("building", @params.cityId, @params.unitSlug or @params.buildingSlug)
+        buildingSubs.subscribe("buildingParent", @params.cityId, @params.unitSlug or @params.buildingSlug)
+        buildingSubs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug)
       ]
     data: ->
       building = Buildings.findOne({cityId: @params.cityId, slug: @params.unitSlug or @params.buildingSlug})
