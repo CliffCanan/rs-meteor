@@ -69,9 +69,6 @@ Template.building.helpers
   isFurnished: ->
     if @furnished
       return @furnished is "Y"
-  hasHeatingAndCooling: ->
-    if @heatingAndCooling
-      return @heatingAndCooling is "Y"
 
   getBuildingData: ->
     cityId: @cityId
