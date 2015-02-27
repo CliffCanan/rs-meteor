@@ -85,7 +85,7 @@ template(name="building")
         .building-info-wrap.col-lg-7
           .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel" data-interval="false")
             .carousel-inner(role="listbox")
-              each images
+              each getImages
                 .item
                   img.building-img(src="{{url}}")
             a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
