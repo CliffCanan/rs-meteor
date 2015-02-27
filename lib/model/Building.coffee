@@ -19,14 +19,12 @@ class Building
         types.push(i + 1)
         postfix = " Bedrooms"
     types.join(", ") + postfix
-  priceFrom: ->
-    fromCount = 0
-    for type in btypesIds
-      obj = @[type]
-      if obj?.from
-        fromCount++
-    if fromCount
-      "$" + @priceMin + (if fromCount > 1 then "+" else "")
+  displayBuildingPrice: ->
+    if @agroPriceTotalFrom
+      "$" + @agroPriceTotalFrom + (if @agroPriceTotalFrom is @agroPriceTotalTo then "+" else "")
+  displayUnitPrice: ->
+    if @priceFrom
+      "$" + @priceFrom + (if @priceFrom is @priceTo then "+" else "")
   buildingUnits: ->
     Buildings.find({parentId: @_id}, {sort: {createdAt: -1, _id: 1}})
   parent: ->

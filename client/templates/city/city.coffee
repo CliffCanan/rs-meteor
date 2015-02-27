@@ -13,11 +13,11 @@ Template.city.helpers
     unless  isNaN(priceMax)
       max = priceMax
     if min or max
-      selector.priceMin = {}
+      selector.agroPriceFilter = {}
       if min
-        selector.priceMin.$gte = min
+        selector.agroPriceFilter.$gte = min
       if max
-        selector.priceMin.$lte = max
+        selector.agroPriceFilter.$lte = max
     Buildings.find(selector, {sort: {createdAt: -1, _id: 1}})
   randomImage: ->
 #    images = [

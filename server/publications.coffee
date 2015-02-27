@@ -20,7 +20,7 @@ Meteor.smartPublish "buildings", (cityId, limit = 90) ->
     _id = building.images?[0]?._id
     if _id then [BuildingImages.find(_id)] else []
 
-  Buildings.find({cityId: cityId}) #, {limit: limit})
+  Buildings.find({parentId: {$exists: false}, cityId: cityId}) #, {limit: limit})
 
 Meteor.smartPublish "building", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))

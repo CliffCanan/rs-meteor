@@ -86,7 +86,7 @@ dataFields =
       else
         try
           object = JSON.parse(oldValue)
-          building[fieldName] = object.radio
+          building[fieldName] = parseInt(object.radio)
           building[fieldName + "Comment"] = object.comment
 
   parseDeltaField = (building, fieldName, oldValue) ->
@@ -260,6 +260,7 @@ dataFields =
           building = buildings[data.id] =
             _id: "" + data.id
             parentId: "" + data.prop_id
+            ptype: if data.beds is 0 then "studio" else btypesIds[data.beds - 1]
             title: data.number or "Multiple Units"
             description: data.description
             bedrooms: data.beds
