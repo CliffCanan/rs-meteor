@@ -28,16 +28,17 @@ template(name="building")
                 span.building-main-rooms
                   | {{type}}
           ul.building-main-prop-list.list-unstyled.clearfix
-            if hasPetsInfo
-              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{petsComment}}")
-                if arePetsAllowed
-                  i.fa.fa-check
-                  | {{petsAllow}}
-                  if hasPetsComment
-                    i.fa.fa-question-circle
-                else
-                  i.fa.fa-minus-circle
-                  | {{petsAllow}}
+            if pets
+              if condition pets 'isnt' '0'
+                li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{petsComment}}")
+                  if condition pets 'isnt' '3'
+                    i.fa.fa-check
+                    | {{petsAllow}}
+                    if petsComment
+                      i.fa.fa-question-circle
+                  else
+                    i.fa.fa-minus-circle
+                    | {{petsAllow}}
             if hasSecurityInfo
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{hasSecurityComment}}")
                 if isSecurityAllowed

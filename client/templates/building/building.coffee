@@ -12,14 +12,8 @@ Template.building.helpers
       return false
   petsAllow: ->
     if @pets
-      return petsAllowance[@pets.value]
-  petsComment: ->
-    if @pets
-      return @pets.comment
-  hasPetsComment: ->
-    return @pets?.comment
-  arePetsAllowed: ->
-    @pets.value isnt "3" or 3
+      cl @petsComment
+      return petsAllowance[@pets]
   featureRows: ->
     featureRows = []
     for feature in @features
