@@ -1,7 +1,6 @@
 Template.building.helpers
   getDescription: ->
-    parent = @parent()
-    return if @description? then @description else parent.description
+    @description or @parent()?.description
 
   hasInfo: (field) ->
     if @thisUnit[field]?
