@@ -1,3 +1,11 @@
+complexFieldsValues =
+  pets: ["Unknown", "Pets Allowed", "Some Pets Allowed", "No Pets"]
+  parking: ["Unknown", "Parking Included", "Parking Available", "No Parking"]
+  laundry: ["Unknown", "In-unit Laundry", "Shared Laundry", "No Laundry"]
+  security: ["Unknown", "Doorman", "No Doorman"]
+  utilities: ["Unknown", "Utilities Included", "Utilities Extra"]
+  fitnessCenter: ["Unknown", "Fitness Center", "No Fitness Center"]
+
 class Building
   constructor: (doc) ->
     _.extend(@, doc)
@@ -7,10 +15,30 @@ class Building
     file = @getImages()?[0]
     file  if file?.url
   getImages: ->
-    unless @images?.length
-      @parent().images  if @parentId
-    else
+    if @images?.length
       @images
+    else
+      @parent()?.images
+  getDescription: ->
+    @description ? @parent()?.description
+  getFeatures: ->
+    if @features?.length then @features else @parent()?.features
+  getAvailableAt: ->
+    if @agroIsUnit and @availableAt > new Date()
+      @availableAt
+  complexFields: ->
+    fields = []
+    for field in ["pets", "parking", "laundry", "security", "utilities", "fitnessCenter"]
+      key = @[field] ? @parent()?[field]
+      if key
+        value = complexFieldsValues[field][key]
+        comment = @[field + "Comment"] ? @parent()?[field + "Comment"]
+        fields.push
+          field: field
+          value: value
+          comment: comment
+          isAvailable: value.indexOf("No") is -1
+    fields
   bedroomTypes: ->
     if @agroIsUnit
       btypes[@btype]?.upper
@@ -48,25 +76,6 @@ class Building
           from: "$" + @[fromFieldName] + (if @[fromFieldName] is @[toFieldName] then "" else "+")
           type: value.lower
     prices
-#    prices = {}
-#    units = @buildingUnits().fetch()
-#    bedroomTypesArray = ["studio", "bedroom1", "bedroom2", "bedroom3", "bedroom4", "bedroom5"]
-#    for type in bedroomTypesArray
-#      for unit in units
-#        if unit[type]?
-#            prices[type] ?= []
-#            prices[type].push(unit[type].from)
-#      if @[type]?
-#          prices[type] ?= []
-#          prices[type].push(@[type].from)
-#    minPrices = []
-#    for type in bedroomTypesArray
-#      if prices[type]?
-#        minPriceUnit = {}
-#        minPriceUnit.type = btypes[type].lower
-#        minPriceUnit.from = Math.min.apply(null, prices[type])
-#        minPrices.push(minPriceUnit)
-#    return minPrices
 
 
 share.Transformations.Building = _.partial(share.transform, Building)

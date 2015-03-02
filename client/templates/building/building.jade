@@ -1,7 +1,7 @@
 template(name="building")
   +checkAvailability(building=building)
   with building
-    .content-wrapper.row
+    .content-wrapper
       ol.breadcrumb
         li
           a(href="/", title='home') Home
@@ -28,17 +28,12 @@ template(name="building")
                 span.building-main-rooms
                   | {{type}}
           ul.building-main-prop-list.list-unstyled.clearfix
-            each complicatedFields
-              if hasInfo field
-                li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{hasComment field}}")
-                  if isAvailable field
-                    i.fa.fa-check
-                    | {{fieldInfo field}}
-                    if hasComment field
-                      i.fa.fa-question-circle
-                  else
-                    i.fa.fa-minus-circle
-                    | {{fieldInfo field}}
+            each complexFields
+              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{comment}}")
+                i.fa(class="{{#if isAvailable}}fa-check{{else}}fa-minus-circle{{/if}}")
+                | {{value}}
+                if comment
+                  i.fa.fa-question-circle
             li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
               if isFurnished
                 i.fa.fa-check
@@ -46,10 +41,13 @@ template(name="building")
               else
                 i.fa.fa-minus-circle
                 | Not Furnished
-            if availableAt
-              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
+            li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
+              if isNotAvailable
+                i.fa.fa-minus-circle
+                | Not Currently Available
+              else
                 i.fa.fa-check
-                | Available: {{moment availableAt 'MM/DD/YYYY'}}
+                | Available: {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
             if bathrooms
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                 if condition bathrooms 'is' '1'
@@ -142,7 +140,11 @@ template(name="building")
                           ul.building-unit-prop-list.list-unstyled
                             li.building-unit-prop
                               i.fa.fa-check
-                              | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
+                              | Earliest move-in:
+                              if isNotAvailable
+                                | Not Currently Available
+                              else
+                                | {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
                             li.building-unit-prop
                               if condition bathrooms 'is' '1'
                                 i.fa.fa-check
@@ -174,7 +176,11 @@ template(name="building")
                               ul.building-unit-prop-list.list-unstyled
                                 li.building-unit-prop
                                   i.fa.fa-fw.fa-check
-                                  | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
+                                  | Earliest move-in:
+                                  if isNotAvailable
+                                    | Not Currently Available
+                                  else
+                                    | {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
                                 li.building-unit-prop
                                   if condition bathrooms 'is' '1'
                                     i.fa.fa-fw.fa-check
@@ -189,17 +195,16 @@ template(name="building")
                 else
                   a.building-unit-item-more(href="/", title="more")
                     | View all {{buildingUnits.count}} Units
-          section.building-info-section
-            h2.building-info-title
-              i.fa.fa-fw.fa-check
-              | Additional Features
-            ul.building-features-list.list-unstyled.container-fluid
-              each featureRows
-                .row
-                  each .
-                    li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
-                      i.fa.fa-fw.fa-check
-                      | {{.}}
+          with getFeatures
+            section.building-info-section
+              h2.building-info-title
+                i.fa.fa-fw.fa-check
+                | Additional Features
+              ul.building-features-list.list-unstyled.container-fluid
+                each .
+                  li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
+                    i.fa.fa-fw.fa-check
+                    | {{.}}
           //section.building-info-section
           //  h2.building-info-title
           //    i.fa.fa-fw.fa-star
