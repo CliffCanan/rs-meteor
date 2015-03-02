@@ -93,7 +93,12 @@ dataFields =
     if oldValue?.length
       value = oldValue.replace(",", "").split("-")
       from = parseInt(value[0])
-      unless isNaN(from)
+      if isNaN(from)
+        from = parseInt(value[1])
+        unless isNaN(from)
+          building[fieldName + "From"] = from
+          building[fieldName + "To"] = from
+      else
         building[fieldName + "From"] = from
         if value.length > 1
           to = parseInt(value[1])
@@ -207,7 +212,7 @@ dataFields =
           parseAvailableAt(building, data.value)
         else if fieldName is "isNotAvailable"
           building.isNotAvailable = !!data.value
-        else if fieldName in ["price", "sqft"]
+        else if fieldName in ["price", "sqft", "bedrooms", "bathrooms"]
           parseDeltaField(building, fieldName, data.value)
         else if fieldName is "parentId"
           if data.value.length and data.value isnt "0"
@@ -271,14 +276,15 @@ dataFields =
             btype: if data.beds is 0 then "studio" else btypesIds[data.beds - 1]
             title: data.number or "Multiple Units"
             description: data.description
-            bedrooms: data.beds
-            bathrooms: data.baths
           parseAvailableAt(building, data.available)
           for fieldName in ["security", "laundry"]
             parseValueCommentField(building, fieldName, data[fieldName])
+          parseDeltaField(building, "bedrooms", "" + data.beds)
+          parseDeltaField(building, "bathrooms", "" + data.baths)
           parseDeltaField(building, "sqft", data.sqft)
-          fieldName = "price" + building.btype.charAt(0).toUpperCase() + building.btype.slice(1)
-          parseDeltaField(building, fieldName, data["price"])
+          parseDeltaField(building, "price", data.price)
+#          fieldName = "price" + building.btype.charAt(0).toUpperCase() + building.btype.slice(1)
+#          parseDeltaField(building, fieldName, data["price"])
           parseImages(building, data.images)
     catch
       cl error
@@ -290,6 +296,8 @@ dataFields =
         building.cityId = parent.cityId
       if parent?.neighborhood
         building.neighborhood = parent.neighborhood
+    unless building.btype
+      building.isUnit = true
 
   # remove invalid objects
   removed = []

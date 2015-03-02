@@ -15,5 +15,5 @@
   "env": {
     "ROOT_URL": "http://128.199.88.135"
   },
-  "deployCheckWaitTime": 30
+  "deployCheckWaitTime": 60
 }

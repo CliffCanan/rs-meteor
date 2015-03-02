@@ -21,12 +21,20 @@ template(name="building")
           button.btn.btn-primary.building-main-info-btn.hidden-lg.check-availability(type='button')
             | Check Availability
           .building-main-price-wrap.clearfix
-            each prices
-              .building-main-price-opt
-                span.building-main-price
-                  | {{from}}
-                span.building-main-rooms
-                  | {{type}}
+            if agroIsUnit
+              with getUnitPrice
+                .building-main-price-opt
+                  span.building-main-price
+                    | {{from}}
+                  span.building-main-rooms
+                    | {{type}}
+            else
+              each prices
+                .building-main-price-opt
+                  span.building-main-price
+                    | {{from}}
+                  span.building-main-rooms
+                    | {{type}}
           ul.building-main-prop-list.list-unstyled.clearfix
             each complexFields
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{comment}}")
@@ -48,14 +56,10 @@ template(name="building")
               else
                 i.fa.fa-check
                 | Available: {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
-            if bathrooms
+            with getBathrooms
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
-                if condition bathrooms 'is' '1'
-                  i.fa.fa-check
-                  | {{bathrooms}} Bathroom
-                else
-                  i.fa.fa-check
-                  | {{bathrooms}} Bathroom
+                i.fa.fa-check
+                | {{.}}
           button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
             | Check Availability
           .building-main-info-desc-wrap.visible-lg-block
@@ -129,8 +133,9 @@ template(name="building")
                               a(href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}") {{title}}
                             .building-unit-info-price
                               i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
-                              span.unit-price
-                                | {{displayUnitPrice}}
+                              with getUnitPrice
+                                span.unit-price
+                                  | {{from}}
                               span.unit-type
                                 | {{bedroomTypes}}
                             button.building-unit-btn.btn.btn-default.check-availability(type="button")
@@ -145,13 +150,10 @@ template(name="building")
                                 | Not Currently Available
                               else
                                 | {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
-                            li.building-unit-prop
-                              if condition bathrooms 'is' '1'
-                                i.fa.fa-check
-                                | {{bathrooms}} Bathroom
-                              else
+                            with getBathrooms
+                              li.building-unit-prop
                                 i.fa.fa-fw.fa-check
-                                | {{bathrooms}} Bathrooms
+                                | {{.}}
                   else
                     each buildingUnitsArray
                       if condition index "lte" 1
@@ -165,8 +167,9 @@ template(name="building")
                                   a(href="{{pathFor route='building' buildingSlug=../../slug unitSlug=slug}}") {{title}}
                                 .building-unit-info-price
                                   i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
-                                  span.unit-price
-                                    | {{displayUnitPrice}}
+                                  with getUnitPrice
+                                    span.unit-price
+                                      | {{from}}
                                   span.unit-type
                                     | {{bedroomTypes}}
                                 button.building-unit-btn.btn.btn-default.check-availability(type="button")
@@ -181,13 +184,10 @@ template(name="building")
                                     | Not Currently Available
                                   else
                                     | {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
-                                li.building-unit-prop
-                                  if condition bathrooms 'is' '1'
+                                with getBathrooms
+                                  li.building-unit-prop
                                     i.fa.fa-fw.fa-check
-                                    | {{bathrooms}} Bathroom
-                                  else
-                                    i.fa.fa-fw.fa-check
-                                    | {{bathrooms}} Bathrooms
+                                    | {{.}}
               if condition buildingUnits.count "gt" 2
                 if showAllBuildingUnits
                   a.building-unit-item-less(href="/", title="less")
