@@ -41,10 +41,13 @@ template(name="building")
               else
                 i.fa.fa-minus-circle
                 | Not Furnished
-            if availableAt
-              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
+            li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
+              if isNotAvailable
+                i.fa.fa-minus-circle
+                | Not Currently Available
+              else
                 i.fa.fa-check
-                | Available: {{moment availableAt 'MM/DD/YYYY'}}
+                | Available: {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
             if bathrooms
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                 if condition bathrooms 'is' '1'
@@ -137,7 +140,11 @@ template(name="building")
                           ul.building-unit-prop-list.list-unstyled
                             li.building-unit-prop
                               i.fa.fa-check
-                              | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
+                              | Earliest move-in:
+                              if isNotAvailable
+                                | Not Currently Available
+                              else
+                                | {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
                             li.building-unit-prop
                               if condition bathrooms 'is' '1'
                                 i.fa.fa-check
@@ -169,7 +176,11 @@ template(name="building")
                               ul.building-unit-prop-list.list-unstyled
                                 li.building-unit-prop
                                   i.fa.fa-fw.fa-check
-                                  | Earliest move-in: {{moment availableAt 'MM/DD/YYYY'}}
+                                  | Earliest move-in:
+                                  if isNotAvailable
+                                    | Not Currently Available
+                                  else
+                                    | {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
                                 li.building-unit-prop
                                   if condition bathrooms 'is' '1'
                                     i.fa.fa-fw.fa-check

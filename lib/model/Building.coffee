@@ -23,6 +23,9 @@ class Building
     @description ? @parent()?.description
   getFeatures: ->
     if @features?.length then @features else @parent()?.features
+  getAvailableAt: ->
+    if @agroIsUnit and @availableAt > new Date()
+      @availableAt
   complexFields: ->
     fields = []
     for field in ["pets", "parking", "laundry", "security", "utilities", "fitnessCenter"]
