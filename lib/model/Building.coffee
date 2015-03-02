@@ -1,9 +1,9 @@
 complexFieldsValues =
-  pets: ["Unknown", "Pets Allowed", "Pets Allowed", "Pets Not Allowed"]
+  pets: ["Unknown", "Pets Allowed", "Some Pets Allowed", "No Pets"]
   parking: ["Unknown", "Parking Included", "Parking Available", "No Parking"]
-  laundry: ["Unknown", "In-unit Laundry", "On-site Laundry", "No Laundry"]
+  laundry: ["Unknown", "In-unit Laundry", "Shared Laundry", "No Laundry"]
   security: ["Unknown", "Doorman", "No Doorman"]
-  utilities: ["Unknown", "Utilities Included", "Utilities Extra Charge"]
+  utilities: ["Unknown", "Utilities Included", "Utilities Extra"]
   fitnessCenter: ["Unknown", "Fitness Center", "No Fitness Center"]
 
 class Building
@@ -22,7 +22,7 @@ class Building
   getDescription: ->
     @description ? @parent()?.description
   getFeatures: ->
-    if @features.length then @features else @parent()?.features
+    if @features?.length then @features else @parent()?.features
   complexFields: ->
     fields = []
     for field in ["pets", "parking", "laundry", "security", "utilities", "fitnessCenter"]
