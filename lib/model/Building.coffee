@@ -24,8 +24,34 @@ class Building
   getFeatures: ->
     if @features?.length then @features else @parent()?.features
   getAvailableAt: ->
-    if @agroIsUnit and @availableAt > new Date()
+    if @agroIsUnit # and @availableAt > new Date()
       @availableAt
+  getBedrooms: ->
+    if @bedroomsFrom
+      value = @bedroomsFrom
+      unless @bedroomsFrom is @bedroomsTo
+        value += " - " + @bedroomsTo
+      value += " Bedroom"
+      if @bedroomsTo > 1
+        value += "s"
+      value
+  getBathrooms: ->
+    if @bathroomsFrom
+      value = @bathroomsFrom
+      unless @bathroomsFrom is @bathroomsTo
+        value += " - " + @bathroomsTo
+      value += " Bathroom"
+      if @bathroomsTo > 1
+        value += "s"
+      value
+    else if @agroIsUnit or @prices().count() > 1
+      "Bathrooms: Varies"
+    else
+      "Bathrooms: Please inquire"
+  getUnitPrice: ->
+    if @priceFrom
+      from: "$" + @priceFrom + (if @priceFrom is @priceTo then "" else "+")
+      type: btypes[@btype].lower
   complexFields: ->
     fields = []
     for field in ["pets", "parking", "laundry", "security", "utilities", "fitnessCenter"]
@@ -69,9 +95,6 @@ class Building
   displayBuildingPrice: ->
     if @agroPriceTotalFrom
       "$" + @agroPriceTotalFrom + (if @agroPriceTotalFrom is @agroPriceTotalTo then "+" else "")
-  displayUnitPrice: ->
-    if @priceFrom
-      "$" + @priceFrom + (if @priceFrom is @priceTo then "+" else "")
   buildingUnits: ->
     Buildings.find({parentId: @_id}, {sort: {createdAt: -1, _id: 1}})
   parent: ->

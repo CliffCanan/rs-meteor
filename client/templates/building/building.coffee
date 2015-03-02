@@ -1,35 +1,4 @@
 Template.building.helpers
-  units: ->
-    units = []
-    if @studio
-      unit = {}
-      unit.type = "Studio"
-      unit.price = @studio.from
-      units.push(unit)
-    if @bedroom1
-      unit = {}
-      unit.type = "1 Bedroom"
-      unit.price = @bedroom1.from
-      units.push(unit)
-    if @bedroom2
-      unit = {}
-      unit.type = "2 Bedrooms"
-      unit.price = @bedroom2.from
-      units.push(unit)
-    if @bedroom3
-      unit = {}
-      unit.type = "3 Bedrooms"
-      unit.price = @bedroom3.from
-      units.push(unit)
-    if @bedroom4
-      unit = {}
-      unit.type = "4 Bedrooms"
-      unit.price = @bedroom4.from
-      units.push(unit)
-    units
-  oneTypeOfBedrooms: ->
-    @prices().length is 1
-
   isFurnished: ->
     if @furnished
       return @furnished is "Y"

@@ -1,16 +1,10 @@
 generateAgroIsUnit = (building) ->
-  isUnit = true
-  unless building.parentId
-    prices = 0
-    for type in btypesIds
-      fieldName = "price" + type.charAt(0).toUpperCase() + type.slice(1)
-      if building[fieldName + "From"]
-        prices++
-    if prices > 1
+  isUnit = !!building.isUnit
+  if building.parentId
+    isUnit = true
+  else
+    if Buildings.find({parentId: building._id}).count()
       isUnit = false
-    else
-      if Buildings.find({parentId: building._id}).count()
-        isUnit = false
   Buildings.direct.update({_id: building._id}, {$set: {agroIsUnit: isUnit}})
 
 Buildings.before.insert (userId, building) ->
@@ -23,8 +17,8 @@ Buildings.after.insert (userId, building) ->
 
 Buildings.after.update (userId, building, fieldNames, modifier, options) ->
   if @previous.parentId isnt building.parentId
-    previousParent = Buildings.findOne(@previous.parentId)
-    if previousParent
-      generateAgroIsUnit(previousParent)
-    Buildings.direct.update({_id: building.parentId}, {$set: {agroIsUnit: false}})
+    if @previous.parentId
+      previousParent = Buildings.findOne(@previous.parentId)
+      if previousParent
+        generateAgroIsUnit(previousParent)
   generateAgroIsUnit(building)
