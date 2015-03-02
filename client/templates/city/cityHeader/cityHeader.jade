@@ -79,9 +79,15 @@ template(name="cityHeader")
             | Enter your most common destination (work, school, etc) to find apartments close to it
           label.filter-field
             input.form-control(type="text", placeholder="Destination Address")
-          select.form-control.filter-select.pull-left
-            option Less than 10 minutes
-            option Less than 30 minutes
+          .dropdown.pull-left
+            button.btn.btn-default.dropdown-toggle.filter-select
+              span.button-text
+                | Less than 10 minutes
+            ul.dropdown-menu
+              li.filter-arrive-item
+                | Less than 10 minutes
+              li.filter-arrive-item
+                | Less than 30 minutes
           ul.city-motion-list.pull-right.list-unstyled
             li.city-motion-item.city-motion-walk
             li.city-motion-item.city-motion-car
