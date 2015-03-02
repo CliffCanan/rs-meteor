@@ -193,7 +193,7 @@ dataFields =
           building.features = features
         else if fieldName is "city"
           building.city = data.value
-          if building.city is ["Delaware", "Phildelphia"]
+          if building.city in ["Delaware", "Phildelphia"]
             building.cityId = "philadelphia"
           else if building.city in ["McLean", "Montgomery", "Washington", "Washinton DC", "Wasington DC"]
             building.cityId = "washington-dc"
@@ -294,8 +294,23 @@ dataFields =
   # remove invalid objects
   removed = []
   for _id, building of buildings
-    unless building.title or building.cityId not in cityIds or (building.parentId and not buildings[parseInt(building.parentId)])
-      cl "building removed " + JSON.stringify(building)
+    remove = false
+    cause = ""
+    unless building.title
+      remove = true
+      cause = "no title"
+    else unless building.neighborhood
+      remove = true
+      cause = "no neighborhood"
+    else unless building.cityId in cityIds
+      remove = true
+      cause = "wrong cityId: " + building.cityId
+    else if building.parentId and not buildings[parseInt(building.parentId)]
+      remove = true
+      cause = "no parent building with _id " + building.parentId
+
+    if remove
+      cl "building " + _id + " removed (" + cause + ")"
       removed.push(_id)
 
   if full
