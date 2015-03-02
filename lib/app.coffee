@@ -29,6 +29,9 @@
 @cityIds = Object.keys(cities)
 
 @btypes =
+  studio:
+    lower: "Studio"
+    upper: "Studio"
   bedroom1:
     lower: "1 bedroom"
     upper: "1 Bedroom"
@@ -44,9 +47,7 @@
   bedroom5:
     lower: "5 bedrooms"
     upper: "5 Bedrooms"
-  studio:
-    lower: "studio"
-    upper: "Studio"
+
 
 @btypesArray =
   for key, value of btypes

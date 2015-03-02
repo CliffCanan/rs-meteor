@@ -98,6 +98,7 @@ Template.building.helpers
 
   ironRouterHack: ->
     Router.current() # reactivity
+    $('[data-toggle="tooltip"]').tooltip()
     addthis?.init()
     $carousel = $(".carousel")
     carousel = $carousel.data("bs.carousel")
