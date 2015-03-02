@@ -30,32 +30,31 @@ template(name="building")
           ul.building-main-prop-list.list-unstyled.clearfix
             each complexFields
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{comment}}")
-                i.fa(class="{{#if isAvailable}}fa-check{{else}}fa-minus-circle{{/if}}")
+                i.fa(class="{{iconClass}}")
                 | {{value}}
                 if comment
                   i.fa.fa-question-circle
             li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
               if isFurnished
-                i.fa.fa-check
+                i.fa.fa-check.blue-icon
                 | Furnished
               else
-                i.fa.fa-minus-circle
+                i.fa.fa-times.grey-icon
                 | Not Furnished
             li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
               if isNotAvailable
-                i.fa.fa-minus-circle
+                i.fa.fa-times.grey-icon
                 | Not Currently Available
               else
-                i.fa.fa-check
+                i.fa.fa-check.blue-icon
                 | Available: {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
             if bathrooms
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
+                i.fa.fa-check.blue-icon
                 if condition bathrooms 'is' '1'
-                  i.fa.fa-check
                   | {{bathrooms}} Bathroom
                 else
-                  i.fa.fa-check
-                  | {{bathrooms}} Bathroom
+                  | {{bathrooms}} Bathrooms
           button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
             | Check Availability
           .building-main-info-desc-wrap.visible-lg-block

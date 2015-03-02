@@ -33,11 +33,22 @@ class Building
       if key
         value = complexFieldsValues[field][key]
         comment = @[field + "Comment"] ? @parent()?[field + "Comment"]
+        isAvailable = value.indexOf("No") is -1 and value.indexOf("Extra") is -1
+        isGreyCheck = value is "Some Pets Allowed" or value is "Shared Laundry"
+        if isAvailable
+          if isGreyCheck
+            iconClass = "fa-check grey-icon"
+          else
+            iconClass = "fa-check blue-icon"
+        else
+          iconClass = "fa-times grey-icon"
         fields.push
           field: field
           value: value
           comment: comment
-          isAvailable: value.indexOf("No") is -1
+          isAvailable: isAvailable
+          iconClass: iconClass
+
     fields
   bedroomTypes: ->
     if @agroIsUnit
