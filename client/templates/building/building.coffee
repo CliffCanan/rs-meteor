@@ -27,6 +27,8 @@ Template.building.helpers
       unit.price = @bedroom4.from
       units.push(unit)
     units
+  oneTypeOfBedrooms: ->
+    @prices().length is 1
 
   isFurnished: ->
     if @furnished

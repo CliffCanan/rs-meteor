@@ -55,6 +55,13 @@ template(name="building")
                   | {{bathrooms}} Bathroom
                 else
                   | {{bathrooms}} Bathrooms
+            else
+              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
+                i.fa.fa-check.blue-icon
+                if oneTypeOfBedrooms
+                  | Bathrooms: Please inquire
+                else
+                  | Bathrooms: Varies
           button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
             | Check Availability
           .building-main-info-desc-wrap.visible-lg-block
