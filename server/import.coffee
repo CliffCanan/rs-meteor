@@ -273,7 +273,7 @@ dataFields =
           building = buildings[data.id] =
             _id: "" + data.id
             parentId: "" + data.prop_id
-            btype: if data.beds is 0 then "studio" else btypesIds[data.beds - 1]
+            btype: btypesIds[data.beds]
             title: data.number or "Multiple Units"
             description: data.description
           parseAvailableAt(building, data.available)
