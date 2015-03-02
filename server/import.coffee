@@ -186,7 +186,11 @@ dataFields =
       if building
         fieldName = dataFields[data.fieldid]
         if fieldName is "features"
-          building.features = (feature.trim() for feature in data.value.split(","))
+          features = []
+          for feature in data.value.split(",")
+            feature = feature.trim()
+            features.push(feature)  if feature
+          building.features = features
         else if fieldName is "city"
           building.city = data.value
           if building.city is ["Delaware", "Phildelphia"]

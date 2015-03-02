@@ -21,6 +21,8 @@ class Building
       @parent()?.images
   getDescription: ->
     @description ? @parent()?.description
+  getFeatures: ->
+    if @features.length then @features else @parent()?.features
   complexFields: ->
     fields = []
     for field in ["pets", "parking", "laundry", "security", "utilities", "fitnessCenter"]
