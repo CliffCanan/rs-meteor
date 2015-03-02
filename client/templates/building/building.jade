@@ -28,17 +28,12 @@ template(name="building")
                 span.building-main-rooms
                   | {{type}}
           ul.building-main-prop-list.list-unstyled.clearfix
-            each complicatedFields
-              if hasInfo field
-                li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{hasComment field}}")
-                  if isAvailable field
-                    i.fa.fa-check
-                    | {{fieldInfo field}}
-                    if hasComment field
-                      i.fa.fa-question-circle
-                  else
-                    i.fa.fa-minus-circle
-                    | {{fieldInfo field}}
+            each complexFields
+              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{comment}}")
+                i.fa(class="{{#if isAvailable}}fa-check{{else}}fa-minus-circle{{/if}}")
+                | {{value}}
+                if comment
+                  i.fa.fa-question-circle
             li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
               if isFurnished
                 i.fa.fa-check

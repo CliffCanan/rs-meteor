@@ -43,7 +43,7 @@ dataFields =
   140: "laundry"
   141: "security"
   142: "fitnessCenter"
-  143: "isAvailable"
+  143: "isNotAvailable"
   144: "videos"
   145: "parentId"
   146: "unitNumber"
@@ -102,6 +102,11 @@ dataFields =
         else
           unless value[0].indexOf("+") > 0
             building[fieldName + "To"] = from
+
+  parseAvailableAt = (building, oldValue) ->
+    date = new Date(oldValue.trim())
+    unless isNaN(date.getTime())
+      building.availableAt = date
 
   parseImages = (building, oldValue) ->
     if not isUpdate and oldValue?.length
@@ -195,8 +200,9 @@ dataFields =
         else if fieldName in ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
           parseValueCommentField(building, fieldName, data.value)
         else if fieldName is "availableAt"
-          if data.value.trim()
-            building.availableAt = new Date(data.value)
+          parseAvailableAt(building, data.value)
+        else if fieldName is "isNotAvailable"
+          building.isNotAvailable = !!data.value
         else if fieldName in ["price", "sqft"]
           parseDeltaField(building, fieldName, data.value)
         else if fieldName is "parentId"
@@ -263,11 +269,10 @@ dataFields =
             description: data.description
             bedrooms: data.beds
             bathrooms: data.baths
-            availableAt: new Date(data.available)
+          parseAvailableAt(building, data.available)
           for fieldName in ["security", "laundry"]
             parseValueCommentField(building, fieldName, data[fieldName])
-          for fieldName in ["price", "sqft"]
-            parseDeltaField(building, fieldName, data[fieldName])
+          parseDeltaField(building, "sqft", data.sqft)
           fieldName = "price" + building.btype.charAt(0).toUpperCase() + building.btype.slice(1)
           parseDeltaField(building, fieldName, data["price"])
           parseImages(building, data.images)

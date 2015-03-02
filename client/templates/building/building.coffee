@@ -1,34 +1,4 @@
 Template.building.helpers
-  getDescription: ->
-    parent = @parent()
-    return if @description? then @description else parent.description
-
-  hasInfo: (field) ->
-    if @thisUnit[field]?
-      return @thisUnit[field] isnt 0
-    else if @thisUnit.parent()?[field]?
-      return @thisUnit.parent()[field] isnt 0
-    else
-      return false
-  hasComment: (field) ->
-    parent = @thisUnit.parent()
-    return if @thisUnit[field+"Comment"]? then @thisUnit[field+"Comment"] else parent?[field+"Comment"]
-  isAvailable: (field) ->
-    parent = @thisUnit.parent()
-    if @thisUnit[field]?
-      return availability[field][@thisUnit[field]].indexOf("No") is -1
-    else
-      return availability[field][parent[field]].indexOf("No") is -1
-  fieldInfo: (field) ->
-    parent = @thisUnit.parent()
-    return if @thisUnit[field]? then availability[field][@thisUnit[field]] else availability[field][parent?[field]]
-
-  complicatedFields: ->
-    fields = []
-    for field in ["pets", "parking", "laundry", "security", "utilities", "fitnessCenter"]
-      fields.push({field:field, thisUnit:@})
-    return fields
-
   featureRows: ->
     featureRows = []
     if @features
@@ -143,15 +113,5 @@ Template.building.events
 
   "click .building-unit-item-less": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", false)
-
-availability = {
-  pets: ["Unknown","Pets Allowed", "Pets Allowed", "Pets Not Allowed"]
-  parking: ["Unknown", "Parking Included", "Parking Available", "No Parking"]
-  laundry: ["Unknown","In-unit Laundry", "On-site Laundry", "No Laundry"]
-  security: ["Unknown","Doorman", "No Doorman"]
-  utilities: ["Unknown","Utilities Included", "Utilities Extra Charge"]
-  fitnessCenter: ["Unknown","Fitness Center", "No Fitness Center"]
-}
-
 
 
