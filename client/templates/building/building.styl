@@ -333,6 +333,28 @@
   color #4588fa
 .grey-icon
   color dimgrey
+
+.add-image-btn {
+  position: relative;
+  overflow: hidden;
+}
+.add-image-btn input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
 footer
   clear both
   padding 0 15px

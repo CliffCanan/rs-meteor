@@ -2,7 +2,6 @@ Meteor.users.allow
   insert: share.securityRulesWrapper (userId, user) ->
     false
   update: share.securityRulesWrapper (userId, user, fieldNames, modifier, options) ->
-    cl "'role' in fieldNames ", "role" in fieldNames
     if userId
       if "role" in fieldNames
         if Meteor.user().role is "super"

@@ -87,12 +87,19 @@ template(name="building")
         .building-info-wrap.col-lg-7
           if admin
             .container
-              ul.row.col-lg-8
+              ul.row.col-lg-8(style="list-style-type: none;")
                 each getImages
                   li.col-lg-4.col-md-4.col-sm-6.col-xs-8
                     .item
-                      img.building-img(src="{{url}}" width="75%" height="75%")
-
+                      img.building-img.img-thumbnail(src="{{url}}" width="150" height="120")
+                      button.close.remove-image(type='button', aria-label='Remove' style="float:left;")
+                        span.fa.fa-trash(aria-hidden='true')
+                li.col-lg-4.col-md-4.col-sm-6.col-xs-8
+                  .item
+                    //img.building-img(src="" width="75%" height="75%")
+                    span.file-input.btn.btn-primary.add-image-btn
+                      | Add image
+                      input.choose-image-input(type="file" multiple="true")
           else
             .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel" data-interval="false")
               .carousel-inner(role="listbox")
