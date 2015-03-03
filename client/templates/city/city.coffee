@@ -17,6 +17,8 @@ Template.city.helpers
       cityPageData = Session.get("cityPageData")
       Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage)
     !citySubs.ready
+  notAllLoaded: ->
+    Template.city.__helpers[" buildings"].call(@).count() < Counts.get("city-buildings-count")
   # TODO: filter by price depend on btype
   buildings: ->
     selector = {parentId: {$exists: false}, cityId: @cityId}
@@ -117,6 +119,11 @@ Template.city.rendered = ->
       unless id in actualMarkerIds
         marker.setMap(null)
 
+incrementPageNumber = ->
+  cityPageData = Session.get("cityPageData")
+  cityPageData.page++
+  Session.set("cityPageData", cityPageData)
+
 Template.city.events
   "click .city-select li": (event, template) ->
     data = template.data
@@ -134,13 +141,13 @@ Template.city.events
     if marker
       google.maps.event.trigger(marker, "mouseout")
 
+  "click .load-more": (event, template) ->
+    incrementPageNumber()
+
   "scroll .main-city-list-wrap": (event, template) ->
-    count = template.view.template.__helpers[" buildings"].call(template.data).count()
-    if citySubs.ready and count < Counts.get("city-buildings-count")
+    if citySubs.ready and template.view.template.__helpers[" notAllLoaded"].call(template.data)
       $el = $(event.currentTarget)
       $container = $(".main-city-list", $el)
       if $el.scrollTop() >= $container.outerHeight() - $el.outerHeight()
-        cityPageData = Session.get("cityPageData")
-        cityPageData.page++
-        Session.set("cityPageData", cityPageData)
+        incrementPageNumber()
 
