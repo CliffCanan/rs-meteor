@@ -1,3 +1,13 @@
+setHeights = _.debounce ->
+  windowHeight = $(window).outerHeight()
+  headerHeight = $(".header-wrap").outerHeight()
+  filterHeight = $(".city-sub-header").outerHeight()
+  $(".city-side-bar").outerHeight(windowHeight - headerHeight)
+  $(".main-city-list-wrap").outerHeight(windowHeight - headerHeight - filterHeight)
+, 100, true
+
+$(window).on("resize", setHeights)
+
 markers = {}
 
 Template.city.helpers
@@ -30,6 +40,7 @@ Template.city.helpers
     "/images/search-img3.jpg"
 
 Template.city.rendered = ->
+  setHeights()
   map = new google.maps.Map document.getElementById("gmap"),
     zoom: 14
     center: new google.maps.LatLng(39.95, -75.17) # TODO: set city center
