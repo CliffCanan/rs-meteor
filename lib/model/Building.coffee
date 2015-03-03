@@ -44,7 +44,7 @@ class Building
       if @bathroomsTo > 1
         value += "s"
       value
-    else if @agroIsUnit or @prices().count() > 1
+    else if @agroIsUnit or @prices()?.length > 1
       "Bathrooms: Varies"
     else
       "Bathrooms: Please inquire"

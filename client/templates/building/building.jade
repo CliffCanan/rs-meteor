@@ -85,19 +85,28 @@ template(name="building")
             //    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
             +social
         .building-info-wrap.col-lg-7
-          .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel" data-interval="false")
-            .carousel-inner(role="listbox")
-              each getImages
-                .item
-                  img.building-img(src="{{url}}")
-            a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
-              i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
-              span.sr-only
-                | Previous
-            a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
-              i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
-              span.sr-only
-                | Next
+          if admin
+            .container
+              ul.row.col-lg-8
+                each getImages
+                  li.col-lg-4.col-md-4.col-sm-6.col-xs-8
+                    .item
+                      img.building-img(src="{{url}}" width="75%" height="75%")
+
+          else
+            .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel" data-interval="false")
+              .carousel-inner(role="listbox")
+                each getImages
+                  .item
+                    img.building-img(src="{{url}}")
+              a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
+                i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
+                span.sr-only
+                  | Previous
+              a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
+                i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
+                span.sr-only
+                  | Next
           .building-main-info-desc-wrap.hidden-lg
             p.building-main-info-desc
               | {{{getDescription}}}
