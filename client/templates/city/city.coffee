@@ -47,9 +47,10 @@ Template.city.helpers
 
 Template.city.rendered = ->
   setHeights()
+  cityData = cities[@data.cityId]
   map = new google.maps.Map document.getElementById("gmap"),
     zoom: 14
-    center: new google.maps.LatLng(39.95, -75.17) # TODO: set city center
+    center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
     streetViewControl: false
     scaleControl: false
     rotateControl: false
@@ -57,6 +58,7 @@ Template.city.rendered = ->
     overviewMapControl: false
     mapTypeControl: false
     mapTypeId: google.maps.MapTypeId.ROADMAP
+  @map = map
   infowindow = new google.maps.InfoWindow()
   markers = {}
   defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
@@ -68,7 +70,8 @@ Template.city.rendered = ->
     @template.__helpers[" buildings"].call(data).forEach (building) ->
       actualMarkerIds.push(building._id)
       if marker = markers[building._id]
-        marker.setMap(map)
+        unless marker.map
+          marker.setMap(map)
       else
         marker = new google.maps.Marker
           _id: building._id
@@ -115,6 +118,12 @@ Template.city.rendered = ->
         marker.setMap(null)
 
 Template.city.events
+  "click .city-select li": (event, template) ->
+    data = template.data
+    cityId = $(event.currentTarget).attr("data-value")
+    cityData = cities[cityId]
+    template.map.setCenter(new google.maps.LatLng(cityData.latitude, cityData.longitude))
+
   "mouseover .main-city-list li": (event, template) ->
     marker = markers[@_id]
     if marker

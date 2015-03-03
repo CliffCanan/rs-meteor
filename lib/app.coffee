@@ -4,24 +4,38 @@
   atlanta:
     short: "Atlanta"
     long: "ATLANTA, GA"
+    latitude: 33.75
+    longitude: -84.39
   boston:
     short: "Boston"
     long: "BOSTON, MA"
+    latitude: 42.36
+    longitude: -71.06
   chicago:
     short: "Chicago"
     long: "CHICAGO, IL"
+    latitude: 41.88
+    longitude: -87.63
   "los-angeles":
     short: "Los Angeles"
     long: "LOS ANGELES, CA"
+    latitude: 34.05
+    longitude: -118.24
   philadelphia:
     short: "Philadelphia"
     long: "PHILADELPHIA, PA"
+    latitude: 39.95
+    longitude: -75.17
   stamford:
     short: "Stamford"
     long: "STAMFORD, CT"
+    latitude: 41.05
+    longitude: -73.54
   "washington-dc":
     short: "Washington"
     long: "WASHINGTON, DC"
+    latitude: 38.90
+    longitude: -77.04
 
 @citiesArray =
   for key, value of cities
