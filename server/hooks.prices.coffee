@@ -45,6 +45,10 @@ generateBuildingPrices = (building) ->
           modifier.$set[fieldNameAgro] = Math.max.apply(null, pricesAgroMinMaxValues[fieldNameAgro])
       else
         modifier.$unset[fieldNameAgro]
+  unless Object.keys(modifier.$set).length
+    delete modifier.$set
+  unless Object.keys(modifier.$unset).length
+    delete modifier.$unset
 
   Buildings.direct.update({_id: building._id}, modifier)
 
