@@ -42,8 +42,10 @@
     'street': '1300 Chestnut St 1003'
     'priceFrom': 1430
     'priceTo': 1430
-    'bedrooms': '1'
-    'bathrooms': '1'
+    'bedroomsFrom': 1
+    'bedroomsTo': 1
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'yearOfCompletion': '1915'
     'heatingAndCooling': 'Y'
@@ -77,8 +79,10 @@
     'street': '1300 Chestnut St 502'
     'priceFrom': 1440
     'priceTo': 1440
-    'bedrooms': '1'
-    'bathrooms': '1'
+    'bedroomsFrom': 1
+    'bedroomsTo': 1
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'yearOfCompletion': '1915'
     'mlsNo': '6430052'
@@ -159,8 +163,10 @@
     'street': '1201-5 Chestnut St'
     'priceFrom': 1605
     'priceTo': 1605
-    'bedrooms': '1'
-    'bathrooms': '1'
+    'bedroomsFrom': 1
+    'bedroomsTo': 1
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'neighborhood': 'Center City East'
     'latitude': 39.9506755
@@ -211,8 +217,10 @@
     'street': '1300 Chestnut St 307'
     'priceFrom': 1575
     'priceTo': 1575
-    'bedrooms': '1'
-    'bathrooms': '1'
+    'bedroomsFrom': 1
+    'bedroomsTo': 1
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'yearOfCompletion': '1915'
     'heatingAndCooling': 'Y'
@@ -266,8 +274,10 @@
     'street': '1300 Chestnut St 302'
     'priceFrom': 1495
     'priceTo': 1495
-    'bedrooms': '1'
-    'bathrooms': '1'
+    'bedroomsFrom': 1
+    'bedroomsTo': 1
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'yearOfCompletion': '1915'
     'heatingAndCooling': 'Y'
@@ -307,8 +317,10 @@
     'street': '1300 Chestnut St 907'
     'priceFrom': 1650
     'priceTo': 1650
-    'bedrooms': '1'
-    'bathrooms': '1'
+    'bedroomsFrom': 1
+    'bedroomsTo': 1
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'yearOfCompletion': '1915'
     'heatingAndCooling': 'Y'
@@ -380,8 +392,10 @@
     'heatingAndCooling': 'Y'
     'description': 'SPECTACULAR SPECIALS GOING ON NOW!!!! The Commonwealth, a historic Philadelphia premier rental residence meticulously restored in 2010 with a contemporary flair, offers one and two bedroom apartments. One bedroom, one bath apartments are available in 5 different floor plans ranging in price from 1,400-2,010. The two bedroom, two bath apartments are available in 2 floor plans ranging in price from 2,305-2,990. All apartments feature stainless steel appliances, granite countertops, European maple cabinets, plus much more. For peace of mind, the building has controlled access and a 24-hour concierge/floorperson. For those exercise enthusiasts, a 24-hour fitness center accommodates anyone\'s busy schedule. This unique luxury property is just steps away from endless shopping and dining options. See photos above for alternate 2BR floor plan. See MLS #6216786 for 1BR floor plans. CURRENTLY OFFERING 1BR AND 2BR SPECIALS.....'
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
-    'bathrooms': '2'
-    'bedrooms': '2'
+    'bathroomsFrom': 2
+    'bathroomsTo': 2
+    'bedroomsFrom': 2
+    'bedroomsTo': 2
     'priceFrom': 2520
     'priceTo': 2520
     'title': '1201-5 Chestnut St'
@@ -403,7 +417,8 @@
     'heatingAndCooling': 'Y'
     'yearOfCompletion': '1915'
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
-    'bathrooms': '1'
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'postalCode': '19107 19107'
     'street': '1220 Sansom St 9S'
     'title': '1220 Sansom St 9S'
@@ -412,6 +427,7 @@
     'security': 0
     'securityComment': ''
     'propertyType': '0'
+    'isNotAvailable': false
     'neighborhood': 'Center City East'
     'website': 'YTozOntzOjU6ImxhYmVsIjtzOjA6IiI7czo4OiJwcm90b2NvbCI7czowOiIiO3M6MzoidXJsIjtOO30='
     'type': 'UnitFlat'
@@ -487,8 +503,10 @@
     'secondDeposit': '$1,660'
     'heatingAndCooling': 'Y'
     'yearOfCompletion': '1882'
-    'bedrooms': '1'
-    'bathrooms': '1'
+    'bedroomsFrom': 1
+    'bedroomsTo': 1
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'priceFrom': 1660
     'priceTo': 1660
@@ -540,8 +558,10 @@
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'yearOfCompletion': '1882'
     'heatingAndCooling': 'Y'
-    'bathrooms': '2'
-    'bedrooms': '2'
+    'bathroomsFrom': 2
+    'bathroomsTo': 2
+    'bedroomsFrom': 2
+    'bedroomsTo': 2
     'priceFrom': 1790
     'priceTo': 1790
     'street': '1222-26 Arch St 104'
@@ -591,8 +611,10 @@
     'street': '1228-32 Arch St 5A'
     'priceFrom': 2500
     'priceTo': 2500
-    'bedrooms': '2'
-    'bathrooms': '2'
+    'bedroomsFrom': 2
+    'bedroomsTo': 2
+    'bathroomsFrom': 2
+    'bathroomsTo': 2
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'sqftFrom': 1349
     'sqftTo': 1349
@@ -611,7 +633,8 @@
     'similar': []
     'position': null
     'description': 'Newly renovated 1 bedroom/1 bathroom unit on Delancey Street in Rittenhouse Square! This unit features beautiful granite countertops, stainless steel appliances, many windows and original hardwood flooring throughout. Both washer and dryer are located inside of the unit. In walking distance from great restaurants and entertainment in Center City Philadelphia!'
-    'bathrooms': '1'
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'yearOfCompletion': '1915'
     'heatingAndCooling': 'Y'
@@ -620,6 +643,7 @@
     'street': '1836 Delancey St #4'
     'neighborhood': 'Center City West'
     'propertyType': '0'
+    'isNotAvailable': false
     'security': 0
     'securityComment': ''
     'fitnessCenter': 0
@@ -667,7 +691,7 @@
     'position': null
     'propertyType': '0'
     'adminEscorted': 'Listing agent must accompany.'
-    'isAvailable': '1'
+    'isNotAvailable': true
     'security': 0
     'securityComment': ''
     'neighborhood': 'Center City West'
@@ -711,7 +735,8 @@
     'sqftFrom': 4690
     'sqftTo': 4690
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
-    'bathrooms': '4'
+    'bathroomsFrom': 4
+    'bathroomsTo': 4
     'title': '1808 Delancey St'
     'postalCode': '19103 19103'
     'street': '1808 Delancey St'
@@ -763,11 +788,13 @@
     'title': '1720 Lombard St 505'
     'postalCode': '19146 19146'
     'street': '1720 Lombard St 505'
-    'bathrooms': '1'
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'sqftFrom': 650
     'sqftTo': 650
     'propertyType': '0'
+    'isNotAvailable': false
     'security': 0
     'securityComment': ''
     'latitude': 39.945127
@@ -814,13 +841,15 @@
     'title': '1720 Lombard St 504'
     'postalCode': '19146 19146'
     'street': '1720 Lombard St 504'
-    'bathrooms': '1'
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'sqftFrom': 650
     'sqftTo': 650
     'yearOfCompletion': '1015'
     'heatingAndCooling': 'Y'
     'propertyType': '0'
+    'isNotAvailable': false
     'security': 0
     'securityComment': ''
     'fitnessCenter': 0
@@ -838,6 +867,7 @@
     'similar': []
     'position': null
     'title': '2026-58 Market St 215'
+    'isNotAvailable': false
     'security': 1
     'securityComment': ''
     'fitnessCenter': 1
@@ -876,7 +906,8 @@
     'heatingAndCooling': 'Y'
     'postalCode': '19103 19103'
     'street': '2026-58 Market St 215'
-    'bathrooms': '1'
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'yearOfCompletion': '1915'
     'latitude': 39.9533259
@@ -895,6 +926,7 @@
     'securityComment': ''
     'fitnessCenter': 1
     'fitnessCenterComment': ''
+    'isNotAvailable': false
     'propertyType': '0'
     'neighborhood': 'Center City East'
     'country': 'U.S.A'
@@ -929,193 +961,13 @@
     'description': 'Brand new 1 bedroom apartment available for rent at 2040 MARKET STREET. This incredible light filled home includes large LIVING AREA with OPEN kitchen and breakfast bar, granite counter tops and stainless steel appliances. Enjoy living in this elevator doorman building with a GYM. PARKING AVAILABLE FOR ADDITIONAL COST.'
     'website': 'YTozOntzOjU6ImxhYmVsIjtzOjA6IiI7czo4OiJwcm90b2NvbCI7czowOiIiO3M6MzoidXJsIjtOO30='
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
-    'bathrooms': '1'
+    'bathroomsFrom': 1
+    'bathroomsTo': 1
     'street': '2026-58 Market St 305'
     'postalCode': '19103 19103'
     'title': '2026-58 Market St 305'
     'latitude': 39.9503691
     'longitude': -75.1459272
-    'btype': 'bedroom1'
-    'priceBedroom1From': 1750
-    'priceBedroom1To': 1750
-  '6194':
-    '_id': '6194'
-    'isPublished': true
-    'createdAt': '2014-08-19T23:51:58.000Z'
-    'isOnMap': false
-    'similar': []
-    'position': null
-    'neighborhood': 'Center City West'
-    'title': '624'
-    'propertyType': '0'
-    'parentId': '3083'
-    'security': 0
-    'securityComment': ''
-    'fitnessCenter': 1
-    'fitnessCenterComment': ''
-    'country': 'U.S.A'
-    'city': 'Philadelphia'
-    'cityId': 'philadelphia'
-    'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzI4MjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzkxNDI7fQ=='
-    'mlsNo': '6441903 Shapiro'
-    'laundry': 0
-    'laundryComment': ''
-    'utilities': 0
-    'utilitiesComment': ''
-    'features': [
-      'Utilities: Central Air Conditioning'
-      'Upgraded Kitchen'
-      'High Ceilings'
-      ' Free Gym'
-      'Secure Video Entrance'
-      'Natural Sunlight'
-      'Spacious Layouts'
-      'Hardwood Floors'
-      'Granite Countertops'
-      'Stainless Steel Appliances'
-    ]
-    'pets': 2
-    'petsComment': 'Cats Only. Add $15 a month'
-    'furnished': 'N'
-    'remarks': 'Special: 1 month free on a 12 month lease! Special: 1 month free on a 12 month lease! Renovation Possible At Increased Rent, Can UpgradeTo Granite CtrTop & S.S. Appliances @ $50 Increase'
-    'availableAt': '2014-08-15T17:00:00.000Z'
-    'secondDeposit': '$2,295'
-    'minTerm': '6'
-    'parking': 3
-    'parkingComment': ''
-    'description': 'Special: 1 month free on a 12 month lease! A boutique apartment building with all modern charm. Upgraded kitchens, central air, high ceilings, washer/dryer in most units, free gym and a secure video entrance. Natural sunlight, spacious layouts, hardwood floors, and no spared architectural details in the units. The building has a personal and inviting atmosphere. The Newport is an historic building in the Rittenhouse-Fitler Historic District. *If specific unit does not have stainless steel appliances already, for an additional $50 a month, owner will further upgrade the kitchen.'
-    'website': 'YTozOntzOjU6ImxhYmVsIjtzOjA6IiI7czo4OiJwcm90b2NvbCI7czowOiIiO3M6MzoidXJsIjtOO30='
-    'type': 'UnitFlat'
-    'design': 'LoRise'
-    'yearOfCompletion': '1797'
-    'heatingAndCooling': 'Y'
-    'sqftFrom': 1100
-    'sqftTo': 1100
-    'bathrooms': '2'
-    'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
-    'postalCode': '19102 19102'
-    'street': '1530 Spruce St 624'
-    'latitude': 39.9472824
-    'longitude': -75.1679142
-    'btype': 'bedroom2'
-    'priceBedroom2From': 2295
-    'priceBedroom2To': 2295
-  '6195':
-    '_id': '6195'
-    'isPublished': true
-    'createdAt': '2014-08-19T23:51:58.000Z'
-    'isOnMap': true
-    'similar': []
-    'position': null
-    'fitnessCenter': 1
-    'fitnessCenterComment': ''
-    'neighborhood': 'Center City West'
-    'furnished': 'N'
-    'pets': 2
-    'petsComment': 'Cats Only. Add $15 a month'
-    'country': 'U.S.A'
-    'city': 'Philadelphia'
-    'cityId': 'philadelphia'
-    'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzI4MjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzkxNDI7fQ=='
-    'mlsNo': '6441907 Shapiro'
-    'laundry': 1
-    'utilities': 0
-    'utilitiesComment': ''
-    'features': [
-      'Utilities: Central Air Conditioning'
-      'Upgraded Kitchen'
-      'High Ceilings'
-      ' Free Gym'
-      'Secure Video Entrance'
-      'Natural Sunlight'
-      'Spacious Layouts'
-      'Hardwood Floors'
-    ]
-    'minTerm': '6'
-    'parking': 0
-    'parkingComment': ''
-    'remarks': 'Special: 1 month free on a 12 month lease! Special: 1 month free on a 12 month lease! Renovation Possible At Increased Rent, Can UpgradeTo Granite CtrTop & S.S. Appliances @ $50 Increase'
-    'secondDeposit': '$2,095'
-    'availableAt': '2014-08-31T17:00:00.000Z'
-    'design': 'LoRise'
-    'type': 'UnitFlat'
-    'website': 'YTozOntzOjU6ImxhYmVsIjtzOjA6IiI7czo4OiJwcm90b2NvbCI7czowOiIiO3M6MzoidXJsIjtOO30='
-    'description': 'Special: 1 month free on a 12 month lease! A boutique apartment building with all modern charm. Upgraded kitchens, central air, high ceilings, washer/dryer in most units, free gym and a secure video entrance. Natural sunlight, spacious layouts, hardwood floors, and no spared architectural details in the units. The building has a personal and inviting atmosphere. The Newport is an historic building in the Rittenhouse-Fitler Historic District. *If specific unit does not have stainless steel appliances already, for an additional $50 a month, owner will further upgrade the kitchen.'
-    'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
-    'sqftFrom': 1100
-    'sqftTo': 1100
-    'yearOfCompletion': '1797'
-    'heatingAndCooling': 'Y'
-    'bathrooms': '1'
-    'street': '1530 Spruce St 525'
-    'postalCode': '19102 19102'
-    'title': '525'
-    'propertyType': '0'
-    'parentId': '3083'
-    'security': 0
-    'securityComment': ''
-    'latitude': 39.9472824
-    'longitude': -75.1679142
-    'btype': 'bedroom2'
-    'priceBedroom2From': 2095
-    'priceBedroom2To': 2095
-  '6196':
-    '_id': '6196'
-    'isPublished': false
-    'createdAt': '2014-08-19T23:51:59.000Z'
-    'isOnMap': true
-    'similar': []
-    'position': null
-    'fitnessCenter': 1
-    'fitnessCenterComment': ''
-    'mlsNo': '6441902 Shapiro'
-    'laundry': 1
-    'utilities': 0
-    'utilitiesComment': ''
-    'features': [
-      'Utilities: Central Air Conditioning'
-      'Upgraded Kitchen'
-      'High Ceilings'
-      ' Free Gym'
-      'Secure Video Entrance'
-      'Natural Sunlight'
-      'Spacious Layouts'
-      'Hardwood Floors'
-    ]
-    'neighborhood': 'Center City West'
-    'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk0NzI4MjQ7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE2NzkxNDI7fQ=='
-    'city': 'Philadelphia'
-    'cityId': 'philadelphia'
-    'country': 'U.S.A'
-    'pets': 2
-    'petsComment': 'Cats Only. Add $15 a month'
-    'furnished': 'N'
-    'remarks': 'Special: 1 month free on a 12 month lease! Special: 1 month free on a 12 month lease! Renovation Possible At Increased Rent, Can UpgradeTo Granite CtrTop & S.S. Appliances @ $50 Increase'
-    'parking': 0
-    'parkingComment': ''
-    'minTerm': '6'
-    'secondDeposit': '$1,750'
-    'availableAt': '2014-08-15T17:00:00.000Z'
-    'design': 'LoRise'
-    'type': 'UnitFlat'
-    'website': 'YTozOntzOjU6ImxhYmVsIjtzOjA6IiI7czo4OiJwcm90b2NvbCI7czowOiIiO3M6MzoidXJsIjtOO30='
-    'description': 'Special: 1 month free on a 12 month lease! A boutique apartment building with all modern charm. Upgraded kitchens, central air, high ceilings, washer/dryer in most units, free gym and a secure video entrance. Natural sunlight, spacious layouts, hardwood floors, and no spared architectural details in the units. The building has a personal and inviting atmosphere. The Newport is an historic building in the Rittenhouse-Fitler Historic District. *If specific unit does not have stainless steel appliances already, for an additional $50 a month, owner will further upgrade the kitchen.'
-    'yearOfCompletion': '1797'
-    'heatingAndCooling': 'Y'
-    'sqftFrom': 800
-    'sqftTo': 800
-    'title': '221'
-    'postalCode': '19102 19102'
-    'street': '1530 Spruce St 221'
-    'bathrooms': '1'
-    'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
-    'propertyType': '0'
-    'isAvailable': '1'
-    'parentId': '3083'
-    'security': 0
-    'securityComment': ''
-    'latitude': 39.9472824
-    'longitude': -75.1679142
     'btype': 'bedroom1'
     'priceBedroom1From': 1750
     'priceBedroom1To': 1750
