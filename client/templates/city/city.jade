@@ -23,7 +23,14 @@ template(name="city")
                     | {{displayBuildingPrice}}
                   span.main-city-desc
                     | {{bedroomTypes}}
-      if loadingBuildings
-        .loading-more
-          | Loading...
+      //if loadingBuildings
+      .city-spinner
+        .rect1
+        .rect2
+        .rect3
+        .rect4
+        .rect5
 
+      .loading-btn-wrap
+        .loading-btn.btn.btn-primary.btn-lg
+          | Loade More
