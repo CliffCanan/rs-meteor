@@ -11,6 +11,12 @@ $(window).on("resize", setHeights)
 markers = {}
 
 Template.city.helpers
+  loadingBuildings: ->
+    citySubs.dep.depend()
+    if citySubs.ready
+      cityPageData = Session.get("cityPageData")
+      Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage)
+    !citySubs.ready
   # TODO: filter by price depend on btype
   buildings: ->
     selector = {parentId: {$exists: false}, cityId: @cityId}
@@ -29,7 +35,7 @@ Template.city.helpers
         selector.agroPriceFilter.$gte = min
       if max
         selector.agroPriceFilter.$lte = max
-    Buildings.find(selector, {sort: {createdAt: -1, _id: 1}})
+    Buildings.find(selector, {sort: {createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
   randomImage: ->
 #    images = [
 #      "/images/search-img1.jpg"
@@ -119,8 +125,13 @@ Template.city.events
     if marker
       google.maps.event.trigger(marker, "mouseout")
 
-  "click .load-more": (event, template) ->
-    event.preventDefault()
-    page = Session.get("cityPage")
-    Session.set("cityPage", ++page)
+  "scroll .main-city-list-wrap": (event, template) ->
+    count = template.view.template.__helpers[" buildings"].call(template.data).count()
+    if citySubs.ready and count < Counts.get("city-buildings-count")
+      $el = $(event.currentTarget)
+      $container = $(".main-city-list", $el)
+      if $el.scrollTop() >= $container.outerHeight() - $el.outerHeight()
+        cityPageData = Session.get("cityPageData")
+        cityPageData.page++
+        Session.set("cityPageData", cityPageData)
 

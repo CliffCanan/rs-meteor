@@ -1,3 +1,5 @@
+@itemsPerPage = 30
+
 @cities =
   atlanta:
     short: "Atlanta"

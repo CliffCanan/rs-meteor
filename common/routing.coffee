@@ -1,5 +1,5 @@
 subs = new SubsManager()
-citySubs = new SubsManager()
+@citySubs = new SubsManager()
 buildingSubs = new SubsManager()
 
 Router.configure
@@ -35,16 +35,17 @@ Router.map ->
     name: "city"
     fastRender: true
     subscriptions: ->
-      citySubs.subscribe("buildings", @params.cityId, if Meteor.isClient then Session.get("cityPage") or 1 else 1)
+      citySubs.subscribe("buildings", @params.cityId, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
+      Meteor.subscribe("city-buildings-count", @params.cityId)
     data: ->
       return null  unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
+      oldData = Session.get("cityPageData")
+      if oldData?.cityId isnt @params.cityId
+        Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
       @next()
-    onRun: ->
-      Session.set("cityPage", 1)
-      Session.set("morePages", true)
   @route "/city/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
     name: "building"
     fastRender: true
