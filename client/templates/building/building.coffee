@@ -1,26 +1,9 @@
 Template.building.helpers
   admin: ->
-    Meteor.user().role is "admin"
+    Meteor.user()?.role is "admin"
   isFurnished: ->
     if @furnished
       return @furnished is "Y"
-
-  getBuildingData: ->
-    cityId: @cityId
-    neighborhoodSlug: @neighborhoodSlug
-    buildingSlug: @slug
-
-  hasParent: ->
-    return @parentId and @parentId isnt '' and @parentId isnt '0'
-  parentNeighborhoodSlug: ->
-    parent = Buildings.findOne({_id: @parentId})
-    return parent.neighborhoodSlug
-  parentSlug: ->
-    parent = Buildings.findOne({_id: @parentId})
-    return parent.slug
-  parentName: ->
-    parent = Buildings.findOne({_id: @parentId})
-    return parent.name
 
   ironRouterHack: ->
     Router.current() # reactivity
@@ -38,19 +21,13 @@ Template.building.helpers
     else
       $carousel.hide()
     return ""
-  showAllBuildingUnits: ->
-    Session.get("showAllBuildingUnits")
-  buildingUnitsArray: ->
-    array = []
-    i = 0
-    for unit in @buildingUnits().fetch()
-      array.push(
-        {
-          index: i++
-          unit: [unit]
-        }
-      )
-    array
+
+  buildingUnitsLimited: ->
+    if Session.get("showAllBuildingUnits")
+      @buildingUnits()
+    else
+      @buildingUnits(2)
+
 Template.building.rendered = ->
   Session.set("showAllBuildingUnits", false)
 
@@ -96,6 +73,24 @@ Template.building.events
         updateBuilding(buildingId, newObject, item)
       , 5000)
     )
+
+  "click .edit-building": (event, template) ->
+    Session.set("editBuildingId", template.data.building._id)
+
+  "submit .building-form": (event, template) ->
+    event.preventDefault()
+    data = $(event.currentTarget).serializeFormJSON()
+    if Object.keys(data).length
+      building = Buildings.findOne(template.data.building._id)
+      Meteor.apply "updateBuilding", [building._id, data], onResultReceived: (error, slug) ->
+        unless error
+          if building.slug isnt slug
+            building.slug = slug
+            Router.go("building", building.getRouteData())
+          else
+            Session.set("editBuildingId", false)
+    else
+      Session.set("editBuildingId", false)
 
 updateBuilding = (buildingId, newObject, item) ->
   Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})

@@ -10,163 +10,184 @@ template(name="building")
           a(href="{{pathFor route='city'}}") {{cityName}}
         with parent
           li
-            a(href="{{pathFor route='building' data=getBuildingData}}") {{title}}
+            a(href="{{pathFor route='building' data=getRouteData}}") {{title}}
         li.active {{title}}
 
       //.building-sidebar.clearfix.col-lg-3
 
-      article.building-page.clearfix
-        aside.building-main-info.col-lg-5
-          h2.building-main-info-title
-            | {{title}}
-          button.btn.btn-primary.building-main-info-btn.hidden-lg.check-availability(type='button')
-            | Check Availability
-          if agroIsUnit
-            with getUnitPrice
-              .building-main-price-wrap.clearfix
-                .building-main-price-opt
-                  span.building-main-price
-                    | {{from}}
-                  span.building-main-rooms
-                    | {{type}}
-          else
-            .building-main-price-wrap.clearfix
-              each prices
-                .building-main-price-opt
-                  span.building-main-price
-                    | {{from}}
-                  span.building-main-rooms
-                    | {{type}}
-          ul.building-main-prop-list.list-unstyled.clearfix
-            each complexFields
-              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{comment}}")
-                i.fa(class="{{iconClass}}")
-                | {{value}}
-                if comment
-                  i.fa.fa-question-circle
-            li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
-              if isFurnished
-                i.fa.fa-check.blue-icon
-                | Furnished
-              else
-                i.fa.fa-times.grey-icon
-                | Not Furnished
-            li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
-              if isNotAvailable
-                i.fa.fa-times.grey-icon
-                | Not Currently Available
-              else
-                i.fa.fa-check.blue-icon
-                | Available: {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
-            li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
-              with getBathrooms
-                i.fa.fa-check.blue-icon
-                | {{.}}
-          button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
-            | Check Availability
-          .building-main-info-desc-wrap.visible-lg-block
-            input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
-            p.building-main-info-desc
-              | {{{getDescription}}}
-            //p.building-main-info-desc
-            //  | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community amenities.
-            //  | Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens, two-bedrooms, and
-            //  | studios. The apartments feature
-            //  span.building-desc-more-target
-            //    |exceptional finishes, including granite countertops, stainless steel
-            //    | kitchen appliances, hardwood floors, and in-unit washer/dryers.
-            //label.building-main-more-trigger(for="mainDescMoreLarge")
-            //ul.building-share-list.list-unstyled.clearfix
-            //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-fw.fa-facebook(href="/", title="facebook")
-            //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-fw.fa-twitter(href="/", title="twitter")
-            //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
-            //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
-            +social
-        .building-info-wrap.col-lg-7
-          if admin
-            .container
-              .row.col-lg-8
-                ul(style="list-style-type: none;")
-                  each getImages
+      form.building-form
+        article.building-page.clearfix
+          aside.building-main-info.col-lg-5
+            if admin
+              .control-buttons
+                if Session "editBuildingId"
+                  button.btn.btn-primary.save-building(type="submit") Save Building
+                else
+                  button.btn.btn-primary.edit-building(type="button") Edit Building
+                  button.btn.btn-danger.delete-building(type="button") Delete Building
+
+            if Session "editBuildingId"
+              input.building-main-info-title(type="text", name="title", value="{{title}}")
+            else
+              h2.building-main-info-title {{getUnitTitle}}
+
+            button.btn.btn-primary.building-main-info-btn.hidden-lg.check-availability(type="button") Check Availability
+
+            if agroIsUnit
+              with getUnitPrice
+                .building-main-price-wrap.clearfix
+                  .building-main-price-opt
+                    span.building-main-price
+                      | {{price}}
+                    span.building-main-rooms
+                      | {{type}}
+            else
+              with prices
+                .building-main-price-wrap.clearfix
+                  each .
+                    .building-main-price-opt
+                      span.building-main-price
+                        | {{price}}
+                      span.building-main-rooms
+                        | {{type}}
+
+            ul.building-main-prop-list.list-unstyled.clearfix
+              each complexFields
+                li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip", data-placement="top", title="{{comment}}")
+                  i.fa(class="{{iconClass}}")
+                  | {{value}}
+                  if comment
+                    i.fa.fa-question-circle
+
+              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
+                if isFurnished
+                  i.fa.fa-check.blue-icon
+                  | Furnished
+                else
+                  i.fa.fa-times.grey-icon
+                  | Not Furnished
+              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
+                if isNotAvailable
+                  i.fa.fa-times.grey-icon
+                  | Not Currently Available
+                else
+                  i.fa.fa-check.blue-icon
+                  | Available: {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
+              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
+                with getBathrooms
+                  i.fa.fa-check.blue-icon
+                  | {{.}}
+            button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
+              | Check Availability
+            .building-main-info-desc-wrap.visible-lg-block
+              input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
+              p.building-main-info-desc
+                if Session "editBuildingId"
+                  textarea(name="description") {{{description}}}
+                else
+                  | {{{getDescription}}}
+              //p.building-main-info-desc
+              //  | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community amenities.
+              //  | Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens, two-bedrooms, and
+              //  | studios. The apartments feature
+              //  span.building-desc-more-target
+              //    |exceptional finishes, including granite countertops, stainless steel
+              //    | kitchen appliances, hardwood floors, and in-unit washer/dryers.
+              //label.building-main-more-trigger(for="mainDescMoreLarge")
+              //ul.building-share-list.list-unstyled.clearfix
+              //  li.building-share.pull-left
+              //    a.building-share-icon.fa.fa-fw.fa-facebook(href="/", title="facebook")
+              //  li.building-share.pull-left
+              //    a.building-share-icon.fa.fa-fw.fa-twitter(href="/", title="twitter")
+              //  li.building-share.pull-left
+              //    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
+              //  li.building-share.pull-left
+              //    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
+              +social
+
+          .building-info-wrap.col-lg-7
+            //admin
+            if false
+              .container
+                .row.col-lg-8
+                  ul(style="list-style-type: none;")
+                    each getImages
+                      li.col-lg-4.col-md-4.col-sm-6.col-xs-8
+                        .item.edit-item
+                          #element1.thumbnail-image
+                            img.building-img.img-thumbnail(src="{{url}}" width="150" height="120" style="min-width:150px;max-width:150px;max-height:120px;min-height:120px;")
+                            #element2.cover-image
+                              button.remove-image( type='button', aria-label='Remove' data-toggle="modal" data-target="#confirmRemoval")
+                                span.fa.fa-trash(aria-hidden='true')
                     li.col-lg-4.col-md-4.col-sm-6.col-xs-8
-                      .item.edit-item
-                        #element1.thumbnail-image
-                          img.building-img.img-thumbnail(src="{{url}}" width="150" height="120" style="min-width:150px;max-width:150px;max-height:120px;min-height:120px;")
-                          #element2.cover-image
-                            button.remove-image( type='button', aria-label='Remove' data-toggle="modal" data-target="#confirmRemoval")
-                              span.fa.fa-trash(aria-hidden='true')
-                  li.col-lg-4.col-md-4.col-sm-6.col-xs-8
-                    .item.add-image-item.edit-item
-                      .form-group
-                        span.form-control.file-input.btn.btn-default.add-image-btn(aria-hidden='true' style="min-width:150px;max-width:150px;max-height:120px;min-height:120px;")
-                          .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
-                          | Add images
-                          input.choose-image-input(type="file" multiple="true")
-          else
-            .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel" data-interval="false")
-              .carousel-inner(role="listbox")
-                each getImages
-                  .item
-                    img.building-img(src="{{url}}")
-              a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
-                i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
-                span.sr-only
-                  | Previous
-              a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
-                i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
-                span.sr-only
-                  | Next
-          .building-main-info-desc-wrap.hidden-lg
-            p.building-main-info-desc
-              | {{{getDescription}}}
-            //ul.building-share-list.list-unstyled.clearfix.hidden-lg
-            //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-fw.fa-facebook(href="/", title="facebook")
-            //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-fw.fa-twitter(href="/", title="twitter")
-            //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
-            //  li.building-share.pull-left
-            //    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
-            +social
-          if buildingUnits.count
-            section.building-info-section
-              h2.building-info-title
-                i.fa.fa-fw.fa-key
-                | {{buildingUnits.count}} Available Units
-              p.building-info-desc
-                | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
-                | mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum
-                | id ligula porta felis euismod semper.
-              .building-unit-list-wrap
-                ul.building-unit-list.list-unstyled.row
-                  if showAllBuildingUnits
-                    each buildingUnits
+                      .item.add-image-item.edit-item
+                        .form-group
+                          span.form-control.file-input.btn.btn-default.add-image-btn(aria-hidden='true' style="min-width:150px;max-width:150px;max-height:120px;min-height:120px;")
+                            .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
+                            | Add images
+                            input.choose-image-input(type="file" multiple="true")
+            else
+              .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel", data-interval="false")
+                .carousel-inner(role="listbox")
+                  each getImages
+                    .item
+                      img.building-img(src="{{url}}")
+                a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
+                  i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
+                  span.sr-only
+                    | Previous
+                a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
+                  i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
+                  span.sr-only
+                    | Next
+
+            .building-main-info-desc-wrap.hidden-lg
+              unless Session "editBuildingId"
+                p.building-main-info-desc
+                  | {{{getDescription}}}
+              //ul.building-share-list.list-unstyled.clearfix.hidden-lg
+              //  li.building-share.pull-left
+              //    a.building-share-icon.fa.fa-fw.fa-facebook(href="/", title="facebook")
+              //  li.building-share.pull-left
+              //    a.building-share-icon.fa.fa-fw.fa-twitter(href="/", title="twitter")
+              //  li.building-share.pull-left
+              //    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
+              //  li.building-share.pull-left
+              //    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
+              +social
+            if buildingUnits.count
+              section.building-info-section
+                h2.building-info-title
+                  i.fa.fa-fw.fa-key
+                  | {{buildingUnits.count}} Available Units
+                p.building-info-desc
+                  | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
+                  | mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum
+                  | id ligula porta felis euismod semper.
+                .building-unit-list-wrap
+                  ul.building-unit-list.list-unstyled.row
+                    each buildingUnitsLimited
                       li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
                         .building-unit-item
                           with mainImage
                             img.pull-left(src="{{url store='thumbs'}}")
                           .building-unit-info.clearfix
                             h3.building-unit-info-title
-                              a(href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}") {{title}}
+                              a(href="{{pathFor route='building' data=getRouteData}}") {{title}}
                             .building-unit-info-price
                               i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
                               with getUnitPrice
                                 span.unit-price
-                                  | {{from}}
+                                  | {{price}}
                               span.unit-type
                                 | {{bedroomTypes}}
                             button.building-unit-btn.btn.btn-default.check-availability(type="button")
                               | Check Availability
-                            a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}")
+                            a.building-unit-btn.btn.btn-default(type="button", href="{{pathFor route='building' data=getRouteData}}")
                               | Full Listing
                           ul.building-unit-prop-list.list-unstyled
                             li.building-unit-prop
-                              i.fa.fa-check
+                              i.fa.fa-fw.fa-check
                               | Earliest move-in:
                               if isNotAvailable
                                 | Not Currently Available
@@ -176,246 +197,211 @@ template(name="building")
                               li.building-unit-prop
                                 i.fa.fa-fw.fa-check
                                 | {{.}}
+                if condition buildingUnits.count "gt" 2
+                  if Session "showAllBuildingUnits"
+                    a.building-unit-item-less(href="#", title="less")
+                      | Hide Units
                   else
-                    each buildingUnitsArray
-                      if condition index "lte" 1
-                        each unit
-                          li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-                            .building-unit-item
-                              with mainImage
-                                img.pull-left(src="{{url store='thumbs'}}")
-                              .building-unit-info.clearfix
-                                h3.building-unit-info-title
-                                  a(href="{{pathFor route='building' buildingSlug=../../slug unitSlug=slug}}") {{title}}
-                                .building-unit-info-price
-                                  i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
-                                  with getUnitPrice
-                                    span.unit-price
-                                      | {{from}}
-                                  span.unit-type
-                                    | {{bedroomTypes}}
-                                button.building-unit-btn.btn.btn-default.check-availability(type="button")
-                                  | Check Availability
-                                a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building' buildingSlug=../../slug unitSlug=slug}}")
-                                  | Full Listing
-                              ul.building-unit-prop-list.list-unstyled
-                                li.building-unit-prop
-                                  i.fa.fa-fw.fa-check
-                                  | Earliest move-in:
-                                  if isNotAvailable
-                                    | Not Currently Available
-                                  else
-                                    | {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
-                                with getBathrooms
-                                  li.building-unit-prop
-                                    i.fa.fa-fw.fa-check
-                                    | {{.}}
-              if condition buildingUnits.count "gt" 2
-                if showAllBuildingUnits
-                  a.building-unit-item-less(href="/", title="less")
-                    | Hide Units
-                else
-                  a.building-unit-item-more(href="/", title="more")
-                    | View all {{buildingUnits.count}} Units
-          with getFeatures
-            section.building-info-section
-              h2.building-info-title
-                i.fa.fa-fw.fa-check
-                | Additional Features
-              ul.building-features-list.list-unstyled.container-fluid
-                each .
-                  li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
-                    i.fa.fa-fw.fa-check
-                    | {{.}}
-          //section.building-info-section
-          //  h2.building-info-title
-          //    i.fa.fa-fw.fa-star
-          //    | User reviews
-          //  .building-reviews-wrap
-          //    .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //      .building-review
-          //        input#reviewMore-1.building-review-more(type="checkbox")
-          //        .building-reviewer.pull-left
-          //          span.building-reviewer-name
-          //            | Mark Wilmotts
-          //          time
-          //            | 07/23/2014
-          //        span.rating-box.pull-right
-          //          i.fa.fa-fw.fa-star
-          //          | 8/10
-          //        h3.building-reviewer-title
-          //          | The place is a blest!
-          //        p.building-reviewer-desc
-          //          | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community
-          //          | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
-          //          | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
-          //          | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
-          //        ul.building-review-list.building-review-target.clearfix.list-unstyled
-          //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //            span.building-review-field
-          //              | Noise
-          //            span.building-review-rate
-          //              | 5/5
-          //            .building-review-bar
-          //              .building-review-rate-5.building-review-rating
-          //                span.building-review-bar-animate
-          //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //            span.building-review-field
-          //              | Maintenance
-          //            span.building-review-rate
-          //              | 4/5
-          //            .building-review-bar
-          //              .building-review-rate-4.building-review-rating
-          //                span.building-review-bar-animate
-          //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //            span.building-review-field
-          //              | Staff
-          //            span.building-review-rate
-          //              | 3/5
-          //            .building-review-bar
-          //              .building-review-rate-3.building-review-rating
-          //                span.building-review-bar-animate
-          //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //            span.building-review-field
-          //              | Facilities
-          //            span.building-review-rate
-          //              | 2/5
-          //            .building-review-bar
-          //              .building-review-rate-2.building-review-rating
-          //                span.building-review-bar-animate
-          //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //            span.building-review-field
-          //              | Staff
-          //            span.building-review-rate
-          //              | 1/5
-          //            .building-review-bar
-          //              .building-review-rate-1.building-review-rating
-          //                span.building-review-bar-animate
-          //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //            span.building-review-field
-          //              | Facilities
-          //            span.building-review-rate
-          //              | 5/5
-          //            .building-review-bar
-          //              .building-review-rate-5.building-review-rating
-          //                span.building-review-bar-animate
-          //        label.building-review-trigger(for="reviewMore-1")
-          //    .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //      .building-review
-          //        input#reviewMore-2.building-review-more(type="checkbox")
-          //        .building-reviewer.pull-left
-          //          span.building-reviewer-name
-          //            | Mark Wilmotts
-          //          time
-          //            | 07/23/2014
-          //        span.rating-box.pull-right
-          //          i.fa.fa-fw.fa-star
-          //          | 8/10
-          //        h3.building-reviewer-title
-          //          | The place is a blest!
-          //        p.building-reviewer-desc
-          //          | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community
-          //          | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
-          //          | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
-          //          | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
-          //        ul.building-review-list.building-review-target.clearfix.list-unstyled
-          //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //            span.building-review-field
-          //              | Noise
-          //            span.building-review-rate
-          //              | 5/5
-          //            .building-review-bar
-          //              .building-review-rate-5.building-review-rating
-          //                span.building-review-bar-animate
-          //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //            span.building-review-field
-          //              | Maintenance
-          //            span.building-review-rate
-          //              | 4/5
-          //            .building-review-bar
-          //              .building-review-rate-4.building-review-rating
-          //                span.building-review-bar-animate
-          //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //            span.building-review-field
-          //              | Staff
-          //            span.building-review-rate
-          //              | 3/5
-          //            .building-review-bar
-          //              .building-review-rate-3.building-review-rating
-          //                span.building-review-bar-animate
-          //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //            span.building-review-field
-          //              | Facilities
-          //            span.building-review-rate
-          //              | 2/5
-          //            .building-review-bar
-          //              .building-review-rate-2.building-review-rating
-          //                span.building-review-bar-animate
-          //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //            span.building-review-field
-          //              | Staff
-          //            span.building-review-rate
-          //              | 1/5
-          //            .building-review-bar
-          //              .building-review-rate-1.building-review-rating
-          //                span.building-review-bar-animate
-          //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-          //            span.building-review-field
-          //              | Facilities
-          //            span.building-review-rate
-          //              | 5/5
-          //            .building-review-bar
-          //              .building-review-rate-5.building-review-rating
-          //                span.building-review-bar-animate
-          //        label.building-review-trigger(for="reviewMore-2")
-        //footer.clearfix
-        //  h3.building-page-footer
-        //    | Similar Properties
-        //  ul.building-page-similar.list-unstyled
-        //    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-        //      a.building-page-similar-link(href="/", title="similar")
-        //        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-        //        .building-page-similar-info.clearfix
-        //          span.building-page-similar-desc
-        //            | {{bedroomTypes}}
-        //          span.building-page-similar-price
-        //            | {{priceFrom}}
-        //    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-        //      a.building-page-similar-link(href="/", title="similar")
-        //        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-        //        .building-page-similar-info.clearfix
-        //          span.building-page-similar-desc
-        //            | {{bedroomTypes}}
-        //          span.building-page-similar-price
-        //            | {{priceFrom}}
-        //    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-        //      a.building-page-similar-link(href="/", title="similar")
-        //        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-        //        .building-page-similar-info.clearfix
-        //          span.building-page-similar-desc
-        //            | {{bedroomTypes}}
-        //          span.building-page-similar-price
-        //            | {{priceFrom}}
-        //    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-        //      a.building-page-similar-link(href="/", title="similar")
-        //        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-        //        .building-page-similar-info.clearfix
-        //          span.building-page-similar-desc
-        //            | {{bedroomTypes}}
-        //          span.building-page-similar-price
-        //            | {{priceFrom}} {{helper}}
-      | {{ironRouterHack}}
+                    a.building-unit-item-more(href="#", title="more")
+                      | View all {{buildingUnits.count}} Units
+            with getFeatures
+              section.building-info-section
+                h2.building-info-title
+                  i.fa.fa-fw.fa-check
+                  | Additional Features
+                ul.building-features-list.list-unstyled.container-fluid
+                  each .
+                    li.building-features.col-lg-3.col-md-4.col-sm-6.col-xs-6
+                      i.fa.fa-fw.fa-check
+                      | {{.}}
+            //section.building-info-section
+            //  h2.building-info-title
+            //    i.fa.fa-fw.fa-star
+            //    | User reviews
+            //  .building-reviews-wrap
+            //    .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //      .building-review
+            //        input#reviewMore-1.building-review-more(type="checkbox")
+            //        .building-reviewer.pull-left
+            //          span.building-reviewer-name
+            //            | Mark Wilmotts
+            //          time
+            //            | 07/23/2014
+            //        span.rating-box.pull-right
+            //          i.fa.fa-fw.fa-star
+            //          | 8/10
+            //        h3.building-reviewer-title
+            //          | The place is a blest!
+            //        p.building-reviewer-desc
+            //          | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community
+            //          | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
+            //          | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
+            //          | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
+            //        ul.building-review-list.building-review-target.clearfix.list-unstyled
+            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //            span.building-review-field
+            //              | Noise
+            //            span.building-review-rate
+            //              | 5/5
+            //            .building-review-bar
+            //              .building-review-rate-5.building-review-rating
+            //                span.building-review-bar-animate
+            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //            span.building-review-field
+            //              | Maintenance
+            //            span.building-review-rate
+            //              | 4/5
+            //            .building-review-bar
+            //              .building-review-rate-4.building-review-rating
+            //                span.building-review-bar-animate
+            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //            span.building-review-field
+            //              | Staff
+            //            span.building-review-rate
+            //              | 3/5
+            //            .building-review-bar
+            //              .building-review-rate-3.building-review-rating
+            //                span.building-review-bar-animate
+            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //            span.building-review-field
+            //              | Facilities
+            //            span.building-review-rate
+            //              | 2/5
+            //            .building-review-bar
+            //              .building-review-rate-2.building-review-rating
+            //                span.building-review-bar-animate
+            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //            span.building-review-field
+            //              | Staff
+            //            span.building-review-rate
+            //              | 1/5
+            //            .building-review-bar
+            //              .building-review-rate-1.building-review-rating
+            //                span.building-review-bar-animate
+            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //            span.building-review-field
+            //              | Facilities
+            //            span.building-review-rate
+            //              | 5/5
+            //            .building-review-bar
+            //              .building-review-rate-5.building-review-rating
+            //                span.building-review-bar-animate
+            //        label.building-review-trigger(for="reviewMore-1")
+            //    .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //      .building-review
+            //        input#reviewMore-2.building-review-more(type="checkbox")
+            //        .building-reviewer.pull-left
+            //          span.building-reviewer-name
+            //            | Mark Wilmotts
+            //          time
+            //            | 07/23/2014
+            //        span.rating-box.pull-right
+            //          i.fa.fa-fw.fa-star
+            //          | 8/10
+            //        h3.building-reviewer-title
+            //          | The place is a blest!
+            //        p.building-reviewer-desc
+            //          | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community
+            //          | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
+            //          | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
+            //          | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
+            //        ul.building-review-list.building-review-target.clearfix.list-unstyled
+            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //            span.building-review-field
+            //              | Noise
+            //            span.building-review-rate
+            //              | 5/5
+            //            .building-review-bar
+            //              .building-review-rate-5.building-review-rating
+            //                span.building-review-bar-animate
+            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //            span.building-review-field
+            //              | Maintenance
+            //            span.building-review-rate
+            //              | 4/5
+            //            .building-review-bar
+            //              .building-review-rate-4.building-review-rating
+            //                span.building-review-bar-animate
+            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //            span.building-review-field
+            //              | Staff
+            //            span.building-review-rate
+            //              | 3/5
+            //            .building-review-bar
+            //              .building-review-rate-3.building-review-rating
+            //                span.building-review-bar-animate
+            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //            span.building-review-field
+            //              | Facilities
+            //            span.building-review-rate
+            //              | 2/5
+            //            .building-review-bar
+            //              .building-review-rate-2.building-review-rating
+            //                span.building-review-bar-animate
+            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //            span.building-review-field
+            //              | Staff
+            //            span.building-review-rate
+            //              | 1/5
+            //            .building-review-bar
+            //              .building-review-rate-1.building-review-rating
+            //                span.building-review-bar-animate
+            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //            span.building-review-field
+            //              | Facilities
+            //            span.building-review-rate
+            //              | 5/5
+            //            .building-review-bar
+            //              .building-review-rate-5.building-review-rating
+            //                span.building-review-bar-animate
+            //        label.building-review-trigger(for="reviewMore-2")
+          //footer.clearfix
+          //  h3.building-page-footer
+          //    | Similar Properties
+          //  ul.building-page-similar.list-unstyled
+          //    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
+          //      a.building-page-similar-link(href="/", title="similar")
+          //        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+          //        .building-page-similar-info.clearfix
+          //          span.building-page-similar-desc
+          //            | {{bedroomTypes}}
+          //          span.building-page-similar-price
+          //            | {{priceFrom}}
+          //    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
+          //      a.building-page-similar-link(href="/", title="similar")
+          //        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+          //        .building-page-similar-info.clearfix
+          //          span.building-page-similar-desc
+          //            | {{bedroomTypes}}
+          //          span.building-page-similar-price
+          //            | {{priceFrom}}
+          //    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
+          //      a.building-page-similar-link(href="/", title="similar")
+          //        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+          //        .building-page-similar-info.clearfix
+          //          span.building-page-similar-desc
+          //            | {{bedroomTypes}}
+          //          span.building-page-similar-price
+          //            | {{priceFrom}}
+          //    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
+          //      a.building-page-similar-link(href="/", title="similar")
+          //        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+          //        .building-page-similar-info.clearfix
+          //          span.building-page-similar-desc
+          //            | {{bedroomTypes}}
+          //          span.building-page-similar-price
+          //            | {{priceFrom}} {{helper}}
+        | {{ironRouterHack}}
 
-      #confirmRemoval.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-        .modal-dialog
-          .modal-content
-            .modal-header
-              button.close(type='button', data-dismiss='modal', aria-label='Close')
-                span(aria-hidden='true') &times;
-              h4#myModalLabel.modal-title Remove image.
-            .modal-body
-              | Are you sure?
-            .modal-footer
-              button.btn.btn-primary.confirm-removal(type='button') Yes
-              button.btn.btn-default(type='button', data-dismiss='modal') No
-
+        #confirmRemoval.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                  span(aria-hidden='true') &times;
+                h4#myModalLabel.modal-title Remove image.
+              .modal-body
+                | Are you sure?
+              .modal-footer
+                button.btn.btn-primary.confirm-removal(type='button') Yes
+                button.btn.btn-default(type='button', data-dismiss='modal') No

@@ -6,11 +6,32 @@ complexFieldsValues =
   utilities: ["Unknown", "Utilities Included", "Utilities Extra"]
   fitnessCenter: ["Unknown", "Fitness Center", "No Fitness Center"]
 
+formatPriceDisplay = (from, to) ->
+  price = ""
+  if from
+    price += "$" + from
+    if to
+      if to isnt from
+        price += "-" + to
+    else
+      price += "+"
+  price
+
+
 class Building
   constructor: (doc) ->
     _.extend(@, doc)
   cityName: ->
     cities[@cityId].short
+  getRouteData: ->
+    data =
+      cityId: @cityId
+      neighborhoodSlug: @neighborhoodSlug
+      buildingSlug: @slug
+    if parent = @parent()
+      data.buildingSlug = parent.slug
+      data.unitSlug = @slug
+    data
   mainImage: ->
     file = @getImages()?[0]
     file  if file?.url
@@ -48,10 +69,16 @@ class Building
       "Bathrooms: Varies"
     else
       "Bathrooms: Please inquire"
+  getUnitTitle: ->
+    title = @title
+    parent = @parent()
+    if parent
+      title = parent.title + " " + title
+    title
   getUnitPrice: ->
     if @priceFrom
-      from: "$" + @priceFrom + (if @priceFrom is @priceTo then "" else "+")
-      type: btypes[@btype].lower
+      price: formatPriceDisplay(@priceFrom, @priceTo)
+      type: btypes[@btype]?.lower
   complexFields: ->
     fields = []
     for field in ["pets", "parking", "laundry", "security", "utilities", "fitnessCenter"]
@@ -94,9 +121,12 @@ class Building
       types.join(", ") + postfix
   displayBuildingPrice: ->
     if @agroPriceTotalFrom
-      "$" + @agroPriceTotalFrom + (if @agroPriceTotalFrom is @agroPriceTotalTo then "+" else "")
-  buildingUnits: ->
-    Buildings.find({parentId: @_id}, {sort: {createdAt: -1, _id: 1}})
+      "$" + @agroPriceTotalFrom + (if @agroPriceTotalFrom is @agroPriceTotalTo then "" else "+")
+  buildingUnits: (limit) ->
+    options = {sort: {createdAt: -1, _id: 1}}
+    if limit
+      options.limit = limit
+    Buildings.find({parentId: @_id}, options)
   parent: ->
     Buildings.findOne(@parentId)  if @parentId
   prices: ->
@@ -107,7 +137,7 @@ class Building
       toFieldName = fieldName + "To"
       if @[fromFieldName]
         prices.push
-          from: "$" + @[fromFieldName] + (if @[fromFieldName] is @[toFieldName] then "" else "+")
+          price: formatPriceDisplay(@[fromFieldName], @[toFieldName])
           type: value.lower
     prices
 

@@ -24,6 +24,10 @@
   .building-page
     max-width 1280px
     margin 0
+    .control-buttons
+      margin-bottom 10px
+      button
+        margin-right 5px
     .building-main-info
       @media screen and (min-width: 1200px)
         float right
@@ -41,10 +45,9 @@
         @media screen and (min-width: 1200px)
           width 100%
           float none
-          margin 0
       .building-main-price-wrap
         clear both
-        max-width 290px
+        max-width 310px
         margin 20px 0
         border 1px solid #999
         border-radius 3px
@@ -54,8 +57,9 @@
           font-family 'Montserrat', Helvetica, sans-serif
           font-size 18px
           font-weight bold
+          text-align right
           border-bottom 1px solid #999
-          padding 15px 25px
+          padding 15px 20px
           &:last-child
             border 0 none
         .building-main-price
@@ -63,13 +67,15 @@
           padding 0 20px 0 0
           display inline-block
           vertical-align middle
-          min-width 84px
+          min-width 132px
           text-align right
         .building-main-rooms
           border-left 1px solid #c7c7c7
           padding 0 0 0 20px
           display inline-block
+          min-width 129px
           vertical-align middle
+          text-align left
       .building-main-prop-list
         .building-main-prop
           color #272b30
@@ -78,18 +84,19 @@
           .fa
             padding 0 10px 0
       .building-main-info-btn
-        background-color #4588fa
         @media screen and (min-width: 1200px)
           width 300px
         font-weight bold
-        &:hover
-          background-color #337ab7
 
 .building-main-info-desc-wrap
   .building-main-info-desc
     padding 25px 0 0
     font-size 16px
     margin 0
+
+    textarea
+      width 100%
+      height 250px
 
   .building-main-info-desc-more
     display none
