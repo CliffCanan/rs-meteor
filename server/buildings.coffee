@@ -427,6 +427,7 @@
     'security': 0
     'securityComment': ''
     'propertyType': '0'
+    'isFeatured': false
     'isNotAvailable': false
     'neighborhood': 'Center City East'
     'website': 'YTozOntzOjU6ImxhYmVsIjtzOjA6IiI7czo4OiJwcm90b2NvbCI7czowOiIiO3M6MzoidXJsIjtOO30='
@@ -643,6 +644,7 @@
     'street': '1836 Delancey St #4'
     'neighborhood': 'Center City West'
     'propertyType': '0'
+    'isFeatured': false
     'isNotAvailable': false
     'security': 0
     'securityComment': ''
@@ -690,6 +692,7 @@
     'similar': []
     'position': null
     'propertyType': '0'
+    'isFeatured': false
     'adminEscorted': 'Listing agent must accompany.'
     'isNotAvailable': true
     'security': 0
@@ -794,6 +797,7 @@
     'sqftFrom': 650
     'sqftTo': 650
     'propertyType': '0'
+    'isFeatured': false
     'isNotAvailable': false
     'security': 0
     'securityComment': ''
@@ -849,6 +853,7 @@
     'yearOfCompletion': '1015'
     'heatingAndCooling': 'Y'
     'propertyType': '0'
+    'isFeatured': false
     'isNotAvailable': false
     'security': 0
     'securityComment': ''
@@ -874,6 +879,7 @@
     'fitnessCenterComment': ''
     'neighborhood': 'Center City West'
     'propertyType': '0'
+    'isFeatured': false
     'city': 'Philadelphia'
     'cityId': 'philadelphia'
     'location': 'YToyOntzOjg6ImxhdGl0dWRlIjtkOjM5Ljk1MzMyNTk7czo5OiJsb25naXR1ZGUiO2Q6LTc1LjE3NDEyNzt9'
@@ -927,6 +933,7 @@
     'fitnessCenter': 1
     'fitnessCenterComment': ''
     'isNotAvailable': false
+    'isFeatured': false
     'propertyType': '0'
     'neighborhood': 'Center City East'
     'country': 'U.S.A'

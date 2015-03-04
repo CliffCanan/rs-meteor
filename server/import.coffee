@@ -57,7 +57,7 @@ dataFields =
 
   155: "adminSame"
   156: "utilities"
-  157: "featured"
+  157: "isFeatured"
   158: "neighborhood"
 
 
@@ -212,6 +212,8 @@ dataFields =
           parseAvailableAt(building, data.value)
         else if fieldName is "isNotAvailable"
           building.isNotAvailable = !!data.value
+        else if fieldName is "isFeatured"
+          building.isFeatured = data.value is "1" or data.value is "true"
         else if fieldName in ["price", "sqft", "bedrooms", "bathrooms"]
           parseDeltaField(building, fieldName, data.value)
         else if fieldName is "parentId"
