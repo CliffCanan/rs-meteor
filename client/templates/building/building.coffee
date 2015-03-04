@@ -41,17 +41,6 @@ Template.building.helpers
       @buildingUnits()
     else
       @buildingUnits(2)
-  buildingUnitsArray: ->
-    array = []
-    i = 0
-    for unit in @buildingUnits().fetch()
-      array.push(
-        {
-          index: i++
-          unit: [unit]
-        }
-      )
-    array
 
 Template.building.rendered = ->
   Session.set("showAllBuildingUnits", false)
