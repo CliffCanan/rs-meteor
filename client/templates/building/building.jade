@@ -93,16 +93,18 @@ template(name="building")
                 ul(style="list-style-type: none;")
                   each getImages
                     li.col-lg-4.col-md-4.col-sm-6.col-xs-8
-                      .item
-                        .cover-image
-                          button.remove-image(type='button', aria-label='Remove' data-toggle="modal" data-target="#confirmRemoval")
-                            span.fa.fa-trash(aria-hidden='true')
-                        img.building-img.img-thumbnail(src="{{url}}" width="150" height="120" style="min-width:150px;max-width:150px;max-height:120px;min-height:120px;")
+                      .item.edit-item
+                        #element1.thumbnail-image
+                          img.building-img.img-thumbnail(src="{{url}}" width="150" height="120" style="min-width:150px;max-width:150px;max-height:120px;min-height:120px;")
+                          #element2.cover-image
+                            button.remove-image( type='button', aria-label='Remove' data-toggle="modal" data-target="#confirmRemoval")
+                              span.fa.fa-trash(aria-hidden='true')
                   li.col-lg-4.col-md-4.col-sm-6.col-xs-8
-                    .item
+                    .item.add-image-item.edit-item
                       .form-group
                         span.form-control.file-input.btn.btn-default.add-image-btn(aria-hidden='true' style="min-width:150px;max-width:150px;max-height:120px;min-height:120px;")
-                          | Add image
+                          .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
+                          | Add images
                           input.choose-image-input(type="file" multiple="true")
           else
             .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel" data-interval="false")
@@ -414,6 +416,6 @@ template(name="building")
             .modal-body
               | Are you sure?
             .modal-footer
-              button.btn.btn-default.confirm-removal(type='button') Yes
+              button.btn.btn-primary.confirm-removal(type='button') Yes
               button.btn.btn-default(type='button', data-dismiss='modal') No
 

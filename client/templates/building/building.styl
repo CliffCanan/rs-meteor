@@ -352,21 +352,35 @@
   display: block;
 }
 .cover-image
-  position: absolute;
   visibility hidden
 
-.item:hover .cover-image{
+.item:hover .cover-image
   opacity: 1;
   visibility visible
 
+.edit-item
+  min-width:150px;
+  max-width:150px;
+  max-height:120px;
+  min-height:120px;
+  margin: 10px;
+
+#element1 {
+  position: relative;
+  margin-top 10px
 }
+#element2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 button.remove-image
-  position relative
+  /*position absolute*/
   background lightgray
   -webkit-appearance none
   border 0
   border-radius: 4px;
-
 
 input[readonly] {
   background-color: white !important;

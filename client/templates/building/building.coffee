@@ -82,11 +82,21 @@ Template.building.events
     buildingId = @_id
     FS.Utility.eachFile(event, (file) ->
       inserted = BuildingImages.insert(file)
+      cl $(template)
+      cl template
+      item = @$(".add-image-item")
+      item.find(".loading").show()
       newObject = {}
       newObject.EJSON$type = "FS.File"
       newObject.EJSON$value = {}
       newObject.EJSON$value.EJSON_id = inserted._id
       newObject.EJSON$value.EJSONcollectionName = "images"
-      Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})
+
+      Meteor.setTimeout(() ->
+        updateBuilding(buildingId, newObject, item)
+      , 5000)
     )
 
+updateBuilding = (buildingId, newObject, item) ->
+  Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})
+  item.find(".loading").hide()
