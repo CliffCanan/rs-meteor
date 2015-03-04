@@ -25,7 +25,7 @@ template(name="building")
               .building-main-price-wrap.clearfix
                 .building-main-price-opt
                   span.building-main-price
-                    | {{from}}
+                    | {{price}}
                   span.building-main-rooms
                     | {{type}}
           else
@@ -33,7 +33,7 @@ template(name="building")
               each prices
                 .building-main-price-opt
                   span.building-main-price
-                    | {{from}}
+                    | {{price}}
                   span.building-main-rooms
                     | {{type}}
           ul.building-main-prop-list.list-unstyled.clearfix
@@ -136,7 +136,7 @@ template(name="building")
                               i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
                               with getUnitPrice
                                 span.unit-price
-                                  | {{from}}
+                                  | {{price}}
                               span.unit-type
                                 | {{bedroomTypes}}
                             button.building-unit-btn.btn.btn-default.check-availability(type="button")
@@ -145,7 +145,7 @@ template(name="building")
                               | Full Listing
                           ul.building-unit-prop-list.list-unstyled
                             li.building-unit-prop
-                              i.fa.fa-check
+                              i.fa.fa-fw.fa-check
                               | Earliest move-in:
                               if isNotAvailable
                                 | Not Currently Available
@@ -170,7 +170,7 @@ template(name="building")
                                   i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
                                   with getUnitPrice
                                     span.unit-price
-                                      | {{from}}
+                                      | {{price}}
                                   span.unit-type
                                     | {{bedroomTypes}}
                                 button.building-unit-btn.btn.btn-default.check-availability(type="button")

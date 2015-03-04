@@ -6,6 +6,18 @@ complexFieldsValues =
   utilities: ["Unknown", "Utilities Included", "Utilities Extra"]
   fitnessCenter: ["Unknown", "Fitness Center", "No Fitness Center"]
 
+formatPriceDisplay = (from, to) ->
+  price = ""
+  if from
+    price += "$" + from
+    if to
+      if to isnt from
+        price += "-" + to
+    else
+      price += "+"
+  price
+
+
 class Building
   constructor: (doc) ->
     _.extend(@, doc)
@@ -56,7 +68,7 @@ class Building
     title
   getUnitPrice: ->
     if @priceFrom
-      from: "$" + @priceFrom + (if @priceFrom is @priceTo then "" else "+")
+      price: formatPriceDisplay(@priceFrom, @priceTo)
       type: btypes[@btype].lower
   complexFields: ->
     fields = []
@@ -113,7 +125,7 @@ class Building
       toFieldName = fieldName + "To"
       if @[fromFieldName]
         prices.push
-          from: "$" + @[fromFieldName] + (if @[fromFieldName] is @[toFieldName] then "" else "+")
+          price: formatPriceDisplay(@[fromFieldName], @[toFieldName])
           type: value.lower
     prices
 
