@@ -8,18 +8,6 @@ Template.building.helpers
     neighborhoodSlug: @neighborhoodSlug
     buildingSlug: @slug
 
-  hasParent: ->
-    return @parentId and @parentId isnt '' and @parentId isnt '0'
-  parentNeighborhoodSlug: ->
-    parent = Buildings.findOne({_id: @parentId})
-    return parent.neighborhoodSlug
-  parentSlug: ->
-    parent = Buildings.findOne({_id: @parentId})
-    return parent.slug
-  parentName: ->
-    parent = Buildings.findOne({_id: @parentId})
-    return parent.name
-
   ironRouterHack: ->
     Router.current() # reactivity
     $('[data-toggle="tooltip"]').tooltip()
