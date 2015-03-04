@@ -48,6 +48,12 @@ class Building
       "Bathrooms: Varies"
     else
       "Bathrooms: Please inquire"
+  getUnitTitle: ->
+    title = @title
+    parent = @parent()
+    if parent
+      title = parent.title + " " + title
+    title
   getUnitPrice: ->
     if @priceFrom
       from: "$" + @priceFrom + (if @priceFrom is @priceTo then "" else "+")

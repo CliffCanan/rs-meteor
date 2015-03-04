@@ -1,7 +1,7 @@
 {
   "servers": [
     {
-      "host": "do.venus",
+      "host": "do.rentscene",
       "username": "root",
       "pem": "~/.ssh/id_rsa_for_mup"
     }
@@ -13,7 +13,7 @@
   "appName": "rentscene",
   "app": "~/workspace/rentscene",
   "env": {
-    "ROOT_URL": "http://128.199.88.135"
+    "ROOT_URL": "http://104.131.46.123"
   },
   "deployCheckWaitTime": 60
 }
