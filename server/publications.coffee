@@ -7,6 +7,7 @@ Meteor.publish "currentUser", ->
       "createdAt": 1
       "isNew": 1
 
+wait = Meteor.wrapAsync((sec, cb) -> setTimeout((-> cb(null)), sec * 1000))
 
 Meteor.publish "allUsers", ->
   unless @userId
@@ -19,12 +20,19 @@ Meteor.smartPublish "buildings", (cityId, page) ->
   page = parseInt(page)
   unless page > 0
     page = 1
-  limit = page * 30
+  limit = page * itemsPerPage
 
   @addDependency "buildings", "images", (building) ->
     _id = building.images?[0]?._id
     if _id then [BuildingImages.find(_id)] else []
-  Buildings.find({parentId: {$exists: false}, cityId: cityId}, {limit: limit, sort: {createdAt: -1, _id: 1}})
+  selector = {parentId: {$exists: false}, cityId: cityId}
+  Buildings.find(selector, {limit: limit, sort: {createdAt: -1, _id: 1}})
+
+Meteor.publish "city-buildings-count", (cityId) ->
+  check(cityId, Match.InArray(cityIds))
+  selector = {parentId: {$exists: false}, cityId: cityId}
+  Counts.publish(@, "city-buildings-count", Buildings.find(selector))
+  undefined
 
 Meteor.smartPublish "building", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))

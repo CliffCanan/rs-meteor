@@ -260,6 +260,8 @@ dataFields =
         building.btype = property_type
         fieldName = "price" + property_type.charAt(0).toUpperCase() + property_type.slice(1)
         parseDeltaField(building, fieldName, data.price_value)
+        unless building.priceFrom
+          parseDeltaField(building, "price", data.sprice_value)
   catch
     cl error
 
@@ -272,6 +274,7 @@ dataFields =
         if parent
           building = buildings[data.id] =
             _id: "" + data.id
+            isPublished: true
             parentId: "" + data.prop_id
             btype: btypesIds[data.beds]
             title: data.number or "Multiple Units"

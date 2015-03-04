@@ -1,6 +1,24 @@
+setHeights = _.debounce ->
+  windowHeight = $(window).outerHeight()
+  headerHeight = $(".header-wrap").outerHeight()
+  filterHeight = $(".city-sub-header").outerHeight()
+  $(".city-side-bar").outerHeight(windowHeight - headerHeight)
+  $(".main-city-list-wrap").outerHeight(windowHeight - headerHeight - filterHeight)
+, 100, true
+
+$(window).on("resize", setHeights)
+
 markers = {}
 
 Template.city.helpers
+  loadingBuildings: ->
+    citySubs.dep.depend()
+    if citySubs.ready
+      cityPageData = Session.get("cityPageData")
+      Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage)
+    !citySubs.ready
+  notAllLoaded: ->
+    Template.city.__helpers[" buildings"].call(@).count() < Counts.get("city-buildings-count")
   # TODO: filter by price depend on btype
   buildings: ->
     selector = {parentId: {$exists: false}, cityId: @cityId}
@@ -19,7 +37,7 @@ Template.city.helpers
         selector.agroPriceFilter.$gte = min
       if max
         selector.agroPriceFilter.$lte = max
-    Buildings.find(selector, {sort: {createdAt: -1, _id: 1}})
+    Buildings.find(selector, {sort: {createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
   randomImage: ->
 #    images = [
 #      "/images/search-img1.jpg"
@@ -30,9 +48,11 @@ Template.city.helpers
     "/images/search-img3.jpg"
 
 Template.city.rendered = ->
+  setHeights()
+  cityData = cities[@data.cityId]
   map = new google.maps.Map document.getElementById("gmap"),
     zoom: 14
-    center: new google.maps.LatLng(39.95, -75.17) # TODO: set city center
+    center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
     streetViewControl: false
     scaleControl: false
     rotateControl: false
@@ -40,6 +60,7 @@ Template.city.rendered = ->
     overviewMapControl: false
     mapTypeControl: false
     mapTypeId: google.maps.MapTypeId.ROADMAP
+  @map = map
   infowindow = new google.maps.InfoWindow()
   markers = {}
   defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
@@ -51,7 +72,8 @@ Template.city.rendered = ->
     @template.__helpers[" buildings"].call(data).forEach (building) ->
       actualMarkerIds.push(building._id)
       if marker = markers[building._id]
-        marker.setMap(map)
+        unless marker.map
+          marker.setMap(map)
       else
         marker = new google.maps.Marker
           _id: building._id
@@ -97,7 +119,18 @@ Template.city.rendered = ->
       unless id in actualMarkerIds
         marker.setMap(null)
 
+incrementPageNumber = ->
+  cityPageData = Session.get("cityPageData")
+  cityPageData.page++
+  Session.set("cityPageData", cityPageData)
+
 Template.city.events
+  "click .city-select li": (event, template) ->
+    data = template.data
+    cityId = $(event.currentTarget).attr("data-value")
+    cityData = cities[cityId]
+    template.map.setCenter(new google.maps.LatLng(cityData.latitude, cityData.longitude))
+
   "mouseover .main-city-list li": (event, template) ->
     marker = markers[@_id]
     if marker
@@ -109,7 +142,12 @@ Template.city.events
       google.maps.event.trigger(marker, "mouseout")
 
   "click .load-more": (event, template) ->
-    event.preventDefault()
-    page = Session.get("cityPage")
-    Session.set("cityPage", ++page)
+    incrementPageNumber()
+
+  "scroll .main-city-list-wrap": (event, template) ->
+    if citySubs.ready and template.view.template.__helpers[" notAllLoaded"].call(template.data)
+      $el = $(event.currentTarget)
+      $container = $(".main-city-list", $el)
+      if $el.scrollTop() >= $container.outerHeight() - $el.outerHeight()
+        incrementPageNumber()
 

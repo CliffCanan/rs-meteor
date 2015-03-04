@@ -44,7 +44,7 @@ class Building
       if @bathroomsTo > 1
         value += "s"
       value
-    else if @agroIsUnit or @prices()?.length > 1
+    else if @agroIsUnit or @prices().length > 1
       "Bathrooms: Varies"
     else
       "Bathrooms: Please inquire"
@@ -102,7 +102,7 @@ class Building
   prices: ->
     prices = []
     for key, value of btypes
-      fieldName = "price" + key.charAt(0).toUpperCase() + key.slice(1)
+      fieldName = "agroPrice" + key.charAt(0).toUpperCase() + key.slice(1)
       fromFieldName = fieldName + "From"
       toFieldName = fieldName + "To"
       if @[fromFieldName]
