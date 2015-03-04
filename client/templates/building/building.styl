@@ -351,6 +351,23 @@
   cursor: inherit;
   display: block;
 }
+.cover-image
+  position: absolute;
+  visibility hidden
+
+.item:hover .cover-image{
+  opacity: 1;
+  visibility visible
+
+}
+button.remove-image
+  position relative
+  background lightgray
+  -webkit-appearance none
+  border 0
+  border-radius: 4px;
+
+
 input[readonly] {
   background-color: white !important;
   cursor: text !important;

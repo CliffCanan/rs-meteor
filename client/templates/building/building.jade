@@ -1,5 +1,6 @@
 template(name="building")
   +checkAvailability(building=building)
+
   with building
     .content-wrapper
       ol.breadcrumb
@@ -88,19 +89,21 @@ template(name="building")
         .building-info-wrap.col-lg-7
           if admin
             .container
-              ul.row.col-lg-8(style="list-style-type: none;")
-                each getImages
+              .row.col-lg-8
+                ul(style="list-style-type: none;")
+                  each getImages
+                    li.col-lg-4.col-md-4.col-sm-6.col-xs-8
+                      .item
+                        .cover-image
+                          button.remove-image(type='button', aria-label='Remove' data-toggle="modal" data-target="#confirmRemoval")
+                            span.fa.fa-trash(aria-hidden='true')
+                        img.building-img.img-thumbnail(src="{{url}}" width="150" height="120" style="min-width:150px;max-width:150px;max-height:120px;min-height:120px;")
                   li.col-lg-4.col-md-4.col-sm-6.col-xs-8
                     .item
-                      img.building-img.img-thumbnail(src="{{url}}" width="150" height="120")
-                      button.close.remove-image(type='button', aria-label='Remove' style="float:left;")
-                        span.fa.fa-trash(aria-hidden='true')
-                li.col-lg-4.col-md-4.col-sm-6.col-xs-8
-                  .item
-                    //img.building-img(src="" width="75%" height="75%")
-                    span.file-input.btn.btn-primary.add-image-btn
-                      | Add image
-                      input.choose-image-input(type="file" multiple="true")
+                      .form-group
+                        span.form-control.file-input.btn.btn-default.add-image-btn(aria-hidden='true' style="min-width:150px;max-width:150px;max-height:120px;min-height:120px;")
+                          | Add image
+                          input.choose-image-input(type="file" multiple="true")
           else
             .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel" data-interval="false")
               .carousel-inner(role="listbox")
@@ -400,4 +403,17 @@ template(name="building")
         //          span.building-page-similar-price
         //            | {{priceFrom}} {{helper}}
       | {{ironRouterHack}}
+
+      #confirmRemoval.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') &times;
+              h4#myModalLabel.modal-title Remove image.
+            .modal-body
+              | Are you sure?
+            .modal-footer
+              button.btn.btn-default.confirm-removal(type='button') Yes
+              button.btn.btn-default(type='button', data-dismiss='modal') No
 

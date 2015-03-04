@@ -70,36 +70,23 @@ Template.building.events
     Session.set("showAllBuildingUnits", false)
 
   "click .remove-image": grab encapsulate (event, template) ->
-    Buildings.update({ _id: template.data.building._id}, { $pull: { images: {"EJSON$value.EJSON_id": @_id}} })
+    Session.set("imageToRemove", @_id)
+    $('#confirmRemoval').modal('show')
+
+  "click .confirm-removal":  grab encapsulate (event, template) ->
+    Buildings.update({ _id: template.data.building._id}, { $pull: { images: {"EJSON$value.EJSON_id": Session.get("imageToRemove") }} })
+    $('#confirmRemoval').modal('hide')
+    Session.get("imageToRemove", null)
 
   "change .choose-image-input": grab encapsulate (event, template) ->
-    cl @
-    cl @_id
     buildingId = @_id
     FS.Utility.eachFile(event, (file) ->
-      cl "file", file
       inserted = BuildingImages.insert(file)
-      cl inserted
       newObject = {}
       newObject.EJSON$type = "FS.File"
       newObject.EJSON$value = {}
       newObject.EJSON$value.EJSON_id = inserted._id
       newObject.EJSON$value.EJSONcollectionName = "images"
-      Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}}, (error, effectedRows) ->
-        cl "effected", effectedRows
-      )
+      Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})
     )
-#    cl "files", event.target.files
-#    files = event.target.files
-#    for file in files
-##      try
-#        fsFile = new FS.File(file)
-#        fsFile.metadata = {owner: Meteor.userId()}
-#        currentFile = BuildingImages.insert(fsFile, (err, fileObj) ->
-#          cl "fileObj", fileObj
-#          cl "err", err
-#        )
-#        cl "currentFile", currentFile
-#        Buildings.update(_id: @_id, {$addToSet: {images: currentFile}})
-##      catch error
-##        cl "Oops", error
+
