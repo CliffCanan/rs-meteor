@@ -18,7 +18,7 @@ template(name="building")
         aside.building-main-info.col-lg-5
           h2.building-main-info-title
             | {{getUnitTitle}}
-          button.btn.btn-primary.building-main-info-btn.hidden-lg.check-availability(type='button')
+          button.btn.btn-primary.building-main-info-btn.hidden-lg.check-availability(type="button")
             | Check Availability
           if agroIsUnit
             with getUnitPrice
@@ -39,7 +39,7 @@ template(name="building")
                       | {{type}}
           ul.building-main-prop-list.list-unstyled.clearfix
             each complexFields
-              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{comment}}")
+              li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip", data-placement="top", title="{{comment}}")
                 i.fa(class="{{iconClass}}")
                 | {{value}}
                 if comment
@@ -87,7 +87,7 @@ template(name="building")
             //    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
             +social
         .building-info-wrap.col-lg-7
-          .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel" data-interval="false")
+          .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel", data-interval="false")
             .carousel-inner(role="listbox")
               each getImages
                 .item
@@ -141,7 +141,7 @@ template(name="building")
                               | {{bedroomTypes}}
                           button.building-unit-btn.btn.btn-default.check-availability(type="button")
                             | Check Availability
-                          a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}")
+                          a.building-unit-btn.btn.btn-default(type="button", href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}")
                             | Full Listing
                         ul.building-unit-prop-list.list-unstyled
                           li.building-unit-prop
