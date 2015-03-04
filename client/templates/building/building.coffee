@@ -3,11 +3,6 @@ Template.building.helpers
     if @furnished
       return @furnished is "Y"
 
-  getBuildingData: ->
-    cityId: @cityId
-    neighborhoodSlug: @neighborhoodSlug
-    buildingSlug: @slug
-
   ironRouterHack: ->
     Router.current() # reactivity
     $('[data-toggle="tooltip"]').tooltip()
@@ -48,4 +43,20 @@ Template.building.events
   "click .building-unit-item-less": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", false)
 
+  "click .edit-building": (event, template) ->
+    Session.set("editBuildingId", template.data.building._id)
 
+  "submit .building-form": (event, template) ->
+    event.preventDefault()
+    data = $(event.currentTarget).serializeFormJSON()
+    if Object.keys(data).length
+      building = Buildings.findOne(template.data.building._id)
+      Meteor.apply "updateBuilding", [building._id, data], onResultReceived: (error, slug) ->
+        unless error
+          if building.slug isnt slug
+            building.slug = slug
+            Router.go("building", building.getRouteData())
+          else
+            Session.set("editBuildingId", false)
+    else
+      Session.set("editBuildingId", false)

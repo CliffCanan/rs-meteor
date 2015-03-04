@@ -23,6 +23,15 @@ class Building
     _.extend(@, doc)
   cityName: ->
     cities[@cityId].short
+  getRouteData: ->
+    data =
+      cityId: @cityId
+      neighborhoodSlug: @neighborhoodSlug
+      buildingSlug: @slug
+    if parent = @parent()
+      data.buildingSlug = parent.slug
+      data.unitSlug = @slug
+    data
   mainImage: ->
     file = @getImages()?[0]
     file  if file?.url

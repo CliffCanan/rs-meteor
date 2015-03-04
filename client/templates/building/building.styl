@@ -24,6 +24,8 @@
   .building-page
     max-width 1280px
     margin 0
+    .control-buttons
+      margin-bottom 10px
     .building-main-info
       @media screen and (min-width: 1200px)
         float right
@@ -41,7 +43,6 @@
         @media screen and (min-width: 1200px)
           width 100%
           float none
-          margin 0
       .building-main-price-wrap
         clear both
         max-width 310px
@@ -81,18 +82,19 @@
           .fa
             padding 0 10px 0
       .building-main-info-btn
-        background-color #4588fa
         @media screen and (min-width: 1200px)
           width 300px
         font-weight bold
-        &:hover
-          background-color #337ab7
 
 .building-main-info-desc-wrap
   .building-main-info-desc
     padding 25px 0 0
     font-size 16px
     margin 0
+
+    textarea
+      width 100%
+      height 250px
 
   .building-main-info-desc-more
     display none
