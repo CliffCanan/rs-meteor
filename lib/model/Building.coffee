@@ -112,7 +112,7 @@ class Building
       types.join(", ") + postfix
   displayBuildingPrice: ->
     if @agroPriceTotalFrom
-      "$" + @agroPriceTotalFrom + (if @agroPriceTotalFrom is @agroPriceTotalTo then "+" else "")
+      "$" + @agroPriceTotalFrom + (if @agroPriceTotalFrom is @agroPriceTotalTo then "" else "+")
   buildingUnits: ->
     Buildings.find({parentId: @_id}, {sort: {createdAt: -1, _id: 1}})
   parent: ->
