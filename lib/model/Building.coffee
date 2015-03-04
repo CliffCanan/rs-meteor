@@ -69,7 +69,7 @@ class Building
   getUnitPrice: ->
     if @priceFrom
       price: formatPriceDisplay(@priceFrom, @priceTo)
-      type: btypes[@btype].lower
+      type: btypes[@btype]?.lower
   complexFields: ->
     fields = []
     for field in ["pets", "parking", "laundry", "security", "utilities", "fitnessCenter"]

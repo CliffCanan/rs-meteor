@@ -302,6 +302,8 @@ dataFields =
       if parent?.neighborhood
         building.neighborhood = parent.neighborhood
     unless building.btype
+      if btype = btypesIds[parseInt(building.bedroomsFrom)]
+        building.btype = btype
       building.isUnit = true
 
   # remove invalid objects
