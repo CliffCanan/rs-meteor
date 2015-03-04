@@ -36,8 +36,11 @@ Template.building.helpers
     else
       $carousel.hide()
     return ""
-  showAllBuildingUnits: ->
-    Session.get("showAllBuildingUnits")
+  buildingUnitsLimited: ->
+    if Session.get("showAllBuildingUnits")
+      @buildingUnits()
+    else
+      @buildingUnits(2)
   buildingUnitsArray: ->
     array = []
     i = 0

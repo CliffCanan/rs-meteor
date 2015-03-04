@@ -29,13 +29,14 @@ template(name="building")
                   span.building-main-rooms
                     | {{type}}
           else
-            .building-main-price-wrap.clearfix
-              each prices
-                .building-main-price-opt
-                  span.building-main-price
-                    | {{price}}
-                  span.building-main-rooms
-                    | {{type}}
+            with prices
+              .building-main-price-wrap.clearfix
+                each .
+                  .building-main-price-opt
+                    span.building-main-price
+                      | {{price}}
+                    span.building-main-rooms
+                      | {{type}}
           ul.building-main-prop-list.list-unstyled.clearfix
             each complexFields
               li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip" data-placement="top" title="{{comment}}")
@@ -123,78 +124,43 @@ template(name="building")
                 | id ligula porta felis euismod semper.
               .building-unit-list-wrap
                 ul.building-unit-list.list-unstyled.row
-                  if showAllBuildingUnits
-                    each buildingUnits
-                      li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-                        .building-unit-item
-                          with mainImage
-                            img.pull-left(src="{{url store='thumbs'}}")
-                          .building-unit-info.clearfix
-                            h3.building-unit-info-title
-                              a(href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}") {{title}}
-                            .building-unit-info-price
-                              i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
-                              with getUnitPrice
-                                span.unit-price
-                                  | {{price}}
-                              span.unit-type
-                                | {{bedroomTypes}}
-                            button.building-unit-btn.btn.btn-default.check-availability(type="button")
-                              | Check Availability
-                            a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}")
-                              | Full Listing
-                          ul.building-unit-prop-list.list-unstyled
+                  each buildingUnitsLimited
+                    li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
+                      .building-unit-item
+                        with mainImage
+                          img.pull-left(src="{{url store='thumbs'}}")
+                        .building-unit-info.clearfix
+                          h3.building-unit-info-title
+                            a(href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}") {{title}}
+                          .building-unit-info-price
+                            i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
+                            with getUnitPrice
+                              span.unit-price
+                                | {{price}}
+                            span.unit-type
+                              | {{bedroomTypes}}
+                          button.building-unit-btn.btn.btn-default.check-availability(type="button")
+                            | Check Availability
+                          a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building' buildingSlug=../slug unitSlug=slug}}")
+                            | Full Listing
+                        ul.building-unit-prop-list.list-unstyled
+                          li.building-unit-prop
+                            i.fa.fa-fw.fa-check
+                            | Earliest move-in:
+                            if isNotAvailable
+                              | Not Currently Available
+                            else
+                              | {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
+                          with getBathrooms
                             li.building-unit-prop
                               i.fa.fa-fw.fa-check
-                              | Earliest move-in:
-                              if isNotAvailable
-                                | Not Currently Available
-                              else
-                                | {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
-                            with getBathrooms
-                              li.building-unit-prop
-                                i.fa.fa-fw.fa-check
-                                | {{.}}
-                  else
-                    each buildingUnitsArray
-                      if condition index "lte" 1
-                        each unit
-                          li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-                            .building-unit-item
-                              with mainImage
-                                img.pull-left(src="{{url store='thumbs'}}")
-                              .building-unit-info.clearfix
-                                h3.building-unit-info-title
-                                  a(href="{{pathFor route='building' buildingSlug=../../slug unitSlug=slug}}") {{title}}
-                                .building-unit-info-price
-                                  i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
-                                  with getUnitPrice
-                                    span.unit-price
-                                      | {{price}}
-                                  span.unit-type
-                                    | {{bedroomTypes}}
-                                button.building-unit-btn.btn.btn-default.check-availability(type="button")
-                                  | Check Availability
-                                a.building-unit-btn.btn.btn-default(type="button" href="{{pathFor route='building' buildingSlug=../../slug unitSlug=slug}}")
-                                  | Full Listing
-                              ul.building-unit-prop-list.list-unstyled
-                                li.building-unit-prop
-                                  i.fa.fa-fw.fa-check
-                                  | Earliest move-in:
-                                  if isNotAvailable
-                                    | Not Currently Available
-                                  else
-                                    | {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
-                                with getBathrooms
-                                  li.building-unit-prop
-                                    i.fa.fa-fw.fa-check
-                                    | {{.}}
+                              | {{.}}
               if condition buildingUnits.count "gt" 2
-                if showAllBuildingUnits
-                  a.building-unit-item-less(href="/", title="less")
+                if Session "showAllBuildingUnits"
+                  a.building-unit-item-less(href="#", title="less")
                     | Hide Units
                 else
-                  a.building-unit-item-more(href="/", title="more")
+                  a.building-unit-item-more(href="#", title="more")
                     | View all {{buildingUnits.count}} Units
           with getFeatures
             section.building-info-section

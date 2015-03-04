@@ -113,8 +113,11 @@ class Building
   displayBuildingPrice: ->
     if @agroPriceTotalFrom
       "$" + @agroPriceTotalFrom + (if @agroPriceTotalFrom is @agroPriceTotalTo then "" else "+")
-  buildingUnits: ->
-    Buildings.find({parentId: @_id}, {sort: {createdAt: -1, _id: 1}})
+  buildingUnits: (limit) ->
+    options = {sort: {createdAt: -1, _id: 1}}
+    if limit
+      options.limit = limit
+    Buildings.find({parentId: @_id}, options)
   parent: ->
     Buildings.findOne(@parentId)  if @parentId
   prices: ->
