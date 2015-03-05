@@ -87,9 +87,12 @@ Template.building.events
 
   "submit .building-form": (event, template) ->
     event.preventDefault()
-    data = $(event.currentTarget).serializeJSON({parseAll: true, checkboxUncheckedValue: false})
+    $form = $(event.currentTarget)
+    data = $form.serializeJSON({parseAll: true, checkboxUncheckedValue: false})
     if Object.keys(data).length
       oldBuilding = Buildings.findOne(template.data.building._id)
+      $form.find(".submit-button").prop("disabled", true)
+      $form.find(".loading").show()
       Meteor.apply "updateBuilding", [oldBuilding._id, data], onResultReceived: (error, building) ->
         unless error
           building = share.Transformations.Building(building)
@@ -98,6 +101,8 @@ Template.building.events
             Router.go(newUrl)
           else
             Session.set("editBuildingMode", false)
+        $form.find(".submit-button").prop("disabled", false)
+        $form.find(".loading").hide()
     else
       Session.set("editBuildingMode", false)
 
