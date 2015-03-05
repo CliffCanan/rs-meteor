@@ -192,7 +192,17 @@ dataFields =
         fieldName = dataFields[data.fieldid]
         if fieldName is "features"
           features = []
-          for feature in data.value.split(",")
+          value = data.value
+          value = value.replace(/([a-z])([A-Z])/g, "$1 $2")
+          value = value.replace("Garages & Parking:", "/")
+          value = value.replace("Interior:", "/")
+          value = value.replace("Bsmt:", "/")
+          value = value.replace("Kit:", "/")
+          value = value.replace("Utilities:", "")
+          value = value.replace("Unk Exterior:", "")
+          value = value.replace("Other:", "/")
+          value = value.replace(/\//g, ",")
+          for feature in value.split(",")
             feature = feature.trim()
             features.push(feature)  if feature
           building.features = features
