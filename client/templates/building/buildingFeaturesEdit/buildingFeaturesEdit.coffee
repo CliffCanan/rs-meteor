@@ -3,4 +3,4 @@ Template.buildingFeaturesEdit.helpers
     @features.join()
 
 Template.buildingFeaturesEdit.rendered = ->
-  @$(".building-features").tagit()
+  @$(".building-features").tagit({allowSpaces: true})
