@@ -1,9 +1,6 @@
 Template.building.helpers
   admin: ->
     Meteor.user()?.role is "admin"
-  isFurnished: ->
-    if @furnished
-      return @furnished is "Y"
 
   ironRouterHack: ->
     Router.current() # reactivity

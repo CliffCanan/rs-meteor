@@ -31,7 +31,7 @@ dataFields =
   127: "basement"
   128: "other"
   129: "remarks"
-  130: "furnished"
+  130: "isFurnished"
   131: "pets"
   133: "applyAt"
   134: "country"
@@ -224,6 +224,8 @@ dataFields =
           building.isNotAvailable = !!data.value
         else if fieldName is "isFeatured"
           building.isFeatured = data.value is "1" or data.value is "true"
+        else if fieldName is "isFurnished"
+          building.isFurnished = !(data.value.length is 0 or data.value.indexOf("N") is "0")
         else if fieldName in ["price", "sqft", "bedrooms", "bathrooms"]
           parseDeltaField(building, fieldName, data.value)
         else if fieldName is "parentId"
