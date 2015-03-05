@@ -87,14 +87,15 @@ Template.building.events
 
   "submit .building-form": (event, template) ->
     event.preventDefault()
-    data = $(event.currentTarget).serializeFormJSON()
+    data = $(event.currentTarget).serializeJSON({parseAll: true, checkboxUncheckedValue: false})
     if Object.keys(data).length
-      building = Buildings.findOne(template.data.building._id)
-      Meteor.apply "updateBuilding", [building._id, data], onResultReceived: (error, slug) ->
+      oldBuilding = Buildings.findOne(template.data.building._id)
+      Meteor.apply "updateBuilding", [oldBuilding._id, data], onResultReceived: (error, building) ->
         unless error
-          if building.slug isnt slug
-            building.slug = slug
-            Router.go("building", building.getRouteData())
+          building = share.Transformations.Building(building)
+          newUrl = Router.routes["building"].path(building.getRouteData())
+          if newUrl isnt Router.routes["building"].path(oldBuilding.getRouteData())
+            Router.go(newUrl)
           else
             Session.set("editBuildingMode", false)
     else

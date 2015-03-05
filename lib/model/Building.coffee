@@ -59,6 +59,8 @@ class Building
   getAvailableAt: ->
     if @agroIsUnit # and @availableAt > new Date()
       @availableAt
+  getAvailableAtForDatepicker: ->
+    moment(@availableAt).format("MM/DD/YYYY")
   getBedrooms: ->
     if @bedroomsFrom
       value = @bedroomsFrom

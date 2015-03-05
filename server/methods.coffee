@@ -4,4 +4,4 @@ Meteor.methods
     building = Buildings.findOne(buildingId)
     unless building
       throw Meteor.Error("no object with such id")
-    building.slug
+    building

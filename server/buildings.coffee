@@ -39,7 +39,7 @@
     'appFee': '50'
     'title': '1300 Chestnut St 1003'
     'postalCode': '19107 19107'
-    'street': '1300 Chestnut St 1003'
+    'address': '1300 Chestnut St 1003'
     'priceFrom': 1430
     'priceTo': 1430
     'bedroomsFrom': 1
@@ -76,7 +76,7 @@
     'heatingAndCooling': 'Y'
     'title': '1300 Chestnut St 502'
     'postalCode': '19107 19107'
-    'street': '1300 Chestnut St 502'
+    'address': '1300 Chestnut St 502'
     'priceFrom': 1440
     'priceTo': 1440
     'bedroomsFrom': 1
@@ -160,7 +160,7 @@
     'sqftTo': 634
     'title': '1201-5 Chestnut St'
     'postalCode': '19107 19107'
-    'street': '1201-5 Chestnut St'
+    'address': '1201-5 Chestnut St'
     'priceFrom': 1605
     'priceTo': 1605
     'bedroomsFrom': 1
@@ -214,7 +214,7 @@
     'description': '1300 Chestnut is a newly renovated 10-story apartment building in the heart of Center City Philadelphia, with some of the city\'s most illustrious shopping, dining, and entertainment venues just mere steps away. This is a 1 bedroom unit with open floor plans, new kitchens and baths, large windows and some of the largest bedrooms in the Midtown. You\'ll also enjoy easy access to the Avenue of the Arts, City Hall, Reading Terminal Market, and the city\'s famed Rittenhouse Square and Old City neighborhoods, as well as all major transportation lines.'
     'title': '1300 Chestnut St 307'
     'postalCode': '19107 19107'
-    'street': '1300 Chestnut St 307'
+    'address': '1300 Chestnut St 307'
     'priceFrom': 1575
     'priceTo': 1575
     'bedroomsFrom': 1
@@ -271,7 +271,7 @@
     'website': 'YTozOntzOjU6ImxhYmVsIjtzOjA6IiI7czo4OiJwcm90b2NvbCI7czowOiIiO3M6MzoidXJsIjtOO30='
     'title': '1300 Chestnut St 302'
     'postalCode': '19107 19107'
-    'street': '1300 Chestnut St 302'
+    'address': '1300 Chestnut St 302'
     'priceFrom': 1495
     'priceTo': 1495
     'bedroomsFrom': 1
@@ -314,7 +314,7 @@
     'description': '1300 Chestnut is a newly renovated 10-story apartment building in the heart of Center City Philadelphia, with some of the city\'s most illustrious shopping, dining, and entertainment venues just mere steps away. This is a 1 bedroom unit with open floor plans, new kitchens and baths, large windows and some of the largest bedrooms in the Midtown. You\'ll also enjoy easy access to the Avenue of the Arts, City Hall, Reading Terminal Market, and the city\'s famed Rittenhouse Square and Old City neighborhoods, as well as all major transportation lines.'
     'title': '1300 Chestnut St 907'
     'postalCode': '19107 19107'
-    'street': '1300 Chestnut St 907'
+    'address': '1300 Chestnut St 907'
     'priceFrom': 1650
     'priceTo': 1650
     'bedroomsFrom': 1
@@ -400,7 +400,7 @@
     'priceTo': 2520
     'title': '1201-5 Chestnut St'
     'postalCode': '19107 19107'
-    'street': '1201-5 Chestnut St'
+    'address': '1201-5 Chestnut St'
     'neighborhood': 'Center City East'
     'latitude': 39.9506755
     'longitude': -75.1601985
@@ -420,7 +420,7 @@
     'bathroomsFrom': 1
     'bathroomsTo': 1
     'postalCode': '19107 19107'
-    'street': '1220 Sansom St 9S'
+    'address': '1220 Sansom St 9S'
     'title': '1220 Sansom St 9S'
     'fitnessCenter': 0
     'fitnessCenterComment': ''
@@ -511,7 +511,7 @@
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'priceFrom': 1660
     'priceTo': 1660
-    'street': '1222-26 Arch St 309'
+    'address': '1222-26 Arch St 309'
     'title': '1222-26 Arch St 309'
     'postalCode': '19107 19107'
     'latitude': 39.953761
@@ -565,7 +565,7 @@
     'bedroomsTo': 2
     'priceFrom': 1790
     'priceTo': 1790
-    'street': '1222-26 Arch St 104'
+    'address': '1222-26 Arch St 104'
     'postalCode': '19107 19107'
     'title': '1222-26 Arch St 104'
     'latitude': 39.955704
@@ -609,7 +609,7 @@
     'parkingComment': ''
     'title': '1228-32 Arch St 5A'
     'postalCode': '19107 19107'
-    'street': '1228-32 Arch St 5A'
+    'address': '1228-32 Arch St 5A'
     'priceFrom': 2500
     'priceTo': 2500
     'bedroomsFrom': 2
@@ -641,7 +641,7 @@
     'heatingAndCooling': 'Y'
     'title': '1836 Delancey St #4'
     'postalCode': '19103 19103'
-    'street': '1836 Delancey St #4'
+    'address': '1836 Delancey St #4'
     'neighborhood': 'Center City West'
     'propertyType': '0'
     'isFeatured': false
@@ -742,7 +742,7 @@
     'bathroomsTo': 4
     'title': '1808 Delancey St'
     'postalCode': '19103 19103'
-    'street': '1808 Delancey St'
+    'address': '1808 Delancey St'
     'latitude': 39.9469019
     'longitude': -75.1718038
     'btype': 'bedroom4'
@@ -790,7 +790,7 @@
     'yearOfCompletion': '1015'
     'title': '1720 Lombard St 505'
     'postalCode': '19146 19146'
-    'street': '1720 Lombard St 505'
+    'address': '1720 Lombard St 505'
     'bathroomsFrom': 1
     'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
@@ -844,7 +844,7 @@
     'description': 'Beekman Place is a center city gem. Recently renovated! Gas and electric included in rent, central air, washer/dryer in many units, nearby fitness center open to residence 24/7. It boasts a superior location, an undeniable charm, a wide variety of attractive apartment layouts, unmatched security, a most attentive management and even an interesting past. Each unit has its own uniqueness and flair. There are just 40 units, making it a very manageable and comfortable size. Just 2.5 blocks from the square itself, Beekman Place is on a quiet residential tree-lined street.'
     'title': '1720 Lombard St 504'
     'postalCode': '19146 19146'
-    'street': '1720 Lombard St 504'
+    'address': '1720 Lombard St 504'
     'bathroomsFrom': 1
     'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
@@ -911,7 +911,7 @@
     'availableAt': '2014-07-31T17:00:00.000Z'
     'heatingAndCooling': 'Y'
     'postalCode': '19103 19103'
-    'street': '2026-58 Market St 215'
+    'address': '2026-58 Market St 215'
     'bathroomsFrom': 1
     'bathroomsTo': 1
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
@@ -970,7 +970,7 @@
     'contactPerson': 'YToyOntzOjU6ImxhYmVsIjtzOjE0OiJUaGUgUmVudCBTY2VuZSI7czozOiJ1cmwiO3M6MjQ6InZpZXdpbmdAdGhlcmVudHNjZW5lLmNvbSI7fQ=='
     'bathroomsFrom': 1
     'bathroomsTo': 1
-    'street': '2026-58 Market St 305'
+    'address': '2026-58 Market St 305'
     'postalCode': '19103 19103'
     'title': '2026-58 Market St 305'
     'latitude': 39.9503691

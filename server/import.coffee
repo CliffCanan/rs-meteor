@@ -4,7 +4,7 @@ dataFields =
   100: "title"
   101: "summary"
   102: "postalCode"
-  103: "street"
+  103: "address"
   104: "price"
   105: "bedrooms"
   106: "bathrooms"

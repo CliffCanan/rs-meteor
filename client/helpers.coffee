@@ -81,6 +81,9 @@ Template.registerHelper "_", (key, hash) ->
 Template.registerHelper "isEmpty", (object, hash) ->
   _.isEmpty(object)
 
+Template.registerHelper "isNotNullOrUndefined", (value, hash) ->
+  value?
+
 Template.registerHelper "cities", ->
   citiesArray
 
