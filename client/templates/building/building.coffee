@@ -28,6 +28,17 @@ Template.building.helpers
     else
       @buildingUnits(2)
 
+  btypesFields: (building) ->
+    for key, btype of btypes
+      root = key.charAt(0).toUpperCase() + key.slice(1)
+      nameFrom = "price" + root + "From"
+      nameTo = "price" + root + "To"
+      type: btype.upper
+      nameFrom: nameFrom
+      nameTo: nameTo
+      valueFrom: building[nameFrom]
+      valueTo: building[nameTo]
+
 Template.building.rendered = ->
   Session.set("showAllBuildingUnits", false)
 
@@ -75,7 +86,7 @@ Template.building.events
     )
 
   "click .edit-building": (event, template) ->
-    Session.set("editBuildingId", template.data.building._id)
+    Session.set("editBuildingMode", true)
 
   "submit .building-form": (event, template) ->
     event.preventDefault()
@@ -88,9 +99,9 @@ Template.building.events
             building.slug = slug
             Router.go("building", building.getRouteData())
           else
-            Session.set("editBuildingId", false)
+            Session.set("editBuildingMode", false)
     else
-      Session.set("editBuildingId", false)
+      Session.set("editBuildingMode", false)
 
 updateBuilding = (buildingId, newObject, item) ->
   Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})

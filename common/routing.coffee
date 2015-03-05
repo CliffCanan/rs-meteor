@@ -61,7 +61,7 @@ Router.map ->
       _.extend {}, @params,
         building: building
     onBeforeAction: ->
-      Session.set("editBuildingId", false)
+      Session.set("editBuildingMode", false)
       if @building
         share.setPageTitle(@building.title + ", " + cities[@params.cityId].long)
       @next()

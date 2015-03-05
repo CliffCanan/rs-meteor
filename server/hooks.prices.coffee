@@ -44,7 +44,7 @@ generateBuildingPrices = (building) ->
         else
           modifier.$set[fieldNameAgro] = Math.max.apply(null, pricesAgroMinMaxValues[fieldNameAgro])
       else
-        modifier.$unset[fieldNameAgro]
+        modifier.$unset[fieldNameAgro] = true
   unless Object.keys(modifier.$set).length
     delete modifier.$set
   unless Object.keys(modifier.$unset).length

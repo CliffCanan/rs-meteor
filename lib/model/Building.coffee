@@ -1,10 +1,22 @@
 complexFieldsValues =
-  pets: ["Unknown", "Pets Allowed", "Some Pets Allowed", "No Pets"]
-  parking: ["Unknown", "Parking Included", "Parking Available", "No Parking"]
-  laundry: ["Unknown", "In-unit Laundry", "Shared Laundry", "No Laundry"]
-  security: ["Unknown", "Doorman", "No Doorman"]
-  utilities: ["Unknown", "Utilities Included", "Utilities Extra"]
-  fitnessCenter: ["Unknown", "Fitness Center", "No Fitness Center"]
+  pets:
+    label: "Pets"
+    values: ["Unknown", "Pets Allowed", "Some Pets Allowed", "No Pets"]
+  parking:
+    label: "Parking"
+    values: ["Unknown", "Parking Included", "Parking Available", "No Parking"]
+  laundry:
+    label: "Laundry"
+    values: ["Unknown", "In-unit Laundry", "Shared Laundry", "No Laundry"]
+  security:
+    label: "Security"
+    values: ["Unknown", "Doorman", "No Doorman"]
+  utilities:
+    label: "Utilities"
+    values: ["Unknown", "Utilities Included", "Utilities Extra"]
+  fitnessCenter:
+    label: "Fitness center"
+    values: ["Unknown", "Fitness Center", "No Fitness Center"]
 
 formatPriceDisplay = (from, to) ->
   price = ""
@@ -79,28 +91,43 @@ class Building
     if @priceFrom
       price: formatPriceDisplay(@priceFrom, @priceTo)
       type: btypes[@btype]?.lower
-  complexFields: ->
+  complexFields: (edit = false) ->
     fields = []
-    for field in ["pets", "parking", "laundry", "security", "utilities", "fitnessCenter"]
-      key = @[field] ? @parent()?[field]
-      if key
-        value = complexFieldsValues[field][key]
-        comment = @[field + "Comment"] ? @parent()?[field + "Comment"]
-        isAvailable = value.indexOf("No") is -1 and value.indexOf("Extra") is -1
-        isGreyCheck = value is "Some Pets Allowed" or value is "Shared Laundry"
-        if isAvailable
-          if isGreyCheck
-            iconClass = "fa-check grey-icon"
-          else
-            iconClass = "fa-check blue-icon"
+    for fieldName in ["pets", "parking", "laundry", "security", "utilities", "fitnessCenter"]
+      value = @[fieldName]
+      unless edit
+        value = value or @parent()?[fieldName]
+      if edit or value
+        commentName = fieldName + "Comment"
+        comment = @[commentName]
+        unless edit
+          comment = comment or @parent()?[fieldName + "Comment"]
+        field =
+          commentValue: comment
+        if edit
+          field.label = complexFieldsValues[fieldName].label
+          values = for v, k in complexFieldsValues[fieldName].values
+            name: fieldName
+            value: k
+            text: complexFieldsValues[fieldName].values[k]
+            isChecked: k is value
+          field.values = values
+          field.commentName = commentName
         else
-          iconClass = "fa-times grey-icon"
-        fields.push
-          field: field
-          value: value
-          comment: comment
-          isAvailable: isAvailable
-          iconClass: iconClass
+          text = complexFieldsValues[fieldName].values[value]
+          field.text = text
+          isAvailable = text.indexOf("No") is -1 and text.indexOf("Extra") is -1
+          isGreyCheck = text is "Some Pets Allowed" or text is "Shared Laundry"
+          if isAvailable
+            if isGreyCheck
+              iconClass = "fa-check grey-icon"
+            else
+              iconClass = "fa-check blue-icon"
+          else
+            iconClass = "fa-times grey-icon"
+          field.isAvailable = isAvailable
+          field.iconClass = iconClass
+        fields.push(field)
 
     fields
   bedroomTypes: ->
