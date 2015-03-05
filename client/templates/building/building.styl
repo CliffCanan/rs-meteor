@@ -193,7 +193,6 @@
     border-radius 3px
     padding 1rem
     margin 0 0 15px
-    min-height 195px
     img
       padding 0 15px 0 0
       max-width 90px
@@ -211,15 +210,17 @@
       .building-unit-info-price
         font-family 'Montserrat', Helvetica, sans-serif
         margin 0 0 5px
+        i
+          padding 0 10px 0 0
         .unit-price
-          font-size 18px
+          font-size 16px
           color #cc9900
           padding 0 10px 0 0
           display inline-block
           vertical-align middle
+          border-right 1px solid #c7c7c7
         .unit-type
-          border-left 1px solid #c7c7c7
-          font-size 16px
+          font-size 14px
           color #272b30
           padding 0 0 0 10px
           display inline-block
@@ -229,7 +230,6 @@
         color #4588fa
         font-size 1rem
         font-weight bold
-        margin 0 0 10px
 
     .building-unit-prop-list
       clear both
@@ -246,6 +246,11 @@
     float none
     display inline-block
     vertical-align top
+    i
+      float left
+    .building-features-text
+      display block
+      overflow hidden
 
   .building-review
     border 1px solid #999
