@@ -79,7 +79,7 @@ Meteor.smartPublish "buildingUnits", (cityId, slug) ->
     [BuildingImages.find({_id: {$in: imageIds}})]
   selector = {parentId: parentBuilding._id}
   addIsPublishFilter(@userId, selector)
-  [Buildings.find()]
+  [Buildings.find(selector)]
 
 Meteor.publish "allBuildings", ->
   user = Meteor.users.findOne(@userId)

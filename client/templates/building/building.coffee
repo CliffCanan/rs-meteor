@@ -21,7 +21,7 @@ Template.building.helpers
         $carousel.show().carousel()
       else
         $carousel.hide()
-      return ""
+    return ""
 
   isEdit: ->
     Session.equals("editBuildingId", @_id)
