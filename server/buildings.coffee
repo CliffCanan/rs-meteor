@@ -693,7 +693,13 @@
     'position': null
     'propertyType': '0'
     'isFeatured': false
+    'adminAvailability': 'http://www.reinholdresidential.com/available-apartments.php?property=3'
     'adminEscorted': 'Listing agent must accompany.'
+    'adminAppFee': '$50'
+    'adminOfficeHours': 'http://www.reinholdresidential.com/available-apartments.php?property=3'
+    'adminScheduling': 'nruffin@reinholdresidential.com'
+    'adminContact': 'Nina / 215.854.0729'
+    'adminNotes': "This is a high priority landlord, Scully Properties. We never need to accompany clients, and this landlord has 25+ buildings so we want to treat them well even for lower cost units. If people inquire about these buildings, send them the availability data on the specific unit, and if they're interested book a tour. Always email the @propemail.com first introducing the client's name, budget, and requirements so it gets registered in their system as a Rent Scene lead."
     'isNotAvailable': true
     'security': 0
     'securityComment': ''
