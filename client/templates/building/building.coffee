@@ -19,6 +19,9 @@ Template.building.helpers
       $carousel.hide()
     return ""
 
+  isEdit: ->
+    Session.equals("editBuildingId", @_id)
+
   buildingUnitsLimited: ->
     if Session.get("showAllBuildingUnits")
       @buildingUnits()
@@ -102,7 +105,7 @@ Template.building.events
     $("#confirmBuildingRemoval").modal("hide")
 
   "click .edit-building": (event, template) ->
-    Session.set("editBuildingMode", true)
+    Session.set("editBuildingId", template.data.building._id)
 
   "submit .building-form": (event, template) ->
     event.preventDefault()
@@ -119,13 +122,15 @@ Template.building.events
           if newUrl isnt Router.routes["building"].path(oldBuilding.getRouteData())
             Router.go(newUrl)
           else
-            Session.set("editBuildingMode", false)
+            Session.set("editBuildingId", null)
         $form.find(".submit-button").prop("disabled", false)
         $form.find(".loading").hide()
     else
-      Session.set("editBuildingMode", false)
+      Session.set("editBuildingId", null)
 
-  "click .delete-building": (event, template) ->
+  "click .publish-building-toggle": (event, template) ->
+    building = template.data.building
+    Buildings.update(building._id, {$set: {isPublished: !building.isPublished}})
 
 
 updateBuilding = (buildingId, newObject, item) ->

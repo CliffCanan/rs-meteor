@@ -20,22 +20,27 @@ template(name="building")
           aside.building-main-info.col-lg-5
             if admin
               .control-buttons
-                if Session "editBuildingMode"
+                if isEdit
                   button.btn.btn-primary.save-building(type="submit")
                     .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
                     | Save Building
                 else
                   button.btn.btn-primary.edit-building(type="button") Edit Building
                 button.btn.btn-danger.remove-building(type="button") Delete Building
+                button.btn.btn-primary.publish-building-toggle(type="button")
+                  if isPublished
+                    | Unpublish
+                  else
+                    | Publish
 
-            if Session "editBuildingMode"
+            if isEdit
               input.building-main-info-title(type="text", name="title", value="{{title}}")
             else
               h2.building-main-info-title {{getUnitTitle}}
 
             button.btn.btn-primary.building-main-info-btn.hidden-lg.check-availability(type="button") Check Availability
 
-            if Session "editBuildingMode"
+            if isEdit
               .building-main-price-wrap.clearfix
                 .building-main-price-opt
                   span.building-main-price
@@ -67,7 +72,7 @@ template(name="building")
                         span.building-main-rooms
                           | {{type}}
 
-            if Session "editBuildingMode"
+            if isEdit
               ul.building-main-prop-list.list-unstyled.clearfix
                 each complexFields true
                   li.building-main-prop
@@ -145,7 +150,7 @@ template(name="building")
             .building-main-info-desc-wrap.visible-lg-block
               input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
               p.building-main-info-desc
-                if Session "editBuildingMode"
+                if isEdit
                   textarea.form-control(name="description") {{{description}}}
                 else
                   | {{{getDescription}}}
@@ -169,13 +174,13 @@ template(name="building")
               +social
 
           .building-info-wrap.col-lg-7
-            if Session "editBuildingMode"
+            if isEdit
               if canHaveParentId
                 label.building-admin-edit
                   span.building-admin-edit-text
                     | Parent Building:
                   select(name="parentId")
-                    option(value="") Select from list
+                    option(value="") -- No parent building --
                     each canBeParentBuildings
                       option(value="{{_id}}", selected="{{condition _id 'is' ../parentId}}") {{title}}
               label.building-admin-edit
@@ -197,10 +202,6 @@ template(name="building")
                   | Neighborhood:
                 input(type="text", name="neighborhood", value="{{neighborhood}}")
               label.building-admin-edit
-                input(type="checkbox", name="isPublished", value="true", checked="{{isPublished}}")
-                span.building-admin-edit-text
-                  | Is published
-              label.building-admin-edit
                 input(type="checkbox", name="isOnMap", value="true", checked="{{isOnMap}}")
                 span.building-admin-edit-text
                   | Is on map
@@ -211,7 +212,7 @@ template(name="building")
                   each btypes
                     option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
 
-            if Session "editBuildingMode"
+            if isEdit
               .container-fluid
                 .row
                   ul.list-unstyled.clearfix
@@ -246,7 +247,7 @@ template(name="building")
                     | Next
 
             .building-main-info-desc-wrap.hidden-lg
-              unless Session "editBuildingMode"
+              unless isEdit
                 p.building-main-info-desc
                   | {{{getDescription}}}
               //ul.building-share-list.list-unstyled.clearfix.hidden-lg
@@ -310,7 +311,7 @@ template(name="building")
                     a.building-unit-item-more(href="#", title="more")
                       | View all {{buildingUnits.count}} Units
 
-            if Session "editBuildingMode"
+            if isEdit
               +buildingFeaturesEdit
             else
               with getFeatures
@@ -326,7 +327,7 @@ template(name="building")
                           | {{.}}
 
             if admin
-              if Session "editBuildingMode"
+              if isEdit
                 +buildingAdminFieldsEdit
               else
                 with adminBuilding
