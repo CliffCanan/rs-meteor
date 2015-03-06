@@ -42,7 +42,7 @@ Template.building.helpers
   canHaveParentId: ->
     !Buildings.find({parentId: @_id}).count()
   canBeParentBuildings: ->
-    Buildings.find({parentId: {$exists: false}}, {sort: {title: 1}})
+    Buildings.find({_id: {$ne: @_id}, parentId: {$exists: false}}, {sort: {title: 1}})
 
 Template.building.rendered = ->
   Session.set("showAllBuildingUnits", false)
