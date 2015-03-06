@@ -211,6 +211,17 @@ template(name="building")
                 select(name="btype")
                   each btypes
                     option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
+              label.building-admin-edit
+                span.building-admin-edit-text
+                  | Position:
+                select.select-position-defs
+                  option(value="10000", selected="{{condition position 'is' 10000}}") Very High (10000)
+                  option(value="5000", selected="{{condition position 'is' 5000}}") High (5000)
+                  option(value="0", selected="{{condition position 'is' 0}}") Medium (0)
+                  option(value="-5000", selected="{{condition position 'is' -5000}}") Low (-5000)
+                  option(value="-10000", selected="{{condition position 'is' -10000}}") Very Low (-10000)
+                  option(value="manual", selected="{{isManualPosition}}") Manual
+                input.input-building-postion(class="{{#unless isManualPosition}}hidden{{/unless}}" type="text", name="position", value="{{position}}")
 
             if isEdit
               .container-fluid

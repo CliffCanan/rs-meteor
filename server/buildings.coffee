@@ -5,7 +5,7 @@
     'createdAt': '2014-08-18T05:51:58.000Z'
     'isOnMap': false
     'similar': []
-    'position': null
+    'position': 0
     'mlsNo': '6432211'
     'laundry': 0
     'utilities': 2

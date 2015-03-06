@@ -1,3 +1,5 @@
+positions = [10000, 5000, 0, -5000, -10000]
+
 Template.building.helpers
   admin: ->
     Meteor.user()?.role is "admin"
@@ -21,6 +23,9 @@ Template.building.helpers
 
   isEdit: ->
     Session.equals("editBuildingId", @_id)
+
+  isManualPosition: ->
+    @position not in positions
 
   buildingUnitsLimited: ->
     if Session.get("showAllBuildingUnits")
@@ -131,6 +136,15 @@ Template.building.events
   "click .publish-building-toggle": (event, template) ->
     building = template.data.building
     Buildings.update(building._id, {$set: {isPublished: !building.isPublished}})
+
+  "change .select-position-defs": (event, template) ->
+    $select = $(event.currentTarget)
+    $input = $(".input-building-postion")
+    value = $select.val()
+    if value is "manual"
+      $input.removeClass("hidden")
+    else
+      $input.val(value).addClass("hidden")
 
 
 updateBuilding = (buildingId, newObject, item) ->

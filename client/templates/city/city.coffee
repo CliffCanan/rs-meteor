@@ -37,7 +37,7 @@ Template.city.helpers
         selector.agroPriceFilter.$gte = min
       if max
         selector.agroPriceFilter.$lte = max
-    Buildings.find(selector, {sort: {createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+    Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
   randomImage: ->
 #    images = [
 #      "/images/search-img1.jpg"

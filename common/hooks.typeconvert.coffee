@@ -5,6 +5,7 @@ integerFields = [
   "security"
   "utilities"
   "fitnessCenter"
+  "position"
 ]
 
 deltaFields = ["price", "sqft", "bedrooms", "bathrooms"]

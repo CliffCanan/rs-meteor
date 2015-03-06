@@ -166,7 +166,7 @@ dataFields =
         createdAt: new Date(article.createdtime)
         isOnMap: !!article.onMap
         similar: []
-        position: article.ordering
+        position: share.intval(article.ordering)
 
       if article.similar
         similar = article.similar.replace(/["\[\]]/g, "")
