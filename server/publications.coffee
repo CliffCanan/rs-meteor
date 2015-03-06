@@ -69,7 +69,11 @@ Meteor.smartPublish "buildingUnits", (cityId, slug) ->
   [Buildings.find({parentId: parentBuilding._id})]
 
 Meteor.publish "allBuildings", ->
-  Buildings.find()
+  user = Meteor.users.findOne(@userId)
+  if user.role is "admin"
+    Buildings.find()
+  else
+    []
 
 Meteor.publish "userListBuildings", (userListId)->
   check(userListId, Match.Any)

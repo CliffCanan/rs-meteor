@@ -1,4 +1,4 @@
-subs = new SubsManager()
+adminSubs = new SubsManager()
 @citySubs = new SubsManager()
 buildingSubs = new SubsManager()
 
@@ -23,7 +23,7 @@ Router.map ->
   @route "/userlist/:userListId",
     name: "userlist"
     subscriptions: ->
-      subs.subscribe("allBuildings", @params.userListId)
+      adminSubs.subscribe("allBuildings", @params.userListId)
     data: ->
       userList = UserLists.findOne({_id: @params.userListId})
       return _.defaults({}, @params,
@@ -50,11 +50,13 @@ Router.map ->
     name: "building"
     fastRender: true
     subscriptions: ->
-      [
-        buildingSubs.subscribe("building", @params.cityId, @params.unitSlug or @params.buildingSlug)
-        buildingSubs.subscribe("buildingParent", @params.cityId, @params.unitSlug or @params.buildingSlug)
-        buildingSubs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug)
-      ]
+      subs = []
+      if Meteor.user()?.role is "admin"
+        subs.push(adminSubs.subscribe("allBuildings"))
+      subs.push(buildingSubs.subscribe("building", @params.cityId, @params.unitSlug or @params.buildingSlug))
+      subs.push(buildingSubs.subscribe("buildingParent", @params.cityId, @params.unitSlug or @params.buildingSlug))
+      subs.push(buildingSubs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug))
+      subs
     data: ->
       building = Buildings.findOne({cityId: @params.cityId, slug: @params.unitSlug or @params.buildingSlug})
       return null unless building

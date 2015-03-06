@@ -316,6 +316,9 @@ template(name="building")
                         span.building-features-text
                           | {{.}}
 
+            if Session "editBuildingMode"
+              +buildingAdminFieldsEdit
+
             //section.building-info-section
             //  h2.building-info-title
             //    i.fa.fa-fw.fa-star

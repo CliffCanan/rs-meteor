@@ -55,7 +55,7 @@ dataFields =
   152: "adminContact"
   153: "adminNotes"
 
-  155: "adminSame"
+  155: "adminSameId"
   156: "utilities"
   157: "isFeatured"
   158: "neighborhood"
@@ -233,9 +233,15 @@ dataFields =
             building.parentId = data.value
         else if fieldName is "unitNumber"
           if data.value.length
-            building.title = data.value
+            if building.title
+              building.title = building.title + " " + data.value
+            else
+              building.title = data.value
         else if fieldName is "title"
-          building.title = building.title or data.value
+          if building.title
+            building.title = data.value + " " + building.title
+          else
+            building.title = data.value
         else if fieldName is "images"
           parseImages(building, data.value)
         else if fieldName is "videos"
@@ -309,10 +315,13 @@ dataFields =
   for _id, building of buildings
     if building.parentId
       parent = buildings[parseInt(building.parentId)]
-      if parent?.cityId
-        building.cityId = parent.cityId
-      if parent?.neighborhood
-        building.neighborhood = parent.neighborhood
+      if parent
+        if parent.cityId
+          building.cityId = parent.cityId
+        if parent.neighborhood
+          building.neighborhood = parent.neighborhood
+        if parent.title
+          building.title = building.title.replace(parent.title, "")
     unless building.btype
       if btype = btypesIds[parseInt(building.bedroomsFrom)]
         building.btype = btype

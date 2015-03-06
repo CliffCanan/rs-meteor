@@ -1,0 +1,37 @@
+template(name="buildingAdminFieldsEdit")
+  .form-group
+    label
+      | Same as building:
+      select.select-admin-same-id.form-control(name="adminSameId")
+        option(value="") Select from list
+        each canBeSameBuildings
+          option(value="{{_id}}", selected="{{condition _id 'is' ../adminSameId}}") {{title}}
+  with adminBuilding
+    .form-group
+      label
+        | How to check availability:
+        input.admin-field.form-control(type="text", name="adminAvailability", value="{{adminAvailability}}", disabled="{{Session 'adminSameId'}}")
+    .form-group
+      label
+        | Escorted:
+        input.admin-field.form-control(type="text", name="adminEscorted", value="{{adminEscorted}}", disabled="{{Session 'adminSameId'}}")
+    .form-group
+      label
+        | Application fee:
+        input.admin-field.form-control(type="text", name="adminAppFee", value="{{adminAppFee}}", disabled="{{Session 'adminSameId'}}")
+    .form-group
+      label
+        | Office hours:
+        textarea.admin-field.form-control(name="adminOfficeHours", disabled="{{Session 'adminSameId'}}") {{adminAvailability}}
+    .form-group
+      label
+        | Scheduling instructions:
+        textarea.admin-field.form-control(name="adminScheduling", disabled="{{Session 'adminSameId'}}") {{adminScheduling}}
+    .form-group
+      label
+        | Contact instructions:
+        textarea.admin-field.form-control(name="adminContact", disabled="{{Session 'adminSameId'}}") {{adminContact}}
+    .form-group
+      label
+        | Notes:
+        textarea.admin-field.form-control(name="adminNotes", disabled="{{Session 'adminSameId'}}") {{adminNotes}}

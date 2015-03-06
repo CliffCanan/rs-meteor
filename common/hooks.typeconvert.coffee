@@ -15,6 +15,8 @@ dateFields = ["availableAt"]
 
 boolFields = ["isFurnished"]
 
+idFields = ["parentId", "adminSameId"]
+
 buildingBeforeSave = (modifier) ->
   if modifier.features and not _.isArray(modifier.features)
     features = []
@@ -53,6 +55,12 @@ Buildings.before.insert (userId, building) ->
     if building[boolField]?
       building[boolField] = !!building[boolField]
 
+  for idField in idFields
+    if building[idField] is ""
+      delete building[idField]
+    else
+      building[idField] = "" + building[idField]
+
   true
 
 Buildings.before.update (userId, building, fieldNames, modifier, options) ->
@@ -81,6 +89,14 @@ Buildings.before.update (userId, building, fieldNames, modifier, options) ->
         modifier.$unset[boolField] = true
       else
         building[boolField] = !!building[boolField]
+
+  for idField in idFields
+    if modifier.$set[idField]?
+      if modifier.$set[idField] is ""
+        delete modifier.$set[idField]
+        modifier.$unset[idField] = true
+      else
+        modifier.$set[idField] = "" + modifier.$set[idField]
 
   unless Object.keys(modifier.$set).length
     delete modifier.$set
