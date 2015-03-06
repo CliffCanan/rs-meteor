@@ -44,16 +44,16 @@ template(name="building")
               .building-main-price-wrap.clearfix
                 .building-main-price-opt
                   span.building-main-price
-                    input(type="text", name="priceFrom", value="{{priceFrom}}")
+                    input.text-right(type="text", name="priceFrom", value="{{priceFrom}}")
                     | -
-                    input(type="text", name="priceTo", value="{{priceTo}}")
+                    input.text-right(type="text", name="priceTo", value="{{priceTo}}")
                   span.building-main-rooms Unit
                 each btypesFields .
                   .building-main-price-opt
                     span.building-main-price
-                      input(type="text", name="{{nameFrom}}", value="{{valueFrom}}")
+                      input.text-right(type="text", name="{{nameFrom}}", value="{{valueFrom}}")
                       | -
-                      input(type="text", name="{{nameTo}}", value="{{valueTo}}")
+                      input.text-right(type="text", name="{{nameTo}}", value="{{valueTo}}")
                     span.building-main-rooms {{type}}
             else
               if agroIsUnit
@@ -179,49 +179,49 @@ template(name="building")
                 label.building-admin-edit
                   span.building-admin-edit-text
                     | Parent Building:
-                  select(name="parentId")
+                  select.form-control(name="parentId")
                     option(value="") -- No parent building --
                     each canBeParentBuildings
                       option(value="{{_id}}", selected="{{condition _id 'is' ../parentId}}") {{title}}
               label.building-admin-edit
                 span.building-admin-edit-text
                   | City:
-                select(name="cityId")
+                select.form-control(name="cityId")
                   each cities
                     option(value="{{key}}", selected="{{condition key 'is' ../cityId}}") {{value}}
               label.building-admin-edit
                 span.building-admin-edit-text
                   | Address:
-                input(type="text", name="address", value="{{address}}")
+                input.form-control(type="text", name="address", value="{{address}}")
               label.building-admin-edit
                 span.building-admin-edit-text
                   | Postal code:
-                input(type="text", name="postalCode", value="{{postalCode}}")
+                input.form-control(type="text", name="postalCode", value="{{postalCode}}")
               label.building-admin-edit
                 span.building-admin-edit-text
                   | Neighborhood:
-                input(type="text", name="neighborhood", value="{{neighborhood}}")
+                input.form-control(type="text", name="neighborhood", value="{{neighborhood}}")
               label.building-admin-edit
                 input(type="checkbox", name="isOnMap", value="true", checked="{{isOnMap}}")
-                span.building-admin-edit-text
+                span.building-admin-edit-text.building-admin-edit-check
                   | Is on map
               label.building-admin-edit
                 span.building-admin-edit-text
                   | Unit type:
-                select(name="btype")
+                select.form-control(name="btype")
                   each btypes
                     option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
-              label.building-admin-edit
+              label.building-admin-edit.form-inline
                 span.building-admin-edit-text
                   | Position:
-                select.select-position-defs
+                select.select-position-defs.form-control
                   option(value="10000", selected="{{condition position 'is' 10000}}") Very High (10000)
                   option(value="5000", selected="{{condition position 'is' 5000}}") High (5000)
                   option(value="0", selected="{{condition position 'is' 0}}") Medium (0)
                   option(value="-5000", selected="{{condition position 'is' -5000}}") Low (-5000)
                   option(value="-10000", selected="{{condition position 'is' -10000}}") Very Low (-10000)
                   option(value="manual", selected="{{isManualPosition}}") Manual
-                input.input-building-postion(class="{{#unless isManualPosition}}hidden{{/unless}}" type="text", name="position", value="{{position}}")
+                input.form-control.text-right.input-building-postion(class="{{#unless isManualPosition}}hidden{{/unless}}" type="text", name="position", value="{{position}}")
 
             if isEdit
               .container-fluid
