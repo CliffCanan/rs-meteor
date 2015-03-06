@@ -171,6 +171,13 @@ template(name="building")
 
           .building-info-wrap.col-lg-7
             if Session "editBuildingMode"
+              if canHaveParentId
+                label
+                  | Parent Building:
+                  select(name="parentId")
+                    each canBeParentBuildings
+                      option(value="{{parentId}}", selected="{{condition _id 'is' ../parentId}}") {{title}}
+                br
               label
                 | City:
                 select(name="cityId")

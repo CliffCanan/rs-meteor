@@ -1,6 +1,6 @@
 Template.buildingAdminFieldsEdit.helpers
   canBeSameBuildings: ->
-    Buildings.find({agroCanBeSame: true, parentId: {$exists: false}}, {sort: {title: 1}})
+    Buildings.find({_id: {$ne: @_id}, agroCanBeSame: true, parentId: {$exists: false}}, {sort: {title: 1}})
   adminBuilding: ->
     adminSameId = Session.get("adminSameId")
     if adminSameId then Buildings.findOne(adminSameId) else @
