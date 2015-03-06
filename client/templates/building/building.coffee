@@ -69,14 +69,12 @@ Template.building.events
   "click .confirm-removal":  grab encapsulate (event, template) ->
     Buildings.update({ _id: template.data.building._id}, { $pull: { images: {"EJSON$value.EJSON_id": Session.get("imageToRemove") }} })
     $('#confirmRemoval').modal('hide')
-    Session.get("imageToRemove", null)
+    Session.set("imageToRemove", null)
 
   "change .choose-image-input": grab encapsulate (event, template) ->
     buildingId = @_id
     FS.Utility.eachFile(event, (file) ->
       inserted = BuildingImages.insert(file)
-      cl $(template)
-      cl template
       item = @$(".add-image-item")
       item.find(".loading").show()
       newObject = {}
@@ -89,6 +87,19 @@ Template.building.events
         updateBuilding(buildingId, newObject, item)
       , 5000)
     )
+
+  "click .remove-building": grab encapsulate (event, template) ->
+    $("#confirmBuildingRemoval").modal("show")
+
+  "click .confirm-building-removal": grab encapsulate (event, template) ->
+    building = template.data.building
+    Buildings.remove(building._id)
+    parent = building.parent()
+    if parent
+      Router.go("building", parent.getRouteData())
+    else
+      Router.go("city", {cityId: building.cityId})
+    $("#confirmBuildingRemoval").modal("hide")
 
   "click .edit-building": (event, template) ->
     Session.set("editBuildingMode", true)
@@ -113,6 +124,9 @@ Template.building.events
         $form.find(".loading").hide()
     else
       Session.set("editBuildingMode", false)
+
+  "click .delete-building": (event, template) ->
+
 
 updateBuilding = (buildingId, newObject, item) ->
   Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})
