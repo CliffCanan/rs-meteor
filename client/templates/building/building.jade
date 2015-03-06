@@ -316,8 +316,39 @@ template(name="building")
                         span.building-features-text
                           | {{.}}
 
-            if Session "editBuildingMode"
-              +buildingAdminFieldsEdit
+            if admin
+              if Session "editBuildingMode"
+                +buildingAdminFieldsEdit
+              else
+                with adminBuilding
+                  .form-group
+                    label
+                      | How to check availability:
+                    | {{adminAvailability}}
+                  .form-group
+                    label
+                      | Escorted:
+                    | {{adminEscorted}}
+                  .form-group
+                    label
+                      | Application fee:
+                    | {{adminAppFee}}
+                  .form-group
+                    label
+                      | Office hours:
+                    | {{adminAvailability}}
+                  .form-group
+                    label
+                      | Scheduling instructions:
+                    | {{adminScheduling}}
+                  .form-group
+                    label
+                      | Contact instructions:
+                    | {{adminContact}}
+                  .form-group
+                    label
+                      | Notes:
+                    | {{adminNotes}}
 
             //section.building-info-section
             //  h2.building-info-title

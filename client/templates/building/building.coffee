@@ -36,6 +36,9 @@ Template.building.helpers
       valueFrom: building[nameFrom]
       valueTo: building[nameTo]
 
+  adminBuilding: ->
+    if @adminSameId then Buildings.findOne(@adminSameId) else @
+
 Template.building.rendered = ->
   Session.set("showAllBuildingUnits", false)
 
