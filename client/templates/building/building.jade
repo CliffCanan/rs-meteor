@@ -30,37 +30,6 @@ template(name="building")
 
             if Session "editBuildingMode"
               input.building-main-info-title(type="text", name="title", value="{{title}}")
-              label
-                | City:
-                select(name="cityId")
-                  each cities
-                    option(value="{{key}}", selected="{{condition key 'is' ../cityId}}") {{value}}
-              br
-              label
-                | Address:
-                input(type="text", name="address", value="{{address}}")
-              br
-              label
-                | Postal code:
-                input(type="text", name="postalCode", value="{{postalCode}}")
-              br
-              label
-                | Neighborhood:
-                input(type="text", name="neighborhood", value="{{neighborhood}}")
-              br
-              label
-                input(type="checkbox", name="isPublished", value="true", checked="{{isPublished}}")
-                | Is published
-              br
-              label
-                input(type="checkbox", name="isOnMap", value="true", checked="{{isOnMap}}")
-                | Is on map
-              br
-              label
-                | Unit type:
-                select(name="btype")
-                  each btypes
-                    option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
             else
               h2.building-main-info-title {{getUnitTitle}}
 
@@ -201,6 +170,39 @@ template(name="building")
               +social
 
           .building-info-wrap.col-lg-7
+            if Session "editBuildingMode"
+              label
+                | City:
+                select(name="cityId")
+                  each cities
+                    option(value="{{key}}", selected="{{condition key 'is' ../cityId}}") {{value}}
+              br
+              label
+                | Address:
+                input(type="text", name="address", value="{{address}}")
+              br
+              label
+                | Postal code:
+                input(type="text", name="postalCode", value="{{postalCode}}")
+              br
+              label
+                | Neighborhood:
+                input(type="text", name="neighborhood", value="{{neighborhood}}")
+              br
+              label
+                input(type="checkbox", name="isPublished", value="true", checked="{{isPublished}}")
+                | Is published
+              br
+              label
+                input(type="checkbox", name="isOnMap", value="true", checked="{{isOnMap}}")
+                | Is on map
+              br
+              label
+                | Unit type:
+                select(name="btype")
+                  each btypes
+                    option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
+              
             //Session "editBuildingMode"
             if false
               .container
