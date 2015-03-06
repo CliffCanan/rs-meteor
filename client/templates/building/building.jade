@@ -26,7 +26,7 @@ template(name="building")
                     | Save Building
                 else
                   button.btn.btn-primary.edit-building(type="button") Edit Building
-                //button.btn.btn-danger.delete-building(type="button") Delete Building
+                button.btn.btn-danger.remove-building(type="button") Delete Building
 
             if Session "editBuildingMode"
               input.building-main-info-title(type="text", name="title", value="{{title}}")
@@ -550,3 +550,16 @@ template(name="building")
               .modal-footer
                 button.btn.btn-primary.confirm-removal(type='button') Yes
                 button.btn.btn-default(type='button', data-dismiss='modal') No
+
+        #confirmBuildingRemoval.modal.fade(tabindex="-1", role="dialog", aria-labelledby="confirmBuildingRemovalLabel", aria-hidden="true")
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close(type="button", data-dismiss="modal", aria-label="Close")
+                  span(aria-hidden="true") &times;
+                h4#confirmBuildingRemovalLabel.modal-title Remove building.
+              .modal-body
+                | Are you sure?
+              .modal-footer
+                button.btn.btn-primary.confirm-building-removal(type="button") Yes
+                button.btn.btn-default(type="button", data-dismiss="modal") No
