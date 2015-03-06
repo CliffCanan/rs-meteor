@@ -1,11 +1,11 @@
 template(name="buildingAdminFieldsEdit")
-  .form-group
-    label
-      | Same as building:
-      select.select-admin-same-id.form-control(name="adminSameId")
-        option(value="") Select from list
-        each canBeSameBuildings
-          option(value="{{_id}}", selected="{{condition _id 'is' ../adminSameId}}") {{title}}
+  //.form-group
+  //  label
+  //    | Same as building:
+  //    select.select-admin-same-id.form-control(name="adminSameId")
+  //      option(value="") Select from list
+  //      each canBeSameBuildings
+  //        option(value="{{_id}}", selected="{{condition _id 'is' ../adminSameId}}") {{title}}
   with adminBuilding
     .form-group
       label.building-admin-form-text

@@ -175,14 +175,14 @@ template(name="building")
 
           .building-info-wrap.col-lg-7
             if isEdit
-              if canHaveParentId
-                label.building-admin-edit
-                  span.building-admin-edit-text
-                    | Parent Building:
-                  select.form-control(name="parentId")
-                    option(value="") -- No parent building --
-                    each canBeParentBuildings
-                      option(value="{{_id}}", selected="{{condition _id 'is' ../parentId}}") {{title}}
+              //if canHaveParentId
+              //  label.building-admin-edit
+              //    span.building-admin-edit-text
+              //      | Parent Building:
+              //    select.form-control(name="parentId")
+              //      option(value="") -- No parent building --
+              //      each canBeParentBuildings
+              //        option(value="{{_id}}", selected="{{condition _id 'is' ../parentId}}") {{title}}
               label.building-admin-edit
                 span.building-admin-edit-text
                   | City:

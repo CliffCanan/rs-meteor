@@ -51,8 +51,8 @@ Router.map ->
     fastRender: true
     subscriptions: ->
       subs = []
-      if Meteor.user()?.role is "admin"
-        subs.push(adminSubs.subscribe("allBuildings"))
+#      if Meteor.user()?.role is "admin"
+#        subs.push(adminSubs.subscribe("allBuildings"))
       subs.push(buildingSubs.subscribe("building", @params.cityId, @params.unitSlug or @params.buildingSlug))
       subs.push(buildingSubs.subscribe("buildingParent", @params.cityId, @params.unitSlug or @params.buildingSlug))
       subs.push(buildingSubs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug))

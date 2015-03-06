@@ -120,9 +120,9 @@ Template.building.events
       oldBuilding = Buildings.findOne(template.data.building._id)
       $form.find(".submit-button").prop("disabled", true)
       $form.find(".loading").show()
-      Buildings.update oldBuilding._id, {$set: data}, (error) ->
+      Meteor.apply "updateBuilding", [oldBuilding._id, data], onResultReceived: (error, building) ->
         unless error
-          building = Buildings.findOne(template.data.building._id)
+          building = share.Transformations.Building(building)
           newUrl = Router.routes["building"].path(building.getRouteData())
           if newUrl isnt Router.routes["building"].path(oldBuilding.getRouteData())
             Router.go(newUrl)
