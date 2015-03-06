@@ -99,6 +99,9 @@ Buildings.before.update (userId, building, fieldNames, modifier, options) ->
       else
         modifier.$set[idField] = "" + modifier.$set[idField]
 
+  if modifier.$set.parentId and Buildings.find({parentId: building._id}).count()
+    delete modifier.$set.parentId
+
   unless Object.keys(modifier.$set).length
     delete modifier.$set
   unless Object.keys(modifier.$unset).length
