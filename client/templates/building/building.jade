@@ -175,8 +175,9 @@ template(name="building")
                 label
                   | Parent Building:
                   select(name="parentId")
+                    option(value="") Select from list
                     each canBeParentBuildings
-                      option(value="{{parentId}}", selected="{{condition _id 'is' ../parentId}}") {{title}}
+                      option(value="{{_id}}", selected="{{condition _id 'is' ../parentId}}") {{title}}
                 br
               label
                 | City:
