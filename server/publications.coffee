@@ -70,7 +70,7 @@ Meteor.smartPublish "buildingUnits", (cityId, slug) ->
 
 Meteor.publish "allBuildings", ->
   user = Meteor.users.findOne(@userId)
-  if user.role is "admin"
+  if user?.role is "admin"
     Buildings.find()
   else
     []
