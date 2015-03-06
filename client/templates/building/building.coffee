@@ -6,20 +6,22 @@ Template.building.helpers
 
   ironRouterHack: ->
     Router.current() # reactivity
-    $('[data-toggle="tooltip"]').tooltip()
-    addthis?.init()
-    $carousel = $(".carousel")
-    carousel = $carousel.data("bs.carousel")
-    if carousel
-      carousel.pause()
-      carousel.destroy()
-    $firstItem = $carousel.find(".item:first")
-    if $firstItem.length
-      $firstItem.addClass("active")
-      $carousel.show().carousel()
-    else
-      $carousel.hide()
-    return ""
+    editBuildingId = Session.get("editBuildingId")
+    _.defer ->
+      $('[data-toggle="tooltip"]').tooltip()
+      addthis?.init()
+      $carousel = $(".carousel")
+      carousel = $carousel.data("bs.carousel")
+      if carousel
+        carousel.pause()
+        carousel.destroy()
+      $firstItem = $carousel.find(".item:first")
+      if $firstItem.length
+        $firstItem.addClass("active")
+        $carousel.show().carousel()
+      else
+        $carousel.hide()
+      return ""
 
   isEdit: ->
     Session.equals("editBuildingId", @_id)
