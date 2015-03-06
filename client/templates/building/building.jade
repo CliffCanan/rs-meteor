@@ -323,34 +323,41 @@ template(name="building")
                 +buildingAdminFieldsEdit
               else
                 with adminBuilding
-                  .form-group
-                    label
+                  .building-admin-info
+                    span.building-admin-info-text
                       | How to check availability:
-                    | {{adminAvailability}}
-                  .form-group
-                    label
+                    span.building-admin-info-data
+                      | {{adminAvailability}}
+                  .building-admin-info
+                    span.building-admin-info-text
                       | Escorted:
-                    | {{adminEscorted}}
-                  .form-group
-                    label
+                    span.building-admin-info-data
+                      | {{adminEscorted}}
+                  .building-admin-info
+                    span.building-admin-info-text
                       | Application fee:
-                    | {{adminAppFee}}
-                  .form-group
-                    label
+                    span.building-admin-info-data
+                      | {{adminAppFee}}
+                  .building-admin-info
+                    span.building-admin-info-text
                       | Office hours:
-                    | {{adminAvailability}}
-                  .form-group
-                    label
+                    span.building-admin-info-data
+                      | {{adminAvailability}}
+                  .building-admin-info
+                    span.building-admin-info-text
                       | Scheduling instructions:
-                    | {{adminScheduling}}
-                  .form-group
-                    label
+                    span.building-admin-info-data
+                      | {{adminScheduling}}
+                  .building-admin-info
+                    span.building-admin-info-text
                       | Contact instructions:
-                    | {{adminContact}}
-                  .form-group
-                    label
+                    span.building-admin-info-data
+                      | {{adminContact}}
+                  .building-admin-info
+                    span.building-admin-info-text
                       | Notes:
-                    | {{adminNotes}}
+                    span.building-admin-info-data
+                      | {{adminNotes}}
 
             //section.building-info-section
             //  h2.building-info-title

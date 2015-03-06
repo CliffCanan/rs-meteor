@@ -8,30 +8,30 @@ template(name="buildingAdminFieldsEdit")
           option(value="{{_id}}", selected="{{condition _id 'is' ../adminSameId}}") {{title}}
   with adminBuilding
     .form-group
-      label
+      label.building-admin-form-text
         | How to check availability:
         input.admin-field.form-control(type="text", name="adminAvailability", value="{{adminAvailability}}", disabled="{{Session 'adminSameId'}}")
     .form-group
-      label
+      label.building-admin-form-text
         | Escorted:
         input.admin-field.form-control(type="text", name="adminEscorted", value="{{adminEscorted}}", disabled="{{Session 'adminSameId'}}")
     .form-group
-      label
+      label.building-admin-form-text
         | Application fee:
         input.admin-field.form-control(type="text", name="adminAppFee", value="{{adminAppFee}}", disabled="{{Session 'adminSameId'}}")
     .form-group
-      label
+      label.building-admin-form-text
         | Office hours:
-        textarea.admin-field.form-control(name="adminOfficeHours", disabled="{{Session 'adminSameId'}}") {{adminAvailability}}
+        textarea.admin-field.form-control(name="adminOfficeHours", disabled="{{Session 'adminSameId'}}", rows="5") {{adminAvailability}}
     .form-group
-      label
+      label.building-admin-form-text
         | Scheduling instructions:
-        textarea.admin-field.form-control(name="adminScheduling", disabled="{{Session 'adminSameId'}}") {{adminScheduling}}
+        textarea.admin-field.form-control(name="adminScheduling", disabled="{{Session 'adminSameId'}}", rows="5") {{adminScheduling}}
     .form-group
-      label
+      label.building-admin-form-text
         | Contact instructions:
-        textarea.admin-field.form-control(name="adminContact", disabled="{{Session 'adminSameId'}}") {{adminContact}}
+        textarea.admin-field.form-control(name="adminContact", disabled="{{Session 'adminSameId'}}", rows="5") {{adminContact}}
     .form-group
-      label
+      label.building-admin-form-text
         | Notes:
-        textarea.admin-field.form-control(name="adminNotes", disabled="{{Session 'adminSameId'}}") {{adminNotes}}
+        textarea.admin-field.form-control(name="adminNotes", disabled="{{Session 'adminSameId'}}", rows="5") {{adminNotes}}
