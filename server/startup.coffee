@@ -3,7 +3,6 @@ process.env.MAIL_URL = 'smtp://postmaster@sandbox23e08b6535214d63a9b1f2e8543cbc7
 Meteor.startup ->
   Buildings._ensureIndex({slug: 1}, {unique: true, background: true})
 
-  share.loadFixtures()
   if Meteor.settings.public.isDebug
 #    Meteor.setInterval(share.loadFixtures, 300)
 #    mysqlImport()
@@ -12,3 +11,4 @@ Meteor.startup ->
 
 #  if Meteor.settings.public.isDebug
 #    Meteor.setInterval(share.loadFixtures, 300)
+  share.loadFixtures()
