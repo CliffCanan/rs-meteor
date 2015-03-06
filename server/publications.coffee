@@ -1,3 +1,8 @@
+addIsPublishFilter = (userId, selector) ->
+  user = Meteor.users.findOne(userId)
+  unless user?.role is "admin"
+    selector.isPublished = true
+
 Meteor.publish "currentUser", ->
   Meteor.users.find {_id: @userId},
     fields:
@@ -26,11 +31,13 @@ Meteor.smartPublish "buildings", (cityId, page) ->
     _id = building.images?[0]?._id
     if _id then [BuildingImages.find(_id)] else []
   selector = {parentId: {$exists: false}, cityId: cityId}
+  addIsPublishFilter(@userId, selector)
   Buildings.find(selector, {limit: limit, sort: {createdAt: -1, _id: 1}})
 
 Meteor.publish "city-buildings-count", (cityId) ->
   check(cityId, Match.InArray(cityIds))
   selector = {parentId: {$exists: false}, cityId: cityId}
+  addIsPublishFilter(@userId, selector)
   Counts.publish(@, "city-buildings-count", Buildings.find(selector))
   undefined
 
@@ -41,7 +48,9 @@ Meteor.smartPublish "building", (cityId, slug) ->
     imageIds = _.map building.images, (file) ->
       file._id
     [BuildingImages.find({_id: {$in: imageIds}})]
-  Buildings.find({cityId: cityId, slug: slug})
+  selector = {cityId: cityId, slug: slug}
+  addIsPublishFilter(@userId, selector)
+  Buildings.find(selector)
 
 Meteor.smartPublish "buildingParent", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
@@ -53,6 +62,8 @@ Meteor.smartPublish "buildingParent", (cityId, slug) ->
       imageIds = _.map building.images, (file) ->
         file._id
       [BuildingImages.find({_id: {$in: imageIds}})]
+    selector = {_id: childBuilding.parentId}
+    addIsPublishFilter(@userId, selector)
     [Buildings.find({_id: childBuilding.parentId})]
   else
     []
@@ -66,7 +77,9 @@ Meteor.smartPublish "buildingUnits", (cityId, slug) ->
     imageIds = _.map building.images, (file) ->
       file._id
     [BuildingImages.find({_id: {$in: imageIds}})]
-  [Buildings.find({parentId: parentBuilding._id})]
+  selector = {parentId: parentBuilding._id}
+  addIsPublishFilter(@userId, selector)
+  [Buildings.find()]
 
 Meteor.publish "allBuildings", ->
   user = Meteor.users.findOne(@userId)
