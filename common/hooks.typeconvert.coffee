@@ -56,10 +56,11 @@ Buildings.before.insert (userId, building) ->
       building[boolField] = !!building[boolField]
 
   for idField in idFields
-    if building[idField] is ""
-      delete building[idField]
-    else
-      building[idField] = "" + building[idField]
+    if building[idField]?
+      if building[idField] is ""
+        delete building[idField]
+      else
+        building[idField] = "" + building[idField]
 
   true
 
