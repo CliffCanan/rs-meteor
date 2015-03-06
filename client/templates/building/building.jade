@@ -72,15 +72,14 @@ template(name="building")
                 each complexFields true
                   li.building-main-prop
                     b {{label}}:
-                    br
-                    each values
-                      label.label-radio
-                        input(type="radio", name="{{name}}", value="{{value}}", checked="{{isChecked}}")
-                        | {{text}}
-                    br
+                    .label-radio-wrap
+                      each values
+                        label.label-radio
+                          input(type="radio", name="{{name}}", value="{{value}}", checked="{{isChecked}}")
+                          | {{text}}
                     label
                       | Comment:
-                      input.input-comment(type="text", name="{{commentName}}", value="{{commentValue}}")
+                      input.input-comment.form-control(type="text", name="{{commentName}}", value="{{commentValue}}")
                 li.building-main-prop
                   label
                     | Is furnished:
@@ -97,21 +96,21 @@ template(name="building")
                     | Is not available
                 li.building-main-prop
                   label
-                    input.input-from-to(type="text", name="sqftFrom", value="{{sqftFrom}}")
+                    input.input-from-to.form-control(type="text", name="sqftFrom", value="{{sqftFrom}}")
                     | -
-                    input.input-from-to(type="text", name="sqftTo", value="{{sqftTo}}")
+                    input.input-from-to.form-control(type="text", name="sqftTo", value="{{sqftTo}}")
                     | Square Feets
                 li.building-main-prop
                   label
-                    input.input-from-to(type="text", name="bedroomsFrom", value="{{bedroomsFrom}}")
+                    input.input-from-to.form-control(type="text", name="bedroomsFrom", value="{{bedroomsFrom}}")
                     | -
-                    input.input-from-to(type="text", name="bedroomsTo", value="{{bedroomsTo}}")
+                    input.input-from-to.form-control(type="text", name="bedroomsTo", value="{{bedroomsTo}}")
                     | Bedrooms
                 li.building-main-prop
                   label
-                    input.input-from-to(type="text", name="bathroomsFrom", value="{{bathroomsFrom}}")
+                    input.input-from-to.form-control(type="text", name="bathroomsFrom", value="{{bathroomsFrom}}")
                     | -
-                    input.input-from-to(type="text", name="bathroomsTo", value="{{bathroomsTo}}")
+                    input.input-from-to.form-control(type="text", name="bathroomsTo", value="{{bathroomsTo}}")
                     | Bathrooms
             else
               ul.building-main-prop-list.list-unstyled.clearfix
@@ -147,7 +146,7 @@ template(name="building")
               input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
               p.building-main-info-desc
                 if Session "editBuildingMode"
-                  textarea(name="description") {{{description}}}
+                  textarea.form-control(name="description") {{{description}}}
                 else
                   | {{{getDescription}}}
               //p.building-main-info-desc
@@ -172,61 +171,61 @@ template(name="building")
           .building-info-wrap.col-lg-7
             if Session "editBuildingMode"
               if canHaveParentId
-                label
-                  | Parent Building:
+                label.building-admin-edit
+                  span.building-admin-edit-text
+                    | Parent Building:
                   select(name="parentId")
                     each canBeParentBuildings
                       option(value="{{parentId}}", selected="{{condition _id 'is' ../parentId}}") {{title}}
-                br
-              label
-                | City:
+              label.building-admin-edit
+                span.building-admin-edit-text
+                  | City:
                 select(name="cityId")
                   each cities
                     option(value="{{key}}", selected="{{condition key 'is' ../cityId}}") {{value}}
-              br
-              label
-                | Address:
+              label.building-admin-edit
+                span.building-admin-edit-text
+                  | Address:
                 input(type="text", name="address", value="{{address}}")
-              br
-              label
-                | Postal code:
+              label.building-admin-edit
+                span.building-admin-edit-text
+                  | Postal code:
                 input(type="text", name="postalCode", value="{{postalCode}}")
-              br
-              label
-                | Neighborhood:
+              label.building-admin-edit
+                span.building-admin-edit-text
+                  | Neighborhood:
                 input(type="text", name="neighborhood", value="{{neighborhood}}")
-              br
-              label
+              label.building-admin-edit
                 input(type="checkbox", name="isPublished", value="true", checked="{{isPublished}}")
-                | Is published
-              br
-              label
+                span.building-admin-edit-text
+                  | Is published
+              label.building-admin-edit
                 input(type="checkbox", name="isOnMap", value="true", checked="{{isOnMap}}")
-                | Is on map
-              br
-              label
-                | Unit type:
+                span.building-admin-edit-text
+                  | Is on map
+              label.building-admin-edit
+                span.building-admin-edit-text
+                  | Unit type:
                 select(name="btype")
                   each btypes
                     option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
 
-            //Session "editBuildingMode"
-            if false
-              .container
-                .row.col-lg-8
-                  ul(style="list-style-type: none;")
+            if Session "editBuildingMode"
+              .container-fluid
+                .row
+                  ul.list-unstyled.clearfix
                     each getImages
-                      li.col-lg-4.col-md-4.col-sm-6.col-xs-8
+                      li.col-lg-3.col-md-3.col-sm-6.col-xs-6
                         .item.edit-item
                           #element1.thumbnail-image
-                            img.building-img.img-thumbnail(src="{{url}}" width="150" height="120" style="min-width:150px;max-width:150px;max-height:120px;min-height:120px;")
+                            img.building-img.img-thumbnail(src="{{url}}")
                             #element2.cover-image
                               button.remove-image( type='button', aria-label='Remove' data-toggle="modal" data-target="#confirmRemoval")
                                 span.fa.fa-trash(aria-hidden='true')
                     li.col-lg-4.col-md-4.col-sm-6.col-xs-8
                       .item.add-image-item.edit-item
                         .form-group
-                          span.form-control.file-input.btn.btn-default.add-image-btn(aria-hidden='true' style="min-width:150px;max-width:150px;max-height:120px;min-height:120px;")
+                          span.form-control.file-input.btn.btn-primary.add-image-btn(aria-hidden='true')
                             .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
                             | Add images
                             input.choose-image-input(type="file" multiple="true")

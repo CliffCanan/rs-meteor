@@ -93,6 +93,7 @@
           .input-from-to
             width 60px
             text-align right
+            display inline-block
       .building-main-info-btn
         @media screen and (min-width: 1200px)
           width 300px
@@ -164,6 +165,15 @@
 .building-info-wrap
   @media screen and (min-width: 1200px)
     float left
+  select
+    padding 3px 10px
+
+  .building-admin-edit
+    display block
+    margin-bottom 10px
+    .building-admin-edit-text
+      width 120px
+      display inline-block
 
   .building-img-wrap
     max-width 800px
@@ -381,10 +391,6 @@
   visibility visible
 
 .edit-item
-  min-width:150px;
-  max-width:150px;
-  max-height:120px;
-  min-height:120px;
   margin: 10px;
 
 #element1 {
@@ -445,3 +451,6 @@ footer
     display inline-block
     .building-admin-info-data
       display inline-block
+
+.label-radio
+  padding 0 5px 0 0
