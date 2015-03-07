@@ -58,7 +58,8 @@ Buildings.before.insert (userId, building) ->
 
   for idField in idFields
     if building[idField]?
-      if building[idField] is ""
+      building[idField] = parseInt(building[idField])
+      if isNaN(building[idField])
         delete building[idField]
       else
         building[idField] = "" + building[idField]
@@ -94,7 +95,8 @@ Buildings.before.update (userId, building, fieldNames, modifier, options) ->
 
   for idField in idFields
     if modifier.$set[idField]?
-      if modifier.$set[idField] is ""
+      modifier.$set[idField] = parseInt(modifier.$set[idField])
+      if isNaN(modifier.$set[idField])
         delete modifier.$set[idField]
         modifier.$unset[idField] = true
       else

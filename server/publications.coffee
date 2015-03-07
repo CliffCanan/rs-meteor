@@ -57,16 +57,24 @@ Meteor.smartPublish "buildingParent", (cityId, slug) ->
   check(slug, String)
   childBuilding = Buildings.findOne({cityId: cityId, slug: slug})
   return [] if not childBuilding
-  if childBuilding.parentId
-    @addDependency "buildings", "images", (building) ->
-      imageIds = _.map building.images, (file) ->
+#  @addDependency "buildings", "images", (building) ->
+#    imageIds = _.map building.images, (file) ->
+#      file._id
+#    [BuildingImages.find({_id: {$in: imageIds}})]
+  @addDependency "buildings", "parentId", (building) ->
+    parent = Buildings.findOne(building.parentId)
+    if parent
+      imageIds = _.map parent.images, (file) ->
         file._id
-      [BuildingImages.find({_id: {$in: imageIds}})]
-    selector = {_id: childBuilding.parentId}
-    addIsPublishFilter(@userId, selector)
-    [Buildings.find({_id: childBuilding.parentId})]
-  else
-    []
+      [
+        Buildings.find({_id: building.parentId})
+        BuildingImages.find({_id: {$in: imageIds}})
+      ]
+    else
+      []
+  selector = {_id: childBuilding._id}
+  addIsPublishFilter(@userId, selector)
+  [Buildings.find(selector)]
 
 Meteor.smartPublish "buildingUnits", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))

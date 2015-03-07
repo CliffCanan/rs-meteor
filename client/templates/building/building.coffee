@@ -49,11 +49,6 @@ Template.building.helpers
   adminBuilding: ->
     if @adminSameId then Buildings.findOne(@adminSameId) else @
 
-  canHaveParentId: ->
-    !Buildings.find({parentId: @_id}).count()
-  canBeParentBuildings: ->
-    Buildings.find({_id: {$ne: @_id}, parentId: {$exists: false}}, {sort: {title: 1}})
-
 Template.building.rendered = ->
   Session.set("showAllBuildingUnits", false)
 
@@ -122,14 +117,11 @@ Template.building.events
       oldBuilding = Buildings.findOne(template.data.building._id)
       $form.find(".submit-button").prop("disabled", true)
       $form.find(".loading").show()
-      Meteor.apply "updateBuilding", [oldBuilding._id, data], onResultReceived: (error, building) ->
+      Meteor.apply "updateBuilding", [oldBuilding._id, data], onResultReceived: (error, newUrl) ->
         unless error
-          building = share.Transformations.Building(building)
-          newUrl = Router.routes["building"].path(building.getRouteData())
+          Session.set("editBuildingId", null)
           if newUrl isnt Router.routes["building"].path(oldBuilding.getRouteData())
             Router.go(newUrl)
-          else
-            Session.set("editBuildingId", null)
         $form.find(".submit-button").prop("disabled", false)
         $form.find(".loading").hide()
     else
