@@ -89,3 +89,6 @@ Template.registerHelper "cities", ->
 
 Template.registerHelper "btypes", ->
   btypesArray
+
+Template.registerHelper "canOperateWithBuilding", ->
+  Security.canOperateWithBuilding()

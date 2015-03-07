@@ -151,3 +151,8 @@ Template.city.events
       if $el.scrollTop() >= $container.outerHeight() - $el.outerHeight()
         incrementPageNumber()
 
+  "click .button-building-insert": (event, template) ->
+    Meteor.apply "insertBuilding", [], onResultReceived: (error, newUrl) ->
+      unless error
+        Router.go(newUrl)
+

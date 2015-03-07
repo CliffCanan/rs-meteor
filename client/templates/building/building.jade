@@ -18,7 +18,7 @@ template(name="building")
       form.building-form
         article.building-page.clearfix
           aside.building-main-info.col-lg-5
-            if admin
+            if canOperateWithBuilding
               .control-buttons
                 if isEdit
                   button.btn.btn-primary.save-building(type="submit")
@@ -330,7 +330,7 @@ template(name="building")
                         span.building-features-text
                           | {{.}}
 
-            if admin
+            if canOperateWithBuilding
               if isEdit
                 +buildingAdminFieldsEdit
               else

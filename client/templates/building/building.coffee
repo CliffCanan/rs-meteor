@@ -1,9 +1,6 @@
 positions = [10000, 5000, 0, -5000, -10000]
 
 Template.building.helpers
-  admin: ->
-    Meteor.user()?.role is "admin"
-
   ironRouterHack: ->
     Router.current() # reactivity
     editBuildingId = Session.get("editBuildingId")

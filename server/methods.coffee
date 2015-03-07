@@ -1,9 +1,19 @@
 Meteor.methods
+  "insertBuilding": ->
+    throw new Meteor.Error("no permissions")  unless Security.canOperateWithBuilding()
+    buildingId = Buildings.insert({})
+    building = Buildings.findOne(buildingId)
+    unless building
+      throw new Meteor.Error("building is not created")
+    building = share.Transformations.Building(building)
+    Router.routes["building"].path(building.getRouteData())
+
   "updateBuilding": (buildingId, data) ->
+    throw new Meteor.Error("no permissions")  unless Security.canOperateWithBuilding()
     Buildings.update(buildingId, {$set: data})
     building = Buildings.findOne(buildingId)
     unless building
-      throw Meteor.Error("no object with such id")
+      throw new Meteor.Error("no object with such id")
     building = share.Transformations.Building(building)
     Router.routes["building"].path(building.getRouteData())
 

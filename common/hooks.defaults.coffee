@@ -7,6 +7,9 @@ Buildings.before.insert (userId, building) ->
     isOnMap: false
     isPublished: false
     propertyType: 0
+    position: 10000
+    features: []
+    images: []
 
   now = new Date()
   _.extend building,

@@ -1,6 +1,6 @@
 addIsPublishFilter = (userId, selector) ->
   user = Meteor.users.findOne(userId)
-  unless user?.role is "admin"
+  unless Security.canOperateWithBuilding(user)
     selector.isPublished = true
 
 Meteor.publish "currentUser", ->
@@ -87,7 +87,7 @@ Meteor.smartPublish "buildingUnits", (cityId, slug) ->
 
 Meteor.publish "allBuildings", ->
   user = Meteor.users.findOne(@userId)
-  if user?.role is "admin"
+  if Security.canOperateWithBuilding(user)
     Buildings.find()
   else
     []

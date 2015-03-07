@@ -7,6 +7,10 @@ template(name="city")
     +cityHeader
 
     .main-city-list-wrap.clearfix.pull-left
+      if canOperateWithBuilding
+        button.btn.btn-primary.button-building-insert
+          i.fa.fa-plus
+          | Add Building
       ul.main-city-list.list-unstyled.row
         each buildings
           li.col-lg-4.col-md-6.col-sm-6.col-xs-12

@@ -244,7 +244,7 @@ dataFields =
             building.title = data.value
         else if fieldName is "images"
           parseImages(building, data.value)
-        else if fieldName is "videos"
+#        else if fieldName is "videos"
           # TODO: process videos
         else
           if data.value.length

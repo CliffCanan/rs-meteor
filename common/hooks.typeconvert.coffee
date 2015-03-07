@@ -19,7 +19,7 @@ boolFields = ["isFurnished"]
 idFields = ["parentId", "adminSameId"]
 
 buildingBeforeSave = (modifier) ->
-  if modifier.features and not _.isArray(modifier.features)
+  if modifier.features? and not _.isArray(modifier.features)
     features = []
     if typeof modifier.features is "string"
       for feature in modifier.features.split(",")
@@ -100,7 +100,7 @@ Buildings.before.update (userId, building, fieldNames, modifier, options) ->
         delete modifier.$set[idField]
         modifier.$unset[idField] = true
       else
-        modifier.$set[idField] = "" + modifier.$set[idField]
+        modifier.$set[idField] = modifier.$set[idField]
 
   if modifier.$set.parentId and Buildings.find({parentId: building._id}).count()
     delete modifier.$set.parentId
