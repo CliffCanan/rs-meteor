@@ -13,3 +13,11 @@
       selector[fieldName].$lte = priceTo
   if query.q
     selector.title = createTextSearchRegexp(decodeURIComponent(query.q))
+  boolFieldNames = ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
+  for boolFieldName in boolFieldNames
+    if query[boolFieldName]
+      selector[boolFieldName] = {$gt: 0}
+  if query.available
+    available = new Date(decodeURIComponent(query.available))
+    if available.getTime()
+      selector.$or = [{availableAt: {$exists: false}}, {availableAt: {$lte: available}}]

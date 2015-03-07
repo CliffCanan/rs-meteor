@@ -24,79 +24,79 @@ template(name="cityHeader")
         button.features-btn.dropdown-toggle.btn.btn-default(type="button")
           i.fa.fa-check
           | Features
-        .features-section.dropdown-menu
+        form.form-building-features-filter.features-section.dropdown-menu
           h3.filter-title
             | Filter the search results by the criteria that you need, in order to find your best apartment!
           ul.filter-list.list-unstyled.clearfix
             li.checkbox-wrap.col-md-6
-              input#doorman.css-checkbox(type="checkbox", value="")
-              label.css-label(for="doorman")
+              input#security.css-checkbox(type="checkbox", name="security", value="true", checked="{{query.security}}")
+              label.css-label(for="security")
                 | Doorman
             li.checkbox-wrap.col-md-6
-              input#fitness.css-checkbox(type="checkbox", value="")
-              label.css-label(for="fitness")
+              input#fitnessCenter.css-checkbox(type="checkbox", name="fitnessCenter", value="true", checked="{{query.fitnessCenter}}")
+              label.css-label(for="fitnessCenter")
                 | Fitness Center
             li.checkbox-wrap.col-md-6
-              input#pet.css-checkbox(type="checkbox", value="")
-              label.css-label(for="pet")
+              input#pets.css-checkbox(type="checkbox", name="pets", value="true", checked="{{query.pets}}")
+              label.css-label(for="pets")
                 | Pet friendly
+            //li.checkbox-wrap.col-md-6
+            //  input#managedBuildings.css-checkbox(type="checkbox", value="true")
+            //  label.css-label(for="managedBuildings")
+            //    | Managed buildings
+            //li.checkbox-wrap.col-md-6
+            //  input#brownstone.css-checkbox(type="checkbox", value="true")
+            //  label.css-label(for="brownstone")
+            //    | Brownstone
             li.checkbox-wrap.col-md-6
-              input#managedBuildings.css-checkbox(type="checkbox", value="")
-              label.css-label(for="managedBuildings")
-                | Managed buildings
-            li.checkbox-wrap.col-md-6
-              input#brownstone.css-checkbox(type="checkbox", value="")
-              label.css-label(for="brownstone")
-                | Brownstone
-            li.checkbox-wrap.col-md-6
-              input#loundry.css-checkbox(type="checkbox", value="")
+              input#loundry.css-checkbox(type="checkbox", name="laundry", value="true", checked="{{query.laundry}}")
               label.css-label(for="loundry")
                 | Loundry In-unit
             li.checkbox-wrap.col-md-6
-              input#parkingFeatures.css-checkbox(type="checkbox", value="")
-              label.css-label(for="parkingFeatures")
+              input#parking.css-checkbox(type="checkbox", name="parking", value="true", checked="{{query.parking}}")
+              label.css-label(for="parking")
                 | Parking
             li.checkbox-wrap.col-md-6
-              input#utilities.css-checkbox(type="checkbox", value="")
+              input#utilities.css-checkbox(type="checkbox", name="utilities", value="true", checked="{{query.utilities}}")
               label.css-label(for="utilities")
                 | Utilities inclided
-            li.checkbox-wrap.col-md-6
-              input#listings.css-checkbox(type="checkbox", value="")
-              label.css-label(for="listings")
-                | Private listings
+            //li.checkbox-wrap.col-md-6
+            //  input#listings.css-checkbox(type="checkbox", name="listings", value="true", checked="{{query.listings}}")
+            //  label.css-label(for="listings")
+            //    | Private listings
           label.city-features-date
             | Availible from/before
-            input.form-control(type="text", value="")
-          button.btn.btn-primary.apply-changes-btn(type="button")
+            +datepicker(name="available" value=query.available)
+          button.btn.btn-primary.apply-changes-btn(type="submit")
             | Apply Changes
-          span.clear-btn
+          span.clear-btn.form-building-features-filter-reset
             | Clear Filter
-      .dropdown.city-filter
-        button.features-btn.dropdown-toggle.btn.btn-default(type="button")
-          | Favorite location
-        .location-list.dropdown-menu
-          h3.filter-title
-            | Enter your most common destination (work, school, etc) to find apartments close to it
-          label.filter-field
-            input.form-control(type="text", placeholder="Destination Address")
-          .dropdown.pull-left
-            button.btn.btn-default.dropdown-toggle.filter-select
-              span.button-text
-                | Less than 10 minutes
-            ul.dropdown-menu
-              li.filter-arrive-item
-                | Less than 10 minutes
-              li.filter-arrive-item
-                | Less than 30 minutes
-          ul.city-motion-list.pull-right.list-unstyled
-            li.city-motion-item.city-motion-walk
-            li.city-motion-item.city-motion-car
-            li.city-motion-item.city-motion-bike
-          .button-wrap.clearfix
-            button.btn.btn-primary.apply-changes-btn(type="button")
-              | Apply Changes
-            span.clear-btn
-              | Clear Filter
+      //.dropdown.city-filter
+      //  button.features-btn.dropdown-toggle.btn.btn-default(type="button")
+      //    | Favorite location
+      //  .location-list.dropdown-menu
+      //    h3.filter-title
+      //      | Enter your most common destination (work, school, etc) to find apartments close to it
+      //    label.filter-field
+      //      input.form-control(type="text", placeholder="Destination Address")
+      //    .dropdown.pull-left
+      //      button.btn.btn-default.dropdown-toggle.filter-select
+      //        span.button-text
+      //          | Less than 10 minutes
+      //      ul.dropdown-menu
+      //        li.filter-arrive-item
+      //          | Less than 10 minutes
+      //        li.filter-arrive-item
+      //          | Less than 30 minutes
+      //    ul.city-motion-list.pull-right.list-unstyled
+      //      li.city-motion-item.city-motion-walk
+      //      li.city-motion-item.city-motion-car
+      //      li.city-motion-item.city-motion-bike
+      //    .button-wrap.clearfix
+      //      button.btn.btn-primary.apply-changes-btn(type="button")
+      //        | Apply Changes
+      //      span.clear-btn
+      //        | Clear Filter
     if canOperateWithBuilding
       .filter-wrap
         input.building-title-search(type="text", placeholder="Search by title", value="{{query.q}}")

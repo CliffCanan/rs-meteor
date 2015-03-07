@@ -26,6 +26,13 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
     from: Match.Optional(String)
     to: Match.Optional(String)
     q: Match.Optional(String)
+    security: Match.Optional(String)
+    fitnessCenter: Match.Optional(String)
+    pets: Match.Optional(String)
+    laundry: Match.Optional(String)
+    parking: Match.Optional(String)
+    utilities: Match.Optional(String)
+    available: Match.Optional(String)
 
   page = parseInt(page)
   unless page > 0
