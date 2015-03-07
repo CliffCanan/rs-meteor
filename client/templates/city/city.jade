@@ -11,23 +11,8 @@ template(name="city")
         button.btn.btn-primary.button-building-insert
           i.fa.fa-plus
           | Add Building
-      ul.main-city-list.list-unstyled.row
-        each buildings
-          li.col-lg-4.col-md-6.col-sm-6.col-xs-12
-            .main-city-item
-              a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
-                img(src="{{#if mainImage}}{{mainImage.url store='thumbs'}}{{else}}/images/placeholder.png{{/if}}")
-              .main-city-item-wrap
-                h2.main-city-item-title
-                  a.main-city-item-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}") {{title}}
-                //span.main-city-info-btn.fa.fa-question-circle.pull-right
-                .main-city-info.clearfix
-                  i.fa(class="{{#if agroIsUnit}}fa-key{{else}}fa-building{{/if}}")
-                  span.main-city-price
-                    | {{displayBuildingPrice}}
-                  span.main-city-desc
-                    | {{bedroomTypes}}
-      if loadingBuildings
+
+      if firstLoad
         .city-spinner
           .rect1
           .rect2
@@ -35,7 +20,32 @@ template(name="city")
           .rect4
           .rect5
       else
-        if notAllLoaded
-          .load-more.loading-btn-wrap
-            .loading-btn.btn.btn-primary.btn-lg
-              | Load More
+        ul.main-city-list.list-unstyled.row
+          each buildings
+            li.col-lg-4.col-md-6.col-sm-6.col-xs-12
+              .main-city-item
+                a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
+                  img(src="{{#if mainImage}}{{mainImage.url store='thumbs'}}{{else}}/images/placeholder.png{{/if}}")
+                .main-city-item-wrap
+                  h2.main-city-item-title
+                    a.main-city-item-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}") {{title}}
+                  //span.main-city-info-btn.fa.fa-question-circle.pull-right
+                  .main-city-info.clearfix
+                    i.fa(class="{{#if agroIsUnit}}fa-key{{else}}fa-building{{/if}}")
+                    span.main-city-price
+                      | {{displayBuildingPrice}}
+                    span.main-city-desc
+                      | {{bedroomTypes}}
+
+        if loadingBuildings
+          .city-spinner
+            .rect1
+            .rect2
+            .rect3
+            .rect4
+            .rect5
+        else
+          if notAllLoaded
+            .load-more.loading-btn-wrap
+              .loading-btn.btn.btn-primary.btn-lg
+                | Load More

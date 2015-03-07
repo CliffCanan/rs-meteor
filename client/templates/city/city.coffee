@@ -11,6 +11,8 @@ $(window).on("resize", setHeights)
 markers = {}
 
 Template.city.helpers
+  firstLoad: ->
+    !citySubsciption.ready() and Session.get("cityPageData")?.page is 1
   loadingBuildings: ->
     ready = citySubsciption.ready()
     if ready
@@ -24,14 +26,6 @@ Template.city.helpers
     selector = {parentId: {$exists: false}, cityId: @cityId}
     addQueryFilter(@query, selector)
     Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
-  randomImage: ->
-#    images = [
-#      "/images/search-img1.jpg"
-#      "/images/search-img2.jpg"
-#      "/images/search-img3.jpg"
-#    ]
-#    images[Math.floor(Math.random() * images.length)]
-    "/images/search-img3.jpg"
 
 Template.city.rendered = ->
   setHeights()
