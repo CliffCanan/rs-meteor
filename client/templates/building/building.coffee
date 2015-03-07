@@ -48,6 +48,42 @@ Template.building.helpers
 
 Template.building.rendered = ->
   Session.set("showAllBuildingUnits", false)
+  setHeights()
+  building = @data.building
+  cityData = cities[building.cityId]
+  map = new google.maps.Map document.getElementById("gmap"),
+    zoom: 14
+    center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
+    streetViewControl: false
+    scaleControl: false
+    rotateControl: false
+    panControl: false
+    overviewMapControl: false
+    mapTypeControl: false
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  @map = map
+  infowindow = new google.maps.InfoWindow()
+  defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
+  activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null,
+    new google.maps.Size(50, 60))
+  if building.latitude and building.longitude
+    marker = new google.maps.Marker
+      _id: building._id
+      title: building.title
+      position: new google.maps.LatLng(building.latitude, building.longitude)
+      map: map
+      icon: defaultIcon
+
+    google.maps.event.addListener marker, "click", do (marker, building) ->->
+      mixpanel.track("property-container-map")
+      html = Blaze.toHTMLWithData(Template.buildingMarker, building)
+      infowindow.setContent(html)
+      infowindow.open(map, marker)
+      infoWindowId = marker._id
+      marker.setIcon(activeIcon)
+
+      google.maps.event.addListener infowindow, "closeclick", ->
+        marker.setIcon(defaultIcon)
 
 Template.building.events
   "click .check-availability": grab encapsulate (event, template) ->

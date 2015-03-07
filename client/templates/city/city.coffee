@@ -1,9 +1,9 @@
-setHeights = _.debounce ->
+@setHeights = _.debounce ->
   windowHeight = $(window).outerHeight()
   headerHeight = $(".header-wrap").outerHeight()
   filterHeight = $(".city-sub-header").outerHeight()
-  $(".city-side-bar").outerHeight(windowHeight - headerHeight)
-  $(".main-city-list-wrap").outerHeight(windowHeight - headerHeight - filterHeight)
+  $(".right-bar").outerHeight(windowHeight - headerHeight)
+  $(".left-bar").outerHeight(windowHeight - headerHeight - filterHeight)
 , 100, true
 
 $(window).on("resize", setHeights)
