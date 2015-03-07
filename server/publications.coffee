@@ -19,24 +19,34 @@ Meteor.publish "allUsers", ->
     return []
   Meteor.users.find()
 
-Meteor.smartPublish "buildings", (cityId, page) ->
+Meteor.smartPublish "buildings", (cityId, query, page) ->
   check(cityId, Match.InArray(cityIds))
   check(page, Number)
+  check query,
+    btype: Match.Optional(Match.InArray(btypesIds))
+    from: Match.Optional(String)
+    to: Match.Optional(String)
+    q: Match.Optional(String)
+
   page = parseInt(page)
   unless page > 0
     page = 1
   limit = page * itemsPerPage
 
+  selector = {parentId: {$exists: false}, cityId: cityId}
+  addQueryFilter(query, selector)
+  addIsPublishFilter(@userId, selector)
+
   @addDependency "buildings", "images", (building) ->
     _id = building.images?[0]?._id
     if _id then [BuildingImages.find(_id)] else []
-  selector = {parentId: {$exists: false}, cityId: cityId}
-  addIsPublishFilter(@userId, selector)
+
   Buildings.find(selector, {limit: limit, sort: {createdAt: -1, _id: 1}})
 
-Meteor.publish "city-buildings-count", (cityId) ->
+Meteor.publish "city-buildings-count", (cityId, query) ->
   check(cityId, Match.InArray(cityIds))
   selector = {parentId: {$exists: false}, cityId: cityId}
+  addQueryFilter(query, selector)
   addIsPublishFilter(@userId, selector)
   Counts.publish(@, "city-buildings-count", Buildings.find(selector))
   undefined

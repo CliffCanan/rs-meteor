@@ -6,8 +6,8 @@ Template.cityHeaderSlider.helpers
     min: min
     max: max
     value:
-      min: if @query.priceMin then parseInt(@query.priceMin) else min
-      max: if @query.priceMax then parseInt(@query.priceMax) else max
+      min: if @query.from then parseInt(@query.from) else min
+      max: if @query.to then parseInt(@query.to) else max
 
 Template.cityHeaderSlider.rendered = ->
   $slider = @$(".price-slider")
@@ -18,15 +18,15 @@ Template.cityHeaderSlider.rendered = ->
       value = event.value
       data = Router.current().data()
       query = data.query
-      if (parseInt(query.priceMin) or min) isnt value[0]
+      if (parseInt(query.from) or min) isnt value[0]
         if min is value[0]
-          delete query.priceMin
+          delete query.from
         else
-          query.priceMin = value[0]
+          query.from = value[0]
         Router.go("city", {cityId: data.cityId}, {query: query})
-      else if (parseInt(query.priceMax) or max) isnt value[1]
+      else if (parseInt(query.to) or max) isnt value[1]
         if max is value[1]
-          delete query.priceMax
+          delete query.to
         else
-          query.priceMax = value[1]
+          query.to = value[1]
         Router.go("city", {cityId: data.cityId}, {query: query})

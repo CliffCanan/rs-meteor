@@ -12,31 +12,17 @@ markers = {}
 
 Template.city.helpers
   loadingBuildings: ->
-    citySubs.dep.depend()
-    if citySubs.ready
+    ready = citySubsciption.ready()
+    if ready
       cityPageData = Session.get("cityPageData")
       Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage)
-    !citySubs.ready
+    !ready
   notAllLoaded: ->
     Template.city.__helpers[" buildings"].call(@).count() < Counts.get("city-buildings-count")
   # TODO: filter by price depend on btype
   buildings: ->
     selector = {parentId: {$exists: false}, cityId: @cityId}
-    if btype = @query.btype
-      fieldName = "price" + btype.charAt(0).toUpperCase() + btype.slice(1) + "From"
-      selector[fieldName] = {$exists: true}
-    priceMin = parseInt(@query.priceMin)
-    priceMax = parseInt(@query.priceMax)
-    unless isNaN(priceMin)
-      min = priceMin
-    unless  isNaN(priceMax)
-      max = priceMax
-    if min or max
-      selector.agroPriceFilter = {}
-      if min
-        selector.agroPriceFilter.$gte = min
-      if max
-        selector.agroPriceFilter.$lte = max
+    addQueryFilter(@query, selector)
     Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
   randomImage: ->
 #    images = [
@@ -145,7 +131,7 @@ Template.city.events
     incrementPageNumber()
 
   "scroll .main-city-list-wrap": (event, template) ->
-    if citySubs.ready and template.view.template.__helpers[" notAllLoaded"].call(template.data)
+    if citySubsciption.ready() and template.view.template.__helpers[" notAllLoaded"].call(template.data)
       $el = $(event.currentTarget)
       $container = $(".main-city-list", $el)
       if $el.scrollTop() >= $container.outerHeight() - $el.outerHeight()

@@ -97,3 +97,6 @@ template(name="cityHeader")
               | Apply Changes
             span.clear-btn
               | Clear Filter
+    if canOperateWithBuilding
+      .filter-wrap
+        input.building-title-search(type="text", placeholder="Search by title", value="{{query.q}}")

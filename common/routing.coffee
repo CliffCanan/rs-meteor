@@ -1,5 +1,4 @@
 adminSubs = new SubsManager()
-@citySubs = new SubsManager()
 buildingSubs = new SubsManager()
 
 Router.configure
@@ -35,8 +34,13 @@ Router.map ->
     name: "city"
     fastRender: true
     subscriptions: ->
-      citySubs.subscribe("buildings", @params.cityId, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
-      Meteor.subscribe("city-buildings-count", @params.cityId)
+      citySubsciption = Meteor.subscribe("buildings", @params.cityId, @params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
+      if Meteor.isClient
+        window.citySubsciption = citySubsciption
+      [
+        citySubsciption
+        Meteor.subscribe("city-buildings-count", @params.cityId, @params.query)
+      ]
     data: ->
       return null  unless @params.cityId in cityIds
       @params

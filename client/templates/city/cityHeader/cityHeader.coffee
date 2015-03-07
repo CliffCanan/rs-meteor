@@ -26,3 +26,15 @@ Template.cityHeader.events
     else
       delete query.btype
     Router.go("city", {cityId: data.cityId}, {query: query})
+
+  "keyup .building-title-search": _.debounce((event, template) ->
+    event.preventDefault()
+    data = template.data
+    q = encodeURIComponent($(event.currentTarget).val())
+    query = data.query
+    if q
+      query.q = q
+    else
+      delete query.q
+    Router.go("city", {cityId: data.cityId}, {query: query})
+  , 200)
