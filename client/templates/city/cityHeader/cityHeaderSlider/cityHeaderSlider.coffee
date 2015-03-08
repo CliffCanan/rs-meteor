@@ -2,7 +2,7 @@ Template.cityHeaderSlider.helpers
   sliderData: ->
     selector = {cityId: @cityId}
     min = 500
-    max = 10000
+    max = 5000
     min: min
     max: max
     value:
