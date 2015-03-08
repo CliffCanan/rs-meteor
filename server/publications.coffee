@@ -47,7 +47,7 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
     _id = building.images?[0]?._id
     if _id then [BuildingImages.find(_id)] else []
 
-  Buildings.find(selector, {limit: limit, sort: {createdAt: -1, _id: 1}})
+  Buildings.find(selector, {limit: limit, sort: {position: -1, createdAt: -1, _id: 1}})
 
 Meteor.publish "city-buildings-count", (cityId, query) ->
   check(cityId, Match.InArray(cityIds))
