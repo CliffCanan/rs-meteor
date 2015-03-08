@@ -147,13 +147,13 @@ Template.building.events
     $form = $(event.currentTarget)
     data = $form.serializeJSON({parseAll: true, checkboxUncheckedValue: false})
     if Object.keys(data).length
-      oldBuilding = Buildings.findOne(template.data.building._id)
+      building = Buildings.findOne(template.data.building._id)
       $form.find(".submit-button").prop("disabled", true)
       $form.find(".loading").show()
-      Meteor.apply "updateBuilding", [oldBuilding._id, data], onResultReceived: (error, newUrl) ->
+      Meteor.apply "updateBuilding", [building._id, data], onResultReceived: (error, newUrl) ->
         unless error
           Session.set("editBuildingId", null)
-          if newUrl isnt Router.routes["building"].path(oldBuilding.getRouteData())
+          if newUrl isnt Router.routes["building"].path(building.getRouteData())
             Router.go(newUrl)
         $form.find(".submit-button").prop("disabled", false)
         $form.find(".loading").hide()
