@@ -23,7 +23,7 @@ template(name="city")
         ul.main-city-list.list-unstyled.row
           each buildings
             li.col-lg-4.col-md-6.col-sm-6.col-xs-12
-              .main-city-item
+              .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
                 a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
                   img(src="{{#if mainImage}}{{mainImage.url store='thumbs'}}{{else}}/images/placeholder.png{{/if}}")
                 .main-city-item-wrap
