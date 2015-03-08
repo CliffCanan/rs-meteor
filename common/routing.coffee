@@ -48,6 +48,7 @@ Router.map ->
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
+        Session.set("cityScroll", 0)
       share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
       @next()
   @route "/city/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
