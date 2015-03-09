@@ -138,19 +138,22 @@ class Building
     else
       types = []
       postfix = ""
-      if @priceStudioFrom
+      if @agroPriceStudioFrom
         types.push("Studio")
-      if @priceBedroom1From
+      if @agroPriceBedroom1From
         types.push(1)
         postfix = " Bedroom"
       for i in [2..5]
-        if @["priceBedroom" + i + "From"]
+        if @["agroPriceBedroom" + i + "From"]
           types.push(i)
           postfix = " Bedrooms"
       types.join(", ") + postfix
-  displayBuildingPrice: ->
-    if @agroPriceTotalFrom
-      "$" + accounting.formatNumber(@agroPriceTotalFrom) + (if @agroPriceTotalFrom is @agroPriceTotalTo then "" else "+")
+  displayBuildingPrice: (queryBtype) ->
+    fieldName = "agroPrice" + (if queryBtype then queryBtype.charAt(0).toUpperCase() + queryBtype.slice(1) else "Total")
+    fieldNameFrom = fieldName + "From"
+    fieldNameTo = fieldName + "To"
+    if @[fieldNameFrom]
+      "$" + accounting.formatNumber(@[fieldNameFrom]) + (if @[fieldNameFrom] is @[fieldNameTo] then "" else "+")
   buildingUnits: (limit) ->
     options = {sort: {createdAt: -1, _id: 1}}
     if limit
@@ -162,11 +165,11 @@ class Building
     prices = []
     for key, value of btypes
       fieldName = "agroPrice" + key.charAt(0).toUpperCase() + key.slice(1)
-      fromFieldName = fieldName + "From"
-      toFieldName = fieldName + "To"
-      if @[fromFieldName]
+      fieldNameFrom = fieldName + "From"
+      fieldNameTo = fieldName + "To"
+      if @[fieldNameFrom]
         prices.push
-          price: formatPriceDisplay(@[fromFieldName], @[toFieldName])
+          price: formatPriceDisplay(@[fieldNameFrom], @[fieldNameTo])
           type: value.lower
     prices
 

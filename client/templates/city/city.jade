@@ -15,7 +15,7 @@ template(name="city")
       if firstLoad
         +loadingSpinner
       else
-        +cityBuildings(buildings=buildings)
+        +cityBuildings(buildings=buildings queryBtype=query.btype)
 
         if loadingBuildings
           +loadingSpinner

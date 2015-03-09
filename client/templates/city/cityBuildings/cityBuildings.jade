@@ -12,6 +12,6 @@ template(name="cityBuildings")
             .main-city-info.clearfix
               i.fa(class="{{#if agroIsUnit}}fa-key{{else}}fa-building{{/if}}")
               span.main-city-price
-                | {{displayBuildingPrice}}
+                | {{displayBuildingPrice ../queryBtype}}
               span.main-city-desc
                 | {{bedroomTypes}}
