@@ -1,6 +1,6 @@
 Buildings.before.insert (userId, building) ->
   _.defaults building,
-    title: "New Building Title"
+    title: "Building name or unit number"
     neighborhood: "center-city"
     cityId: cityIds[0]
     btype: btypesIds[1]

@@ -7,9 +7,14 @@ template(name="building")
         if canOperateWithBuilding
           .control-buttons
             unless parentId
-              button.btn.btn-success.add-unit(type="button") Add Unit
-            button.btn.btn-danger.remove-building(type="button") Delete Building
+              button.btn.btn-success.add-unit(type="button")
+                i.fa.fa-plus
+                | Add Unit
+            button.btn.btn-danger.remove-building(type="button")
+              i.fa.fa-trash
+              | Delete
             button.btn.btn-primary.publish-building-toggle(type="button")
+              i.fa(class="{{#if isPublished}}fa-arrow-circle-o-up{{else}}fa-arrow-circle-o-down{{/if}}")
               if isPublished
                 | Unpublish
               else
@@ -17,9 +22,15 @@ template(name="building")
             if isEdit
               button.btn.btn-primary.save-building(type="submit")
                 .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
-                | Save Building
+                i.fa.fa-check
+                | Save
+              button.btn.btn-warning.cancel-building(type="button")
+                i.fa.fa-times
+                | Cancel
             else
-              button.btn.btn-primary.edit-building(type="button") Edit Building
+              button.btn.btn-primary.edit-building(type="button")
+                i.fa.fa-pencil-square-o
+                | Edit
 
         ol.breadcrumb
           li
@@ -339,7 +350,8 @@ template(name="building")
 
             if canOperateWithBuilding
               if isEdit
-                +buildingAdminFieldsEdit
+                unless parentId
+                  +buildingAdminFieldsEdit
               else
                 with adminBuilding
                   .building-admin-info

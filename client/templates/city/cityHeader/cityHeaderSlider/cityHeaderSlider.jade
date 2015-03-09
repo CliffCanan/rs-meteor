@@ -3,6 +3,6 @@ template(name="cityHeaderSlider")
     .city-subheader-price
       span.city-subheader-price-val
         | Price
-      b &#36;{{min}}
+      b &#36;<span class="slider-price-from"></span>
       input.price-slider.span2(type="text", data-slider-min="{{min}}", data-slider-max="{{max}}", data-slider-step="5", data-slider-value="[{{value.min}},{{value.max}}]", data-slider-tooltip_split="true")
-      b &#36;{{max}}
+      b &#36;<span class="slider-price-to"></span>
