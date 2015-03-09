@@ -4,8 +4,18 @@ template(name="building")
   .city-page-wrap.col-lg-9
     with building
       form.building-form.content-wrapper.left-bar
+        ol.breadcrumb
+          li
+            a(href="/", title='home') Home
+          li
+            a(href="{{pathFor route='city'}}") {{cityName}}
+          with parent
+            li
+              a(href="{{pathFor route='building' data=getRouteData}}") {{title}}
+          li.active {{title}}
+
         if canOperateWithBuilding
-          .control-buttons
+          .control-buttons.btn-group
             unless parentId
               button.btn.btn-success.add-unit(type="button")
                 i.fa.fa-plus
@@ -21,7 +31,7 @@ template(name="building")
                 | Publish
             if isEdit
               button.btn.btn-primary.save-building(type="submit")
-                .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
+                i.fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
                 i.fa.fa-check
                 | Save
               button.btn.btn-warning.cancel-building(type="button")
@@ -31,16 +41,6 @@ template(name="building")
               button.btn.btn-primary.edit-building(type="button")
                 i.fa.fa-pencil-square-o
                 | Edit
-
-        ol.breadcrumb
-          li
-            a(href="/", title='home') Home
-          li
-            a(href="{{pathFor route='city'}}") {{cityName}}
-          with parent
-            li
-              a(href="{{pathFor route='building' data=getRouteData}}") {{title}}
-          li.active {{title}}
 
         article.building-page.clearfix
           aside.building-main-info.col-lg-5
@@ -238,7 +238,7 @@ template(name="building")
                 .row
                   ul.list-unstyled.clearfix
                     each getImages
-                      li.col-lg-4.col-md-4.col-sm-6.col-xs-6
+                      li.col-lg-4.col-md-3.col-sm-3.col-xs-6
                         .item.edit-item
                           #element1.thumbnail-image
                             img.building-img.img-thumbnail(src="{{url}}")
