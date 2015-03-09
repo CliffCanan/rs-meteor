@@ -122,28 +122,34 @@ template(name="building")
                 each complexFields
                   li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip", data-placement="top", title="{{commentValue}}")
                     i.fa(class="{{iconClass}}")
-                    | {{text}}
+                    span.building-main-prop-text
+                      | {{text}}
                     if comment
                       i.fa.fa-question-circle
                 if isNotNullOrUndefined isFurnished
                   li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                     if isFurnished
                       i.fa.fa-check.blue-icon
-                      | Furnished
+                      span.building-main-prop-text
+                        | Furnished
                     else
                       i.fa.fa-times.grey-icon
-                      | Not Furnished
+                      span.building-main-prop-text
+                        | Not Furnished
                 li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                   if isNotAvailable
                     i.fa.fa-times.grey-icon
-                    | Not Currently Available
+                    span.building-main-prop-text
+                      | Not Currently Available
                   else
                     i.fa.fa-check.blue-icon
-                    | Available: {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
+                    span.building-main-prop-text
+                      | Available: {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
                 with getBathrooms
                   li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                     i.fa.fa-check.blue-icon
-                    | {{.}}
+                    span.building-main-prop-text
+                      | {{.}}
 
             button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
               | Check Availability
@@ -221,22 +227,20 @@ template(name="building")
                 .row
                   ul.list-unstyled.clearfix
                     each getImages
-                      li.col-lg-3.col-md-3.col-sm-6.col-xs-6
+                      li.col-lg-4.col-md-4.col-sm-6.col-xs-6
                         .item.edit-item
                           #element1.thumbnail-image
-                            img.building-img.img-thumbnail(src="{{url}}" style="min-width:80px;max-width:80px;max-height:60px;min-height:60px;")
+                            img.building-img.img-thumbnail(src="{{url}}")
                             #element2.cover-image
                               button.remove-image( type='button', aria-label='Remove' data-toggle="modal" data-target="#confirmRemoval")
                                 span.fa.fa-trash(aria-hidden='true')
-                    li.col-lg-3.col-md-3.col-sm-6.col-xs-8
+                    li.col-lg-4.col-md-4.col-sm-6.col-xs-8
                       .item.add-image-item.edit-item
                         .form-group
-                          span.form-control.file-input.btn.btn-primary.add-image-btn(aria-hidden='true' style="min-width:80px;max-width:80px;max-height:60px;min-height:60px;")
-                            | Add
+                          span.file-input.add-image-btn(aria-hidden='true')
+                            b Add images
                             br
-                            | images
-                            br
-                            .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
+                            i.fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
                             input.choose-image-input(type="file" multiple="true")
             else
               .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel", data-interval="false")

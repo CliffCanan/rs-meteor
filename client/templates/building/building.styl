@@ -84,7 +84,11 @@
           font-size 16px
           padding 15px 0
           .fa
-            padding 0 10px 0
+            float left
+          .building-main-prop-text
+            padding-left 10px
+            display block
+            overflow hidden
           .label-radio
             margin-left 5px
             font-weight normal
@@ -369,42 +373,57 @@
 .grey-icon
   color dimgrey
 
-.add-image-btn {
+.add-image-btn
   position: relative;
   overflow: hidden;
-}
-.add-image-btn input[type=file] {
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
-  font-size: 100px;
-  text-align: right;
-  opacity: 0;
-  background: red;
-  cursor: inherit;
-  display: block;
-}
+  background-color #fff
+  border 1px solid #ddd
+  text-align center
+  width 140px
+  height 110px
+  font-size 20px
+  color #272b30
+  display block
+  border-radius 4px
+  margin-top 10px
+  cursor pointer
+  box-sizing border-box
+  b
+    padding 20px 20px 0
+    display inline-block
+
+.add-image-btn input[type=file]
+  position absolute
+  top 0
+  left 0
+  width 140px
+  height 110px
+  text-align right
+  opacity 0
+  cursor pointer
+  display block
+
 .cover-image
   visibility hidden
 
 .item:hover .cover-image
-  opacity: 1;
+  opacity 1
   visibility visible
 
-.edit-item
-  margin: 10px;
 
-#element1 {
-  position: relative;
+.thumbnail-image
+  position relative
   margin-top 10px
-}
-#element2 {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
+
+.img-thumbnail
+  width 140px
+  height 110px
+
+.cover-image
+  position absolute
+  top 0
+  right 0
+
 
 button.remove-image
   /*position absolute*/
