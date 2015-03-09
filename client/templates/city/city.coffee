@@ -138,7 +138,8 @@ Template.city.events
         incrementPageNumber()
 
   "click .button-building-insert": (event, template) ->
-    Meteor.apply "insertBuilding", [], onResultReceived: (error, newUrl) ->
+    Meteor.apply "insertBuilding", [template.data.cityId], onResultReceived: (error, result) ->
       unless error
-        Router.go(newUrl)
+        Session.set("editBuildingId", result.buildingId)
+        Router.go(result.url)
 

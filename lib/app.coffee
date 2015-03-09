@@ -72,9 +72,21 @@
 
 @btypesIds = Object.keys(btypes)
 
+@adminFields = [
+  "adminAvailability"
+  "adminEscorted"
+  "adminAppFee"
+  "adminOfficeHours"
+  "adminScheduling"
+  "adminContact"
+  "adminNotes"
+]
+
 @slugify = (text) ->
-  return "" unless text?.length
-  text.toString().toLowerCase()
+  text = text.toString().toLowerCase()
+  unless text?.length
+    text = "item"
+  text
   .replace(/\s+/g, '-')# Replace spaces with -
   .replace(/[^\w\-]+/g, '')# Remove all non - word chars
   .replace(/\-\-+/g, '-')# Replace multiple - with single -

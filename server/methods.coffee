@@ -1,19 +1,34 @@
 Meteor.methods
-  "insertBuilding": ->
+  "insertBuilding": (cityId) ->
+    throw new Meteor.Error("wrong city " + cityId)  unless cityId in cityIds
     throw new Meteor.Error("no permissions")  unless Security.canOperateWithBuilding()
-    buildingId = Buildings.insert({})
+    buildingId = Buildings.insert({cityId: cityId})
     building = Buildings.findOne(buildingId)
-    unless building
-      throw new Meteor.Error("building is not created")
+    throw new Meteor.Error("building is not created")  unless building
     building = share.Transformations.Building(building)
-    Router.routes["building"].path(building.getRouteData())
+    buildingId: buildingId
+    url: Router.routes["building"].path(building.getRouteData())
+
+  "addUnit": (parentId) ->
+    throw new Meteor.Error("no permissions")  unless Security.canOperateWithBuilding()
+    parent = Buildings.findOne(parentId)
+    throw new Meteor.Error("no parent with id " + parentId)  unless parent
+    throw new Meteor.Error("building can not be parent " + parentId)  if parent.parentId
+    buildingId = Buildings.insert
+      parentId: parentId
+      cityId: parent.cityId
+      neighborhood: parent.neighborhood
+    building = Buildings.findOne(buildingId)
+    throw new Meteor.Error("building is not created")  unless building
+    building = share.Transformations.Building(building)
+    buildingId: buildingId
+    url: Router.routes["building"].path(building.getRouteData())
 
   "updateBuilding": (buildingId, data) ->
     throw new Meteor.Error("no permissions")  unless Security.canOperateWithBuilding()
     Buildings.update(buildingId, {$set: data})
     building = Buildings.findOne(buildingId)
-    unless building
-      throw new Meteor.Error("no object with such id")
+    throw new Meteor.Error("no object with such id")  unless building
     building = share.Transformations.Building(building)
     Router.routes["building"].path(building.getRouteData())
 

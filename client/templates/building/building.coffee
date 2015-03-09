@@ -160,6 +160,12 @@ Template.building.events
     else
       Session.set("editBuildingId", null)
 
+  "click .add-unit": (event, template) ->
+    Meteor.apply "addUnit", [template.data.building._id], onResultReceived: (error, result) ->
+      unless error
+        Session.set("editBuildingId", result.buildingId)
+        Router.go(result.url)
+
   "click .publish-building-toggle": (event, template) ->
     building = template.data.building
     Buildings.update(building._id, {$set: {isPublished: !building.isPublished}})

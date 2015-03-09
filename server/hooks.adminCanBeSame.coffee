@@ -1,13 +1,3 @@
-adminFields = [
-  "adminAvailability"
-  "adminEscorted"
-  "adminAppFee"
-  "adminOfficeHours"
-  "adminScheduling"
-  "adminContact"
-  "adminNotes"
-]
-
 buildingCanBeSame = (building) ->
   agroCanBeSame = false
   unless @parentId
