@@ -4,8 +4,7 @@
   if window.matchMedia("(min-width: 1200px)").matches
     headerHeight = $(".header-wrap").outerHeight()
     filterHeight = $(".city-sub-header").outerHeight()
-    $(".right-bar").outerHeight(windowHeight - headerHeight)
-    $(".left-bar").outerHeight(windowHeight - headerHeight - filterHeight)
+    $(".right-bar, .left-bar").outerHeight(windowHeight - headerHeight - filterHeight)
   else
     $(".right-bar").outerHeight(windowHeight * 0.6)
     $(".left-bar").css("height", "auto")
