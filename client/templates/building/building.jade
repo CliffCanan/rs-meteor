@@ -130,13 +130,6 @@ template(name="building")
                     | Bathrooms
             else
               ul.building-main-prop-list.list-unstyled.clearfix
-                each complexFields
-                  li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip", data-placement="top", title="{{commentValue}}")
-                    i.fa(class="{{iconClass}}")
-                    span.building-main-prop-text
-                      | {{text}}
-                    if comment
-                      i.fa.fa-question-circle
                 if isNotNullOrUndefined isFurnished
                   li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                     if isFurnished
@@ -147,6 +140,18 @@ template(name="building")
                       i.fa.fa-times.grey-icon
                       span.building-main-prop-text
                         | Not Furnished
+                each complexFields
+                  li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip", data-placement="top", title="{{commentValue}}")
+                    i.fa(class="{{iconClass}}")
+                    span.building-main-prop-text
+                      | {{text}}
+                    if comment
+                      i.fa.fa-question-circle
+                with getBathrooms
+                  li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
+                    i.fa.fa-check.blue-icon
+                    span.building-main-prop-text
+                      | {{.}}
                 li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                   if isNotAvailable
                     i.fa.fa-times.grey-icon
@@ -156,11 +161,6 @@ template(name="building")
                     i.fa.fa-check.blue-icon
                     span.building-main-prop-text
                       | Available: {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
-                with getBathrooms
-                  li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
-                    i.fa.fa-check.blue-icon
-                    span.building-main-prop-text
-                      | {{.}}
 
             button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
               | Check Availability
@@ -288,10 +288,10 @@ template(name="building")
                 h2.building-info-title
                   i.fa.fa-fw.fa-key
                   | {{buildingUnits.count}} Available Units
-                p.building-info-desc
-                  | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
-                  | mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum
-                  | id ligula porta felis euismod semper.
+                //p.building-info-desc
+                //  | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
+                //  | mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum
+                //  | id ligula porta felis euismod semper.
                 .building-unit-list-wrap
                   ul.building-unit-list.list-unstyled.row
                     each buildingUnitsLimited

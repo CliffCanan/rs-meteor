@@ -361,14 +361,17 @@ dataFields =
       else
         unless _id in removed
           Buildings.insert(building)
-    unpublishSelector =
+    unpublishBuildingsSelector =
       parentId: {$exists: false}
       $or: [
         images: {$size: 0}
         agroPriceTotalFrom: {$exists: false}
-        availableAt: {$lt: new Date("2015-01-01")}
       ]
-    Buildings.direct.update(unpublishSelector, {$set: {isPublished: false}}, {multi: true})
+    unpublishUnitsSelector =
+      parentId: {$exists: true}
+      availableAt: {$lt: new Date("2015-01-01")}
+    Buildings.direct.update(unpublishBuildingsSelector, {$set: {isPublished: false}}, {multi: true})
+    Buildings.direct.update(unpublishUnitsSelector, {$set: {isPublished: false}}, {multi: true})
     buildingImagesLength = buildingImages.length
     for image, i in buildingImages
       building = Buildings.findOne(image.buildingId)
