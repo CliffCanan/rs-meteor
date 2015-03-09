@@ -295,7 +295,7 @@ template(name="building")
                 .building-unit-list-wrap
                   ul.building-unit-list.list-unstyled.row
                     each buildingUnitsLimited
-                      li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
+                      li.building-unit-item-wrap.col-lg-12.col-md-6.col-sm-6.col-xs-12
                         .building-unit-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
                           with mainImage
                             img.pull-left(src="{{url store='thumbs'}}")
