@@ -12,22 +12,12 @@ template(name="city")
           | Add Building
 
       if firstLoad
-        .city-spinner
-          .rect1
-          .rect2
-          .rect3
-          .rect4
-          .rect5
+        +loadingSpinner
       else
         +cityBuildings(buildings=buildings)
 
         if loadingBuildings
-          .city-spinner
-            .rect1
-            .rect2
-            .rect3
-            .rect4
-            .rect5
+          +loadingSpinner
         else
           if notAllLoaded
             .load-more.loading-btn-wrap

@@ -1,9 +1,14 @@
 @setHeights = _.debounce ->
-  windowHeight = $(window).outerHeight()
-  headerHeight = $(".header-wrap").outerHeight()
-  filterHeight = $(".city-sub-header").outerHeight()
-  $(".right-bar").outerHeight(windowHeight - headerHeight)
-  $(".left-bar").outerHeight(windowHeight - headerHeight - filterHeight)
+  $window = $(window)
+  windowHeight = $window.outerHeight()
+  if $window.outerWidth() < 1200
+    $(".right-bar").outerHeight(windowHeight * 0.8)
+    $(".left-bar").css("height", "auto")
+  else
+    headerHeight = $(".header-wrap").outerHeight()
+    filterHeight = $(".city-sub-header").outerHeight()
+    $(".right-bar").outerHeight(windowHeight - headerHeight)
+    $(".left-bar").outerHeight(windowHeight - headerHeight - filterHeight)
 , 100, true
 
 $(window).on("resize", setHeights)

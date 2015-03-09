@@ -6,7 +6,8 @@ template(name="building")
       form.building-form.content-wrapper.left-bar
         if canOperateWithBuilding
           .control-buttons
-            button.btn.btn-success.add-unit(type="button") Add Unit
+            unless parentId
+              button.btn.btn-success.add-unit(type="button") Add Unit
             button.btn.btn-danger.remove-building(type="button") Delete Building
             button.btn.btn-primary.publish-building-toggle(type="button")
               if isPublished
