@@ -54,14 +54,13 @@ Router.map ->
   @route "/city/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
     name: "building"
     fastRender: true
+    waitOn: ->
+      buildingSubs.subscribe("building", @params.cityId, @params.unitSlug or @params.buildingSlug)
     subscriptions: ->
-      subs = []
-#      if Meteor.user()?.role is "admin"
-#        subs.push(adminSubs.subscribe("allBuildings"))
-      subs.push(buildingSubs.subscribe("building", @params.cityId, @params.unitSlug or @params.buildingSlug))
-      subs.push(buildingSubs.subscribe("buildingParent", @params.cityId, @params.unitSlug or @params.buildingSlug))
-      subs.push(buildingSubs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug))
-      subs
+      [
+        buildingSubs.subscribe("buildingParent", @params.cityId, @params.unitSlug or @params.buildingSlug)
+        buildingSubs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug)
+      ]
     data: ->
       building = Buildings.findOne({cityId: @params.cityId, slug: @params.unitSlug or @params.buildingSlug})
       return null unless building

@@ -75,11 +75,11 @@ Buildings.before.insert (userId, building) ->
 
   for idField in idFields
     if building[idField] isnt undefined
-      building[idField] = parseInt(building[idField])
-      if isNaN(building[idField])
-        delete building[idField]
+      building[idField] = "" + building[idField]
+      if building[idField]
+        building[idField] = building[idField]
       else
-        building[idField] = "" + building[idField]
+        delete building[idField]
 
   true
 
@@ -112,12 +112,12 @@ Buildings.before.update (userId, building, fieldNames, modifier, options) ->
 
   for idField in idFields
     if modifier.$set[idField] isnt undefined
-      modifier.$set[idField] = parseInt(modifier.$set[idField])
-      if isNaN(modifier.$set[idField])
+      modifier.$set[idField] = "" + modifier.$set[idField]
+      if modifier.$set[idField]
+        modifier.$set[idField] = modifier.$set[idField]
+      else
         delete modifier.$set[idField]
         modifier.$unset[idField] = true
-      else
-        modifier.$set[idField] = "" + modifier.$set[idField]
 
   if modifier.$set.parentId and Buildings.find({parentId: building._id}).count()
     delete modifier.$set.parentId
