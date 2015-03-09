@@ -132,22 +132,30 @@ class Building
         fields.push(field)
 
     fields
-  bedroomTypes: ->
-    if @agroIsUnit
-      btypes[@btype]?.upper
+  bedroomTypes: (queryBtype) ->
+    if queryBtype
+      if queryBtype is "studio"
+        "Studio"
+      else if queryBtype is "bedroom1"
+        "1 Bedroom"
+      else
+        btypesIds.indexOf(queryBtype) + " Bedrooms"
     else
-      types = []
-      postfix = ""
-      if @agroPriceStudioFrom
-        types.push("Studio")
-      if @agroPriceBedroom1From
-        types.push(1)
-        postfix = " Bedroom"
-      for i in [2..5]
-        if @["agroPriceBedroom" + i + "From"]
-          types.push(i)
-          postfix = " Bedrooms"
-      types.join(", ") + postfix
+      if @agroIsUnit
+        btypes[@btype]?.upper
+      else
+        types = []
+        postfix = ""
+        if @agroPriceStudioFrom
+          types.push("Studio")
+        if @agroPriceBedroom1From
+          types.push(1)
+          postfix = " Bedroom"
+        for i in [2..5]
+          if @["agroPriceBedroom" + i + "From"]
+            types.push(i)
+            postfix = " Bedrooms"
+        types.join(", ") + postfix
   displayBuildingPrice: (queryBtype) ->
     fieldName = "agroPrice" + (if queryBtype then queryBtype.charAt(0).toUpperCase() + queryBtype.slice(1) else "Total")
     fieldNameFrom = fieldName + "From"
