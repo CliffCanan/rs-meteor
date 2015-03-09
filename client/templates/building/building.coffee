@@ -44,7 +44,10 @@ Template.building.helpers
       valueTo: building[nameTo]
 
   adminBuilding: ->
-    if @adminSameId then Buildings.findOne(@adminSameId) else @
+    if parent = @parent()
+      if parent.adminSameId then Buildings.findOne(parent.adminSameId) else parent
+    else
+      if @adminSameId then Buildings.findOne(@adminSameId) else @
 
 Template.building.rendered = ->
   Session.set("showAllBuildingUnits", false)
@@ -141,6 +144,9 @@ Template.building.events
 
   "click .edit-building": (event, template) ->
     Session.set("editBuildingId", template.data.building._id)
+
+  "click .cancel-building": (event, template) ->
+    Session.set("editBuildingId", null)
 
   "submit .building-form": (event, template) ->
     event.preventDefault()

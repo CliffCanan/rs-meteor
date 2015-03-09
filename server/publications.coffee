@@ -101,6 +101,24 @@ Meteor.smartPublish "buildingUnits", (cityId, slug) ->
   addIsPublishFilter(@userId, selector)
   [Buildings.find(selector)]
 
+Meteor.smartPublish "buildingAdminSame", (cityId, slug) ->
+  check(cityId, Match.InArray(cityIds))
+  check(slug, String)
+  building = Buildings.findOne({cityId: cityId, slug: slug})
+  return []  unless building
+  @addDependency "buildings", "parentId", (building) ->
+    parent = Buildings.findOne(building.parentId)
+    if parent
+      if parent.adminSameId
+        Buildings.find({_id: parent.adminSameId})
+      else
+        Buildings.find({_id: parent._id})
+    else
+      Buildings.find({_id: building.adminSameId})
+  selector = {_id: building._id}
+  addIsPublishFilter(@userId, selector)
+  [Buildings.find(selector)]
+
 Meteor.publish "allBuildings", ->
   if Security.canOperateWithBuilding(@userId)
     Buildings.find()
