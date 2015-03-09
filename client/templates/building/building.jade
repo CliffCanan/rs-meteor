@@ -1,9 +1,6 @@
 template(name="building")
   +checkAvailability(building=building)
 
-  .city-side-bar.right-bar.clearfix.col-lg-3
-    #gmap
-
   .city-page-wrap.col-lg-9
     with building
       form.building-form.content-wrapper.left-bar
@@ -580,3 +577,6 @@ template(name="building")
               .modal-footer
                 button.btn.btn-primary.confirm-building-removal(type="button") Yes
                 button.btn.btn-default(type="button", data-dismiss="modal") No
+
+  .city-side-bar.right-bar.clearfix.col-lg-3
+    #gmap
