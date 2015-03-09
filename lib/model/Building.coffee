@@ -21,10 +21,10 @@ complexFieldsValues =
 formatPriceDisplay = (from, to) ->
   price = ""
   if from
-    price += "$" + from
+    price += "$" + accounting.formatNumber(from)
     if to
       if to isnt from
-        price += "-" + to
+        price += "-" + accounting.formatNumber(to)
     else
       price += "+"
   price
@@ -150,7 +150,7 @@ class Building
       types.join(", ") + postfix
   displayBuildingPrice: ->
     if @agroPriceTotalFrom
-      "$" + @agroPriceTotalFrom + (if @agroPriceTotalFrom is @agroPriceTotalTo then "" else "+")
+      "$" + accounting.formatNumber(@agroPriceTotalFrom) + (if @agroPriceTotalFrom is @agroPriceTotalTo then "" else "+")
   buildingUnits: (limit) ->
     options = {sort: {createdAt: -1, _id: 1}}
     if limit

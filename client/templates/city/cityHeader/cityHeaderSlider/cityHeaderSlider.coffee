@@ -1,13 +1,20 @@
+updateSliderDisplayValues = (from, to) ->
+  $(".slider-price-from").text(accounting.formatNumber(from))
+  $(".slider-price-to").text(accounting.formatNumber(to))
+
 Template.cityHeaderSlider.helpers
   sliderData: ->
     selector = {cityId: @cityId}
     min = 500
     max = 5000
+    minValue = if @query.from then parseInt(@query.from) else min
+    maxValue = if @query.to then parseInt(@query.to) else max
+    updateSliderDisplayValues(minValue, maxValue)
     min: min
     max: max
     value:
-      min: if @query.from then parseInt(@query.from) else min
-      max: if @query.to then parseInt(@query.to) else max
+      min: minValue
+      max: maxValue
 
 Template.cityHeaderSlider.rendered = ->
   $slider = @$(".price-slider")
@@ -32,5 +39,4 @@ Template.cityHeaderSlider.rendered = ->
           query.to = value[1]
         Router.go("city", {cityId: data.cityId}, {query: query})
     .on "slide", (event) ->
-      $(".slider-price-from").text(event.value[0])
-      $(".slider-price-to").text(event.value[1])
+      updateSliderDisplayValues(event.value[0], event.value[1])
