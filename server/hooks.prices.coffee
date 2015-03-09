@@ -53,7 +53,7 @@ generateBuildingPrices = (building) ->
   Buildings.direct.update({_id: building._id}, modifier)
 
 Buildings.after.insert (userId, building) ->
-  if building.parentId
+  if building.parentId and building.isPublished
     parent = Buildings.findOne(building.parentId)
     if parent
       generateBuildingPrices(parent)
@@ -67,4 +67,10 @@ Buildings.after.update (userId, building, fieldNames, modifier, options) ->
     newParent = Buildings.findOne(building.parentId)
     if newParent
       generateBuildingPrices(newParent)
+  else if @previous.isPublished isnt building.isPublished
+    if building.parentId
+      parent = Buildings.findOne(building.parentId)
+      if parent
+        generateBuildingPrices(parent)
+
   generateBuildingPrices(building)
