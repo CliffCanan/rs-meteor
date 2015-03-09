@@ -13,10 +13,10 @@ generateBuildingPrices = (building) ->
         pricesAgroMinMaxValues[fieldNameAgro].push(value)
   Buildings.find({parentId: building._id, isPublished: true}).forEach (unit) ->
     if unit.btype
-      for postfix in ["From", "To"]
+      root = unit.btype.charAt(0).toUpperCase() + unit.btype.slice(1)
+      for postfix in (if pricesAgroMinMaxValues["agroPrice" + root + "To"].length then ["From", "To"] else ["From"])
         value = unit["price" + postfix]
         if value
-          root = unit.btype.charAt(0).toUpperCase() + unit.btype.slice(1)
           fieldNameAgro = "agroPrice" + root + postfix
           prices.push(value)
           pricesAgroMinMaxValues[fieldNameAgro].push(value)
