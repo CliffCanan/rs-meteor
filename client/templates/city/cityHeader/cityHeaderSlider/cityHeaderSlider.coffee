@@ -12,7 +12,8 @@ Template.cityHeaderSlider.helpers
 Template.cityHeaderSlider.rendered = ->
   $slider = @$(".price-slider")
   if $slider.length
-    $slider.slider().on "slideStop", (event) ->
+    $slider.slider({tooltip: "hide"})
+    .on "slideStop", (event) ->
       min = $slider.data("slider-min")
       max = $slider.data("slider-max")
       value = event.value
@@ -30,3 +31,6 @@ Template.cityHeaderSlider.rendered = ->
         else
           query.to = value[1]
         Router.go("city", {cityId: data.cityId}, {query: query})
+    .on "slide", (event) ->
+      $(".slider-price-from").text(event.value[0])
+      $(".slider-price-to").text(event.value[1])
