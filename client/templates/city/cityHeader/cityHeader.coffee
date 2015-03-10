@@ -37,7 +37,7 @@ Template.cityHeader.events
     else
       delete query.q
     Router.go("city", {cityId: data.cityId}, {query: query})
-  , 200)
+  , 300)
 
   "submit .form-building-features-filter": (event, template) ->
     event.preventDefault()

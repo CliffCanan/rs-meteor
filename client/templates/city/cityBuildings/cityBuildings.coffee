@@ -1,5 +1,5 @@
 updateScroll = ->
-  if citySubsciption.ready()
+  if citySubs.ready
     _.defer ->
       $(".main-city-list-wrap").scrollTop(Session.get("cityScroll"))
   else

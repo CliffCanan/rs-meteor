@@ -16,9 +16,11 @@ markers = {}
 
 Template.city.helpers
   firstLoad: ->
-    !citySubsciption.ready() and @firstLoad
+    citySubs.dep.depend()
+    !citySubs.ready and @firstLoad
   loadingBuildings: ->
-    ready = citySubsciption.ready()
+    citySubs.dep.depend()
+    ready = citySubs.ready
     if ready
       cityPageData = Session.get("cityPageData")
       Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage)
@@ -27,6 +29,11 @@ Template.city.helpers
     Template.city.__helpers[" buildings"].call(@).count() < Counts.get("city-buildings-count")
   # TODO: filter by price depend on btype
   buildings: ->
+    _.defer ->
+      wrap = $(".main-city-list-wrap").get(0)
+      wrap.style.display = "none"
+      wrap.offsetHeight # no need to store this anywhere, the reference is enough
+      wrap.style.display = ""
     selector = {parentId: {$exists: false}, cityId: @cityId}
     addQueryFilter(@query, selector)
     Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
@@ -55,7 +62,8 @@ Template.city.rendered = ->
   activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
   infoWindowId = null
   @autorun ->
-    if citySubsciption.ready()
+    citySubs.dep.depend()
+    if citySubs.ready
       data = Router.current().data()
       actualMarkerIds = []
       @template.__helpers[" buildings"].call(data).forEach (building) ->
@@ -136,7 +144,7 @@ Template.city.events
   "scroll .main-city-list-wrap": (event, template) ->
     $el = $(event.currentTarget)
     Session.set("cityScroll", $el.scrollTop())
-    if citySubsciption.ready() and template.view.template.__helpers[" notAllLoaded"].call(template.data)
+    if citySubs.ready and template.view.template.__helpers[" notAllLoaded"].call(template.data)
       $container = $(".main-city-list", $el)
       if $el.scrollTop() >= $container.outerHeight() - $el.outerHeight()
         incrementPageNumber()
