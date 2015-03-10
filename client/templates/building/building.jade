@@ -326,7 +326,7 @@ template(name="building")
                               li.building-unit-prop
                                 i.fa.fa-fw.fa-check
                                 | {{.}}
-                if condition buildingUnits.count "gt" 2
+                if condition buildingUnits.count "gt" 4
                   if Session "showAllBuildingUnits"
                     a.building-unit-item-less(href="#", title="less")
                       | Hide Units

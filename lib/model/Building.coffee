@@ -75,7 +75,7 @@ class Building
       value = @bathroomsFrom
       unless @bathroomsFrom is @bathroomsTo
         value += " - " + @bathroomsTo
-      value += " Bathroom"
+      value += " Bath"
       if @bathroomsTo > 1
         value += "s"
       value

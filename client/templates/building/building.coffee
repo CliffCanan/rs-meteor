@@ -30,7 +30,7 @@ Template.building.helpers
     if Session.get("showAllBuildingUnits")
       @buildingUnits()
     else
-      @buildingUnits(2)
+      @buildingUnits(4)
 
   btypesFields: (building) ->
     for key, btype of btypes
