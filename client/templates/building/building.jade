@@ -241,7 +241,7 @@ template(name="building")
                       li.col-lg-4.col-md-3.col-sm-3.col-xs-6
                         .item.edit-item
                           #element1.thumbnail-image
-                            img.building-img.img-thumbnail(src="{{url}}")
+                            img.building-img.img-thumbnail(src="{{url store='thumbsSmall'}}")
                             #element2.cover-image
                               button.remove-image( type='button', aria-label='Remove' data-toggle="modal" data-target="#confirmRemoval")
                                 span.fa.fa-trash(aria-hidden='true')
@@ -258,7 +258,7 @@ template(name="building")
                 .carousel-inner(role="listbox")
                   each getImages
                     .item
-                      img.building-img(src="{{url}}")
+                      img.building-img(src="{{url store='thumbs'}}")
                 a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
                   i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
                   span.sr-only
@@ -295,10 +295,10 @@ template(name="building")
                 .building-unit-list-wrap
                   ul.building-unit-list.list-unstyled.row
                     each buildingUnitsLimited
-                      li.building-unit-item-wrap.col-lg-12.col-md-6.col-sm-6.col-xs-12
+                      li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
                         .building-unit-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
                           with mainImage
-                            img.pull-left(src="{{url store='thumbs'}}")
+                            img.pull-left(src="{{url store='thumbsSmall'}}")
                           .building-unit-info.clearfix
                             h3.building-unit-info-title
                               a(href="{{pathFor route='building' data=getRouteData}}") {{title}}
@@ -309,6 +309,7 @@ template(name="building")
                                   | {{price}}
                               span.unit-type
                                 | {{bedroomTypes}}
+                          .building-unit-btn-wrap
                             button.building-unit-btn.btn.btn-default.check-availability(type="button")
                               | Check Availability
                             a.building-unit-btn.btn.btn-default(type="button", href="{{pathFor route='building' data=getRouteData}}")
