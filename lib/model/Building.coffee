@@ -57,7 +57,7 @@ class Building
   getFeatures: ->
     if @features?.length then @features else @parent()?.features
   getAvailableAt: ->
-    if @agroIsUnit # and @availableAt > new Date()
+    if @agroIsUnit and @availableAt > new Date()
       @availableAt
   getAvailableAtForDatepicker: ->
     moment(@availableAt).format("MM/DD/YYYY")
@@ -79,10 +79,10 @@ class Building
       if @bathroomsTo > 1
         value += "s"
       value
-    else if @agroIsUnit or @prices().length > 1
-      "Bathrooms: Varies"
-    else
-      "Bathrooms: Please inquire"
+#    else if @agroIsUnit or @prices().length > 1
+#      "Bathrooms: Varies"
+#    else
+#      "Bathrooms: Please inquire"
   getUnitTitle: ->
     title = @title
     parent = @parent()
@@ -95,7 +95,7 @@ class Building
       type: btypes[@btype]?.lower
   complexFields: (edit = false) ->
     fields = []
-    for fieldName in ["pets", "parking", "laundry", "security", "utilities", "fitnessCenter"]
+    for fieldName in ["laundry", "security", "fitnessCenter", "pets", "parking", "utilities"]
       value = @[fieldName]
       unless edit
         value = value or @parent()?[fieldName]

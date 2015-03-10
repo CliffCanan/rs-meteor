@@ -65,28 +65,15 @@ Template.building.rendered = ->
     mapTypeControl: false
     mapTypeId: google.maps.MapTypeId.ROADMAP
   @map = map
-  infowindow = new google.maps.InfoWindow()
-  defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
-  activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null,
-    new google.maps.Size(50, 60))
   if building.latitude and building.longitude
+    latLng = new google.maps.LatLng(building.latitude, building.longitude)
+    map.setCenter(latLng)
     marker = new google.maps.Marker
       _id: building._id
       title: building.title
-      position: new google.maps.LatLng(building.latitude, building.longitude)
+      position: latLng
       map: map
-      icon: defaultIcon
-
-    google.maps.event.addListener marker, "click", do (marker, building) ->->
-      mixpanel.track("property-container-map")
-      html = Blaze.toHTMLWithData(Template.buildingMarker, building)
-      infowindow.setContent(html)
-      infowindow.open(map, marker)
-      infoWindowId = marker._id
-      marker.setIcon(activeIcon)
-
-      google.maps.event.addListener infowindow, "closeclick", ->
-        marker.setIcon(defaultIcon)
+      icon: new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
 
 Template.building.events
   "click .check-availability": grab encapsulate (event, template) ->
