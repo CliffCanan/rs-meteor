@@ -13,12 +13,7 @@ share.Transformations.ContactUsRequest = _.partial(share.transform, ContactUsReq
   changes.updatedAt = changes.updatedAt or now
 
 ContactUsRequests.before.insert (userId, ContactUsRequest) ->
-
-
-
   user = Meteor.users.findOne({email: ContactUsRequest.email})
-  cl "user", user
-
   if not user
     userId = Meteor.users.insert({
         name: ContactUsRequest.name
@@ -76,13 +71,4 @@ ContactUsRequests.before.update (userId, ContactUsRequest, fieldNames, modifier,
   ContactUsRequestPreSave.call(@, modifier.$set)
   true
 
-ContactUsRequests.after.insert (userId, request) ->
-  if Meteor.isServer
-    transformedRequest = share.Transformations.ContactUsRequest(request)
-    Email.send
-      from: "bender@rentscene.com"
-      to: 'rentscenetest+' + transformedRequest.cityId + '@gmail.com'
-      replyTo: transformedRequest.name + ' <' + transformedRequest.email + '>'
-      subject: 'New contact us message from ' + transformedRequest.name + ' in ' + transformedRequest.cityName
-      html: Spacebars.toHTML({request: transformedRequest, settings: Meteor.settings}, Assets.getText("requests/contactUsEmail.html"))
 

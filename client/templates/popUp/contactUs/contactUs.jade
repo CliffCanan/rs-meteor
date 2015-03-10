@@ -27,7 +27,7 @@ template(name="contactUs")
               .form-group.col-lg-6
                 input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
             fieldset.form-group.contact-us-field
-              label Are you planning a visit {{city}} to view apartments?
+              label Are you planning a visit {{cityName}} to view apartments?
             fieldset.form-group.contact-us-field
               span.radio-inline
                 input#inlineRadio1.css-checkbox(type='radio', name='tourOption', value='yes', checked)
@@ -50,16 +50,6 @@ template(name="contactUs")
             fieldset.form-group.contact-us-field
               textarea.form-control(name="question" placeholder="Question/Comments", rows="4")
           .modal-footer
-            //.form-group.has-warning
-            //  select.form-control(name="city")
-            //    option(value="") Choose city
-            //    option(value="atlanta") Atlanta, GA
-            //    option(value="boston") Boston, MA
-            //    option(value="chicago") Chicago, IL
-            //    option(value="los-angeles") Los Angeles, CA
-            //    option(value="philadelphia") Philadelphia, PA
-            //    option(value="stamford") Stamford, CT
-            //    option(value="washington") Washington, DC
             if serverError
               .form-group
                 .alert.alert-danger(role="alert")

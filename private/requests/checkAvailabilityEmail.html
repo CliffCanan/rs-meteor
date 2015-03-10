@@ -1,6 +1,7 @@
 <p>Good day! <b>{{request.name}}</b> has just checked <a href="http://128.199.88.135/{{request.link}}"><i>{{request.buildingName}}</i></a> in <b>{{request.cityName}}</b> for availability!</p>
 
 <p>Desirable move-in date is {{request.moveInDate}}.</p>
+{{#if request.bedrooms}}<p>Desirable bedroom amount is {{request.bedrooms}}</p>{{/if}}
 <p>{{#if request.question}}Also, the customer has a question: {{/if}}</p>
 <blockquote>{{#if request.question}}&quot;{{request.question}}&quot;{{/if}}</blockquote>
 <p>Have a nice day!</p>

@@ -45,7 +45,8 @@ Template.checkAvailability.rendered = ->
       json.cityId = building.cityId
       json.buildingName = building.title
       json.buildingId = building._id
-
+      if not json.bedrooms
+        json.bedrooms = ""
       json.link = "city/"+building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
       CheckAvailabilityRequests.insert(json, callback = (error, id) ->
           if error

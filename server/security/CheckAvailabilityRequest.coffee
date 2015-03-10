@@ -12,6 +12,7 @@ CheckAvailabilityRequests.allow
       buildingId: String
       link: String
       question: String
+      bedrooms: String
       updatedAt: Date
       createdAt: Date
     )

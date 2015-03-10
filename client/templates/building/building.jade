@@ -295,7 +295,7 @@ template(name="building")
                 .building-unit-list-wrap
                   ul.building-unit-list.list-unstyled.row
                     each buildingUnitsLimited
-                      li.building-unit-item-wrap.col-lg-12.col-md-6.col-sm-6.col-xs-12
+                      li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
                         .building-unit-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
                           with mainImage
                             img.pull-left(src="{{url store='thumbsSmall'}}")
@@ -309,6 +309,7 @@ template(name="building")
                                   | {{price}}
                               span.unit-type
                                 | {{bedroomTypes}}
+                          .building-unit-btn-wrap
                             button.building-unit-btn.btn.btn-default.check-availability(type="button")
                               | Check Availability
                             a.building-unit-btn.btn.btn-default(type="button", href="{{pathFor route='building' data=getRouteData}}")

@@ -1,12 +1,13 @@
 Template.contactUs.helpers
   serverError: ->
     Session.get("serverError")
-  city: ->
+  cityName: ->
     if @cityId
       "to " + cities[@cityId].short
 
 Template.contactUs.rendered = ->
   Session.set("serverError", false)
+  cityId = @.data?.cityId
   form = @$("form")
   form.formValidation(
     framework: 'bootstrap'
@@ -38,10 +39,6 @@ Template.contactUs.rendered = ->
             format: "MM/DD/YYYY"
             min: moment().subtract(1, "d").toDate()
             message: 'Please enter future date in MM/DD/YYYY format'
-       city:
-         validators:
-           notEmpty:
-             message: 'For now we need city!'
   ).on("success.form.fv", grab encapsulate (event) ->
       form.find(".submit-button").prop("disabled", true)
       form.find(".loading").show()
@@ -49,15 +46,13 @@ Template.contactUs.rendered = ->
       json.yes = json.tourOption is "yes"
       json.no = json.tourOption is "no"
       json.notSure = json.tourOption is "notSure"
-      if @cityId
-        json.cityId = @cityId
-        json.cityName = cities[@cityId].short
+      json.cityId = if cityId then cityId else ''
+      json.cityName = if cityId then cities[cityId].short else ''
       ContactUsRequests.insert(json, callback = (error, id) ->
         if error
            Session.set("serverError", true)
         else
           Session.set("serverError", false)
-
           form.trigger('reset')
           form.data('formValidation').resetForm()
           $('#contactUsPopup').modal('hide')

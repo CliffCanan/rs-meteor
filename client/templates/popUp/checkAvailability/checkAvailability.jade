@@ -20,6 +20,16 @@ template(name="checkAvailability")
                 input.form-control(name="email" placeholder="Email address")
               fieldset.form-group.availability-field
                 textarea.form-control(name="question" placeholder="Question", rows="4")
+              if condition agroIsUnit 'is' false
+                fieldset.form-group.availability-field
+                  select.form-control(name="bedrooms")
+                    option(value="") Nr. bedrooms
+                    option(value="studio") Studio
+                    option(value="1") 1 bedroom
+                    option(value="2") 2 bedrooms
+                    option(value="3") 3 bedrooms
+                    option(value="4") 4 bedrooms
+                    option(value="5") 5+ bedrooms
               fieldset.form-inline.availability-field
                 .form-group
                   label.availability-text(for="datetimeForm")
