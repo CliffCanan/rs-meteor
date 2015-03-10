@@ -130,16 +130,16 @@ template(name="building")
                     | Bathrooms
             else
               ul.building-main-prop-list.list-unstyled.clearfix
-                if isNotNullOrUndefined isFurnished
+                //-if isNotNullOrUndefined isFurnished
+                if isFurnished
                   li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
-                    if isFurnished
-                      i.fa.fa-check.blue-icon
-                      span.building-main-prop-text
-                        | Furnished
-                    else
-                      i.fa.fa-times.grey-icon
-                      span.building-main-prop-text
-                        | Not Furnished
+                    i.fa.fa-check.blue-icon
+                    span.building-main-prop-text
+                      | Furnished
+                    //-else
+                    //-  i.fa.fa-times.grey-icon
+                    //-  span.building-main-prop-text
+                    //-    | Not Furnished
                 each complexFields
                   li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12(data-toggle="tooltip", data-placement="top", title="{{commentValue}}")
                     i.fa(class="{{iconClass}}")
@@ -171,23 +171,23 @@ template(name="building")
                   textarea.form-control(name="description") {{{description}}}
                 else
                   | {{{getDescription}}}
-              //p.building-main-info-desc
-              //  | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community amenities.
-              //  | Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens, two-bedrooms, and
-              //  | studios. The apartments feature
-              //  span.building-desc-more-target
-              //    |exceptional finishes, including granite countertops, stainless steel
-              //    | kitchen appliances, hardwood floors, and in-unit washer/dryers.
-              //label.building-main-more-trigger(for="mainDescMoreLarge")
-              //ul.building-share-list.list-unstyled.clearfix
-              //  li.building-share.pull-left
-              //    a.building-share-icon.fa.fa-fw.fa-facebook(href="/", title="facebook")
-              //  li.building-share.pull-left
-              //    a.building-share-icon.fa.fa-fw.fa-twitter(href="/", title="twitter")
-              //  li.building-share.pull-left
-              //    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
-              //  li.building-share.pull-left
-              //    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
+              //-p.building-main-info-desc
+              //-  | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community amenities.
+              //-  | Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens, two-bedrooms, and
+              //-  | studios. The apartments feature
+              //-  span.building-desc-more-target
+              //-    |exceptional finishes, including granite countertops, stainless steel
+              //-    | kitchen appliances, hardwood floors, and in-unit washer/dryers.
+              //-label.building-main-more-trigger(for="mainDescMoreLarge")
+              //-ul.building-share-list.list-unstyled.clearfix
+              //-  li.building-share.pull-left
+              //-    a.building-share-icon.fa.fa-fw.fa-facebook(href="/", title="facebook")
+              //-  li.building-share.pull-left
+              //-    a.building-share-icon.fa.fa-fw.fa-twitter(href="/", title="twitter")
+              //-  li.building-share.pull-left
+              //-    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
+              //-  li.building-share.pull-left
+              //-    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
               +social
 
           .building-info-wrap.col-lg-7
@@ -272,15 +272,15 @@ template(name="building")
               unless isEdit
                 p.building-main-info-desc
                   | {{{getDescription}}}
-              //ul.building-share-list.list-unstyled.clearfix.hidden-lg
-              //  li.building-share.pull-left
-              //    a.building-share-icon.fa.fa-fw.fa-facebook(href="/", title="facebook")
-              //  li.building-share.pull-left
-              //    a.building-share-icon.fa.fa-fw.fa-twitter(href="/", title="twitter")
-              //  li.building-share.pull-left
-              //    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
-              //  li.building-share.pull-left
-              //    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
+              //-ul.building-share-list.list-unstyled.clearfix.hidden-lg
+              //-  li.building-share.pull-left
+              //-    a.building-share-icon.fa.fa-fw.fa-facebook(href="/", title="facebook")
+              //-  li.building-share.pull-left
+              //-    a.building-share-icon.fa.fa-fw.fa-twitter(href="/", title="twitter")
+              //-  li.building-share.pull-left
+              //-    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
+              //-  li.building-share.pull-left
+              //-    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
               +social
 
             if buildingUnits.count
@@ -288,10 +288,10 @@ template(name="building")
                 h2.building-info-title
                   i.fa.fa-fw.fa-key
                   | {{buildingUnits.count}} Available Units
-                //p.building-info-desc
-                //  | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
-                //  | mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum
-                //  | id ligula porta felis euismod semper.
+                //-p.building-info-desc
+                //-  | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
+                //-  | mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum
+                //-  | id ligula porta felis euismod semper.
                 .building-unit-list-wrap
                   ul.building-unit-list.list-unstyled.row
                     each buildingUnitsLimited
@@ -391,183 +391,183 @@ template(name="building")
                     span.building-admin-info-data
                       | {{adminNotes}}
 
-            //section.building-info-section
-            //  h2.building-info-title
-            //    i.fa.fa-fw.fa-star
-            //    | User reviews
-            //  .building-reviews-wrap
-            //    .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //      .building-review
-            //        input#reviewMore-1.building-review-more(type="checkbox")
-            //        .building-reviewer.pull-left
-            //          span.building-reviewer-name
-            //            | Mark Wilmotts
-            //          time
-            //            | 07/23/2014
-            //        span.rating-box.pull-right
-            //          i.fa.fa-fw.fa-star
-            //          | 8/10
-            //        h3.building-reviewer-title
-            //          | The place is a blest!
-            //        p.building-reviewer-desc
-            //          | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community
-            //          | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
-            //          | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
-            //          | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
-            //        ul.building-review-list.building-review-target.clearfix.list-unstyled
-            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //            span.building-review-field
-            //              | Noise
-            //            span.building-review-rate
-            //              | 5/5
-            //            .building-review-bar
-            //              .building-review-rate-5.building-review-rating
-            //                span.building-review-bar-animate
-            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //            span.building-review-field
-            //              | Maintenance
-            //            span.building-review-rate
-            //              | 4/5
-            //            .building-review-bar
-            //              .building-review-rate-4.building-review-rating
-            //                span.building-review-bar-animate
-            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //            span.building-review-field
-            //              | Staff
-            //            span.building-review-rate
-            //              | 3/5
-            //            .building-review-bar
-            //              .building-review-rate-3.building-review-rating
-            //                span.building-review-bar-animate
-            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //            span.building-review-field
-            //              | Facilities
-            //            span.building-review-rate
-            //              | 2/5
-            //            .building-review-bar
-            //              .building-review-rate-2.building-review-rating
-            //                span.building-review-bar-animate
-            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //            span.building-review-field
-            //              | Staff
-            //            span.building-review-rate
-            //              | 1/5
-            //            .building-review-bar
-            //              .building-review-rate-1.building-review-rating
-            //                span.building-review-bar-animate
-            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //            span.building-review-field
-            //              | Facilities
-            //            span.building-review-rate
-            //              | 5/5
-            //            .building-review-bar
-            //              .building-review-rate-5.building-review-rating
-            //                span.building-review-bar-animate
-            //        label.building-review-trigger(for="reviewMore-1")
-            //    .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //      .building-review
-            //        input#reviewMore-2.building-review-more(type="checkbox")
-            //        .building-reviewer.pull-left
-            //          span.building-reviewer-name
-            //            | Mark Wilmotts
-            //          time
-            //            | 07/23/2014
-            //        span.rating-box.pull-right
-            //          i.fa.fa-fw.fa-star
-            //          | 8/10
-            //        h3.building-reviewer-title
-            //          | The place is a blest!
-            //        p.building-reviewer-desc
-            //          | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community
-            //          | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
-            //          | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
-            //          | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
-            //        ul.building-review-list.building-review-target.clearfix.list-unstyled
-            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //            span.building-review-field
-            //              | Noise
-            //            span.building-review-rate
-            //              | 5/5
-            //            .building-review-bar
-            //              .building-review-rate-5.building-review-rating
-            //                span.building-review-bar-animate
-            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //            span.building-review-field
-            //              | Maintenance
-            //            span.building-review-rate
-            //              | 4/5
-            //            .building-review-bar
-            //              .building-review-rate-4.building-review-rating
-            //                span.building-review-bar-animate
-            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //            span.building-review-field
-            //              | Staff
-            //            span.building-review-rate
-            //              | 3/5
-            //            .building-review-bar
-            //              .building-review-rate-3.building-review-rating
-            //                span.building-review-bar-animate
-            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //            span.building-review-field
-            //              | Facilities
-            //            span.building-review-rate
-            //              | 2/5
-            //            .building-review-bar
-            //              .building-review-rate-2.building-review-rating
-            //                span.building-review-bar-animate
-            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //            span.building-review-field
-            //              | Staff
-            //            span.building-review-rate
-            //              | 1/5
-            //            .building-review-bar
-            //              .building-review-rate-1.building-review-rating
-            //                span.building-review-bar-animate
-            //          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //            span.building-review-field
-            //              | Facilities
-            //            span.building-review-rate
-            //              | 5/5
-            //            .building-review-bar
-            //              .building-review-rate-5.building-review-rating
-            //                span.building-review-bar-animate
-            //        label.building-review-trigger(for="reviewMore-2")
-          //footer.clearfix
-          //  h3.building-page-footer
-          //    | Similar Properties
-          //  ul.building-page-similar.list-unstyled
-          //    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-          //      a.building-page-similar-link(href="/", title="similar")
-          //        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-          //        .building-page-similar-info.clearfix
-          //          span.building-page-similar-desc
-          //            | {{bedroomTypes}}
-          //          span.building-page-similar-price
-          //            | {{priceFrom}}
-          //    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-          //      a.building-page-similar-link(href="/", title="similar")
-          //        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-          //        .building-page-similar-info.clearfix
-          //          span.building-page-similar-desc
-          //            | {{bedroomTypes}}
-          //          span.building-page-similar-price
-          //            | {{priceFrom}}
-          //    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-          //      a.building-page-similar-link(href="/", title="similar")
-          //        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-          //        .building-page-similar-info.clearfix
-          //          span.building-page-similar-desc
-          //            | {{bedroomTypes}}
-          //          span.building-page-similar-price
-          //            | {{priceFrom}}
-          //    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-          //      a.building-page-similar-link(href="/", title="similar")
-          //        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-          //        .building-page-similar-info.clearfix
-          //          span.building-page-similar-desc
-          //            | {{bedroomTypes}}
-          //          span.building-page-similar-price
-          //            | {{priceFrom}} {{helper}}
+            //-section.building-info-section
+            //-  h2.building-info-title
+            //-    i.fa.fa-fw.fa-star
+            //-    | User reviews
+            //-  .building-reviews-wrap
+            //-    .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-      .building-review
+            //-        input#reviewMore-1.building-review-more(type="checkbox")
+            //-        .building-reviewer.pull-left
+            //-          span.building-reviewer-name
+            //-            | Mark Wilmotts
+            //-          time
+            //-            | 07/23/2014
+            //-        span.rating-box.pull-right
+            //-          i.fa.fa-fw.fa-star
+            //-          | 8/10
+            //-        h3.building-reviewer-title
+            //-          | The place is a blest!
+            //-        p.building-reviewer-desc
+            //-          | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community
+            //-          | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
+            //-          | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
+            //-          | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
+            //-        ul.building-review-list.building-review-target.clearfix.list-unstyled
+            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-            span.building-review-field
+            //-              | Noise
+            //-            span.building-review-rate
+            //-              | 5/5
+            //-            .building-review-bar
+            //-              .building-review-rate-5.building-review-rating
+            //-                span.building-review-bar-animate
+            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-            span.building-review-field
+            //-              | Maintenance
+            //-            span.building-review-rate
+            //-              | 4/5
+            //-            .building-review-bar
+            //-              .building-review-rate-4.building-review-rating
+            //-                span.building-review-bar-animate
+            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-            span.building-review-field
+            //-              | Staff
+            //-            span.building-review-rate
+            //-              | 3/5
+            //-            .building-review-bar
+            //-              .building-review-rate-3.building-review-rating
+            //-                span.building-review-bar-animate
+            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-            span.building-review-field
+            //-              | Facilities
+            //-            span.building-review-rate
+            //-              | 2/5
+            //-            .building-review-bar
+            //-              .building-review-rate-2.building-review-rating
+            //-                span.building-review-bar-animate
+            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-            span.building-review-field
+            //-              | Staff
+            //-            span.building-review-rate
+            //-              | 1/5
+            //-            .building-review-bar
+            //-              .building-review-rate-1.building-review-rating
+            //-                span.building-review-bar-animate
+            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-            span.building-review-field
+            //-              | Facilities
+            //-            span.building-review-rate
+            //-              | 5/5
+            //-            .building-review-bar
+            //-              .building-review-rate-5.building-review-rating
+            //-                span.building-review-bar-animate
+            //-        label.building-review-trigger(for="reviewMore-1")
+            //-    .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-      .building-review
+            //-        input#reviewMore-2.building-review-more(type="checkbox")
+            //-        .building-reviewer.pull-left
+            //-          span.building-reviewer-name
+            //-            | Mark Wilmotts
+            //-          time
+            //-            | 07/23/2014
+            //-        span.rating-box.pull-right
+            //-          i.fa.fa-fw.fa-star
+            //-          | 8/10
+            //-        h3.building-reviewer-title
+            //-          | The place is a blest!
+            //-        p.building-reviewer-desc
+            //-          | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community
+            //-          | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
+            //-          | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
+            //-          | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
+            //-        ul.building-review-list.building-review-target.clearfix.list-unstyled
+            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-            span.building-review-field
+            //-              | Noise
+            //-            span.building-review-rate
+            //-              | 5/5
+            //-            .building-review-bar
+            //-              .building-review-rate-5.building-review-rating
+            //-                span.building-review-bar-animate
+            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-            span.building-review-field
+            //-              | Maintenance
+            //-            span.building-review-rate
+            //-              | 4/5
+            //-            .building-review-bar
+            //-              .building-review-rate-4.building-review-rating
+            //-                span.building-review-bar-animate
+            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-            span.building-review-field
+            //-              | Staff
+            //-            span.building-review-rate
+            //-              | 3/5
+            //-            .building-review-bar
+            //-              .building-review-rate-3.building-review-rating
+            //-                span.building-review-bar-animate
+            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-            span.building-review-field
+            //-              | Facilities
+            //-            span.building-review-rate
+            //-              | 2/5
+            //-            .building-review-bar
+            //-              .building-review-rate-2.building-review-rating
+            //-                span.building-review-bar-animate
+            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-            span.building-review-field
+            //-              | Staff
+            //-            span.building-review-rate
+            //-              | 1/5
+            //-            .building-review-bar
+            //-              .building-review-rate-1.building-review-rating
+            //-                span.building-review-bar-animate
+            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
+            //-            span.building-review-field
+            //-              | Facilities
+            //-            span.building-review-rate
+            //-              | 5/5
+            //-            .building-review-bar
+            //-              .building-review-rate-5.building-review-rating
+            //-                span.building-review-bar-animate
+            //-        label.building-review-trigger(for="reviewMore-2")
+          //-footer.clearfix
+          //-  h3.building-page-footer
+          //-    | Similar Properties
+          //-  ul.building-page-similar.list-unstyled
+          //-    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
+          //-      a.building-page-similar-link(href="/", title="similar")
+          //-        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+          //-        .building-page-similar-info.clearfix
+          //-          span.building-page-similar-desc
+          //-            | {{bedroomTypes}}
+          //-          span.building-page-similar-price
+          //-            | {{priceFrom}}
+          //-    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
+          //-      a.building-page-similar-link(href="/", title="similar")
+          //-        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+          //-        .building-page-similar-info.clearfix
+          //-          span.building-page-similar-desc
+          //-            | {{bedroomTypes}}
+          //-          span.building-page-similar-price
+          //-            | {{priceFrom}}
+          //-    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
+          //-      a.building-page-similar-link(href="/", title="similar")
+          //-        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+          //-        .building-page-similar-info.clearfix
+          //-          span.building-page-similar-desc
+          //-            | {{bedroomTypes}}
+          //-          span.building-page-similar-price
+          //-            | {{priceFrom}}
+          //-    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
+          //-      a.building-page-similar-link(href="/", title="similar")
+          //-        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
+          //-        .building-page-similar-info.clearfix
+          //-          span.building-page-similar-desc
+          //-            | {{bedroomTypes}}
+          //-          span.building-page-similar-price
+          //-            | {{priceFrom}} {{helper}}
         | {{ironRouterHack}}
 
         #confirmRemoval.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')

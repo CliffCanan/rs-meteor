@@ -14,7 +14,8 @@ generateBuildingPrices = (building) ->
   Buildings.find({parentId: building._id, isPublished: true}).forEach (unit) ->
     if unit.btype
       root = unit.btype.charAt(0).toUpperCase() + unit.btype.slice(1)
-      for postfix in (if pricesAgroMinMaxValues["agroPrice" + root + "To"].length then ["From", "To"] else ["From"])
+      postfixes = if !pricesAgroMinMaxValues["agroPrice" + root + "From"].length or pricesAgroMinMaxValues["agroPrice" + root + "To"].length then ["From", "To"] else ["From"]
+      for postfix in postfixes
         value = unit["price" + postfix]
         if value
           fieldNameAgro = "agroPrice" + root + postfix
@@ -67,7 +68,7 @@ Buildings.after.update (userId, building, fieldNames, modifier, options) ->
     newParent = Buildings.findOne(building.parentId)
     if newParent
       generateBuildingPrices(newParent)
-  else if @previous.isPublished isnt building.isPublished
+  else if @previous.isPublished isnt building.isPublished or @previous.btype isnt building.btype
     if building.parentId
       parent = Buildings.findOne(building.parentId)
       if parent

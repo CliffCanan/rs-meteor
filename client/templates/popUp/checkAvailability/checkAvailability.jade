@@ -1,7 +1,7 @@
 template(name="checkAvailability")
   +messageSent
-  //button.btn.btn-primary.check-availability Check Availability
-  //.addthis_sharing_toolbox
+  //-button.btn.btn-primary.check-availability Check Availability
+  //-.addthis_sharing_toolbox
   with building
     #checkAvailabilityPopup.modal.fade(tabindex='-1', role='dialog',data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
       .modal-dialog
@@ -44,5 +44,5 @@ template(name="checkAvailability")
                 button.btn.btn-primary.submit-button(type="submit")
                   .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
                   | Submit
-                //button.btn.btn-default.cancel-button Cancel
+                //-button.btn.btn-default.cancel-button Cancel
 

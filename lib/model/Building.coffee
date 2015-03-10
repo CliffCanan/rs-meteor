@@ -142,7 +142,7 @@ class Building
         btypesIds.indexOf(queryBtype) + " Bedrooms"
     else
       if @agroIsUnit
-        btypes[@btype]?.upper
+        btypes[@btype]?.upper.replace("room", "")
       else
         types = []
         postfix = ""
