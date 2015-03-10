@@ -7,7 +7,7 @@ Meteor.startup ->
 #    Meteor.setInterval(share.loadFixtures, 300)
 #    mysqlImport()
   else
-    mysqlImport(true)
+#    mysqlImport(true)
 
 #  if Meteor.settings.public.isDebug
 #    Meteor.setInterval(share.loadFixtures, 300)
