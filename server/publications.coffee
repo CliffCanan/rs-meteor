@@ -19,6 +19,8 @@ Meteor.publish "allUsers", ->
   Meteor.users.find()
 
 Meteor.smartPublish "buildings", (cityId, query, page) ->
+  query.from = "" + query.from
+  query.to = "" + query.to
   check(cityId, Match.InArray(cityIds))
   check(page, Number)
   check query,
