@@ -54,6 +54,15 @@ class Building
       @parent()?.images
   getDescription: ->
     @description ? @parent()?.description
+  getSqft: ->
+    if @sqftFrom
+      sqft = @sqftFrom
+      if @sqftTo
+        if @sqftFrom isnt @sqftTo
+          sqft += "-" + @sqftTo
+      else
+        sqft += "+"
+      sqft
   getFeatures: ->
     if @features?.length then @features else @parent()?.features
   getAvailableAt: ->

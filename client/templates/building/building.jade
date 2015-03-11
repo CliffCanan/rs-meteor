@@ -85,6 +85,12 @@ template(name="building")
 
             if isEdit
               ul.building-main-prop-list.list-unstyled.clearfix
+                li.building-main-prop
+                  label
+                    input.input-from-to.form-control(type="text", name="sqftFrom", value="{{sqftFrom}}")
+                    | -
+                    input.input-from-to.form-control(type="text", name="sqftTo", value="{{sqftTo}}")
+                    | Square Feets
                 each complexFields true
                   li.building-main-prop
                     b {{label}}:
@@ -112,12 +118,6 @@ template(name="building")
                     | Is not available
                 li.building-main-prop
                   label
-                    input.input-from-to.form-control(type="text", name="sqftFrom", value="{{sqftFrom}}")
-                    | -
-                    input.input-from-to.form-control(type="text", name="sqftTo", value="{{sqftTo}}")
-                    | Square Feets
-                li.building-main-prop
-                  label
                     input.input-from-to.form-control(type="text", name="bedroomsFrom", value="{{bedroomsFrom}}")
                     | -
                     input.input-from-to.form-control(type="text", name="bedroomsTo", value="{{bedroomsTo}}")
@@ -130,6 +130,11 @@ template(name="building")
                     | Bathrooms
             else
               ul.building-main-prop-list.list-unstyled.clearfix
+                with getSqft
+                  li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
+                    i.fa.fa-check.blue-icon
+                    span.building-main-prop-text
+                      | {{.}} Square Feet
                 //-if isNotNullOrUndefined isFurnished
                 if isFurnished
                   li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
