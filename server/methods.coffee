@@ -32,6 +32,27 @@ Meteor.methods
     building = share.Transformations.Building(building)
     Router.routes["building"].path(building.getRouteData())
 
+  "imagesOrder": (buildingId, order) ->
+    throw new Meteor.Error("no permissions")  unless Security.canOperateWithBuilding()
+    building = Buildings.findOne(buildingId)
+    order = _.uniq(order)
+    if building and building.images.length is order.length
+      invalid = false
+
+      imagesOrdered = []
+      for imageId in order
+        image = _.find building.images, (item) ->
+          item._id is imageId
+
+        unless image
+          invalid = true
+          break
+        else
+          imagesOrdered.push(image)
+
+      unless invalid
+        Buildings.direct.update({_id: buildingId}, {$set: {images: imagesOrdered}})
+
   "getParentBuildingsChoices": (buildingId) ->
     choices = []
     selector = {_id: {$ne: buildingId}, parentId: {$exists: false}}

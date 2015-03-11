@@ -1,0 +1,20 @@
+template(name="buildingImagesEdit")
+  .container-fluid
+    .row
+      ul.list-unstyled.images-sortable-list.clearfix
+        each images
+          li.col-lg-4.col-md-3.col-sm-3.col-xs-6.images-sortable-item(data-id="{{_id}}")
+            .item.edit-item
+              #element1.thumbnail-image
+                img.building-img.img-thumbnail(src="{{url store='thumbsSmall'}}")
+                #element2.cover-image
+                  button.remove-image( type='button', aria-label='Remove' data-toggle="modal" data-target="#confirmRemoval")
+                    span.fa.fa-trash(aria-hidden='true')
+        li.col-lg-4.col-md-4.col-sm-6.col-xs-8
+          .item.add-image-item.edit-item
+            .form-group
+              span.file-input.add-image-btn(aria-hidden='true')
+                b Add images
+                br
+                i.fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
+                input.choose-image-input(type="file" multiple="true")
