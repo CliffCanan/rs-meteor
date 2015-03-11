@@ -157,15 +157,17 @@ template(name="building")
                     i.fa.fa-check.blue-icon
                     span.building-main-prop-text
                       | {{.}}
-                li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
-                  if isNotAvailable
+                if isNotAvailable
+                  li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
                     i.fa.fa-times.grey-icon
                     span.building-main-prop-text
                       | Not Currently Available
-                  else
-                    i.fa.fa-check.blue-icon
-                    span.building-main-prop-text
-                      | Available: {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
+                else
+                  with getAvailableAt
+                    li.building-main-prop.col-lg-6.col-md-4.col-sm-6.col-xs-12
+                      i.fa.fa-check.blue-icon
+                      span.building-main-prop-text
+                        | Available: {{moment . 'MM/DD/YYYY'}}
 
             button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
               | Check Availability
@@ -302,13 +304,15 @@ template(name="building")
                             a.building-unit-btn.btn.btn-default(type="button", href="{{pathFor route='building' data=getRouteData}}")
                               | Full Listing
                           ul.building-unit-prop-list.list-unstyled
-                            li.building-unit-prop
-                              i.fa.fa-fw.fa-check
-                              | Earliest move-in:
-                              if isNotAvailable
-                                | Not Currently Available
-                              else
-                                | {{#with getAvailableAt}}{{moment . 'MM/DD/YYYY'}}{{else}}Please Inquire{{/with}}
+                            if isNotAvailable
+                              li.building-unit-prop
+                                i.fa.fa-fw.fa-check
+                                | Earliest move-in: Not Currently Available
+                            else
+                              with getAvailableAt
+                                li.building-unit-prop
+                                  i.fa.fa-fw.fa-check
+                                  | {{moment . 'MM/DD/YYYY'}}
                             with getBathrooms
                               li.building-unit-prop
                                 i.fa.fa-fw.fa-check
