@@ -65,7 +65,6 @@ dataFields =
   isUpdate = full and Buildings.find().count()
 
   mysql = Meteor.npmRequire("mysql")
-  http = Meteor.npmRequire("http")
   request = Meteor.npmRequire("request")
   fs = Meteor.npmRequire("fs")
   path = Meteor.npmRequire("path")
@@ -361,17 +360,6 @@ dataFields =
       else
         unless _id in removed
           Buildings.insert(building)
-    unpublishBuildingsSelector =
-      parentId: {$exists: false}
-      $or: [
-        images: {$size: 0}
-        agroPriceTotalFrom: {$exists: false}
-      ]
-    unpublishUnitsSelector =
-      parentId: {$exists: true}
-      availableAt: {$lt: new Date("2015-01-01")}
-    Buildings.direct.update(unpublishBuildingsSelector, {$set: {isPublished: false}}, {multi: true})
-    Buildings.direct.update(unpublishUnitsSelector, {$set: {isPublished: false}}, {multi: true})
     buildingImagesLength = buildingImages.length
     for image, i in buildingImages
       building = Buildings.findOne(image.buildingId)
@@ -385,6 +373,18 @@ dataFields =
 #          cl "image inserting error for building " + building._id + " " + path
       if i % 100 is 0
         cl "Imported #{i}/#{buildingImagesLength} images"
+
+    unpublishBuildingsSelector =
+      parentId: {$exists: false}
+      $or: [
+        images: {$size: 0}
+        agroPriceTotalFrom: {$exists: false}
+      ]
+    unpublishUnitsSelector =
+      parentId: {$exists: true}
+      availableAt: {$lt: new Date("2015-01-01")}
+    Buildings.direct.update(unpublishBuildingsSelector, {$set: {isPublished: false}}, {multi: true})
+    Buildings.direct.update(unpublishUnitsSelector, {$set: {isPublished: false}}, {multi: true})
   else
     for removeId in removed
       if buildings[removeId]

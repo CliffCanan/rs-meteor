@@ -5,6 +5,7 @@
 # but you can also edit it by hand.
 
 meteor-platform
+http
 mquandalle:jade
 coffeescript
 stylus

@@ -55,7 +55,7 @@ Template.building.rendered = ->
   building = @data.building
   cityData = cities[building.cityId]
   map = new google.maps.Map document.getElementById("gmap"),
-    zoom: 14
+    zoom: 16
     center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
     streetViewControl: false
     scaleControl: false
@@ -65,7 +65,7 @@ Template.building.rendered = ->
     mapTypeControl: false
     mapTypeId: google.maps.MapTypeId.ROADMAP
   @map = map
-  if building.latitude and building.longitude
+  if building.isOnMap and building.latitude and building.longitude
     latLng = new google.maps.LatLng(building.latitude, building.longitude)
     map.setCenter(latLng)
     marker = new google.maps.Marker
@@ -74,6 +74,11 @@ Template.building.rendered = ->
       position: latLng
       map: map
       icon: new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
+    @autorun ->
+      buildingReactive = Buildings.findOne(building._id, {fields: {latitude: 1, longitude: 1}})
+      latLng = new google.maps.LatLng(buildingReactive.latitude, buildingReactive.longitude)
+      marker.setPosition(latLng)
+      map.setCenter(latLng)
 
 Template.building.events
   "click .check-availability": grab encapsulate (event, template) ->
