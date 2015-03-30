@@ -1,1 +1,22 @@
-settings/prod.json
+{
+  "baseUrl": "http://rentscene.com",
+  "kadira": {
+    "appId": "sDNt6zvsw29t4DGYe",
+    "appSecret": "73fbeacd-eb82-4fca-8eac-7e819d8299d5"
+  },
+  "public": {
+    "version": "__VERSION__",
+    "isDebug": false,
+    "ga": {
+      "property": "UA-37790473-1",
+      "disabled": false
+    },
+    "mixpanel": {
+      "token": "3b7978e932a7a159f625c1e3c2d59239",
+      "disabled": false
+    },
+    "addThis": {
+      "token": "ra-53a971e6726f30bc"
+    }
+  }
+}

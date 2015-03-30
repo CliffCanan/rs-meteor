@@ -18,6 +18,8 @@ Router.map ->
       @next()
   @route "/check-availability",
     name: "checkAvailability"
+  @route "/tour-signup",
+    name: "tourSignup"
   @route "/login",
     name: "login"
   @route "/userlist/:userListId",
