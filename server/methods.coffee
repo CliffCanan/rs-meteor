@@ -82,3 +82,12 @@ Meteor.methods
       choices.push(choice)
     choices
 
+  "importProperties": (data) ->
+    throw new Meteor.Error("no permissions")  unless Security.canOperateWithBuilding()
+    for property in data
+      try
+        Buildings.insert(property)
+      catch error
+        console.log "Import Error: ", error
+      finally
+    true
