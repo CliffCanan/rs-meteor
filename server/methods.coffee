@@ -83,11 +83,11 @@ Meteor.methods
     choices
 
   "importProperties": (data) ->
-    throw new Meteor.Error("no permissions")  unless Security.canOperateWithBuilding()
+    errors = []
+    errors.push({message: "error", reason: "no permissions", 0}) unless Security.canOperateWithBuilding()
     for property in data
       try
         Buildings.insert(property)
       catch error
-        console.log "Import Error: ", error
-      finally
-    true
+        errors.push({message:"error", reason: "could not insert", id: property.source.mlsNo})
+    if errors then errors else true
