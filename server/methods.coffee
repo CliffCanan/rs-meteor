@@ -1,3 +1,5 @@
+fs = Meteor.npmRequire("fs")
+
 Meteor.methods
   "insertBuilding": (cityId) ->
     throw new Meteor.Error("wrong city " + cityId)  unless cityId in cityIds
@@ -91,3 +93,23 @@ Meteor.methods
       catch error
         errors.push({message:"error", reason: "could not insert", id: property.source.mlsNo})
     if errors then errors else true
+
+  "importImage": (buildingId, base64image) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
+
+    console.log "buildingId: " + buildingId
+    # console.log "base64image: ", base64image
+
+    imageBuffer = new Buffer(base64image, "base64");
+
+    ticks = new Date().getTime()
+    fileName = buildingId + "_" + ticks;
+    path = process.env.PWD + "/server/importedImages/" + fileName + ".png"
+
+    console.log "path: " + path
+
+    fs.writeFileSync path, imageBuffer, "binary"
+      
+    file = BuildingImages.insert(path)
+    console.log "image file: ", file
+    Buildings.update(_id: buildingId, {$addToSet: {images: file}})
