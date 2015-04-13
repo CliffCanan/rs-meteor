@@ -39,6 +39,26 @@ Template.cityHeader.events
     Router.go("city", {cityId: data.cityId}, {query: query})
   , 300)
 
+  "click #filterAddress": (event, template) ->
+    event.preventDefault()
+    data = template.data
+    query = data.query
+    #console.log typeof data
+    query.address = $("#address").val()
+    geocoder = new google.maps.Geocoder()
+    Session.set("addressName", $("#address").val())
+    geocoder.geocode { 'address': query.address }, (results, status) ->
+      if status == google.maps.GeocoderStatus.OK
+        location = results[0].geometry.location;
+        #console.log location.lat()
+        Session.set("address", [location.lat(), location.lng()])
+        #console.log results[0].geometry.location
+      else
+        alert 'Geocode was not successful for the following reason: ' + status
+      return    
+    Router.go("city", {cityId: data.cityId}, {query: query})
+
+
   "submit .form-building-features-filter": (event, template) ->
     event.preventDefault()
 

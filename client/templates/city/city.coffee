@@ -29,6 +29,7 @@ Template.city.helpers
     Template.city.__helpers[" buildings"].call(@).count() < Counts.get("city-buildings-count")
   # TODO: filter by price depend on btype
   buildings: ->
+    filtered = []
     _.defer ->
       wrap = $(".main-city-list-wrap").get(0)
       wrap.style.display = "none"
@@ -36,6 +37,22 @@ Template.city.helpers
       wrap.style.display = ""
     selector = {parentId: {$exists: false}, cityId: @cityId}
     addQueryFilter(@query, selector)
+    if Session.get "address"
+      #console.log typeof Session.get "address"
+      buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+      address = Session.get "address"
+      #console.log address[0]
+      #console.log address[1]
+      buildings.forEach (building) ->
+        #console.log building
+        #console.log building.latitude
+        distance = CalculateDistance(address[0], address[1], building.latitude, building.longitude);
+        #console.log selector
+        if distance < 9657928
+          filtered.push building._id
+        #console.log distance
+    if filtered.length > 0
+      selector._id = {$in: filtered}
     Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
 
 Template.city.created = ->
@@ -63,13 +80,21 @@ Template.city.rendered = ->
   infowindow = new google.maps.InfoWindow()
   google.maps.event.addListener infowindow, "closeclick", ->
     markers[infoWindowId].setIcon(defaultIcon)
+
+  if Session.get "address"
+    address = Session.get "address"
+    marker = new google.maps.Marker
+      position: new google.maps.LatLng(address[0], address[1] )
+      map: map
+      icon: activeIcon   
+
   @autorun ->
     citySubs.dep.depend()
     if citySubs.ready
       data = Router.current().data()
       actualMarkerIds = []
       @template.__helpers[" buildings"].call(data).forEach (building) ->
-        if building.isOnMap and building.latitude and building.longitude
+        if building.latitude and building.longitude
           actualMarkerIds.push(building._id)
           if marker = markers[building._id]
             unless marker.map
@@ -110,6 +135,10 @@ incrementPageNumber = ->
   cityPageData = Session.get("cityPageData")
   cityPageData.page++
   Session.set("cityPageData", cityPageData)
+
+CalculateDistance = (lat1, long1, lat2, long2) ->
+  distance = Math.sin(lat1 * Math.PI) * Math.sin(lat2 * Math.PI) + Math.cos(lat1 * Math.PI) * Math.cos(lat2 * Math.PI) * Math.cos(Math.abs(long1 - long2) * Math.PI)
+  Math.acos(distance) * 6370981.162;
 
 Template.city.events
   "click .city-select li": (event, template) ->

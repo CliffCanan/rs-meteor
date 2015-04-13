@@ -9,6 +9,18 @@ Meteor.methods
     buildingId: buildingId
     url: Router.routes["building"].path(building.getRouteData())
 
+  "insertReviews": (review, buildingId) ->
+    review = UserReviews.findOne(userId: Meteor.userId(), building: buildingId)
+    unless review
+      UserReviews.insert({userId: Meteor.userId(), reviews: review, building: buildingId})    
+    
+
+  "getSimilarProperties": (building) ->
+    from = building.agroPriceTotalTo - 200
+    to = building.agroPriceTotalTo + 200
+    selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}
+    buildings = Buildings.find(selector, {limit: 4}).fetch()
+
   "addUnit": (parentId) ->
     throw new Meteor.Error("no permissions")  unless Security.canOperateWithBuilding()
     parent = Buildings.findOne(parentId)
@@ -82,12 +94,3 @@ Meteor.methods
       choices.push(choice)
     choices
 
-  "importProperties": (data) ->
-    errors = []
-    errors.push({message: "error", reason: "no permissions", 0}) unless Security.canOperateWithBuilding()
-    for property in data
-      try
-        Buildings.insert(property)
-      catch error
-        errors.push({message:"error", reason: "could not insert", id: property.source.mlsNo})
-    if errors then errors else true

@@ -523,42 +523,63 @@ template(name="building")
             //-              .building-review-rate-5.building-review-rating
             //-                span.building-review-bar-animate
             //-        label.building-review-trigger(for="reviewMore-2")
-          //-footer.clearfix
-          //-  h3.building-page-footer
-          //-    | Similar Properties
-          //-  ul.building-page-similar.list-unstyled
-          //-    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-          //-      a.building-page-similar-link(href="/", title="similar")
-          //-        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-          //-        .building-page-similar-info.clearfix
-          //-          span.building-page-similar-desc
-          //-            | {{bedroomTypes}}
-          //-          span.building-page-similar-price
-          //-            | {{priceFrom}}
-          //-    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-          //-      a.building-page-similar-link(href="/", title="similar")
-          //-        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-          //-        .building-page-similar-info.clearfix
-          //-          span.building-page-similar-desc
-          //-            | {{bedroomTypes}}
-          //-          span.building-page-similar-price
-          //-            | {{priceFrom}}
-          //-    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-          //-      a.building-page-similar-link(href="/", title="similar")
-          //-        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-          //-        .building-page-similar-info.clearfix
-          //-          span.building-page-similar-desc
-          //-            | {{bedroomTypes}}
-          //-          span.building-page-similar-price
-          //-            | {{priceFrom}}
-          //-    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-          //-      a.building-page-similar-link(href="/", title="similar")
-          //-        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-          //-        .building-page-similar-info.clearfix
-          //-          span.building-page-similar-desc
-          //-            | {{bedroomTypes}}
-          //-          span.building-page-similar-price
-          //-            | {{priceFrom}} {{helper}}
+          footer.clearfix
+            h3.building-page-footer
+              | Similar Properties
+            ul.main-city-list.list-unstyled.row
+              each similarProperties .
+                li.col-lg-6.col-md-4.col-sm-6.col-xs-12
+                  .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
+                    a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
+                      img(src="{{#if mainImage}}{{mainImage.url store='thumbsSmall'}}{{else}}/images/placeholder.png{{/if}}")
+                    .main-city-item-wrap
+                      h2.main-city-item-title
+                        a.main-city-item-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}") {{title}}
+                      //span.main-city-info-btn.fa.fa-question-circle.pull-right
+                      .main-city-info.clearfix
+                        i.fa(class="{{#if agroIsUnit}}fa-key{{else}}fa-building{{/if}}")
+                        span.main-city-price
+                          | {{displayBuildingPrice ../queryBtype}}
+                        span.main-city-desc
+                          | {{bedroomTypes ../queryBtype}}
+          .container-fluid                          
+            .row#reviweArea
+              h1
+                | Reviews
+              .col-md-12
+                each bulidingReviews
+                  .row.space
+                    .col-md-1
+                      img.img-circle(src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA0Njg3NSIgeT0iNzAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MTBwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj4xNDB4MTQwPC90ZXh0PjwvZz48L3N2Zz4=" alt="..." style="width: 50px; height: 50px")
+                    .col-md-11.highlight
+                      .row
+                        .col-md-12
+                          h4
+                            | {{getUser userId}}, on {{getFormatted createdAt}}, said:
+                        .col-md-12
+                          |{{reviews}}
+
+          if userCheck                          
+            .container-fluid      
+              .row(style="margin-top:40px;")
+                .col-md-6
+                .well.well-sm
+                  .text-right
+                   #open-review-box.btn.btn-success.btn-green(href="#reviews-anchor")
+                    | Leave a Review
+                  #post-review-box.row(style="display:none;")
+                    .col-md-12
+                      form(accept-charset="UTF-8" action="" method="post")
+                        input#ratings-hidden(name="rating" type="hidden")
+                        textarea#new-review.form-control.animated(cols="50" name="comment" placeholder="Enter your review here..." rows="5")
+                        .text-right
+                          .stars.starrr(data-rating="0")
+                          a#close-review-box.btn.btn-danger.btn-sm(style="display:none; margin-right: 10px;" href="#")
+                            span.glyphicon.glyphicon-remove
+                              | Cancel
+                            button#saveReview.btn.btn-success.btn-lg(type="submit")
+                              | Save
+
         | {{ironRouterHack}}
 
         #confirmRemoval.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')

@@ -64,6 +64,8 @@ Router.map ->
         buildingSubs.subscribe("buildingParent", @params.cityId, @params.unitSlug or @params.buildingSlug)
         buildingSubs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug)
         buildingSubs.subscribe("buildingAdminSame", @params.cityId, @params.unitSlug or @params.buildingSlug)
+        buildingSubs.subscribe("buildingsSimilar", @params.cityId, @params.unitSlug or @params.buildingSlug)
+        buildingSubs.subscribe("buildingReviews", @params.cityId, @params.unitSlug or @params.buildingSlug)        
       ]
     data: ->
       building = Buildings.findOne({cityId: @params.cityId, slug: @params.unitSlug or @params.buildingSlug})

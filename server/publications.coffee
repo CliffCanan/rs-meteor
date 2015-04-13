@@ -35,6 +35,7 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
     parking: Match.Optional(String)
     utilities: Match.Optional(String)
     available: Match.Optional(String)
+    address: Match.Optional(String)
 
   page = parseInt(page)
   unless page > 0
@@ -50,6 +51,28 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
     if _id then [BuildingImages.find(_id)] else []
 
   Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit})
+
+
+Meteor.smartPublish "buildingsSimilar", (cityId, slug) ->
+  check(cityId, Match.InArray(cityIds))
+  check(slug, String)
+  selector = {cityId: cityId, slug: slug}
+  #addIsPublishFilter(@userId, selector)
+  building = Buildings.findOne(selector)
+
+  @addDependency "buildings", "images", (building) ->
+    imageIds = _.map building.images, (file) ->
+      file._id
+    [BuildingImages.find({_id: {$in: imageIds}})]
+
+  from = building.agroPriceTotalTo - 200
+  to = building.agroPriceTotalTo + 200
+  selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}
+
+  @addDependency "buildings", "images", (building) ->
+    _id = building.images?[0]?._id
+    if _id then [BuildingImages.find(_id)] else []
+  Buildings.find(selector, {limit: 4})
 
 Meteor.publish "city-buildings-count", (cityId, query) ->
   check(cityId, Match.InArray(cityIds))
@@ -102,6 +125,18 @@ Meteor.smartPublish "buildingUnits", (cityId, slug) ->
   selector = {parentId: parentBuilding._id}
   addIsPublishFilter(@userId, selector)
   [Buildings.find(selector)]
+
+Meteor.smartPublish "buildingReviews", (cityId, slug) ->
+  reviews = []
+  check(cityId, Match.InArray(cityIds))
+  check(slug, String)
+  building = Buildings.findOne({cityId: cityId, slug: slug})
+  #console.log building._id
+  if building
+    reviews = UserReviews.find({building: building._id})
+    return reviews
+  reviews
+
 
 Meteor.smartPublish "buildingAdminSame", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
