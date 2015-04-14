@@ -57,10 +57,10 @@ ddpclient.connect(function(error, wasReconnect) {
     console.log(result);
 
     var data = [{
-      // "_id" : "QaWvSprBw44ymbsAZ",
+      "_id" : "QaWvSprBw44ymbsAZ",
       "isPublished": false,
       "btype": "studio",
-      "title": "something",
+      "title": "imported listing!",
       "description": "",
       "availableAt": new Date(),
       "security": 1,

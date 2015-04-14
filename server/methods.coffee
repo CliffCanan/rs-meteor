@@ -85,6 +85,10 @@ Meteor.methods
     choices
 
   "importProperties": (data) ->
+
+    console.log "====== importProperties ======"
+    console.log "importProperties > data: ", data
+
     errors = []
     errors.push({message: "error", reason: "no permissions", 0}) unless Security.canOperateWithBuilding()
     for property in data
@@ -97,14 +101,19 @@ Meteor.methods
   "importImage": (buildingId, base64image) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
 
-    console.log "buildingId: " + buildingId
-    # console.log "base64image: ", base64image
-
-    imageBuffer = new Buffer(base64image, "base64");
+    console.log "====== importImage ======"
+    console.log "importImage > buildingId: " + buildingId
+    # console.log "importImage > base64image: ", base64image
+     
+    matches = base64image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
+    if matches.length isnt 3
+      return {message: "error", reason: "not a base64 image", 0}
+    type = matches[1]
+    imageBuffer = new Buffer(matches[2], "base64")
 
     ticks = new Date().getTime()
     fileName = buildingId + "_" + ticks;
-    path = process.env.PWD + "/app/programs/server/app/server/importedImages/" + fileName + ".png"
+    path = process.env.PWD + "/app/programs/server/app/server/importedImages/" + fileName + "." + type.split('/')[1]
 
     console.log "path: " + path
 
