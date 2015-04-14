@@ -1,14 +1,9 @@
 {
   "servers": [
-    // {
-    //   "host": "localhost",
-    //   "username": "dalf",
-    //   "pem": "~/.ssh/id_rsa_for_mup"
-    // },
     {
-      "host": "45.55.155.236",
-      "username": "root",
-      "password": "p4sswordform1rror",
+      "host": "123.123.123.123",
+      "username": "username",
+      "password": "********",
       "env": {}
     }
   ],

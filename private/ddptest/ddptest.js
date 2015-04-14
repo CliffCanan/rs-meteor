@@ -3,8 +3,10 @@ var login = require('ddp-login');
 
 var ddpclient = new DDPClient({
   // All properties optional, defaults shown
-  host: "localhost",
-  port: 3000,
+  // host: "localhost",
+  host: "45.55.155.236",
+  // port: 3000,
+  port: "80",
   ssl: false,
   autoReconnect: true,
   autoReconnectTimer: 500,
@@ -55,7 +57,7 @@ ddpclient.connect(function(error, wasReconnect) {
     console.log(result);
 
     var data = [{
-      "_id" : "QaWvSprBw44ymbsAZ",
+      // "_id" : "QaWvSprBw44ymbsAZ",
       "isPublished": false,
       "btype": "studio",
       "title": "something",

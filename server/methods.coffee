@@ -104,7 +104,7 @@ Meteor.methods
 
     ticks = new Date().getTime()
     fileName = buildingId + "_" + ticks;
-    path = process.env.PWD + "/server/importedImages/" + fileName + ".png"
+    path = process.env.PWD + "/app/programs/server/app/server/importedImages/" + fileName + ".png"
 
     console.log "path: " + path
 
