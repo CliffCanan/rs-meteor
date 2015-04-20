@@ -3,4 +3,4 @@
 @CheckAvailabilityRequestsHandle = Meteor.subscribe("CheckAvailabilityRequests")
 @ContactUsRequestsHandle = Meteor.subscribe("ContactUsRequests")
 @UserListsHandle = Meteor.subscribe("UserLists")
-
+@propertyLists = Meteor.subscribe("propertyLists")

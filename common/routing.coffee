@@ -1,6 +1,7 @@
 adminSubs = new SubsManager()
 @citySubs = new SubsManager()
 buildingSubs = new SubsManager()
+propertyListSubs = new SubsManager()
 
 Router.configure
   layoutTemplate: "layout"
@@ -30,6 +31,22 @@ Router.map ->
       userList = UserLists.findOne({_id: @params.userListId})
       return _.defaults({}, @params,
         userList: userList
+      )
+    onBeforeAction: ->
+      @next()
+  @route "/propertylist/:slug",
+    name: "propertylist"
+    subscriptions: ->
+      [
+        Meteor.subscribe("propertyLists")
+        Meteor.subscribe("propertyListBuildings", @params.slug)
+      ]
+    data: ->
+      # console.log("router > slug: " + @params.slug);
+      propertyList = PropertyLists.findOne({"name": String(@params.slug)})
+      # console.log("router > propertyList: ", propertyList);
+      return _.defaults({}, @params,
+        propertyList: propertyList
       )
     onBeforeAction: ->
       @next()

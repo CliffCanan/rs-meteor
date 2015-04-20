@@ -1,4 +1,5 @@
-fs = Meteor.npmRequire("fs")
+# fs = Meteor.npmRequire("fs")
+ab = Meteor.npmRequire("base64-arraybuffer")
 
 Meteor.methods
   "insertBuilding": (cityId) ->
@@ -109,16 +110,18 @@ Meteor.methods
     if matches.length isnt 3
       return {message: "error", reason: "not a base64 image", 0}
     type = matches[1]
-    imageBuffer = new Buffer(matches[2], "base64")
+    imageBuffer = new Buffer(matches[2], "base64").toString("base64");
+
+    arrayBuffer = ab.decode(imageBuffer)
 
     ticks = new Date().getTime()
     fileName = buildingId + "_" + ticks;
-    path = process.env.PWD + "/app/programs/server/app/server/importedImages/" + fileName + "." + type.split('/')[1]
-
-    console.log "path: " + path
-
-    fs.writeFileSync path, imageBuffer, "binary"
-      
-    file = BuildingImages.insert(path)
+    
+    file = new FS.File();
+    file.attachData arrayBuffer, {type: type}, (error) ->
+      return {message: "error", reason: "could not create image from buffer", 0}
+    file.name(fileName)
+    BuildingImages.insert(file)
     console.log "image file: ", file
     Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+    return true

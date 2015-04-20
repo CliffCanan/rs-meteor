@@ -1,0 +1,59 @@
+template(name="propertylist")
+  .row
+    .container-fluid
+      .col-xs-12
+        strong.user-greating Here are your recomended properties.
+  if buildings
+    each buildings
+      .container-fluid
+        .row
+          .col-xs-12
+            .panel.panel-default
+              .panel-body
+                .row
+                  .col-xs-2
+                    a(href="{{pathFor route='building' buildingSlug=slug}}")
+                      if mainImage.url
+                        img(src="{{mainImage.url store='thumbsSmall'}}" width="100%")
+                      else
+                        img(src="/images/placeholder.png" width="100%")
+                  .col-xs-2
+                    .row
+                      label {{title}}
+                    .row
+                      i.fa.fa-building-o
+                      // TODO: There is could be 'price' field in property and priceFrom will be empty
+                      small(style="color:#FFA812;") {{priceFrom}}
+
+                      small | {{bedroomTypes}}
+                      i.fa.fa-question-circle(style="color:#337ab7;")
+                    .row
+                      a.btn.btn-primary.view-building(href="{{pathFor route='building' buildingSlug=slug}}" role="Button") View building
+                  .col-xs-8
+                    .row
+                      if pets > 0
+                        i.fa.fa-check Pets allowed
+                      else
+                        i.fa.fa-minus-circle(style="color:#5D8AA8;") No Pets
+                      i.fa.fa-check {{bedroomTypes}}
+                      i.fa.fa-check Available {{moment . 'MM/DD/YYYY'}}
+                    .row
+                      if parking > 0
+                        i.fa.fa-check Parking included
+                      else
+                        i.fa.fa-minus-circle(style="color:#5D8AA8;") No Parking
+                      if doorman
+                        i.fa.fa-check Doorman
+                      else
+                        i.fa.fa-minus-circle(style="color:#5D8AA8;") No Doorman
+                      i.fa.fa-minus-circle(style="color:#5D8AA8;") No Fitness Center {{fitnessCenter.value}}
+                    .row
+                      i.fa.fa-minus-circle(style="color:#5D8AA8;") No Smoking
+                      i.fa.fa-minus-circle(style="color:#5D8AA8;") No Onsite Laudry
+  else
+    .container-fluid
+      .row
+        .col-xs-12
+          p Whoops! No properties in this list.
+  .city-side-bar.pull-right.clearfix
+    .map

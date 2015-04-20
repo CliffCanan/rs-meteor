@@ -133,6 +133,14 @@ Meteor.publish "userListBuildings", (userListId)->
   if userList
     Buildings.find({_id: {$in: userList.buildingsIds}})
 
+Meteor.publish "propertyListBuildings", (slug)->
+  check(slug, Match.Any)
+  propertyList = PropertyLists.findOne({name: String(slug)})
+  console.log("publish > propertyList: ", propertyList)
+  # console.log("puglish > buildings: ", Buildings.find({_id: {$in: propertyList.buildings}}).fetch())
+  if propertyList
+    Buildings.find({_id: {$in: propertyList.buildings}})
+
 Meteor.publish "CheckAvailabilityRequests", ->
   unless @userId
     return []
@@ -145,3 +153,7 @@ Meteor.publish "ContactUsRequests", ->
 
 Meteor.publish "UserLists", ->
   UserLists.find()
+
+Meteor.publish "propertyLists", ->
+  console.log("publish > PropertyLists: ", PropertyLists.find().fetch())
+  PropertyLists.find()
