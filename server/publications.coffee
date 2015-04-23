@@ -60,15 +60,19 @@ Meteor.publish "city-buildings-count", (cityId, query) ->
   undefined
 
 Meteor.smartPublish "building", (cityId, slug) ->
+  # console.log("cityId: ", cityId)
+  # console.log("slug: ", slug)
   check(cityId, Match.InArray(cityIds))
   check(slug, String)
   @addDependency "buildings", "images", (building) ->
     imageIds = _.map building.images, (file) ->
       file._id
     [BuildingImages.find({_id: {$in: imageIds}})]
-  selector = {cityId: cityId, slug: slug}
-  addIsPublishFilter(@userId, selector)
-  Buildings.find(selector)
+  selector = {cityId: String(cityId), slug: String(slug)}
+  # addIsPublishFilter(@userId, selector)
+  buildings = Buildings.find(selector)
+  # console.log("buildings: ", buildings.fetch())
+  buildings
 
 Meteor.smartPublish "buildingParent", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
@@ -135,8 +139,8 @@ Meteor.publish "userListBuildings", (userListId)->
 
 Meteor.publish "propertyListBuildings", (slug)->
   check(slug, Match.Any)
-  propertyList = PropertyLists.findOne({name: String(slug)})
-  console.log("publish > propertyList: ", propertyList)
+  propertyList = PropertyLists.findOne({slug: String(slug)})
+  # console.log("publish > propertyList: ", propertyList)
   # console.log("puglish > buildings: ", Buildings.find({_id: {$in: propertyList.buildings}}).fetch())
   if propertyList
     Buildings.find({_id: {$in: propertyList.buildings}})

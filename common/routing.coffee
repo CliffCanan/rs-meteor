@@ -1,7 +1,6 @@
 adminSubs = new SubsManager()
 @citySubs = new SubsManager()
 buildingSubs = new SubsManager()
-propertyListSubs = new SubsManager()
 
 Router.configure
   layoutTemplate: "layout"
@@ -25,6 +24,7 @@ Router.map ->
     name: "login"
   @route "/userlist/:userListId",
     name: "userlist"
+    fastRender: true
     subscriptions: ->
       adminSubs.subscribe("allBuildings", @params.userListId)
     data: ->
@@ -36,15 +36,14 @@ Router.map ->
       @next()
   @route "/propertylist/:slug",
     name: "propertylist"
+    fastRender: true
     subscriptions: ->
       [
         Meteor.subscribe("propertyLists")
         Meteor.subscribe("propertyListBuildings", @params.slug)
       ]
     data: ->
-      # console.log("router > slug: " + @params.slug);
-      propertyList = PropertyLists.findOne({"name": String(@params.slug)})
-      # console.log("router > propertyList: ", propertyList);
+      propertyList = PropertyLists.findOne({"slug": String(@params.slug)})
       return _.defaults({}, @params,
         propertyList: propertyList
       )
@@ -83,7 +82,11 @@ Router.map ->
         buildingSubs.subscribe("buildingAdminSame", @params.cityId, @params.unitSlug or @params.buildingSlug)
       ]
     data: ->
-      building = Buildings.findOne({cityId: @params.cityId, slug: @params.unitSlug or @params.buildingSlug})
+      # console.log("cityId: " + @params.cityId)
+      # console.log("neighborhoodSlug: " + @params.neighborhoodSlug)
+      # console.log("unitSlug: " + @params.unitSlug)
+      # console.log("buildingSlug: " + @params.buildingSlug)
+      building = Buildings.findOne({cityId: String(@params.cityId), slug: String(@params.unitSlug or @params.buildingSlug)})
       return null unless building
       _.extend {}, @params,
         building: building
