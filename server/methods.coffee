@@ -9,10 +9,10 @@ Meteor.methods
     buildingId: buildingId
     url: Router.routes["building"].path(building.getRouteData())
 
-  "insertReviews": (review, buildingId) ->
-    review = UserReviews.findOne(userId: Meteor.userId(), building: buildingId)
-    unless review
-      UserReviews.insert({userId: Meteor.userId(), reviews: review, building: buildingId})    
+  "insertReviews": (review, title, buildingId, rating) ->
+    check = UserReviews.findOne(userId: Meteor.userId(), building: buildingId)
+    unless check
+      UserReviews.insert({userId: Meteor.userId(), reviews: review, building: buildingId, rating: rating, title: title})    
     
 
   "getSimilarProperties": (building) ->

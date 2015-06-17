@@ -339,6 +339,8 @@ template(name="building")
                         i.fa.fa-fw.fa-check
                         span.building-features-text
                           | {{.}}
+                         
+
 
             if canOperateWithBuilding
               if isEdit
@@ -381,6 +383,35 @@ template(name="building")
                       | Notes:
                     span.building-admin-info-data
                       | {{adminNotes}}
+
+            .container-fluid                          
+              .row#reviweArea
+                h3.similar-title
+                  | Reviews
+                each bulidingReviews
+                  .col-md-5.reviews
+                    .row
+                      .col-md-7
+                        .row
+                          .col-md-12
+                            h4
+                              | {{getUser userId}}
+                            p
+                              | {{getFormatted createdAt}}
+                      .col-md-5.showRating
+                        .row
+                          .col-md-4
+                            input#stars.rating(value="{{getRatingValue rating}}" type="number" min="0" max="1" step="0.5" data-size="sm" data-stars="1" disabled)
+                          .col-md-8.showRatingText
+                            h4
+                              | {{getRating rating}}/10
+                        
+                    .row
+                      .col-md-12
+                        h4
+                          | {{title}}
+                        p
+                          |{{reviews}}                                                  
 
             //-section.building-info-section
             //-  h2.building-info-title
@@ -524,42 +555,24 @@ template(name="building")
             //-                span.building-review-bar-animate
             //-        label.building-review-trigger(for="reviewMore-2")
           footer.clearfix
-            h3.building-page-footer
+            h3.similar-title
               | Similar Properties
-            ul.main-city-list.list-unstyled.row
+            ul.main-city-list.list-unstyled.row.similar-properties
               each similarProperties .
-                li.col-lg-6.col-md-4.col-sm-6.col-xs-12
+                li.col-lg-3
                   .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
                     a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
-                      img(src="{{#if mainImage}}{{mainImage.url store='thumbsSmall'}}{{else}}/images/placeholder.png{{/if}}")
+                      img(style="width:100%;height:184px" src="{{#if mainImage}}{{mainImage.url store='thumbsSmall'}}{{else}}/images/placeholder.png{{/if}}")
                     .main-city-item-wrap
-                      h2.main-city-item-title
-                        a.main-city-item-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}") {{title}}
-                      //span.main-city-info-btn.fa.fa-question-circle.pull-right
-                      .main-city-info.clearfix
-                        i.fa(class="{{#if agroIsUnit}}fa-key{{else}}fa-building{{/if}}")
-                        span.main-city-price
-                          | {{displayBuildingPrice ../queryBtype}}
-                        span.main-city-desc
-                          | {{bedroomTypes ../queryBtype}}
-          .container-fluid                          
-            .row#reviweArea
-              h1
-                | Reviews
-              .col-md-12
-                each bulidingReviews
-                  .row.space
-                    .col-md-1
-                      img.img-circle(src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA0Njg3NSIgeT0iNzAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MTBwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj4xNDB4MTQwPC90ZXh0PjwvZz48L3N2Zz4=" alt="..." style="width: 50px; height: 50px")
-                    .col-md-11.highlight
                       .row
-                        .col-md-12
-                          h4
-                            | {{getUser userId}}, on {{getFormatted createdAt}}, said:
-                        .col-md-12
-                          |{{reviews}}
+                        .col-md-8
+                          p.main-city-item-link
+                            | {{title}}
+                        .col-md-4
+                          p.similar-property-price 
+                            | {{displayBuildingPrice ../queryBtype}}
 
-          if userCheck                          
+
             .container-fluid      
               .row(style="margin-top:40px;")
                 .col-md-6
@@ -570,8 +583,14 @@ template(name="building")
                   #post-review-box.row(style="display:none;")
                     .col-md-12
                       form(accept-charset="UTF-8" action="" method="post")
+                        input#star.rating(value="0" type="number" min="0" max="10" step="0.5" data-size="md" data-stars="10")
                         input#ratings-hidden(name="rating" type="hidden")
-                        textarea#new-review.form-control.animated(cols="50" name="comment" placeholder="Enter your review here..." rows="5")
+                        .row(style="padding-bottom: 15px")
+                          .col-md-6
+                            input#review-title.form-control(name="review-title" type="text" placeholder="Enter your review title here")
+                        .row
+                          .col-md-12
+                            textarea#new-review.form-control.animated(cols="50" name="comment" placeholder="Enter your review here..." rows="5")
                         .text-right
                           .stars.starrr(data-rating="0")
                           a#close-review-box.btn.btn-danger.btn-sm(style="display:none; margin-right: 10px;" href="#")
@@ -601,12 +620,24 @@ template(name="building")
               .modal-header
                 button.close(type="button", data-dismiss="modal", aria-label="Close")
                   span(aria-hidden="true") &times;
-                h4#confirmBuildingRemovalLabel.modal-title Remove building.
+                h4#confirmBuildingRemovalLabel.modal-title Sorry.
               .modal-body
                 | Are you sure?
               .modal-footer
                 button.btn.btn-primary.confirm-building-removal(type="button") Yes
                 button.btn.btn-default(type="button", data-dismiss="modal") No
 
+        #askingUserLogin.modal.fade(tabindex="-1", role="dialog", aria-labelledby="confirmBuildingRemovalLabel", aria-hidden="true")
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close(type="button", data-dismiss="modal", aria-label="Close")
+                  span(aria-hidden="true") &times;
+                h4#confirmBuildingRemovalLabel.modal-title Sorry.
+              .modal-body
+                | You have to login at first to leave any review.                  
+
   .city-side-bar.right-bar.clearfix.col-lg-3
     #gmap
+    img.calcPop(src="/images/map-marker-filter.png", style="position: absolute;", data-toggle="popover", title="Commute Calculator", data-placement="top" )
+

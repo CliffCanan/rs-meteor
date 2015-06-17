@@ -20,7 +20,9 @@ Template.registerHelper "getFormatted", (date) ->
   date.getMonth() + "/" + date.getDate() + "/" +date.getFullYear()
 
 Template.registerHelper "getUser", (userId) ->
-  Meteor.users.findOne(userId).profile.name
+  user = Meteor.users.findOne(userId)
+  if user
+    Meteor.users.findOne(userId).profile.name
 
 Template.registerHelper "condition", (v1, operator, v2, options) ->
   switch operator

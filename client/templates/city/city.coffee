@@ -28,6 +28,7 @@ Template.city.helpers
   notAllLoaded: ->
     Template.city.__helpers[" buildings"].call(@).count() < Counts.get("city-buildings-count")
   # TODO: filter by price depend on btype
+
   buildings: ->
     filtered = []
     _.defer ->
@@ -37,28 +38,85 @@ Template.city.helpers
       wrap.style.display = ""
     selector = {parentId: {$exists: false}, cityId: @cityId}
     addQueryFilter(@query, selector)
-    if Session.get "address"
-      #console.log typeof Session.get "address"
-      buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
-      address = Session.get "address"
-      #console.log address[0]
-      #console.log address[1]
-      buildings.forEach (building) ->
-        #console.log building
-        #console.log building.latitude
-        distance = CalculateDistance(address[0], address[1], building.latitude, building.longitude);
+    #console.log Router.current().params.query
+    query = Router.current().params.query
+    controller = Router.current()
+    if query.hasOwnProperty('address') == true
+      travelMode = if Session.get "travelMode" then Session.get "travelMode" else "walking"
+
+      arrivalTime = 0
+      selectedTime = if Session.get "selectedTime" then Session.get "selectedTime" else 10
+      selectedTime = parseInt selectedTime
+      geocoder = new google.maps.Geocoder()
+      geocoder.geocode { 'address': Session.get "cityName" }, (results, status) ->
+        if status == google.maps.GeocoderStatus.OK
+          i = 0
+          while i < results.length
+            #console.log results[i].formatted_address
+            result = results[i]
+            city = result.formatted_address
+            #console.log result.address_components
+            #j = 0
+            #while j < result.address_components.length
+              #console.log result.address_components[j].types[0]
+              #if result.address_components[j].types[0] == 'locality'
+                #this is the object you are looking for
+                #cities = results[j].address_components[i]
+                #console.log cities
+              #j++       
+
+            if city.trim().toUpperCase().indexOf(controller.params.cityId.toUpperCase()) != -1 
+              location = results[i].geometry.location
+              Session.set("cityGeoLocation", [location.lat(), location.lng()]) 
+            i++
+
+          if location == undefined
+            #$(".form-building-filter")[0].reset();
+            $(".form-building-filter").get(0).reset()
+            $(".form-building-filter").trigger("submit")
+            Session.set "cityGeoLocation", ""
+            $('#messageAlert').modal('show')
+          else
+            Session.set("cityGeoLocation", [location.lat(), location.lng()])
+            
+
+      if Session.get "cityGeoLocation"
+        buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+        address = Session.get "cityGeoLocation"
+        #console.log address
+
+        buildings.forEach (building) ->
+          #console.log building
+          #console.log building.latitude
+          distance = CalculateDistance(address[0], address[1], building.latitude, building.longitude)*1.609344
+
+          if travelMode == "walking"
+            arrivalTime = distance / (5 / 60)
+          if travelMode == "driving"
+            arrivalTime = distance / (40 / 60)
+          if travelMode == "bike"
+            arrivalTime = distance / (15 / 60)
+
+          #console.log arrivalTime
+          #console.log distance
+          if arrivalTime < selectedTime
+            filtered.push building._id
+            Session.set "selectedAddress", query.address
+          #console.log distance
+        selector._id = {$in: filtered}
         #console.log selector
-        if distance < 9657928
-          filtered.push building._id
-        #console.log distance
-    if filtered.length > 0
-      selector._id = {$in: filtered}
-    Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+        Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})          
+      else 
+        Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+    else
+      Session.set("cityGeoLocation", "") 
+      Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
 
 Template.city.created = ->
   @data.firstLoad = true
 
 Template.city.rendered = ->
+  cityCircle = undefined
   @data.firstLoad = false
   setHeights()
   cityData = cities[@data.cityId]
@@ -76,17 +134,18 @@ Template.city.rendered = ->
   markers = {}
   defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
   activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
+  filterIcon = new google.maps.MarkerImage("/images/map-marker-filter.png", null, null, null, new google.maps.Size(50, 60))  
+  filterDefaultIcon = new google.maps.MarkerImage("/images/map-marker-default.png", null, null, null, new google.maps.Size(50, 60)) 
+
+
   infoWindowId = null
   infowindow = new google.maps.InfoWindow()
   google.maps.event.addListener infowindow, "closeclick", ->
-    markers[infoWindowId].setIcon(defaultIcon)
-
-  if Session.get "address"
-    address = Session.get "address"
-    marker = new google.maps.Marker
-      position: new google.maps.LatLng(address[0], address[1] )
-      map: map
-      icon: activeIcon   
+    #console.log infoWindowId
+    if infoWindowId != null
+      markers[infoWindowId].setIcon(defaultIcon)
+    if infoWindowId == "filterItem"
+      markers[infoWindowId].setIcon(filterDefaultIcon)
 
   @autorun ->
     citySubs.dep.depend()
@@ -108,37 +167,107 @@ Template.city.rendered = ->
               icon: defaultIcon
 
             markers[building._id] = marker
-
             google.maps.event.addListener marker, "click", do (marker, building) ->->
               if infoWindowId isnt marker._id
                 if infoWindowId
                   markers[infoWindowId].setIcon(defaultIcon)
+                if infoWindowId == "filterItem"
+                  markers[infoWindowId].setIcon(filterDefaultIcon)
+
                 mixpanel.track("property-container-map")
                 html = Blaze.toHTMLWithData(Template.buildingMarker, building)
                 infowindow.setContent(html)
                 infowindow.open(map, marker)
                 infoWindowId = marker._id
-                marker.setIcon(activeIcon)
+                marker.setIcon(activeIcon)                
 
             google.maps.event.addListener marker, "mouseover", do (marker) ->->
               marker.setIcon(activeIcon)
 
             google.maps.event.addListener marker, "mouseout", do (marker) ->->
+              #console.log marker._id
+              #console.log infoWindowId
               if marker._id isnt infoWindowId
-                marker.setIcon(defaultIcon)
+                marker.setIcon(defaultIcon)             
 
       for id, marker of markers
         unless id in actualMarkerIds
           marker.setMap(null)
+    if cityCircle isnt undefined
+      cityCircle.setMap(null)
+
+    if Session.get "cityGeoLocation"
+      if markers["filterItem"]
+        markers["filterItem"].setMap(null)
+
+      address = Session.get "cityGeoLocation"
+      query = Router.current().params.query
+      marker = new google.maps.Marker
+        _id: "filterItem"
+        title: query.address
+        position: new google.maps.LatLng(address[0], address[1])
+        map: map
+        icon: filterDefaultIcon
+
+      google.maps.event.addListener marker, "mouseover", do (marker) ->->
+        marker.setIcon(filterIcon)
+
+      google.maps.event.addListener marker, "mouseout", do (marker) ->->
+        if marker._id isnt "filterItem"
+          marker.setIcon(filterDefaultIcon)      
+
+      markers["filterItem"] = marker
+
+      google.maps.event.addListener marker, "click", do (marker) ->->
+        html = Blaze.toHTMLWithData(Template.filterCityMarker)
+        infowindow.setContent(html)
+        infowindow.open(map, marker)
+        infoWindowId = marker._id
+        marker.setIcon(filterIcon)
+      #console.log Session.get "cityGeoLocation"
+
+      selectedTime = parseFloat(if Session.get('selectedTime') then Session.get('selectedTime') else 10)
+
+      travelMode = if Session.get('travelMode') then Session.get('travelMode') else 'walking'
+
+      #console.log travelMode
+      if travelMode == "walking"
+        maxDistance = selectedTime * (5 / 60)
+      else if travelMode == "driving"
+        maxDistance = selectedTime * (40 / 60)
+      else if travelMode == "bike"
+        maxDistance = selectedTime * (15 / 60)
+
+
+      populationOptions = 
+        strokeColor: '#FF0000'
+        strokeOpacity: 0.8
+        strokeWeight: 2
+        fillColor: '#FF0000'
+        fillOpacity: 0.35
+        map: map
+        center: new google.maps.LatLng(address[0], address[1])
+        radius: maxDistance * 1000
+
+      cityCircle = new (google.maps.Circle)(populationOptions)
 
 incrementPageNumber = ->
   cityPageData = Session.get("cityPageData")
   cityPageData.page++
   Session.set("cityPageData", cityPageData)
 
-CalculateDistance = (lat1, long1, lat2, long2) ->
-  distance = Math.sin(lat1 * Math.PI) * Math.sin(lat2 * Math.PI) + Math.cos(lat1 * Math.PI) * Math.cos(lat2 * Math.PI) * Math.cos(Math.abs(long1 - long2) * Math.PI)
-  Math.acos(distance) * 6370981.162;
+CalculateDistance = (lat1, lon1, lat2, lon2) ->
+  radlat1 = Math.PI * lat1 / 180
+  radlat2 = Math.PI * lat2 / 180
+  radlon1 = Math.PI * lon1 / 180
+  radlon2 = Math.PI * lon2 / 180
+  theta = lon1 - lon2
+  radtheta = Math.PI * theta / 180
+  dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
+  dist = Math.acos(dist)
+  dist = dist * 180 / Math.PI
+  dist = dist * 60 * 1.1515
+  #console.log dist
 
 Template.city.events
   "click .city-select li": (event, template) ->
@@ -174,3 +303,89 @@ Template.city.events
         Session.set("editBuildingId", result.buildingId)
         Router.go(result.url)
 
+  "click .travelMode": (event, template) ->
+    $item = $(event.currentTarget)
+    setDefaultImagesForCalc()
+    if $item.attr("id") == "walker-calc"
+      $item.find('img').attr("src", "/images/walk-active.png")
+      Session.set "distanceMode", "walk"
+    if $item.attr("id") == "car-calc"
+      $item.find('img').attr("src", "/images/car-active.png")
+      Session.set "distanceMode", "drive"
+    if $item.attr("id") == "bike-calc"
+      $item.find('img').attr("src", "/images/bike-active.png")
+      Session.set "distanceMode", "bike"
+
+  "click #calcDistance":  (event, template) ->
+    $item = $(event.currentTarget)
+    destination = $("#distanceFiler").val()
+    geocoder = new google.maps.Geocoder()
+    controller = Router.current()
+    geocoder.geocode { 'address': destination }, (results, status) ->
+      if status == google.maps.GeocoderStatus.OK
+        i = 0
+        while i < results.length
+          #console.log results[i].formatted_address
+          result = results[i]
+          city = result.formatted_address
+          #console.log result.address_components
+          #j = 0
+          #while j < result.address_components.length
+            #console.log result.address_components[j].types[0]
+            #if result.address_components[j].types[0] == 'locality'
+              #this is the object you are looking for
+              #cities = results[j].address_components[i]
+              #console.log cities
+            #j++       
+
+          if city.trim().toUpperCase().indexOf(controller.params.cityId.toUpperCase()) != -1 
+            location = results[i].geometry.location
+          i++
+        if location == undefined          
+          $('#messageAlert').modal('show')
+        else
+          cPlace = Session.get "cityGeoLocation"  
+          distance = CalculateDistance(cPlace[0], cPlace[1], location.lat(), location.lng())*1.609344
+          distanceKm = distance.toFixed 2
+          $("#destinationDistance").html(distanceKm+"km")
+
+          distanceMode = if Session.get('distanceMode') then Session.get('distanceMode') else 'walk'
+
+          if distanceMode == "walk"
+            arrivalTime = distance / 5 * 60
+          else if distanceMode == "drive"
+            arrivalTime = distance / 40 * 60
+          else if distanceMode == "bike"
+            arrivalTime = distance / 15 * 60
+          arrivalTime = arrivalTime.toFixed 0
+          if distanceMode == "drive"
+            distanceMode = "car"
+          html = '<div class=\'row\'>'
+          html += '<div class=\'col-md-2\'>'
+          html += '<img src=\'/images/' + distanceMode + '.png\'/>'
+          html += '</div>'
+          html += '<div class=\'col-md-10\'>'
+          html += '<h4 id=\'#destinationTime\'>' + arrivalTime + 'min to ' + distanceMode + '</h4>'
+          html += '</div>'
+          html += '</div>'
+          $("#destinationTimeArea").html(html)
+
+
+convertTimeToMins = (time) ->
+  if time.indexOf("days") == -1
+    if time.indexOf("hours") == -1
+      parseInt time.split("hours")[0]
+    else
+      hours = parseInt time.split("hours")[0]
+      mins = parseInt time.split("hours")[1]
+      hours * 60 + mins
+  else 
+    days = parseInt time.split("days")[0]
+    hours = time.split("days")[1]
+    hours = parseInt hours.split("hours")[0]
+    days * 1440 + hours * 60
+
+setDefaultImagesForCalc = ->
+  $("#walker-calc").find("img").attr("src", "/images/walk.png")
+  $("#car-calc").find("img").attr("src", "/images/car.png")
+  $("#bike-calc").find("img").attr("src", "/images/bike.png")    
