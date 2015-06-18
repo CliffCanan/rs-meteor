@@ -125,3 +125,14 @@ Meteor.methods
     console.log "image file: ", file
     Buildings.update(_id: buildingId, {$addToSet: {images: file}})
     return true
+
+  "createClient": (clientName) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    [firstName, lastName] = clientName.split ' '
+    fields =
+      name: clientName
+      firstName: firstName
+      lastName: lastName
+    clientId = ClientRecommendations.insert(fields)
+    clientId: clientId
+    url: Router.routes["clientRecommendations"].path(clientId: clientId)

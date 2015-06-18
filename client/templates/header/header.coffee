@@ -1,6 +1,8 @@
 Template.header.helpers
   loggedInUser: ->
     Meteor.user()
+  canManageClients: ->
+    Security.canManageClients()
 
 Template.header.rendered = ->
 

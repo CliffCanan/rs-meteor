@@ -34,6 +34,13 @@ Router.map ->
       )
     onBeforeAction: ->
       @next()
+  @route "recommendations/:clientId",
+    name: "clientRecommendations"
+    fastRender: true
+    data: ->
+      ClientRecommendations.findOne(_id: @params.clientId)
+    onBeforeAction: ->
+      @next()
   @route "/propertylist/:slug",
     name: "propertylist"
     fastRender: true

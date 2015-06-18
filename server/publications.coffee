@@ -158,6 +158,9 @@ Meteor.publish "ContactUsRequests", ->
 Meteor.publish "UserLists", ->
   UserLists.find()
 
+Meteor.publish "ClientRecommendations", ->
+  ClientRecommendations.find()
+
 Meteor.publish "propertyLists", ->
   console.log("publish > PropertyLists: ", PropertyLists.find().fetch())
   PropertyLists.find()
