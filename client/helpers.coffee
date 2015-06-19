@@ -92,3 +92,6 @@ Template.registerHelper "btypes", ->
 
 Template.registerHelper "canOperateWithBuilding", ->
   Security.canOperateWithBuilding()
+
+Template.registerHelper "canManageClients", ->
+  Security.canManageClients()
