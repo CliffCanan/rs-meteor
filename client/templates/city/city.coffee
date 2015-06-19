@@ -37,13 +37,16 @@ Template.city.helpers
       wrap.style.display = "none"
       wrap.offsetHeight # no need to store this anywhere, the reference is enough
       wrap.style.display = ""
-    selector = {parentId: {$exists: false}, cityId: @cityId}
 
     if Session.get 'showRecommendations'
       buildingIds = Router.current().data().buildingIds
-      selector['_id'] = {'$in': buildingIds}
+      selector = {_id: {'$in': buildingIds}}
+    else
+      selector = {parentId: {$exists: false}, cityId: @cityId}
+      addQueryFilter(@query, selector)
 
-    addQueryFilter(@query, selector)
+    console.log selector
+
     Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
 
 Template.city.created = ->

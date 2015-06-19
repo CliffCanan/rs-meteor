@@ -40,9 +40,10 @@ Router.map ->
     subscriptions: ->
       recommendation = ClientRecommendations.findOne(_id: @params.clientId)
       # Defaults to Atlanta filter for now. In the future, a recommendation list might be for a specific city.
-      @params.cityId =  'atlanta'
+      @params.cityId =  'atlanta' unless @params.cityId
       [
         citySubs.subscribe("buildings", @params.cityId, @params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
+        citySubs.subscribe("recommendedBuildings", recommendation.buildingIds)
         Meteor.subscribe("city-buildings-count", @params.cityId, @params.query)
       ]
     data: ->
