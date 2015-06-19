@@ -39,8 +39,8 @@ Router.map ->
     fastRender: true
     subscriptions: ->
       recommendation = ClientRecommendations.findOne(_id: @params.clientId)
-      @params.cityId =  recommendation.cityId
-      @params.query.btype = 'bedroom2'
+      # Defaults to Atlanta filter for now. In the future, a recommendation list might be for a specific city.
+      @params.cityId =  'atlanta'
       [
         citySubs.subscribe("buildings", @params.cityId, @params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
         Meteor.subscribe("city-buildings-count", @params.cityId, @params.query)

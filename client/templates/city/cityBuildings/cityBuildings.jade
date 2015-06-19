@@ -3,6 +3,8 @@ template(name="cityBuildings")
     each buildings
       li.col-lg-4.col-md-4.col-sm-6.col-xs-12
         .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
+          a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}")
+            i.fa.fa-star
           a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
             img(src="{{#if mainImage}}{{mainImage.url store='thumbsSmall'}}{{else}}/images/placeholder.png{{/if}}")
           .main-city-item-wrap

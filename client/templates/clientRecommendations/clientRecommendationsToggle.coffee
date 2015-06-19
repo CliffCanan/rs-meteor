@@ -1,6 +1,5 @@
 Template.clientRecommendationsToggle.events
   "click #all-listings-toggle": ->
-    Session.set 'clientRecommendationsBuildingIds', null
+    Session.set 'showRecommendations', null
   "click #my-recommendations-toggle": ->
-    buildingIds = Router.current().data().buildingIds
-    Session.set 'clientRecommendationsBuildingIds', buildingIds
+    Session.set 'showRecommendations', true

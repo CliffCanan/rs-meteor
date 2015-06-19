@@ -28,6 +28,7 @@ Template.city.helpers
       Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage)
     !ready
   notAllLoaded: ->
+    return false if Session.get 'showRecommendations'
     Template.city.__helpers[" buildings"].call(@).count() < Counts.get("city-buildings-count")
   # TODO: filter by price depend on btype
   buildings: ->
@@ -38,8 +39,8 @@ Template.city.helpers
       wrap.style.display = ""
     selector = {parentId: {$exists: false}, cityId: @cityId}
 
-    if Session.get 'clientRecommendationsBuildingIds'
-      buildingIds = Session.get 'clientRecommendationsBuildingIds'
+    if Session.get 'showRecommendations'
+      buildingIds = Router.current().data().buildingIds
       selector['_id'] = {'$in': buildingIds}
 
     addQueryFilter(@query, selector)
@@ -152,3 +153,14 @@ Template.city.events
         Session.set("editBuildingId", result.buildingId)
         Router.go(result.url)
 
+# Separate events for recommend toggle
+Template.city.events
+  "click .recommend-toggle": (event, template) ->
+    clientId = template.data._id
+    buildingId = @._id
+    buildingIds = Router.current().data().buildingIds || []
+
+    if @._id in buildingIds
+      Meteor.call "unrecommendBuilding", clientId, buildingId
+    else
+      Meteor.call "recommendBuilding", clientId, buildingId

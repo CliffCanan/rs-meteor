@@ -7,3 +7,8 @@ updateScroll = ->
 
 Template.cityBuildings.rendered = ->
   updateScroll()
+
+Template.cityBuildings.helpers
+  'isRecommended': ->
+    buildingIds = Router.current().data().buildingIds || []
+    @._id in buildingIds

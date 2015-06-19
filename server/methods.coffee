@@ -136,3 +136,11 @@ Meteor.methods
     clientId = ClientRecommendations.insert(fields)
     clientId: clientId
     url: Router.routes["clientRecommendations"].path(clientId: clientId)
+
+  "recommendBuilding": (clientId, buildingId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    ClientRecommendations.update(clientId, {$addToSet: {buildingIds: buildingId}})
+
+  "unrecommendBuilding": (clientId, buildingId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    ClientRecommendations.update(clientId, {$pull: {buildingIds: buildingId}})
