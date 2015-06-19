@@ -18,6 +18,8 @@ Template.city.helpers
   firstLoad: ->
     citySubs.dep.depend()
     !citySubs.ready and @firstLoad
+  clientRecommendationsList: ->
+    Router.current().route.getName() is "clientRecommendations"
   loadingBuildings: ->
     citySubs.dep.depend()
     ready = citySubs.ready
@@ -35,6 +37,11 @@ Template.city.helpers
       wrap.offsetHeight # no need to store this anywhere, the reference is enough
       wrap.style.display = ""
     selector = {parentId: {$exists: false}, cityId: @cityId}
+
+    if Session.get 'clientRecommendationsBuildingIds'
+      buildingIds = Session.get 'clientRecommendationsBuildingIds'
+      selector['_id'] = {'$in': buildingIds}
+
     addQueryFilter(@query, selector)
     Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
 

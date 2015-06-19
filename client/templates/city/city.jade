@@ -11,6 +11,9 @@ template(name="city")
           i.fa.fa-plus
           | Add Listing
 
+      if clientRecommendationsList
+        +clientRecommendationsToggle
+
       if firstLoad
         +loadingSpinner
       else
