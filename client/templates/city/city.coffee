@@ -45,8 +45,6 @@ Template.city.helpers
       selector = {parentId: {$exists: false}, cityId: @cityId}
       addQueryFilter(@query, selector)
 
-    console.log selector
-
     Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
 
 Template.city.created = ->
