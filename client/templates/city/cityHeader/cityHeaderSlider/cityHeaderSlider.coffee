@@ -26,17 +26,24 @@ Template.cityHeaderSlider.rendered = ->
       value = event.value
       data = Router.current().data()
       query = data.query
+      routeName = Router.current().route.getName()
       if (parseInt(query.from) or min) isnt value[0]
         if min is value[0]
           delete query.from
         else
           query.from = value[0]
-        Router.go("city", {cityId: data.cityId}, {query: query})
+        if routeName is "city"
+          Router.go("city", {cityId: data.cityId}, {query: query})
+        else if routeName is "clientRecommendations"
+          Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
       else if (parseInt(query.to) or max) isnt value[1]
         if max is value[1]
           delete query.to
         else
           query.to = value[1]
-        Router.go("city", {cityId: data.cityId}, {query: query})
+        if routeName is "city"
+          Router.go("city", {cityId: data.cityId}, {query: query})
+        else if routeName is "clientRecommendations"
+          Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
     .on "slide", (event) ->
       updateSliderDisplayValues(event.value[0], event.value[1])

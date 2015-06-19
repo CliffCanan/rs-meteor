@@ -34,27 +34,6 @@ Router.map ->
       )
     onBeforeAction: ->
       @next()
-  @route "recommendations/:clientId",
-    name: "clientRecommendations"
-    fastRender: true
-    subscriptions: ->
-      recommendation = ClientRecommendations.findOne(_id: @params.clientId)
-      # Defaults to Atlanta filter for now. In the future, a recommendation list might be for a specific city.
-      @params.cityId =  'atlanta' unless @params.cityId
-      [
-        citySubs.subscribe("buildings", @params.cityId, @params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
-        citySubs.subscribe("recommendedBuildings", recommendation.buildingIds)
-        Meteor.subscribe("city-buildings-count", @params.cityId, @params.query)
-      ]
-    data: ->
-      _.extend ClientRecommendations.findOne(_id: @params.clientId), @params
-    onBeforeAction: ->
-      oldData = Session.get("cityPageData")
-      if oldData?.cityId isnt @params.cityId
-        Session.set("cityPageData", {cityId: @params.cityId, page: 1})
-        Session.set("cityScroll", 0)
-      share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
-      @next()
   @route "/propertylist/:slug",
     name: "propertylist"
     fastRender: true
@@ -69,6 +48,30 @@ Router.map ->
         propertyList: propertyList
       )
     onBeforeAction: ->
+      @next()
+  @route "recommendations/:clientId",
+    name: "clientRecommendations"
+    fastRender: true
+    subscriptions: ->
+      recommendation = ClientRecommendations.findOne(_id: @params.clientId)
+      # Defaults to Atlanta filter for now. In the future, a recommendation list might be for a specific city.
+      @params.cityId = if @params.query.cityId then @params.query.cityId else 'boston'
+      subscriptionQuery = _.omit(@params.query, 'cityId')
+      subs = [
+        citySubs.subscribe("buildings", @params.cityId, subscriptionQuery, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
+        Meteor.subscribe("city-buildings-count", @params.cityId, subscriptionQuery)
+      ]
+
+      subs.push citySubs.subscribe("recommendedBuildings", recommendation.buildingIds) if recommendation?.buildingIds
+      subs
+    data: ->
+      _.extend ClientRecommendations.findOne(_id: @params.clientId), @params
+    onBeforeAction: ->
+      # oldData = Session.get("cityPageData")
+      # if oldData?.cityId isnt @params.cityId
+      #   Session.set("cityPageData", {cityId: @params.cityId, page: 1})
+      #   Session.set("cityScroll", 0)
+      # share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
       @next()
   @route "/city/:cityId",
     name: "city"

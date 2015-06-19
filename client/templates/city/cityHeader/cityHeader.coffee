@@ -1,6 +1,7 @@
 Template.cityHeader.helpers
   currentCity: ->
-    cities[@cityId].long
+    cityId = @query.cityId || @cityId
+    cities[cityId].long
   currentBedroomType: ->
     btypes[@query.btype]?.lower ? "Any"
 
@@ -14,7 +15,12 @@ Template.cityHeader.events
     data = template.data
     $li = $(event.currentTarget)
     $li.closest(".dropdown").removeClass("open")
-    Router.go("city", {cityId: $li.attr("data-value"), query: data.query})
+    routeName = Router.current().route.getName()
+    if routeName is "city"
+      Router.go("city", {cityId: $li.attr("data-value")}, {query: data.query})
+    else if routeName is "clientRecommendations"
+      data.query.cityId = $li.attr("data-value")
+      Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: data.query})
 
   "click .bedroom-type-select li": (event, template) ->
     data = template.data
@@ -25,7 +31,11 @@ Template.cityHeader.events
       query.btype = btype
     else
       delete query.btype
-    Router.go("city", {cityId: data.cityId}, {query: query})
+    routeName = Router.current().route.getName()
+    if routeName is "city"
+      Router.go("city", {cityId: data.cityId}, {query: query})
+    else if routeName is "clientRecommendations"
+      Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
 
   "keyup .building-title-search": _.debounce((event, template) ->
     event.preventDefault()
@@ -36,7 +46,11 @@ Template.cityHeader.events
       query.q = q
     else
       delete query.q
-    Router.go("city", {cityId: data.cityId}, {query: query})
+    routeName = Router.current().route.getName()
+    if routeName is "city"
+      Router.go("city", {cityId: data.cityId}, {query: query})
+    else if routeName is "clientRecommendations"
+      Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
   , 300)
 
   "submit .form-building-features-filter": (event, template) ->
@@ -58,7 +72,11 @@ Template.cityHeader.events
     else
       delete query.available
 
-    Router.go("city", {cityId: data.cityId}, {query: query})
+    routeName = Router.current().route.getName()
+    if routeName is "city"
+      Router.go("city", {cityId: data.cityId}, {query: query})
+    else if routeName is "clientRecommendations"
+      Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
 
   "click .form-building-features-filter-reset": (event, template) ->
     $form = $(event.currentTarget).closest("form")
