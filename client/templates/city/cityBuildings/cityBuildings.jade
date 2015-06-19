@@ -4,7 +4,7 @@ template(name="cityBuildings")
       li.col-lg-4.col-md-4.col-sm-6.col-xs-12
         .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
         
-          if canManageClients  
+          if shouldShowRecommendToggle
             a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}")
               i.fa.fa-star
 
