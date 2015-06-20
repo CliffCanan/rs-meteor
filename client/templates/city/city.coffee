@@ -158,15 +158,3 @@ Template.city.events
       unless error
         Session.set("editBuildingId", result.buildingId)
         Router.go(result.url)
-
-# Separate events for recommend toggle
-Template.city.events
-  "click .recommend-toggle": (event, template) ->
-    clientId = template.data._id
-    buildingId = @._id
-    buildingIds = Router.current().data().buildingIds || []
-
-    if @._id in buildingIds
-      Meteor.call "unrecommendBuilding", clientId, buildingId
-    else
-      Meteor.call "recommendBuilding", clientId, buildingId
