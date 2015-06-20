@@ -185,8 +185,10 @@ Template.building.helpers
 Template.building.events
   "click .building-unit-item .recommend-toggle": (event, template) ->
     clientId = 'MswRgkcHGECsodBKq';
-    Meteor.call 'recommendUnit', clientId, @.parentId, @._id
-
+    if Template.building.__helpers[" unitIsRecommended"].call(@) is 0
+      Meteor.call 'recommendUnit', clientId, @._id, @.parentId
+    else
+      Meteor.call 'unrecommendUnit', clientId, @._id
 
 updateBuilding = (buildingId, newObject, item) ->
   Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})
