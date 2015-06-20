@@ -177,6 +177,16 @@ Template.building.events
     else
       $input.val(value).addClass("hidden")
 
+Template.building.helpers
+  'unitIsRecommended': ->
+    clientId = 'MswRgkcHGECsodBKq';
+    ClientRecommendations.find({_id: clientId, 'unitIds.unitId': @._id}).count()
+
+Template.building.events
+  "click .building-unit-item .recommend-toggle": (event, template) ->
+    clientId = 'MswRgkcHGECsodBKq';
+    Meteor.call 'recommendUnit', clientId, @.parentId, @._id
+
 
 updateBuilding = (buildingId, newObject, item) ->
   Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})

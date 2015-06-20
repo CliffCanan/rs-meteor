@@ -286,6 +286,9 @@ template(name="building")
                     each buildingUnitsLimited
                       li.building-unit-item-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
                         .building-unit-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
+                          if canManageClients
+                            a.recommend-toggle(href="#", class="{{#if unitIsRecommended}}active{{/if}}")
+                              i.fa.fa-star
                           with mainImage
                             img.pull-left(src="{{url store='thumbsSmall'}}")
                           .building-unit-info.clearfix
