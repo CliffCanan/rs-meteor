@@ -143,7 +143,8 @@ class Building
     fields
   bedroomTypes: (queryBtype) ->
     if Session.get "showRecommendations"
-      clientId = Session.get "showRecommendations"
+      clientObject = Session.get "recommendationsClientObject"
+      clientId = clientObject.clientId
       clientRecommendations = ClientRecommendations.findOne clientId
       # Should refactor this to be part of the ClientRecommendations object
       unitObject = _.find clientRecommendations.unitIds, (item) =>
@@ -179,7 +180,8 @@ class Building
         types.join(", ") + postfix
   displayBuildingPrice: (queryBtype) ->
     if Session.get "showRecommendations"
-      clientId = Session.get "showRecommendations"
+      clientObject = Session.get "recommendationsClientObject"
+      clientId = clientObject.clientId
       clientRecommendations = ClientRecommendations.findOne clientId
       # Should refactor this to be part of the ClientRecommendations object
       unitObject = _.find clientRecommendations.unitIds, (item) =>

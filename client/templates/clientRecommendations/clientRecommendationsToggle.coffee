@@ -20,5 +20,5 @@ Template.clientRecommendationsToggle.events
     Session.set "showRecommendations", null
     return
   "click #my-recommendations-toggle": ->
-    Session.set "showRecommendations", Router.current().data().clientId
+    Session.set "showRecommendations", true
     return

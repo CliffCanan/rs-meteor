@@ -179,27 +179,35 @@ Template.building.events
 
 Template.building.helpers
   'buildingIsRecommended': ->
-    clientId = 'MswRgkcHGECsodBKq'
-    ClientRecommendations.find({_id: clientId, 'buildingIds': @._id}).count()
+    clientObject = Session.get "recommendationsClientObject"
+    if clientObject
+      clientId = clientObject.clientId
+      ClientRecommendations.find({_id: clientId, 'buildingIds': @._id}).count()
 
   'unitIsRecommended': ->
-    clientId = 'MswRgkcHGECsodBKq'
-    ClientRecommendations.find({_id: clientId, 'unitIds.unitId': @._id}).count()
+    clientObject = Session.get "recommendationsClientObject"
+    if clientObject
+      clientId = clientObject.clientId
+      ClientRecommendations.find({_id: clientId, 'unitIds.unitId': @._id}).count()
 
 Template.building.events
   "click .building-img-wrap .recommend-toggle": (event, template) ->
-    clientId = 'MswRgkcHGECsodBKq';
-    if Template.building.__helpers[" buildingIsRecommended"].call(@) is 0
-      Meteor.call 'recommendBuilding', clientId, @._id
-    else
-      Meteor.call 'unrecommendBuilding', clientId, @._id
+    clientObject = Session.get "recommendationsClientObject"
+    if clientObject
+      clientId = clientObject.clientId
+      if Template.building.__helpers[" buildingIsRecommended"].call(@) is 0
+        Meteor.call 'recommendBuilding', clientId, @._id
+      else
+        Meteor.call 'unrecommendBuilding', clientId, @._id
 
   "click .building-unit-item .recommend-toggle": (event, template) ->
-    clientId = 'MswRgkcHGECsodBKq';
-    if Template.building.__helpers[" unitIsRecommended"].call(@) is 0
-      Meteor.call 'recommendUnit', clientId, @._id, @.parentId
-    else
-      Meteor.call 'unrecommendUnit', clientId, @._id
+    clientObject = Session.get "recommendationsClientObject"
+    if clientObject
+      clientId = clientObject.clientId
+      if Template.building.__helpers[" unitIsRecommended"].call(@) is 0
+        Meteor.call 'recommendUnit', clientId, @._id, @.parentId
+      else
+        Meteor.call 'unrecommendUnit', clientId, @._id
 
 updateBuilding = (buildingId, newObject, item) ->
   Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})

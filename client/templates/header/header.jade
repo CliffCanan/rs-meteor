@@ -27,3 +27,12 @@ template(name="header")
             +loginButtons
       if canManageClients
         +clientSearchBar
+
+    if isRecommending
+        #recommending-client-banner.alert.alert-success
+          | Currently recommending properties for {{recommendationsClientName}}.
+          a(href="{{pathFor route='clientRecommendations' data=clientRecommendationsRouteData}}")
+            | View list
+          | or 
+          a#exit-recommendation(href="#")
+            | Done recommending
