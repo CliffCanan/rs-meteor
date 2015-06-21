@@ -52,7 +52,7 @@ Router.map ->
   @route "recommendations/:clientId",
     name: "clientRecommendations"
     fastRender: true
-    subscriptions: ->
+    waitOn: ->
       recommendation = ClientRecommendations.findOne(@params.clientId)
       # Defaults to Atlanta filter for now. In the future, a recommendation list might be for a specific city.
       @params.cityId = if @params.query.cityId then @params.query.cityId else 'boston'
@@ -60,6 +60,7 @@ Router.map ->
       subs = [
         citySubs.subscribe("buildings", @params.cityId, subscriptionQuery, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
         Meteor.subscribe("city-buildings-count", @params.cityId, subscriptionQuery)
+        Meteor.subscribe("ClientRecommendations")
       ]
 
       if recommendation
@@ -72,14 +73,15 @@ Router.map ->
       subs
     data: ->
       clientRecommendations = ClientRecommendations.findOne(@params.clientId)
-      _.extend clientRecommendations, @params if clientRecommendations
+      if clientRecommendations
+        _.extend clientRecommendations, @params
     # onBeforeAction: ->
-      # oldData = Session.get("cityPageData")
-      # if oldData?.cityId isnt @params.cityId
-      #   Session.set("cityPageData", {cityId: @params.cityId, page: 1})
-      #   Session.set("cityScroll", 0)
-      # share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
-      # @next()
+    #   oldData = Session.get("cityPageData")
+    #   if oldData?.cityId isnt @params.cityId
+    #     Session.set("cityPageData", {cityId: @params.cityId, page: 1})
+    #     Session.set("cityScroll", 0)
+    #   share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
+    #   @next()
   @route "/city/:cityId",
     name: "city"
     fastRender: true
