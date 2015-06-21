@@ -65,8 +65,7 @@ Router.map ->
       if recommendation
         # We want to merge both buildingIds and unitIds to pass it to the subscription.
         # unitIds are object of parentId <-> unitId. Map it to return unitIds only/
-        unitIds = recommendation.unitIds.map (value) ->
-          value.unitId
+        unitIds = recommendation.unitIds.map (value) -> value.unitId if recommendation.unitIds?
         recommendedIds = recommendation.buildingIds.concat(unitIds) if recommendation.buildingIds?
         subs.push citySubs.subscribe("recommendedBuildings", recommendedIds) if recommendedIds
 
