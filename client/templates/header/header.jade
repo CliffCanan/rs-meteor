@@ -28,7 +28,7 @@ template(name="header")
       if canManageClients
         +clientSearchBar
 
-    if isRecommending
+    if shouldShowRecommendingBanner
         #recommending-client-banner.alert.alert-success
           | Currently recommending properties for {{recommendationsClientName}}.
           a#view-recommendations(href="#")

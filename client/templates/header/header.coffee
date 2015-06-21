@@ -3,8 +3,8 @@ Template.header.helpers
     Meteor.user()
   canManageClients: ->
     Security.canManageClients()
-  isRecommending: ->
-    Session.get("recommendationsClientObject")
+  shouldShowRecommendingBanner: ->
+    Session.get("recommendationsClientObject") and Security.canManageClients()
   recommendationsClientName: ->
     clientObject = Session.get("recommendationsClientObject")
     clientObject.name
