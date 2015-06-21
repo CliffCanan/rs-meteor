@@ -244,6 +244,9 @@ template(name="building")
               +buildingImagesEdit
             else
               .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel", data-interval="false")
+                if canManageClients
+                  a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
+                    i.fa.fa-star
                 .carousel-inner(role="listbox")
                   each getImages
                     .item

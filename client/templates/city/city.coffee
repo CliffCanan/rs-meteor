@@ -25,10 +25,10 @@ Template.city.helpers
     ready = citySubs.ready
     if ready
       cityPageData = Session.get("cityPageData")
-      Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage)
+      Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage) if cityPageData
     !ready
   notAllLoaded: ->
-    return false if Session.get 'showRecommendations'
+    return false if Session.get "showRecommendations"
     Template.city.__helpers[" buildings"].call(@).count() < Counts.get("city-buildings-count")
   # TODO: filter by price depend on btype
   buildings: ->
@@ -38,7 +38,7 @@ Template.city.helpers
       wrap.offsetHeight # no need to store this anywhere, the reference is enough
       wrap.style.display = ""
 
-    if Session.get 'showRecommendations'
+    if Session.get "showRecommendations"
       buildingIds = Router.current().data().buildingIds
       selector = {_id: {'$in': buildingIds}}
     else

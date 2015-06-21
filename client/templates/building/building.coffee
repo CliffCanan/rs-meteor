@@ -178,11 +178,22 @@ Template.building.events
       $input.val(value).addClass("hidden")
 
 Template.building.helpers
+  'buildingIsRecommended': ->
+    clientId = 'MswRgkcHGECsodBKq'
+    ClientRecommendations.find({_id: clientId, 'buildingIds': @._id}).count()
+
   'unitIsRecommended': ->
-    clientId = 'MswRgkcHGECsodBKq';
+    clientId = 'MswRgkcHGECsodBKq'
     ClientRecommendations.find({_id: clientId, 'unitIds.unitId': @._id}).count()
 
 Template.building.events
+  "click .building-img-wrap .recommend-toggle": (event, template) ->
+    clientId = 'MswRgkcHGECsodBKq';
+    if Template.building.__helpers[" buildingIsRecommended"].call(@) is 0
+      Meteor.call 'recommendBuilding', clientId, @._id
+    else
+      Meteor.call 'unrecommendBuilding', clientId, @._id
+
   "click .building-unit-item .recommend-toggle": (event, template) ->
     clientId = 'MswRgkcHGECsodBKq';
     if Template.building.__helpers[" unitIsRecommended"].call(@) is 0

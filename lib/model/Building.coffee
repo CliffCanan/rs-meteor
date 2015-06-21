@@ -142,6 +142,18 @@ class Building
 
     fields
   bedroomTypes: (queryBtype) ->
+    if Session.get "showRecommendations"
+      clientId = Session.get "showRecommendations"
+      clientRecommendations = ClientRecommendations.findOne clientId
+      # Should refactor this to be part of the ClientRecommendations object
+      unitObject = _.find clientRecommendations.unitIds, (item) =>
+        item.parentId is @_id
+
+      if unitObject
+        unitId = unitObject.unitId
+        unit = Buildings.findOne unitId
+        return btypes[unit.btype]?.upper if unit.btype
+
     if queryBtype
       if queryBtype is "studio"
         "Studio"
@@ -166,6 +178,18 @@ class Building
             postfix = " Bedrooms"
         types.join(", ") + postfix
   displayBuildingPrice: (queryBtype) ->
+    if Session.get "showRecommendations"
+      clientId = Session.get "showRecommendations"
+      clientRecommendations = ClientRecommendations.findOne clientId
+      # Should refactor this to be part of the ClientRecommendations object
+      unitObject = _.find clientRecommendations.unitIds, (item) =>
+        item.parentId is @_id
+
+      if unitObject
+        unitId = unitObject.unitId
+        unit = Buildings.findOne unitId
+        return formatPriceDisplay unit.priceFrom, unit.priceTo if unit.priceFrom
+
     fieldName = "agroPrice" + (if queryBtype then queryBtype.charAt(0).toUpperCase() + queryBtype.slice(1) else "Total")
     fieldNameFrom = fieldName + "From"
     fieldNameTo = fieldName + "To"
