@@ -80,6 +80,11 @@ Template.city.rendered = ->
   @autorun ->
     citySubs.dep.depend()
     if citySubs.ready
+      if Session.get "showRecommendations"
+        map.setZoom(3)
+        map.setCenter new google.maps.LatLng(31.850033, -97.6500523)
+      else
+        map.setZoom(14)
       data = Router.current().data()
       actualMarkerIds = []
       @template.__helpers[" buildings"].call(data).forEach (building) ->
