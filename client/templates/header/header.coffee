@@ -11,7 +11,7 @@ Template.header.helpers
 
 Template.header.onRendered ->
   @autorun ->
-    if Template.header.__helpers[" isRecommending"].call(@)
+    if Template.header.__helpers[" shouldShowRecommendingBanner"].call(@)
       $('main').css('margin-top': 122)
     else
       $('main').css('margin-top': 70)
