@@ -148,11 +148,10 @@ Meteor.methods
   "recommendUnit": (clientId, unitId, parentId) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
     unitObject = {parentId: parentId, unitId: unitId}
+    ClientRecommendations.update(clientId, {$addToSet: {buildingIds: parentId}})
     ClientRecommendations.update(clientId, {$pull: {'unitIds': {parentId: parentId}}})
     ClientRecommendations.update(clientId, {$addToSet: {unitIds: unitObject}})
 
   "unrecommendUnit": (clientId, unitId) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
     ClientRecommendations.update(clientId, {$pull: {'unitIds': {unitId: unitId}}})
-
-
