@@ -85,6 +85,7 @@ Template.city.rendered = ->
         map.setCenter new google.maps.LatLng(31.850033, -97.6500523)
       else
         map.setZoom(14)
+        map.setCenter new google.maps.LatLng(cityData.latitude, cityData.longitude)
       data = Router.current().data()
       actualMarkerIds = []
       @template.__helpers[" buildings"].call(data).forEach (building) ->
