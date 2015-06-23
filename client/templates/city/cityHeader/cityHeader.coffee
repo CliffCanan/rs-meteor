@@ -82,3 +82,7 @@ Template.cityHeader.events
     $form = $(event.currentTarget).closest("form")
     $form.get(0).reset()
     $form.trigger("submit")
+
+  "click .show-all-listings": ->
+    Session.set "showRecommendations", null
+    return
