@@ -94,7 +94,8 @@ Meteor.methods
     errors.push({message: "error", reason: "no permissions", 0}) unless Security.canOperateWithBuilding()
     for property in data
       try
-        Buildings.insert(property)
+        id = Buildings.insert(property)
+        console.log "Inserted new building with id #{id}"
       catch error
         errors.push({message:"error", reason: "could not insert", id: property.source.mlsNo})
     if errors then errors else true
@@ -125,6 +126,19 @@ Meteor.methods
     console.log "image file: ", file
     Buildings.update(_id: buildingId, {$addToSet: {images: file}})
     return true
+
+  "importToClientRecommendations": (clientName, buildingIds) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
+
+    console.log "====== importToClientRecommendations ======"
+    console.log "clientName: #{clientName}"
+    console.log "buildingIds: #{buildingIds}"
+
+    if buildingIds.length
+      ClientRecommendations.upsert name: clientName, {$addToSet: {buildingIds: {$each: buildingIds}}}
+      return true
+    else
+      return false
 
   "createClient": (clientName) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
