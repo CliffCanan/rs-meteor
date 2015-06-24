@@ -98,3 +98,7 @@ Template.registerHelper "canManageClients", ->
 
 Template.registerHelper "canRecommend", ->
   Session.get("recommendationsClientObject") and Security.canManageClients()
+
+Template.registerHelper "currentClientName", ->
+  clientObject = Session.get("recommendationsClientObject") if Session.get("recommendationsClientObject")
+  clientObject.name

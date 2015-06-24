@@ -6,6 +6,9 @@ template(name="city")
   .city-page-wrap.col-lg-9
 
     .main-city-list-wrap.left-bar.clearfix.pull-left
+      if showClientRecommendationsName
+        h2.pull-left(style="margin: 0")
+          | Recommendations for {{currentClientName}}
       if canOperateWithBuilding
         button.btn.btn-primary.button-building-insert
           i.fa.fa-plus

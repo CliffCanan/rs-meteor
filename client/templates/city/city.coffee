@@ -20,6 +20,8 @@ Template.city.helpers
     !citySubs.ready and @firstLoad
   clientRecommendationsList: ->
     Router.current().route.getName() is "clientRecommendations"
+  showClientRecommendationsName: ->
+    Template.city.__helpers[" clientRecommendationsList"].call(@) and not Security.canManageClients()
   loadingBuildings: ->
     citySubs.dep.depend()
     ready = citySubs.ready
