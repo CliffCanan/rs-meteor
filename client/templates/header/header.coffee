@@ -29,7 +29,7 @@ Template.header.events
 
   "click #exit-recommendation": (event, template) ->
     event.preventDefault()
-    $('.typeahead').val(null)
+    $('.typeahead').val null
     Session.set "recommendationsClientObject", null
     Session.set "showRecommendations", null
     Router.go "/"
