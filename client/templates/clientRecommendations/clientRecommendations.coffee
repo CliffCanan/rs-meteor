@@ -7,4 +7,5 @@ Template.clientRecommendations.onRendered ->
       name: clientRecommendations.name
 
     Session.set "recommendationsClientObject", clientObject
+    Session.set "showRecommendations", true
     return
