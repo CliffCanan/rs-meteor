@@ -64,7 +64,7 @@ class Building
     if Session.get "showRecommendations"
       building = getCurrentClientUnit(@_id)
       return @getRouteData.call building
-    return @getRouteData
+    return @getRouteData()
   mainImage: ->
     file = @getImages()?[0]
     file  if file?.url
