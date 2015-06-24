@@ -54,18 +54,19 @@ Router.map ->
     fastRender: true
     waitOn: ->
       recommendation = ClientRecommendations.findOne(@params.clientId)
-      firstBuilding = Buildings.findOne(recommendation.buildingIds[0]) if recommendation.buildingIds
-      firstCityId = if firstBuilding then firstBuilding.cityId else 'atlanta'
-      # Defaults to Atlanta filter for now. In the future, a recommendation list might be for a specific city.
-      @params.cityId = if @params.query.cityId then @params.query.cityId else firstCityId
-      subscriptionQuery = _.omit(@params.query, 'cityId')
-      subs = [
-        citySubs.subscribe("buildings", @params.cityId, subscriptionQuery, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
-        Meteor.subscribe("city-buildings-count", @params.cityId, subscriptionQuery)
-        Meteor.subscribe("ClientRecommendations")
-      ]
 
       if recommendation
+        firstBuilding = Buildings.findOne(recommendation.buildingIds[0]) if recommendation.buildingIds
+        firstCityId = if firstBuilding then firstBuilding.cityId else 'atlanta'
+        # Defaults to Atlanta filter for now. In the future, a recommendation list might be for a specific city.
+        @params.cityId = if @params.query.cityId then @params.query.cityId else firstCityId
+        subscriptionQuery = _.omit(@params.query, 'cityId')
+        subs = [
+          citySubs.subscribe("buildings", @params.cityId, subscriptionQuery, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
+          Meteor.subscribe("city-buildings-count", @params.cityId, subscriptionQuery)
+          Meteor.subscribe("ClientRecommendations")
+        ]
+
         # We want to merge both buildingIds and unitIds to pass it to the subscription.
         # unitIds are object of parentId <-> unitId. Map it to return unitIds only.
         (unitIds = recommendation.unitIds.map (value) -> value.unitId) if recommendation.unitIds?
