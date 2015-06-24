@@ -124,4 +124,5 @@ share.exitRecommendationsMode = () ->
   $('.typeahead').val null
   Session.set "recommendationsClientObject", null
   Session.set "showRecommendations", null
-  Router.go "/"
+  Router.go "city",
+    cityId: Router.current().data().cityId

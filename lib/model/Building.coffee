@@ -49,7 +49,7 @@ class Building
   processedTitle: ->
     if Session.get "showRecommendations"
       building = getCurrentClientUnit(@_id)
-      return @getUnitTitle.call building
+      return @getUnitTitle.call building if building
     return @title
   getRouteData: ->
     data =
@@ -63,7 +63,7 @@ class Building
   processedRouteData: ->
     if Session.get "showRecommendations"
       building = getCurrentClientUnit(@_id)
-      return @getRouteData.call building
+      return @getRouteData.call building if building
     return @getRouteData()
   mainImage: ->
     file = @getImages()?[0]
