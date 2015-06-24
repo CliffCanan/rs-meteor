@@ -95,3 +95,6 @@ Template.registerHelper "canOperateWithBuilding", ->
 
 Template.registerHelper "canManageClients", ->
   Security.canManageClients()
+
+Template.registerHelper "canRecommend", ->
+  Session.get("recommendationsClientObject") and Security.canManageClients()

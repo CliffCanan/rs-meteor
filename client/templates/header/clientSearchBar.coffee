@@ -28,3 +28,9 @@ Template.clientSearchBar.onRendered(->
   Meteor.typeahead.inject()
   return
 )
+
+Template.clientSearchBar.events
+  "click #exit-recommendation-from-bar": (event, template) ->
+    event.preventDefault()
+    share.exitRecommendationsMode()
+    return

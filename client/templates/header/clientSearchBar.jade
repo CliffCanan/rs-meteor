@@ -1,4 +1,7 @@
 template(name="clientSearchBar")
   form.navbar-form.navbar-right(role="search")
     .form-group
+      if canRecommend
+        a#exit-recommendation-from-bar(href="#")
+          i.fa.fa-times
       input.form-control.typeahead(type="text", placeholder="Search client", autocomplete="false", data-source="clientsSearch", data-selected="selectedClient")

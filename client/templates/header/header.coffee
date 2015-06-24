@@ -3,15 +3,13 @@ Template.header.helpers
     Meteor.user()
   canManageClients: ->
     Security.canManageClients()
-  shouldShowRecommendingBanner: ->
-    Session.get("recommendationsClientObject") and Security.canManageClients()
   recommendationsClientName: ->
     clientObject = Session.get("recommendationsClientObject")
     clientObject.name
 
 Template.header.onRendered ->
   @autorun ->
-    if Template.header.__helpers[" shouldShowRecommendingBanner"].call(@)
+    if share.canRecommend()
       $('main').css('margin-top': 122)
     else
       $('main').css('margin-top': 70)
@@ -29,8 +27,5 @@ Template.header.events
 
   "click #exit-recommendation": (event, template) ->
     event.preventDefault()
-    $('.typeahead').val null
-    Session.set "recommendationsClientObject", null
-    Session.set "showRecommendations", null
-    Router.go "/"
+    share.exitRecommendationsMode()
     return
