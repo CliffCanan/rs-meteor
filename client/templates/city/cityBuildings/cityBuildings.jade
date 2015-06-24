@@ -8,11 +8,11 @@ template(name="cityBuildings")
             a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}")
               i.fa.fa-star
 
-          a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
+          a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}")
             img(src="{{#if mainImage}}{{mainImage.url store='thumbsSmall'}}{{else}}/images/placeholder.png{{/if}}")
           .main-city-item-wrap
             h2.main-city-item-title
-              a.main-city-item-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}") {{title}}
+              a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}") {{processedTitle}}
             //span.main-city-info-btn.fa.fa-question-circle.pull-right
             .main-city-info.clearfix
               i.fa(class="{{#if agroIsUnit}}fa-key{{else}}fa-building{{/if}}")
