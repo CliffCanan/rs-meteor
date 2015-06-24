@@ -28,7 +28,6 @@ Template.clientRecommendationsToggle.onRendered ->
       $('.filter-wrap .building-title-search').attr('disabled', 'disabled')
       $('.price-slider').slider('disable')
 
-
       popoverOptions = 
         content: 'Filters not available on recommendation list. <a href="#" class="show-all-listings">Click to activate and view all properties.</a>'
         html: true
