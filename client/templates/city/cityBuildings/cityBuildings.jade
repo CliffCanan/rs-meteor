@@ -9,7 +9,20 @@ template(name="cityBuildings")
               i.fa.fa-star
 
           a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}")
-            img(src="{{#if mainImage}}{{mainImage.url store='thumbsSmall'}}{{else}}/images/placeholder.png{{/if}}")
+            .building-img-wrap.carousel.slide(id="carousel-{{_id}}", data-ride="carousel", data-interval="false")
+              .carousel-inner(role="listbox")
+                each getImages
+                  .item
+                    img.building-img(src="{{url store='thumbs'}}")
+              a.left.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="prev")
+                i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
+                span.sr-only
+                  | Previous
+              a.right.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="next")
+                i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
+                span.sr-only
+                  | Next
+          
           .main-city-item-wrap
             h2.main-city-item-title
               a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}") {{processedTitle}}

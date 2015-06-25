@@ -5,8 +5,20 @@ updateScroll = ->
   else
     Meteor.setTimeout(updateScroll, 100)
 
-Template.cityBuildings.rendered = ->
+Template.cityBuildings.onRendered ->
   updateScroll()
+  _.defer ->
+    $carousel = $(".carousel")
+    carousel = $carousel.data("bs.carousel")
+    if carousel
+      carousel.pause()
+      carousel.destroy()
+    $firstItem = $carousel.find(".item:first")
+    if $firstItem.length
+      $firstItem.addClass("active")
+      $carousel.show().carousel()
+    else
+      $carousel.hide()
 
 Template.cityBuildings.helpers
   'shouldShowRecommendToggle': ->
