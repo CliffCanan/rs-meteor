@@ -135,8 +135,8 @@ Meteor.methods
     console.log "buildingIds: #{buildingIds}"
 
     if buildingIds.length
-      ClientRecommendations.upsert name: clientName, {$addToSet: {buildingIds: {$each: buildingIds}}}
-      return true
+      result = ClientRecommendations.upsert name: clientName, {$addToSet: {buildingIds: {$each: buildingIds}}}
+      return result
     else
       return false
 
