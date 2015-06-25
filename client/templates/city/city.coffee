@@ -84,15 +84,6 @@ Template.city.rendered = ->
     if citySubs.ready
       data = Router.current().data()
 
-      if Router.current().route.getName() is "clientRecommendations"
-        if Session.get "showRecommendations"
-          map.setZoom(3)
-          map.setCenter new google.maps.LatLng(31.850033, -97.6500523)
-        else
-          currentCityData = cities[data.cityId]
-          map.setZoom(14)
-          map.setCenter new google.maps.LatLng(currentCityData.latitude, currentCityData.longitude)
-
       actualMarkerIds = []
       @template.__helpers[" buildings"].call(data).forEach (building) ->
         if building.isOnMap and building.latitude and building.longitude
@@ -131,6 +122,19 @@ Template.city.rendered = ->
       for id, marker of markers
         unless id in actualMarkerIds
           marker.setMap(null)
+
+      if Router.current().route.getName() is "clientRecommendations"
+        if Session.get "showRecommendations"
+          # Zoom map to fit all markers
+          bounds = new google.maps.LatLngBounds();
+          for i, marker of markers
+            bounds.extend markers[i].getPosition() 
+            
+          map.fitBounds(bounds);
+        else
+          currentCityData = cities[data.cityId]
+          map.setZoom(14)
+          map.setCenter new google.maps.LatLng(currentCityData.latitude, currentCityData.longitude)
 
 incrementPageNumber = ->
   cityPageData = Session.get("cityPageData")
