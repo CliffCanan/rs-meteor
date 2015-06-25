@@ -116,3 +116,13 @@ if typeof(console) != "undefined" && console.log && _.isFunction(console.log)
   object.cl = _.bind(console.log, console)
 else
   object.cl = ->
+
+share.canRecommend = () ->
+  Session.get("recommendationsClientObject") and Security.canManageClients()
+
+share.exitRecommendationsMode = () ->
+  $('.typeahead').val null
+  Session.set "recommendationsClientObject", null
+  Session.set "showRecommendations", null
+  Router.go "city",
+    cityId: Router.current().data().cityId

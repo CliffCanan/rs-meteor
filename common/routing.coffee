@@ -49,6 +49,44 @@ Router.map ->
       )
     onBeforeAction: ->
       @next()
+  @route "recommendations/:clientId",
+    name: "clientRecommendations"
+    fastRender: true
+    waitOn: ->
+      recommendation = ClientRecommendations.findOne(@params.clientId)
+
+      if recommendation
+        @params.clientName = recommendation.name
+        firstBuilding = Buildings.findOne(recommendation.buildingIds[0]) if recommendation.buildingIds
+        firstCityId = if firstBuilding then firstBuilding.cityId else 'atlanta'
+        # Defaults to Atlanta filter for now. In the future, a recommendation list might be for a specific city.
+        @params.cityId = if @params.query.cityId then @params.query.cityId else firstCityId
+        subscriptionQuery = _.omit(@params.query, 'cityId')
+        subs = [
+          citySubs.subscribe("buildings", @params.cityId, subscriptionQuery, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
+          Meteor.subscribe("city-buildings-count", @params.cityId, subscriptionQuery)
+          Meteor.subscribe("ClientRecommendations")
+        ]
+
+        # We want to merge both buildingIds and unitIds to pass it to the subscription.
+        # unitIds are object of parentId <-> unitId. Map it to return unitIds only.
+        (unitIds = recommendation.unitIds.map (value) -> value.unitId) if recommendation.unitIds?
+        recommendedIds = recommendation.buildingIds.concat(unitIds) if recommendation.buildingIds?
+        subs.push citySubs.subscribe("recommendedBuildings", recommendedIds) if recommendedIds
+
+      subs
+    data: ->
+      clientRecommendations = ClientRecommendations.findOne(@params.clientId)
+      if clientRecommendations
+        _.extend clientRecommendations, @params
+    onBeforeAction: ->
+      share.setPageTitle "Recommendations for #{@params.clientName}"
+      @next()
+    #   oldData = Session.get("cityPageData")
+    #   if oldData?.cityId isnt @params.cityId
+    #     Session.set("cityPageData", {cityId: @params.cityId, page: 1})
+    #     Session.set("cityScroll", 0)
+    #   share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
   @route "/city/:cityId",
     name: "city"
     fastRender: true

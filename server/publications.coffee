@@ -51,6 +51,13 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
 
   Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit})
 
+Meteor.smartPublish "recommendedBuildings", (buildingIds) ->
+  @addDependency "buildings", "images", (building) ->
+    _id = building.images?[0]?._id
+    if _id then [BuildingImages.find(_id)] else []
+
+  Buildings.find({_id: {'$in': buildingIds}}, {sort: {position: -1, createdAt: -1, _id: 1}})
+
 Meteor.publish "city-buildings-count", (cityId, query) ->
   check(cityId, Match.InArray(cityIds))
   selector = {parentId: {$exists: false}, cityId: cityId}
@@ -158,6 +165,8 @@ Meteor.publish "ContactUsRequests", ->
 Meteor.publish "UserLists", ->
   UserLists.find()
 
+Meteor.publish "ClientRecommendations", ->
+  ClientRecommendations.find()
+
 Meteor.publish "propertyLists", ->
-  console.log("publish > PropertyLists: ", PropertyLists.find().fetch())
   PropertyLists.find()

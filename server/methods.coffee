@@ -94,7 +94,8 @@ Meteor.methods
     errors.push({message: "error", reason: "no permissions", 0}) unless Security.canOperateWithBuilding()
     for property in data
       try
-        Buildings.insert(property)
+        id = Buildings.insert(property)
+        console.log "Inserted new building with id #{id}"
       catch error
         errors.push({message:"error", reason: "could not insert", id: property.source.mlsNo})
     if errors then errors else true
@@ -125,3 +126,46 @@ Meteor.methods
     console.log "image file: ", file
     Buildings.update(_id: buildingId, {$addToSet: {images: file}})
     return true
+
+  "importToClientRecommendations": (clientName, buildingIds) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
+
+    console.log "====== importToClientRecommendations ======"
+    console.log "clientName: #{clientName}"
+    console.log "buildingIds: #{buildingIds}"
+
+    if buildingIds.length
+      result = ClientRecommendations.upsert name: clientName, {$addToSet: {buildingIds: {$each: buildingIds}}}
+      return result
+    else
+      return false
+
+  "createClient": (clientName) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    [firstName, lastName] = clientName.split ' '
+    fields =
+      name: clientName
+      firstName: firstName
+      lastName: lastName
+    clientId = ClientRecommendations.insert(fields)
+    clientId: clientId
+    url: Router.routes["clientRecommendations"].path(clientId: clientId)
+
+  "recommendBuilding": (clientId, buildingId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    ClientRecommendations.update(clientId, {$addToSet: {buildingIds: buildingId}})
+
+  "unrecommendBuilding": (clientId, buildingId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    ClientRecommendations.update(clientId, {$pull: {buildingIds: buildingId}})
+
+  "recommendUnit": (clientId, unitId, parentId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    unitObject = {parentId: parentId, unitId: unitId}
+    ClientRecommendations.update(clientId, {$addToSet: {buildingIds: parentId}})
+    ClientRecommendations.update(clientId, {$pull: {'unitIds': {parentId: parentId}}})
+    ClientRecommendations.update(clientId, {$addToSet: {unitIds: unitObject}})
+
+  "unrecommendUnit": (clientId, unitId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    ClientRecommendations.update(clientId, {$pull: {'unitIds': {unitId: unitId}}})

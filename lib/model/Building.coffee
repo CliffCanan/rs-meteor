@@ -29,12 +29,28 @@ formatPriceDisplay = (from, to) ->
       price += "+"
   price
 
+getCurrentClientUnit = (parentId) ->
+  clientObject = Session.get "recommendationsClientObject"
+  if clientObject
+    clientId = clientObject.clientId
+    clientRecommendations = ClientRecommendations.findOne clientId
+    if clientRecommendations
+      unitObject = clientRecommendations.findUnitByParent parentId
+      if unitObject
+        unitId = unitObject.unitId
+        return unit = Buildings.findOne unitId
+  null
 
 class Building
   constructor: (doc) ->
     _.extend(@, doc)
   cityName: ->
     cities[@cityId].short
+  processedTitle: ->
+    if Session.get "showRecommendations"
+      building = getCurrentClientUnit(@_id)
+      return @getUnitTitle.call building if building
+    return @title
   getRouteData: ->
     data =
       cityId: @cityId
@@ -44,6 +60,11 @@ class Building
       data.buildingSlug = parent.slug
       data.unitSlug = @slug
     data
+  processedRouteData: ->
+    if Session.get "showRecommendations"
+      building = getCurrentClientUnit(@_id)
+      return @getRouteData.call building if building
+    return @getRouteData()
   mainImage: ->
     file = @getImages()?[0]
     file  if file?.url
@@ -142,6 +163,11 @@ class Building
 
     fields
   bedroomTypes: (queryBtype) ->
+    if Session.get "showRecommendations"
+      unit = getCurrentClientUnit(@_id)
+      if unit
+        return btypes[unit.btype]?.upper if unit.btype
+
     if queryBtype
       if queryBtype is "studio"
         "Studio"
@@ -166,6 +192,11 @@ class Building
             postfix = " Bedrooms"
         types.join(", ") + postfix
   displayBuildingPrice: (queryBtype) ->
+    if Session.get "showRecommendations"
+      unit = getCurrentClientUnit(@_id)
+      if unit
+        return formatPriceDisplay unit.priceFrom, unit.priceTo if unit.priceFrom
+
     fieldName = "agroPrice" + (if queryBtype then queryBtype.charAt(0).toUpperCase() + queryBtype.slice(1) else "Total")
     fieldNameFrom = fieldName + "From"
     fieldNameTo = fieldName + "To"

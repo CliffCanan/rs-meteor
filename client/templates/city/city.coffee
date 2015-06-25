@@ -18,14 +18,19 @@ Template.city.helpers
   firstLoad: ->
     citySubs.dep.depend()
     !citySubs.ready and @firstLoad
+  clientRecommendationsList: ->
+    Router.current().route.getName() is "clientRecommendations"
+  showClientRecommendationsName: ->
+    Template.city.__helpers[" clientRecommendationsList"].call(@) and not Security.canManageClients()
   loadingBuildings: ->
     citySubs.dep.depend()
     ready = citySubs.ready
     if ready
       cityPageData = Session.get("cityPageData")
-      Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage)
+      Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage) if cityPageData
     !ready
   notAllLoaded: ->
+    return false if Session.get "showRecommendations"
     Template.city.__helpers[" buildings"].call(@).count() < Counts.get("city-buildings-count")
   # TODO: filter by price depend on btype
   buildings: ->
@@ -34,8 +39,14 @@ Template.city.helpers
       wrap.style.display = "none"
       wrap.offsetHeight # no need to store this anywhere, the reference is enough
       wrap.style.display = ""
-    selector = {parentId: {$exists: false}, cityId: @cityId}
-    addQueryFilter(@query, selector)
+
+    if Session.get "showRecommendations"
+      buildingIds = Router.current().data().buildingIds
+      selector = {_id: {'$in': buildingIds}}
+    else
+      selector = {parentId: {$exists: false}, cityId: @cityId}
+      addQueryFilter(@query, selector)
+
     Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
 
 Template.city.created = ->
@@ -63,10 +74,16 @@ Template.city.rendered = ->
   infowindow = new google.maps.InfoWindow()
   google.maps.event.addListener infowindow, "closeclick", ->
     markers[infoWindowId].setIcon(defaultIcon)
+
+  # Quick CSS hack to add proper margins for non staff in recommendation list since toggle buttons are float.
+  # Staff has the 'Add Listing button' which is not floated and adds a nice margin
+  if Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients()
+    $('.main-city-list').css marginTop: 53
   @autorun ->
     citySubs.dep.depend()
     if citySubs.ready
       data = Router.current().data()
+
       actualMarkerIds = []
       @template.__helpers[" buildings"].call(data).forEach (building) ->
         if building.isOnMap and building.latitude and building.longitude
@@ -106,6 +123,19 @@ Template.city.rendered = ->
         unless id in actualMarkerIds
           marker.setMap(null)
 
+      if Router.current().route.getName() is "clientRecommendations"
+        if Session.get "showRecommendations"
+          # Zoom map to fit all markers
+          bounds = new google.maps.LatLngBounds();
+          for i, marker of markers
+            bounds.extend markers[i].getPosition() 
+            
+          map.fitBounds(bounds);
+        else
+          currentCityData = cities[data.cityId]
+          map.setZoom(14)
+          map.setCenter new google.maps.LatLng(currentCityData.latitude, currentCityData.longitude)
+
 incrementPageNumber = ->
   cityPageData = Session.get("cityPageData")
   cityPageData.page++
@@ -144,4 +174,3 @@ Template.city.events
       unless error
         Session.set("editBuildingId", result.buildingId)
         Router.go(result.url)
-

@@ -4,3 +4,4 @@
 @ContactUsRequestsHandle = Meteor.subscribe("ContactUsRequests")
 @UserListsHandle = Meteor.subscribe("UserLists")
 @propertyLists = Meteor.subscribe("propertyLists")
+@ClientRecommendationsHandle = Meteor.subscribe("ClientRecommendations");

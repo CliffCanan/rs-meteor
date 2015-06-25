@@ -31,6 +31,7 @@
       box-sizing border-box
       border 1px solid #eeeeee
       border-radius 3px
+      position relative
       .main-city-img-link
         position relative
         display block
@@ -95,6 +96,16 @@
             color #272b30
             padding 0 0 0 10px
             font-size 14px
+  a.recommend-toggle
+    color #FFF
+    font-size 25px
+    position absolute
+    right 20px
+    top 20px
+    z-index 999
+    &.active, &:hover
+      color #FFEC00
+
 
 .city-side-bar
   height 100%
