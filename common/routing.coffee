@@ -56,7 +56,7 @@ Router.map ->
       recommendation = ClientRecommendations.findOne(@params.clientId)
 
       if recommendation
-        share.setPageTitle "Recommendations for #{recommendation.name}"
+        @params.clientName = recommendation.name
         firstBuilding = Buildings.findOne(recommendation.buildingIds[0]) if recommendation.buildingIds
         firstCityId = if firstBuilding then firstBuilding.cityId else 'atlanta'
         # Defaults to Atlanta filter for now. In the future, a recommendation list might be for a specific city.
@@ -79,13 +79,14 @@ Router.map ->
       clientRecommendations = ClientRecommendations.findOne(@params.clientId)
       if clientRecommendations
         _.extend clientRecommendations, @params
-    # onBeforeAction: ->
+    onBeforeAction: ->
+      share.setPageTitle "Recommendations for #{@params.clientName}"
+      @next()
     #   oldData = Session.get("cityPageData")
     #   if oldData?.cityId isnt @params.cityId
     #     Session.set("cityPageData", {cityId: @params.cityId, page: 1})
     #     Session.set("cityScroll", 0)
     #   share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
-    #   @next()
   @route "/city/:cityId",
     name: "city"
     fastRender: true
