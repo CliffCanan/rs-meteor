@@ -56,6 +56,7 @@ Router.map ->
       recommendation = ClientRecommendations.findOne(@params.clientId)
 
       if recommendation
+        share.setPageTitle "Recommendations for #{recommendation.name}"
         firstBuilding = Buildings.findOne(recommendation.buildingIds[0]) if recommendation.buildingIds
         firstCityId = if firstBuilding then firstBuilding.cityId else 'atlanta'
         # Defaults to Atlanta filter for now. In the future, a recommendation list might be for a specific city.
