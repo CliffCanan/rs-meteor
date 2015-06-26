@@ -56,7 +56,7 @@ Template.clientRecommendationsToggle.onRendered ->
 
 Template.clientRecommendationsToggle.events
   "click #all-listings-toggle": ->
-    Session.set "showRecommendations", null
+    Session.set "showRecommendations", false
     return
   "click #my-recommendations-toggle": ->
     Session.set "showRecommendations", true
