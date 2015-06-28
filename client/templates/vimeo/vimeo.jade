@@ -1,0 +1,30 @@
+template(name="vimeo")
+  .container-fluid
+    .row
+      .col-lg-12
+        a#import-videos.btn.btn-success
+          i.fa.fa-download 
+            |  Import videos
+      .col-lg-4.col-lg-offset-4.col-md-4.col-md-offset-4
+        #current-video
+          with currentVideo
+            iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="480", height="271" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+    .row              
+      .col-lg-12
+        #thumbnail-slider.carousel.slide(data-ride="carousel")
+          .carousel-inner
+            each videos
+              .item
+                ul.list-unstyled
+                  each this
+                    li.col-lg-2.col.md-1.col-sm-2.col-xs-6
+                      a.video-thumbnail(href="#", style="display: block")
+                        img(src="{{thumbnail}}", style="width: 200px")
+          a.left.carousel-control(href="#thumbnail-slider", role="button", data-slide="prev")
+            span.fa.fa-chevron-left
+            span.sr-only
+              | Previous
+          a.right.carousel-control(href="#thumbnail-slider", role="button", data-slide="next")
+            span.fa.fa-chevron-right
+            span.sr-only
+              | Previous

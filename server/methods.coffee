@@ -169,3 +169,40 @@ Meteor.methods
   "unrecommendUnit": (clientId, unitId) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
     ClientRecommendations.update(clientId, {$pull: {'unitIds': {unitId: unitId}}})
+
+  "getVimeoVideos": () ->
+    Vimeo = Meteor.npmRequire('vimeo').Vimeo
+    vimeo = new Vimeo(Meteor.settings.vimeo.clientId, Meteor.settings.vimeo.clientSecret, Meteor.settings.vimeo.accessToken)
+    getVideoParams = 
+      method: 'GET'
+      path: '/me/videos'
+
+    videos = []
+
+    response = Async.runSync (done) ->
+      vimeo.request getVideoParams, (error, body, status_code, headers) ->
+        data = body.data
+
+        data.forEach (item) ->
+          vimeoId = item.uri.replace('/videos/', '')
+          name = item.name
+          thumbnail = _.where(item.pictures.sizes, {"width": 295})
+          thumbnailLink = thumbnail[0].link
+          embed = item.embed.html
+
+          video =
+            vimeoId: vimeoId
+            name: name,
+            thumbnail: thumbnailLink,
+            embed: embed
+
+          videos.push video
+
+        done(null, videos)
+
+    response.result.forEach (video) ->
+      VimeoVideos.upsert({vimeoId: video.vimeoId}, {$set: video})
+
+    response.result
+
+
