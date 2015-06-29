@@ -79,6 +79,8 @@ Template.city.rendered = ->
   # Staff has the 'Add Listing button' which is not floated and adds a nice margin
   if Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients()
     $('.main-city-list').css marginTop: 53
+  else
+    $('.main-city-list').css marginTop: 0
   @autorun ->
     citySubs.dep.depend()
     if citySubs.ready
