@@ -8,6 +8,6 @@ Template.clientRecommendations.onRendered ->
 
     Session.set "recommendationsClientObject", clientObject
 
-    if Session.get "showRecommendations" is not false
+    if Session.get("showRecommendations") isnt false
       Session.set "showRecommendations", true
       return
