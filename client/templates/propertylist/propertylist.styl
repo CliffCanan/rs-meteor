@@ -34,8 +34,12 @@
       position relative
       .building-img-wrap
         a.left.carousel-control, a.right.carousel-control
-          top 80px
           z-index 999
+          &:focus
+            color #FFF
+            opacity .5
+          i
+            margin-top 90px
       .main-city-img-link
         position relative
         display block
