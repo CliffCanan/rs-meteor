@@ -11,11 +11,16 @@ Router.configure
 Router.plugin("dataNotFound", {notFoundTemplate: "notFound"})
 
 Router.map ->
-  @route "/vimeo",
+  @route "/pick-video/:buildingId",
     name: "vimeo",
     layoutTemplate: "blankLayout",
     waitOn: ->
-      Meteor.subscribe('vimeoVideos')
+      [
+        Meteor.subscribe('vimeoVideos'),
+        Meteor.subscribe('singleBuilding', @params.buildingId)
+      ]
+    data: ->
+      Buildings.findOne(@params.buildingId)
   @route "/",
     name: "index"
     onBeforeAction: ->

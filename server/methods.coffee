@@ -192,6 +192,8 @@ Meteor.methods
 
           video =
             vimeoId: vimeoId
+            createdAt: new Date()
+            uploadedAt: new Date(item.created_time)
             name: name,
             thumbnail: thumbnailLink,
             embed: embed
@@ -204,5 +206,3 @@ Meteor.methods
       VimeoVideos.upsert({vimeoId: video.vimeoId}, {$set: video})
 
     response.result
-
-

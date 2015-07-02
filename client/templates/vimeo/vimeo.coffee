@@ -3,6 +3,7 @@ Template.vimeo.onRendered ->
   $('#thumbnail-slider').carousel({
     interval: 0
   });
+  Session.set "currentVideo", VimeoVideos.findOne()
 
 Template.vimeo.helpers
   "videos": ->
@@ -16,7 +17,6 @@ Template.vimeo.helpers
 
 Template.vimeo.events
   "click #import-videos": (event, template) ->
-      Meteor.call 'getVimeoVideos', (err, result) ->
-        Session.set 'vimeoVideos', result
+      Meteor.call 'getVimeoVideos'
   "click .video-thumbnail": (event, template) ->
       Session.set "currentVideo", this

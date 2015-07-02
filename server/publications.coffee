@@ -67,6 +67,9 @@ Meteor.publish "city-buildings-count", (cityId, query) ->
   Counts.publish(@, "city-buildings-count", Buildings.find(selector))
   undefined
 
+Meteor.publish "singleBuilding", (buildingId) ->
+  Buildings.find(buildingId)
+
 Meteor.smartPublish "building", (cityId, slug) ->
   # console.log("cityId: ", cityId)
   # console.log("slug: ", slug)
@@ -171,3 +174,6 @@ Meteor.publish "ClientRecommendations", ->
 
 Meteor.publish "propertyLists", ->
   PropertyLists.find()
+
+Meteor.publish "vimeoVideos", ->
+  VimeoVideos.find()

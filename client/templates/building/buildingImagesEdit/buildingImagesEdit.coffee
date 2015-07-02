@@ -8,3 +8,7 @@ Template.buildingImagesEdit.rendered = ->
     stop: (event, ui) ->
       order = $images.sortable("toArray", {attribute: "data-id"})
       Meteor.call("imagesOrder", building._id, order)
+
+Template.buildingImagesEdit.events
+  "click .add-video-btn": (event, template) ->
+    window.open("/pick-video/#{@._id}", 'vimeoVideos', 'height=430,width=700,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no')

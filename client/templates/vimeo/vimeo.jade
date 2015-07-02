@@ -1,25 +1,36 @@
 template(name="vimeo")
-  .container-fluid
+  header.blank-layout
+    .header-wrap
+      h1.logo-wrap.pull-left
+        a.hide-text(href="/")
+          | Rentscene
+          img.logo(src="/images/logo.png", alt="Rentscene")
+      h4.pull-left
+        | Picking video for {{title}}
+  .container-fluid.vimeo-container
     .row
-      .col-lg-12
-        a#import-videos.btn.btn-success
-          i.fa.fa-download 
-            |  Import videos
-      .col-lg-4.col-lg-offset-4.col-md-4.col-md-offset-4
+      .col-lg-9.col-md-9.col-xs-9
         #current-video
           with currentVideo
-            iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="480", height="271" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+            iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="502", height="283" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+      .col-lg-3.col-xs-3.actions-wrapper
+        a#confirm-video.btn.btn-success
+          i.fa.fa-check 
+            |  Confirm video
+        a#import-videos.btn.btn-info
+          i.fa.fa-download 
+            |  Import videos
     .row              
-      .col-lg-12
+      .col-lg-12.col-xs-12
         #thumbnail-slider.carousel.slide(data-ride="carousel")
           .carousel-inner
             each videos
               .item
-                ul.list-unstyled
+                ul.list-unstyled.row
                   each this
-                    li.col-lg-2.col.md-1.col-sm-2.col-xs-6
-                      a.video-thumbnail(href="#", style="display: block")
-                        img(src="{{thumbnail}}", style="width: 200px")
+                    li.col-lg-2.col.md-1.col-sm-2.col-xs-2
+                      a.video-thumbnail(href="#")
+                        img(src="{{thumbnail}}")
           a.left.carousel-control(href="#thumbnail-slider", role="button", data-slide="prev")
             span.fa.fa-chevron-left
             span.sr-only
