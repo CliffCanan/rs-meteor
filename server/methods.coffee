@@ -184,19 +184,17 @@ Meteor.methods
         data = body.data
 
         data.forEach (item) ->
-          vimeoId = item.uri.replace('/videos/', '')
-          name = item.name
           thumbnail = _.where(item.pictures.sizes, {"width": 295})
           thumbnailLink = thumbnail[0].link
-          embed = item.embed.html
 
           video =
-            vimeoId: vimeoId
+            vimeoId: item.uri.replace('/videos/', '')
             createdAt: new Date()
             uploadedAt: new Date(item.created_time)
-            name: name,
+            name: item.name,
             thumbnail: thumbnailLink,
-            embed: embed
+            embed: item.embed.html
+            duration: item.duration
 
           videos.push video
 

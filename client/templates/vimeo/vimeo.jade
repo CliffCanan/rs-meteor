@@ -9,33 +9,30 @@ template(name="vimeo")
         | Picking video for {{title}}
   .container-fluid.vimeo-container
     .row
-      .col-lg-9.col-md-9.col-xs-9
+      .col-lg-12.col-md-12.col-xs-12
+        input.form-control.input-lg.typeahead(type="text", placeholder="Search videos", autocomplete="false", data-highlight="true", data-source="videosSearch", data-selected="selectedVideo", data-template="vimeoResult")
         #current-video
+          i.fa.fa-spinner.fa-spin.fa-5x
           with currentVideo
-            iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="502", height="283" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
-      .col-lg-3.col-xs-3.actions-wrapper
+            iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="670", height="378" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
         a#confirm-video.btn.btn-success
           i.fa.fa-check 
             |  Confirm video
         a#import-videos.btn.btn-info
           i.fa.fa-download 
             |  Import videos
-    .row              
-      .col-lg-12.col-xs-12
-        #thumbnail-slider.carousel.slide(data-ride="carousel")
-          .carousel-inner
-            each videos
-              .item
-                ul.list-unstyled.row
-                  each this
-                    li.col-lg-2.col.md-1.col-sm-2.col-xs-2
-                      a.video-thumbnail(href="#")
-                        img(src="{{thumbnail}}")
-          a.left.carousel-control(href="#thumbnail-slider", role="button", data-slide="prev")
-            span.fa.fa-chevron-left
-            span.sr-only
-              | Previous
-          a.right.carousel-control(href="#thumbnail-slider", role="button", data-slide="next")
-            span.fa.fa-chevron-right
-            span.sr-only
-              | Previous
+
+
+template(name="vimeoResult")
+  div.row
+    .col-xs-3
+      img(src="{{thumbnail}}", style="width: 136px")
+    .col-xs-9
+      h4
+        | {{value}}
+      span.duration-wrapper
+        i.fa.fa-clock-o
+        |  {{duration}} minutes
+      span.uploaded-at-wrapper
+        i.fa.fa-calendar
+        |  Uploaded at {{uploadedAt}}

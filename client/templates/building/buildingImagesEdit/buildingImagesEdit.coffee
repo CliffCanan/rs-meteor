@@ -11,4 +11,4 @@ Template.buildingImagesEdit.rendered = ->
 
 Template.buildingImagesEdit.events
   "click .add-video-btn": (event, template) ->
-    window.open("/pick-video/#{@._id}", 'vimeoVideos', 'height=430,width=700,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no')
+    window.open("/pick-video/#{@._id}", 'vimeoVideos', 'height=574,width=700,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no')

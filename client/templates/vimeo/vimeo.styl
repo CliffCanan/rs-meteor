@@ -8,7 +8,14 @@
 .vimeo-container
   margin-top 80px
   #current-video
-    height 290px
+    margin-bottom 5px
+    margin-top 10px
+    position relative
+    .fa-spinner
+      position absolute
+      top 50%
+      left 50%
+      z-index -1
   .actions-wrapper
     a
       margin-bottom 5px
@@ -27,3 +34,35 @@
       left 2px
     .fa-chevron-right
       right 2px
+      
+  .twitter-typeahead
+    width 100%
+    .tt-menu
+      margin-top 10px
+      margin-left 15px
+      width 100%
+      .tt-dataset
+        margin-right 30px
+    .tt-suggestion
+      background #FFF
+      border 1px solid #CCC
+      border-bottom 0
+      padding 10px
+      &:last-child
+        border-bottom 1px solid #CCC
+        border-radius 0 0 10px 10px
+      &.tt-cursor
+        background #E5E5E5
+        color #FFF
+      &:hover
+        background #E5E5E5
+        color #FFF
+        cursor pointer
+      .duration-wrapper
+        margin-right 20px
+    .tt-highlight
+      font-weight normal
+    h4
+      .tt-highlight
+        color #000
+    
