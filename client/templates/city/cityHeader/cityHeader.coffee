@@ -84,5 +84,5 @@ Template.cityHeader.events
     $form.trigger("submit")
 
   "click .show-all-listings": ->
-    Session.set "showRecommendations", null
+    Session.set "showRecommendations", false
     return
