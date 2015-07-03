@@ -10,17 +10,23 @@
       overflow hidden
       text-overflow ellipsis
       width 525px
+#vimeo-popup
+  .modal-dialog
+    max-width 700px
+    width 700px
 .vimeo-container
-  margin-top 80px
   #current-video
     margin-bottom 5px
     margin-top 10px
     position relative
+    iframe
+      position relative
+      z-index 2
     .fa-spinner
       position absolute
       top 50%
       left 50%
-      z-index -1
+      z-index 1
   .actions-wrapper
     a
       margin-bottom 5px

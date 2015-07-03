@@ -11,16 +11,6 @@ Router.configure
 Router.plugin("dataNotFound", {notFoundTemplate: "notFound"})
 
 Router.map ->
-  @route "/pick-video/:buildingId",
-    name: "vimeo",
-    layoutTemplate: "blankLayout",
-    waitOn: ->
-      [
-        Meteor.subscribe('vimeoVideos'),
-        Meteor.subscribe('singleBuilding', @params.buildingId)
-      ]
-    data: ->
-      Buildings.findOne(@params.buildingId)
   @route "/",
     name: "index"
     onBeforeAction: ->
@@ -128,6 +118,7 @@ Router.map ->
         buildingSubs.subscribe("buildingParent", @params.cityId, @params.unitSlug or @params.buildingSlug)
         buildingSubs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug)
         buildingSubs.subscribe("buildingAdminSame", @params.cityId, @params.unitSlug or @params.buildingSlug)
+        buildingSubs.subscribe("vimeoVideos")
       ]
     data: ->
       # console.log("cityId: " + @params.cityId)

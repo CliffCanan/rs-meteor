@@ -1,18 +1,8 @@
 Template.vimeo.onRendered ->
   Meteor.typeahead.inject()
-  $('#thumbnail-slider .item:first').addClass('active');
-  $('#thumbnail-slider').carousel({
-    interval: 0
-  });
   Session.set "currentVideo", VimeoVideos.findOne()
 
 Template.vimeo.helpers
-  videos: ->
-    videos = VimeoVideos.find().fetch()
-    n = 6;
-    lists = _.groupBy videos, (element, index) ->
-      Math.floor index/n
-    lists = _.toArray lists
   videosSearch: (query, sync, async) ->
     suggestions = VimeoVideos.find(name: {$regex: new RegExp query, "i"})
     if suggestions.count()
@@ -40,5 +30,3 @@ Template.vimeo.helpers
 Template.vimeo.events
   "click #import-videos": (event, template) ->
       Meteor.call 'getVimeoVideos'
-  "click .video-thumbnail": (event, template) ->
-      Session.set "currentVideo", this
