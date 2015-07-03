@@ -248,6 +248,9 @@ template(name="building")
                   a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
                     i.fa.fa-star
                 .carousel-inner(role="listbox")
+                  if getVideo
+                    .item
+                      iframe(src="//player.vimeo.com/video/{{getVideo}}", width="576", height="325" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
                   each getImages
                     .item
                       img.building-img(src="{{url store='thumbs'}}")
