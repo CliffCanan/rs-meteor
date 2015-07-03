@@ -121,8 +121,8 @@ share.canRecommend = () ->
   Session.get("recommendationsClientObject") and Security.canManageClients()
 
 share.exitRecommendationsMode = () ->
+  Router.go "city", cityId: Router.current().data().cityId
   $('.typeahead').val null
   Session.set "recommendationsClientObject", null
   Session.set "showRecommendations", null
-  Router.go "city",
-    cityId: Router.current().data().cityId
+  return
