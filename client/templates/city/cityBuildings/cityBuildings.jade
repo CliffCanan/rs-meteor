@@ -13,7 +13,7 @@ template(name="cityBuildings")
               .carousel-inner(role="listbox")
                 each getImages
                   .item
-                    img.building-img(src="{{url store='thumbs'}}")
+                    img.building-img(src="{{getThumbnail store='thumbs'}}")
               a.left.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="prev")
                 i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
                 span.sr-only

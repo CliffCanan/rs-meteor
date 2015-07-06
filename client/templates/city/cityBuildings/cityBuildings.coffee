@@ -26,6 +26,8 @@ Template.cityBuildings.helpers
   'isRecommended': ->
     buildingIds = Router.current().data().buildingIds || []
     @._id in buildingIds
+  getThumbnail: (store) ->
+    share.getThumbnail.call @, store
 
 # Separate events for recommend toggle
 Template.cityBuildings.events
