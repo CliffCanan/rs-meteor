@@ -1,4 +1,5 @@
 Template.vimeo.onRendered ->
+  Meteor.call 'getVimeoVideos'
   Meteor.typeahead.inject()
   Session.set "currentVideo", VimeoVideos.findOne()
 
