@@ -9,6 +9,13 @@ Template.buildingImagesEdit.rendered = ->
       order = $images.sortable("toArray", {attribute: "data-id"})
       Meteor.call("imagesOrder", building._id, order)
 
+Template.buildingImagesEdit.helpers
+  getThumbnail: (store) ->
+    share.getThumbnail.call @, store
+
+  isVideo: ->
+    return 'video' if @vimeoId?
+
 Template.buildingImagesEdit.events
   "click .add-video-btn": (event, template) ->
     $('#vimeo-popup').modal('show')

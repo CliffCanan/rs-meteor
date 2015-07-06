@@ -73,6 +73,11 @@ class Building
       @images
     else
       @parent()?.images
+  getMedia: ->
+    if @images?.length
+      @images
+    else
+      @parent()?.images
   getVideo: ->
     @vimeoId
   getDescription: ->

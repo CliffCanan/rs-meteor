@@ -6,7 +6,9 @@ template(name="buildingImagesEdit")
           li.col-lg-4.col-md-3.col-sm-3.col-xs-6.images-sortable-item(data-id="{{_id}}")
             .item.edit-item
               #element1.thumbnail-image
-                img.building-img.img-thumbnail(src="{{url store='thumbsSmall'}}")
+                if isVideo
+                  i.fa.fa-video-camera
+                img.building-img.img-thumbnail(src="{{getThumbnail store='thumbsSmall'}}")
                 #element2.cover-image
                   button.remove-image( type='button', aria-label='Remove' data-toggle="modal" data-target="#confirmRemoval")
                     span.fa.fa-trash(aria-hidden='true')

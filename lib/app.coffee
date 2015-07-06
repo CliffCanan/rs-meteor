@@ -108,6 +108,10 @@ share.intval = (value) ->
 share.floatval = (value) ->
   parseFloat(value) || 0
 
+share.getThumbnail = (store) ->
+  return @url store.hash if @ instanceof FS.File
+  return @thumbnail
+
 share.isDebug = Meteor.settings.public.isDebug
 
 object = if typeof(window) != "undefined" then window else GLOBAL

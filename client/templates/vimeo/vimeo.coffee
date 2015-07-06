@@ -30,8 +30,7 @@ Template.vimeo.helpers
 Template.vimeo.events
   "click #confirm-video": (event, template) ->
     currentVideo = Session.get "currentVideo"
-    data = {vimeoId: currentVideo.vimeoId}
-    Meteor.apply "updateBuilding", [template.data._id, data]
+    Buildings.update({_id: template.data._id}, {$addToSet: {images: currentVideo}})
     $('#vimeo-popup').hide()
   "click #import-videos": (event, template) ->
       Meteor.call 'getVimeoVideos'
