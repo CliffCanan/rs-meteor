@@ -4,6 +4,11 @@
     "appId": "sDNt6zvsw29t4DGYe",
     "appSecret": "73fbeacd-eb82-4fca-8eac-7e819d8299d5"
   },
+  "vimeo": {
+    "clientId": "8c997e332f00ecae0f200cb23d117a56cac00803",
+    "clientSecret": "23c8bc5d0bc4172e1284a1f0d38d6b559a68946e",
+    "accessToken": "474b9d11e2ef37bc309cd6c2d53f498c"
+  },
   "public": {
     "version": "__VERSION__",
     "isDebug": false,
