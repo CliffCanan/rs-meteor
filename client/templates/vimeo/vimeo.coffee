@@ -31,7 +31,9 @@ Template.vimeo.helpers
 Template.vimeo.events
   "click #confirm-video": (event, template) ->
     currentVideo = Session.get "currentVideo"
-    Buildings.update({_id: template.data._id}, {$addToSet: {images: currentVideo}})
-    $('#vimeo-popup').hide()
+
+    # We have to use $each to specify the $position operator to add this video on top of the list
+    Buildings.update({_id: template.data._id}, {$push: {images: {$each: [currentVideo], $position: 0}}})
+    $('#vimeo-popup').modal('hide')
   "click #import-videos": (event, template) ->
       Meteor.call 'getVimeoVideos'
