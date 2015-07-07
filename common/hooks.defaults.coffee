@@ -4,7 +4,7 @@ Buildings.before.insert (userId, building) ->
     neighborhood: "center-city"
     cityId: cityIds[0]
     btype: btypesIds[1]
-    isOnMap: false
+    isOnMap: true
     isPublished: false
     propertyType: 0
     position: 10000
