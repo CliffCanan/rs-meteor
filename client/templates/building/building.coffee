@@ -57,8 +57,9 @@ Template.building.helpers
 
   removeMediaType: ->
     media = Session.get("imageToRemove")
-    return 'image' if media instanceof FS.File
-    return 'video' if media.vimeoId?
+    if media
+      return 'image' if media instanceof FS.File
+      return 'video' if media.vimeoId?
 
 Template.building.rendered = ->
   Session.set("showAllBuildingUnits", false)
