@@ -248,9 +248,12 @@ template(name="building")
                   a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
                     i.fa.fa-star
                 .carousel-inner(role="listbox")
-                  each getImages
+                  each getMedia
                     .item
-                      img.building-img(src="{{url store='thumbs'}}")
+                      if isImage
+                        img.building-img(src="{{getThumbnail store='thumbs'}}")
+                      else
+                        iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="576", height="325" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
                 a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
                   i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
                   span.sr-only
@@ -293,7 +296,7 @@ template(name="building")
                             a.recommend-toggle(href="#", class="{{#if unitIsRecommended}}active{{/if}}")
                               i.fa.fa-star
                           with mainImage
-                            img.pull-left(src="{{url store='thumbsSmall'}}")
+                            img.pull-left(src="{{getThumbnail store='thumbsSmall'}}")
                           .building-unit-info.clearfix
                             h3.building-unit-info-title
                               a(href="{{pathFor route='building' data=getRouteData}}") {{title}}
@@ -573,7 +576,7 @@ template(name="building")
               .modal-header
                 button.close(type='button', data-dismiss='modal', aria-label='Close')
                   span(aria-hidden='true') &times;
-                h4#myModalLabel.modal-title Remove image.
+                h4#myModalLabel.modal-title Remove {{removeMediaType}}.
               .modal-body
                 | Are you sure?
               .modal-footer

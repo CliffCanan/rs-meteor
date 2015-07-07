@@ -1,0 +1,39 @@
+template(name="vimeo")
+  #vimeo-popup.modal.fade(tabindex='-1', role='dialog', data-backdrop="static")
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-label="Close")
+            .span(aria-hidden="true")
+              | &times;
+          h4.modal-title
+            | Picking video for {{title}}
+        .modal-body
+          .container-fluid.vimeo-container
+            .row
+              .col-lg-12.col-md-12.col-xs-12
+                input.form-control.input-lg.typeahead(type="text", placeholder="Search videos", autocomplete="false", data-highlight="true", data-source="videosSearch", data-selected="selectedVideo", data-template="vimeoResult")
+                #current-video
+                  i.fa.fa-spinner.fa-spin.fa-5x
+                  with currentVideo
+                    iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="638", height="360" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+        .modal-footer
+          button.btn.btn-default(type="button", data-dismiss="modal")
+            | Close
+          a#confirm-video.btn.btn-success
+            i.fa.fa-check 
+              |  Confirm video
+
+template(name="vimeoResult")
+  div.row
+    .col-xs-3
+      img(src="{{thumbnail}}", style="width: 136px")
+    .col-xs-9
+      h4
+        | {{value}}
+      span.duration-wrapper
+        i.fa.fa-clock-o
+        |  {{duration}} minutes
+      span.uploaded-at-wrapper
+        i.fa.fa-calendar
+        |  Uploaded at {{uploadedAt}}

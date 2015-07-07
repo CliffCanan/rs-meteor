@@ -46,8 +46,9 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
   addIsPublishFilter(@userId, selector)
 
   @addDependency "buildings", "images", (building) ->
-    _id = building.images?[0]?._id
-    if _id then [BuildingImages.find(_id)] else []
+    imageIds = _.map building.images, (file) ->
+      file._id
+    [BuildingImages.find({_id: {$in: imageIds}})]
 
   Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit})
 
@@ -65,6 +66,9 @@ Meteor.publish "city-buildings-count", (cityId, query) ->
   addIsPublishFilter(@userId, selector)
   Counts.publish(@, "city-buildings-count", Buildings.find(selector))
   undefined
+
+Meteor.publish "singleBuilding", (buildingId) ->
+  Buildings.find(buildingId)
 
 Meteor.smartPublish "building", (cityId, slug) ->
   # console.log("cityId: ", cityId)
@@ -170,3 +174,6 @@ Meteor.publish "ClientRecommendations", ->
 
 Meteor.publish "propertyLists", ->
   PropertyLists.find()
+
+Meteor.publish "vimeoVideos", ->
+  VimeoVideos.find()

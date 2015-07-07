@@ -4,5 +4,6 @@
   "js2coffee": "2.0.3",
   "request": "2.53.0",
   "mkdirp": "0.5.0",
-  "base64-arraybuffer": "0.1.2"
+  "base64-arraybuffer": "0.1.2",
+  "vimeo": "1.1.4"
 }

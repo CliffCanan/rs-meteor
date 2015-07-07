@@ -49,6 +49,18 @@ Template.building.helpers
     else
       if @adminSameId then Buildings.findOne(@adminSameId) else @
 
+  getThumbnail: (store) ->
+    share.getThumbnail.call @, store
+
+  isImage: ->
+    @ instanceof FS.File
+
+  removeMediaType: ->
+    media = Session.get("imageToRemove")
+    if media
+      return 'image' if media instanceof FS.File
+      return 'video' if media.vimeoId?
+
 Template.building.rendered = ->
   Session.set("showAllBuildingUnits", false)
   setHeights()
@@ -96,11 +108,19 @@ Template.building.events
     Session.set("showAllBuildingUnits", false)
 
   "click .remove-image": grab encapsulate (event, template) ->
-    Session.set("imageToRemove", @_id)
+    Session.set("imageToRemove", @)
     $('#confirmRemoval').modal('show')
 
   "click .confirm-removal":  grab encapsulate (event, template) ->
-    Buildings.update({ _id: template.data.building._id}, { $pull: { images: {"EJSON$value.EJSON_id": Session.get("imageToRemove") }} })
+    imageToRemove = Session.get("imageToRemove")
+    if imageToRemove instanceof FS.File
+      query = {"EJSON$value.EJSON_id": imageToRemove._id }
+    else if imageToRemove.vimeoId?
+      query = {"_id": imageToRemove._id }
+
+    if query
+      Buildings.update({ _id: template.data.building._id}, { $pull: { images: query }})
+
     $('#confirmRemoval').modal('hide')
     Session.set("imageToRemove", null)
 
