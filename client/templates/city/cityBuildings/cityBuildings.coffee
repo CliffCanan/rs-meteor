@@ -28,6 +28,8 @@ Template.cityBuildings.helpers
     @._id in buildingIds
   getThumbnail: (store) ->
     share.getThumbnail.call @, store
+  isVideo: ->
+    @vimeoId?
 
 # Separate events for recommend toggle
 Template.cityBuildings.events
