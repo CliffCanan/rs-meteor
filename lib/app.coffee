@@ -82,6 +82,14 @@
   "adminNotes"
 ]
 
+@vimeoThumbnailSizes =
+  xxs: '100x75'
+  xs: '200x150'
+  s: '295x166'
+  m: '640x360'
+  l: '960x540'
+  xl: '1280x720'
+
 @slugify = (text) ->
   text = text.toString().toLowerCase()
   unless text?.length
@@ -110,7 +118,7 @@ share.floatval = (value) ->
 
 share.getThumbnail = (store) ->
   return @url store.hash if @ instanceof FS.File
-  return @thumbnail
+  return @thumbnail.replace(vimeoThumbnailSizes.s, vimeoThumbnailSizes.m)
 
 share.isDebug = Meteor.settings.public.isDebug
 

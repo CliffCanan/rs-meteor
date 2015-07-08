@@ -12,7 +12,7 @@ template(name="cityBuildings")
             .building-img-wrap.carousel.slide(id="carousel-{{_id}}", data-ride="carousel", data-interval="false")
               .carousel-inner(role="listbox")
                 each getImages
-                  .item
+                  .item(class="{{mediaClass}}")
                     if isVideo
                       i.fa.fa-video-camera.fa-3x
                     img.building-img(src="{{getThumbnail store='thumbs'}}")

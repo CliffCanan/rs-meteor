@@ -20,6 +20,9 @@ Template.cityBuildings.onRendered ->
     else
       $carousel.hide()
 
+  $.getScript '/js/imgLiquid-min.js', ->
+    $('.main-city-item .item.video').imgLiquid();
+
 Template.cityBuildings.helpers
   'shouldShowRecommendToggle': ->
     Router.current().route.getName() is "clientRecommendations" and Security.canManageClients()
@@ -28,6 +31,8 @@ Template.cityBuildings.helpers
     @._id in buildingIds
   getThumbnail: (store) ->
     share.getThumbnail.call @, store
+  mediaClass: ->
+    return 'video' if @vimeoId?
   isVideo: ->
     @vimeoId?
 
