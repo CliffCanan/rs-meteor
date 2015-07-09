@@ -198,6 +198,17 @@ class Building
             types.push(i)
             postfix = " Bedrooms"
         types.join(", ") + postfix
+  bedroomTypesArray: ->
+    types = []
+    postfix = ""
+    if @agroPriceStudioFrom
+      types.push("Studio")
+    if @agroPriceBedroom1From
+      types.push("1 Bedroom")
+    for i in [2..5]
+      if @["agroPriceBedroom" + i + "From"]
+        types.push("#{i} Bedrooms")
+    types
   displayBuildingPrice: (queryBtype) ->
     if Session.get "showRecommendations"
       unit = getCurrentClientUnit(@_id)

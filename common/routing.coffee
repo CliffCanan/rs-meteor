@@ -128,13 +128,23 @@ Router.map ->
       return null unless building
       _.extend {}, @params,
         building: building
-    onBeforeAction: ->
+    onAfterAction: ->
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
-      if @building
-        share.setPageTitle(@building.title + ", " + cities[@params.cityId].long)
-      @next()
+      data = @data()
+      building = data.building
+      if building
+        bedrooms = building.bedroomTypesArray()
+        prefix = ''
+        suffix = ''
+        if bedrooms.length
+          if bedrooms.length is 1
+            prefix = "#{bedrooms[0]} "
+          else
+            suffix = ' Rentals'
+
+        share.setPageTitle("#{prefix}#{building.title}#{suffix}, #{cities[@params.cityId].human}")
   @route "/autologin/:token",
     name: "autologin"
     onBeforeAction: ->
