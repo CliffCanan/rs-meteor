@@ -20,14 +20,19 @@ Template.cityHeaderSlider.helpers
 Template.cityHeaderSlider.rendered = ->
   $slider = @$(".price-slider")
   if $slider.length
-    updateSliderDisplayValues()
+
+    data = Router.current().data()
+    query = data.query
+
+    minValue = if query.from then parseInt(query.from) else 500
+    maxValue = if query.to then parseInt(query.to) else 5000
+    updateSliderDisplayValues(minValue, maxValue)
+
     $slider.slider({tooltip: "hide"})
     .on "slideStop", (event) ->
       min = $slider.data("slider-min")
       max = $slider.data("slider-max")
       value = event.value
-      data = Router.current().data()
-      query = data.query
       routeName = Router.current().route.getName()
       if (parseInt(query.from) or min) isnt value[0]
         if min is value[0]
