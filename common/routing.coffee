@@ -80,12 +80,11 @@ Router.map ->
       if clientRecommendations
         _.extend clientRecommendations, @params
     onBeforeAction: ->
+      oldData = Session.get("cityPageData")
+      if oldData?.cityId isnt @params.cityId
+        Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       share.setPageTitle "Recommendations for #{@params.clientName}"
       @next()
-    #   oldData = Session.get("cityPageData")
-    #   if oldData?.cityId isnt @params.cityId
-    #     Session.set("cityPageData", {cityId: @params.cityId, page: 1})
-    #     Session.set("cityScroll", 0)
     #   share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
   @route "/city/:cityId",
     name: "city"
@@ -99,7 +98,7 @@ Router.map ->
         Meteor.subscribe("city-buildings-count", @params.cityId, @params.query)
       ]
     data: ->
-      return null  unless @params.cityId in cityIds
+      return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
       oldData = Session.get("cityPageData")
@@ -130,6 +129,9 @@ Router.map ->
       _.extend {}, @params,
         building: building
     onBeforeAction: ->
+      oldData = Session.get("cityPageData")
+      if oldData?.cityId isnt @params.cityId
+        Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       if @building
         share.setPageTitle(@building.title + ", " + cities[@params.cityId].long)
       @next()

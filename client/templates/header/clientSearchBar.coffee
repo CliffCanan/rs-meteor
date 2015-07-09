@@ -19,7 +19,9 @@ Template.clientSearchBar.helpers
       newClientName = $('.twitter-typeahead pre').html();
       Meteor.call "createClient", newClientName, (err, data) ->
         $target.val ''
-        Router.go data.url unless err
+        cityPageData = Session.get "cityPageData"
+        Session.set "showRecommendations", false
+        Router.go "clientRecommendations", {clientId: data.clientId}, query: {cityId: cityPageData.cityId} unless err
     else
       $target.val ''
       Router.go "clientRecommendations", {clientId: suggestion.id}
