@@ -135,16 +135,12 @@ Router.map ->
       data = @data()
       building = data.building
       if building
-        bedrooms = building.bedroomTypesArray()
-        prefix = ''
-        suffix = ''
-        if bedrooms.length
-          if bedrooms.length is 1
-            prefix = "#{bedrooms[0]} "
-          else
-            suffix = ' Rentals'
+        metaTags = building.metaTags()
+        SEO.set
+          title: metaTags.title
+          meta:
+            description: metaTags.description
 
-        share.setPageTitle("#{prefix}#{building.title}#{suffix}, #{cities[@params.cityId].human}")
   @route "/autologin/:token",
     name: "autologin"
     onBeforeAction: ->

@@ -238,6 +238,41 @@ class Building
           price: formatPriceDisplay(@[fieldNameFrom], @[fieldNameTo])
           type: value.lower
     prices
+  metaTags: ->
+    bedrooms = @bedroomTypesArray()
+    city = cities[@cityId].human
+    prefix = ''
+    suffix = ''
+    if bedrooms.length
+      if bedrooms.length is 1
+        prefix = "#{bedrooms[0]} "
+      else
+        suffix = ' Rentals'
+    title = "#{prefix}#{@title}#{suffix}, #{city}"
+
+    features = []
+    featuresSummary = ''
+
+    for fieldName in ["fitnessCenter", "laundry", "security", "utilities", "parking"]
+      value = @[fieldName]
+      if value
+        features.push complexFieldsValues[fieldName].values[value].toLowerCase() if value is 1
+
+    if features.length
+      featuresPrefix = " with "
+      featuresSummary = features.join(", ")
+
+    description = "Currently available #{@bedroomTypes()} apartments#{featuresPrefix}#{featuresSummary}. View photos videos, maps and floorplans of units at #{@title} in #{@neighborhood}, #{city}"
+
+    if bedrooms.length and bedrooms.length is 1
+      availableAt = moment(@availableAt)
+      availableDate = availableAt.format('d MMMM')
+      if featuresSummary
+        featuresSummary = "Includes #{featuresSummary}, "
+      description = "#{bedrooms[0]} apartment available #{availableDate} at #{@title}. #{featuresSummary}#{@getSqft()} sq ft. View photos videos, maps and floorplans of units in #{@neighborhood}, #{city}"
+
+    title: title
+    description: description
 
 
 share.Transformations.Building = _.partial(share.transform, Building)
