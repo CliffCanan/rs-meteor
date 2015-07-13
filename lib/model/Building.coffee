@@ -268,9 +268,11 @@ class Building
     if bedrooms.length and bedrooms.length is 1
       availableAt = moment(@availableAt)
       availableDate = availableAt.format('d MMMM')
+      sqft = if @getSqft() then "#{@getSqft()} sq ft" else ''
       if featuresSummary
         featuresSummary = "Includes #{featuresSummary}, "
-      description = "#{bedrooms[0]} apartment available #{availableDate} at #{@title}. #{featuresSummary}#{@getSqft()} sq ft. View photos videos, maps and floorplans of units in #{@neighborhood}, #{city}"
+      if sqft or featuresSummary then endPeriod = '. ' else endPeriod = ''
+      description = "#{bedrooms[0]} apartment available #{availableDate} at #{@title}. #{featuresSummary}#{sqft}#{endPeriod}View photos videos, maps and floorplans of units in #{@neighborhood}, #{city}"
 
     title: title
     description: description
