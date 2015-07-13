@@ -16,6 +16,11 @@ Router.map ->
     onBeforeAction: ->
       share.setPageTitle("Rent Scene - Apartments and Condos for Rent", false)
       @next()
+    onAfterAction: ->
+      SEO.set
+        meta:
+          description: "Rent Scene helps you find a great place to live. Search for apartments and condos in Philadelphia, Washington DC, Chicago, and other major cities."
+          keywords: "rent, rental, apartment, home, bedroom, bathroom, lease condo, condominium, philadelphia, chicago, boston, washington dc, rittenhouse square, parking, gym, fitness, utilities, pets"
   @route "/check-availability",
     name: "checkAvailability"
   @route "/tour-signup",
@@ -107,6 +112,10 @@ Router.map ->
         Session.set("cityScroll", 0)
       share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
       @next()
+    onAfterAction: ->
+      SEO.set
+        meta:
+          description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
   @route "/city/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
     name: "building"
     fastRender: true
