@@ -55,6 +55,9 @@ Template.building.helpers
   isImage: ->
     @ instanceof FS.File
 
+  isFirstSlide: ->
+    @_index is 1
+
   removeMediaType: ->
     media = Session.get("imageToRemove")
     if media

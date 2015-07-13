@@ -253,7 +253,10 @@ template(name="building")
                       if isImage
                         img.building-img(src="{{getThumbnail store='thumbs'}}")
                       else
-                        iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="576", height="325" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+                        if isFirstSlide
+                          iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="576", height="325" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+                        else
+                          iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="576", height="325" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen) 
                 a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
                   i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
                   span.sr-only

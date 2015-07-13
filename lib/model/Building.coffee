@@ -75,7 +75,9 @@ class Building
       @parent()?.images
   getMedia: ->
     if @images?.length
-      @images
+      @images.map (item, index) ->
+        item._index = index + 1
+        item
     else
       @parent()?.images
   getVideo: ->
