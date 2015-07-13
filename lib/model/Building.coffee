@@ -251,6 +251,7 @@ class Building
     title = "#{prefix}#{@title}#{suffix}, #{city}"
 
     features = []
+    featuresPrefix = ''
     featuresSummary = ''
 
     for fieldName in ["fitnessCenter", "laundry", "security", "utilities", "parking"]
