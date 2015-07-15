@@ -207,7 +207,7 @@ class Building
       types.push("1 Bedroom")
     for i in [2..5]
       if @["agroPriceBedroom" + i + "From"]
-        types.push("#{i} Bedrooms")
+        types.push("#{i} Bedroom")
     types
   displayBuildingPrice: (queryBtype) ->
     if Session.get "showRecommendations"
@@ -245,7 +245,7 @@ class Building
     suffix = ''
     if bedrooms.length
       if bedrooms.length is 1
-        prefix = "#{bedrooms[0]} "
+        prefix = "#{bedrooms[0]} - "
       else
         suffix = ' Rentals'
     title = "#{prefix}#{@title}#{suffix}, #{city}"
@@ -272,7 +272,7 @@ class Building
       if featuresSummary
         featuresSummary = "Includes #{featuresSummary}, "
       if sqft or featuresSummary then endPeriod = '. ' else endPeriod = ''
-      description = "#{bedrooms[0]} apartment available #{availableDate} at #{@title}. #{featuresSummary}#{sqft}#{endPeriod}View photos videos, maps and floorplans of units in #{@neighborhood}, #{city}"
+      description = "#{@displayBuildingPrice()} #{bedrooms[0]} apartment available #{availableDate} at #{@title}. #{featuresSummary}#{sqft}#{endPeriod}View photos videos, maps and floorplans of units in #{@neighborhood}, #{city}"
 
     title: title
     description: description
