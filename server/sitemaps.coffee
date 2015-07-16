@@ -2,7 +2,10 @@ sitemaps.add '/sitemap.xml', ->
   pages = []
 
   # Home page
-  pages.push page: '/', lastmod: new Date()
+  # Set last updated to first day of the month
+  date = new Date();
+  firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+  pages.push page: '/', lastmod: firstDay
 
   # City pages
   # Get latest updated dates by city
