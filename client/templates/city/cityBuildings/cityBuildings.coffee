@@ -8,17 +8,25 @@ updateScroll = ->
 Template.cityBuildings.onRendered ->
   updateScroll()
   _.defer ->
-    $carousel = $(".carousel")
-    carousel = $carousel.data("bs.carousel")
-    if carousel
-      carousel.pause()
-      carousel.destroy()
-    $firstItem = $carousel.find(".item:first")
-    if $firstItem.length
-      $firstItem.addClass("active")
-      $carousel.show().carousel()
-    else
-      $carousel.hide()
+    $(".carousel").each ->
+      $carousel = $(this)
+      carousel = $carousel.data("bs.carousel")
+      if carousel
+        carousel.pause()
+        carousel.destroy()
+      $firstItem = $carousel.find(".item:first")
+      if $firstItem.length
+        $firstItem.addClass("active")
+        $carousel.show().carousel()
+
+        $img = $firstItem.find('img')
+        $img.attr 'src', $img.data('src')
+      else
+        $carousel.hide()
+
+      $carousel.on 'slide.bs.carousel', (e) ->
+        $img = $('img', e.relatedTarget);
+        $img.attr 'src', $img.data('src')
 
   $.getScript '/js/imgLiquid-min.js', ->
     $('.main-city-item .item.video').imgLiquid();
