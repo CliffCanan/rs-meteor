@@ -58,6 +58,15 @@ Meteor.smartPublish "recommendedBuildings", (buildingIds) ->
 
   Buildings.find({_id: {'$in': buildingIds}}, {sort: {position: -1, createdAt: -1, _id: 1}})
 
+Meteor.publish "buildingImages", (buildingId) ->
+  building = Buildings.findOne(buildingId)
+  if building.images?
+    imageIds = _.map building.images, (file) ->
+      file._id
+    return BuildingImages.find({_id: {$in: imageIds}})
+  else
+    @ready
+
 Meteor.publish "city-buildings-count", (cityId, query) ->
   check(cityId, Match.InArray(cityIds))
   selector = {parentId: {$exists: false}, cityId: cityId}
