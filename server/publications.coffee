@@ -46,9 +46,8 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
   addIsPublishFilter(@userId, selector)
 
   @addDependency "buildings", "images", (building) ->
-    imageIds = _.map building.images, (file) ->
-      file._id
-    [BuildingImages.find({_id: {$in: imageIds}})]
+    _id = building.images?[0]?._id
+    if _id then [BuildingImages.find(_id)] else []
 
   Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit})
 

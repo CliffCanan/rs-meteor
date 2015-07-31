@@ -6,8 +6,14 @@ updateScroll = ->
     Meteor.setTimeout(updateScroll, 100)
 
 Template.cityBuildings.onRendered ->
+  instance = @
   updateScroll()
   _.defer ->
+    $(".carousel").hover ->
+      if not $(this).hasClass('images-subscribed')
+        building = Blaze.getData(this)
+        instance.subscribe "buildingImages", building._id
+        $(this).addClass('images-subscribed')
     $(".carousel").each ->
       $carousel = $(this)
       carousel = $carousel.data("bs.carousel")
