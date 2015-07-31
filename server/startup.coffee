@@ -11,4 +11,4 @@ Meteor.startup ->
 
 #  if Meteor.settings.public.isDebug
 #    Meteor.setInterval(share.loadFixtures, 300)
-  share.loadFixtures()
+  # share.loadFixtures()
