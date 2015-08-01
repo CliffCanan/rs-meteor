@@ -49,10 +49,41 @@ Template.city.helpers
 
     Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
 
-Template.city.created = ->
+Template.city.onCreated ->
   @data.firstLoad = true
 
-Template.city.rendered = ->
+Template.city.onRendered ->
+  instance = @
+  _.defer ->
+    $(".carousel").each ->
+      $carousel = $(this)
+      carousel = $carousel.data("bs.carousel")
+      if carousel
+        carousel.pause()
+        carousel.destroy()
+      $firstItem = $carousel.find(".item:first")
+      if $firstItem.size()
+        $firstItem.addClass("active")
+        $carousel.show().carousel()
+
+        $img = $firstItem.find('img')
+        $img.attr 'src', $img.data('src')
+      else
+        $carousel.hide()
+
+      $carousel.hover ->
+        if not $(this).hasClass('images-subscribed')
+          building = Blaze.getData(this)
+          instance.subscribe "buildingImages", building._id
+          $(this).addClass('images-subscribed')
+
+      $carousel.on 'slide.bs.carousel', (e) ->
+        $img = $('img', e.relatedTarget);
+        $img.attr 'src', $img.data('src')
+
+  $.getScript '/js/imgLiquid-min.js', ->
+    $('.main-city-item .item.video').imgLiquid();
+
   @data.firstLoad = false
   setHeights()
   cityData = cities[@data.cityId]
