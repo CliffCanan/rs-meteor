@@ -4,36 +4,43 @@
   atlanta:
     short: "Atlanta"
     long: "ATLANTA, GA"
+    human: "Atlanta, GA"
     latitude: 33.75
     longitude: -84.39
   boston:
     short: "Boston"
     long: "BOSTON, MA"
+    human: "Boston, MA"
     latitude: 42.36
     longitude: -71.06
   chicago:
     short: "Chicago"
     long: "CHICAGO, IL"
+    human: "Chicago, IL"
     latitude: 41.88
     longitude: -87.63
   "los-angeles":
     short: "Los Angeles"
     long: "LOS ANGELES, CA"
+    human: "Los Angeles, CA"
     latitude: 34.05
     longitude: -118.24
   philadelphia:
     short: "Philadelphia"
     long: "PHILADELPHIA, PA"
+    human: "Philadelphia, PA"
     latitude: 39.95
     longitude: -75.17
   stamford:
     short: "Stamford"
     long: "STAMFORD, CT"
+    human: "Stamford, CT"
     latitude: 41.05
     longitude: -73.54
   "washington-dc":
     short: "Washington"
     long: "WASHINGTON, DC"
+    human: "Washington, DC"
     latitude: 38.90
     longitude: -77.04
 

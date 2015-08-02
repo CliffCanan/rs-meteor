@@ -200,6 +200,17 @@ class Building
             types.push(i)
             postfix = " Bedrooms"
         types.join(", ") + postfix
+  bedroomTypesArray: ->
+    types = []
+    postfix = ""
+    if @agroPriceStudioFrom
+      types.push("Studio")
+    if @agroPriceBedroom1From
+      types.push("1 Bedroom")
+    for i in [2..5]
+      if @["agroPriceBedroom" + i + "From"]
+        types.push("#{i} Bedroom")
+    types
   displayBuildingPrice: (queryBtype) ->
     if Session.get "showRecommendations"
       unit = getCurrentClientUnit(@_id)
@@ -229,6 +240,44 @@ class Building
           price: formatPriceDisplay(@[fieldNameFrom], @[fieldNameTo])
           type: value.lower
     prices
+  metaTags: ->
+    bedrooms = @bedroomTypesArray()
+    city = cities[@cityId].human
+    prefix = ''
+    suffix = ''
+    if bedrooms.length
+      if bedrooms.length is 1
+        prefix = "#{bedrooms[0]} - "
+      else
+        suffix = ' Rentals'
+    title = "#{prefix}#{@title}#{suffix}, #{city}"
+
+    features = []
+    featuresPrefix = ''
+    featuresSummary = ''
+
+    for fieldName in ["fitnessCenter", "laundry", "security", "utilities", "parking"]
+      value = @[fieldName]
+      if value
+        features.push complexFieldsValues[fieldName].values[value].toLowerCase() if value is 1
+
+    if features.length
+      featuresPrefix = " with "
+      featuresSummary = features.join(", ")
+
+    description = "Currently available #{@bedroomTypes()} apartments#{featuresPrefix}#{featuresSummary}. View photos videos, maps and floorplans of units at #{@title} in #{@neighborhood}, #{city}"
+
+    if bedrooms.length and bedrooms.length is 1
+      availableAt = moment(@availableAt)
+      availableDate = availableAt.format('d MMMM')
+      sqft = if @getSqft() then "#{@getSqft()} sq ft" else ''
+      if featuresSummary
+        featuresSummary = "Includes #{featuresSummary}, "
+      if sqft or featuresSummary then endPeriod = '. ' else endPeriod = ''
+      description = "#{@displayBuildingPrice()} #{bedrooms[0]} apartment available #{availableDate} at #{@title}. #{featuresSummary}#{sqft}#{endPeriod}View photos videos, maps and floorplans of units in #{@neighborhood}, #{city}"
+
+    title: title
+    description: description
 
 
 share.Transformations.Building = _.partial(share.transform, Building)
