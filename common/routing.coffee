@@ -52,30 +52,28 @@ Router.map ->
   @route "recommendations/:clientId",
     name: "clientRecommendations"
     fastRender: true
-    waitOn: ->
-      recommendation = ClientRecommendations.findOne(@params.clientId)
+    subscriptions: ->
+      if @data? and @data()
+        recommendation = @data()
 
-      if recommendation
-        @params.clientName = recommendation.name
+        # Get first building in the list so we can find it's city id and load the corresponding city buildings.
         firstBuilding = Buildings.findOne(recommendation.buildingIds[0]) if recommendation.buildingIds
+        # If there is a building, set the city id. If not, default to Atlanta for now.
+        # In the future, a recommendation list might only be limited to one particular city.
         firstCityId = if firstBuilding then firstBuilding.cityId else 'atlanta'
-        # Defaults to Atlanta filter for now. In the future, a recommendation list might be for a specific city.
         @params.cityId = if @params.query.cityId then @params.query.cityId else firstCityId
         subscriptionQuery = _.omit(@params.query, 'cityId')
-        subs = [
-          citySubs.subscribe("buildings", @params.cityId, subscriptionQuery, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
-          Meteor.subscribe("city-buildings-count", @params.cityId, subscriptionQuery)
-          Meteor.subscribe("ClientRecommendations")
-        ]
 
-        # We want to merge both buildingIds and unitIds to pass it to the subscription.
-        # unitIds are object of parentId <-> unitId. Map it to return unitIds only.
+        @subscribe("buildings", @params.cityId, subscriptionQuery, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1).wait()
+        @subscribe("city-buildings-count", @params.cityId, subscriptionQuery).wait()
+
         (unitIds = recommendation.unitIds.map (value) -> value.unitId) if recommendation.unitIds?
         recommendedIds = recommendation.buildingIds.concat(unitIds) if recommendation.buildingIds?
-        subs.push citySubs.subscribe("recommendedBuildings", recommendedIds) if recommendedIds
+        @subscribe("recommendedBuildings", recommendedIds).wait() if recommendedIds
 
-      subs
-    data: ->
+    waitOn: ->
+      Meteor.subscribe "singleClientRecommendation", @params.clientId
+    data: ->  
       clientRecommendations = ClientRecommendations.findOne(@params.clientId)
       if clientRecommendations
         _.extend clientRecommendations, @params

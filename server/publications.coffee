@@ -180,6 +180,9 @@ Meteor.publish "UserLists", ->
 Meteor.publish "ClientRecommendations", ->
   ClientRecommendations.find()
 
+Meteor.publish "singleClientRecommendation", (clientRecommendationId) ->
+  ClientRecommendations.find(clientRecommendationId)
+
 Meteor.publish "propertyLists", ->
   PropertyLists.find()
 

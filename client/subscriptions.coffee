@@ -2,4 +2,3 @@
 @allUsers = Meteor.subscribe("allUsers")
 @CheckAvailabilityRequestsHandle = Meteor.subscribe("CheckAvailabilityRequests")
 @ContactUsRequestsHandle = Meteor.subscribe("ContactUsRequests")
-@ClientRecommendationsHandle = Meteor.subscribe("ClientRecommendations")
