@@ -65,10 +65,6 @@ Router.map ->
         # In the future, a recommendation list might only be limited to one particular city.
         firstCityId = if firstBuilding then firstBuilding.cityId else 'atlanta'
         @params.cityId = if @params.query.cityId then @params.query.cityId else firstCityId
-        subscriptionQuery = _.omit(@params.query, 'cityId')
-
-        @subscribe("buildings", @params.cityId, subscriptionQuery, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1).wait()
-        @subscribe("city-buildings-count", @params.cityId, subscriptionQuery).wait()
 
         (unitIds = recommendation.unitIds.map (value) -> value.unitId) if recommendation.unitIds?
         recommendedIds = recommendation.buildingIds.concat(unitIds) if recommendation.buildingIds?
