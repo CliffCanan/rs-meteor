@@ -13,11 +13,9 @@ Router.plugin("dataNotFound", {notFoundTemplate: "notFound"})
 Router.map ->
   @route "/",
     name: "index"
-    onBeforeAction: ->
-      share.setPageTitle("Rent Scene - Apartments and Condos for Rent", false)
-      @next()
     onAfterAction: ->
       SEO.set
+        title: share.formatPageTitle "Rent Scene - Apartments and Condos for Rent", false
         meta:
           description: "Rent Scene helps you find a great place to live. Search for apartments and condos in Philadelphia, Washington DC, Chicago, and other major cities."
           keywords: "rent, rental, apartment, home, bedroom, bathroom, lease condo, condominium, philadelphia, chicago, boston, washington dc, rittenhouse square, parking, gym, fitness, utilities, pets"
@@ -86,9 +84,12 @@ Router.map ->
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
-      share.setPageTitle "Recommendations for #{@params.clientName}"
       @next()
-    #   share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
+    onAfterAction: ->
+      SEO.set
+        title: share.formatPageTitle "Recommendations for #{@data().name}"
+        meta: 
+          robots: "noindex"
   @route "/city/:cityId",
     name: "city"
     fastRender: true
@@ -108,10 +109,10 @@ Router.map ->
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
         Session.set("cityScroll", 0)
-      share.setPageTitle("Rental Apartments and Condos in " + cities[@params.cityId].long)
       @next()
     onAfterAction: ->
       SEO.set
+        title: share.formatPageTitle "Rental Apartments and Condos in #{cities[@params.cityId].long}"
         meta:
           description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
   @route "/city/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
@@ -178,3 +179,10 @@ share.setPageTitle = (title, appendSiteName = true) ->
   if Meteor.settings.public.isDebug
     title = "(D) " + title
   document.title = title
+
+share.formatPageTitle = (title, appendSiteName = true) ->
+  if appendSiteName
+    title += " | Rent Scene"
+  if Meteor.settings.public.isDebug
+    title = "(D) " + title
+  title
