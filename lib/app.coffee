@@ -124,7 +124,11 @@ share.floatval = (value) ->
   parseFloat(value) || 0
 
 share.getThumbnail = (store) ->
-  return @url store.hash if @ instanceof FS.File
+  if @ instanceof FS.File
+    params =
+      store: store.hash.store
+      auth: false
+    return @url params
   return @thumbnail.replace(vimeoThumbnailSizes.s, vimeoThumbnailSizes.m)
 
 share.isDebug = Meteor.settings.public.isDebug

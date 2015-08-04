@@ -64,7 +64,13 @@ Template.building.helpers
       return 'image' if media instanceof FS.File
       return 'video' if media.vimeoId?
 
-Template.building.rendered = ->
+Template.building.onRendered ->
+  $.getScript '/js/imgLiquid-min.js', ->
+    $('#carousel-example-generic .item').imgLiquid
+      fill: false
+      verticalAlign: '50%'
+    $('#carousel-example-generic .item').css('visibility', 'visible')
+
   Session.set("showAllBuildingUnits", false)
   setHeights()
   building = @data.building
