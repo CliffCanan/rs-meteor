@@ -1,3 +1,8 @@
+Template.clientRecommendationsToggle.onCreated ->
+  @clientRecommendation = Router.current().data()
+
+  @importCompletedCount = new ReactiveVar(0)
+
 Template.clientRecommendationsToggle.onRendered ->
   # Overwrite default property leave events so stays open when the user hover overs the content to click on any links.
   originalLeave = $.fn.popover.Constructor.prototype.leave;
@@ -14,6 +19,9 @@ Template.clientRecommendationsToggle.onRendered ->
         container.one 'mouseleave.tooltip.extra', -> $.fn.popover.Constructor.prototype.leave.call(self, self)
   
   originalShow = $.fn.popover.Constructor.prototype.show;
+
+  $('#import-status').tooltip()
+
   $.fn.popover.Constructor.prototype.show = ->
     thisTip = @.tip();
     $('.popover').not(thisTip).popover('hide');
@@ -53,6 +61,33 @@ Template.clientRecommendationsToggle.onRendered ->
         .city-subheader-price .slider,
         .building-title-search-wrapper').popover('destroy')
       return
+
+  instance = @
+  Tracker.autorun ->
+    importCompletedCount = Buildings.find({_id: {$in: instance.clientRecommendation.buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}).count()
+    instance.importCompletedCount.set(importCompletedCount)
+
+Template.clientRecommendationsToggle.helpers
+  isImportPending: ->
+    instance = Template.instance()
+    importCompletedCount = instance.importCompletedCount.get()
+    importCompletedCount isnt instance.clientRecommendation.buildingIds.length
+
+  statusClasses: ->
+    instance = Template.instance()
+    importCompletedCount = instance.importCompletedCount.get()
+    if importCompletedCount is instance.clientRecommendation.buildingIds.length
+      return 'fa-check-circle text-success'
+    else
+      return 'fa-exclamation-circle text-warning'
+
+  importCompletedCount: ->
+    instance = Template.instance()
+    instance.importCompletedCount.get()
+
+  totalPropertiesCount: ->
+    instance = Template.instance()
+    instance.clientRecommendation.buildingIds.length
 
 Template.clientRecommendationsToggle.events
   "click #all-listings-toggle": ->

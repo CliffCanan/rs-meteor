@@ -42,7 +42,7 @@ Template.city.helpers
 
     if Session.get "showRecommendations"
       buildingIds = Router.current().data().buildingIds
-      selector = {_id: {'$in': buildingIds}}
+      selector = {_id: {$in: buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}
     else
       selector = {parentId: {$exists: false}, cityId: @cityId}
       addQueryFilter(@query, selector)
