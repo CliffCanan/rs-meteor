@@ -1,3 +1,6 @@
+Template.clientSearchBar.onCreated ->
+  @subscribe "ClientRecommendations"
+
 Template.clientSearchBar.helpers
   clientsSearch: (query, sync, async) ->
     suggestions = ClientRecommendations.find(name: {$regex: new RegExp query, "i"})
