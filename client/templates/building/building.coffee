@@ -4,6 +4,14 @@ Template.building.helpers
   ironRouterHack: ->
     Router.current() # reactivity
     editBuildingId = Session.get("editBuildingId")
+
+    unless $.fn.imgLiquid
+      $.getScript '/js/imgLiquid-min.js', ->
+        $('#carousel-example-generic .item').imgLiquid
+          fill: false
+          verticalAlign: '50%'
+        $('#carousel-example-generic .item').css('visibility', 'visible')
+
     _.defer ->
       $('[data-toggle="tooltip"]').tooltip()
       addthis?.init()
@@ -18,6 +26,13 @@ Template.building.helpers
         $carousel.show().carousel()
       else
         $carousel.hide()
+
+      if $.fn.imgLiquid
+        $('#carousel-example-generic .item').imgLiquid
+          fill: false
+          verticalAlign: '50%'
+        $('#carousel-example-generic .item').css('visibility', 'visible')
+
     return ""
 
   isEdit: ->
@@ -65,12 +80,6 @@ Template.building.helpers
       return 'video' if media.vimeoId?
 
 Template.building.onRendered ->
-  $.getScript '/js/imgLiquid-min.js', ->
-    $('#carousel-example-generic .item').imgLiquid
-      fill: false
-      verticalAlign: '50%'
-    $('#carousel-example-generic .item').css('visibility', 'visible')
-
   Session.set("showAllBuildingUnits", false)
   setHeights()
   building = @data.building
