@@ -7,7 +7,7 @@ template(name="clientRecommendationsToggle")
       input(type="radio", name="view-toggle")
       | My Recommendations
     if canManageClients
-      i#import-status.fa.fa-2x.text-success(class="#{statusClasses}", data-toggle="tooltip", data-placement="auto" title="#{importCompletedCount}/#{totalPropertiesCount} properties", data-original-title="#{importCompletedCount}/#{totalPropertiesCount} properties")
+      i#import-status.fa.fa-2x.text-success(class="#{statusClasses}", data-toggle="tooltip", data-placement="auto" title="#{importCompletedCount}/#{totalPropertiesCount} properties", data-original-title="#{importCompletedCount}/#{totalPropertiesCount} properties", style="display: none")
     else 
       if isImportPending
-        i#import-status.fa.fa-2x.fa-exclamation-circle.text-warning(data-toggle="tooltip", data-placement="auto" title="FYI - we are in the process of adding recommendations - check back soon to see more!")
+        i#import-status.fa.fa-2x.fa-exclamation-circle.text-warning(data-toggle="tooltip", data-placement="auto" title="FYI - we are in the process of adding recommendations - check back soon to see more!", style="display: none")
