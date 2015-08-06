@@ -20,7 +20,7 @@ Template.clientRecommendationsToggle.onRendered ->
   
   originalShow = $.fn.popover.Constructor.prototype.show;
 
-  $('#import-status').tooltip()
+  $('#import-status').tooltip().show()
 
   $.fn.popover.Constructor.prototype.show = ->
     thisTip = @.tip();
