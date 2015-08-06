@@ -21,7 +21,6 @@ Template.clientRecommendationsToggle.onRendered ->
   originalShow = $.fn.popover.Constructor.prototype.show;
 
   $('#import-status').tooltip()
-  $('#import-status').show()
 
   $.fn.popover.Constructor.prototype.show = ->
     thisTip = @.tip();
@@ -67,6 +66,7 @@ Template.clientRecommendationsToggle.onRendered ->
   Tracker.autorun ->
     importCompletedCount = Buildings.find({_id: {$in: instance.clientRecommendation.buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}).count()
     instance.importCompletedCount.set(importCompletedCount)
+    $('#import-status').tooltip()
 
 Template.clientRecommendationsToggle.helpers
   isImportPending: ->
