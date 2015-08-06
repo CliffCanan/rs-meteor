@@ -59,20 +59,10 @@ Router.map ->
       if @data? and @data()
         recommendation = @data()
 
-        # Get first building in the list so we can find it's city id and load the corresponding city buildings.
         firstBuilding = Buildings.findOne(recommendation.buildingIds[0]) if recommendation.buildingIds
-        # If there is a building, set the city id. If not, default to Atlanta for now.
-        # In the future, a recommendation list might only be limited to one particular city.
         firstCityId = if firstBuilding then firstBuilding.cityId else 'atlanta'
         @params.cityId = if @params.query.cityId then @params.query.cityId else firstCityId
-        subscriptionQuery = _.omit(@params.query, 'cityId')
-
-        @subscribe("buildings", @params.cityId, subscriptionQuery, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1).wait()
-        @subscribe("city-buildings-count", @params.cityId, subscriptionQuery).wait()
-
-        (unitIds = recommendation.unitIds.map (value) -> value.unitId) if recommendation.unitIds?
-        recommendedIds = recommendation.buildingIds.concat(unitIds) if recommendation.buildingIds?
-        @subscribe("recommendedBuildings", recommendedIds).wait() if recommendedIds
+        []
 
     waitOn: ->
       Meteor.subscribe "singleClientRecommendation", @params.clientId
