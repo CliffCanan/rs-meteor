@@ -1,7 +1,16 @@
 Template.clientRecommendationsToggle.onCreated ->
+  instance = @
   @clientRecommendation = Router.current().data()
+  recommendation = @data
 
-  @importCompletedCount = new ReactiveVar(0)
+  (unitIds = recommendation.unitIds.map (value) -> value.unitId) if recommendation.unitIds?
+  recommendedIds = recommendation.buildingIds.concat(unitIds) if recommendation.buildingIds?
+  
+  if recommendedIds
+    @importCompletedCount = new ReactiveVar(0)
+    @subscribe "recommendedBuildings", recommendedIds, ->
+      importCompletedCount = Buildings.find({_id: {$in: instance.clientRecommendation.buildingIds}, isImportCompleted: true}).count()
+      instance.importCompletedCount.set importCompletedCount
 
 Template.clientRecommendationsToggle.onRendered ->
   # Overwrite default property leave events so stays open when the user hover overs the content to click on any links.
@@ -19,8 +28,6 @@ Template.clientRecommendationsToggle.onRendered ->
         container.one 'mouseleave.tooltip.extra', -> $.fn.popover.Constructor.prototype.leave.call(self, self)
   
   originalShow = $.fn.popover.Constructor.prototype.show;
-
-  $('#import-status').tooltip()
 
   $.fn.popover.Constructor.prototype.show = ->
     thisTip = @.tip();
@@ -62,17 +69,24 @@ Template.clientRecommendationsToggle.onRendered ->
         .building-title-search-wrapper').popover('destroy')
       return
 
+  $('#import-status').tooltip()
   instance = @
   Tracker.autorun ->
-    importCompletedCount = Buildings.find({_id: {$in: instance.clientRecommendation.buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}).count()
+    importCompletedCount = Buildings.find({_id: {$in: instance.clientRecommendation.buildingIds}, isImportCompleted: true}).count()
     instance.importCompletedCount.set(importCompletedCount)
-    $('#import-status').tooltip()
+    Tracker.afterFlush ->
+      $('#import-status').tooltip()
 
 Template.clientRecommendationsToggle.helpers
+  isTemplateSubscriptionsReady: ->
+    if Template.instance().subscriptionsReady() is true
+      Tracker.afterFlush ->
+        $('#import-status').tooltip()      
+    Template.instance().subscriptionsReady()
   isImportPending: ->
     instance = Template.instance()
     importCompletedCount = instance.importCompletedCount.get()
-    importCompletedCount isnt instance.clientRecommendation.buildingIds.length
+    importCompletedCount isnt instance.clientRecommendation.buildingIds.length  
 
   statusClasses: ->
     instance = Template.instance()
@@ -80,10 +94,11 @@ Template.clientRecommendationsToggle.helpers
     if importCompletedCount is instance.clientRecommendation.buildingIds.length
       return 'fa-check-circle text-success'
     else
-      return 'fa-exclamation-circle text-warning'
+      return 'fa-exclamation-circle text-warning' 
 
   importCompletedCount: ->
     instance = Template.instance()
+    $('#import-status').tooltip()
     instance.importCompletedCount.get()
 
   totalPropertiesCount: ->

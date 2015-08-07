@@ -86,6 +86,7 @@ Meteor.methods
     choices
 
   "importProperties": (data) ->
+    @unblock
 
     console.log "====== importProperties ======"
     console.log "importProperties > data: ", data
@@ -101,6 +102,7 @@ Meteor.methods
     if errors then errors else true
 
   "importImage": (buildingId, base64image) ->
+    @unblock
     return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
 
     console.log "====== importImage ======"
@@ -128,6 +130,7 @@ Meteor.methods
     return true
 
   "importToClientRecommendations": (clientName, buildingIds) ->
+    @unblock
     return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
 
     console.log "====== importToClientRecommendations ======"

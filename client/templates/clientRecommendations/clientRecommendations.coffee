@@ -1,11 +1,3 @@
-Template.clientRecommendations.onCreated ->
-  recommendation = @data
-
-  (unitIds = recommendation.unitIds.map (value) -> value.unitId) if recommendation.unitIds?
-  recommendedIds = recommendation.buildingIds.concat(unitIds) if recommendation.buildingIds?
-
-  @subscribe("recommendedBuildings", recommendedIds) if recommendedIds
-
 Template.clientRecommendations.onRendered ->
   instance = @
   @autorun ->

@@ -6,7 +6,7 @@ template(name="clientRecommendationsToggle")
     label#my-recommendations-toggle.btn.btn-primary
       input(type="radio", name="view-toggle")
       | My Recommendations
-    if Template.subscriptionsReady
+    if isTemplateSubscriptionsReady
       if canManageClients
         i#import-status.fa.fa-2x.text-success(class="#{statusClasses}", data-toggle="tooltip", data-placement="auto" title="#{importCompletedCount}/#{totalPropertiesCount} properties", data-original-title="#{importCompletedCount}/#{totalPropertiesCount} properties")
       else
