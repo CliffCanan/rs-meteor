@@ -173,6 +173,17 @@ Meteor.methods
     return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
     ClientRecommendations.update(clientId, {$pull: {'unitIds': {unitId: unitId}}})
 
+  "deleteClientRecommendationAndBuildings": (clientId) ->
+    clientRecommendation = ClientRecommendations.findOne(clientId);
+
+    for id in clientRecommendation.buildingIds
+      building = Buildings.findOne(id)
+      for imageId in building.images
+        BuildingImages.remove(imageId._id)
+      Buildings.remove(id)
+
+    ClientRecommendations.remove(clientId)
+
   "getVimeoVideos": () ->
     Vimeo = Meteor.npmRequire('vimeo').Vimeo
     vimeo = new Vimeo(Meteor.settings.vimeo.clientId, Meteor.settings.vimeo.clientSecret, Meteor.settings.vimeo.accessToken)
