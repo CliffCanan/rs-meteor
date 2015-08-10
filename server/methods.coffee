@@ -159,9 +159,10 @@ Meteor.methods
 
     for id in clientRecommendation.buildingIds
       building = Buildings.findOne(id)
-      for imageId in building.images
-        BuildingImages.remove(imageId._id)
-      Buildings.remove(id)
+      if building
+        for imageId in building.images
+          BuildingImages.remove(imageId._id) if imageId?
+        Buildings.remove(id)
 
     ClientRecommendations.remove(clientId)
 
