@@ -99,16 +99,31 @@ Meteor.methods
         errors.push({message:"error", reason: "could not insert", id: property.source.mlsNo})
     if errors then errors else true
 
-  "importImage": (buildingId, uri) ->
+  "importImage": (buildingId, base64image) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
 
     console.log "====== importImage ======"
     console.log "importImage > buildingId: " + buildingId
     # console.log "importImage > base64image: ", base64image
      
-    BuildingImages.insert uri, (err, file) ->
-      Buildings.update(_id: buildingId, {$addToSet: {images: file}})
-      console.log "image file: ", file
+    matches = base64image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
+    if matches.length isnt 3
+      return {message: "error", reason: "not a base64 image", 0}
+    type = matches[1]
+    imageBuffer = new Buffer(matches[2], "base64").toString("base64");
+
+    arrayBuffer = ab.decode(imageBuffer)
+
+    ticks = new Date().getTime()
+    fileName = buildingId + "_" + ticks;
+    
+    file = new FS.File();
+    file.attachData arrayBuffer, {type: type}, (error) ->
+      return {message: "error", reason: "could not create image from buffer", 0}
+    file.name(fileName)
+    BuildingImages.insert(file)
+    console.log "image file: ", file
+    Buildings.update(_id: buildingId, {$addToSet: {images: file}})
     return true
 
   "importToClientRecommendations": (clientName, buildingIds) ->
