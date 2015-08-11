@@ -111,6 +111,22 @@ Meteor.methods
       console.log "image file: ", file
     return true
 
+  "importImagesByBatch": (buildingImages) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
+
+    console.log "====== importImagesByBatch ======"
+
+    for object in buildingImages
+      buildingId = object.buildingId
+      console.log "importImage > buildingId: " + buildingId
+      for image in object.images   
+        uri = image.uri
+        BuildingImages.insert uri, (err, file) ->
+          Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+          console.log "image file: ", file
+
+    return true
+
   "importToClientRecommendations": (clientName, buildingIds) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
 
