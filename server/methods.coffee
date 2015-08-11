@@ -86,7 +86,6 @@ Meteor.methods
     choices
 
   "importProperties": (data) ->
-
     console.log "====== importProperties ======"
     console.log "importProperties > data: ", data
 
@@ -100,31 +99,38 @@ Meteor.methods
         errors.push({message:"error", reason: "could not insert", id: property.source.mlsNo})
     if errors then errors else true
 
-  "importImage": (buildingId, base64image) ->
+  "importImage": (buildingId, uri) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
 
     console.log "====== importImage ======"
     console.log "importImage > buildingId: " + buildingId
     # console.log "importImage > base64image: ", base64image
      
-    matches = base64image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
-    if matches.length isnt 3
-      return {message: "error", reason: "not a base64 image", 0}
-    type = matches[1]
-    imageBuffer = new Buffer(matches[2], "base64").toString("base64");
+    BuildingImages.insert uri, (err, file) ->
+      Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+      console.log "image file: ", file
+    return true
 
-    arrayBuffer = ab.decode(imageBuffer)
+  "importImagesByBatch": (uploadObject) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
 
-    ticks = new Date().getTime()
-    fileName = buildingId + "_" + ticks;
-    
-    file = new FS.File();
-    file.attachData arrayBuffer, {type: type}, (error) ->
-      return {message: "error", reason: "could not create image from buffer", 0}
-    file.name(fileName)
-    BuildingImages.insert(file)
-    console.log "image file: ", file
-    Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+    console.log "====== importImagesByBatch ======"
+
+    clientId = uploadObject.clientId
+
+    for object in uploadObject.buildings
+      buildingId = object.buildingId
+      console.log "importImage > buildingId: " + buildingId
+      if object.images
+        for uri in object.images
+          BuildingImages.insert uri, (err, file) ->
+            Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+            console.log "image file: ", file
+          Meteor.sleep(1500)
+      # All images imported for this building. Mark it as complete and it will appear in the list.
+      Buildings.update(_id: buildingId, {$set: {isImportCompleted: true}})
+
+    ClientRecommendations.update(clientId, {$set: {importCompletedAt: new Date()}})
     return true
 
   "importToClientRecommendations": (clientName, buildingIds) ->
@@ -135,7 +141,17 @@ Meteor.methods
     console.log "buildingIds: #{buildingIds}"
 
     if buildingIds.length
-      result = ClientRecommendations.upsert name: clientName, {$addToSet: {buildingIds: {$each: buildingIds}}}
+      currentUser = Meteor.users.findOne(this.userId)
+      result = ClientRecommendations.upsert
+        name: clientName,
+        {
+          $addToSet: {buildingIds: {$each: buildingIds}}
+          $set: {
+            userId: currentUser._id
+            userName: currentUser.profile.name
+            createdAt: new Date()
+          }
+        }
       return result
     else
       return false
@@ -169,6 +185,18 @@ Meteor.methods
   "unrecommendUnit": (clientId, unitId) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
     ClientRecommendations.update(clientId, {$pull: {'unitIds': {unitId: unitId}}})
+
+  "deleteClientRecommendationAndBuildings": (clientId) ->
+    clientRecommendation = ClientRecommendations.findOne(clientId);
+
+    for id in clientRecommendation.buildingIds
+      building = Buildings.findOne(id)
+      if building
+        for imageId in building.images
+          BuildingImages.remove(imageId._id) if imageId?
+        Buildings.remove(id)
+
+    ClientRecommendations.remove(clientId)
 
   "getVimeoVideos": () ->
     Vimeo = Meteor.npmRequire('vimeo').Vimeo

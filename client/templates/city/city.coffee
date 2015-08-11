@@ -42,7 +42,7 @@ Template.city.helpers
 
     if Session.get "showRecommendations"
       buildingIds = Router.current().data().buildingIds
-      selector = {_id: {'$in': buildingIds}}
+      selector = {_id: {$in: buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}
     else
       selector = {parentId: {$exists: false}, cityId: @cityId}
       addQueryFilter(@query, selector)
@@ -82,12 +82,12 @@ Template.city.onRendered ->
 
   # Quick CSS hack to add proper margins for non staff in recommendation list since toggle buttons are float.
   # Staff has the 'Add Listing button' which is not floated and adds a nice margin
-  if Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients()
-    $('.main-city-list').css marginTop: 53
-  else
-    $('.main-city-list').css marginTop: 0
   @autorun ->
-
+    if Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients()
+      $('.main-city-list').css marginTop: 53
+    else
+      $('.main-city-list').css marginTop: 0
+      
     _.defer ->
       $(".carousel").each ->
         $carousel = $(this)

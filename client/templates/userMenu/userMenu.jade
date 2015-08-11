@@ -2,6 +2,11 @@ template(name="userMenu")
   a.navigation-item-link(href="/" type='button', data-toggle='dropdown', aria-expanded='true')
     | {{userName}}
   ul.dropdown-menu.dropdown-menu-right(role='menu', aria-labelledby='dropdownMenu1')
+    if canRecommend
+      li(role='presentation')
+        a#delete-recommendation(href="#", role='menuitem', tabindex='-1')
+          i.fa.fa-fw.fa-trash
+          | Delete recommendation list and buildings
     li(role='presentation')
       a(href="/admin/usersPanel", role='menuitem', tabindex='-1')
         i.fa.fa-fw.fa-list
