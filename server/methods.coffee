@@ -119,8 +119,7 @@ Meteor.methods
     for object in buildingImages
       buildingId = object.buildingId
       console.log "importImage > buildingId: " + buildingId
-      for image in object.images   
-        uri = image.uri
+      for uri in object.images   
         BuildingImages.insert uri, (err, file) ->
           Buildings.update(_id: buildingId, {$addToSet: {images: file}})
           console.log "image file: ", file
