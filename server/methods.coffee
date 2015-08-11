@@ -147,7 +147,7 @@ Meteor.methods
           $addToSet: {buildingIds: {$each: buildingIds}}
           $set: {
             userId: currentUser._id
-            userName: currentUser.name
+            userName: currentUser.profile.name
             createdAt: new Date()
           }
         }
