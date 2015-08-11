@@ -9,7 +9,7 @@ Template.clientRecommendationsToggle.onCreated ->
   if recommendedIds
     @importCompletedCount = new ReactiveVar(0)
     @subscribe "recommendedBuildings", recommendedIds, ->
-      importCompletedCount = Buildings.find({_id: {$in: instance.clientRecommendation.buildingIds}, isImportCompleted: true}).count()
+      importCompletedCount = Buildings.find({_id: {$in: instance.clientRecommendation.buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}).count()
       instance.importCompletedCount.set importCompletedCount
 
 Template.clientRecommendationsToggle.onRendered ->
@@ -72,7 +72,7 @@ Template.clientRecommendationsToggle.onRendered ->
   $('#import-status').tooltip()
   instance = @
   Tracker.autorun ->
-    importCompletedCount = Buildings.find({_id: {$in: instance.clientRecommendation.buildingIds}, isImportCompleted: true}).count()
+    importCompletedCount = Buildings.find({_id: {$in: instance.clientRecommendation.buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}).count()
     instance.importCompletedCount.set(importCompletedCount)
     Tracker.afterFlush ->
       $('#import-status').tooltip()
