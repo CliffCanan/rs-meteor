@@ -111,12 +111,14 @@ Meteor.methods
       console.log "image file: ", file
     return true
 
-  "importImagesByBatch": (buildingImages) ->
+  "importImagesByBatch": (uploadObject) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
 
     console.log "====== importImagesByBatch ======"
 
-    for object in buildingImages
+    clientId = uploadObject.clientId
+
+    for object in uploadObject.buildings
       buildingId = object.buildingId
       console.log "importImage > buildingId: " + buildingId
       for uri in object.images
@@ -127,6 +129,7 @@ Meteor.methods
       # All images imported for this building. Mark it as complete and it will appear in the list.
       Buildings.update(_id: buildingId, {$set: {isImportCompleted: true}})
 
+    ClientRecommendations.update(clientId, {$set: {importCompletedAt: new Date()}})
     return true
 
   "importToClientRecommendations": (clientName, buildingIds) ->
@@ -137,7 +140,17 @@ Meteor.methods
     console.log "buildingIds: #{buildingIds}"
 
     if buildingIds.length
-      result = ClientRecommendations.upsert name: clientName, {$addToSet: {buildingIds: {$each: buildingIds}}}
+      currentUser = Meteor.users.findOne(this.userId)
+      result = ClientRecommendations.upsert
+        name: clientName,
+        {
+          $addToSet: {buildingIds: {$each: buildingIds}}
+          $set: {
+            userId: currentUser._id
+            userName: currentUser.name
+            createdAt: new Date()
+          }
+        }
       return result
     else
       return false

@@ -1,6 +1,5 @@
 Template.clientRecommendationsToggle.onCreated ->
   instance = @
-  @clientRecommendation = Router.current().data()
   recommendation = @data
 
   (unitIds = recommendation.unitIds.map (value) -> value.unitId) if recommendation.unitIds?
@@ -9,8 +8,11 @@ Template.clientRecommendationsToggle.onCreated ->
   if recommendedIds
     @importCompletedCount = new ReactiveVar(0)
     @subscribe "recommendedBuildings", recommendedIds, ->
-      importCompletedCount = Buildings.find({_id: {$in: instance.clientRecommendation.buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}).count()
+      importCompletedCount = Buildings.find({_id: {$in: data.buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}).count()
       instance.importCompletedCount.set importCompletedCount
+
+  @clientRecommendation = ->
+    return ClientRecommendations.findOne @data._id
 
 Template.clientRecommendationsToggle.onRendered ->
   # Overwrite default property leave events so stays open when the user hover overs the content to click on any links.
@@ -72,7 +74,7 @@ Template.clientRecommendationsToggle.onRendered ->
   $('#import-status').tooltip()
   instance = @
   Tracker.autorun ->
-    importCompletedCount = Buildings.find({_id: {$in: instance.clientRecommendation.buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}).count()
+    importCompletedCount = Buildings.find({_id: {$in: instance.data.buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}).count()
     instance.importCompletedCount.set(importCompletedCount)
     Tracker.afterFlush ->
       $('#import-status').tooltip()
@@ -86,24 +88,45 @@ Template.clientRecommendationsToggle.helpers
   isImportPending: ->
     instance = Template.instance()
     importCompletedCount = instance.importCompletedCount.get()
-    importCompletedCount isnt instance.clientRecommendation.buildingIds.length  
-
-  statusClasses: ->
-    instance = Template.instance()
-    importCompletedCount = instance.importCompletedCount.get()
-    if importCompletedCount is instance.clientRecommendation.buildingIds.length
-      return 'fa-check-circle text-success'
-    else
-      return 'fa-exclamation-circle text-warning' 
-
+    importCompletedCount isnt instance.data.buildingIds.length  
   importCompletedCount: ->
     instance = Template.instance()
     $('#import-status').tooltip()
     instance.importCompletedCount.get()
-
   totalPropertiesCount: ->
     instance = Template.instance()
-    instance.clientRecommendation.buildingIds.length
+    instance.data.buildingIds.length
+  completedImportText: ->
+    instance = Template.instance()
+    totalPropertiesCount = instance.data.buildingIds.length
+
+    if instance.clientRecommendation().userName and instance.clientRecommendation().createdAt and instance.clientRecommendation().importCompletedAt
+      difference = Math.floor((instance.clientRecommendation().importCompletedAt - instance.clientRecommendation().createdAt) / 1000)
+
+      minutes = Math.floor(difference / 60)
+      differenceText = ''
+
+      if minutes
+        seconds = difference - minutes * 60
+
+        if minutes is 1
+          differenceText = "#{minutes} minute"
+        else
+          differenceText = "#{minutes} minutes"
+      else
+        seconds = difference
+
+      if seconds
+        if seconds is 1
+          differenceText += " #{seconds} second"
+        else
+          differenceText += " #{seconds} seconds"
+
+      importDate = moment(instance.clientRecommendation().createdAt).format('MMM D, YYYY')
+
+      return "#{totalPropertiesCount} properties imported by #{instance.clientRecommendation().userName} #{importDate} (#{differenceText})"
+    else
+      return "#{totalPropertiesCount} properties imported"
 
 Template.clientRecommendationsToggle.events
   "click #all-listings-toggle": ->
