@@ -110,12 +110,15 @@ Template.building.helpers
 Template.building.rendered = ->
   $('[data-toggle="popover"]').popover
     html: true
-    content: Blaze.toHTMLWithData(Template.filterListingMarker)
+    content: Blaze.toHTMLWithData(Template.filterListingMarker, ->
+      address: Session.get('enteredAddress')
+    )
 
   $(".clear-rating").remove()
   $(".rating").rating()
   $('.rating-disabled').find(".clear-rating").remove()
   Session.set("showAllBuildingUnits", false)
+
   setHeights()
   building = @data.building
   cityData = cities[building.cityId]

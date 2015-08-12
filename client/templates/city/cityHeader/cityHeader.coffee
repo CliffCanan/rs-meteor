@@ -90,6 +90,7 @@ Template.cityHeader.events
     #console.log typeof data
     if $("#address").val() != ""
       query.address = $("#address").val()
+      Session.set('enteredAddress', query.address)
     else
       delete query["address"]
       
