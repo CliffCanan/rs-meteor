@@ -40,27 +40,29 @@ template(name="filterCityMarker")
     .col-md-7#destinationTimeArea
 
 template(name="filterListingMarker")
-  .row
-    .col-lg-12
-      p.filterComment
-        | Enter your most common destination (work, school, etc) and we'll tell you how far it is from your new home.
-  .row
-    .col-md-12
-      input#distanceFiler.form-control(placeholder="Destination Address" name="distanceFilter", value="{{address}}")
-  .row.calculationArea
-    .col-md-6
-      .row
-        .col-md-3.travelMode#walker-calc
-          img(src="/images/walk-active.png")
-        .col-md-3.travelMode#car-calc
-          img(src="/images/car.png")
-        .col-md-3.travelMode#bike-calc
-          img(src="/images/bike.png")          
-    .col-md-6
-      .btn.btn-primary.btn-lg#calcDistance
-        | Calculate
-  .row.showCalculations
-    .col-md-5
-      h4 
-        p#destinationDistance
-    .col-md-7#destinationTimeArea
+  #building-commute-calculator
+    .row
+      .col-lg-12
+        p.filterComment
+          | Enter your most common destination (work, school, etc) and we'll tell you how far it is from your new home.
+    .row
+      .col-md-12
+        input#distanceFiler.form-control(placeholder="Destination Address" name="distanceFilter", value="{{address}}")
+        .btn.btn-primary#calcDistance
+          i.fa.fa-search
+    .row
+      .col-md-12
+        table.table.table-bordered
+          tbody
+            tr
+              td.travel-mode-icon
+                img(src="/images/walk-active.png")
+              td#walking-travel-time 
+            tr
+              td.travel-mode-icon
+                img(src="/images/car.png")
+              td#driving-travel-time
+            tr
+              td.travel-mode-icon
+                img(src="/images/bike.png")
+              td#bicycling-travel-time

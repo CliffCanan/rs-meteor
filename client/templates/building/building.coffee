@@ -127,8 +127,8 @@ Template.building.rendered = ->
   defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))   
   activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
   activeIcon1 = new google.maps.MarkerImage("/images/map-marker-active2.png", null, null, null, new google.maps.Size(50, 60))    
-  directionsDisplay = new google.maps.DirectionsRenderer();
-  directionsService = new google.maps.DirectionsService()
+  @directionsDisplay = new google.maps.DirectionsRenderer()
+  @directionsService = new google.maps.DirectionsService()
   map = ""
 
   map = new google.maps.Map document.getElementById("gmap"),
@@ -142,8 +142,8 @@ Template.building.rendered = ->
     mapTypeControl: false
     mapTypeId: google.maps.MapTypeId.ROADMAP
   @map = map
-  directionsDisplay.setMap(map)
-  directionsDisplay.setOptions suppressMarkers: true
+  @directionsDisplay.setMap(map)
+  @directionsDisplay.setOptions suppressMarkers: true
   #if building.isOnMap and building.latitude and building.longitude
   infoWindowId = null
   infowindow = new google.maps.InfoWindow()
@@ -156,8 +156,9 @@ Template.building.rendered = ->
       latLng = new google.maps.LatLng(building.latitude, building.longitude)
       map.setCenter(latLng)
 
-
-    calcRoute(building.address+", "+building.cityId, Session.get("enteredAddress")+", "+building.cityId, directionsService, directionsDisplay, map)
+    from = "#{building.address} #{building.cityId}"
+    to = "#{Session.get("enteredAddress")} #{building.cityId}"
+    calcRoute(from, to, @)
   else
     if building.latitude and building.longitude
       latLng = new google.maps.LatLng(building.latitude, building.longitude)
@@ -240,56 +241,13 @@ Template.building.events
     destination = $("#distanceFiler").val()
     geocoder = new google.maps.Geocoder()
     controller = Router.current()
-    geocoder.geocode { 'address': destination }, (results, status) ->
-      if status == google.maps.GeocoderStatus.OK
-        i = 0
-        while i < results.length
-          #console.log results[i].formatted_address
-          result = results[i]
-          city = result.formatted_address
-          #console.log result.address_components
-          #j = 0
-          #while j < result.address_components.length
-            #console.log result.address_components[j].types[0]
-            #if result.address_components[j].types[0] == 'locality'
-              #this is the object you are looking for
-              #cities = results[j].address_components[i]
-              #console.log cities
-            #j++       
+    cPlace = Session.get "cityGeoLocation"  
+    
+    building = template.data.building
+    from = "#{building.address} #{building.cityId}"
+    to = "#{destination} #{building.cityId}"
+    calcRoute(from, to, template)
 
-          if city.trim().toUpperCase().indexOf(controller.params.cityId.toUpperCase()) != -1 
-            location = results[i].geometry.location
-            Session.set("cityGeoLocation", [location.lat(), location.lng()])    
-            console.log Session.get("cityGeoLocation")
-          i++
-        if location == undefined          
-          $('#messageAlert').modal('show')
-        else
-          cPlace = Session.get "cityGeoLocation"  
-          distance = CalculateDistance(cPlace[0], cPlace[1], location.lat(), location.lng())*1.609344
-          distanceKm = distance.toFixed 2
-          $("#destinationDistance").html(distanceKm+"km")
-
-          distanceMode = if Session.get('distanceMode') then Session.get('distanceMode') else 'walk'
-
-          if distanceMode == "walk"
-            arrivalTime = distance / 5 * 60
-          else if distanceMode == "drive"
-            arrivalTime = distance / 40 * 60
-          else if distanceMode == "bike"
-            arrivalTime = distance / 15 * 60
-          arrivalTime = arrivalTime.toFixed 0
-          if distanceMode == "drive"
-            distanceMode = "car"
-          html = '<div class=\'row\'>'
-          html += '<div class=\'col-md-2\'>'
-          html += '<img src=\'/images/' + distanceMode + '.png\'/>'
-          html += '</div>'
-          html += '<div class=\'col-md-10\'>'
-          html += '<h4 id=\'#destinationTime\'>' + arrivalTime + 'min to ' + distanceMode + '</h4>'
-          html += '</div>'
-          html += '</div>'
-          $("#destinationTimeArea").html(html)
   "click .check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
     $('#checkAvailabilityPopup').modal('show')
@@ -429,24 +387,35 @@ makeMarker = (position, icon, title, map) ->
     title: title)
   return
 
-calcRoute = (from, to, directionsService, directionsDisplay, map) ->
-
+calcRoute = (from, to, context) ->
+  directionsService = context.directionsService
+  directionsDisplay = context.directionsDisplay
+  map = context.map
   icons = 
     start: new (google.maps.MarkerImage)('/images/map-marker-active.png', new (google.maps.Size)(50, 60), new (google.maps.Point)(0, 0), new (google.maps.Point)(22, 32))
     end: new (google.maps.MarkerImage)('/images/map-marker-active2.png', new (google.maps.Size)(50, 60), new (google.maps.Point)(0, 0), new (google.maps.Point)(22, 32))
 
-  request = 
-    origin: from
-    destination: to
-    travelMode: google.maps.TravelMode.DRIVING  
+  # Calculate travel duration for all three modes of travel
+  travelModes = ['driving', 'bicycling', 'walking']
 
-  directionsService.route request, (result, status) ->
-    if status == google.maps.DirectionsStatus.OK
-      directionsDisplay.setDirections result
-      leg = result.routes[0].legs[0]   
-      console.log leg   
-      makeMarker leg.start_location, icons.start, 'title', map
-      makeMarker leg.end_location, icons.end, 'title', map      
+  for mode in travelModes
+    request = 
+      origin: from
+      destination: to
+      travelMode: google.maps.TravelMode[mode.toUpperCase()]
+
+    directionsService.route request, (result, status) ->
+      if status == google.maps.DirectionsStatus.OK
+        mode = result.request.travelMode.toLowerCase()
+        directionsDisplay.setDirections result
+        leg = result.routes[0].legs[0]
+
+        duration = leg.duration.text
+        $("##{mode}-travel-time").html(duration)
+
+        if mode is 'driving'
+          makeMarker leg.start_location, icons.start, 'title', map
+          makeMarker leg.end_location, icons.end, 'title', map
 
 setDefaultImagesForCalc = ->
   $("#walker-calc").find("img").attr("src", "/images/walk.png")
