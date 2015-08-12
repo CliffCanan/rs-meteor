@@ -272,7 +272,9 @@ class Building
       availableDate = availableAt.format('d MMMM')
       sqft = if @getSqft() then "#{@getSqft()} sq ft" else ''
       if featuresSummary
-        featuresSummary = "Includes #{featuresSummary}, "
+        featuresSummary = "Includes #{featuresSummary}"
+        if sqft
+          sqft = ", #{sqft}"
       if sqft or featuresSummary then endPeriod = '. ' else endPeriod = ''
       description = "#{@displayBuildingPrice()} #{bedrooms[0]} apartment available #{availableDate} at #{@title}. #{featuresSummary}#{sqft}#{endPeriod}View photos videos, maps and floorplans of units in #{@neighborhood}, #{city}"
 
