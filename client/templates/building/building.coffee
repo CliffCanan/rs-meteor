@@ -157,7 +157,7 @@ Template.building.rendered = ->
       map.setCenter(latLng)
 
 
-    calcRoute(building.address+", "+building.cityId, Session.get("selectedAddress")+", "+building.cityId, directionsService, directionsDisplay, map)
+    calcRoute(building.address+", "+building.cityId, Session.get("enteredAddress")+", "+building.cityId, directionsService, directionsDisplay, map)
   else
     if building.latitude and building.longitude
       latLng = new google.maps.LatLng(building.latitude, building.longitude)

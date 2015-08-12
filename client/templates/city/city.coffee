@@ -101,7 +101,6 @@ Template.city.helpers
           #console.log distance
           if arrivalTime < selectedTime
             filtered.push building._id
-            Session.set "selectedAddress", query.address
           #console.log distance
         selector._id = {$in: filtered}
         #console.log selector
