@@ -196,7 +196,6 @@ Template.building.onRendered ->
     start: new (google.maps.Marker)(icon: @travelMarkerImage.start, title: 'title')
     end: new (google.maps.Marker)(icon: @travelMarkerImage.end, title: 'title')
 
-  #if building.isOnMap and building.latitude and building.longitude
   infoWindowId = null
   infowindow = new google.maps.InfoWindow()
 
@@ -217,18 +216,6 @@ Template.building.onRendered ->
       latLng = new google.maps.LatLng(building.latitude, building.longitude)
       map.setCenter(latLng)
       @travelMarkers.start.setMap(map)
-
-      #google.maps.event.addListener marker, "click", do (marker) ->->
-      #  html = Blaze.toHTMLWithData(Template.filterCityMarker)
-      #  infowindow.setContent(html)
-      #  infowindow.open(map, marker)
-      #  marker.setIcon(filterIcon)
-
-      #google.maps.event.addListener marker, "mouseover", do (marker) ->->
-      #  marker.setIcon(filterIcon)
-
-      #google.maps.event.addListener infowindow, "closeclick", ->
-      #  marker.setIcon(filterDefaultIcon)
 
       @autorun ->
         buildingReactive = Buildings.findOne(building._id, {fields: {latitude: 1, longitude: 1}})
@@ -343,16 +330,8 @@ Template.building.events
               $('.rating-disabled').find(".clear-rating").remove()              
               return
             ), 1000    
-                  
-
-
-          #document.location.reload()
-          #console.log result
     else
       $("#askingUserLogin").modal("show")
-
-    #UserReviews.insert({userId: "aaa", reviews: "bbbb"})
-    #Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})
 
   "change .choose-image-input": grab encapsulate (event, template) ->
     buildingId = @_id

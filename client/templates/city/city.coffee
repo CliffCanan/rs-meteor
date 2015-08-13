@@ -215,8 +215,6 @@ Template.city.onRendered ->
               marker.setIcon(activeIcon)
 
             google.maps.event.addListener marker, "mouseout", do (marker) ->->
-              #console.log marker._id
-              #console.log infoWindowId
               if marker._id isnt infoWindowId
                 marker.setIcon(defaultIcon)             
 
