@@ -99,11 +99,20 @@ template(name="cityHeader")
             .col-md-6
               .row
                 .col-md-3.travelMode#walker
-                  img(src="/images/walk.png")
+                  if condition travelMode 'is' 'walking'
+                    img(src="/images/walk-active.png")
+                  else
+                    img(src="/images/walk.png")
                 .col-md-3.travelMode#car
-                  img(src="/images/car.png")
+                  if condition travelMode 'is' 'driving'
+                    img(src="/images/car-active.png")
+                  else
+                    img(src="/images/car.png")
                 .col-md-3.travelMode#bike
-                  img(src="/images/bike.png")
+                  if condition travelMode 'is' 'bicycling'
+                    img(src="/images/bike-active.png")
+                  else
+                    img(src="/images/bike.png")
 
           .row
             .col-md-6

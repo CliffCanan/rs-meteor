@@ -15,6 +15,8 @@ Template.cityHeader.helpers
         "Less than 30min"
     else
       "Less than 10min"
+  travelMode: ->
+    Session.get('travelMode')
   getDestination: ->
     destination = if Session.get('cityName') then Session.get('cityName') else ''
     
