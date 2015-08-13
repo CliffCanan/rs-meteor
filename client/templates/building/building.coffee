@@ -421,7 +421,7 @@ calcRoute = (from, to, context) ->
 
         Session.set('travelTimes', travelTimes)
 
-        if mode is Session.get('travelMode') or mode is 'driving'
+        if Session.equals('travelMode', mode)
           directionsDisplay.setDirections result
 
           travelMarkers.start.setPosition leg.start_location
