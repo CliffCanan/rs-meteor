@@ -113,6 +113,7 @@ Template.building.rendered = ->
     html: true
     content: Blaze.toHTMLWithData(Template.filterListingMarker, ->
       address: Session.get('enteredAddress')
+      travelMode: Session.get('travelMode') or 'walking'
     )
 
   Session.set('travelTimes', {})
@@ -122,6 +123,7 @@ Template.building.rendered = ->
       $('[data-toggle="popover"]').data('bs.popover').options.content = Blaze.toHTMLWithData Template.filterListingMarker, ->
         address: Session.get('enteredAddress')
         travelTimes: Session.get('travelTimes')
+        travelMode: Session.get('travelMode')
 
   $(".clear-rating").remove()
   $(".rating").rating()

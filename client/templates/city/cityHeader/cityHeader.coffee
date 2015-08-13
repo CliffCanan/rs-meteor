@@ -18,7 +18,13 @@ Template.cityHeader.helpers
     destination = if Session.get('cityName') then Session.get('cityName') else ''
     
 
-Template.cityHeader.rendered = ->
+Template.cityHeader.onRendered ->
+  if Session.get('travelMode')
+    travelMode = Session.get('travelMode')
+    switch travelMode
+      when 'walking' then $('#walker').attr("src", "/images/walk-active.png")
+      when 'driving' then $('#car').attr("src", "/images/car-active.png")
+      when 'bicycling' then $('#bike').attr("src", "/images/bike-active.png")
 
 Template.cityHeader.events
   "click .dropdown button": (event, template) ->

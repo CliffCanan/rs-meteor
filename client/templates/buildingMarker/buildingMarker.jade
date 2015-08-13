@@ -56,13 +56,22 @@ template(name="filterListingMarker")
           tbody
             tr
               td.travel-mode-icon
-                img(src="/images/walk-active.png")
+                if condition travelMode 'is' 'walking'
+                  img(src="/images/walk-active.png")
+                else
+                  img(src="/images/walk.png")
               td#walking-travel-time #{travelTimes.walking}
             tr
               td.travel-mode-icon
-                img(src="/images/car.png")
+                if condition travelMode 'is' 'driving'
+                  img(src="/images/car-active.png")
+                else
+                  img(src="/images/car.png")
               td#driving-travel-time #{travelTimes.driving}
             tr
               td.travel-mode-icon
-                img(src="/images/bike.png")
+                if condition travelMode 'is' 'bicycling'
+                  img(src="/images/bike-active.png")
+                else
+                  img(src="/images/bike.png")
               td#bicycling-travel-time #{travelTimes.bicycling}
