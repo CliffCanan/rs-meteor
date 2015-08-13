@@ -35,6 +35,7 @@ Template.cityHeader.events
 
   "click .city-select li": (event, template) ->
     data = template.data
+    delete data.query['address'] if data.query.address
     $li = $(event.currentTarget)
     $li.closest(".dropdown").removeClass("open")
     routeName = Router.current().route.getName()
