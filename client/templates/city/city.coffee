@@ -94,7 +94,7 @@ Template.city.helpers
             arrivalTime = distance / (5 / 60)
           if travelMode == "driving"
             arrivalTime = distance / (40 / 60)
-          if travelMode == "bike"
+          if travelMode == "bicycling"
             arrivalTime = distance / (15 / 60)
 
           #console.log arrivalTime
@@ -227,16 +227,18 @@ Template.city.rendered = ->
 
       selectedTime = parseFloat(if Session.get('selectedTime') then Session.get('selectedTime') else 10)
 
-      travelMode = if Session.get('travelMode') then Session.get('travelMode') else 'walking'
+      travelMode = Session.get('travelMode') or 'walking'
 
       #console.log travelMode
       if travelMode == "walking"
         maxDistance = selectedTime * (5 / 60)
       else if travelMode == "driving"
         maxDistance = selectedTime * (40 / 60)
-      else if travelMode == "bike"
+      else if travelMode == "bicycling"
         maxDistance = selectedTime * (15 / 60)
 
+      # Center map to entered address
+      map.setCenter new google.maps.LatLng(address[0], address[1])
 
       populationOptions = 
         strokeColor: '#FF0000'

@@ -52,17 +52,17 @@ template(name="filterListingMarker")
           i.fa.fa-search
     .row
       .col-md-12
-        table.table.table-bordered
+        table#commute-results.table.table-bordered
           tbody
             tr
               td.travel-mode-icon
                 img(src="/images/walk-active.png")
-              td#walking-travel-time 
+              td#walking-travel-time #{travelTimes.walking}
             tr
               td.travel-mode-icon
                 img(src="/images/car.png")
-              td#driving-travel-time
+              td#driving-travel-time #{travelTimes.driving}
             tr
               td.travel-mode-icon
                 img(src="/images/bike.png")
-              td#bicycling-travel-time
+              td#bicycling-travel-time #{travelTimes.bicycling}

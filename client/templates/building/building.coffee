@@ -108,11 +108,20 @@ Template.building.helpers
       if @adminSameId then Buildings.findOne(@adminSameId) else @
 
 Template.building.rendered = ->
+  instance = @
   $('[data-toggle="popover"]').popover
     html: true
     content: Blaze.toHTMLWithData(Template.filterListingMarker, ->
       address: Session.get('enteredAddress')
     )
+
+  Session.set('travelTimes', {})
+
+  @autorun ->
+    if Session.get('travelTimes')
+      $('[data-toggle="popover"]').data('bs.popover').options.content = Blaze.toHTMLWithData Template.filterListingMarker, ->
+        address: Session.get('enteredAddress')
+        travelTimes: Session.get('travelTimes')
 
   $(".clear-rating").remove()
   $(".rating").rating()
@@ -129,6 +138,8 @@ Template.building.rendered = ->
   activeIcon1 = new google.maps.MarkerImage("/images/map-marker-active2.png", null, null, null, new google.maps.Size(50, 60))    
   @directionsDisplay = new google.maps.DirectionsRenderer()
   @directionsService = new google.maps.DirectionsService()
+
+  @travelInfoWindow = new google.maps.InfoWindow()
   map = ""
 
   map = new google.maps.Map document.getElementById("gmap"),
@@ -144,10 +155,22 @@ Template.building.rendered = ->
   @map = map
   @directionsDisplay.setMap(map)
   @directionsDisplay.setOptions suppressMarkers: true
+  @travelMarkerImage = 
+    start: new (google.maps.MarkerImage)('/images/map-marker-active.png', new (google.maps.Size)(50, 60), new (google.maps.Point)(0, 0), new (google.maps.Point)(22, 32))
+    end: new (google.maps.MarkerImage)('/images/map-marker-active2.png', new (google.maps.Size)(50, 60), new (google.maps.Point)(0, 0), new (google.maps.Point)(22, 32))
+
+  @travelMarkers = 
+    start: new (google.maps.Marker)(icon: @travelMarkerImage.start, title: 'title')
+    end: new (google.maps.Marker)(icon: @travelMarkerImage.end, title: 'title')
+
   #if building.isOnMap and building.latitude and building.longitude
   infoWindowId = null
   infowindow = new google.maps.InfoWindow()
 
+  if Session.get("enteredAddress")
+    from = "#{building.address} #{building.cityId}"
+    to = "#{Session.get("enteredAddress")} #{building.cityId}"
+    calcRoute(from, to, @)
 
   if Session.get("cityGeoLocation")
     address = Session.get("cityGeoLocation")
@@ -156,19 +179,11 @@ Template.building.rendered = ->
       latLng = new google.maps.LatLng(building.latitude, building.longitude)
       map.setCenter(latLng)
 
-    from = "#{building.address} #{building.cityId}"
-    to = "#{Session.get("enteredAddress")} #{building.cityId}"
-    calcRoute(from, to, @)
   else
     if building.latitude and building.longitude
       latLng = new google.maps.LatLng(building.latitude, building.longitude)
       map.setCenter(latLng)
-      marker = new google.maps.Marker
-        _id: building._id
-        title: building.title
-        position: latLng
-        map: map
-        icon: activeIcon1
+      @travelMarkers.start.setMap(map)
 
       #google.maps.event.addListener marker, "click", do (marker) ->->
       #  html = Blaze.toHTMLWithData(Template.filterCityMarker)
@@ -185,11 +200,9 @@ Template.building.rendered = ->
       @autorun ->
         buildingReactive = Buildings.findOne(building._id, {fields: {latitude: 1, longitude: 1}})
         latLng = new google.maps.LatLng(buildingReactive.latitude, buildingReactive.longitude)
-        marker.setPosition(latLng)
-        map.setCenter(latLng)  
-
-
-
+        map.setCenter(latLng)
+        if instance.travelMarkers
+          instance.travelMarkers.start.setPosition(latLng)
 
   $ ->
     $('#new-review').autosize append: '\n'
@@ -228,25 +241,28 @@ Template.building.events
     setDefaultImagesForCalc()
     if $item.attr("id") == "walker-calc"
       $item.find('img').attr("src", "/images/walk-active.png")
-      Session.set "distanceMode", "walk"
+      Session.set "travelMode", "walking"
     if $item.attr("id") == "car-calc"
       $item.find('img').attr("src", "/images/car-active.png")
-      Session.set "distanceMode", "drive"
+      Session.set "travelMode", "driving"
     if $item.attr("id") == "bike-calc"
       $item.find('img').attr("src", "/images/bike-active.png")
-      Session.set "distanceMode", "bike"
+      Session.set "travelMode", "bicycling"
 
   "click #calcDistance":  (event, template) ->
     $item = $(event.currentTarget)
     destination = $("#distanceFiler").val()
-    geocoder = new google.maps.Geocoder()
-    controller = Router.current()
-    cPlace = Session.get "cityGeoLocation"  
+
+    Session.set('enteredAddress', destination)
     
     building = template.data.building
     from = "#{building.address} #{building.cityId}"
     to = "#{destination} #{building.cityId}"
     calcRoute(from, to, template)
+
+  "keydown #distanceFiler": (event, template) ->
+    keypressed = event.keyCode || event.which;
+    template.$('#calcDistance').click() if keypressed is 13
 
   "click .check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
@@ -375,25 +391,11 @@ updateBuilding = (buildingId, newObject, item) ->
   Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})
   item.find(".loading").hide()
 
-makeMarker = (position, icon, title, map) ->
-  console.log position
-  console.log icon
-  console.log title
-
-  new (google.maps.Marker)(
-    position: position
-    map: map
-    icon: icon
-    title: title)
-  return
-
 calcRoute = (from, to, context) ->
   directionsService = context.directionsService
   directionsDisplay = context.directionsDisplay
   map = context.map
-  icons = 
-    start: new (google.maps.MarkerImage)('/images/map-marker-active.png', new (google.maps.Size)(50, 60), new (google.maps.Point)(0, 0), new (google.maps.Point)(22, 32))
-    end: new (google.maps.MarkerImage)('/images/map-marker-active2.png', new (google.maps.Size)(50, 60), new (google.maps.Point)(0, 0), new (google.maps.Point)(22, 32))
+  travelMarkers = context.travelMarkers
 
   # Calculate travel duration for all three modes of travel
   travelModes = ['driving', 'bicycling', 'walking']
@@ -407,15 +409,35 @@ calcRoute = (from, to, context) ->
     directionsService.route request, (result, status) ->
       if status == google.maps.DirectionsStatus.OK
         mode = result.request.travelMode.toLowerCase()
-        directionsDisplay.setDirections result
         leg = result.routes[0].legs[0]
 
         duration = leg.duration.text
         $("##{mode}-travel-time").html(duration)
 
-        if mode is 'driving'
-          makeMarker leg.start_location, icons.start, 'title', map
-          makeMarker leg.end_location, icons.end, 'title', map
+        travelTimes = Session.get('travelTimes')
+        travelTimes[mode] = duration
+
+        Session.set('travelTimes', travelTimes)
+
+        if mode is Session.get('travelMode') or mode is 'driving'
+          directionsDisplay.setDirections result
+
+          travelMarkers.start.setPosition leg.start_location
+          travelMarkers.end.setPosition leg.end_location
+
+          travelMarkers.start.setMap(context.map)
+          travelMarkers.end.setMap(context.map)
+
+          switch mode
+            when 'driving' then travelIcon = 'car'
+            when 'walking' then travelIcon = 'walk'
+            when 'bicycling' then travelIcon = 'bike'
+
+          midSteps = Math.ceil(leg.steps.length / 2)
+          context.travelInfoWindow.setContent('<img class="travel-icon" src="/images/' + travelIcon + '.png"> <span class="travel-duration">' + leg.duration.text + '</span><br/><span class="travel-distance">' + leg.distance.text + '</span>')
+          context.travelInfoWindow.setPosition(leg.steps[midSteps].end_location)
+          context.travelInfoWindow.open(map)
+          $('.gm-style-iw').next('div').hide()
 
 setDefaultImagesForCalc = ->
   $("#walker-calc").find("img").attr("src", "/images/walk.png")

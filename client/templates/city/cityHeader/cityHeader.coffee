@@ -52,13 +52,11 @@ Template.cityHeader.events
       Session.set("travelMode", "driving")
     if $item.attr("id") == "bike"
       $item.find('img').attr("src", "/images/bike-active.png")
-      Session.set("travelMode", "bike")
-
-
+      Session.set("travelMode", "bicycling")
 
   "click .selectTime": (event, template) ->
     $item = $(event.currentTarget)
-    console.log $item.attr("id")
+    $item.closest(".dropdown").removeClass("open")
     Session.set("selectedTime", $item.attr("id"))
 
   "keyup .building-title-search": _.debounce((event, template) ->
