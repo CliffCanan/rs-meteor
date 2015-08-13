@@ -158,7 +158,7 @@ Template.building.onRendered ->
   $(".clear-rating").remove()
   $(".rating").rating()
   $('.rating-disabled').find(".clear-rating").remove()
-  
+
   Session.set("showAllBuildingUnits", false)
 
   setHeights()

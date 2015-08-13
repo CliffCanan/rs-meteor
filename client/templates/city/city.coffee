@@ -136,16 +136,13 @@ Template.city.onRendered ->
   markers = {}
   defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
   activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
-  filterIcon = new google.maps.MarkerImage("/images/map-marker-filter.png", null, null, null, new google.maps.Size(50, 60))  
-  filterDefaultIcon = new google.maps.MarkerImage("/images/map-marker-default.png", null, null, null, new google.maps.Size(50, 60)) 
+  filterIcon = new google.maps.MarkerImage("/images/map-marker-active2.png", null, null, null, new google.maps.Size(50, 60))  
 
   infoWindowId = null
   infowindow = new google.maps.InfoWindow()
   google.maps.event.addListener infowindow, "closeclick", ->
     if infoWindowId != null
       markers[infoWindowId].setIcon(defaultIcon)
-    if infoWindowId == "filterItem"
-      markers[infoWindowId].setIcon(filterDefaultIcon)
 
   # Quick CSS hack to add proper margins for non staff in recommendation list since toggle buttons are float.
   # Staff has the 'Add Listing button' which is not floated and adds a nice margin
@@ -206,8 +203,6 @@ Template.city.onRendered ->
               if infoWindowId isnt marker._id
                 if infoWindowId
                   markers[infoWindowId].setIcon(defaultIcon)
-                if infoWindowId == "filterItem"
-                  markers[infoWindowId].setIcon(filterDefaultIcon)
 
                 mixpanel.track("property-container-map")
                 html = Blaze.toHTMLWithData(Template.buildingMarker, building)
@@ -242,23 +237,9 @@ Template.city.onRendered ->
         title: query.address
         position: new google.maps.LatLng(address[0], address[1])
         map: map
-        icon: filterDefaultIcon
-
-      google.maps.event.addListener marker, "mouseover", do (marker) ->->
-        marker.setIcon(filterIcon)
-
-      google.maps.event.addListener marker, "mouseout", do (marker) ->->
-        if marker._id isnt "filterItem"
-          marker.setIcon(filterDefaultIcon)      
+        icon: filterIcon
 
       markers["filterItem"] = marker
-
-      google.maps.event.addListener marker, "click", do (marker) ->->
-        html = Blaze.toHTMLWithData(Template.filterCityMarker)
-        infowindow.setContent(html)
-        infowindow.open(map, marker)
-        infoWindowId = marker._id
-        marker.setIcon(filterIcon)
 
       selectedTime = parseFloat(if Session.get('selectedTime') then Session.get('selectedTime') else 10)
 
