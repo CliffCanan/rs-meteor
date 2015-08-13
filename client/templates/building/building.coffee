@@ -201,8 +201,8 @@ Template.building.onRendered ->
   infowindow = new google.maps.InfoWindow()
 
   if Session.get("enteredAddress")
-    from = "#{building.address} #{building.cityId}"
-    to = "#{Session.get("enteredAddress")} #{building.cityId}"
+    from = "#{building.address} #{cities[building.cityId].short}"
+    to = "#{Session.get("enteredAddress")} #{cities[building.cityId].short}"
     calcRoute(from, to, @)
 
   if Session.get("cityGeoLocation")
@@ -289,8 +289,8 @@ Template.building.events
     Session.set('enteredAddress', destination)
     
     building = template.data.building
-    from = "#{building.address} #{building.cityId}"
-    to = "#{destination} #{building.cityId}"
+    from = "#{building.address} #{cities[building.cityId].short}"
+    to = "#{destination} #{cities[building.cityId].short}"
     calcRoute(from, to, template)
 
   "keydown #distanceFiler": (event, template) ->
