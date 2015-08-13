@@ -1,0 +1,21 @@
+{
+  "servers": [
+    {
+      "host": "123.123.123.123",
+      "username": "username",
+      "password": "********",
+      "env": {}
+    }
+  ],
+  "setupMongo": false,
+  "setupNode": false,
+  "nodeVersion": "0.10.33",
+  "setupPhantom": false,
+  "appName": "rentscene",
+  // "app": "/opt/rs-3",
+  "app": "/home/jason/Documents/clients/rentscene",
+  "env": {
+    "PORT": 80
+  },
+  "deployCheckWaitTime": 60
+}

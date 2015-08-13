@@ -21,7 +21,6 @@ meteorhacks:npm
 npm-container
 email
 dburles:spacebars-tohtml
-mrt:accounts-ui-bootstrap-3
 cfs:standard-packages
 cfs:filesystem
 cfs:graphicsmagick
@@ -30,3 +29,12 @@ mrt:smart-publish
 meteorhacks:zones
 manuelschoebel:wait-on-lib
 tmeasday:publish-counts
+sergeyt:typeahead
+ian:accounts-ui-bootstrap-3
+spiderable
+manuelschoebel:ms-seo
+gadicohen:sitemaps
+meteorhacks:aggregate
+reactive-var
+cfs:gridfs
+froatsnook:sleep

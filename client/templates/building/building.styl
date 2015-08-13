@@ -193,12 +193,28 @@
       display inline-block
 
   .building-img-wrap
+    height 500px
     max-width 800px
-    .building-img
-      width 100%
+    .item
       height 500px
+      visibility hidden
+    a.recommend-toggle
+      color #FFF
+      font-size 25px
+      position absolute
+      right 10px
+      top 5px
+      z-index 999
+      &:hover
+        color #FDF8B5
+      &.active
+        color #FFEC00
+    .building-img
+      margin 0 auto
+      max-height 500px
     .carousel-control
       height 100%
+      width 9%
       .building-img-icon
         position absolute
         top 50%
@@ -228,6 +244,17 @@
     border-radius 3px
     padding 1rem
     margin 0 0 15px
+    a.recommend-toggle
+      color #FFF
+      font-size 18px
+      position absolute
+      right 20px
+      top 2px
+      z-index 999
+      &:hover
+        color #FDF8B5
+      &.active
+        color #FFEC00
     img
       padding 0 15px 0 0
       max-width 90px
@@ -394,7 +421,7 @@
 .grey-icon
   color dimgrey
 
-.add-image-btn
+.add-image-btn,.add-video-btn
   position: relative;
   overflow: hidden;
   background-color #fff
@@ -435,12 +462,17 @@
 .thumbnail-image
   position relative
   margin-top 10px
+  .fa-video-camera
+    color #FFF
+    position absolute
+    right 70px
+    top 35px
 
 .img-thumbnail
   width 140px
   height 110px
   max-width 140px
-
+  
 .cover-image
   position absolute
   top 0

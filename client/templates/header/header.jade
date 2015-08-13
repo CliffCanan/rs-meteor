@@ -25,3 +25,14 @@ template(name="header")
             +userMenu
           else
             +loginButtons
+      if canManageClients
+        +clientSearchBar
+
+    if canRecommend
+        #recommending-client-banner.alert.alert-success
+          | Currently recommending properties for {{recommendationsClientName}}.
+          a#view-recommendations(href="#")
+            | View list
+          | or 
+          a#exit-recommendation(href="#")
+            | Done recommending

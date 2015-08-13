@@ -1,3 +1,6 @@
+# fs = Meteor.npmRequire("fs")
+ab = Meteor.npmRequire("base64-arraybuffer")
+
 Meteor.methods
   "insertBuilding": (cityId) ->
     throw new Meteor.Error("wrong city " + cityId)  unless cityId in cityIds
@@ -94,3 +97,150 @@ Meteor.methods
       choices.push(choice)
     choices
 
+  "importProperties": (data) ->
+    console.log "====== importProperties ======"
+    console.log "importProperties > data: ", data
+
+    errors = []
+    errors.push({message: "error", reason: "no permissions", 0}) unless Security.canOperateWithBuilding()
+    for property in data
+      try
+        id = Buildings.insert(property)
+        console.log "Inserted new building with id #{id}"
+      catch error
+        errors.push({message:"error", reason: "could not insert", id: property.source.mlsNo})
+    if errors then errors else true
+
+  "importImage": (buildingId, uri) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
+
+    console.log "====== importImage ======"
+    console.log "importImage > buildingId: " + buildingId
+    # console.log "importImage > base64image: ", base64image
+     
+    BuildingImages.insert uri, (err, file) ->
+      Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+      console.log "image file: ", file
+    return true
+
+  "importImagesByBatch": (uploadObject) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
+
+    console.log "====== importImagesByBatch ======"
+
+    clientId = uploadObject.clientId
+
+    for object in uploadObject.buildings
+      buildingId = object.buildingId
+      console.log "importImage > buildingId: " + buildingId
+      if object.images
+        for uri in object.images
+          BuildingImages.insert uri, (err, file) ->
+            Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+            console.log "image file: ", file
+          Meteor.sleep(1500)
+      # All images imported for this building. Mark it as complete and it will appear in the list.
+      Buildings.update(_id: buildingId, {$set: {isImportCompleted: true}})
+
+    ClientRecommendations.update(clientId, {$set: {importCompletedAt: new Date()}})
+    return true
+
+  "importToClientRecommendations": (clientName, buildingIds) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
+
+    console.log "====== importToClientRecommendations ======"
+    console.log "clientName: #{clientName}"
+    console.log "buildingIds: #{buildingIds}"
+
+    if buildingIds.length
+      currentUser = Meteor.users.findOne(this.userId)
+      result = ClientRecommendations.upsert
+        name: clientName,
+        {
+          $addToSet: {buildingIds: {$each: buildingIds}}
+          $set: {
+            userId: currentUser._id
+            userName: currentUser.profile.name
+            createdAt: new Date()
+          }
+        }
+      return result
+    else
+      return false
+
+  "createClient": (clientName) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    [firstName, lastName] = clientName.split ' '
+    fields =
+      name: clientName
+      firstName: firstName
+      lastName: lastName
+    clientId = ClientRecommendations.insert(fields)
+    clientId: clientId
+    url: Router.routes["clientRecommendations"].path(clientId: clientId)
+
+  "recommendBuilding": (clientId, buildingId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    ClientRecommendations.update(clientId, {$addToSet: {buildingIds: buildingId}})
+
+  "unrecommendBuilding": (clientId, buildingId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    ClientRecommendations.update(clientId, {$pull: {buildingIds: buildingId}})
+
+  "recommendUnit": (clientId, unitId, parentId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    unitObject = {parentId: parentId, unitId: unitId}
+    ClientRecommendations.update(clientId, {$addToSet: {buildingIds: parentId}})
+    ClientRecommendations.update(clientId, {$pull: {'unitIds': {parentId: parentId}}})
+    ClientRecommendations.update(clientId, {$addToSet: {unitIds: unitObject}})
+
+  "unrecommendUnit": (clientId, unitId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    ClientRecommendations.update(clientId, {$pull: {'unitIds': {unitId: unitId}}})
+
+  "deleteClientRecommendationAndBuildings": (clientId) ->
+    clientRecommendation = ClientRecommendations.findOne(clientId);
+
+    for id in clientRecommendation.buildingIds
+      building = Buildings.findOne(id)
+      if building
+        for imageId in building.images
+          BuildingImages.remove(imageId._id) if imageId?
+        Buildings.remove(id)
+
+    ClientRecommendations.remove(clientId)
+
+  "getVimeoVideos": () ->
+    Vimeo = Meteor.npmRequire('vimeo').Vimeo
+    vimeo = new Vimeo(Meteor.settings.vimeo.clientId, Meteor.settings.vimeo.clientSecret, Meteor.settings.vimeo.accessToken)
+    getVideoParams = 
+      method: 'GET'
+      path: '/me/videos'
+
+    videos = []
+
+    response = Async.runSync (done) ->
+      vimeo.request getVideoParams, (error, body, status_code, headers) ->
+        data = body.data
+
+        data.forEach (item) ->
+          thumbnail = _.where(item.pictures.sizes, {"width": 295})
+          thumbnailLink = thumbnail[0].link
+
+          video =
+            vimeoId: item.uri.replace('/videos/', '')
+            createdAt: new Date()
+            uploadedAt: new Date(item.created_time)
+            name: item.name,
+            thumbnail: thumbnailLink,
+            embed: item.embed.html
+            duration: item.duration
+
+          videos.push video
+
+        done(null, videos)
+
+    response.result.forEach (video) ->
+      VimeoVideos.upsert({vimeoId: video.vimeoId}, {$set: video})
+
+    response.result

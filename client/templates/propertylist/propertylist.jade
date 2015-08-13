@@ -1,0 +1,12 @@
+template(name="propertylist")
+  .row
+    .container-fluid
+      .col-xs-12
+        h4.user-greating {{listName}} - Here are your recomended properties.
+    .container-fluid
+        .row
+          .col-xs-12
+            .city-page-wrap.col-lg-12
+              .main-city-list-wrap.left-bar.clearfix
+                if buildings
+                  +cityBuildings(buildings=buildings queryBtype=query.btype)

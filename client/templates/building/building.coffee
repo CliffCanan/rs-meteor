@@ -4,6 +4,14 @@ Template.building.helpers
   ironRouterHack: ->
     Router.current() # reactivity
     editBuildingId = Session.get("editBuildingId")
+
+    unless $.fn.imgLiquid
+      $.getScript '/js/imgLiquid-min.js', ->
+        $('#carousel-example-generic .item').imgLiquid
+          fill: false
+          verticalAlign: '50%'
+        $('#carousel-example-generic .item').css('visibility', 'visible')
+
     _.defer ->
       $('[data-toggle="tooltip"]').tooltip()
       addthis?.init()
@@ -18,6 +26,13 @@ Template.building.helpers
         $carousel.show().carousel()
       else
         $carousel.hide()
+
+      if $.fn.imgLiquid
+        $('#carousel-example-generic .item').imgLiquid
+          fill: false
+          verticalAlign: '50%'
+        $('#carousel-example-generic .item').css('visibility', 'visible')
+
     return ""
 
   getRating: (rating) ->
@@ -107,7 +122,22 @@ Template.building.helpers
     else
       if @adminSameId then Buildings.findOne(@adminSameId) else @
 
-Template.building.rendered = ->
+  getThumbnail: (store) ->
+    share.getThumbnail.call @, store
+
+  isImage: ->
+    @ instanceof FS.File
+
+  isFirstSlide: ->
+    @_index is 1
+
+  removeMediaType: ->
+    media = Session.get("imageToRemove")
+    if media
+      return 'image' if media instanceof FS.File
+      return 'video' if media.vimeoId?
+
+Template.building.onRendered ->
   instance = @
   $('[data-toggle="popover"]').popover
     html: true
@@ -128,6 +158,7 @@ Template.building.rendered = ->
   $(".clear-rating").remove()
   $(".rating").rating()
   $('.rating-disabled').find(".clear-rating").remove()
+  
   Session.set("showAllBuildingUnits", false)
 
   setHeights()
@@ -281,11 +312,19 @@ Template.building.events
     Session.set("showAllBuildingUnits", false)
 
   "click .remove-image": grab encapsulate (event, template) ->
-    Session.set("imageToRemove", @_id)
+    Session.set("imageToRemove", @)
     $('#confirmRemoval').modal('show')
 
   "click .confirm-removal":  grab encapsulate (event, template) ->
-    Buildings.update({ _id: template.data.building._id}, { $pull: { images: {"EJSON$value.EJSON_id": Session.get("imageToRemove") }} })
+    imageToRemove = Session.get("imageToRemove")
+    if imageToRemove instanceof FS.File
+      query = {"EJSON$value.EJSON_id": imageToRemove._id }
+    else if imageToRemove.vimeoId?
+      query = {"_id": imageToRemove._id }
+
+    if query
+      Buildings.update({ _id: template.data.building._id}, { $pull: { images: query }})
+
     $('#confirmRemoval').modal('hide')
     Session.set("imageToRemove", null)
 
@@ -388,6 +427,37 @@ Template.building.events
     else
       $input.val(value).addClass("hidden")
 
+Template.building.helpers
+  'buildingIsRecommended': ->
+    clientObject = Session.get "recommendationsClientObject"
+    if clientObject
+      clientId = clientObject.clientId
+      ClientRecommendations.find({_id: clientId, 'buildingIds': @._id}).count()
+
+  'unitIsRecommended': ->
+    clientObject = Session.get "recommendationsClientObject"
+    if clientObject
+      clientId = clientObject.clientId
+      ClientRecommendations.find({_id: clientId, 'unitIds.unitId': @._id}).count()
+
+Template.building.events
+  "click .building-img-wrap .recommend-toggle": (event, template) ->
+    clientObject = Session.get "recommendationsClientObject"
+    if clientObject
+      clientId = clientObject.clientId
+      if Template.building.__helpers[" buildingIsRecommended"].call(@) is 0
+        Meteor.call 'recommendBuilding', clientId, @._id
+      else
+        Meteor.call 'unrecommendBuilding', clientId, @._id
+
+  "click .building-unit-item .recommend-toggle": (event, template) ->
+    clientObject = Session.get "recommendationsClientObject"
+    if clientObject
+      clientId = clientObject.clientId
+      if Template.building.__helpers[" unitIsRecommended"].call(@) is 0
+        Meteor.call 'recommendUnit', clientId, @._id, @.parentId
+      else
+        Meteor.call 'unrecommendUnit', clientId, @._id
 
 updateBuilding = (buildingId, newObject, item) ->
   Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})

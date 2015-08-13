@@ -21,7 +21,17 @@ Template.cityBuildings.helpers
   	else
   		#console.log "c"
   		return true
-
+  shouldShowRecommendToggle: ->
+    Router.current().route.getName() is "clientRecommendations" and Security.canManageClients()
+  isRecommended: ->
+    buildingIds = Router.current().data().buildingIds || []
+    @._id in buildingIds
+  getThumbnail: (store) ->
+    share.getThumbnail.call @, store
+  mediaClass: ->
+    return 'video' if @vimeoId?
+  isVideo: ->
+    @vimeoId?
 
 convertTimeToMins = (time) ->
   if time.indexOf("days") == -1
@@ -43,3 +53,16 @@ getAvaiability = (request, directionsService, cb) ->
       point = response.routes[0].legs[0]
       mins = convertTimeToMins(point.duration.text)
       cb(mins)
+  
+# Separate events for recommend toggle
+Template.cityBuildings.events
+  "click .recommend-toggle": (event, template) ->
+    clientId = Router.current().data().clientId
+    buildingId = @._id
+    buildingIds = Router.current().data().buildingIds || []
+
+    if @._id in buildingIds
+      Meteor.call "unrecommendBuilding", clientId, buildingId
+    else
+      Meteor.call "recommendBuilding", clientId, buildingId
+

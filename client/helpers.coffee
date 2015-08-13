@@ -100,3 +100,14 @@ Template.registerHelper "btypes", ->
 
 Template.registerHelper "canOperateWithBuilding", ->
   Security.canOperateWithBuilding()
+
+Template.registerHelper "canManageClients", ->
+  Security.canManageClients()
+
+Template.registerHelper "canRecommend", ->
+  Session.get("recommendationsClientObject") and Security.canManageClients()
+
+Template.registerHelper "currentClientName", ->
+  if Session.get("recommendationsClientObject")
+    clientObject = Session.get("recommendationsClientObject")
+    clientObject.name

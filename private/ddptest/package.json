@@ -1,0 +1,6 @@
+{
+	"dependencies": {
+		"ddp": "latest",
+		"ddp-login": "latest"
+	}
+}

@@ -3,11 +3,31 @@ template(name="cityBuildings")
     each buildings
       li.col-lg-4.col-md-4.col-sm-6.col-xs-12
         .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
-          a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
-            img(src="{{#if mainImage}}{{mainImage.url store='thumbsSmall'}}{{else}}/images/placeholder.png{{/if}}")
+        
+          if shouldShowRecommendToggle
+            a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}")
+              i.fa.fa-star
+
+          a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}")
+            .building-img-wrap.carousel.slide(id="carousel-{{_id}}", data-ride="carousel", data-interval="false")
+              .carousel-inner(role="listbox")
+                each getImages
+                  .item(class="{{mediaClass}}")
+                    if isVideo
+                      i.fa.fa-video-camera.fa-3x
+                    img.building-img(data-src="{{getThumbnail store='thumbs'}}")
+              a.left.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="prev")
+                i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
+                span.sr-only
+                  | Previous
+              a.right.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="next")
+                i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
+                span.sr-only
+                  | Next
+          
           .main-city-item-wrap
             h2.main-city-item-title
-              a.main-city-item-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}") {{title}}
+              a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}") {{processedTitle}}
             //span.main-city-info-btn.fa.fa-question-circle.pull-right
             .main-city-info.clearfix
               i.fa(class="{{#if agroIsUnit}}fa-key{{else}}fa-building{{/if}}")

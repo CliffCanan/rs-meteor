@@ -29,12 +29,28 @@ formatPriceDisplay = (from, to) ->
       price += "+"
   price
 
+getCurrentClientUnit = (parentId) ->
+  clientObject = Session.get "recommendationsClientObject"
+  if clientObject
+    clientId = clientObject.clientId
+    clientRecommendations = ClientRecommendations.findOne clientId
+    if clientRecommendations
+      unitObject = clientRecommendations.findUnitByParent parentId
+      if unitObject
+        unitId = unitObject.unitId
+        return unit = Buildings.findOne unitId
+  null
 
 class Building
   constructor: (doc) ->
     _.extend(@, doc)
   cityName: ->
     cities[@cityId].short
+  processedTitle: ->
+    if Session.get "showRecommendations"
+      building = getCurrentClientUnit(@_id)
+      return @getUnitTitle.call building if building
+    return @title
   getRouteData: ->
     data =
       cityId: @cityId
@@ -44,6 +60,11 @@ class Building
       data.buildingSlug = parent.slug
       data.unitSlug = @slug
     data
+  processedRouteData: ->
+    if Session.get "showRecommendations"
+      building = getCurrentClientUnit(@_id)
+      return @getRouteData.call building if building
+    return @getRouteData()
   mainImage: ->
     file = @getImages()?[0]
     file  if file?.url
@@ -52,6 +73,15 @@ class Building
       @images
     else
       @parent()?.images
+  getMedia: ->
+    if @images?.length
+      @images.map (item, index) ->
+        item._index = index + 1
+        item
+    else
+      @parent()?.images
+  getVideo: ->
+    @vimeoId
   getDescription: ->
     @description ? @parent()?.description
   getSqft: ->
@@ -142,6 +172,11 @@ class Building
 
     fields
   bedroomTypes: (queryBtype) ->
+    if Session.get "showRecommendations"
+      unit = getCurrentClientUnit(@_id)
+      if unit
+        return btypes[unit.btype]?.upper if unit.btype
+
     if queryBtype
       if queryBtype is "studio"
         "Studio"
@@ -165,7 +200,23 @@ class Building
             types.push(i)
             postfix = " Bedrooms"
         types.join(", ") + postfix
+  bedroomTypesArray: ->
+    types = []
+    postfix = ""
+    if @agroPriceStudioFrom
+      types.push("Studio")
+    if @agroPriceBedroom1From
+      types.push("1 Bedroom")
+    for i in [2..5]
+      if @["agroPriceBedroom" + i + "From"]
+        types.push("#{i} Bedroom")
+    types
   displayBuildingPrice: (queryBtype) ->
+    if Session.get "showRecommendations"
+      unit = getCurrentClientUnit(@_id)
+      if unit
+        return formatPriceDisplay unit.priceFrom, unit.priceTo if unit.priceFrom
+
     fieldName = "agroPrice" + (if queryBtype then queryBtype.charAt(0).toUpperCase() + queryBtype.slice(1) else "Total")
     fieldNameFrom = fieldName + "From"
     fieldNameTo = fieldName + "To"
@@ -189,6 +240,46 @@ class Building
           price: formatPriceDisplay(@[fieldNameFrom], @[fieldNameTo])
           type: value.lower
     prices
+  metaTags: ->
+    bedrooms = @bedroomTypesArray()
+    city = cities[@cityId].human
+    prefix = ''
+    suffix = ''
+    if bedrooms.length
+      if bedrooms.length is 1
+        prefix = "#{bedrooms[0]} - "
+      else
+        suffix = ' Rentals'
+    title = "#{prefix}#{@title}#{suffix}, #{city}"
+
+    features = []
+    featuresPrefix = ''
+    featuresSummary = ''
+
+    for fieldName in ["fitnessCenter", "laundry", "security", "utilities", "parking"]
+      value = @[fieldName]
+      if value
+        features.push complexFieldsValues[fieldName].values[value].toLowerCase() if value is 1
+
+    if features.length
+      featuresPrefix = " with "
+      featuresSummary = features.join(", ")
+
+    description = "Currently available #{@bedroomTypes()} apartments#{featuresPrefix}#{featuresSummary}. View photos videos, maps and floorplans of units at #{@title} in #{@neighborhood}, #{city}"
+
+    if bedrooms.length and bedrooms.length is 1
+      availableAt = moment(@availableAt)
+      availableDate = availableAt.format('d MMMM')
+      sqft = if @getSqft() then "#{@getSqft()} sq ft" else ''
+      if featuresSummary
+        featuresSummary = "Includes #{featuresSummary}"
+        if sqft
+          sqft = ", #{sqft}"
+      if sqft or featuresSummary then endPeriod = '. ' else endPeriod = ''
+      description = "#{@displayBuildingPrice()} #{bedrooms[0]} apartment available #{availableDate} at #{@title}. #{featuresSummary}#{sqft}#{endPeriod}View photos videos, maps and floorplans of units in #{@neighborhood}, #{city}"
+
+    title: title
+    description: description
 
 
 share.Transformations.Building = _.partial(share.transform, Building)

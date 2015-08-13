@@ -18,14 +18,19 @@ Template.city.helpers
   firstLoad: ->
     citySubs.dep.depend()
     !citySubs.ready and @firstLoad
+  clientRecommendationsList: ->
+    Router.current().route.getName() is "clientRecommendations"
+  showClientRecommendationsName: ->
+    Template.city.__helpers[" clientRecommendationsList"].call(@) and not Security.canManageClients()
   loadingBuildings: ->
     citySubs.dep.depend()
     ready = citySubs.ready
     if ready
       cityPageData = Session.get("cityPageData")
-      Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage)
+      Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage) if cityPageData
     !ready
   notAllLoaded: ->
+    return false if Session.get "showRecommendations"
     Template.city.__helpers[" buildings"].call(@).count() < Counts.get("city-buildings-count")
   # TODO: filter by price depend on btype
 
@@ -36,86 +41,81 @@ Template.city.helpers
       wrap.style.display = "none"
       wrap.offsetHeight # no need to store this anywhere, the reference is enough
       wrap.style.display = ""
+
     selector = {parentId: {$exists: false}, cityId: @cityId}
     addQueryFilter(@query, selector)
-    #console.log Router.current().params.query
+    
     query = Router.current().params.query
     controller = Router.current()
-    if query.hasOwnProperty('address') == true
-      travelMode = if Session.get "travelMode" then Session.get "travelMode" else "walking"
-
-      arrivalTime = 0
-      selectedTime = if Session.get "selectedTime" then Session.get "selectedTime" else 10
-      selectedTime = parseInt selectedTime
-      geocoder = new google.maps.Geocoder()
-      geocoder.geocode { 'address': Session.get "cityName" }, (results, status) ->
-        if status == google.maps.GeocoderStatus.OK
-          i = 0
-          while i < results.length
-            #console.log results[i].formatted_address
-            result = results[i]
-            city = result.formatted_address
-            #console.log result.address_components
-            #j = 0
-            #while j < result.address_components.length
-              #console.log result.address_components[j].types[0]
-              #if result.address_components[j].types[0] == 'locality'
-                #this is the object you are looking for
-                #cities = results[j].address_components[i]
-                #console.log cities
-              #j++       
-
-            if city.trim().toUpperCase().indexOf(controller.params.cityId.toUpperCase()) != -1 
-              location = results[i].geometry.location
-              Session.set("cityGeoLocation", [location.lat(), location.lng()]) 
-            i++
-
-          if location == undefined
-            #$(".form-building-filter")[0].reset();
-            $(".form-building-filter").get(0).reset()
-            $(".form-building-filter").trigger("submit")
-            Session.set "cityGeoLocation", ""
-            $('#messageAlert').modal('show')
-          else
-            Session.set("cityGeoLocation", [location.lat(), location.lng()])
-            
-
-      if Session.get "cityGeoLocation"
-        buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
-        address = Session.get "cityGeoLocation"
-        #console.log address
-
-        buildings.forEach (building) ->
-          #console.log building
-          #console.log building.latitude
-          distance = CalculateDistance(address[0], address[1], building.latitude, building.longitude)*1.609344
-
-          if travelMode == "walking"
-            arrivalTime = distance / (5 / 60)
-          if travelMode == "driving"
-            arrivalTime = distance / (40 / 60)
-          if travelMode == "bicycling"
-            arrivalTime = distance / (15 / 60)
-
-          #console.log arrivalTime
-          #console.log distance
-          if arrivalTime < selectedTime
-            filtered.push building._id
-          #console.log distance
-        selector._id = {$in: filtered}
-        #console.log selector
-        Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})          
-      else 
-        Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+    if Session.get "showRecommendations"
+      buildingIds = Router.current().data().buildingIds
+      selector = {_id: {$in: buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}
     else
-      Session.set("cityGeoLocation", "") 
-      Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+      selector = {parentId: {$exists: false}, cityId: @cityId}
+      addQueryFilter(@query, selector)
 
-Template.city.created = ->
+      if query.hasOwnProperty('address') == true
+        travelMode = if Session.get "travelMode" then Session.get "travelMode" else "walking"
+
+        arrivalTime = 0
+        selectedTime = if Session.get "selectedTime" then Session.get "selectedTime" else 10
+        selectedTime = parseInt selectedTime
+        geocoder = new google.maps.Geocoder()
+        geocoder.geocode { 'address': Session.get "cityName" }, (results, status) ->
+          if status == google.maps.GeocoderStatus.OK
+            i = 0
+            while i < results.length
+              result = results[i]
+              city = result.formatted_address
+
+              if city.trim().toUpperCase().indexOf(controller.params.cityId.toUpperCase()) != -1 
+                location = results[i].geometry.location
+                Session.set("cityGeoLocation", [location.lat(), location.lng()]) 
+              i++
+
+            if location == undefined
+              #$(".form-building-filter")[0].reset();
+              $(".form-building-filter").get(0).reset()
+              $(".form-building-filter").trigger("submit")
+              Session.set "cityGeoLocation", ""
+              $('#messageAlert').modal('show')
+            else
+              Session.set("cityGeoLocation", [location.lat(), location.lng()])
+            
+        if Session.get "cityGeoLocation"
+          buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+          address = Session.get "cityGeoLocation"
+
+          buildings.forEach (building) ->
+            distance = CalculateDistance(address[0], address[1], building.latitude, building.longitude)*1.609344
+
+            if travelMode == "walking"
+              arrivalTime = distance / (5 / 60)
+            if travelMode == "driving"
+              arrivalTime = distance / (40 / 60)
+            if travelMode == "bicycling"
+              arrivalTime = distance / (15 / 60)
+
+            if arrivalTime < selectedTime
+              filtered.push building._id
+
+          selector._id = {$in: filtered}
+      else
+        Session.set("cityGeoLocation", "") 
+
+    Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+
+Template.city.onCreated ->
   @data.firstLoad = true
 
-Template.city.rendered = ->
+Template.city.onRendered ->
+  instance = @
+
+  $.getScript '/js/imgLiquid-min.js', ->
+    $('.main-city-item .item.video').imgLiquid();
+
   cityCircle = undefined
+
   @data.firstLoad = false
   setHeights()
   cityData = cities[@data.cityId]
@@ -136,20 +136,53 @@ Template.city.rendered = ->
   filterIcon = new google.maps.MarkerImage("/images/map-marker-filter.png", null, null, null, new google.maps.Size(50, 60))  
   filterDefaultIcon = new google.maps.MarkerImage("/images/map-marker-default.png", null, null, null, new google.maps.Size(50, 60)) 
 
-
   infoWindowId = null
   infowindow = new google.maps.InfoWindow()
   google.maps.event.addListener infowindow, "closeclick", ->
-    #console.log infoWindowId
     if infoWindowId != null
       markers[infoWindowId].setIcon(defaultIcon)
     if infoWindowId == "filterItem"
       markers[infoWindowId].setIcon(filterDefaultIcon)
 
+  # Quick CSS hack to add proper margins for non staff in recommendation list since toggle buttons are float.
+  # Staff has the 'Add Listing button' which is not floated and adds a nice margin
   @autorun ->
+    if Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients()
+      $('.main-city-list').css marginTop: 53
+    else
+      $('.main-city-list').css marginTop: 0
+      
+    _.defer ->
+      $(".carousel").each ->
+        $carousel = $(this)
+        carousel = $carousel.data("bs.carousel")
+        if carousel
+          carousel.pause()
+          carousel.destroy()
+        $firstItem = $carousel.find(".item:first")
+        if $firstItem.size()
+          $firstItem.addClass("active")
+          $carousel.show().carousel()
+
+          $img = $firstItem.find('img')
+          $img.attr 'src', $img.data('src')
+        else
+          $carousel.hide()
+
+        $carousel.hover ->
+          if not $(this).hasClass('images-subscribed')
+            building = Blaze.getData(this)
+            instance.subscribe "buildingImages", building._id
+            $(this).addClass('images-subscribed')
+
+        $carousel.on 'slide.bs.carousel', (e) ->
+          $img = $('img', e.relatedTarget);
+          $img.attr 'src', $img.data('src')
+
     citySubs.dep.depend()
     if citySubs.ready
       data = Router.current().data()
+
       actualMarkerIds = []
       @template.__helpers[" buildings"].call(data).forEach (building) ->
         if building.latitude and building.longitude
@@ -223,13 +256,11 @@ Template.city.rendered = ->
         infowindow.open(map, marker)
         infoWindowId = marker._id
         marker.setIcon(filterIcon)
-      #console.log Session.get "cityGeoLocation"
 
       selectedTime = parseFloat(if Session.get('selectedTime') then Session.get('selectedTime') else 10)
 
       travelMode = Session.get('travelMode') or 'walking'
 
-      #console.log travelMode
       if travelMode == "walking"
         maxDistance = selectedTime * (5 / 60)
       else if travelMode == "driving"
@@ -252,6 +283,19 @@ Template.city.rendered = ->
 
       cityCircle = new (google.maps.Circle)(populationOptions)
 
+      if Router.current().route.getName() is "clientRecommendations"
+        if Session.get "showRecommendations"
+          # Zoom map to fit all markers
+          bounds = new google.maps.LatLngBounds();
+          for i, marker of markers
+            bounds.extend markers[i].getPosition() 
+            
+          map.fitBounds(bounds);
+        else
+          currentCityData = cities[data.cityId]
+          map.setZoom(14)
+          map.setCenter new google.maps.LatLng(currentCityData.latitude, currentCityData.longitude)
+
 incrementPageNumber = ->
   cityPageData = Session.get("cityPageData")
   cityPageData.page++
@@ -268,7 +312,6 @@ CalculateDistance = (lat1, lon1, lat2, lon2) ->
   dist = Math.acos(dist)
   dist = dist * 180 / Math.PI
   dist = dist * 60 * 1.1515
-  #console.log dist
 
 Template.city.events
   "click .city-select li": (event, template) ->
@@ -326,18 +369,8 @@ Template.city.events
       if status == google.maps.GeocoderStatus.OK
         i = 0
         while i < results.length
-          #console.log results[i].formatted_address
           result = results[i]
           city = result.formatted_address
-          #console.log result.address_components
-          #j = 0
-          #while j < result.address_components.length
-            #console.log result.address_components[j].types[0]
-            #if result.address_components[j].types[0] == 'locality'
-              #this is the object you are looking for
-              #cities = results[j].address_components[i]
-              #console.log cities
-            #j++       
 
           if city.trim().toUpperCase().indexOf(controller.params.cityId.toUpperCase()) != -1 
             location = results[i].geometry.location
@@ -370,7 +403,6 @@ Template.city.events
           html += '</div>'
           html += '</div>'
           $("#destinationTimeArea").html(html)
-
 
 convertTimeToMins = (time) ->
   if time.indexOf("days") == -1

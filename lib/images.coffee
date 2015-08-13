@@ -10,6 +10,6 @@
       transformWrite: (fileObj, readStream, writeStream) ->
         gm(readStream, fileObj.name()).resize("400", null).stream().pipe(writeStream)
   ]
-  filter:
-    allow:
-      contentTypes: ['image/*'] # allow only images in this FS.Collection
+  # filter:
+  #   allow:
+  #     contentTypes: ['image/*'] # allow only images in this FS.Collection
