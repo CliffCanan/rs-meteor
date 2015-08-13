@@ -61,7 +61,9 @@ Template.city.helpers
         selectedTime = if Session.get "selectedTime" then Session.get "selectedTime" else 10
         selectedTime = parseInt selectedTime
         geocoder = new google.maps.Geocoder()
-        address = "#{Session.get("cityName")} #{@cityId}"
+        currentCity = cities[@cityId].short
+        address = "#{Session.get("cityName")} #{currentCity}"
+
         geocoder.geocode { 'address':  address }, (results, status) ->
           if status == google.maps.GeocoderStatus.OK
             i = 0
@@ -69,7 +71,7 @@ Template.city.helpers
               result = results[i]
               city = result.formatted_address
 
-              if city.trim().toUpperCase().indexOf(controller.params.cityId.toUpperCase()) != -1 
+              if city.trim().toUpperCase().indexOf(currentCity.toUpperCase()) != -1 
                 location = results[i].geometry.location
                 Session.set("cityGeoLocation", [location.lat(), location.lng()]) 
               i++
