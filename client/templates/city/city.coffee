@@ -61,7 +61,8 @@ Template.city.helpers
         selectedTime = if Session.get "selectedTime" then Session.get "selectedTime" else 10
         selectedTime = parseInt selectedTime
         geocoder = new google.maps.Geocoder()
-        geocoder.geocode { 'address': Session.get "cityName" }, (results, status) ->
+        address = "#{Session.get("cityName")} #{@cityId}"
+        geocoder.geocode { 'address':  address }, (results, status) ->
           if status == google.maps.GeocoderStatus.OK
             i = 0
             while i < results.length
