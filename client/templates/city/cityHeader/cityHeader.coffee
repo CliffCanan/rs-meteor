@@ -2,6 +2,12 @@ Template.cityHeader.helpers
   currentCity: ->
     cityId = @query.cityId || @cityId
     cities[cityId].long
+  currentNeighborhood: ->
+    cityId = @query.cityId || @cityId
+    cities[cityId].long
+  neighborhoods: ->
+    cityId = @query.cityId || @cityId
+    share.neighborhoodsInCity cityId
   currentBedroomType: ->
     btypes[@query.btype]?.lower ? "Any"
 

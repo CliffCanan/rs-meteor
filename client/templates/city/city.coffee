@@ -118,7 +118,7 @@ Template.city.onRendered ->
     citySubs.dep.depend()
     if citySubs.ready
       data = Router.current().data()
-
+      
       actualMarkerIds = []
       @template.__helpers[" buildings"].call(data).forEach (building) ->
         if building.isOnMap and building.latitude and building.longitude
@@ -170,6 +170,13 @@ Template.city.onRendered ->
           currentCityData = cities[data.cityId]
           map.setZoom(14)
           map.setCenter new google.maps.LatLng(currentCityData.latitude, currentCityData.longitude)
+
+      else if Router.current().route.getName() is "neighborhood"
+        # Center map to fit all properties
+        bounds = new google.maps.LatLngBounds()
+        for i, marker of markers
+          bounds.extend markers[i].getPosition()     
+        map.fitBounds(bounds)
 
 incrementPageNumber = ->
   cityPageData = Session.get("cityPageData")

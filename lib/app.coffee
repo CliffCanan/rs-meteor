@@ -149,3 +149,23 @@ share.exitRecommendationsMode = () ->
   Session.set "recommendationsClientObject", null
   Session.set "showRecommendations", null
   return
+
+if Meteor.isServer
+  Meteor.methods
+    "neighborhoodsList": ->
+      Buildings.aggregate([
+        {$group: {_id: {city: '$cityId', neighborhood: '$neighborhood', neighborhoodSlug: '$neighborhoodSlug'}}},
+        {$group: {_id: '$_id.city', neighborhoods: {$push: {name: '$_id.neighborhood', slug: '$_id.neighborhoodSlug'}}}},
+      ])
+
+@neighborhoodsList = {}
+context = @
+Meteor.call "neighborhoodsList", (err, result) ->
+  sorted = _.map result, (values, key) ->
+    sortedNeighborhoods = _.sortBy values.neighborhoods, 'name'
+    cityId: values._id
+    neighborhoods: sortedNeighborhoods
+  context.neighborhoodsList = sorted
+
+share.neighborhoodsInCity = (cityId) ->
+  _.findWhere(context.neighborhoodsList, {cityId: cityId}).neighborhoods
