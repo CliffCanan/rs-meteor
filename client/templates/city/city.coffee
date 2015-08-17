@@ -55,7 +55,7 @@ Template.city.helpers
       addQueryFilter(@query, selector)
 
       if query.hasOwnProperty('address') == true
-        travelMode = if Session.get "travelMode" then Session.get "travelMode" else "walking"
+        travelMode = Session.get "travelMode"
 
         arrivalTime = 0
         selectedTime = if Session.get "selectedTime" then Session.get "selectedTime" else 10

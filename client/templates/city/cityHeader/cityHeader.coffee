@@ -101,6 +101,9 @@ Template.cityHeader.events
       Session.set('enteredAddress', query.address)
     else
       delete query["address"]
+
+    if not Session.get "travelMode"
+      Session.set "travelMode", "walking"
       
     $form = $(event.currentTarget)
     $form.closest(".dropdown").removeClass("open")    
