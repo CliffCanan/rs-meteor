@@ -19,15 +19,6 @@ Template.cityHeader.helpers
     Session.get('travelMode')
   getDestination: ->
     destination = if Session.get('cityName') then Session.get('cityName') else ''
-    
-
-Template.cityHeader.onRendered ->
-  if Session.get('travelMode')
-    travelMode = Session.get('travelMode')
-    switch travelMode
-      when 'walking' then $('#walker').attr("src", "/images/walk-active.png")
-      when 'driving' then $('#car').attr("src", "/images/car-active.png")
-      when 'bicycling' then $('#bike').attr("src", "/images/bike-active.png")
 
 Template.cityHeader.events
   "click .dropdown button": (event, template) ->
@@ -62,15 +53,11 @@ Template.cityHeader.events
 
   "click .travelMode": (event, template) ->
     $item = $(event.currentTarget)
-    setDefaultImages()
     if $item.attr("id") == "walker"
-      $item.find('img').attr("src", "/images/walk-active.png")
       Session.set("travelMode", "walking")
     if $item.attr("id") == "car"
-      $item.find('img').attr("src", "/images/car-active.png")
       Session.set("travelMode", "driving")
     if $item.attr("id") == "bike"
-      $item.find('img').attr("src", "/images/bike-active.png")
       Session.set("travelMode", "bicycling")
 
   "click .selectTime": (event, template) ->
@@ -147,11 +134,8 @@ Template.cityHeader.events
   "click .form-building-address-filter-reset": (event, template) ->
     Session.set("travelMode", "walking")
     Session.set("selectedTime", "")
-    setDefaultImages()
-    $("#walker").find("img").attr("src", "/images/walk-active.png")
     $form = $(event.currentTarget).closest("form")
     $form.get(0).reset()
-    console.log $form
     $form.trigger("submit")
 
   "click .form-building-features-filter-reset": (event, template) ->
@@ -162,8 +146,3 @@ Template.cityHeader.events
   "click .show-all-listings": ->
     Session.set "showRecommendations", false
     return
-
-setDefaultImages = ->
-  $("#walker").find("img").attr("src", "/images/walk.png")
-  $("#car").find("img").attr("src", "/images/car.png")
-  $("#bike").find("img").attr("src", "/images/bike.png")
