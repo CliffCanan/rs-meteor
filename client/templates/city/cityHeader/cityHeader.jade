@@ -19,7 +19,7 @@ template(name="cityHeader")
           each btypes
             li.city-sub-header-item(data-value="{{key}}") {{value}}
     +cityHeaderSlider
-    .col-sm-1
+    .filter-wrap.col-sm-1
       .dropdown.city-filter.features-wrap
         button.features-btn.dropdown-toggle.btn.btn-default(type="button")
           i.fa.fa-check
@@ -71,7 +71,7 @@ template(name="cityHeader")
             | Apply Changes
           span.clear-btn.form-building-features-filter-reset
             | Clear Filter
-    #location-filter-wrapper.col-sm-2
+    #location-filter-wrapper.filter-wrap.col-sm-2
       .dropdown.city-filter.features-wrap
         button.features-btn.dropdown-toggle.btn.btn-default(type="button")
           i.fa.fa-map-marker
