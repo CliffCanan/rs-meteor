@@ -342,64 +342,6 @@ Template.city.events
       $item.find('img').attr("src", "/images/bike-active.png")
       Session.set "distanceMode", "bike"
 
-  "click #calcDistance":  (event, template) ->
-    $item = $(event.currentTarget)
-    destination = $("#distanceFiler").val()
-    geocoder = new google.maps.Geocoder()
-    controller = Router.current()
-    geocoder.geocode { 'address': destination }, (results, status) ->
-      if status == google.maps.GeocoderStatus.OK
-        i = 0
-        while i < results.length
-          result = results[i]
-          city = result.formatted_address
-
-          if city.trim().toUpperCase().indexOf(controller.params.cityId.toUpperCase()) != -1 
-            location = results[i].geometry.location
-          i++
-        if location == undefined          
-          $('#messageAlert').modal('show')
-        else
-          cPlace = Session.get "cityGeoLocation"  
-          distance = CalculateDistance(cPlace[0], cPlace[1], location.lat(), location.lng())*1.609344
-          distanceKm = distance.toFixed 2
-          $("#destinationDistance").html(distanceKm+"km")
-
-          distanceMode = if Session.get('distanceMode') then Session.get('distanceMode') else 'walk'
-
-          if distanceMode == "walk"
-            arrivalTime = distance / 5 * 60
-          else if distanceMode == "drive"
-            arrivalTime = distance / 40 * 60
-          else if distanceMode == "bike"
-            arrivalTime = distance / 15 * 60
-          arrivalTime = arrivalTime.toFixed 0
-          if distanceMode == "drive"
-            distanceMode = "car"
-          html = '<div class=\'row\'>'
-          html += '<div class=\'col-md-2\'>'
-          html += '<img src=\'/images/' + distanceMode + '.png\'/>'
-          html += '</div>'
-          html += '<div class=\'col-md-10\'>'
-          html += '<h4 id=\'#destinationTime\'>' + arrivalTime + 'min to ' + distanceMode + '</h4>'
-          html += '</div>'
-          html += '</div>'
-          $("#destinationTimeArea").html(html)
-
-convertTimeToMins = (time) ->
-  if time.indexOf("days") == -1
-    if time.indexOf("hours") == -1
-      parseInt time.split("hours")[0]
-    else
-      hours = parseInt time.split("hours")[0]
-      mins = parseInt time.split("hours")[1]
-      hours * 60 + mins
-  else 
-    days = parseInt time.split("days")[0]
-    hours = time.split("days")[1]
-    hours = parseInt hours.split("hours")[0]
-    days * 1440 + hours * 60
-
 setDefaultImagesForCalc = ->
   $("#walker-calc").find("img").attr("src", "/images/walk.png")
   $("#car-calc").find("img").attr("src", "/images/car.png")
