@@ -1,3 +1,10 @@
+Template.cityHeader.onRendered ->
+  if Session.get "enteredAddress"
+    $('#address').val(Session.get "enteredAddress")
+
+  if not Session.get "travelMode"
+    Session.set "travelMode", "walking"
+
 Template.cityHeader.helpers
   currentCity: ->
     cityId = @query.cityId || @cityId
@@ -100,11 +107,9 @@ Template.cityHeader.events
       query.address = $("#address").val()
       Session.set('enteredAddress', query.address)
     else
+      Session.set('enteredAddress', null)
       delete query["address"]
 
-    if not Session.get "travelMode"
-      Session.set "travelMode", "walking"
-      
     $form = $(event.currentTarget)
     $form.closest(".dropdown").removeClass("open")    
     Router.go("city", {cityId: data.cityId}, {query: query}, 300)

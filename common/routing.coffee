@@ -95,13 +95,15 @@ Router.map ->
       return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
-
-      #console.log @params.query.address
       if @params.query.hasOwnProperty 'address'
-        #console.log @params.query.address
         Session.set("cityName", @params.query.address)
       else
-        Session.set("cityName", "")
+        if Session.get('enteredAddress')
+          address = Session.get('enteredAddress')
+          Session.set("cityName", address)
+          Router.go("city", {cityId: @params.cityId}, {query: {address: address}})
+        else
+          Session.set("cityName", "")
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
