@@ -55,23 +55,23 @@ template(name="filterListingMarker")
         table#commute-results.table.table-bordered
           tbody
             tr
-              td.travel-mode-icon
+              td#walk-icon.travel-mode-icon
                 if condition travelMode 'is' 'walking'
-                  img(src="/images/walk-active.png")
+                  img(src="/images/walk-active.png", data-travel-mode="walking")
                 else
-                  img(src="/images/walk.png")
+                  img(src="/images/walk.png", data-travel-mode="walking")
               td#walking-travel-time #{travelTimes.walking}
             tr
-              td.travel-mode-icon
+              td#drive-icon.travel-mode-icon
                 if condition travelMode 'is' 'driving'
-                  img(src="/images/car-active.png")
+                  img(src="/images/car-active.png", data-travel-mode="driving")
                 else
-                  img(src="/images/car.png")
+                  img(src="/images/car.png", data-travel-mode="driving")
               td#driving-travel-time #{travelTimes.driving}
             tr
-              td.travel-mode-icon
+              td#bike-icon.travel-mode-icon
                 if condition travelMode 'is' 'bicycling'
-                  img(src="/images/bike-active.png")
+                  img(src="/images/bike-active.png", data-travel-mode="bicycling")
                 else
-                  img(src="/images/bike.png")
+                  img(src="/images/bike.png", data-travel-mode="bicycling")
               td#bicycling-travel-time #{travelTimes.bicycling}
