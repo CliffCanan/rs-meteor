@@ -128,12 +128,21 @@ Template.building.onRendered ->
   instance = @
   $('[data-toggle="popover"]').popover
     html: true
+    title: 'Commute Calculator <a class="close" data-dismiss="popover" href="#">&times;</a>'
     content: Blaze.toHTMLWithData(Template.filterListingMarker, ->
       address: Session.get('enteredAddress')
       travelMode: Session.get('travelMode') or 'walking'
     )
 
   Session.set('travelTimes', {})
+
+  $('[data-toggle="popover"]').each ->
+    button = $(this)
+    button.popover().on('shown.bs.popover', ->
+      button.data('bs.popover').tip().find('[data-dismiss="popover"]').on('click', ->
+        button.popover('toggle')
+      )
+    )
 
   @autorun ->
     if Session.get('travelTimes') or Session.get('travelMode')
