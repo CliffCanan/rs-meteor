@@ -4,11 +4,12 @@ Template.clientRecommendationsToggle.onCreated ->
 
   (unitIds = recommendation.unitIds.map (value) -> value.unitId) if recommendation.unitIds?
   recommendedIds = recommendation.buildingIds.concat(unitIds) if recommendation.buildingIds?
+
+  @importCompletedCount = new ReactiveVar(0)
   
   if recommendedIds
-    @importCompletedCount = new ReactiveVar(0)
     @subscribe "recommendedBuildings", recommendedIds, ->
-      importCompletedCount = Buildings.find({_id: {$in: data.buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}).count()
+      importCompletedCount = Buildings.find({_id: {$in: recommendation.buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}).count()
       instance.importCompletedCount.set importCompletedCount
 
   @clientRecommendation = ->
