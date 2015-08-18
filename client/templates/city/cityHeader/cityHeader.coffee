@@ -5,6 +5,10 @@ Template.cityHeader.onRendered ->
   if not Session.get "travelMode"
     Session.set "travelMode", "walking"
 
+  $('#location-filter-wrapper').find('.dropdown.city-filter').on('shown.bs.dropdown', ->
+    $('#address').focus()
+  )
+
 Template.cityHeader.helpers
   currentCity: ->
     cityId = @query.cityId || @cityId
@@ -28,7 +32,7 @@ Template.cityHeader.helpers
     destination = if Session.get('cityName') then Session.get('cityName') else ''
 
 Template.cityHeader.events
-  "click .dropdown button": (event, template) ->
+  "click .selectArrivalTime .dropdown button": (event, template) ->
     $(event.currentTarget).parent().toggleClass("open")
 
   "click .city-select li": (event, template) ->

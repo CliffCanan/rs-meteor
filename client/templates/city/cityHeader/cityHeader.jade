@@ -21,7 +21,7 @@ template(name="cityHeader")
     +cityHeaderSlider
     .filter-wrap.col-sm-1
       .dropdown.city-filter.features-wrap
-        button.features-btn.dropdown-toggle.btn.btn-default(type="button")
+        button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
           i.fa.fa-check
           | Features
         form.form-building-features-filter.features-section.dropdown-menu
@@ -73,7 +73,7 @@ template(name="cityHeader")
             | Clear Filter
     #location-filter-wrapper.filter-wrap.col-sm-2
       .dropdown.city-filter.features-wrap
-        button.features-btn.dropdown-toggle.btn.btn-default(type="button")
+        button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
           i.fa.fa-map-marker
           | Filter by Location
         form.form-building-filter.filter-section.dropdown-menu

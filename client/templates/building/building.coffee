@@ -139,6 +139,7 @@ Template.building.onRendered ->
   $('[data-toggle="popover"]').each ->
     button = $(this)
     button.popover().on('shown.bs.popover', ->
+      $('#address').focus()
       button.data('bs.popover').tip().find('[data-dismiss="popover"]').on('click', ->
         button.popover('toggle')
       )
@@ -237,9 +238,9 @@ Template.building.events
     to = "#{Session.get("enteredAddress")} #{cities[building.cityId].short}"
     calcRoute(from, to, template)
 
-  "click #calcDistance":  (event, template) ->
+  "click #route-address":  (event, template) ->
     $item = $(event.currentTarget)
-    destination = $("#distanceFiler").val()
+    destination = $("#address").val()
 
     Session.set "travelMode", 'walking' if not Session.get "travelMode"
 
@@ -250,9 +251,9 @@ Template.building.events
     to = "#{destination} #{cities[building.cityId].short}"
     calcRoute(from, to, template)
 
-  "keydown #distanceFiler": (event, template) ->
+  "keydown #address": (event, template) ->
     keypressed = event.keyCode || event.which;
-    template.$('#calcDistance').click() if keypressed is 13
+    template.$('#route-address').click() if keypressed is 13
 
   "click .check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
