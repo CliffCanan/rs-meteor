@@ -396,35 +396,6 @@ template(name="building")
                     span.building-admin-info-data
                       | {{adminNotes}}
 
-            .container-fluid                          
-              .row#reviweArea
-                h3.similar-title
-                  | Reviews
-                each bulidingReviews
-                  .col-md-5.reviews
-                    .row
-                      .col-md-7
-                        .row
-                          .col-md-12
-                            h4
-                              | {{getUser userId}}
-                            p
-                              | {{getFormatted createdAt}}
-                      .col-md-5.showRating
-                        .row
-                          .col-md-4
-                            input#stars.rating(value="{{getRatingValue rating}}" type="number" min="0" max="1" step="0.5" data-size="sm" data-stars="1" disabled)
-                          .col-md-8.showRatingText
-                            h4
-                              | {{getRating rating}}/10
-                        
-                    .row
-                      .col-md-12
-                        h4
-                          | {{title}}
-                        p
-                          |{{reviews}}                                                  
-
             //-section.building-info-section
             //-  h2.building-info-title
             //-    i.fa.fa-fw.fa-star
@@ -583,33 +554,6 @@ template(name="building")
                         .col-md-4
                           p.similar-property-price 
                             | {{displayBuildingPrice ../queryBtype}}
-
-
-            .container-fluid      
-              .row(style="margin-top:40px;")
-                .col-md-6
-                .well.well-sm
-                  .text-right
-                   #open-review-box.btn.btn-success.btn-green(href="#reviews-anchor")
-                    | Leave a Review
-                  #post-review-box.row(style="display:none;")
-                    .col-md-12
-                      form(accept-charset="UTF-8" action="" method="post")
-                        input#star.rating(value="0" type="number" min="0" max="10" step="0.5" data-size="md" data-stars="10")
-                        input#ratings-hidden(name="rating" type="hidden")
-                        .row(style="padding-bottom: 15px")
-                          .col-md-6
-                            input#review-title.form-control(name="review-title" type="text" placeholder="Enter your review title here")
-                        .row
-                          .col-md-12
-                            textarea#new-review.form-control.animated(cols="50" name="comment" placeholder="Enter your review here..." rows="5")
-                        .text-right
-                          .stars.starrr(data-rating="0")
-                          a#close-review-box.btn.btn-danger.btn-sm(style="display:none; margin-right: 10px;" href="#")
-                            span.glyphicon.glyphicon-remove
-                              | Cancel
-                            button#saveReview.btn.btn-success.btn-lg(type="submit")
-                              | Save
 
         | {{ironRouterHack}}
 
