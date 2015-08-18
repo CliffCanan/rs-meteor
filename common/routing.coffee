@@ -134,16 +134,19 @@ Router.map ->
       return null unless building
       _.extend {}, @params,
         building: building
-    onAfterAction: ->
+    onBeforeAction: ->
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
+      @next()
+    onAfterAction: ->
       building = @data().building
       metaTags = building.metaTags()
-      SEO.set
-        title: metaTags.title
-        meta:
-          description: metaTags.description
+      if metaTags.title
+        SEO.set
+          title: metaTags.title
+          meta:
+            description: metaTags.description
 
   @route "/autologin/:token",
     name: "autologin"
