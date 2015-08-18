@@ -148,18 +148,6 @@ Meteor.smartPublish "buildingUnits", (cityId, slug) ->
   addIsPublishFilter(@userId, selector)
   [Buildings.find(selector)]
 
-Meteor.smartPublish "buildingReviews", (cityId, slug) ->
-  reviews = []
-  check(cityId, Match.InArray(cityIds))
-  check(slug, String)
-  building = Buildings.findOne({cityId: cityId, slug: slug})
-  #console.log building._id
-  if building
-    reviews = UserReviews.find({building: building._id})
-    return reviews
-  reviews
-
-
 Meteor.smartPublish "buildingAdminSame", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
   check(slug, String)

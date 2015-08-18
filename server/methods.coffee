@@ -12,12 +12,6 @@ Meteor.methods
     buildingId: buildingId
     url: Router.routes["building"].path(building.getRouteData())
 
-  "insertReviews": (review, title, buildingId, rating) ->
-    check = UserReviews.findOne(userId: Meteor.userId(), building: buildingId)
-    unless check
-      UserReviews.insert({userId: Meteor.userId(), reviews: review, building: buildingId, rating: rating, title: title})    
-    
-
   "getSimilarProperties": (building) ->
     from = building.agroPriceTotalTo - 200
     to = building.agroPriceTotalTo + 200
