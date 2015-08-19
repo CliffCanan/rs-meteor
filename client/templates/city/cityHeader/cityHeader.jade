@@ -122,6 +122,5 @@ template(name="cityHeader")
               span.clear-btn.form-building-address-filter-reset
                 | Clear Filter
 
-    if canOperateWithBuilding
-      .filter-wrap.building-title-search-wrapper
-        input.building-title-search.form-control(type="text", placeholder="Search buildings", value="{{query.q}}")
+    .filter-wrap.building-title-search-wrapper
+      input.building-title-search.form-control(type="text", placeholder="Search buildings", value="{{query.q}}")
