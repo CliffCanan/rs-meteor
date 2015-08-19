@@ -396,8 +396,20 @@ template(name="building")
                     span.building-admin-info-data
                       | {{adminNotes}}
 
+            h3.section-title
+              | Reviews
+            ul.list-unstyled.row.reviews
+              li.col-lg-6
+                +review
+              li.col-lg-6
+                +review
+              li.col-lg-6
+                +review
+              li.col-lg-6
+                +review
+
           footer.clearfix
-            h3.similar-title
+            h3.section-title
               | Similar Properties
             ul.main-city-list.list-unstyled.row.similar-properties
               each similarProperties .

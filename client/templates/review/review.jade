@@ -1,0 +1,42 @@
+template(name="review")
+  div.review
+    div.author Mark Wilmotts
+    div.posted-date 07 / 23 / 2014
+    div.total-rating
+      i.fa.fa-star
+      span 8/10
+    h3 The place is a blast!
+    p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta ipsa aperiam fuga nam deleniti ipsum sint ratione velit maiores natus, rem eius corrupti, impedit quisquam molestiae. Similique obcaecati, nobis aspernatur!
+    .review-breakdown.row
+      div.review-item-rating.col-lg-6
+        div.item-label Noise
+        div.item-score 4/5
+        div.bar
+          div.bar-rating(style="width: 80%")
+      div.review-item-rating.col-lg-6
+        div.item-label Location
+        div.item-score 5/5
+        div.bar
+          div.bar-rating(style="width: 100%")
+      div.review-item-rating.col-lg-6
+        div.item-label Amenities
+        div.item-score 3/5
+        div.bar
+          div.bar-rating(style="width: 60%")
+      div.review-item-rating.col-lg-6
+        div.item-label Management
+        div.item-score 4/5
+        div.bar
+          div.bar-rating(style="width: 80%")
+      div.review-item-rating.col-lg-6
+        div.item-label Value
+        div.item-score 2/5
+        div.bar
+          div.bar-rating(style="width: 40%")
+      div.review-item-rating.col-lg-6
+        div.item-label Quality
+        div.item-score 5/5
+        div.bar
+          div.bar-rating(style="width: 100%")
+    p
+      a.review-view-more(href="#") View more
