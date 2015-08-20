@@ -399,14 +399,9 @@ template(name="building")
             h3.section-title
               | Reviews
             ul.list-unstyled.row.reviews
-              li.col-lg-6
-                +review
-              li.col-lg-6
-                +review
-              li.col-lg-6
-                +review
-              li.col-lg-6
-                +review
+              each buildingReviews
+                li.col-lg-6
+                  +review
 
           footer.clearfix
             h3.section-title

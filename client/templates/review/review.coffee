@@ -20,6 +20,10 @@ Template.review.onRendered ->
       left: $this.data('position-left')
       zIndex: 10
 
+Template.review.helpers
+  formatedCreatedAt: ->
+    moment(@createdAt).format('MM/DD/YYYY')
+
 Template.review.events
   'click .review-view-more': (event, template) ->
     $target = $(event.target)
