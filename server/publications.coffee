@@ -214,3 +214,10 @@ Meteor.publish "propertyLists", ->
 
 Meteor.publish "vimeoVideos", ->
   VimeoVideos.find()
+
+Meteor.smartPublish "pendingReviews", ->
+  @addDependency "buildingReviews", "buildingId", (review) ->
+    Buildings.find(review.buildingId)
+
+  BuildingReviews.find({isPublished: false, isRemoved: null})
+

@@ -125,7 +125,8 @@ Template.building.helpers
       return 'video' if media.vimeoId?
 
   buildingReviews: ->
-    BuildingReviews.find({buildingId: Template.instance().data.building._id})
+    BuildingReviews.find({buildingId: Template.instance().data.building._id, isPublished: true})
+
 Template.building.onRendered ->
   instance = @
   $('[data-toggle="popover"]').popover

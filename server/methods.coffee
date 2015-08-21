@@ -264,3 +264,29 @@ Meteor.methods
     reviewObject.reviewItems = reviewItems
 
     BuildingReviews.insert reviewObject
+
+  "publishReview": (reviewId) ->
+    modifier = {}
+    modifier.$set =
+      isPublished: true
+      publishedAt: new Date()
+      updatedByUserId: this.userId
+
+    BuildingReviews.update reviewId, modifier
+
+  "hideReview": (reviewId) ->
+    modifier = {}
+    modifier.$set =
+      isPublished: false
+      updatedByUserId: this.userId
+
+    BuildingReviews.update reviewId, modifier
+
+  "removeReview": (reviewId) ->
+    modifier = {}
+    modifier.$set =
+      isPublished: false
+      isRemoved: true
+      updatedByUserId: this.userId
+
+    BuildingReviews.update reviewId, modifier

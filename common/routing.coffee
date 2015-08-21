@@ -164,6 +164,13 @@ Router.map ->
       return null  unless users = Meteor.users.find()
       _.extend @params,
         users: users
+  @route "/admin/reviews",
+    name: "adminReviews"
+    waitOn: ->
+      Meteor.subscribe("pendingReviews")
+    data: ->
+      BuildingReviews.find({isPublished: false})
+
   @route "/(.*)",
     name: "notFound"
 

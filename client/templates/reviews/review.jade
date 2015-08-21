@@ -1,6 +1,15 @@
 template(name="review")
   div.review
+    if canOperateWithBuilding
+      div.building
+        a(href="{{pathFor route='building' data=building.processedRouteData}}") #{building.title}
     div.author #{name}
+      if canOperateWithBuilding
+        br
+        span
+          | (
+          a(href="mailto:#{email}") #{email}
+          | )
     div.posted-date #{formatedCreatedAt}
     div.total-rating
       i.fa.fa-star
@@ -11,5 +20,18 @@ template(name="review")
       each reviewItems
         div.review-item-rating.col-lg-6
           +reviewBar
-    p
-      a.review-view-more(href="#") View more
+    if not canOperateWithBuilding
+      p
+        a.review-view-more(href="#") View more
+
+    if canOperateWithBuilding
+      .admin-actions
+        a.btn.btn-success.publish-review(href="#")
+          i.fa.fa-check
+        a.btn.btn-info.edit-review(href="#")
+          i.fa.fa-edit
+        if isPublished
+          a.btn.btn-warning.hide-review(href="#")
+            i.fa.fa-eye-slash
+        a.btn.btn-danger.remove-review(href="#")
+          i.fa.fa-trash
