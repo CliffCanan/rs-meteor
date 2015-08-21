@@ -221,3 +221,7 @@ Meteor.smartPublish "pendingReviews", ->
 
   BuildingReviews.find({isPublished: false, isRemoved: null})
 
+Meteor.publish null, ->
+  if this.userId
+    Counts.publish(@, "pendingReviewsCount", BuildingReviews.find({isPublished: false, isRemoved: null}))
+  null
