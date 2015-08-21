@@ -168,8 +168,7 @@ Router.map ->
     name: "adminReviews"
     waitOn: ->
       Meteor.subscribe("pendingReviews")
-    data: ->
-      BuildingReviews.find({isPublished: false})
+      
 
   @route "/(.*)",
     name: "notFound"

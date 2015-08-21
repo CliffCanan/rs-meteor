@@ -1,2 +1,8 @@
 Template.adminReviews.onRendered ->
-  $('.review-breakdown').show()
+  @autorun ->
+    if Counts.get('pendingReviewsCount')
+      $('.review-breakdown').show()
+
+Template.adminReviews.helpers
+  buildingReviews: ->
+    BuildingReviews.find({isPublished: false})
