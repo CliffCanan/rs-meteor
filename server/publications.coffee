@@ -109,6 +109,10 @@ Meteor.smartPublish "building", (cityId, slug) ->
     imageIds = _.map building.images, (file) ->
       file._id
     [BuildingImages.find({_id: {$in: imageIds}})]
+
+  @addDependency "buildings", "reviews", (building) ->
+    [BuildingReviews.find({buildingId: building._id})]
+
   selector = {cityId: String(cityId), slug: String(slug)}
   # addIsPublishFilter(@userId, selector)
   buildings = Buildings.find(selector)

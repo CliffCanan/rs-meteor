@@ -124,6 +124,8 @@ Template.building.helpers
       return 'image' if media instanceof FS.File
       return 'video' if media.vimeoId?
 
+  buildingReviews: ->
+    BuildingReviews.find({buildingId: Template.instance().data.building._id})
 Template.building.onRendered ->
   instance = @
   $('[data-toggle="popover"]').popover

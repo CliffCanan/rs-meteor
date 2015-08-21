@@ -1,10 +1,10 @@
-Template.review.onRendered ->
+Template.reviews.onRendered ->
   $reviewsItem = $('.reviews li')
   total = $reviewsItem.size()
 
   rows = Math.round(total / 2)
 
-  $('.reviews').css(height: rows * 270)
+  $('.reviews').css(height: rows * 230)
 
   $reviewsItem.each ->
     $this = $(this)
@@ -20,11 +20,7 @@ Template.review.onRendered ->
       left: $this.data('position-left')
       zIndex: 10
 
-Template.review.helpers
-  formatedCreatedAt: ->
-    moment(@createdAt).format('MM/DD/YYYY')
-
-Template.review.events
+Template.reviews.events
   'click .review-view-more': (event, template) ->
     $target = $(event.target)
     $review = $target.parents('li')

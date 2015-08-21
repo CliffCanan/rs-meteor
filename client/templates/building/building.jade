@@ -398,10 +398,9 @@ template(name="building")
 
             h3.section-title
               | Reviews
-            ul.list-unstyled.row.reviews
-              each buildingReviews
-                li.col-lg-6
-                  +review
+            +reviews(buildingReviews=buildingReviews)
+            a.btn.btn-success(href="#review-form-modal", data-toggle="modal") Leave a review
+            +reviewForm
 
           footer.clearfix
             h3.section-title

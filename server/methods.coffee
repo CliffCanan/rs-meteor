@@ -238,3 +238,29 @@ Meteor.methods
       VimeoVideos.upsert({vimeoId: video.vimeoId}, {$set: video})
 
     response.result
+
+  "insertReview": (reviewObject) ->
+    reviewObject.createdAt = new Date()
+    reviewObject.isPublished = false
+
+    reviewItems = []
+
+    reviewItemsObject = [
+      {label: 'Noise', key: 'noise'}
+      {label: 'Location', key: 'location'}
+      {label: 'Amenities', key: 'amenities'}
+      {label: 'Management', key: 'management'}
+      {label: 'Value', key: 'value'}
+      {label: 'Quality', key: 'quality'}
+    ]
+
+    for item in reviewItemsObject
+      reviewItems.push
+        label: item.label
+        score: reviewObject[item.key]
+
+      reviewObject = _.omit(reviewObject, item.key)
+
+    reviewObject.reviewItems = reviewItems
+
+    BuildingReviews.insert reviewObject
