@@ -398,9 +398,12 @@ template(name="building")
 
             h3.section-title
               | Reviews
+            if not buildingReviews.count
+              h4 No reviews yet. Be the first to leave one!
             +reviews(buildingReviews=buildingReviews)
             a.btn.btn-success(href="#review-form-modal", data-toggle="modal") Leave a review
             +reviewForm
+            +reviewSent
 
           footer.clearfix
             h3.section-title

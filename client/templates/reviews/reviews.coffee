@@ -4,7 +4,10 @@ Template.reviews.onRendered ->
 
   rows = Math.round(total / 2)
 
-  $('.reviews').css(height: rows * 230)
+  if Security.canOperateWithBuilding()
+    $('.reviews').css(height: rows * 280)
+  else
+    $('.reviews').css(height: rows * 230)
 
   $reviewsItem.each ->
     $this = $(this)

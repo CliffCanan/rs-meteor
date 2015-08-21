@@ -8,3 +8,4 @@ Template.reviewForm.events
         alert err.reason
       else
         $('#review-form-modal').modal('hide')
+        $('#review-sent-modal').modal('show')
