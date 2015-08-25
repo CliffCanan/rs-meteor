@@ -111,7 +111,7 @@ Meteor.smartPublish "building", (cityId, slug) ->
     [BuildingImages.find({_id: {$in: imageIds}})]
 
   @addDependency "buildings", "reviews", (building) ->
-    [BuildingReviews.find({buildingId: building._id})]
+    BuildingReviews.find({buildingId: building._id, isPublished: true, isRemoved: null})
 
   selector = {cityId: String(cityId), slug: String(slug)}
   # addIsPublishFilter(@userId, selector)
@@ -217,7 +217,7 @@ Meteor.publish "vimeoVideos", ->
 
 Meteor.smartPublish "pendingReviews", ->
   @addDependency "buildingReviews", "buildingId", (review) ->
-    Buildings.find(review.buildingId)
+    [Buildings.find(review.buildingId)]
 
   BuildingReviews.find({isPublished: false, isRemoved: null})
 
