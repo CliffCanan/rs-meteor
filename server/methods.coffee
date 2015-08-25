@@ -242,6 +242,7 @@ Meteor.methods
   "insertReview": (reviewObject) ->
     reviewObject.createdAt = new Date()
     reviewObject.isPublished = false
+    reviewObject.isAnonymousReview = true if reviewObject.isAnonymousReview
 
     reviewItems = []
 

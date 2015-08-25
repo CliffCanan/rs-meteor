@@ -4,6 +4,14 @@ Template.reviewForm.onRendered ->
   form.formValidation(
     framework: 'bootstrap'
     fields:
+      title:
+        validators:
+          notEmpty:
+            message: 'Please enter a title for your review'
+      body:
+        validators:
+          notEmpty:
+            message: 'Please enter a review'
       name:
         validators:
           notEmpty:
@@ -14,6 +22,10 @@ Template.reviewForm.onRendered ->
             message: 'Please enter your email address'
           emailAddress:
             message: 'Please enter a valid email address'
+      renterPersona:
+        validators:
+          notEmpty:
+            message: 'Please select an option'
       totalRating:
         validators:
           notEmpty:

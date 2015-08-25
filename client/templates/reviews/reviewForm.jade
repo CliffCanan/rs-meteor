@@ -12,6 +12,17 @@ template(name="reviewForm")
           .form-group
             textarea#body.form-control(placeholder="Review body", name="body")
           .form-group
+            label.control-label What type of renter do you most closely resemble?
+            select#renter-persona.form-control(name="renterPersona")
+              option(value="") -- Select one --
+              option(value="Student") Student
+              option(value="Grad Student") Grad Student
+              option(value="Family") Family
+              option(value="Couple") Couple
+              option(value=" Working professional")  Working professional
+              option(value="Retired") Retired
+              option(value="Other") Other
+          .form-group
             label.control-label How likely are you to recommend this building to a friend?
             label.radio-inline
               input(type="radio", name="totalRating", value="1")
@@ -164,7 +175,7 @@ template(name="reviewForm")
               input#name.form-control(type="text", placeholder="Name", name="name")
               .checkbox
                 label
-                  input#anonymous-review(type="checkbox")
+                  input#anonymous-review(type="checkbox", name="isAnonymousReview", value="true")
                   | Leave this review anonymously
             .form-group
               input#email.form-control(type="email", placeholder="Email", name="email")
