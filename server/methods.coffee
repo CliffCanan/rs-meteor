@@ -242,10 +242,14 @@ Meteor.methods
   "insertReview": (reviewObject) ->
     reviewObject.createdAt = new Date()
     reviewObject.isPublished = false
-    reviewObject.isAnonymousReview = true if reviewObject.isAnonymousReview
+
+    if reviewObject.isAnonymousReview
+      reviewObject.isAnonymousReview = true 
+      reviewObject.name = null
+    else
+      reviewObject.isAnonymousReview = false
 
     reviewItems = []
-
     reviewItemsObject = [
       {label: 'Noise', key: 'noise'}
       {label: 'Location', key: 'location'}
@@ -265,6 +269,37 @@ Meteor.methods
     reviewObject.reviewItems = reviewItems
 
     BuildingReviews.insert reviewObject
+
+  "updateReview": (reviewObject) ->
+    if reviewObject.isAnonymousReview
+      reviewObject.isAnonymousReview = true 
+      reviewObject.name = null
+    else
+      reviewObject.isAnonymousReview = false
+
+    reviewItems = []
+    reviewItemsObject = [
+      {label: 'Noise', key: 'noise'}
+      {label: 'Location', key: 'location'}
+      {label: 'Amenities', key: 'amenities'}
+      {label: 'Management', key: 'management'}
+      {label: 'Value', key: 'value'}
+      {label: 'Quality', key: 'quality'}
+    ]
+
+    for item in reviewItemsObject
+      reviewItems.push
+        label: item.label
+        score: reviewObject[item.key]
+
+      reviewObject = _.omit(reviewObject, item.key)
+
+    reviewObject.reviewItems = reviewItems
+
+    id = reviewObject.id
+    reviewObject = _.omit(reviewObject, 'id')
+
+    BuildingReviews.update id, {$set: reviewObject}
 
   "publishReview": (reviewId) ->
     modifier = {}

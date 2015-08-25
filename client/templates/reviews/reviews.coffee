@@ -24,6 +24,9 @@ Template.reviews.onRendered ->
       zIndex: 10
 
 Template.reviews.events
+  'click #review-form-link': (event, template) ->
+    Session.set('reviewFormDefaults', null)
+
   'click .review-view-more': (event, template) ->
     $target = $(event.target)
     $review = $target.parents('li')

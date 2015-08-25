@@ -127,6 +127,9 @@ Template.building.helpers
   buildingReviews: ->
     BuildingReviews.find({buildingId: Template.instance().data.building._id, isPublished: true})
 
+  reviewFormDefaults: ->
+    Session.get('reviewFormDefaults')
+
 Template.building.onRendered ->
   instance = @
   $('[data-toggle="popover"]').popover
