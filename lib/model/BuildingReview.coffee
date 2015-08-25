@@ -9,9 +9,13 @@ class BuildingReview
           return item
         return "#{item.charAt(0)}."
       parsedName = parsedComponents.join(' ')
-      "#{parsedName}, #{@renterPersona}"
+      if @renterPersona isnt 'Other'
+        "#{parsedName}, #{@renterPersona}"
+      else
+        parsedName
     else
-      @renterPersona
+      if @renterPersona isnt 'Other'
+        @renterPersona
 
 share.Transformations.BuildingReview = _.partial(share.transform, BuildingReview)
 
