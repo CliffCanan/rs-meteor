@@ -29,7 +29,7 @@ template(name="review")
         if not isPublished
           a.btn.btn-success.publish-review(href="#")
             i.fa.fa-check
-        a.btn.btn-info.edit-review(href="#")
+        a.btn.btn-info.edit-review(href="#review-form-modal", data-toggle="modal")
           i.fa.fa-edit
         if isPublished
           a.btn.btn-warning.hide-review(href="#")

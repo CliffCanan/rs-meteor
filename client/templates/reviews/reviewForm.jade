@@ -5,10 +5,10 @@ template(name="reviewForm")
         .modal-header
           button.close(type="button", data-dismiss="modal", aria-label="Close")
             i.fa.fa-times(aria-hidden="true")
-          h4.modal-title Leave a new review
+          h4.modal-title #{modalTitle}
         .modal-body
           .form-group
-            input#title.form-control(placeholder="Review title", name="title")
+            input#title.form-control(placeholder="Review title", name="title" value="#{defaults.title}")
           .form-group
             textarea#body.form-control(placeholder="Review body", name="body")
           .form-group
@@ -172,13 +172,13 @@ template(name="reviewForm")
             hr
 
             .form-group
-              input#name.form-control(type="text", placeholder="Name", name="name")
+              input#name.form-control(type="text", placeholder="Name", name="name" value="#{defaults.name}")
               .checkbox
                 label
                   input#anonymous-review(type="checkbox", name="isAnonymousReview", value="true")
                   | Leave this review anonymously
             .form-group
-              input#email.form-control(type="email", placeholder="Email", name="email")
+              input#email.form-control(type="email", placeholder="Email", name="email" value="#{defaults.email}")
               p.help-block Your email will not be displayed or shared
 
         .modal-footer

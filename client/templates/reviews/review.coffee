@@ -20,3 +20,7 @@ Template.review.events
   "click .remove-review": (event, template) ->
     if confirm 'Are you sure you want to remove this review? It will be archived.'
       Meteor.call 'removeReview', @_id
+
+  "click .edit-review": (event, template) ->
+    defaults = @
+    Session.set('reviewFormDefaults', defaults)

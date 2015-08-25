@@ -1,6 +1,23 @@
 Template.reviewForm.onRendered ->
-  form = @$("form")
   instance = @
+  $('#review-form-modal').on("shown.bs.modal", ->
+    if instance.data
+      data = instance.data.defaults
+      console.log data
+      instance.$('#body').val(data.body)
+      instance.$("#renter-persona").val(data.renterPersona)
+      instance.$("input[name='totalRating'][value='#{data.totalRating}']").prop('checked', true)
+
+      for item in data.reviewItems
+        instance.$("input[name='#{item.label.toLowerCase()}'][value='#{item.score}']").prop('checked', true)
+
+      if data.isAnonymousReview
+        instance.$('#anonymous-review').prop('checked', true)
+      else
+        instance.$('#anonymous-review').prop('checked', false)
+  )
+
+  form = @$("form")
   form.formValidation(
     framework: 'bootstrap'
     fields:
@@ -65,6 +82,13 @@ Template.reviewForm.onRendered ->
         $('#review-form-modal').modal('hide')
         $('#review-sent-modal').modal('show')
   )
+
+Template.reviewForm.helpers
+  modalTitle: ->
+    if Template.instance().data.title
+      'Editing a review'
+    else
+      'Leave a new review'
 
 Template.reviewForm.events
   "click #post-review": (event, template) ->

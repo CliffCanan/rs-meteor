@@ -6,3 +6,5 @@ Template.adminReviews.onRendered ->
 Template.adminReviews.helpers
   buildingReviews: ->
     BuildingReviews.find({isPublished: false})
+  defaults: ->
+    Session.get('reviewFormDefaults')
