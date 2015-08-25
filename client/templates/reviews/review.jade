@@ -3,7 +3,7 @@ template(name="review")
     if showBuildingLink
       div.building
         a(href="{{pathFor route='building' data=building.processedRouteData}}") #{building.title}
-    div.author #{name}
+    div.author #{displayName}
       if canOperateWithBuilding
         br
         span
