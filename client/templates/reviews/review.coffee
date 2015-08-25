@@ -3,6 +3,11 @@ Template.review.helpers
     Buildings.findOne(@buildingId)
   formatedCreatedAt: ->
     moment(@createdAt).format('MM/DD/YYYY')
+  formattedBody: ->
+    if @body.length > 0
+      "#{@body.slice(0, 90).trim()}..."
+    else
+      @body
   isPublished: ->
     @isPublished
   showBuildingLink: ->
