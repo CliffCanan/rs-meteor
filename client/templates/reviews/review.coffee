@@ -7,6 +7,11 @@ Template.review.helpers
     @isPublished
   showBuildingLink: ->
     Security.canOperateWithBuilding() and not @isPublished
+  showMoreLink: ->
+    if Router.current().route.getName() is 'building'
+      true
+    else
+      false
 
 Template.review.events
   "click .publish-review": (event, template) ->

@@ -1,7 +1,7 @@
 template(name="reviews")
   if not buildingReviews.count
     p
-      | No reviews yet. Be the first to <a href="#review-form-modal" data-toggle="modal">leave a review</a>!
+      | No reviews yet. Be the first to <a id="review-form-link" href="#review-form-modal" data-toggle="modal">leave a review</a>!
   else
     ul.list-unstyled.row.reviews
       each buildingReviews
