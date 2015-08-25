@@ -5,6 +5,8 @@ Template.review.helpers
     moment(@createdAt).format('MM/DD/YYYY')
   isPublished: ->
     @isPublished
+  showBuildingLink: ->
+    Security.canOperateWithBuilding() and not @isPublished
 
 Template.review.events
   "click .publish-review": (event, template) ->

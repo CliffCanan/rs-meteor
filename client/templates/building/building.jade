@@ -396,12 +396,10 @@ template(name="building")
                     span.building-admin-info-data
                       | {{adminNotes}}
 
-            h3.section-title
-              | Reviews
-            if not buildingReviews.count
-              h4 No reviews yet. Be the first to leave one!
+            h2.section-title
+              i.fa.fa-star
+              |  Reviews
             +reviews(buildingReviews=buildingReviews)
-            a.btn.btn-success(href="#review-form-modal", data-toggle="modal") Leave a review
             +reviewForm
             +reviewSent
 

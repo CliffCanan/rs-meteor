@@ -1,5 +1,11 @@
 template(name="reviews")
-  ul.list-unstyled.row.reviews
-    each buildingReviews
-      li.col-lg-6
-        +review
+  if not buildingReviews.count
+    p
+      | No reviews yet. Be the first to <a href="#review-form-modal" data-toggle="modal">leave a review</a>!
+  else
+    ul.list-unstyled.row.reviews
+      each buildingReviews
+        li.col-lg-6
+          +review
+
+    a.btn.btn-link(href="#review-form-modal", data-toggle="modal") Leave a review
