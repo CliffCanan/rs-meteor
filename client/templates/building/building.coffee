@@ -125,7 +125,7 @@ Template.building.helpers
       return 'video' if media.vimeoId?
 
   buildingReviews: ->
-    BuildingReviews.find({buildingId: Template.instance().data.building._id, isPublished: true})
+    BuildingReviews.find({buildingId: Template.instance().data.building._id, isPublished: true}, {sort: {createdAt: -1}})
 
   reviewFormDefaults: ->
     Session.get('reviewFormDefaults')
