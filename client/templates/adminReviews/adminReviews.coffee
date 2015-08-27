@@ -5,7 +5,7 @@ Template.adminReviews.onRendered ->
 
 Template.adminReviews.helpers
   buildingReviews: ->
-    BuildingReviews.find({isPublished: false, isRemoved: null})
+    BuildingReviews.find({isPublished: false, isRemoved: null}, {sort: {createdAt: -1}})
   reviewFormDefaults: ->
     Session.get('reviewFormDefaults')
   
