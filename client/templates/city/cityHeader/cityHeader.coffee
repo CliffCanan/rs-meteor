@@ -14,8 +14,8 @@ Template.cityHeader.helpers
     cityId = @query.cityId || @cityId
     cities[cityId].long
   currentNeighborhood: ->
-    cityId = @query.cityId || @cityId
-    cities[cityId].long
+    neighborhoodSlug = @query.neighborhoodSlug || @neighborhoodSlug
+    neighborhoodsListRaw[neighborhoodSlug] || 'All'
   neighborhoods: ->
     cityId = @query.cityId || @cityId
     share.neighborhoodsInCity cityId
@@ -44,14 +44,28 @@ Template.cityHeader.events
   "click .city-select li": (event, template) ->
     data = template.data
     delete data.query['address'] if data.query.address
+    delete data['neighborhoodSlug'] if data.neighborhoodSlug
+    delete data.query['neighborhoodSlug'] if data.query.neighborhoodSlug
     $li = $(event.currentTarget)
     $li.closest(".dropdown").removeClass("open")
     routeName = Router.current().route.getName()
-    if routeName is "city"
-      Router.go("city", {cityId: $li.attr("data-value")}, {query: data.query})
-    else if routeName is "clientRecommendations"
+    if routeName is "clientRecommendations"
       data.query.cityId = $li.attr("data-value")
       Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: data.query})
+    else
+      Router.go("city", {cityId: $li.attr("data-value")}, {query: data.query})
+
+  "click .neighborhood-select li": (event, template) ->
+    data = template.data
+    delete data.query['address'] if data.query.address
+    $li = $(event.currentTarget)
+    $li.closest(".dropdown").removeClass("open")
+    routeName = Router.current().route.getName()
+    if routeName is "clientRecommendations"
+      data.query.cityId = $li.attr("data-value")
+      Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: data.query})
+    else
+      Router.go("neighborhood", {cityId: Router.current().data().cityId, neighborhoodSlug: $li.attr("data-value")}, {query: data.query})
 
   "click .bedroom-type-select li": (event, template) ->
     data = template.data

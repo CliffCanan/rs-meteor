@@ -169,6 +169,8 @@ Meteor.call "neighborhoodsList", (err, result) ->
     cityId: values._id
     neighborhoods: sortedNeighborhoods
   context.neighborhoodsList = sorted
+  neighborhoodsListFlattened = _.flatten(_.pluck(sorted, 'neighborhoods'))
+  context.neighborhoodsListRaw = _.object(_.pluck(neighborhoodsListFlattened, 'slug'), _.pluck(neighborhoodsListFlattened, 'name'))
 
 share.neighborhoodsInCity = (cityId) ->
   _.findWhere(context.neighborhoodsList, {cityId: cityId}).neighborhoods

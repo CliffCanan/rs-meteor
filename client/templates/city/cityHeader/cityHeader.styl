@@ -8,21 +8,22 @@
   @media screen and (min-width: 1200px)
     padding 18px 30px 0
   box-sizing border-box
+  .dropdown
+    float left
 
 .city-sub-header-list-wrap,
 .features-wrap
   margin 0 10px 0 0
+  .button-text
+    display inline-block
+    text-transform uppercase
   &.city-select
-    float left
     max-width 200px
     .button-text
-      display inline-block
       width 142px
   &.bedroom-type-select
-    float left
     max-width 150px
     .button-text
-      display inline-block
       width 86px
   .city-sub-header-title
     width 100%
@@ -42,6 +43,7 @@
     border-top 0
     border-radius 0 0 3px 3px
     width 100%
+    text-transform uppercase
     .city-sub-header-item
       padding 10px 0
       font-family 'Montserrat', Helvetica, sans-serif
@@ -50,6 +52,10 @@
       cursor pointer
       &:hover
         color #4588fa
+        
+.neighborhood-select
+  .city-sub-header-list
+    width auto
 
 .city-subheader-price
   margin 0 15px 0 25px
