@@ -58,14 +58,20 @@ Template.cityHeader.events
   "click .neighborhood-select li": (event, template) ->
     data = template.data
     delete data.query['address'] if data.query.address
+    delete data['neighborhoodSlug'] if data.neighborhoodSlug
+    delete data.query['neighborhoodSlug'] if data.query.neighborhoodSlug
     $li = $(event.currentTarget)
     $li.closest(".dropdown").removeClass("open")
-    routeName = Router.current().route.getName()
-    if routeName is "clientRecommendations"
-      data.query.cityId = $li.attr("data-value")
-      Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: data.query})
-    else
-      Router.go("neighborhood", {cityId: Router.current().data().cityId, neighborhoodSlug: $li.attr("data-value")}, {query: data.query})
+
+    if $li.attr("data-value") is 'all'
+      Router.go("city", {cityId: Router.current().data().cityId}, {query: data.query})      
+    else    
+      routeName = Router.current().route.getName()
+      if routeName is "clientRecommendations"
+        data.query.cityId = $li.attr("data-value")
+        Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: data.query})
+      else
+        Router.go("neighborhood", {cityId: Router.current().data().cityId, neighborhoodSlug: $li.attr("data-value")}, {query: data.query})
 
   "click .bedroom-type-select li": (event, template) ->
     data = template.data
