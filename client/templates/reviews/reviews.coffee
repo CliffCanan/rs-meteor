@@ -1,30 +1,32 @@
 Template.reviews.onRendered ->
+  instance = @
   Tracker.autorun ->
-    if BuildingReviews.find({buildingId: building._id, isPublished: true, isRemoved: null})
-      $reviewsItem = $('.reviews li')
-      total = $reviewsItem.size()
+    if instance.data and instance.data.building
+      if BuildingReviews.find({buildingId: instance.data.building._id, isPublished: true, isRemoved: null})
+        $reviewsItem = $('.reviews li')
+        total = $reviewsItem.size()
 
-      rows = Math.round(total / 2)
+        rows = Math.round(total / 2)
 
-      if Security.canOperateWithBuilding()
-        $('.reviews').css(height: rows * 260)
-      else
-        $('.reviews').css(height: rows * 190)
+        if Security.canOperateWithBuilding()
+          $('.reviews').css(height: rows * 260)
+        else
+          $('.reviews').css(height: rows * 190)
 
-      $reviewsItem.each ->
-        $this = $(this)
-        $this.css('position', 'relative')
-        position = $this.position()
-        $this.data('position-top', position.top)
-        $this.data('position-left', position.left)
+        $reviewsItem.each ->
+          $this = $(this)
+          $this.css('position', 'relative')
+          position = $this.position()
+          $this.data('position-top', position.top)
+          $this.data('position-left', position.left)
 
-      $reviewsItem.each ->
-        $this = $(this)
-        $this.css
-          position: 'absolute'
-          top: $this.data('position-top')
-          left: $this.data('position-left')
-          zIndex: 10
+        $reviewsItem.each ->
+          $this = $(this)
+          $this.css
+            position: 'absolute'
+            top: $this.data('position-top')
+            left: $this.data('position-left')
+            zIndex: 10
 
 Template.reviews.events
   'click #review-form-link': (event, template) ->

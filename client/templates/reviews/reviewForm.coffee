@@ -19,10 +19,9 @@ Template.reviewForm.onRendered ->
         instance.$('#anonymous-review').prop('checked', false)
   )
 
-  form = @$("form")
+  form = @$("#review-form")
   form.formValidation(
     framework: 'bootstrap'
-    live: 'disabled'
     fields:
       title:
         validators:

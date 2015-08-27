@@ -169,17 +169,16 @@ template(name="reviewForm")
             label.radio-inline
               input(type="radio", name="quality", value="5")
               | 5
-            hr
-
-            .form-group
-              input#name.form-control(type="text", placeholder="Name", name="name" value="#{defaults.name}")
-              .checkbox
-                label
-                  input#anonymous-review(type="checkbox", name="isAnonymousReview", value="true")
-                  | Leave this review anonymously
-            .form-group
-              input#email.form-control(type="email", placeholder="Email", name="email" value="#{defaults.email}")
-              p.help-block Your email will not be displayed or shared
+          hr
+          .form-group
+            input#name.form-control(type="text", placeholder="Name", name="name" value="#{defaults.name}")
+            .checkbox
+              label
+                input#anonymous-review(type="checkbox", name="isAnonymousReview", value="true")
+                | Leave this review anonymously
+          .form-group
+            input#email.form-control(type="email", placeholder="Email", name="email" value="#{defaults.email}")
+            p.help-block Your email will not be displayed or shared
 
         .modal-footer
           button.btn.btn-primary.submit-button(type="submit") #{submitText}
