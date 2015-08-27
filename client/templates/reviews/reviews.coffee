@@ -5,7 +5,7 @@ Template.reviews.onRendered ->
   rows = Math.round(total / 2)
 
   if Security.canOperateWithBuilding()
-    $('.reviews').css(height: rows * 250)
+    $('.reviews').css(height: rows * 260)
   else
     $('.reviews').css(height: rows * 190)
 
