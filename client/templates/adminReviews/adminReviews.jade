@@ -1,0 +1,11 @@
+template(name="adminReviews")
+  .container
+    .row
+      .col-lg-12
+        h1 Manage reviews
+    .row
+      ul.list-unstyled.row.reviews
+        each buildingReviews
+          li.col-lg-3
+            +review
+  +reviewForm(defaults=reviewFormDefaults)

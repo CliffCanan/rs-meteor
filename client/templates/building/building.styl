@@ -28,6 +28,7 @@
     max-width 1280px
     margin 0
     clear both
+
     .building-main-info
       @media screen and (min-width: 1200px)
         float right
@@ -307,105 +308,6 @@
       display block
       overflow hidden
 
-  .building-review
-    border 1px solid #999
-    border-radius 3px
-    padding 1rem
-    margin 0 0 1rem
-
-    .building-reviewer
-      .building-reviewer-name
-        font-size 13px
-        font-family 'Montserrat', Helvetica, sans-serif
-        display block
-      time
-        font-size 12px
-
-    .rating-box
-      font-family 'Montserrat', Helvetica, sans-serif
-      font-size 20px
-      color #272b30
-      i
-        color #cc9900
-
-    .building-reviewer-title
-      clear both
-      font-family 'Montserrat', Helvetica, sans-serif
-      font-size 18px
-      font-weight bold
-      color #272b30
-      padding 10px 0 0
-
-    .building-reviewer-desc
-      font-size 16px
-
-    .building-review-more
-      display none
-      &:checked
-        & ~ .building-review-target
-          font-size inherit
-          max-height 999em
-          display block
-          opacity 1
-        & ~ .building-review-trigger
-          &:before
-            content 'View less'
-            color #4588fa
-            font-family 'Montserrat', Helvetica, sans-serif
-            font-size 14px
-            cursor pointer
-      & ~ .building-review-trigger
-        &:before
-          content 'View more'
-          color #4588fa
-          font-family 'Montserrat', Helvetica, sans-serif
-          font-size 14px
-          cursor pointer
-
-    .building-review-target
-      max-height 0
-      font-size 0
-      display none
-      opacity 0
-      transition .25s ease
-
-    .building-review-list
-      margin 15px 0
-      padding 0
-      .building-review-item
-        font-family 'Montserrat', Helvetica, sans-serif
-        font-size 14px
-        margin-bottom 10px
-        .building-review-field
-          display inline-block
-        .building-review-rate
-          font-size 16px
-          color #272b30
-          float right
-        .building-review-bar
-          background-color #ebebeb
-          padding 0
-          clear both
-          .building-review-rate-5
-            width 100%
-          .building-review-rate-4
-            width 80%
-          .building-review-rate-3
-            width 60%
-          .building-review-rate-2
-            width 40%
-          .building-review-rate-1
-            width 20%
-          .building-review-rating
-            .building-review-bar-animate
-              animation progress 2s linear
-              -moz-animation progress 2s linear
-              -webkit-animation progress 2s linear
-              -ms-animation progress 2s linear
-              -o-animation progress 2s linear
-              background-color #cc9900
-              display block
-              height 5px
 .blue-icon
   color #4588fa
 .grey-icon
@@ -523,3 +425,50 @@ footer
 
 .label-radio
   padding 0 5px 0 0
+
+.highlight
+  background-color #f7f7f9
+  border 1px solid #e1e1e8
+.space 
+  margin-top 10px
+h4 
+  font-weight bold
+
+h2.section-title
+  background-color #ebebeb
+  font-family 'Montserrat', Helvetica, sans-serif
+  font-size 12px
+  font-weight bold
+  margin-bottom 15px
+  padding 10px 20px
+
+h3.section-title
+  background-color #ebebeb
+  padding 10px 20px
+  font-family "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif
+
+.similar-properties
+  .main-city-item-link
+    font-family 'Montserrat', Helvetica, sans-serif
+    font-size 16px
+    color #272b30
+    text-decoration none  
+  .main-city-item-wrap
+    padding 15px 0
+    p
+      font-weight bold
+    .similar-property-price
+      color #cc9900
+      padding 0 10px 0 0
+      display inline-block
+      vertical-align middle
+      font-size 14px
+
+.showRatingText
+  margin-top 8px
+.popover-title
+  font-size: 18px !important
+.calcPop
+  position: absolute
+  bottom: 10px
+  cursor: pointer

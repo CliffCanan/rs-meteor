@@ -12,6 +12,12 @@ Meteor.methods
     buildingId: buildingId
     url: Router.routes["building"].path(building.getRouteData())
 
+  "getSimilarProperties": (building) ->
+    from = building.agroPriceTotalTo - 200
+    to = building.agroPriceTotalTo + 200
+    selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}
+    buildings = Buildings.find(selector, {limit: 4}).fetch()
+
   "addUnit": (parentId) ->
     throw new Meteor.Error("no permissions")  unless Security.canOperateWithBuilding()
     parent = Buildings.findOne(parentId)
@@ -232,3 +238,91 @@ Meteor.methods
       VimeoVideos.upsert({vimeoId: video.vimeoId}, {$set: video})
 
     response.result
+
+  "insertReview": (reviewObject) ->
+    reviewObject.createdAt = new Date()
+    reviewObject.isPublished = false
+
+    if reviewObject.isAnonymousReview
+      reviewObject.isAnonymousReview = true 
+      reviewObject.name = null
+    else
+      reviewObject.isAnonymousReview = false
+
+    reviewItems = []
+    reviewItemsObject = [
+      {label: 'Noise', key: 'noise'}
+      {label: 'Location', key: 'location'}
+      {label: 'Amenities', key: 'amenities'}
+      {label: 'Management', key: 'management'}
+      {label: 'Value', key: 'value'}
+      {label: 'Quality', key: 'quality'}
+    ]
+
+    for item in reviewItemsObject
+      reviewItems.push
+        label: item.label
+        score: reviewObject[item.key]
+
+      reviewObject = _.omit(reviewObject, item.key)
+
+    reviewObject.reviewItems = reviewItems
+
+    BuildingReviews.insert reviewObject
+
+  "updateReview": (reviewObject) ->
+    if reviewObject.isAnonymousReview
+      reviewObject.isAnonymousReview = true 
+      reviewObject.name = null
+    else
+      reviewObject.isAnonymousReview = false
+
+    reviewItems = []
+    reviewItemsObject = [
+      {label: 'Noise', key: 'noise'}
+      {label: 'Location', key: 'location'}
+      {label: 'Amenities', key: 'amenities'}
+      {label: 'Management', key: 'management'}
+      {label: 'Value', key: 'value'}
+      {label: 'Quality', key: 'quality'}
+    ]
+
+    for item in reviewItemsObject
+      reviewItems.push
+        label: item.label
+        score: reviewObject[item.key]
+
+      reviewObject = _.omit(reviewObject, item.key)
+
+    reviewObject.reviewItems = reviewItems
+
+    id = reviewObject.id
+    reviewObject = _.omit(reviewObject, 'id')
+
+    BuildingReviews.update id, {$set: reviewObject}
+
+  "publishReview": (reviewId) ->
+    modifier = {}
+    modifier.$set =
+      isPublished: true
+      publishedAt: new Date()
+      updatedByUserId: this.userId
+
+    BuildingReviews.update reviewId, modifier
+
+  "hideReview": (reviewId) ->
+    modifier = {}
+    modifier.$set =
+      isPublished: false
+      updatedByUserId: this.userId
+
+    BuildingReviews.update reviewId, modifier
+
+  "removeReview": (reviewId) ->
+    modifier = {}
+    modifier.$set =
+      isPublished: false
+      isRemoved: true
+      updatedByUserId: this.userId
+
+    BuildingReviews.update reviewId, modifier

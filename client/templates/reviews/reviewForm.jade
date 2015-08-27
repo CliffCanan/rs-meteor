@@ -1,0 +1,185 @@
+template(name="reviewForm")
+  div#review-form-modal.modal.fade
+    .modal-dialog
+      form#review-form.modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-label="Close")
+            i.fa.fa-times(aria-hidden="true")
+          h4.modal-title #{modalTitle}
+        .modal-body
+          .form-group
+            input#title.form-control(placeholder="Review title", name="title" value="#{defaults.title}")
+          .form-group
+            textarea#body.form-control(placeholder="Review body", name="body")
+          .form-group
+            label.control-label What type of renter do you most closely resemble?
+            select#renter-persona.form-control(name="renterPersona")
+              option(value="") -- Select one --
+              option(value="Student") Student
+              option(value="Grad Student") Grad Student
+              option(value="Family") Family
+              option(value="Couple") Couple
+              option(value=" Working professional")  Working professional
+              option(value="Retired") Retired
+              option(value="Other") Other
+          .form-group
+            label.control-label How likely are you to recommend this building to a friend?
+            label.radio-inline
+              input(type="radio", name="totalRating", value="1")
+              | 1
+            label.radio-inline
+              input(type="radio", name="totalRating", value="2")
+              | 2
+            label.radio-inline
+              input(type="radio", name="totalRating", value="3")
+              | 3
+            label.radio-inline
+              input(type="radio", name="totalRating", value="4")
+              | 4
+            label.radio-inline
+              input(type="radio", name="totalRating", value="5")
+              | 5
+            label.radio-inline
+              input(type="radio", name="totalRating", value="6")
+              | 6
+            label.radio-inline
+              input(type="radio", name="totalRating", value="7")
+              | 7
+            label.radio-inline
+              input(type="radio", name="totalRating", value="8")
+              | 8
+            label.radio-inline
+              input(type="radio", name="totalRating", value="9")
+              | 9
+            label.radio-inline
+              input(type="radio", name="totalRating", value="10")
+              | 10
+          hr
+          .form-group
+            label.control-label Noise:
+              br
+              span.no-bold Is your unit quiet (no noise from neighbors)?
+            label.radio-inline
+              input(type="radio", name="noise", value="1")
+              | 1
+            label.radio-inline
+              input(type="radio", name="noise", value="2")
+              | 2
+            label.radio-inline
+              input(type="radio", name="noise", value="3")
+              | 3
+            label.radio-inline
+              input(type="radio", name="noise", value="4")
+              | 4
+            label.radio-inline
+              input(type="radio", name="noise", value="5")
+              | 5
+          .form-group
+            label.control-label Location:
+              br
+              span.no-bold Are you close to entertainment, restaurants, public transportation, schools, parks, etc?
+            label.radio-inline
+              input(type="radio", name="location", value="1")
+              | 1
+            label.radio-inline
+              input(type="radio", name="location", value="2")
+              | 2
+            label.radio-inline
+              input(type="radio", name="location", value="3")
+              | 3
+            label.radio-inline
+              input(type="radio", name="location", value="4")
+              | 4
+            label.radio-inline
+              input(type="radio", name="location", value="5")
+              | 5
+          .form-group
+            label.control-label Amenities:
+              br
+              span.no-bold Does this building have good laundry, common areas, gym, elevators, etc?
+            label.radio-inline
+              input(type="radio", name="amenities", value="1")
+              | 1
+            label.radio-inline
+              input(type="radio", name="amenities", value="2")
+              | 2
+            label.radio-inline
+              input(type="radio", name="amenities", value="3")
+              | 3
+            label.radio-inline
+              input(type="radio", name="amenities", value="4")
+              | 4
+            label.radio-inline
+              input(type="radio", name="amenities", value="5")
+              | 5
+          .form-group
+            label.control-label Management:
+              br
+              span.no-bold Are the management professional, helpful, quick to respond to requests?
+            label.radio-inline
+              input(type="radio", name="management", value="1")
+              | 1
+            label.radio-inline
+              input(type="radio", name="management", value="2")
+              | 2
+            label.radio-inline
+              input(type="radio", name="management", value="3")
+              | 3
+            label.radio-inline
+              input(type="radio", name="management", value="4")
+              | 4
+            label.radio-inline
+              input(type="radio", name="management", value="5")
+              | 5
+          .form-group
+            label.control-label Value
+              br
+              span.no-bold Is this a quality building relative to others in the same price range?
+            label.radio-inline
+              input(type="radio", name="value", value="1")
+              | 1
+            label.radio-inline
+              input(type="radio", name="value", value="2")
+              | 2
+            label.radio-inline
+              input(type="radio", name="value", value="3")
+              | 3
+            label.radio-inline
+              input(type="radio", name="value", value="4")
+              | 4
+            label.radio-inline
+              input(type="radio", name="value", value="5")
+              | 5
+          .form-group
+            label.control-label Quality
+              br
+              span.no-bold Does your unit have a nice appliances, floors, kitchen, bathroom, closets, etc?
+            label.radio-inline
+              input(type="radio", name="quality", value="1")
+              | 1
+            label.radio-inline
+              input(type="radio", name="quality", value="2")
+              | 2
+            label.radio-inline
+              input(type="radio", name="quality", value="3")
+              | 3
+            label.radio-inline
+              input(type="radio", name="quality", value="4")
+              | 4
+            label.radio-inline
+              input(type="radio", name="quality", value="5")
+              | 5
+            hr
+
+            .form-group
+              input#name.form-control(type="text", placeholder="Name", name="name" value="#{defaults.name}")
+              .checkbox
+                label
+                  input#anonymous-review(type="checkbox", name="isAnonymousReview", value="true")
+                  | Leave this review anonymously
+            .form-group
+              input#email.form-control(type="email", placeholder="Email", name="email" value="#{defaults.email}")
+              p.help-block Your email will not be displayed or shared
+
+        .modal-footer
+          button.btn.btn-primary.submit-button(type="submit") #{submitText}

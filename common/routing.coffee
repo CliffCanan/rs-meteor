@@ -95,6 +95,15 @@ Router.map ->
       return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
+      if @params.query.hasOwnProperty 'address'
+        Session.set("cityName", @params.query.address)
+      else
+        if Session.get('enteredAddress')
+          address = Session.get('enteredAddress')
+          Session.set("cityName", address)
+          Router.go("city", {cityId: @params.cityId}, {query: {address: address}})
+        else
+          Session.set("cityName", "")
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
@@ -138,6 +147,7 @@ Router.map ->
         buildingSubs.subscribe("buildingParent", @params.cityId, @params.unitSlug or @params.buildingSlug)
         buildingSubs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug)
         buildingSubs.subscribe("buildingAdminSame", @params.cityId, @params.unitSlug or @params.buildingSlug)
+        buildingSubs.subscribe("buildingsSimilar", @params.cityId, @params.unitSlug or @params.buildingSlug)
         buildingSubs.subscribe("vimeoVideos")
       ]
     data: ->
@@ -149,16 +159,19 @@ Router.map ->
       return null unless building
       _.extend {}, @params,
         building: building
-    onAfterAction: ->
+    onBeforeAction: ->
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
+      @next()
+    onAfterAction: ->
       building = @data().building
       metaTags = building.metaTags()
-      SEO.set
-        title: metaTags.title
-        meta:
-          description: metaTags.description
+      if metaTags.title
+        SEO.set
+          title: metaTags.title
+          meta:
+            description: metaTags.description
 
   @route "/autologin/:token",
     name: "autologin"
@@ -174,6 +187,12 @@ Router.map ->
       return null  unless users = Meteor.users.find()
       _.extend @params,
         users: users
+  @route "/admin/reviews",
+    name: "adminReviews"
+    waitOn: ->
+      Meteor.subscribe("pendingReviews")
+      
+
   @route "/(.*)",
     name: "notFound"
 

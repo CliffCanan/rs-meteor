@@ -1,0 +1,20 @@
+{
+  "servers": [
+    {
+      "host": "104.131.100.177",
+      "username": "root",
+      // "password": "p4sswordform1rror2"
+      "pem": "~/.ssh/moe.pem"
+    }
+  ],
+  "setupMongo": true,
+  "setupNode": true,
+  "nodeVersion": "0.10.33",
+  "setupPhantom": false,
+  "appName": "rentscene",
+  "app": "/Volumes/MDATA/project/rent1/",
+  "env": {
+    "ROOT_URL": "http://moe-test.rentscene.com"
+  },
+  "deployCheckWaitTime": 60
+}

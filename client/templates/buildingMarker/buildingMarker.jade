@@ -10,3 +10,68 @@ template(name="buildingMarker")
       i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
       span.text-success.cpr-property-map-price {{displayBuildingPrice}}
       span.cpr-property-map-title {{bedroomTypes}}
+
+template(name="filterCityMarker")
+  .row
+    .col-lg-12
+      h3
+        | Commute Calculator
+      p.filterComment
+        | Enter your most common destination (work, school, etc) and we'll tell you how far it is from your new home.
+  .row
+    .col-md-12
+      input#address.form-control(placeholder="Destination Address" name="distanceFilter")
+  .row.calculationArea
+    .col-md-6
+      .row
+        .col-md-3.travelMode#walker-calc
+          img(src="/images/walk-active.png")
+        .col-md-3.travelMode#car-calc
+          img(src="/images/car.png")
+        .col-md-3.travelMode#bike-calc
+          img(src="/images/bike.png")          
+    .col-md-6
+      .btn.btn-primary.btn-lg#calcDistance
+        | Calculate
+  .row.showCalculations
+    .col-md-5
+      h4 
+        p#destinationDistance
+    .col-md-7#destinationTimeArea
+
+template(name="filterListingMarker")
+  #building-commute-calculator
+    .row
+      .col-lg-12
+        p.filterComment
+          | Enter your most common destination (work, school, etc) and we'll tell you how far it is from your new home.
+    .row
+      .col-md-12
+        input#address.form-control(placeholder="Destination Address" name="address", value="{{address}}")
+        .btn.btn-primary#route-address
+          i.fa.fa-search
+    .row
+      .col-md-12
+        table#commute-results.table.table-bordered
+          tbody
+            tr
+              td#walk-icon.travel-mode-icon
+                if condition travelMode 'is' 'walking'
+                  img(src="/images/walk-active.png", data-travel-mode="walking")
+                else
+                  img(src="/images/walk.png", data-travel-mode="walking")
+              td#walking-travel-time #{travelTimes.walking}
+            tr
+              td#drive-icon.travel-mode-icon
+                if condition travelMode 'is' 'driving'
+                  img(src="/images/car-active.png", data-travel-mode="driving")
+                else
+                  img(src="/images/car.png", data-travel-mode="driving")
+              td#driving-travel-time #{travelTimes.driving}
+            tr
+              td#bike-icon.travel-mode-icon
+                if condition travelMode 'is' 'bicycling'
+                  img(src="/images/bike-active.png", data-travel-mode="bicycling")
+                else
+                  img(src="/images/bike.png", data-travel-mode="bicycling")
+              td#bicycling-travel-time #{travelTimes.bicycling}

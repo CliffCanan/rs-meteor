@@ -15,3 +15,7 @@ template(name="userMenu")
       a.logout(href="#", role='menuitem', tabindex='-1')
         i.fa.fa-fw.fa-power-off
         | Logout
+  a#manage-reviews-link.navigation-item-link(href="/admin/reviews")
+    span.notification-wrapper
+      i.fa.fa-comments
+      span.badge.badge-notify #{pendingReviewsCount}

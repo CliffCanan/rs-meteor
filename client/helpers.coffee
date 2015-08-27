@@ -16,6 +16,14 @@ Template.registerHelper "SessionEquals", (key, value) ->
 Template.registerHelper "currentUserId", ->
   Meteor.userId()
 
+Template.registerHelper "getFormatted", (date) ->
+  date.getMonth() + "/" + date.getDate() + "/" +date.getFullYear()
+
+Template.registerHelper "getUser", (userId) ->
+  user = Meteor.users.findOne(userId)
+  if user
+    Meteor.users.findOne(userId).profile.name
+
 Template.registerHelper "condition", (v1, operator, v2, options) ->
   switch operator
     when "==", "eq", "is"

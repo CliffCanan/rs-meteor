@@ -36,6 +36,7 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
     utilities: Match.Optional(String)
     available: Match.Optional(String)
     neighborhoodSlug: Match.Optional(String)
+    address: Match.Optional(String)
 
   page = parseInt(page)
   unless page > 0
@@ -51,6 +52,27 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
     if _id then [BuildingImages.find(_id)] else []
 
   Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit})
+
+Meteor.smartPublish "buildingsSimilar", (cityId, slug) ->
+  check(cityId, Match.InArray(cityIds))
+  check(slug, String)
+  selector = {cityId: cityId, slug: slug}
+  #addIsPublishFilter(@userId, selector)
+  building = Buildings.findOne(selector)
+
+  @addDependency "buildings", "images", (building) ->
+    imageIds = _.map building.images, (file) ->
+      file._id
+    [BuildingImages.find({_id: {$in: imageIds}})]
+
+  from = building.agroPriceTotalTo - 200
+  to = building.agroPriceTotalTo + 200
+  selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}
+
+  @addDependency "buildings", "images", (building) ->
+    _id = building.images?[0]?._id
+    if _id then [BuildingImages.find(_id)] else []
+  Buildings.find(selector, {limit: 4})
 
 Meteor.smartPublish "recommendedBuildings", (buildingIds) ->
   @addDependency "buildings", "images", (building) ->
@@ -88,6 +110,10 @@ Meteor.smartPublish "building", (cityId, slug) ->
     imageIds = _.map building.images, (file) ->
       file._id
     [BuildingImages.find({_id: {$in: imageIds}})]
+
+  @addDependency "buildings", "reviews", (building) ->
+    BuildingReviews.find({buildingId: building._id, isPublished: true, isRemoved: null})
+
   selector = {cityId: String(cityId), slug: String(slug)}
   # addIsPublishFilter(@userId, selector)
   buildings = Buildings.find(selector)
@@ -189,3 +215,14 @@ Meteor.publish "propertyLists", ->
 
 Meteor.publish "vimeoVideos", ->
   VimeoVideos.find()
+
+Meteor.smartPublish "pendingReviews", ->
+  @addDependency "buildingReviews", "buildingId", (review) ->
+    [Buildings.find(review.buildingId)]
+
+  BuildingReviews.find({isPublished: false, isRemoved: null})
+
+Meteor.publish null, ->
+  if this.userId
+    Counts.publish(@, "pendingReviewsCount", BuildingReviews.find({isPublished: false, isRemoved: null}))
+  null

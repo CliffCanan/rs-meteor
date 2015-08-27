@@ -35,17 +35,62 @@ Template.building.helpers
 
     return ""
 
-  isEdit: ->
+  getRating: (rating) ->
+    if rating == undefined
+      0
+    else 
+      rating
+
+  getRatingValue: (rating) ->
+    rating/10
+
+  isEdit: -> 
     Session.equals("editBuildingId", @_id)
 
   isManualPosition: ->
     @position not in positions
+
+  similarProperties: (building) ->
+    from = building.agroPriceTotalTo - 200
+    to = building.agroPriceTotalTo + 200
+    selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}  
+    Buildings.find(selector, {limit: 4})
 
   buildingUnitsLimited: ->
     if Session.get("showAllBuildingUnits")
       @buildingUnits()
     else
       @buildingUnits(4)
+  displayBuildingPrice: (queryBtype) ->
+    fieldName = "agroPrice" + (if queryBtype then queryBtype.charAt(0).toUpperCase() + queryBtype.slice(1) else "Total")
+    fieldNameFrom = fieldName + "From"
+    fieldNameTo = fieldName + "To"
+    if @[fieldNameFrom]
+      "$" + accounting.formatNumber(@[fieldNameFrom]) + (if @[fieldNameFrom] is @[fieldNameTo] then "" else "+")
+  bedroomTypes: (queryBtype) ->
+    if queryBtype
+      if queryBtype is "studio"
+        "Studio"
+      else if queryBtype is "bedroom1"
+        "1 Bedroom"
+      else
+        btypesIds.indexOf(queryBtype) + " Bedrooms"
+    else
+      if @agroIsUnit
+        btypes[@btype]?.upper.replace("room", "")
+      else
+        types = []
+        postfix = ""
+        if @agroPriceStudioFrom
+          types.push("Studio")
+        if @agroPriceBedroom1From
+          types.push(1)
+          postfix = " Bedroom"
+        for i in [2..5]
+          if @["agroPriceBedroom" + i + "From"]
+            types.push(i)
+            postfix = " Bedrooms"
+        types.join(", ") + postfix
 
   btypesFields: (building) ->
     for key, btype of btypes
@@ -79,11 +124,60 @@ Template.building.helpers
       return 'image' if media instanceof FS.File
       return 'video' if media.vimeoId?
 
+  buildingReviews: ->
+    BuildingReviews.find({buildingId: Template.instance().data.building._id, isPublished: true}, {sort: {createdAt: -1}})
+
+  reviewFormDefaults: ->
+    Session.get('reviewFormDefaults')
+
 Template.building.onRendered ->
+  instance = @
+  $('[data-toggle="popover"]').popover
+    html: true
+    title: 'Commute Calculator <a class="close" data-dismiss="popover" href="#">&times;</a>'
+    content: Blaze.toHTMLWithData(Template.filterListingMarker, ->
+      address: Session.get('enteredAddress')
+      travelMode: Session.get('travelMode') or 'walking'
+    )
+
+  Session.set('travelTimes', {})
+
+  $('[data-toggle="popover"]').each ->
+    button = $(this)
+    button.popover().on('shown.bs.popover', ->
+      $('#address').focus()
+      button.data('bs.popover').tip().find('[data-dismiss="popover"]').on('click', ->
+        button.popover('toggle')
+      )
+    )
+
+  @autorun ->
+    if Session.get('travelTimes') or Session.get('travelMode')
+      $('[data-toggle="popover"]').data('bs.popover').options.content = Blaze.toHTMLWithData Template.filterListingMarker, ->
+        address: Session.get('enteredAddress')
+        travelTimes: Session.get('travelTimes')
+        travelMode: Session.get('travelMode')
+
+  $(".clear-rating").remove()
+  $(".rating").rating()
+  $('.rating-disabled').find(".clear-rating").remove()
+
   Session.set("showAllBuildingUnits", false)
+
   setHeights()
   building = @data.building
   cityData = cities[building.cityId]
+  filterIcon = new google.maps.MarkerImage("/images/map-marker-filter.png", null, null, null, new google.maps.Size(50, 60))
+  filterDefaultIcon = new google.maps.MarkerImage("/images/map-marker-default.png", null, null, null, new google.maps.Size(50, 60))  
+  defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))   
+  activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
+  activeIcon1 = new google.maps.MarkerImage("/images/map-marker-active2.png", null, null, null, new google.maps.Size(50, 60))    
+  @directionsDisplay = new google.maps.DirectionsRenderer()
+  @directionsService = new google.maps.DirectionsService()
+
+  @travelInfoWindow = new google.maps.InfoWindow()
+  map = ""
+
   map = new google.maps.Map document.getElementById("gmap"),
     zoom: 16
     center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
@@ -95,22 +189,78 @@ Template.building.onRendered ->
     mapTypeControl: false
     mapTypeId: google.maps.MapTypeId.ROADMAP
   @map = map
-  if building.isOnMap and building.latitude and building.longitude
-    latLng = new google.maps.LatLng(building.latitude, building.longitude)
-    map.setCenter(latLng)
-    marker = new google.maps.Marker
-      _id: building._id
-      title: building.title
-      position: latLng
-      map: map
-      icon: new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
-    @autorun ->
-      buildingReactive = Buildings.findOne(building._id, {fields: {latitude: 1, longitude: 1}})
-      latLng = new google.maps.LatLng(buildingReactive.latitude, buildingReactive.longitude)
-      marker.setPosition(latLng)
+  @directionsDisplay.setMap(map)
+  @directionsDisplay.setOptions suppressMarkers: true
+  @travelMarkerImage = 
+    start: new (google.maps.MarkerImage)('/images/map-marker-active.png', new (google.maps.Size)(50, 60), new (google.maps.Point)(0, 0), new (google.maps.Point)(22, 32))
+    end: new (google.maps.MarkerImage)('/images/map-marker-active2.png', new (google.maps.Size)(50, 60), new (google.maps.Point)(0, 0), new (google.maps.Point)(22, 32))
+
+  @travelMarkers = 
+    start: new (google.maps.Marker)(icon: @travelMarkerImage.start, title: 'title')
+    end: new (google.maps.Marker)(icon: @travelMarkerImage.end, title: 'title')
+
+  infoWindowId = null
+  infowindow = new google.maps.InfoWindow()
+
+  if Session.get("enteredAddress")
+    from = "#{building.address} #{cities[building.cityId].short}"
+    to = "#{Session.get("enteredAddress")} #{cities[building.cityId].short}"
+    calcRoute(from, to, @)
+
+  if Session.get("cityGeoLocation")
+    address = Session.get("cityGeoLocation")
+
+    if building.latitude and building.longitude
+      latLng = new google.maps.LatLng(building.latitude, building.longitude)
       map.setCenter(latLng)
 
+  else
+    if building.latitude and building.longitude
+      latLng = new google.maps.LatLng(building.latitude, building.longitude)
+      map.setCenter(latLng)
+      @travelMarkers.start.setMap(map)
+
+      @autorun ->
+        buildingReactive = Buildings.findOne(building._id, {fields: {latitude: 1, longitude: 1}})
+        latLng = new google.maps.LatLng(buildingReactive.latitude, buildingReactive.longitude)
+        map.setCenter(latLng)
+        if instance.travelMarkers
+          instance.travelMarkers.start.setPosition(latLng)
+
 Template.building.events
+  "click .travel-mode-icon img": (event, template) ->
+    $item = $(event.currentTarget)
+    
+    $("#walk-icon").find("img").attr("src", "/images/walk.png")
+    $("#drive-icon").find("img").attr("src", "/images/car.png")
+    $("#bike-icon").find("img").attr("src", "/images/bike.png")
+
+    currentSrc = $item.attr('src')
+    $item.attr('src', currentSrc.replace('.png', '-active.png'))
+    Session.set "travelMode", $item.data('travel-mode')
+
+    building = template.data.building
+    from = "#{building.address} #{cities[building.cityId].short}"
+    to = "#{Session.get("enteredAddress")} #{cities[building.cityId].short}"
+    calcRoute(from, to, template)
+
+  "click #route-address":  (event, template) ->
+    $item = $(event.currentTarget)
+    destination = $("#address").val()
+
+    Session.set "travelMode", 'walking' if not Session.get "travelMode"
+
+    Session.set('enteredAddress', destination)
+    
+    building = template.data.building
+    from = "#{building.address} #{cities[building.cityId].short}"
+    to = "#{destination} #{cities[building.cityId].short}"
+    calcRoute(from, to, template)
+
+  "keydown #address": (event, template) ->
+    keypressed = event.keyCode || event.which;
+    template.$('#route-address').click() if keypressed is 13
+
   "click .check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
     $('#checkAvailabilityPopup').modal('show')
@@ -250,3 +400,69 @@ Template.building.events
 updateBuilding = (buildingId, newObject, item) ->
   Buildings.update({_id: buildingId}, {$addToSet: {images: newObject}})
   item.find(".loading").hide()
+
+calcRoute = (from, to, context) ->
+  directionsService = context.directionsService
+  directionsDisplay = context.directionsDisplay
+  map = context.map
+  travelMarkers = context.travelMarkers
+
+  # Calculate travel duration for all three modes of travel
+  travelModes = ['driving', 'bicycling', 'walking']
+
+  for mode in travelModes
+    request = 
+      origin: from
+      destination: to
+      travelMode: google.maps.TravelMode[mode.toUpperCase()]
+
+    directionsService.route request, (result, status) ->
+      if status == google.maps.DirectionsStatus.OK
+        mode = result.request.travelMode.toLowerCase()
+        leg = result.routes[0].legs[0]
+
+        duration = leg.duration.text
+        $("##{mode}-travel-time").html(duration)
+
+        travelTimes = Session.get('travelTimes')
+        travelTimes[mode] = duration
+
+        Session.set('travelTimes', travelTimes)
+
+        if Session.equals('travelMode', mode)
+          directionsDisplay.setDirections result
+
+          travelMarkers.start.setPosition leg.start_location
+          travelMarkers.end.setPosition leg.end_location
+
+          travelMarkers.start.setMap(context.map)
+          travelMarkers.end.setMap(context.map)
+
+          switch mode
+            when 'driving'
+              travelIcon = 'car'
+              travelText = 'drive'
+            when 'walking'
+              travelIcon = 'walk'
+              travelText = 'walk'
+            when 'bicycling'
+              travelIcon = 'bike'
+              travelText = 'bike'
+
+          context.travelInfoWindow.setContent('<img class="travel-icon" src="/images/' + travelIcon + '.png"> <span class="travel-duration">' + "#{leg.duration.text} #{travelText} home" + '</span><br/><span class="travel-distance">(' + leg.distance.text + ')</span>')
+          context.travelInfoWindow.setPosition(leg.start_location)
+          context.travelInfoWindow.open(map)
+          $('.gm-style-iw').next('div').hide()
+
+CalculateDistance = (lat1, lon1, lat2, lon2) ->
+  radlat1 = Math.PI * lat1 / 180
+  radlat2 = Math.PI * lat2 / 180
+  radlon1 = Math.PI * lon1 / 180
+  radlon2 = Math.PI * lon2 / 180
+  theta = lon1 - lon2
+  radtheta = Math.PI * theta / 180
+  dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
+  dist = Math.acos(dist)
+  dist = dist * 180 / Math.PI
+  dist = dist * 60 * 1.1515
+  #console.log dist

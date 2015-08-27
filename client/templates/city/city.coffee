@@ -33,19 +33,78 @@ Template.city.helpers
     return false if Session.get "showRecommendations"
     Template.city.__helpers[" buildings"].call(@).count() < Counts.get("city-buildings-count")
   # TODO: filter by price depend on btype
+
   buildings: ->
+    filtered = []
     _.defer ->
       wrap = $(".main-city-list-wrap").get(0)
       wrap.style.display = "none"
       wrap.offsetHeight # no need to store this anywhere, the reference is enough
       wrap.style.display = ""
 
+    selector = {parentId: {$exists: false}, cityId: @cityId}
+    addQueryFilter(@query, selector)
+    
+    query = Router.current().params.query
+    controller = Router.current()
     if Session.get "showRecommendations"
       buildingIds = Router.current().data().buildingIds
       selector = {_id: {$in: buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}
     else
       selector = {parentId: {$exists: false}, cityId: @cityId}
       addQueryFilter(@query, selector)
+
+      if query.hasOwnProperty('address') == true
+        travelMode = Session.get "travelMode"
+
+        arrivalTime = 0
+        selectedTime = if Session.get "selectedTime" then Session.get "selectedTime" else 10
+        selectedTime = parseInt selectedTime
+        geocoder = new google.maps.Geocoder()
+        currentCity = cities[@cityId].short
+        address = "#{Session.get("cityName")} #{currentCity}"
+
+        geocoder.geocode { 'address':  address }, (results, status) ->
+          if status == google.maps.GeocoderStatus.OK
+            i = 0
+            while i < results.length
+              result = results[i]
+              city = result.formatted_address
+
+              if city.trim().toUpperCase().indexOf(currentCity.toUpperCase()) != -1 
+                location = results[i].geometry.location
+                Session.set("cityGeoLocation", [location.lat(), location.lng()]) 
+              i++
+
+            if location == undefined
+              #$(".form-building-filter")[0].reset();
+              $(".form-building-filter").get(0).reset()
+              $(".form-building-filter").trigger("submit")
+              Session.set "cityGeoLocation", ""
+              $('#messageAlert').modal('show')
+            else
+              Session.set("cityGeoLocation", [location.lat(), location.lng()])
+            
+        if Session.get "cityGeoLocation"
+          buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+          address = Session.get "cityGeoLocation"
+
+          buildings.forEach (building) ->
+            distance = CalculateDistance(address[0], address[1], building.latitude, building.longitude)*1.609344
+
+            if travelMode == "walking"
+              arrivalTime = distance / (5 / 60)
+            if travelMode == "driving"
+              arrivalTime = distance / (40 / 60)
+            if travelMode == "bicycling"
+              arrivalTime = distance / (15 / 60)
+
+            if arrivalTime < selectedTime
+              filtered.push building._id
+
+          selector._id = {$in: filtered}
+      else
+        Session.set("cityGeoLocation", "") 
 
     Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
 
@@ -57,6 +116,8 @@ Template.city.onRendered ->
 
   $.getScript '/js/imgLiquid-min.js', ->
     $('.main-city-item .item.video').imgLiquid();
+
+  cityCircle = undefined
 
   @data.firstLoad = false
   setHeights()
@@ -75,10 +136,13 @@ Template.city.onRendered ->
   markers = {}
   defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
   activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
+  filterIcon = new google.maps.MarkerImage("/images/map-marker-active2.png", null, null, null, new google.maps.Size(50, 60))  
+
   infoWindowId = null
   infowindow = new google.maps.InfoWindow()
   google.maps.event.addListener infowindow, "closeclick", ->
-    markers[infoWindowId].setIcon(defaultIcon)
+    if infoWindowId != null
+      markers[infoWindowId].setIcon(defaultIcon)
 
   # Quick CSS hack to add proper margins for non staff in recommendation list since toggle buttons are float.
   # Staff has the 'Add Listing button' which is not floated and adds a nice margin
@@ -121,7 +185,7 @@ Template.city.onRendered ->
       
       actualMarkerIds = []
       @template.__helpers[" buildings"].call(data).forEach (building) ->
-        if building.isOnMap and building.latitude and building.longitude
+        if building.latitude and building.longitude
           actualMarkerIds.push(building._id)
           if marker = markers[building._id]
             unless marker.map
@@ -135,28 +199,71 @@ Template.city.onRendered ->
               icon: defaultIcon
 
             markers[building._id] = marker
-
             google.maps.event.addListener marker, "click", do (marker, building) ->->
               if infoWindowId isnt marker._id
                 if infoWindowId
                   markers[infoWindowId].setIcon(defaultIcon)
+
                 mixpanel.track("property-container-map")
                 html = Blaze.toHTMLWithData(Template.buildingMarker, building)
                 infowindow.setContent(html)
                 infowindow.open(map, marker)
                 infoWindowId = marker._id
-                marker.setIcon(activeIcon)
+                marker.setIcon(activeIcon)                
 
             google.maps.event.addListener marker, "mouseover", do (marker) ->->
               marker.setIcon(activeIcon)
 
             google.maps.event.addListener marker, "mouseout", do (marker) ->->
               if marker._id isnt infoWindowId
-                marker.setIcon(defaultIcon)
+                marker.setIcon(defaultIcon)             
 
       for id, marker of markers
         unless id in actualMarkerIds
           marker.setMap(null)
+    if cityCircle isnt undefined
+      cityCircle.setMap(null)
+
+    if Session.get "cityGeoLocation"
+      if markers["filterItem"]
+        markers["filterItem"].setMap(null)
+
+      address = Session.get "cityGeoLocation"
+      query = Router.current().params.query
+      marker = new google.maps.Marker
+        _id: "filterItem"
+        title: query.address
+        position: new google.maps.LatLng(address[0], address[1])
+        map: map
+        icon: filterIcon
+
+      markers["filterItem"] = marker
+
+      selectedTime = parseFloat(if Session.get('selectedTime') then Session.get('selectedTime') else 10)
+
+      travelMode = Session.get('travelMode') or 'walking'
+
+      if travelMode == "walking"
+        maxDistance = selectedTime * (5 / 60)
+      else if travelMode == "driving"
+        maxDistance = selectedTime * (40 / 60)
+      else if travelMode == "bicycling"
+        maxDistance = selectedTime * (15 / 60)
+
+      # Center map to entered address
+      map.setCenter new google.maps.LatLng(address[0], address[1])
+
+      populationOptions = 
+        strokeColor: '#FF0000'
+        strokeOpacity: 0.8
+        strokeWeight: 2
+        fillColor: '#FF0000'
+        fillOpacity: 0.35
+        map: map
+        center: new google.maps.LatLng(address[0], address[1])
+        radius: maxDistance * 1000
+
+      cityCircle = new (google.maps.Circle)(populationOptions)
 
       if Router.current().route.getName() is "clientRecommendations"
         if Session.get "showRecommendations"
@@ -182,6 +289,18 @@ incrementPageNumber = ->
   cityPageData = Session.get("cityPageData")
   cityPageData.page++
   Session.set("cityPageData", cityPageData)
+
+CalculateDistance = (lat1, lon1, lat2, lon2) ->
+  radlat1 = Math.PI * lat1 / 180
+  radlat2 = Math.PI * lat2 / 180
+  radlon1 = Math.PI * lon1 / 180
+  radlon2 = Math.PI * lon2 / 180
+  theta = lon1 - lon2
+  radtheta = Math.PI * theta / 180
+  dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
+  dist = Math.acos(dist)
+  dist = dist * 180 / Math.PI
+  dist = dist * 60 * 1.1515
 
 Template.city.events
   "click .city-select li": (event, template) ->
@@ -216,3 +335,21 @@ Template.city.events
       unless error
         Session.set("editBuildingId", result.buildingId)
         Router.go(result.url)
+
+  "click .travelMode": (event, template) ->
+    $item = $(event.currentTarget)
+    setDefaultImagesForCalc()
+    if $item.attr("id") == "walker-calc"
+      $item.find('img').attr("src", "/images/walk-active.png")
+      Session.set "distanceMode", "walk"
+    if $item.attr("id") == "car-calc"
+      $item.find('img').attr("src", "/images/car-active.png")
+      Session.set "distanceMode", "drive"
+    if $item.attr("id") == "bike-calc"
+      $item.find('img').attr("src", "/images/bike-active.png")
+      Session.set "distanceMode", "bike"
+
+setDefaultImagesForCalc = ->
+  $("#walker-calc").find("img").attr("src", "/images/walk.png")
+  $("#car-calc").find("img").attr("src", "/images/car.png")
+  $("#bike-calc").find("img").attr("src", "/images/bike.png")    

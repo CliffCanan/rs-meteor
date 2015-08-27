@@ -1,0 +1,42 @@
+template(name="review")
+  div.review
+    if showBuildingLink
+      div.building
+        a(href="{{pathFor route='building' data=building.processedRouteData}}") #{building.title}
+    div.author #{displayName}
+      if canOperateWithBuilding
+        br
+        span
+          | (
+          a(href="mailto:#{email}") #{email}
+          | )
+    div.posted-date #{formatedCreatedAt}
+    div.total-rating
+      i.fa.fa-star
+      span #{totalRating}/10
+    h3 #{title}
+    if isPublished
+      p.review-body-summary #{formattedBody}
+      p.review-body-full #{body}
+    else
+      p.review-body #{body}
+    .review-breakdown.row
+      each reviewItems
+        div.review-item-rating.col-lg-6
+          +reviewBar
+    if showMoreLink
+      p.mb0
+        a.review-view-more(href="#") View more
+
+    if canOperateWithBuilding
+      .admin-actions
+        if not isPublished
+          a.btn.btn-success.publish-review(href="#")
+            i.fa.fa-check
+        a.btn.btn-info.edit-review(href="#review-form-modal", data-toggle="modal")
+          i.fa.fa-edit
+        if isPublished
+          a.btn.btn-warning.hide-review(href="#")
+            i.fa.fa-eye-slash
+        a.btn.btn-danger.remove-review(href="#")
+          i.fa.fa-trash

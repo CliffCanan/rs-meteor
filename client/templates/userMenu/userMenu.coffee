@@ -1,6 +1,8 @@
 Template.userMenu.helpers
   userName: ->
     Meteor.user().profile.name
+  pendingReviewsCount: ->
+    Counts.get 'pendingReviewsCount'
 
 Template.userMenu.rendered = ->
 

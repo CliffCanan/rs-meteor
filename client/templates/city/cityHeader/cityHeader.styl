@@ -13,11 +13,13 @@
 .features-wrap
   margin 0 10px 0 0
   &.city-select
+    float left
     max-width 200px
     .button-text
       display inline-block
       width 142px
   &.bedroom-type-select
+    float left
     max-width 150px
     .button-text
       display inline-block
@@ -55,6 +57,7 @@
   display inline-block
   font-size 0
   vertical-align top
+  float left
   .city-subheader-price-val
     font-size 12px
     font-weight bold
@@ -173,7 +176,20 @@
     .clear-btn
       padding 0 25px
       cursor pointer
-
+  .filter-section 
+    width 340px
+    box-sizing border-box
+    padding 25px
+    box-shadow 0 1px 0 rgba(0, 0, 0, 0.3)
+    top 38px
+    border 1px solid #cfcfcf
+    border-top 0
+    border-radius 0 3px 3px 3px
+    .filter-title
+      font-size 14px
+      padding 0 0 10px
+      margin 0
+      line-height 20px    
   .location-list
     width 380px
     .filter-field
@@ -243,23 +259,27 @@
       padding  20px 0 0
       clear both
 
-.city-filter
-  margin-bottom 10px
-  height 43px
-  display inline-block
-  font-size 0
-  vertical-align top
+#location-filter-wrapper
+  width 185px
+  
+.travelMode
+  img
+    cursor pointer
 
 .filter-wrap
   display inline-block
   font-size 0
   vertical-align top
+  float left
 
 .building-title-search
   font-size 14px
   color #272b30
   font-weight bold
   margin-bottom 18px
-  &::-webkit-input-placeholder
-    color #272b30
 
+.selectArrivalTime 
+  padding-bottom 10px
+  
+.form-building-address-filter-reset 
+  cursor pointer

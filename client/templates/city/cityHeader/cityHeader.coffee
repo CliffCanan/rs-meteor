@@ -1,3 +1,14 @@
+Template.cityHeader.onRendered ->
+  if Session.get "enteredAddress"
+    $('#address').val(Session.get "enteredAddress")
+
+  if not Session.get "travelMode"
+    Session.set "travelMode", "walking"
+
+  $('#location-filter-wrapper').find('.dropdown.city-filter').on('shown.bs.dropdown', ->
+    $('#address').focus()
+  )
+
 Template.cityHeader.helpers
   currentCity: ->
     cityId = @query.cityId || @cityId
@@ -10,15 +21,29 @@ Template.cityHeader.helpers
     share.neighborhoodsInCity cityId
   currentBedroomType: ->
     btypes[@query.btype]?.lower ? "Any"
-
-Template.cityHeader.rendered = ->
+  arrivalTime: ->
+    if Session.get "selectedTime"
+      selectedTime = Session.get "selectedTime"
+      if selectedTime == "10m"
+        "Less than 10min"
+      else if selectedTime == "20m"
+        "Less than 20min"
+      else if selectedTime == "30m"
+        "Less than 30min"
+    else
+      "Less than 10min"
+  travelMode: ->
+    Session.get('travelMode')
+  getDestination: ->
+    destination = if Session.get('cityName') then Session.get('cityName') else ''
 
 Template.cityHeader.events
-  "click .dropdown button": (event, template) ->
+  "click .selectArrivalTime .dropdown button": (event, template) ->
     $(event.currentTarget).parent().toggleClass("open")
 
   "click .city-select li": (event, template) ->
     data = template.data
+    delete data.query['address'] if data.query.address
     $li = $(event.currentTarget)
     $li.closest(".dropdown").removeClass("open")
     routeName = Router.current().route.getName()
@@ -43,6 +68,20 @@ Template.cityHeader.events
     else if routeName is "clientRecommendations"
       Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
 
+  "click .travelMode": (event, template) ->
+    $item = $(event.currentTarget)
+    if $item.attr("id") == "walker"
+      Session.set("travelMode", "walking")
+    if $item.attr("id") == "car"
+      Session.set("travelMode", "driving")
+    if $item.attr("id") == "bike"
+      Session.set("travelMode", "bicycling")
+
+  "click .selectTime": (event, template) ->
+    $item = $(event.currentTarget)
+    $item.closest(".dropdown").removeClass("open")
+    Session.set("selectedTime", $item.attr("id"))
+
   "keyup .building-title-search": _.debounce((event, template) ->
     event.preventDefault()
     data = template.data
@@ -58,6 +97,32 @@ Template.cityHeader.events
     else if routeName is "clientRecommendations"
       Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
   , 300)
+
+  "click #filterAddress": (event, template) ->
+    event.preventDefault()
+    data = template.data
+    query = data.query
+    #console.log typeof data
+    query.address = $("#address").val() 
+    Router.go("city", {cityId: data.cityId}, {query: query}, 300)
+
+  "submit .form-building-filter": (event, template) ->
+    event.preventDefault()
+
+    event.preventDefault()
+    data = template.data
+    query = data.query
+    #console.log typeof data
+    if $("#address").val() != ""
+      query.address = $("#address").val()
+      Session.set('enteredAddress', query.address)
+    else
+      Session.set('enteredAddress', null)
+      delete query["address"]
+
+    $form = $(event.currentTarget)
+    $form.closest(".dropdown").removeClass("open")    
+    Router.go("city", {cityId: data.cityId}, {query: query}, 300)
 
   "submit .form-building-features-filter": (event, template) ->
     event.preventDefault()
@@ -83,6 +148,13 @@ Template.cityHeader.events
       Router.go("city", {cityId: data.cityId}, {query: query})
     else if routeName is "clientRecommendations"
       Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
+
+  "click .form-building-address-filter-reset": (event, template) ->
+    Session.set("travelMode", "walking")
+    Session.set("selectedTime", "")
+    $form = $(event.currentTarget).closest("form")
+    $form.get(0).reset()
+    $form.trigger("submit")
 
   "click .form-building-features-filter-reset": (event, template) ->
     $form = $(event.currentTarget).closest("form")

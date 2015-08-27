@@ -353,6 +353,8 @@ template(name="building")
                         i.fa.fa-fw.fa-check
                         span.building-features-text
                           | {{.}}
+                         
+
 
             if canOperateWithBuilding
               if isEdit
@@ -396,183 +398,31 @@ template(name="building")
                     span.building-admin-info-data
                       | {{adminNotes}}
 
-            //-section.building-info-section
-            //-  h2.building-info-title
-            //-    i.fa.fa-fw.fa-star
-            //-    | User reviews
-            //-  .building-reviews-wrap
-            //-    .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-      .building-review
-            //-        input#reviewMore-1.building-review-more(type="checkbox")
-            //-        .building-reviewer.pull-left
-            //-          span.building-reviewer-name
-            //-            | Mark Wilmotts
-            //-          time
-            //-            | 07/23/2014
-            //-        span.rating-box.pull-right
-            //-          i.fa.fa-fw.fa-star
-            //-          | 8/10
-            //-        h3.building-reviewer-title
-            //-          | The place is a blest!
-            //-        p.building-reviewer-desc
-            //-          | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community
-            //-          | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
-            //-          | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
-            //-          | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
-            //-        ul.building-review-list.building-review-target.clearfix.list-unstyled
-            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-            span.building-review-field
-            //-              | Noise
-            //-            span.building-review-rate
-            //-              | 5/5
-            //-            .building-review-bar
-            //-              .building-review-rate-5.building-review-rating
-            //-                span.building-review-bar-animate
-            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-            span.building-review-field
-            //-              | Maintenance
-            //-            span.building-review-rate
-            //-              | 4/5
-            //-            .building-review-bar
-            //-              .building-review-rate-4.building-review-rating
-            //-                span.building-review-bar-animate
-            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-            span.building-review-field
-            //-              | Staff
-            //-            span.building-review-rate
-            //-              | 3/5
-            //-            .building-review-bar
-            //-              .building-review-rate-3.building-review-rating
-            //-                span.building-review-bar-animate
-            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-            span.building-review-field
-            //-              | Facilities
-            //-            span.building-review-rate
-            //-              | 2/5
-            //-            .building-review-bar
-            //-              .building-review-rate-2.building-review-rating
-            //-                span.building-review-bar-animate
-            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-            span.building-review-field
-            //-              | Staff
-            //-            span.building-review-rate
-            //-              | 1/5
-            //-            .building-review-bar
-            //-              .building-review-rate-1.building-review-rating
-            //-                span.building-review-bar-animate
-            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-            span.building-review-field
-            //-              | Facilities
-            //-            span.building-review-rate
-            //-              | 5/5
-            //-            .building-review-bar
-            //-              .building-review-rate-5.building-review-rating
-            //-                span.building-review-bar-animate
-            //-        label.building-review-trigger(for="reviewMore-1")
-            //-    .building-review-wrap.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-      .building-review
-            //-        input#reviewMore-2.building-review-more(type="checkbox")
-            //-        .building-reviewer.pull-left
-            //-          span.building-reviewer-name
-            //-            | Mark Wilmotts
-            //-          time
-            //-            | 07/23/2014
-            //-        span.rating-box.pull-right
-            //-          i.fa.fa-fw.fa-star
-            //-          | 8/10
-            //-        h3.building-reviewer-title
-            //-          | The place is a blest!
-            //-        p.building-reviewer-desc
-            //-          | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community
-            //-          | amenities. Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens,
-            //-          | two-bedrooms, and studios feature exceptional finishes, including granite countertops and  stainless
-            //-          | steel. ssteelsteelkitchen appliances, hardwood floors, and in-unit washer/dryers.
-            //-        ul.building-review-list.building-review-target.clearfix.list-unstyled
-            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-            span.building-review-field
-            //-              | Noise
-            //-            span.building-review-rate
-            //-              | 5/5
-            //-            .building-review-bar
-            //-              .building-review-rate-5.building-review-rating
-            //-                span.building-review-bar-animate
-            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-            span.building-review-field
-            //-              | Maintenance
-            //-            span.building-review-rate
-            //-              | 4/5
-            //-            .building-review-bar
-            //-              .building-review-rate-4.building-review-rating
-            //-                span.building-review-bar-animate
-            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-            span.building-review-field
-            //-              | Staff
-            //-            span.building-review-rate
-            //-              | 3/5
-            //-            .building-review-bar
-            //-              .building-review-rate-3.building-review-rating
-            //-                span.building-review-bar-animate
-            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-            span.building-review-field
-            //-              | Facilities
-            //-            span.building-review-rate
-            //-              | 2/5
-            //-            .building-review-bar
-            //-              .building-review-rate-2.building-review-rating
-            //-                span.building-review-bar-animate
-            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-            span.building-review-field
-            //-              | Staff
-            //-            span.building-review-rate
-            //-              | 1/5
-            //-            .building-review-bar
-            //-              .building-review-rate-1.building-review-rating
-            //-                span.building-review-bar-animate
-            //-          li.building-review-item.col-lg-6.col-md-6.col-sm-6.col-xs-12
-            //-            span.building-review-field
-            //-              | Facilities
-            //-            span.building-review-rate
-            //-              | 5/5
-            //-            .building-review-bar
-            //-              .building-review-rate-5.building-review-rating
-            //-                span.building-review-bar-animate
-            //-        label.building-review-trigger(for="reviewMore-2")
-          //-footer.clearfix
-          //-  h3.building-page-footer
-          //-    | Similar Properties
-          //-  ul.building-page-similar.list-unstyled
-          //-    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-          //-      a.building-page-similar-link(href="/", title="similar")
-          //-        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-          //-        .building-page-similar-info.clearfix
-          //-          span.building-page-similar-desc
-          //-            | {{bedroomTypes}}
-          //-          span.building-page-similar-price
-          //-            | {{priceFrom}}
-          //-    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-          //-      a.building-page-similar-link(href="/", title="similar")
-          //-        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-          //-        .building-page-similar-info.clearfix
-          //-          span.building-page-similar-desc
-          //-            | {{bedroomTypes}}
-          //-          span.building-page-similar-price
-          //-            | {{priceFrom}}
-          //-    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-          //-      a.building-page-similar-link(href="/", title="similar")
-          //-        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-          //-        .building-page-similar-info.clearfix
-          //-          span.building-page-similar-desc
-          //-            | {{bedroomTypes}}
-          //-          span.building-page-similar-price
-          //-            | {{priceFrom}}
-          //-    li.building-page-similar-item.col-lg-3.col-xs-6.col-md-4.col-sm-4
-          //-      a.building-page-similar-link(href="/", title="similar")
-          //-        img.building-page-similar-img(src="/images/similar.jpg", alt="similar")
-          //-        .building-page-similar-info.clearfix
-          //-          span.building-page-similar-desc
-          //-            | {{bedroomTypes}}
-          //-          span.building-page-similar-price
-          //-            | {{priceFrom}} {{helper}}
+            h2.section-title
+              i.fa.fa-star
+              |  Reviews
+            +reviews(buildingReviews=buildingReviews)
+            +reviewForm(defaults=reviewFormDefaults)
+            +reviewSent
+
+          footer.clearfix
+            h2.section-title
+              | Similar Properties
+            ul.main-city-list.list-unstyled.row.similar-properties
+              each similarProperties .
+                li.col-lg-3
+                  .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
+                    a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
+                      img(style="width:100%;height:184px" src="{{#if mainImage}}{{mainImage.url store='thumbsSmall'}}{{else}}/images/placeholder.png{{/if}}")
+                    .main-city-item-wrap
+                      .row
+                        .col-md-8
+                          p.main-city-item-link
+                            | {{title}}
+                        .col-md-4
+                          p.similar-property-price 
+                            | {{displayBuildingPrice ../queryBtype}}
+
         | {{ironRouterHack}}
 
         #confirmRemoval.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
@@ -594,12 +444,24 @@ template(name="building")
               .modal-header
                 button.close(type="button", data-dismiss="modal", aria-label="Close")
                   span(aria-hidden="true") &times;
-                h4#confirmBuildingRemovalLabel.modal-title Remove building.
+                h4#confirmBuildingRemovalLabel.modal-title Sorry.
               .modal-body
                 | Are you sure?
               .modal-footer
                 button.btn.btn-primary.confirm-building-removal(type="button") Yes
                 button.btn.btn-default(type="button", data-dismiss="modal") No
 
+        #askingUserLogin.modal.fade(tabindex="-1", role="dialog", aria-labelledby="confirmBuildingRemovalLabel", aria-hidden="true")
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close(type="button", data-dismiss="modal", aria-label="Close")
+                  span(aria-hidden="true") &times;
+                h4#confirmBuildingRemovalLabel.modal-title Sorry.
+              .modal-body
+                | You have to login at first to leave any review.                  
+
   .city-side-bar.right-bar.clearfix.col-lg-3
     #gmap
+    img.calcPop(src="/images/map-marker-filter.png", style="position: absolute;", data-toggle="popover", data-placement="top" )
+
