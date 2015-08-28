@@ -134,7 +134,7 @@ Meteor.methods
             console.log "image file: ", file
           Meteor.sleep(1500)
       # All images imported for this building. Mark it as complete and it will appear in the list.
-      Buildings.update(_id: buildingId, {$set: {isImportCompleted: true}})
+      Buildings.update(buildingId, {$set: {isImportCompleted: true, isPublished: true}})
 
     ClientRecommendations.update(clientId, {$set: {importCompletedAt: new Date()}})
     return true
