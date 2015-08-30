@@ -3,6 +3,15 @@ template(name="reviews")
     p
       | No reviews yet. Be the first to <a id="review-form-link" href="#review-form-modal" data-toggle="modal">leave a review</a>!
   else
+    div.average-rating(vocab="http://schema.org/", typeof="Thing")    
+      div(property="aggregateRating", typeof="AggregateRating")
+        | Average of 
+        span(property="ratingValue") #{averageRating}
+        | /
+        span(property="bestRating") 10
+        | with
+        span(property="ratingCount") #{ratingsCount}
+        | #{ratingsText}
     ul.list-unstyled.row.reviews
       each buildingReviews
         li.col-lg-6

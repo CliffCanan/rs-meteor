@@ -28,6 +28,25 @@ Template.reviews.onRendered ->
             left: $this.data('position-left')
             zIndex: 10
 
+Template.reviews.helpers
+  averageRating: ->
+    buildings = Template.instance().data.buildingReviews.fetch()
+    totalRating = 0
+    for building in buildings
+      totalRating += parseInt(building.totalRating, 10)
+
+    (totalRating / buildings.length).toFixed(1)
+
+  ratingsCount: ->
+    Template.instance().data.buildingReviews.count()
+
+  ratingsText: ->
+    ratingsCount = Template.instance().data.buildingReviews.count() 
+    if ratingsCount is 1
+      'rating'
+    else
+      'ratings'
+
 Template.reviews.events
   'click #review-form-link': (event, template) ->
     Session.set('reviewFormDefaults', null)
