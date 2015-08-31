@@ -42,7 +42,7 @@ template(name="building")
                 i.fa.fa-pencil-square-o
                 | Edit
 
-        article.building-page.clearfix
+        article.building-page.clearfix(vocab="http://schema.org/", typeof="Place")
           aside.building-main-info.col-lg-5
             if isEdit
               input.building-main-info-title(type="text", name="title", value="{{title}}")

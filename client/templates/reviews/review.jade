@@ -1,5 +1,5 @@
 template(name="review")
-  div.review(vocab="http://schema.org/", typeof="Review")
+  div.review(property="review", typeof="Review")
     if showBuildingLink
       div.building
         a(href="{{pathFor route='building' data=building.processedRouteData}}") #{building.title}
