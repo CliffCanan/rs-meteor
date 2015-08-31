@@ -37,15 +37,15 @@ Template.reviews.helpers
 
     (totalRating / buildings.length).toFixed(1)
 
-  ratingsCount: ->
+  reviewsCount: ->
     Template.instance().data.buildingReviews.count()
 
-  ratingsText: ->
+  reviewText: ->
     ratingsCount = Template.instance().data.buildingReviews.count() 
     if ratingsCount is 1
-      'rating'
+      'review'
     else
-      'ratings'
+      'reviews'
 
 Template.reviews.events
   'click #review-form-link': (event, template) ->

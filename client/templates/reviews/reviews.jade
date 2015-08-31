@@ -5,13 +5,13 @@ template(name="reviews")
   else
     div.average-rating(vocab="http://schema.org/", typeof="Thing")    
       div(property="aggregateRating", typeof="AggregateRating")
-        | Average of 
+        | Rated
         span(property="ratingValue") #{averageRating}
         | /
         span(property="bestRating") 10
-        | with
-        span(property="ratingCount") #{ratingsCount}
-        | #{ratingsText}
+        | based on
+        span(property="reviewCount") #{reviewsCount}
+        | #{reviewText}
     ul.list-unstyled.row.reviews
       each buildingReviews
         li.col-lg-6
