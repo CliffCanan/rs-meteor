@@ -157,19 +157,22 @@ if Meteor.isServer
   Meteor.methods
     "neighborhoodsList": ->
       Buildings.aggregate([
-        {$group: {_id: {city: '$cityId', neighborhood: '$neighborhood', neighborhoodSlug: '$neighborhoodSlug'}}},
-        {$group: {_id: '$_id.city', neighborhoods: {$push: {name: '$_id.neighborhood', slug: '$_id.neighborhoodSlug'}}}},
+        # Group all properties by city, neighborhood, neighborhood slug and add a total number of properties for each group
+        {$group: {_id: {city: '$cityId', neighborhood: '$neighborhood', neighborhoodSlug: '$neighborhoodSlug'}, count: { '$sum': 1 }}}
+        # Sort by most properties first
+        {$sort: {count: -1}}
+        # Group them again by city, and have a neighborhoods array with name, slug
+        {$group: {_id: '$_id.city', neighborhoods: {$push: {name: '$_id.neighborhood', slug: '$_id.neighborhoodSlug'}}}}
       ])
 
 @neighborhoodsList = {}
 context = @
 Meteor.call "neighborhoodsList", (err, result) ->
-  sorted = _.map result, (values, key) ->
-    sortedNeighborhoods = _.sortBy values.neighborhoods, 'name'
+  neighborhoodsList = _.map result, (values, key) ->
     cityId: values._id
-    neighborhoods: sortedNeighborhoods
-  context.neighborhoodsList = sorted
-  neighborhoodsListFlattened = _.flatten(_.pluck(sorted, 'neighborhoods'))
+    neighborhoods: values.neighborhoods
+  context.neighborhoodsList = neighborhoodsList
+  neighborhoodsListFlattened = _.flatten(_.pluck(neighborhoodsList, 'neighborhoods'))
   context.neighborhoodsListRaw = _.object(_.pluck(neighborhoodsListFlattened, 'slug'), _.pluck(neighborhoodsListFlattened, 'name'))
 
 share.neighborhoodsInCity = (cityId) ->

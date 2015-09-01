@@ -10,14 +10,8 @@ template(name="cityHeader")
           each cities
             li.city-sub-header-item(data-value="{{key}}") {{value}}
       .neighborhood-select.city-sub-header-list-wrap.dropdown.city-filter
-        button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
-          i.fa.fa-map-signs
-          span.button-text {{currentNeighborhood}}
-          span.caret
-        ul.city-sub-header-list.dropdown-menu.list-unstyled
-          li.city-sub-header-item(data-value="all") All
-          each neighborhoods
-            li.city-sub-header-item(data-value="{{slug}}") {{name}}
+        i.fa.fa-map-signs(style="font-size: 14px")
+        input.form-control.typeahead(type="text", placeholder="Search neighborhood", autocomplete="false", data-source="neighborhoodSearch", data-selected="selectedNeighborhood", data-min-length="0", data-limit="8")
       .bedroom-type-select.city-sub-header-list-wrap.dropdown.city-filter
         button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
           i.fa.fa-bed
