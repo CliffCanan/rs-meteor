@@ -16,8 +16,9 @@ Template.rentalApplication.helpers
     rentalApplication = RentalApplications.findOne(data._id)
 
     result = []
-    for document in rentalApplication.documents
-      result.push(document.getFileRecord())
+    if rentalApplication.documents
+      for document in rentalApplication.documents
+        result.push(document.getFileRecord())
 
     result
 
