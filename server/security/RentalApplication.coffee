@@ -3,3 +3,5 @@ RentalApplications.allow
     true
   update: (userId, doc, fields, modifier, options) ->
     true
+  remove: (userId, doc) ->
+    Security.canOperateWithBuilding()

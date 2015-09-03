@@ -1,0 +1,30 @@
+template(name="adminRentalApplications")
+  #manage-rental-applications-wrapper.container
+    .row
+      .col-lg-8
+        h1 Manage rental applications
+      .col-lg-4
+        .header-actions.pull-right
+          a.btn.btn-info(href="{{pathFor 'newRentalApplication'}}")
+            i.fa.fa-plus
+            | Add new application
+      .col-lg-12
+        if rentalApplications.count
+          table.table.table-bordered
+            thead
+              tr
+                th Created at
+                th Status
+                th Actions
+            tbody
+              each rentalApplications
+                tr
+                  td #{createdAt}
+                  td #{status}
+                  td
+                    a(href="{{pathFor 'rentalApplication' id=_id}}")
+                      i.fa.fa-eye
+                    a.delete-application(href="#")
+                      i.fa.fa-trash
+        else
+          h3 No rental applications found

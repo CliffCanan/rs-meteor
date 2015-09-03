@@ -155,7 +155,7 @@ Router.map ->
     action: ->
       insertedId = RentalApplications.insert
         createdAt: new Date()
-        isTemporary: true
+        status: 'New'
 
       Router.go('rentalApplication', {id: insertedId}, {replaceState: true})
   
@@ -165,6 +165,16 @@ Router.map ->
       Meteor.subscribe('rentalApplication', @params.id)
     data: ->
       RentalApplications.findOne(@params.id)
+
+  @route "admin/rental-applications",
+    name: "adminRentalApplications"
+    waitOn: ->
+      Meteor.subscribe('rentalApplications')
+    data: ->
+      RentalApplications.find()
+    onAfterAction: ->
+      SEO.set
+        title: 'Admin: Manage Rental Applications | Rent Scene'
 
   @route "/autologin/:token",
     name: "autologin"
