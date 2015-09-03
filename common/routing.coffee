@@ -150,6 +150,22 @@ Router.map ->
           meta:
             description: metaTags.description
 
+  @route "/rental-application",
+    name: "newRentalApplication"
+    action: ->
+      insertedId = RentalApplications.insert
+        createdAt: new Date()
+        isTemporary: true
+
+      Router.go('rentalApplication', {id: insertedId})
+  
+  @route "/rental-application/:id",
+    name: "rentalApplication"
+    waitOn: ->
+      Meteor.subscribe('rentalApplication', @params.id)
+    data: ->
+      RentalApplications.findOne(@params.id)
+
   @route "/autologin/:token",
     name: "autologin"
     onBeforeAction: ->

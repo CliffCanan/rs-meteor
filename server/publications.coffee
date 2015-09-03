@@ -225,3 +225,11 @@ Meteor.publish null, ->
   if this.userId
     Counts.publish(@, "pendingReviewsCount", BuildingReviews.find({isPublished: false, isRemoved: null}))
   null
+
+Meteor.smartPublish "rentalApplication", (id) ->
+  @addDependency "rentalApplications", "documents", (rentalApplication) ->
+    documentIds = _.map rentalApplication.documents, (file) ->
+      file._id
+    [RentalApplicationDocuments.find({_id: {$in: documentIds}})]
+
+  RentalApplications.find(id)
