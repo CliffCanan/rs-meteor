@@ -157,7 +157,7 @@ Router.map ->
         createdAt: new Date()
         isTemporary: true
 
-      Router.go('rentalApplication', {id: insertedId})
+      Router.go('rentalApplication', {id: insertedId}, {replaceState: true})
   
   @route "/rental-application/:id",
     name: "rentalApplication"
