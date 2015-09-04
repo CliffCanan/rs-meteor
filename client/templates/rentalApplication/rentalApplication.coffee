@@ -40,25 +40,33 @@ Template.rentalApplication.events
         alert result.message
   "submit #rental-application-form": (event, template) ->
     event.preventDefault()
-    template.$("#rental-application-password").modal('toggle')
+    if @hasPassword
+      $jSignature = template.$('#signature')
+      if $jSignature.jSignature('isModified')
+        signatureData = $jSignature.jSignature("getData", "svgbase64")
+        signatureURI = "data:#{signatureData.join(",")}"
+
+        file = new FS.File()
+        file.attachData signatureURI
+        file.name 'Signature.svg'
+
+        insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
+          RentalApplications.update template.data._id,
+            $addToSet:
+              documents: insertedDocument
+
+      alert 'Form submitted!'
+    else
+      template.$("#rental-application-password").modal('toggle')
 
   "submit #rental-application-password-form": (event, template) ->
     event.preventDefault()
-    $jSignature = template.$('#signature')
-    if $jSignature.jSignature('isModified')
-      signatureData = $jSignature.jSignature("getData", "svgbase64")
-      signatureURI = "data:#{signatureData.join(",")}"
-
-      file = new FS.File()
-      file.attachData signatureURI
-      file.name 'Signature.svg'
-
-      insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
-        RentalApplications.update template.data._id,
-          $addToSet:
-            documents: insertedDocument
 
     context = @
-    RentalApplications.update template.data._id, $set: template.$('#rental-application-password-form').serializeFormJSON()
-
-
+    RentalApplications.update template.data._id,
+      $set: 
+        password: template.$('#rental-application-password-form').find('#password').val()
+        hasPassword: true
+      , (err, result) ->
+        template.$("#rental-application-password").modal('toggle')
+        $('#rental-application-form').submit()
