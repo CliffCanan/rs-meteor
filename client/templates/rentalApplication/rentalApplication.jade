@@ -53,13 +53,13 @@ template(name="rentalApplication")
                       tr
                         td #{name}
                         td
-                          select.form-control
+                          select.form-control.document-type
                             option -- Select a document type --
-                            option Bank Statement
-                            option Drivers License
-                            option Immigration Document
-                            option Pay Stub
-                            option Other
+                            option(value="Bank Statement", selected="{{isSelected 'Bank Statement'}}") Bank Statement
+                            option(value="Drivers License", selected="{{isSelected 'Drivers License'}}") Drivers License
+                            option(value="Immigration Document", selected="{{isSelected 'Immigration Document'}}") Immigration Document
+                            option(value="Pay Stub", selected="{{isSelected 'Pay Stub'}}") Pay Stub
+                            option(value="Other", selected="{{isSelected 'Other'}}") Other
                         td #{size}
                         td #{updatedAt}
                         td
@@ -74,19 +74,6 @@ template(name="rentalApplication")
               .form-group
                 .col-sm-12
                   button.btn.btn-success(type="submit") Submit and download PDF
-
-              #dropzone-template-container
-                tr.dz-preview.dz-file-preview
-                  td 1
-                  td(data-dz-name)
-                  td
-                    select.form-control
-                      option -- Select a document type --
-                      option Passport
-                  td(data-dz-size)
-                  td
-                    a(href="#")
-                      i.fa.fa-trash
 
           #rental-application-password.modal.fade
             .modal-dialog

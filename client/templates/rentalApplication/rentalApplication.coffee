@@ -26,8 +26,15 @@ Template.rentalApplication.helpers
         result.push(document.getFileRecord())
 
     result
+  isSelected: (value) ->
+    'selected' if @documentType is value
 
 Template.rentalApplication.events
+  "change .document-type": (event, template) ->
+    documentType = $(event.target).val()
+    if documentType
+      RentalApplicationDocuments.update @_id, {$set: {documentType: documentType}}
+
   "submit #rental-application-access-form": (event, template) ->
     event.preventDefault()
     params =
