@@ -44,6 +44,9 @@ Template.building.helpers
   getRatingValue: (rating) ->
     rating/10
 
+  rentalQuery: ->
+    buildingId: @_id
+
   isEdit: -> 
     Session.equals("editBuildingId", @_id)
 

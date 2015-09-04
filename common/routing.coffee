@@ -159,10 +159,13 @@ Router.map ->
   @route "/rental-application",
     name: "newRentalApplication"
     action: ->
-      insertedId = RentalApplications.insert
+      newRentalApplication =
         createdAt: new Date()
         status: 'New'
 
+      newRentalApplication.buildingId = @params.query.buildingId if @params.query.buildingId
+
+      insertedId = RentalApplications.insert newRentalApplication
       Router.go('rentalApplication', {id: insertedId}, {replaceState: true})
   
   @route "/rental-application/:id",
