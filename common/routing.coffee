@@ -9,6 +9,12 @@ Router.configure
     "header": {to: "header"}
 
 Router.plugin("dataNotFound", {notFoundTemplate: "notFound"})
+Router.onBeforeAction ->
+  if Meteor.user() and Meteor.user().role in ["admin", "super", "staff"]
+    this.next()
+  else
+    this.render('notFound')
+, only: ['adminReviews', 'adminRentalApplications']
 
 Router.map ->
   @route "/",
