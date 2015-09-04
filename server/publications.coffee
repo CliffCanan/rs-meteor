@@ -232,12 +232,22 @@ Meteor.smartPublish "rentalApplications", ->
       file._id
     [RentalApplicationDocuments.find({_id: {$in: documentIds}})]
 
-  RentalApplications.find()
+  RentalApplications.find({}, {fields: {password: 0}})
 
-Meteor.smartPublish "rentalApplication", (id) ->
-  @addDependency "rentalApplications", "documents", (rentalApplication) ->
-    documentIds = _.map rentalApplication.documents, (file) ->
-      file._id
-    [RentalApplicationDocuments.find({_id: {$in: documentIds}})]
+Meteor.smartPublish "rentalApplication", (id, accessToken) ->
+  accesss = false
+  if Security.canOperateWithBuilding(this.userId)
+    access = true
+  else
+    rentalApplication = RentalApplications.findOne(id, {fields: {accessToken: 1}})
+    access = true if rentalApplication.accessToken is accessToken
 
-  RentalApplications.find(id)
+  if access
+    @addDependency "rentalApplications", "documents", (rentalApplication) ->
+      documentIds = _.map rentalApplication.documents, (file) ->
+        file._id
+      [RentalApplicationDocuments.find({_id: {$in: documentIds}})]
+
+    RentalApplications.find(id, {fields: {password: 0}})
+  else
+    RentalApplications.find(id, {fields: {accessToken: 1}})

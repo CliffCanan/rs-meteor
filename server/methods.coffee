@@ -326,3 +326,25 @@ Meteor.methods
       updatedByUserId: this.userId
 
     BuildingReviews.update reviewId, modifier
+
+  "processRentalApplicationPassword": (params) ->
+    id = params.id
+    password = params.password
+    rentalApplication = RentalApplications.findOne(id)
+    if rentalApplication
+      if rentalApplication.password is password
+        accessToken = Random.secret()
+        RentalApplications.update(id, {$set: {accessToken: accessToken}})
+        result =
+          success: true
+          accessToken: accessToken
+      else
+        result =
+          success: false
+          message: 'Incorrect password'
+    else
+      result =
+        success: false
+        message: 'Rental application not found'
+
+    result

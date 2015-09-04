@@ -1,16 +1,21 @@
 Template.rentalApplication.onRendered ->
-  @$('#signature').jSignature()
-
   instance = @
-  Dropzone.autoDiscover = false
-  dropzone = new Dropzone '.dropzone',
-    accept: (file, done) ->
-      insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
-        RentalApplications.update(instance.data._id, {$addToSet: {documents: insertedDocument}})
+  Tracker.autorun ->
+    if Security.canOperateWithBuilding() or (instance.data.accessToken and Session.equals('rentalApplicationAccessToken', instance.data.accessToken))
+      instance.$('#signature').jSignature()
 
-    previewTemplate : '<div style="display:none"></div>'
+      Dropzone.autoDiscover = false
+      dropzone = new Dropzone '.dropzone',
+        accept: (file, done) ->
+          insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
+            RentalApplications.update(instance.data._id, {$addToSet: {documents: insertedDocument}})
+
+        previewTemplate : '<div style="display:none"></div>'
 
 Template.rentalApplication.helpers
+  canAccess: ->
+    return true if Security.canOperateWithBuilding()
+    @accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
   documents: ->
     data = Template.instance().data
     rentalApplication = RentalApplications.findOne(data._id)
@@ -23,14 +28,37 @@ Template.rentalApplication.helpers
     result
 
 Template.rentalApplication.events
-  "submit form": (event, template) ->
+  "submit #rental-application-access-form": (event, template) ->
     event.preventDefault()
-    signatureData = template.$('#signature').jSignature("getData", "svgbase64")
-    signatureURI = "data:#{signatureData.join(",")}"
+    params =
+      id: @_id
+      password: template.$(event.target).find('#password').val()
+    Meteor.call 'processRentalApplicationPassword', params, (err, result) ->
+      if result.success
+        Session.set('rentalApplicationAccessToken', result.accessToken)
+      else
+        alert result.message
+  "submit #rental-application-form": (event, template) ->
+    event.preventDefault()
+    template.$("#rental-application-password").modal('toggle')
 
-    file = new FS.File()
-    file.attachData signatureURI
-    file.name 'Signature.svg'
+  "submit #rental-application-password-form": (event, template) ->
+    event.preventDefault()
+    $jSignature = template.$('#signature')
+    if $jSignature.jSignature('isModified')
+      signatureData = $jSignature.jSignature("getData", "svgbase64")
+      signatureURI = "data:#{signatureData.join(",")}"
 
-    insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
-        RentalApplications.update(template.data._id, {$addToSet: {documents: insertedDocument}})
+      file = new FS.File()
+      file.attachData signatureURI
+      file.name 'Signature.svg'
+
+      insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
+        RentalApplications.update template.data._id,
+          $addToSet:
+            documents: insertedDocument
+
+    context = @
+    RentalApplications.update template.data._id, $set: template.$('#rental-application-password-form').serializeFormJSON()
+
+

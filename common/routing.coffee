@@ -168,7 +168,8 @@ Router.map ->
   @route "/rental-application/:id",
     name: "rentalApplication"
     waitOn: ->
-      Meteor.subscribe('rentalApplication', @params.id)
+      accessToken = Session.get('rentalApplicationAccessToken')
+      Meteor.subscribe('rentalApplication', @params.id, accessToken)
     data: ->
       RentalApplications.findOne(@params.id)
 

@@ -1,86 +1,113 @@
 template(name="rentalApplication")
-  #rental-application-wrapper.container
-    .col-lg-12
-      .row
-        h1 Rental Application
-        p After completing the form below, please click "Download PDF" to save a copy on your computer. Please email the completed PDF to info@therentscene.com with a copy of your Drivers License, Pay Stub, and Bank Statement. Thank you!
+  with this
+    if canAccess
+      #rental-application-wrapper.container
+        .col-lg-12        
+          .row
+            h1 Rental Application
+            .pull-right #{createdAt}
+            p After completing the form below, please click "Download PDF" to save a copy on your computer. Please email the completed PDF to info@therentscene.com with a copy of your Drivers License, Pay Stub, and Bank Statement. Thank you!
 
-        form.form-horizontal
-          h3 Rent Details
-          .form-group
-            label.control-label.col-sm-4 Which unit are you applying to
-            .col-sm-8
-              select.form-control
-                option(value="123") Marques
-          .form-group
-            label.control-label.col-sm-4 Move in date
-            .col-sm-2
-              +datepicker(name="moveInDate")
-          h3 Personal Information
-          .form-group
-            label.control-label.col-sm-4 Applicant's full name
-            .col-sm-8
-              input.form-control(type="text", name="fullName")
-          .form-group
-            label.control-label.col-sm-4 Date of birth
-            .col-sm-2
-              +datepicker(name="moveInDate")
-          .form-group
-            label.control-label.col-sm-4 Social security number
-            .col-sm-8
-              input.form-control(type="text", name="socialSecurityNumber")
-          .form-group
-            label.control-label.col-sm-4 Email
-            .col-sm-8
-              input.form-control(type="email", name="email")
-          h3 Required documents
-          p Drop required documents for the application below
-          form(action="/file-upload").dropzone
-            .dz-message Drop files here to upload (or click)
-            table#files-list.table
-              thead
-                tr
-                  th File name
-                  th Type
-                  th Size
-                  th Uploaded on
-                  th Actions
-              tbody
-                each documents
-                  tr
-                    td #{name}
-                    td
-                      select.form-control
-                        option -- Select a document type --
-                        option Bank Statement
-                        option Drivers License
-                        option Immigration Document
-                        option Pay Stub
-                        option Other
-                    td #{size}
-                    td #{updatedAt}
-                    td
-                      a(href="#")
-                        i.fa.fa-trash
+            form#rental-application-form.form-horizontal
+              h3 Rent Details
+              .form-group
+                label.control-label.col-sm-4 Which unit are you applying to
+                .col-sm-8
+                  select.form-control
+                    option(value="123") Marques
+              .form-group
+                label.control-label.col-sm-4 Move in date
+                .col-sm-2
+                  +datepicker(name="moveInDate")
+              h3 Personal Information
+              .form-group
+                label.control-label.col-sm-4 Applicant's full name
+                .col-sm-8
+                  input.form-control(type="text", name="fullName", value="#{fullName}")
+              .form-group
+                label.control-label.col-sm-4 Date of birth
+                .col-sm-2
+                  +datepicker(name="moveInDate")
+              .form-group
+                label.control-label.col-sm-4 Social security number
+                .col-sm-8
+                  input.form-control(type="text", name="socialSecurityNumber")
+              .form-group
+                label.control-label.col-sm-4 Email
+                .col-sm-8
+                  input.form-control(type="email", name="email")
+              h3 Required documents
+              p Drop required documents for the application below
+              form(action="/file-upload").dropzone
+                .dz-message Drop files here to upload (or click)
+                table#files-list.table
+                  thead
+                    tr
+                      th File name
+                      th Type
+                      th Size
+                      th Uploaded on
+                      th Actions
+                  tbody
+                    each documents
+                      tr
+                        td #{name}
+                        td
+                          select.form-control
+                            option -- Select a document type --
+                            option Bank Statement
+                            option Drivers License
+                            option Immigration Document
+                            option Pay Stub
+                            option Other
+                        td #{size}
+                        td #{updatedAt}
+                        td
+                          a(href="#")
+                            i.fa.fa-trash
 
-          h3 Signature
-          p I hereby authorize The Rent Scene LLC to obtain and/or verify my credit report, criminal history, employment references and personal references in connection with the processing of this rental application. I also agree to the deposit disclaimer.
+              h3 Signature
+              p I hereby authorize The Rent Scene LLC to obtain and/or verify my credit report, criminal history, employment references and personal references in connection with the processing of this rental application. I also agree to the deposit disclaimer.
 
-          #signature
+              #signature
 
-          .form-group
-            .col-sm-12
-              button.btn.btn-success(type="submit") Submit and download PDF
+              .form-group
+                .col-sm-12
+                  button.btn.btn-success(type="submit") Submit and download PDF
 
-          #dropzone-template-container
-            tr.dz-preview.dz-file-preview
-              td 1
-              td(data-dz-name)
-              td
-                select.form-control
-                  option -- Select a document type --
-                  option Passport
-              td(data-dz-size)
-              td
-                a(href="#")
-                  i.fa.fa-trash
+              #dropzone-template-container
+                tr.dz-preview.dz-file-preview
+                  td 1
+                  td(data-dz-name)
+                  td
+                    select.form-control
+                      option -- Select a document type --
+                      option Passport
+                  td(data-dz-size)
+                  td
+                    a(href="#")
+                      i.fa.fa-trash
+
+          #rental-application-password.modal.fade
+            .modal-dialog
+              form#rental-application-password-form.modal-content
+                .modal-header
+                  button.close(type="button", data-dismiss="modal", aria-label="Close")
+                    i.fa.fa-times(aria-hidden="true")
+                  h4.modal-title Enter a password to submit form
+                .modal-body
+                  p Please enter a password for your appplication to keep it protected. You will be prompted to enter it again the next time you visit the form.
+                  .form-group
+                    input.form-control(type="password", name="password", placeholder="Your password")
+                .modal-footer
+                  button.btn.btn-successp(type="submit") Confirm password
+    else
+      #rental-application-access-wrapper.container
+        .col-lg-12
+          .row
+            h1 Password required
+            p Please enter the password for this application to continue
+            form#rental-application-access-form
+              .form-group
+                input#password.form-control(type="password", name="Password")
+              button.btn.btn-success(type="submit") Continue

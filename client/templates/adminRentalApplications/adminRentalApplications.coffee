@@ -7,7 +7,6 @@ Template.adminRentalApplications.helpers
   rentalApplications: ->
     RentalApplications.find()
 
-
 Template.adminRentalApplications.events
   "click .delete-application": (event, template) ->
     RentalApplications.remove(@_id) if confirm 'Are you sure you want to delete this rental application?'
