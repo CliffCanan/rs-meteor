@@ -11,7 +11,7 @@ template(name="cityHeader")
             li.city-sub-header-item(data-value="{{key}}") {{value}}
       .neighborhood-select.city-sub-header-list-wrap.dropdown.city-filter
         i.fa.fa-map-signs(style="font-size: 14px")
-        input.form-control.typeahead(type="text", placeholder="Type any neighborhood", autocomplete="false", data-source="neighborhoodSearch", data-selected="selectedNeighborhood", data-min-length="0", data-limit="8", value="{{currentNeighborhood}}")
+        input.form-control.typeahead(type="text", placeholder="Type any neighborhood", autocomplete="false", data-source="neighborhoodSearch", data-selected="selectedNeighborhood", data-min-length="0", data-limit="9", data-template="neighborhoodSuggestion", value="{{currentNeighborhood}}")
       .bedroom-type-select.city-sub-header-list-wrap.dropdown.city-filter
         button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
           i.fa.fa-bed
@@ -128,3 +128,6 @@ template(name="cityHeader")
 
     .filter-wrap.building-title-search-wrapper
       input.building-title-search.form-control(type="text", placeholder="Search buildings", value="{{query.q}}")
+
+template(name="neighborhoodSuggestion")
+  span(class="#{id}") #{value}

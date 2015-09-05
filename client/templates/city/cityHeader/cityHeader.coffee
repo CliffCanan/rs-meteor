@@ -58,7 +58,7 @@ Template.cityHeader.helpers
           id: neighborhood.slug
           value: "Popular: #{neighborhood.name}"
 
-    neighborhoodsObject.unshift
+    neighborhoodsObject.push
       id: 'all'
       value: 'Show all'
 
