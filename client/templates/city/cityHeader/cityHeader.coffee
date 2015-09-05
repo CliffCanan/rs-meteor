@@ -18,7 +18,7 @@ Template.cityHeader.helpers
     cities[cityId].long
   currentNeighborhood: ->
     neighborhoodSlug = @query.neighborhoodSlug || @neighborhoodSlug
-    neighborhoodsListRaw[neighborhoodSlug] || 'All'
+    neighborhoodsListRaw[neighborhoodSlug] || ''
   neighborhoods: ->
     cityId = @query.cityId || @cityId
     share.neighborhoodsInCity cityId
