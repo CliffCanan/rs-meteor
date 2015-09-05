@@ -35,6 +35,7 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
     parking: Match.Optional(String)
     utilities: Match.Optional(String)
     available: Match.Optional(String)
+    neighborhoodSlug: Match.Optional(String)
     address: Match.Optional(String)
 
   page = parseInt(page)

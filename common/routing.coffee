@@ -114,6 +114,29 @@ Router.map ->
         title: share.formatPageTitle "Rental Apartments and Condos in #{cities[@params.cityId].long}"
         meta:
           description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
+  @route "/city/:cityId/:neighborhoodSlug",
+    name: "neighborhood"
+    fastRender: true
+    subscriptions: ->
+      @params.query.neighborhoodSlug = @params.neighborhoodSlug
+      [
+        citySubs.subscribe("buildings", @params.cityId, @params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
+        Meteor.subscribe("city-buildings-count", @params.cityId, @params.query)
+      ]
+    data: ->
+      return null unless @params.cityId in cityIds
+      @params
+    onBeforeAction: ->
+      oldData = Session.get("cityPageData")
+      if oldData?.cityId isnt @params.cityId
+        Session.set("cityPageData", {cityId: @params.cityId, page: 1})
+        Session.set("cityScroll", 0)
+      @next()
+    onAfterAction: ->
+      SEO.set
+        title: share.formatPageTitle "Rental Apartments and Condos in #{cities[@params.cityId].long}"
+        meta:
+          description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
   @route "/city/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
     name: "building"
     fastRender: true

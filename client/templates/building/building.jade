@@ -9,6 +9,8 @@ template(name="building")
             a(href="/", title='home') Home
           li
             a(href="{{pathFor route='city'}}") {{cityName}}
+          li
+            a(href="{{pathFor route='neighborhood'}}") {{neighborhood}}
           with parent
             li
               a(href="{{pathFor route='building' data=getRouteData}}") {{title}}

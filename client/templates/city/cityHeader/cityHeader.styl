@@ -8,21 +8,22 @@
   @media screen and (min-width: 1200px)
     padding 18px 30px 0
   box-sizing border-box
+  .dropdown
+    float left
 
 .city-sub-header-list-wrap,
 .features-wrap
   margin 0 10px 0 0
+  .button-text
+    display inline-block
+    text-transform uppercase
   &.city-select
-    float left
     max-width 200px
     .button-text
-      display inline-block
       width 142px
   &.bedroom-type-select
-    float left
     max-width 150px
     .button-text
-      display inline-block
       width 86px
   .city-sub-header-title
     width 100%
@@ -37,11 +38,13 @@
     min-width 100px
     padding 0 20px
     box-shadow 0 1px 0 rgba(0,0,0,0.3)
-    top 38px
+    top 27px
     border 1px solid #cfcfcf
     border-top 0
     border-radius 0 0 3px 3px
     width 100%
+    text-transform uppercase
+    padding-top 11px
     .city-sub-header-item
       padding 10px 0
       font-family 'Montserrat', Helvetica, sans-serif
@@ -50,6 +53,55 @@
       cursor pointer
       &:hover
         color #4588fa
+        
+.neighborhood-select
+  i
+    font-size 14px
+    position absolute
+    top 10px
+    z-index 999
+    &.fa-map-signs
+      left 15px
+    &.fa-times
+      color #CCC
+      display none
+      right 10px
+  .city-sub-header-list
+    width auto
+  .typeahead
+    padding-left 32px
+    padding-right 20px
+    width 215px
+  .tt-hint
+    color #999
+  
+  .tt-menu
+    width 280px
+    margin 12px 0
+    padding 8px 0
+    background-color #fff
+    border 1px solid #ccc
+    border 1px solid rgba(0, 0, 0, 0.2)
+    border-radius 8px
+    box-shadow 0 5px 10px rgba(0,0,0,.2)
+
+  .tt-suggestion
+    padding 3px 20px
+    font-size 14px
+    line-height 20px
+    &:hover
+      cursor pointer
+      color #fff
+      background-color #0097cf
+    .all
+      font-style italic
+
+  .tt-suggestion.tt-cursor
+    color #fff
+    background-color #0097cf
+
+  .tt-suggestion p
+    margin 0
 
 .city-subheader-price
   margin 0 15px 0 25px
@@ -98,7 +150,6 @@
 .open
   & > .dropdown-toggle
     &.btn-default
-      padding-bottom 15px
       background #fff
       border-color #ccc
       color #272b30

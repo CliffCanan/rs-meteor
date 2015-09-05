@@ -1,4 +1,5 @@
 Template.cityHeader.onRendered ->
+  Meteor.typeahead.inject()
   if Session.get "enteredAddress"
     $('#address').val(Session.get "enteredAddress")
 
@@ -9,10 +10,18 @@ Template.cityHeader.onRendered ->
     $('#address').focus()
   )
 
+  $('.neighborhood-select .fa-times').show() if Router.current() and Router.current().route.getName() is 'neighborhood'
+
 Template.cityHeader.helpers
   currentCity: ->
     cityId = @query.cityId || @cityId
     cities[cityId].long
+  currentNeighborhood: ->
+    neighborhoodSlug = @query.neighborhoodSlug || @neighborhoodSlug
+    neighborhoodsListRaw[neighborhoodSlug] || ''
+  neighborhoods: ->
+    cityId = @query.cityId || @cityId
+    share.neighborhoodsInCity cityId
   currentBedroomType: ->
     btypes[@query.btype]?.lower ? "Any"
   arrivalTime: ->
@@ -30,6 +39,50 @@ Template.cityHeader.helpers
     Session.get('travelMode')
   getDestination: ->
     destination = if Session.get('cityName') then Session.get('cityName') else ''
+  neighborhoodSearch: (query, sync, async) ->
+    neighborhoods = share.neighborhoodsInCity(Template.instance().data.cityId)
+    neighborhoodsObject = []  
+    if query and query isnt 'All'
+      regex = new RegExp query, 'i'
+      filtered = _.filter neighborhoods, (obj) ->
+        obj.name.match regex
+
+      if filtered.length
+        for neighborhood in filtered
+          neighborhoodsObject.push
+            id: neighborhood.slug
+            value: neighborhood.name
+    else
+      # Get Top 8 neighborhood by number of properties in each neighborhood. The neighborhood array is conveniently sorted by
+      # most properties first.
+      for neighborhood in (_.first(neighborhoods, 8))
+        neighborhoodsObject.push
+          id: neighborhood.slug
+          value: "Popular: #{neighborhood.name}"
+
+    if Router.current() and Router.current().route.getName() is 'neighborhood'
+      neighborhoodsObject.push
+        id: 'all'
+        value: 'Show all'
+
+    sync neighborhoodsObject
+  selectedNeighborhood: (event, suggestion, datasetName) ->
+    event.preventDefault()
+    neighborhoodSlug = suggestion.id
+    data = Template.instance().data
+    delete data.query['address'] if data.query.address
+    delete data['neighborhoodSlug'] if data.neighborhoodSlug
+    delete data.query['neighborhoodSlug'] if data.query.neighborhoodSlug
+
+    if neighborhoodSlug is 'all'
+      Router.go("city", {cityId: Router.current().data().cityId}, {query: data.query})
+    else
+      routeName = Router.current().route.getName()
+      if routeName is "clientRecommendations"
+        data.query.cityId = $li.attr("data-value")
+        Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: data.query})
+      else
+        Router.go("neighborhood", {cityId: Router.current().data().cityId, neighborhoodSlug: neighborhoodSlug}, {query: data.query})
 
 Template.cityHeader.events
   "click .selectArrivalTime .dropdown button": (event, template) ->
@@ -38,14 +91,19 @@ Template.cityHeader.events
   "click .city-select li": (event, template) ->
     data = template.data
     delete data.query['address'] if data.query.address
+    delete data['neighborhoodSlug'] if data.neighborhoodSlug
+    delete data.query['neighborhoodSlug'] if data.query.neighborhoodSlug
     $li = $(event.currentTarget)
     $li.closest(".dropdown").removeClass("open")
     routeName = Router.current().route.getName()
-    if routeName is "city"
-      Router.go("city", {cityId: $li.attr("data-value")}, {query: data.query})
-    else if routeName is "clientRecommendations"
+    if routeName is "clientRecommendations"
       data.query.cityId = $li.attr("data-value")
       Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: data.query})
+    else
+      Router.go("city", {cityId: $li.attr("data-value")}, {query: data.query})
+
+  "click .typeahead": (event, template) ->
+    $(event.target).typeahead('val', '')
 
   "click .bedroom-type-select li": (event, template) ->
     data = template.data
