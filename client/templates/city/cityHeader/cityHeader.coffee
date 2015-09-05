@@ -10,6 +10,9 @@ Template.cityHeader.onRendered ->
     $('#address').focus()
   )
 
+  if @data.query.neighborhoodSlug || @data.neighborhoodSlug
+    $('.neighborhood-select .fa-times').show()
+
 Template.cityHeader.helpers
   currentCity: ->
     cityId = @query.cityId || @cityId
@@ -39,8 +42,8 @@ Template.cityHeader.helpers
     destination = if Session.get('cityName') then Session.get('cityName') else ''
   neighborhoodSearch: (query, sync, async) ->
     neighborhoods = share.neighborhoodsInCity(Template.instance().data.cityId)
-    neighborhoodsObject = []
-    if query
+    neighborhoodsObject = []  
+    if query and query isnt 'All'
       regex = new RegExp query, 'i'
       filtered = _.filter neighborhoods, (obj) ->
         obj.name.match regex
@@ -64,6 +67,7 @@ Template.cityHeader.helpers
 
     sync neighborhoodsObject
   selectedNeighborhood: (event, suggestion, datasetName) ->
+    event.preventDefault()
     neighborhoodSlug = suggestion.id
     data = Template.instance().data
     delete data.query['address'] if data.query.address
@@ -99,7 +103,7 @@ Template.cityHeader.events
       Router.go("city", {cityId: $li.attr("data-value")}, {query: data.query})
 
   "click .typeahead": (event, template) ->
-    $(event.target).typeahead('val', '');
+    $(event.target).typeahead('val', '')
 
   "click .bedroom-type-select li": (event, template) ->
     data = template.data
