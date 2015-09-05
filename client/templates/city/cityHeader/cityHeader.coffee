@@ -10,8 +10,7 @@ Template.cityHeader.onRendered ->
     $('#address').focus()
   )
 
-  if @data.query.neighborhoodSlug || @data.neighborhoodSlug
-    $('.neighborhood-select .fa-times').show()
+  $('.neighborhood-select .fa-times').show() if Router.current() and Router.current().route.getName() is 'neighborhood'
 
 Template.cityHeader.helpers
   currentCity: ->
@@ -61,9 +60,10 @@ Template.cityHeader.helpers
           id: neighborhood.slug
           value: "Popular: #{neighborhood.name}"
 
-    neighborhoodsObject.push
-      id: 'all'
-      value: 'Show all'
+    if Router.current() and Router.current().route.getName() is 'neighborhood'
+      neighborhoodsObject.push
+        id: 'all'
+        value: 'Show all'
 
     sync neighborhoodsObject
   selectedNeighborhood: (event, suggestion, datasetName) ->
