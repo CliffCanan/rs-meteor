@@ -236,8 +236,10 @@ Meteor.smartPublish "rentalApplications", ->
 
 Meteor.smartPublish "rentalApplication", (id, accessToken) ->
   accesss = false
+  accessAdminDocuments = false
   if Security.canOperateWithBuilding(this.userId)
     access = true
+    accessAdminDocuments = true
   else
     rentalApplication = RentalApplications.findOne(id, {fields: {accessToken: 1}})
     access = true if rentalApplication.accessToken is accessToken
@@ -247,6 +249,19 @@ Meteor.smartPublish "rentalApplication", (id, accessToken) ->
       documentIds = _.map rentalApplication.documents, (file) ->
         file._id
       [RentalApplicationDocuments.find({_id: {$in: documentIds}})]
+
+    @addDependency "rentalApplications", "documentsFromAdmin", (rentalApplication) ->
+      documentIds = _.map rentalApplication.documentsFromAdmin, (file) ->
+        file._id
+
+      adminDocumentsSelector =
+        _id: 
+          $in: documentIds
+  
+      # Only publish documents that are marked by Admin to be shared with user      
+      adminDocumentsSelector.isSharedWithUser = true if not accessAdminDocuments
+
+      [RentalApplicationDocuments.find(adminDocumentsSelector)]
 
     RentalApplications.find(id, {fields: {password: 0}})
   else

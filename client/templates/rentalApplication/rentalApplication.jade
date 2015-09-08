@@ -38,7 +38,7 @@ template(name="rentalApplication")
                   input.form-control(type="email", name="email")
               h3 Required documents
               p Drop required documents for the application below
-              form(action="/file-upload").dropzone
+              form(action="/file-upload").dropzone.dropzone-user
                 .dz-message Drop files here to upload (or click)
                 table#files-list.table
                   thead
@@ -63,8 +63,72 @@ template(name="rentalApplication")
                         td #{size}
                         td #{updatedAt}
                         td
+                          a(href="{{url}}", target="_blank")
+                            i.fa.fa-eye
                           a(href="#")
                             i.fa.fa-trash
+
+                h3 Documents from Admin
+                if canOperateWithBuilding
+                  p Drop documents from Admin below
+                  form(action="/file-upload").dropzone.dropzone-admin
+                    .dz-message Drop files here to upload (or click)
+                    table.table
+                      thead
+                        tr
+                          th File name
+                          th Type
+                          th Size
+                          th Uploaded on
+                          th Shared with user
+                          th Actions
+                      tbody
+                        each documentsFromAdmin
+                          tr
+                            td #{name}
+                            td
+                              select.form-control.document-type
+                                option -- Select a document type --
+                                option(value="Bank Statement", selected="{{isSelected 'Bank Statement'}}") Bank Statement
+                                option(value="Drivers License", selected="{{isSelected 'Drivers License'}}") Drivers License
+                                option(value="Immigration Document", selected="{{isSelected 'Immigration Document'}}") Immigration Document
+                                option(value="Pay Stub", selected="{{isSelected 'Pay Stub'}}") Pay Stub
+                                option(value="Other", selected="{{isSelected 'Other'}}") Other
+                            td #{size}
+                            td #{updatedAt}
+                            td
+                              input.shared-with-user(type="checkbox", checked=isSharedWithUser)
+                            td
+                              a(href="{{url}}", target="_blank")
+                                i.fa.fa-eye
+                              a(href="#")
+                                i.fa.fa-trash
+                else
+                  table.table
+                    thead
+                      tr
+                        th File name
+                        th Type
+                        th Size
+                        th Uploaded on
+                        th Actions
+                    tbody
+                      each documentsFromAdmin
+                        tr
+                          td #{name}
+                          td
+                            select.form-control
+                              option -- Select a document type --
+                              option(value="Bank Statement", selected="{{isSelected 'Bank Statement'}}") Bank Statement
+                              option(value="Drivers License", selected="{{isSelected 'Drivers License'}}") Drivers License
+                              option(value="Immigration Document", selected="{{isSelected 'Immigration Document'}}") Immigration Document
+                              option(value="Pay Stub", selected="{{isSelected 'Pay Stub'}}") Pay Stub
+                              option(value="Other", selected="{{isSelected 'Other'}}") Other
+                          td #{size}
+                          td #{updatedAt}
+                          td
+                            a(href="{{url}}", target="_blank")
+                              i.fa.fa-eye
 
               h3 Signature
               p I hereby authorize The Rent Scene LLC to obtain and/or verify my credit report, criminal history, employment references and personal references in connection with the processing of this rental application. I also agree to the deposit disclaimer.

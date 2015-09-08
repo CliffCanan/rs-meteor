@@ -5,12 +5,20 @@ Template.rentalApplication.onRendered ->
       instance.$('#signature').jSignature()
 
       Dropzone.autoDiscover = false
-      dropzone = new Dropzone '.dropzone',
+      dropzone = new Dropzone '.dropzone.dropzone-user',
         accept: (file, done) ->
           insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
             RentalApplications.update(instance.data._id, {$addToSet: {documents: insertedDocument}})
 
         previewTemplate : '<div style="display:none"></div>'
+
+      if $('.dropzone.dropzone-admin').size()
+        dropzone = new Dropzone '.dropzone.dropzone-admin',
+          accept: (file, done) ->
+            insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
+              RentalApplications.update(instance.data._id, {$addToSet: {documentsFromAdmin: insertedDocument}})
+
+          previewTemplate : '<div style="display:none"></div>'
 
 Template.rentalApplication.helpers
   canAccess: ->
@@ -26,6 +34,17 @@ Template.rentalApplication.helpers
         result.push(document.getFileRecord())
 
     result
+  documentsFromAdmin: ->
+    data = Template.instance().data
+    rentalApplication = RentalApplications.findOne(data._id)
+
+    result = []
+    if rentalApplication.documentsFromAdmin
+        for document in rentalApplication.documentsFromAdmin
+          loadedDocument = document.getFileRecord()
+          result.push(loadedDocument) if loadedDocument instanceof FS.File
+
+    result
   isSelected: (value) ->
     'selected' if @documentType is value
 
@@ -34,6 +53,10 @@ Template.rentalApplication.events
     documentType = $(event.target).val()
     if documentType
       RentalApplicationDocuments.update @_id, {$set: {documentType: documentType}}
+
+  "change .shared-with-user": (event, template) ->
+    isSharedWithUser = $(event.target).prop('checked')
+    RentalApplicationDocuments.update @_id, {$set: {isSharedWithUser: isSharedWithUser}}
 
   "submit #rental-application-access-form": (event, template) ->
     event.preventDefault()
