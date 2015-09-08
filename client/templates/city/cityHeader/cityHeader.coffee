@@ -49,29 +49,29 @@ Template.cityHeader.helpers
   neighborhoodSearch: (query, sync, async) ->
     neighborhoods = share.neighborhoodsInCity(Router.current().data().cityId)
     neighborhoodsObject = []
-
-    if not query or query is 'All'
-      # Get Top 8 neighborhood by number of properties in each neighborhood. The neighborhood array is conveniently sorted by
-      # most properties first.
-      for neighborhood in (_.first(neighborhoods, 8))
-        neighborhoodsObject.push
-          id: neighborhood.slug
-          value: "Popular: #{neighborhood.name}"
-    else
-      regex = new RegExp query, 'i'
-      filtered = _.filter neighborhoods, (obj) ->
-        obj.name.match regex
-
-      if filtered.length
-        for neighborhood in filtered
+    if neighborhoods
+      if not query or query is 'All'
+        # Get Top 8 neighborhood by number of properties in each neighborhood. The neighborhood array is conveniently sorted by
+        # most properties first.
+        for neighborhood in (_.first(neighborhoods, 8))
           neighborhoodsObject.push
             id: neighborhood.slug
-            value: neighborhood.name
+            value: "Popular: #{neighborhood.name}"
+      else
+        regex = new RegExp query, 'i'
+        filtered = _.filter neighborhoods, (obj) ->
+          obj.name.match regex
 
-    if Router.current().route.getName() is 'neighborhood'
-      neighborhoodsObject.push
-        id: 'all'
-        value: 'Show all'
+        if filtered.length
+          for neighborhood in filtered
+            neighborhoodsObject.push
+              id: neighborhood.slug
+              value: neighborhood.name
+
+      if Router.current().route.getName() is 'neighborhood'
+        neighborhoodsObject.push
+          id: 'all'
+          value: 'Show all'
 
     sync neighborhoodsObject
 
