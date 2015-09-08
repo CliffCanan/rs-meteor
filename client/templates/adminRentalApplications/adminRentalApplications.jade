@@ -14,12 +14,14 @@ template(name="adminRentalApplications")
             thead
               tr
                 th Created at
+                th Updated at
                 th Status
                 th Actions
             tbody
               each rentalApplications
                 tr
-                  td #{createdAt}
+                  td {{getReadableLongDateTime createdAt}}
+                  td {{getReadableLongDateTime updatedAt}}
                   td #{status}
                   td
                     a(href="{{pathFor 'rentalApplication' id=_id}}")

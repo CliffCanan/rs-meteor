@@ -5,7 +5,7 @@ Template.adminRentalApplications.onRendered ->
 
 Template.adminRentalApplications.helpers
   rentalApplications: ->
-    RentalApplications.find()
+    RentalApplications.find({}, {sort: {createdAt: -1}})
 
 Template.adminRentalApplications.events
   "click .delete-application": (event, template) ->
