@@ -1,11 +1,19 @@
 template(name="rentalApplication")
   with this
     if canAccess
-      #rental-application-wrapper.container
-        .col-lg-12        
-          .row
+      #rental-application-wrapper.container   
+        .row
+          .col-lg-8
             h1 Rental Application
-            .pull-right #{createdAt}
+          .col-lg-4
+            .application-dates
+              .pull-right
+                i.fa.fa-clock-o
+                | Created on {{getReadableLongDate createdAt}}
+                br
+                i.fa.fa-undo
+                a#application-revisions(href="#rental-application-show-revisions", data-toggle="modal") #{rentalApplicationRevisionsCount} Revisions
+          .col-lg-12
             p After completing the form below, please click "Download PDF" to save a copy on your computer. Please email the completed PDF to info@therentscene.com with a copy of your Drivers License, Pay Stub, and Bank Statement. Thank you!
 
             form#rental-application-form.form-horizontal
@@ -31,11 +39,11 @@ template(name="rentalApplication")
               .form-group
                 label.control-label.col-sm-4 Social security number
                 .col-sm-8
-                  input.form-control(type="text", name="socialSecurityNumber")
+                  input.form-control(type="text", name="socialSecurityNumber", value="#{fields.socialSecurityNumber}")
               .form-group
                 label.control-label.col-sm-4 Email
                 .col-sm-8
-                  input.form-control(type="email", name="email")
+                  input.form-control(type="email", name="email", value="#{fields.email}")
               h3 Required documents
               p Drop required documents for the application below
               form(action="/file-upload").dropzone.dropzone-user
@@ -61,7 +69,7 @@ template(name="rentalApplication")
                             option(value="Pay Stub", selected="{{isSelected 'Pay Stub'}}") Pay Stub
                             option(value="Other", selected="{{isSelected 'Other'}}") Other
                         td #{size}
-                        td #{updatedAt}
+                        td {{getReadableLongDate updatedAt}}
                         td
                           a(href="{{url}}", target="_blank")
                             i.fa.fa-eye
@@ -96,7 +104,7 @@ template(name="rentalApplication")
                                   option(value="Pay Stub", selected="{{isSelected 'Pay Stub'}}") Pay Stub
                                   option(value="Other", selected="{{isSelected 'Other'}}") Other
                               td #{size}
-                              td #{updatedAt}
+                              td {{getReadableLongDate updatedAt}}
                               td
                                 input.shared-with-user(type="checkbox", checked=isSharedWithUser)
                               td
@@ -126,7 +134,7 @@ template(name="rentalApplication")
                                 option(value="Pay Stub", selected="{{isSelected 'Pay Stub'}}") Pay Stub
                                 option(value="Other", selected="{{isSelected 'Other'}}") Other
                             td #{size}
-                            td #{updatedAt}
+                            td {{getReadableLongDate updatedAt}}
                             td
                               a(href="{{url}}", target="_blank")
                                 i.fa.fa-eye
@@ -154,9 +162,9 @@ template(name="rentalApplication")
                 .modal-footer
                   button.btn.btn-success(type="submit") Confirm password
 
-          #rental-application-revision.modal.fade
+          #rental-application-save-revision.modal.fade
             .modal-dialog
-              form#rental-application-revision-form.modal-content
+              form#rental-application-save-revision-form.modal-content
                 .modal-header
                   button.close(type="button", data-dismiss="modal", aria-label="Close")
                     i.fa.fa-times(aria-hidden="true")
@@ -164,9 +172,37 @@ template(name="rentalApplication")
                 .modal-body
                   p Please describe what was changed in your application so we can process it accordingly.
                   .form-group
-                    textarea#updateNote.form-control(name="update-note", placeholder="Note for update")
+                    textarea#updateNote.form-control(name="update-note", placeholder="Note for update", rows="3")
                 .modal-footer
                   button.btn.btn-success(type="submit") Confirm changes
+
+          #rental-application-show-revisions.modal.fade
+            .modal-dialog
+              form#rental-application-save-revision-form.modal-content
+                .modal-header
+                  button.close(type="button", data-dismiss="modal", aria-label="Close")
+                    i.fa.fa-times(aria-hidden="true")
+                  h4.modal-title Revisions for application
+                .modal-body
+                  p Below are the list of revisions for this form
+                  table.table
+                    thead
+                      tr
+                        th Revision date
+                        th Note
+                        th Actions
+                    tbody
+                      each rentalApplicationRevisions
+                        tr
+                          td {{getReadableShortDateTime revisionSavedAt}}
+                          td {{updateNote}}
+                          td
+                            if isFirstItem this
+                              | Current revision
+                            else
+                              a.revert-rental-application(href="#") Revert to this version
+                .modal-footer
+                  a.btn.btn-info(href="#", data-dismiss="modal") Close
     else
       #rental-application-access-wrapper.container
         .col-lg-12

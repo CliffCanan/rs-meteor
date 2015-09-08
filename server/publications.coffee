@@ -235,6 +235,7 @@ Meteor.smartPublish "rentalApplications", ->
   RentalApplications.find({}, {fields: {password: 0}})
 
 Meteor.smartPublish "rentalApplication", (id, accessToken) ->
+  publish = []
   accesss = false
   accessAdminDocuments = false
   if Security.canOperateWithBuilding(this.userId)
@@ -263,6 +264,9 @@ Meteor.smartPublish "rentalApplication", (id, accessToken) ->
 
       [RentalApplicationDocuments.find(adminDocumentsSelector)]
 
-    RentalApplications.find(id, {fields: {password: 0}})
+    publish.push RentalApplications.find(id, {fields: {password: 0}})
+    publish.push RentalApplicationRevisions.find({parentId: id}, {fields: {parentId: 1, updateNote: 1, revisionSavedAt: 1}})
   else
-    RentalApplications.find(id, {fields: {accessToken: 1}})
+    publish.push RentalApplications.find(id, {fields: {accessToken: 1}})
+
+  publish

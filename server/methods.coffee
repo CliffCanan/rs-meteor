@@ -348,3 +348,12 @@ Meteor.methods
         message: 'Rental application not found'
 
     result
+
+  "revertRentalApplication": (revisionId) ->
+    previousRentalApplication = RentalApplicationRevisions.findOne(revisionId)
+    parentId = previousRentalApplication.parentId
+    processedRentalApplication = _.omit(previousRentalApplication, ['_id', 'parentId', 'revisionSavedAt'])
+    processedRentalApplication.isNewRevision = true
+    processedRentalApplication.updateNote = "Revert to '#{previousRentalApplication.updateNote}'"
+    RentalApplications.update parentId, $set: processedRentalApplication
+

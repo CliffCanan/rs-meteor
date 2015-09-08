@@ -19,6 +19,15 @@ Template.registerHelper "currentUserId", ->
 Template.registerHelper "getFormatted", (date) ->
   date.getMonth() + "/" + date.getDate() + "/" +date.getFullYear()
 
+Template.registerHelper "getReadableShortDate", (date) ->
+  moment(date).format('D MMM YY')
+
+Template.registerHelper "getReadableLongDate", (date) ->
+  moment(date).format('Do MMMM YYYY')
+
+Template.registerHelper "getReadableShortDateTime", (date) ->
+  moment(date).format('h:mma, D MMM YY')
+
 Template.registerHelper "getUser", (userId) ->
   user = Meteor.users.findOne(userId)
   if user

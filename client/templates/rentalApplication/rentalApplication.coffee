@@ -45,6 +45,23 @@ Template.rentalApplication.helpers
           result.push(loadedDocument) if loadedDocument instanceof FS.File
 
     result
+  rentalApplicationRevisions: ->
+    data = Template.instance().data
+    revisions = RentalApplicationRevisions.find({parentId: data._id}, {sort: {revisionSavedAt: -1}}).fetch()
+
+    index = 0
+    _.map revisions, (item) ->
+      item.index = index
+      index++
+
+    revisions
+
+  isFirstItem: (doc) ->
+    doc.index is 0
+
+  rentalApplicationRevisionsCount: ->
+    data = Template.instance().data
+    RentalApplicationRevisions.find({parentId: data._id}).count()
   isSelected: (value) ->
     'selected' if @documentType is value
 
@@ -71,7 +88,7 @@ Template.rentalApplication.events
   "submit #rental-application-form": (event, template) ->
     event.preventDefault()
     if @hasPassword
-      template.$("#rental-application-revision").modal('toggle')
+      template.$("#rental-application-save-revision").modal('toggle')
     else
       template.$("#rental-application-password").modal('toggle')
 
@@ -100,8 +117,7 @@ Template.rentalApplication.events
               $addToSet:
                 documents: insertedDocument
 
-
-  "submit #rental-application-revision-form": (event, template) ->
+  "submit #rental-application-save-revision-form": (event, template) ->
     event.preventDefault()
 
     RentalApplications.update template.data._id,
@@ -110,4 +126,8 @@ Template.rentalApplication.events
         updateNote: $('#updateNote').val()
         fields: $('#rental-application-form').serializeFormJSON()
       , (err, result) ->
-        template.$("#rental-application-revision").modal('toggle')
+        template.$("#rental-application-save-revision").modal('toggle')
+
+  "click .revert-rental-application": (event, template) ->
+    Meteor.call 'revertRentalApplication', @_id if confirm "Are you sure you want to revert to '#{@updateNote}'?"
+
