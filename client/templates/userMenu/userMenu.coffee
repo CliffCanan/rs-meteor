@@ -3,6 +3,8 @@ Template.userMenu.helpers
     Meteor.user().profile.name
   pendingReviewsCount: ->
     Counts.get 'pendingReviewsCount'
+  rentalApplicationsCount: ->
+    Counts.get 'rentalApplicationsCount'
 
 Template.userMenu.rendered = ->
 
