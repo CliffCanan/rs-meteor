@@ -45,6 +45,19 @@ Template.rentalApplication.helpers
           result.push(loadedDocument) if loadedDocument instanceof FS.File
 
     result
+  showDocumentsFromAdmin: ->
+    data = Template.instance().data
+    rentalApplication = RentalApplications.findOne(data._id)
+
+    result = []
+    if rentalApplication.documentsFromAdmin
+        for document in rentalApplication.documentsFromAdmin
+          loadedDocument = document.getFileRecord()
+          result.push(loadedDocument) if loadedDocument instanceof FS.File
+
+    result
+
+    Security.canOperateWithBuilding() or result.length
   rentalApplicationRevisions: ->
     data = Template.instance().data
     revisions = RentalApplicationRevisions.find({parentId: data._id}, {sort: {revisionSavedAt: -1}}).fetch()
