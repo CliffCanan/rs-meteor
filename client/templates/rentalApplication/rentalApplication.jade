@@ -23,11 +23,11 @@ template(name="rentalApplication")
               .form-group
                 label.control-label.col-sm-4 Applicant's full name
                 .col-sm-8
-                  input.form-control(type="text", name="fullName", value="#{fullName}")
+                  input.form-control(type="text", name="fullName", value="#{fields.fullName}")
               .form-group
                 label.control-label.col-sm-4 Date of birth
                 .col-sm-2
-                  +datepicker(name="moveInDate")
+                  +datepicker(name="dateOfBirth")
               .form-group
                 label.control-label.col-sm-4 Social security number
                 .col-sm-8
@@ -153,6 +153,20 @@ template(name="rentalApplication")
                     input#password.form-control(type="password", name="password", placeholder="Your password")
                 .modal-footer
                   button.btn.btn-success(type="submit") Confirm password
+
+          #rental-application-revision.modal.fade
+            .modal-dialog
+              form#rental-application-revision-form.modal-content
+                .modal-header
+                  button.close(type="button", data-dismiss="modal", aria-label="Close")
+                    i.fa.fa-times(aria-hidden="true")
+                  h4.modal-title Please enter a note to describe your changes
+                .modal-body
+                  p Please describe what was changed in your application so we can process it accordingly.
+                  .form-group
+                    textarea#updateNote.form-control(name="update-note", placeholder="Note for update")
+                .modal-footer
+                  button.btn.btn-success(type="submit") Confirm changes
     else
       #rental-application-access-wrapper.container
         .col-lg-12

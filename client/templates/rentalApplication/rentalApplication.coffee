@@ -71,21 +71,7 @@ Template.rentalApplication.events
   "submit #rental-application-form": (event, template) ->
     event.preventDefault()
     if @hasPassword
-      $jSignature = template.$('#signature')
-      if $jSignature.jSignature('isModified')
-        signatureData = $jSignature.jSignature("getData", "svgbase64")
-        signatureURI = "data:#{signatureData.join(",")}"
-
-        file = new FS.File()
-        file.attachData signatureURI
-        file.name 'Signature.svg'
-
-        insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
-          RentalApplications.update template.data._id,
-            $addToSet:
-              documents: insertedDocument
-
-      alert 'Form submitted!'
+      template.$("#rental-application-revision").modal('toggle')
     else
       template.$("#rental-application-password").modal('toggle')
 
@@ -97,6 +83,31 @@ Template.rentalApplication.events
       $set: 
         password: template.$('#rental-application-password-form').find('#password').val()
         hasPassword: true
+        fields: $('#rental-application-form').serializeFormJSON()
       , (err, result) ->
         template.$("#rental-application-password").modal('toggle')
-        $('#rental-application-form').submit()
+        $jSignature = template.$('#signature')
+        if $jSignature.jSignature('isModified')
+          signatureData = $jSignature.jSignature("getData", "svgbase64")
+          signatureURI = "data:#{signatureData.join(",")}"
+
+          file = new FS.File()
+          file.attachData signatureURI
+          file.name 'Signature.svg'
+
+          insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
+            RentalApplications.update template.data._id,
+              $addToSet:
+                documents: insertedDocument
+
+
+  "submit #rental-application-revision-form": (event, template) ->
+    event.preventDefault()
+
+    RentalApplications.update template.data._id,
+      $set:
+        isNewRevision: true
+        updateNote: $('#updateNote').val()
+        fields: $('#rental-application-form').serializeFormJSON()
+      , (err, result) ->
+        template.$("#rental-application-revision").modal('toggle')
