@@ -79,9 +79,6 @@ Template.cityHeader.helpers
     event.preventDefault()
     neighborhoodSlug = suggestion.id
     data = Template.instance().data
-    delete data.query['address'] if data.query.address
-    delete data['neighborhoodSlug'] if data.neighborhoodSlug
-    delete data.query['neighborhoodSlug'] if data.query.neighborhoodSlug
 
     if neighborhoodSlug is 'all'
       Router.go("city", {cityId: Router.current().data().cityId}, {query: data.query})
@@ -99,9 +96,8 @@ Template.cityHeader.events
 
   "click .city-select li": (event, template) ->
     data = template.data
+    Session.set "enteredAddress", null
     delete data.query['address'] if data.query.address
-    delete data['neighborhoodSlug'] if data.neighborhoodSlug
-    delete data.query['neighborhoodSlug'] if data.query.neighborhoodSlug
     $li = $(event.currentTarget)
     $li.closest(".dropdown").removeClass("open")
     routeName = Router.current().route.getName()
@@ -124,10 +120,13 @@ Template.cityHeader.events
     else
       delete query.btype
     routeName = Router.current().route.getName()
-    if routeName is "city"
-      Router.go("city", {cityId: data.cityId}, {query: query})
-    else if routeName is "clientRecommendations"
+    if routeName is "clientRecommendations"
       Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
+    else
+      routeParams = {}
+      routeParams.cityId = data.cityId if data.cityId
+      routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+      Router.go(routeName, routeParams, {query: query})
 
   "click .travelMode": (event, template) ->
     $item = $(event.currentTarget)
@@ -153,27 +152,33 @@ Template.cityHeader.events
     else
       delete query.q
     routeName = Router.current().route.getName()
-    if routeName is "city"
-      Router.go("city", {cityId: data.cityId}, {query: query})
-    else if routeName is "clientRecommendations"
+    if routeName is "clientRecommendations"
       Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
+    else
+      routeParams = {}
+      routeParams.cityId = data.cityId if data.cityId
+      routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+      Router.go(routeName, routeParams, {query: query})
   , 300)
 
   "click #filterAddress": (event, template) ->
     event.preventDefault()
     data = template.data
     query = data.query
-    #console.log typeof data
-    query.address = $("#address").val() 
-    Router.go("city", {cityId: data.cityId}, {query: query}, 300)
+    query.address = $("#address").val()
+
+    routeName = Router.current().route.getName()
+    routeParams = {}
+    routeParams.cityId = data.cityId if data.cityId
+    routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+    Router.go(routeName, routeParams, {query: query}, 300)
 
   "submit .form-building-filter": (event, template) ->
     event.preventDefault()
 
-    event.preventDefault()
     data = template.data
     query = data.query
-    #console.log typeof data
+
     if $("#address").val() != ""
       query.address = $("#address").val()
       Session.set('enteredAddress', query.address)
@@ -183,7 +188,12 @@ Template.cityHeader.events
 
     $form = $(event.currentTarget)
     $form.closest(".dropdown").removeClass("open")    
-    Router.go("city", {cityId: data.cityId}, {query: query}, 300)
+    
+    routeName = Router.current().route.getName()
+    routeParams = {}
+    routeParams.cityId = data.cityId if data.cityId
+    routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+    Router.go(routeName, routeParams, {query: query}, 300)
 
   "submit .form-building-features-filter": (event, template) ->
     event.preventDefault()
@@ -205,10 +215,13 @@ Template.cityHeader.events
       delete query.available
 
     routeName = Router.current().route.getName()
-    if routeName is "city"
-      Router.go("city", {cityId: data.cityId}, {query: query})
-    else if routeName is "clientRecommendations"
+    if routeName is "clientRecommendations"
       Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
+    else
+      routeParams = {}
+      routeParams.cityId = data.cityId if data.cityId
+      routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+      Router.go(routeName, routeParams, {query: query})
 
   "click .form-building-address-filter-reset": (event, template) ->
     Session.set("travelMode", "walking")

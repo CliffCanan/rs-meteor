@@ -21,5 +21,4 @@
     available = new Date(decodeURIComponent(query.available))
     if available.getTime()
       selector.$or = [{availableAt: {$exists: false}}, {availableAt: {$lte: available}}]
-  if query.neighborhoodSlug
-    selector.neighborhoodSlug = query.neighborhoodSlug
+      

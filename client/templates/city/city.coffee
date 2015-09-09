@@ -42,9 +42,6 @@ Template.city.helpers
       wrap.offsetHeight # no need to store this anywhere, the reference is enough
       wrap.style.display = ""
 
-    selector = {parentId: {$exists: false}, cityId: @cityId}
-    addQueryFilter(@query, selector)
-    
     query = Router.current().params.query
     controller = Router.current()
     if Session.get "showRecommendations"
@@ -52,6 +49,8 @@ Template.city.helpers
       selector = {_id: {$in: buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}
     else
       selector = {parentId: {$exists: false}, cityId: @cityId}
+      if @neighborhoodSlug
+        selector.neighborhoodSlug = @neighborhoodSlug
       addQueryFilter(@query, selector)
 
       if query.hasOwnProperty('address') == true
