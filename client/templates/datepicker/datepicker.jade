@@ -1,2 +1,5 @@
 template(name="datepicker")
-  input.form-control(id="{{id}}" data-id="{{id}}" field="{{field}}" name="{{name}}" placeholder="{{placeholder}}" class="{{class}}" value="{{value}}")
+  .input-group
+    .input-group-addon
+      i.fa.fa-calendar
+    input.form-control(id="{{id}}" data-id="{{id}}" field="{{field}}" name="{{name}}" placeholder="{{placeholder}}" class="{{class}}" value="{{value}}")
