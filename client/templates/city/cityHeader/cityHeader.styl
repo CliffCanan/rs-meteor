@@ -320,6 +320,7 @@
 .filter-wrap
   display inline-block
   font-size 0
+  margin-bottom 18px
   vertical-align top
   float left
 
@@ -327,10 +328,27 @@
   font-size 14px
   color #272b30
   font-weight bold
-  margin-bottom 18px
 
 .selectArrivalTime 
   padding-bottom 10px
   
 .form-building-address-filter-reset 
   cursor pointer
+
+#location-filter-wrapper
+  @media screen and (min-width: 768px)
+    display none
+  @media screen and (min-width: 1345px)
+    display block
+
+.building-title-search-wrapper
+  @media screen and (min-width: 768px)
+    display none
+  @media screen and (min-width: 1524px)
+    display block
+
+.features-wrap
+  @media screen and (min-width: 768px)
+    display none
+  @media screen and (min-width: 1140px)
+    display block
