@@ -16,34 +16,52 @@ template(name="rentalApplication")
           .col-lg-12
             p After completing the form below, please click "Download PDF" to save a copy on your computer. Please email the completed PDF to info@therentscene.com with a copy of your Drivers License, Pay Stub, and Bank Statement. Thank you!
 
-            form#rental-application-form.form-horizontal
+            form#rental-application-form.form-inline
               h3 Rent Details
               .form-group
-                label.control-label.col-sm-4 Which unit are you applying to
-                .col-sm-8
-                  select.form-control
-                    option(value="123") Marques
+                label Which unit are you applying to
+                select.form-control
+                  option(value="123") Marques
+              br
               .form-group
-                label.control-label.col-sm-4 Move in date
-                .col-sm-2
-                  +datepicker(name="moveInDate")
+                label Move in date
+                +datepicker(name="moveInDate")
+              .form-group
+                label Lenght of lease
+                input.input-small.form-control(type="text", name="lenghtOfLease", value="#{fields.lenghtOfLease}")
+              .form-group
+                label Rent
+                .input-group
+                  .input-group-addon $
+                  input.input-tiny.form-control(type="text", name="rent", value="#{fields.rent}")
               h3 Personal Information
               .form-group
-                label.control-label.col-sm-4 Applicant's full name
-                .col-sm-8
-                  input.form-control(type="text", name="fullName", value="#{fields.fullName}")
+                label Applicant's full name
+                input.input-large.form-control(type="text", name="fullName", value="#{fields.fullName}")
               .form-group
-                label.control-label.col-sm-4 Date of birth
-                .col-sm-2
-                  +datepicker(name="dateOfBirth")
+                label Date of birth
+                +datepicker(name="dateOfBirth")
               .form-group
-                label.control-label.col-sm-4 Social security number
-                .col-sm-8
-                  input.form-control(type="text", name="socialSecurityNumber", value="#{fields.socialSecurityNumber}")
+                label Social security number
+                input.input-medium.form-control(type="text", name="socialSecurityNumber", value="#{fields.socialSecurityNumber}")
               .form-group
-                label.control-label.col-sm-4 Email
-                .col-sm-8
-                  input.form-control(type="email", name="email", value="#{fields.email}")
+                label Email
+                input.input-large.form-control(type="email", name="email", value="#{fields.email}")
+              .form-group
+                label Phone number
+                input.input-medium.form-control(type="text", name="phoneNumber", value="#{fields.phoneNumber}")
+              br
+              .form-group
+                label Living with partner / family
+                select.form-control(name="livingWithAnother", value="#{fields.livingWithAnother}")
+                  option(value="Yes") Yes
+                  option(value="No", selected) No
+              br
+              .form-group
+                label Do you have any pets?
+                select.form-control(name="livingWithAnother", value="#{fields.livingWithAnother}")
+                  option(value="Yes") Yes
+                  option(value="No", selected) No
               h3 Required documents
               p Drop required documents for the application below
               form(action="/file-upload").dropzone.dropzone-user
