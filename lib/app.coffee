@@ -177,4 +177,6 @@ Meteor.call "neighborhoodsList", (err, result) ->
 
 share.neighborhoodsInCity = (cityId) ->
   if context.neighborhoodsList? and context.neighborhoodsList
-    _.findWhere(context.neighborhoodsList, {cityId: cityId}).neighborhoods
+    results = _.findWhere(context.neighborhoodsList, {cityId: cityId})
+    if results
+      results.neighborhoods

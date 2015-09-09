@@ -56,7 +56,7 @@ Template.cityHeader.helpers
         for neighborhood in (_.first(neighborhoods, 8))
           neighborhoodsObject.push
             id: neighborhood.slug
-            value: "Popular: #{neighborhood.name}"
+            value: neighborhood.name
       else
         regex = new RegExp query, 'i'
         filtered = _.filter neighborhoods, (obj) ->
@@ -107,8 +107,18 @@ Template.cityHeader.events
     else
       Router.go("city", {cityId: $li.attr("data-value")}, {query: data.query})
 
-  "click .typeahead": (event, template) ->
+  "focus .typeahead": (event, template) ->
+    $target = $(event.target)
+
     $(event.target).typeahead('val', '')
+    $target.attr('placeholder', 'Type any neighborhood')
+
+  "blur .typeahead": (event, template) ->
+    data = template.data
+    if data.neighborhoodSlug
+      $(event.target).typeahead('val', neighborhoodsListRaw[data.neighborhoodSlug])
+    else
+      $(event.target).attr('placeholder', 'Search neighborhood')
 
   "click .bedroom-type-select li": (event, template) ->
     data = template.data
