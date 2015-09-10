@@ -4,6 +4,10 @@ Template.rentalApplication.onRendered ->
     if Security.canOperateWithBuilding() or (instance.data.accessToken and Session.equals('rentalApplicationAccessToken', instance.data.accessToken))
       instance.$('#signature').jSignature()
 
+      if instance.data.signature
+        signatureData = "data:#{instance.data.signature.base30.join(',')}"
+        $('#signature').jSignature('setData', signatureData)
+
       Dropzone.autoDiscover = false
       dropzone = new Dropzone '.dropzone.dropzone-user',
         accept: (file, done) ->
@@ -133,11 +137,19 @@ Template.rentalApplication.events
   "submit #rental-application-save-revision-form": (event, template) ->
     event.preventDefault()
 
+    fields =
+      isNewRevision: true
+      updateNote: $('#updateNote').val()
+      fields: $('#rental-application-form').serializeFormJSON()
+
+    $jSignature = template.$('#signature')
+    if $jSignature.jSignature('isModified')
+      fields.signature = 
+        base30: $jSignature.jSignature('getData', 'base30')
+        svgbase64: $jSignature.jSignature('getData', 'svgbase64')
+
     RentalApplications.update template.data._id,
-      $set:
-        isNewRevision: true
-        updateNote: $('#updateNote').val()
-        fields: $('#rental-application-form').serializeFormJSON()
+      $set: fields
       , (err, result) ->
         template.$("#rental-application-save-revision").modal('toggle')
 
