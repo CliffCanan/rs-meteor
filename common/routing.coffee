@@ -176,6 +176,39 @@ Router.map ->
     data: ->
       RentalApplications.findOne(@params.id)
 
+  @route "/rental-application/:id/download", ->
+    rentalApplication = RentalApplications.findOne(@params.id)
+    template = Assets.getText('rental-application-pdf.html')
+
+    SSR.compileTemplate('rentalApplicationPDF', template)
+
+    Template.rentalApplicationPDF.helpers
+      "renderDate": (date) ->
+        moment(date).format("MM/DD/YYYY")
+
+      "getReadableShortDate": (date) ->
+        moment(date).format('D MMM YY')
+
+      "getReadableLongDate": (date) ->
+        moment(date).format('Do MMMM YYYY')
+
+      "getReadableShortDateTime": (date) ->
+        moment(date).format('h:mma, D MMM YY')
+
+      "getReadableLongDateTime": (date) ->
+        moment(date).format('h:mma, Do MMMM YYYY')
+
+      "signatureData": ->
+        @signature.svgbase64[1]
+
+    html = SSR.render('rentalApplicationPDF', rentalApplication)
+
+    res = @response
+    stream = wkhtmltopdf(html, viewportSize: '1200x768', (code, signal) ->
+    ).pipe(res)
+
+  , where: 'server'
+
   @route "admin/rental-applications",
     name: "adminRentalApplications"
     waitOn: ->

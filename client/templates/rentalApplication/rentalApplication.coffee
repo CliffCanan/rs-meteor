@@ -28,6 +28,15 @@ Template.rentalApplication.helpers
   canAccess: ->
     return true if Security.canOperateWithBuilding()
     @accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
+  getDatePickerDateMoveInDate: ->
+    if @fields.moveInDate
+      moment(@fields.moveInDate).format("MM/DD/YYYY")
+  getDatePickerDateDateOfBirth: ->
+    if @fields.dateOfBirth
+      moment(@fields.dateOfBirth).format("MM/DD/YYYY")
+  dateOfBirthOptions: ->
+    yearRange: '-100:-17'
+    maxDate: '-17y'
   documents: ->
     data = Template.instance().data
     rentalApplication = RentalApplications.findOne(data._id)
@@ -142,6 +151,11 @@ Template.rentalApplication.events
       updateNote: $('#updateNote').val()
       fields: $('#rental-application-form').serializeFormJSON()
 
+    dateFields = ['moveInDate', 'dateOfBirth']
+
+    for fieldName in dateFields
+      fields.fields[fieldName] = new Date(fields.fields[fieldName])
+
     $jSignature = template.$('#signature')
     if $jSignature.jSignature('isModified')
       fields.signature = 
@@ -151,6 +165,7 @@ Template.rentalApplication.events
     RentalApplications.update template.data._id,
       $set: fields
       , (err, result) ->
+        window.open "#{Router.path('rentalApplication', {id: template.data._id})}/download"
         template.$("#rental-application-save-revision").modal('toggle')
 
   "click .revert-rental-application": (event, template) ->

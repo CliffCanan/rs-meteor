@@ -20,12 +20,11 @@ template(name="rentalApplication")
               h3 Rent Details
               .form-group
                 label Which unit are you applying to
-                select.form-control
-                  option(value="123") Marques
+                input.input-large.form-control(type="text", name="unitName", value="#{fields.unitName}")
               br
               .form-group
                 label Move in date
-                +datepicker(name="moveInDate")
+                +datepicker(name="moveInDate" value=getDatePickerDateMoveInDate)
               .form-group
                 label Lenght of lease
                 input.input-small.form-control(type="text", name="lenghtOfLease", value="#{fields.lenghtOfLease}")
@@ -40,7 +39,7 @@ template(name="rentalApplication")
                 input.input-large.form-control(type="text", name="fullName", value="#{fields.fullName}")
               .form-group
                 label Date of birth
-                +datepicker(name="dateOfBirth")
+                +datepicker(name="dateOfBirth" options=dateOfBirthOptions value=getDatePickerDateDateOfBirth)
               .form-group
                 label Social security number
                 input.input-medium.form-control(type="text", name="socialSecurityNumber", value="#{fields.socialSecurityNumber}")
@@ -165,6 +164,7 @@ template(name="rentalApplication")
               .form-group
                 .col-sm-12
                   button.btn.btn-success(type="submit") Submit and download PDF
+                  a.btn.btn-info(href="{{pathFor 'rentalApplication' id=_id}}/download", target="_blank") Download PDF
 
           #rental-application-password.modal.fade
             .modal-dialog
