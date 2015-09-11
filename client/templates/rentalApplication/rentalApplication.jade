@@ -86,7 +86,7 @@ template(name="rentalApplication")
                             option(value="Pay Stub", selected="{{isSelected 'Pay Stub'}}") Pay Stub
                             option(value="Other", selected="{{isSelected 'Other'}}") Other
                         td #{size}
-                        td {{getReadableLongDate updatedAt}}
+                        td {{getReadableLongDate uploadedAt}}
                         td
                           a(href="{{url}}", target="_blank")
                             i.fa.fa-eye
@@ -121,7 +121,7 @@ template(name="rentalApplication")
                                   option(value="Pay Stub", selected="{{isSelected 'Pay Stub'}}") Pay Stub
                                   option(value="Other", selected="{{isSelected 'Other'}}") Other
                               td #{size}
-                              td {{getReadableLongDate updatedAt}}
+                              td {{getReadableLongDate uploadedAt}}
                               td
                                 input.shared-with-user(type="checkbox", checked=isSharedWithUser)
                               td
@@ -151,7 +151,7 @@ template(name="rentalApplication")
                                 option(value="Pay Stub", selected="{{isSelected 'Pay Stub'}}") Pay Stub
                                 option(value="Other", selected="{{isSelected 'Other'}}") Other
                             td #{size}
-                            td {{getReadableLongDate updatedAt}}
+                            td {{getReadableLongDate uploadedAt}}
                             td
                               a(href="{{url}}", target="_blank")
                                 i.fa.fa-eye
