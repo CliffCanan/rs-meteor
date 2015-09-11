@@ -1,0 +1,85 @@
+
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://localhost/pdf.css"/>
+  </head>
+  <body>
+    <div class="container">
+      <div id="rental-application-wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Rental Application</h1>
+          </div>
+          <div class="col-lg-12">
+            <p>After completing the form below, please click "Download PDF" to save a copy on your computer. Please email the completed PDF to info@therentscene.com with a copy of your Drivers License, Pay Stub, and Bank Statement. Thank you!</p>
+            <form id="rental-application-form" class="form-inline">
+              <h3>Rent Details</h3>
+              <div class="form-group">
+                <label>Which unit are you applying to</label>
+                <input type="text" name="fullName" value="{{fields.unitName}}" class="input-large form-control"/>
+              </div><br/>
+              <div class="form-group">
+                <label>Move in date</label>
+                <input type="text" name="moveInDate" value="{{renderDate fields.moveInDate}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Lenght of lease</label>
+                <input type="text" name="lenghtOfLease" value="{{fields.lenghtOfLease}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Rent</label>
+                <input type="text" name="rent" value="{{fields.rent}}" class="input-tiny form-control"/>
+              </div>
+              <h3>Personal Information</h3>
+              <div class="form-group">
+                <label>Applicant's full name</label>
+                <input type="text" name="fullName" value="{{fields.fullName}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Date of birth</label>
+                <input type="text" name="dateOfBirth" value="{{renderDate fields.dateOfBirth}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Social security number</label>
+                <input type="text" name="socialSecurityNumber" value="{{fields.socialSecurityNumber}}" class="input-medium form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" value="{{fields.email}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Phone number</label>
+                <input type="text" name="phoneNumber" value="{{fields.phoneNumber}}" class="input-medium form-control"/>
+              </div><br/>
+              <div class="form-group">
+                <label>Living with partner / family</label>
+                <select name="livingWithAnother" value="{{fields.livingWithAnother}}" class="form-control">
+                  <option value="Yes">Yes</option>
+                  <option value="No" selected="selected">No</option>
+                </select>
+              </div><br/>
+              <div class="form-group">
+                <label>Do you have any pets?</label>
+                <select name="livingWithAnother" value="{{fields.livingWithAnother}}" class="form-control">
+                  <option value="Yes">Yes</option>
+                  <option value="No" selected="selected">No</option>
+                </select>
+              </div>
+              <h3>Required documents</h3>
+              <p>Drop required documents for the application below</p>
+              <h3>Signature</h3>
+              <p>I hereby authorize The Rent Scene LLC to obtain and/or verify my credit report, criminal history, employment references and personal references in connection with the processing of this rental application. I also agree to the deposit disclaimer.</p><img src="data:image/svg+xml;base64,{{signatureData}}"/>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="break"></div>
+    <div class="container">
+      <div class="col-lg-12">
+        <h1>List of documents</h1>
+      </div>
+    </div>
+  </body>
+</html>
