@@ -199,7 +199,8 @@ Router.map ->
         moment(date).format('h:mma, Do MMMM YYYY')
 
       "signatureData": ->
-        @signature.svgbase64[1]
+        if @signature and @signature.svgbase64
+          @signature.svgbase64[1]
 
     html = SSR.render('rentalApplicationPDF', rentalApplication)
 
