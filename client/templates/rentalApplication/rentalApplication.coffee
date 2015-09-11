@@ -11,18 +11,23 @@ Template.rentalApplication.onRendered ->
       Dropzone.autoDiscover = false
       dropzone = new Dropzone '.dropzone.dropzone-user',
         accept: (file, done) ->
+          file.canUserView = true
+          if Security.canOperateWithBuilding()
+            file.isUploadedByAdmin = true if Security.canOperateWithBuilding()
+            file.canUserView = false
+
           insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
             RentalApplications.update(instance.data._id, {$addToSet: {documents: insertedDocument}})
 
+            fields = {}
+            fields.canUserView = true
+            if Security.canOperateWithBuilding()
+              fields.isUploadedByAdmin = true
+              fields.canUserView = false
+
+            RentalApplicationDocuments.update result._id, {$set: fields}
+
         previewTemplate : '<div style="display:none"></div>'
-
-      if $('.dropzone.dropzone-admin').size()
-        dropzone = new Dropzone '.dropzone.dropzone-admin',
-          accept: (file, done) ->
-            insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
-              RentalApplications.update(instance.data._id, {$addToSet: {documentsFromAdmin: insertedDocument}})
-
-          previewTemplate : '<div style="display:none"></div>'
 
 Template.rentalApplication.helpers
   canAccess: ->
@@ -44,33 +49,11 @@ Template.rentalApplication.helpers
     result = []
     if rentalApplication.documents
       for document in rentalApplication.documents
-        result.push(document.getFileRecord())
-
-    result
-  documentsFromAdmin: ->
-    data = Template.instance().data
-    rentalApplication = RentalApplications.findOne(data._id)
-
-    result = []
-    if rentalApplication.documentsFromAdmin
-        for document in rentalApplication.documentsFromAdmin
-          loadedDocument = document.getFileRecord()
-          result.push(loadedDocument) if loadedDocument instanceof FS.File
-
-    result
-  showDocumentsFromAdmin: ->
-    data = Template.instance().data
-    rentalApplication = RentalApplications.findOne(data._id)
-
-    result = []
-    if rentalApplication.documentsFromAdmin
-        for document in rentalApplication.documentsFromAdmin
-          loadedDocument = document.getFileRecord()
-          result.push(loadedDocument) if loadedDocument instanceof FS.File
+        loadedDocument = document.getFileRecord()
+        result.push(loadedDocument) if loadedDocument instanceof FS.File
 
     result
 
-    Security.canOperateWithBuilding() or result.length
   rentalApplicationRevisions: ->
     data = Template.instance().data
     revisions = RentalApplicationRevisions.find({parentId: data._id}, {sort: {revisionSavedAt: -1}}).fetch()
@@ -98,8 +81,8 @@ Template.rentalApplication.events
       RentalApplicationDocuments.update @_id, {$set: {documentType: documentType}}
 
   "change .shared-with-user": (event, template) ->
-    isSharedWithUser = $(event.target).prop('checked')
-    RentalApplicationDocuments.update @_id, {$set: {isSharedWithUser: isSharedWithUser}}
+    canUserView = $(event.target).prop('checked')
+    RentalApplicationDocuments.update @_id, {$set: {canUserView: canUserView}}
 
   "submit #rental-application-access-form": (event, template) ->
     event.preventDefault()

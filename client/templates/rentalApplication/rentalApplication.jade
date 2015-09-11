@@ -72,6 +72,8 @@ template(name="rentalApplication")
                       th Type
                       th Size
                       th Uploaded on
+                      if canOperateWithBuilding
+                        th Shared with user
                       th Actions
                   tbody
                     each documents
@@ -87,6 +89,11 @@ template(name="rentalApplication")
                             option(value="Other", selected="{{isSelected 'Other'}}") Other
                         td #{size}
                         td {{getReadableLongDate uploadedAt}}
+                        td
+                          if isUploadedByAdmin
+                            input.shared-with-user(type="checkbox", checked=canUserView)
+                          else
+                            | Uploaded by user
                         td
                           a(href="{{url}}", target="_blank")
                             i.fa.fa-eye
