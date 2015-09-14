@@ -80,7 +80,9 @@
     <div class="container">
       <div class="col-lg-12">
         <h1>{{documentType}}</h1>
+        {{#if isImage}}
         <img class="document" src="{{baseUrl}}{{url}}" />
+        {{/if}}
       </div>
     </div>
     {{/each}}
