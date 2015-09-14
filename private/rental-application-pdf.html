@@ -75,11 +75,14 @@
         </div>
       </div>
     </div>
+    {{#each documents}}
     <div class="break"></div>
     <div class="container">
       <div class="col-lg-12">
-        <h1>List of documents</h1>
+        <h1>{{documentType}}</h1>
+        <img class="document" src="{{baseUrl}}{{url}}" />
       </div>
     </div>
+    {{/each}}
   </body>
 </html>

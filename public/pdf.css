@@ -38,3 +38,8 @@
 #rental-application-wrapper .input-tiny {
   width: 80px;
 }
+
+img.document {
+  max-width: 1000px;
+  max-height: 1550px;
+}

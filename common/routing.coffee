@@ -202,6 +202,19 @@ Router.map ->
         if @signature and @signature.svgbase64
           @signature.svgbase64[1]
 
+      "baseUrl": ->
+        # Return root URL with trailing slash removed
+        process.env.ROOT_URL.slice(0, -1)
+
+      "documents": ->
+        result = []
+        if @documents
+          for document in @documents
+            loadedDocument = document.getFileRecord()
+            result.push(loadedDocument) if loadedDocument instanceof FS.File
+
+        result
+
     html = SSR.render('rentalApplicationPDF', rentalApplication)
 
     res = @response
