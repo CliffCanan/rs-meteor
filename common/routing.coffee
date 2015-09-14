@@ -163,7 +163,13 @@ Router.map ->
         createdAt: new Date()
         status: 'New'
 
-      newRentalApplication.buildingId = @params.query.buildingId if @params.query.buildingId
+      if @params.query.buildingId
+        unit = Buildings.findOne(@params.query.buildingId)
+
+        if unit
+          newRentalApplication.buildingId = unit._id
+          newRentalApplication.fields =
+            unitName: unit.title
 
       insertedId = RentalApplications.insert newRentalApplication
       Router.go('rentalApplication', {id: insertedId}, {replaceState: true})
