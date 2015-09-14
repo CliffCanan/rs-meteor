@@ -14,6 +14,8 @@ template(name="adminRentalApplications")
             thead
               tr
                 th Created at
+                th Applicant name
+                th Unit name
                 th Updated at
                 th Status
                 th Actions
@@ -21,6 +23,8 @@ template(name="adminRentalApplications")
               each rentalApplications
                 tr
                   td {{getReadableLongDateTime createdAt}}
+                  td #{applicationFullName}
+                  td #{applicationUnitName}
                   td {{getReadableLongDateTime updatedAt}}
                   td #{status}
                   td
