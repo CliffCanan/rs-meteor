@@ -104,27 +104,21 @@ Template.rentalApplication.events
   "submit #rental-application-password-form": (event, template) ->
     event.preventDefault()
 
-    context = @
+    fields =
+      password: template.$('#rental-application-password-form').find('#password').val()
+      hasPassword: true
+      fields: $('#rental-application-form').serializeFormJSON()
+
+    $jSignature = template.$('#signature')
+    if $jSignature.jSignature('isModified')
+      fields.signature = 
+        base30: $jSignature.jSignature('getData', 'base30')
+        svgbase64: $jSignature.jSignature('getData', 'svgbase64')
+
     RentalApplications.update template.data._id,
-      $set: 
-        password: template.$('#rental-application-password-form').find('#password').val()
-        hasPassword: true
-        fields: $('#rental-application-form').serializeFormJSON()
+      $set: fields
       , (err, result) ->
         template.$("#rental-application-password").modal('toggle')
-        $jSignature = template.$('#signature')
-        if $jSignature.jSignature('isModified')
-          signatureData = $jSignature.jSignature("getData", "svgbase64")
-          signatureURI = "data:#{signatureData.join(",")}"
-
-          file = new FS.File()
-          file.attachData signatureURI
-          file.name 'Signature.svg'
-
-          insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
-            RentalApplications.update template.data._id,
-              $addToSet:
-                documents: insertedDocument
 
   "submit #rental-application-save-revision-form": (event, template) ->
     event.preventDefault()
