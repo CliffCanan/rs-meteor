@@ -84,6 +84,11 @@ Template.rentalApplication.events
     canUserView = $(event.target).prop('checked')
     RentalApplicationDocuments.update @_id, {$set: {canUserView: canUserView}}
 
+  "click .delete-document": (event, template) ->
+    if confirm 'Are you sure you want to delete this document?'
+      RentalApplications.update(template.data._id, { $pull: { documents: {"EJSON$value.EJSON_id": @_id } }})
+      RentalApplicationDocuments.remove(@_id)
+
   "submit #rental-application-access-form": (event, template) ->
     event.preventDefault()
     params =

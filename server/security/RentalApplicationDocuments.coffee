@@ -3,5 +3,7 @@ RentalApplicationDocuments.allow
     true
   update: (userId, doc, fields, modifier, options) ->
     true
+  remove: (userId, doc) ->
+    Security.canOperateWithBuilding()
   download: (userId, file) ->
     true
