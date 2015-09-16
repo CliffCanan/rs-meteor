@@ -184,10 +184,15 @@ Router.map ->
 
   @route "/rental-application/:id/download", ->
     rentalApplication = RentalApplications.findOne(@params.id)
+
+    # Get PDF template file from the /private directory. It's HTML instead of Jade because of a bug in the jade / jade-compiler package
+    # We'll use Jade once this is addressed: https://github.com/mquandalle/meteor-jade/issues/168
     template = Assets.getText('rental-application-pdf.html')
 
+    # Compile template using Server Side Render package
     SSR.compileTemplate('rentalApplicationPDF', template)
 
+    # Define all helpers
     Template.rentalApplicationPDF.helpers
       "renderDate": (date) ->
         moment(date).format("MM/DD/YYYY")
@@ -208,6 +213,7 @@ Router.map ->
         if @signature and @signature.svgbase64
           @signature.svgbase64[1]
 
+      # Base URL seems to be required so images can be loaded via absolute paths
       "baseUrl": ->
         # Return root URL with trailing slash removed
         process.env.ROOT_URL.slice(0, -1)
@@ -217,15 +223,56 @@ Router.map ->
         if @documents
           for document in @documents
             loadedDocument = document.getFileRecord()
-            result.push(loadedDocument) if loadedDocument instanceof FS.File
+            result.push(loadedDocument) if loadedDocument instanceof FS.File and loadedDocument.isImage()
 
         result
 
+    # Get rendered HTML with the current rental application object passed in
     html = SSR.render('rentalApplicationPDF', rentalApplication)
 
     res = @response
-    stream = wkhtmltopdf(html, viewportSize: '1200x768', (code, signal) ->
-    ).pipe(res)
+    fs = Npm.require('fs')
+
+    # Start wkhtmltopdf to process the HTML, with a bigger viewport so the form layout is mantained
+    stream = wkhtmltopdf(html, viewportSize: '1200x768')
+
+    # PDF(s) that are uploaded to the application can only be appended together with the pdftk package. Let's look at each uploaded
+    # document to see if we have PDF documents
+
+    # 'Hardcode' the base path for CollectionFS documents for now since there is no official function to do it.
+    basePath = fs.realpathSync(process.cwd() + '/../../..') + '/cfs/files/rentalApplicationDocuments'
+
+    hasPDF = false
+    if rentalApplication.documents
+      pdfCatJoinArgs = []
+      for document in rentalApplication.documents
+        loadedDocument = document.getFileRecord()
+        if loadedDocument.type() is 'application/pdf'
+          # Yeap, PDF found. Push the absolute path of the PDF into the arguments array.
+          filename = loadedDocument.copies['rentalApplicationDocuments'].key
+          pdfCatJoinArgs.push "#{basePath}/#{filename}"
+
+      if pdfCatJoinArgs.length
+        # pdftk takes has the following arguments: [inputFilepath1, inputFilepath2, ..., 'cat', 'output', outputFilepath]
+        # For the first PDF file, we'll create a temporary PDF from wkhtmltopdf's output
+        pdfTempFile = "/tmp/#{@params.id}.pdf"
+        pdfJoinedTempFile = "/tmp/#{@params.id}-joined.pdf"
+        pdfCatPrefixArgs = [pdfTempFile]
+        pdfCatSuffixArgs = ['cat', 'output', pdfJoinedTempFile]
+
+        pdfCatArgs = pdfCatPrefixArgs.concat(pdfCatJoinArgs, pdfCatSuffixArgs)
+
+        # Pipe the wkhtmltopdf out to the temp file and when it's done, run pdftk to concat uploaded PDFs at the end of the document
+        fileEvent = stream.pipe(fs.createWriteStream(pdfTempFile))
+        fileEvent.on 'finish', Meteor.bindEnvironment -> 
+          PDFTK.execute(pdfCatArgs)
+          # When pdftk is done, read the final joined PDF file and pipe it to the route's response to have it displayed in the browser
+          fs.createReadStream(pdfJoinedTempFile).pipe(res)
+
+        hasPDF = true
+    
+    # Or if there is not uploaded PDFs, pipe wkhtmltopdf to the browser
+    stream.pipe(res) if not hasPDF
 
   , where: 'server'
 
