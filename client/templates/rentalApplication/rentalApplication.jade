@@ -88,7 +88,10 @@ template(name="rentalApplication")
                             option(value="Pay Stub", selected="{{isSelected 'Pay Stub'}}") Pay Stub
                             option(value="Other", selected="{{isSelected 'Other'}}") Other
                           if isOther
-                            input.form-control.document-type-other(type="text", placeholder="Please specify type", value="#{documentType}")
+                            .document-type-other-wrapper
+                              input.form-control.document-type-other(type="text", placeholder="Please specify type", value="#{documentType}")
+                              i.fa.fa-spin.fa-spinner
+                              i.fa.fa-check-circle.text-success
                         td #{size}
                         td {{getReadableLongDate uploadedAt}}
                         td

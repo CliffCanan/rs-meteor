@@ -103,11 +103,16 @@ Template.rentalApplication.events
     if saveOtherDocumentType
       Meteor.clearTimeout saveOtherDocumentType
 
-    id = @_id
+    $siblings = $(event.target).siblings('i.fa')
+    $siblings.hide()
+    $siblings.filter('.fa-spinner').show()
 
+    id = @_id
     saveOtherDocumentType = Meteor.setTimeout ->
       documentType = $(event.target).val()
-      RentalApplicationDocuments.update id, {$set: {documentType: documentType}}
+      RentalApplicationDocuments.update id, {$set: {documentType: documentType}}, {}, (err, result) ->
+        $siblings.hide()
+        $siblings.filter('.fa-check-circle').show()
       Meteor.clearTimeout saveOtherDocumentType
     , 1500
 
