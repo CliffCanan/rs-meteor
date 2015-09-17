@@ -1,3 +1,5 @@
+saveOtherDocumentType = ''
+
 Template.rentalApplication.onRendered ->
   instance = @
   Tracker.autorun ->
@@ -71,18 +73,43 @@ Template.rentalApplication.helpers
   rentalApplicationRevisionsCount: ->
     data = Template.instance().data
     RentalApplicationRevisions.find({parentId: data._id}).count()
+  documentTypeClass: ->
+    classes = [@documentType]
+    classes.push 'other' if @isOther is true
+    classes.join ' '
   isSelected: (value) ->
-    'selected' if @documentType is value
+    return 'selected' if @isOther is true and value is 'Other'
+    return 'selected' if @documentType is value
 
 Template.rentalApplication.events
   "change .document-type": (event, template) ->
     documentType = $(event.target).val()
     if documentType
-      RentalApplicationDocuments.update @_id, {$set: {documentType: documentType}}
+      modifiers = {}
+      if documentType is 'Other'
+        modifiers.$set = isOther: true
+        modifiers.$unset = documentType: 1
+      else
+        modifiers.$set = documentType: documentType
+        modifiers.$unset = isOther: 1
+
+      RentalApplicationDocuments.update @_id, modifiers
 
   "change .shared-with-user": (event, template) ->
     canUserView = $(event.target).prop('checked')
     RentalApplicationDocuments.update @_id, {$set: {canUserView: canUserView}}
+
+  "keyup .document-type-other": (event, template) ->
+    if saveOtherDocumentType
+      Meteor.clearTimeout saveOtherDocumentType
+
+    id = @_id
+
+    saveOtherDocumentType = Meteor.setTimeout ->
+      documentType = $(event.target).val()
+      RentalApplicationDocuments.update id, {$set: {documentType: documentType}}
+      Meteor.clearTimeout saveOtherDocumentType
+    , 1500
 
   "click .delete-document": (event, template) ->
     if confirm 'Are you sure you want to delete this document?'
