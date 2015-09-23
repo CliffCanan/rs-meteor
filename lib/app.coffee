@@ -1,4 +1,4 @@
-@itemsPerPage = 60
+@itemsPerPage = 24
 
 @cities =
   atlanta:
