@@ -36,11 +36,6 @@ Template.city.helpers
 
   buildings: ->
     filtered = []
-    _.defer ->
-      wrap = $(".main-city-list-wrap").get(0)
-      wrap.style.display = "none"
-      wrap.offsetHeight # no need to store this anywhere, the reference is enough
-      wrap.style.display = ""
 
     query = Router.current().params.query
     controller = Router.current()
