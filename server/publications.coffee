@@ -49,7 +49,7 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
 
   @addDependency "buildings", "images", (building) ->
     _id = building.images?[0]?._id
-    if _id then [BuildingImages.find(_id)] else []
+    if _id then [BuildingImages.find(_id, {fields: {'copies.thumbs': 1}})] else []
 
   # Limit fields to only those needed to display on city listing. Other fields are for building page.
   fields =
