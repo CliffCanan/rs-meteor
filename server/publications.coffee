@@ -51,7 +51,35 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
     _id = building.images?[0]?._id
     if _id then [BuildingImages.find(_id)] else []
 
-  Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit})
+  # Limit fields to only those needed to display on city listing. Other fields are for building page.
+  fields =
+    cityId: 1
+    title: 1
+    images: 1
+    isPublished: 1
+    btype: 1
+    isOnMap: 1
+    latitude: 1
+    longitude: 1
+    slug: 1
+    neighborhoodSlug: 1
+    fitnessCenter: 1
+    security: 1
+    laundry: 1
+    parking: 1
+    pets: 1
+    utilities: 1
+    agroIsUnit: 1
+    agroPriceTotalFrom: 1
+    agroPriceTotalTo: 1
+    agroPriceStudioFrom: 1
+    agroPriceStudioTo: 1
+    agroPriceBedroom1From: 1
+    agroPriceBedroom1To: 1
+    agroPriceBedroom2From: 1
+    agroPriceBedroom2To: 1
+
+  Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
 
 Meteor.smartPublish "buildingsSimilar", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
