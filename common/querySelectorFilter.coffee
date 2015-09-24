@@ -1,5 +1,7 @@
 @addQueryFilter = (query, selector) ->
   fieldName = "agroPriceTotalFrom"
+  if query.neighborhoodSlug
+    selector.neighborhoodSlug = query.neighborhoodSlug
   if query.btype
     fieldName = "agroPrice" + query.btype.charAt(0).toUpperCase() + query.btype.slice(1) + "From"
     selector[fieldName] = {$exists: true}

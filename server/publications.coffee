@@ -57,6 +57,8 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
     title: 1
     images: 1
     isPublished: 1
+    position: 1
+    parentId: 1
     btype: 1
     isOnMap: 1
     latitude: 1
