@@ -329,10 +329,11 @@ Template.city.events
 
   "scroll .main-city-list-wrap": (event, template) ->
     $el = $(event.currentTarget)
-    Session.set("cityScroll", $el.scrollTop())
-    if citySubs.ready and template.view.template.__helpers[" notAllLoaded"].call(template.data)
-      $container = $(".main-city-list", $el)
-      if $el.scrollTop() >= $container.outerHeight() - $el.outerHeight()
+    $container = $(".main-city-list", $el)
+    scrollTop = $el.scrollTop()
+    Session.set("cityScroll", scrollTop)
+    if citySubs.ready and scrollTop >= $container.outerHeight() - $el.outerHeight()
+      if template.view.template.__helpers[" notAllLoaded"].call(template.data)
         incrementPageNumber()
 
   "click .button-building-insert": (event, template) ->

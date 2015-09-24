@@ -409,19 +409,20 @@ template(name="building")
             h2.section-title
               | Similar Properties
             ul.main-city-list.list-unstyled.row.similar-properties
-              each similarProperties .
-                li.col-lg-3
-                  .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
-                    a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
-                      img(style="width:100%;height:184px" src="{{#if mainImage}}{{mainImage.url store='thumbsSmall'}}{{else}}/images/placeholder.png{{/if}}")
-                    .main-city-item-wrap
-                      .row
-                        .col-md-8
-                          p.main-city-item-link
-                            | {{title}}
-                        .col-md-4
-                          p.similar-property-price 
-                            | {{displayBuildingPrice ../queryBtype}}
+              if Template.subscriptionsReady
+                each similarProperties .
+                  li.col-lg-3
+                    .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
+                      a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
+                        img(style="width:100%;height:184px" src="{{#if mainImage}}{{mainImage.url store='thumbsSmall'}}{{else}}/images/placeholder.png{{/if}}")
+                      .main-city-item-wrap
+                        .row
+                          .col-md-8
+                            p.main-city-item-link
+                              | {{title}}
+                          .col-md-4
+                            p.similar-property-price
+                              | {{displayBuildingPrice ../queryBtype}}
 
         | {{ironRouterHack}}
 
