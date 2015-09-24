@@ -164,13 +164,14 @@ Router.map ->
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       @next()
     onAfterAction: ->
-      building = @data().building
-      metaTags = building.metaTags()
-      if metaTags.title
-        SEO.set
-          title: metaTags.title
-          meta:
-            description: metaTags.description
+      if @data() and @data().building
+        building = @data().building
+        metaTags = building.metaTags()
+        if metaTags.title
+          SEO.set
+            title: metaTags.title
+            meta:
+              description: metaTags.description
 
   @route "/autologin/:token",
     name: "autologin"
