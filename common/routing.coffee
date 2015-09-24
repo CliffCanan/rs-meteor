@@ -150,7 +150,6 @@ Router.map ->
         buildingSubs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug)
         buildingSubs.subscribe("buildingAdminSame", @params.cityId, @params.unitSlug or @params.buildingSlug)
         buildingSubs.subscribe("buildingsSimilar", @params.cityId, @params.unitSlug or @params.buildingSlug)
-        buildingSubs.subscribe("vimeoVideos")
       ]
     data: ->
       # console.log("cityId: " + @params.cityId)

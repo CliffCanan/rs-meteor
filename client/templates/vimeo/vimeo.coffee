@@ -1,7 +1,14 @@
+Template.vimeo.onCreated ->
+  @subscribe("vimeoVideos")
+
 Template.vimeo.onRendered ->
   Meteor.call 'getVimeoVideos'
   Meteor.typeahead.inject()
-  Session.set "currentVideo", VimeoVideos.findOne()
+  # Set a default video once the Vimeo subscription is completed.
+  Tracker.autorun (c) ->
+    if video = VimeoVideos.findOne()
+      Session.set "currentVideo", video
+      c.stop()
 
 Template.vimeo.helpers
   videosSearch: (query, sync, async) ->

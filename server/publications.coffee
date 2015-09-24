@@ -242,6 +242,8 @@ Meteor.publish "propertyLists", ->
   PropertyLists.find()
 
 Meteor.publish "vimeoVideos", ->
+  unless @userId
+    return []
   VimeoVideos.find()
 
 Meteor.smartPublish "pendingReviews", ->
