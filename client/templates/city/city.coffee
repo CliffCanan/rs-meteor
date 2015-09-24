@@ -26,7 +26,7 @@ Template.city.helpers
     citySubs.dep.depend()
     ready = citySubs.ready
     if ready
-      cityPageData = Session.get("cityPageData")
+      cityPageData = Session.get("neighborhoodPageData") or Session.get("cityPageData")
       Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage) if cityPageData
     !ready
   notAllLoaded: ->
@@ -279,9 +279,17 @@ Template.city.onRendered ->
       map.fitBounds(bounds)
 
 incrementPageNumber = ->
-  cityPageData = Session.get("cityPageData")
-  cityPageData.page++
-  Session.set("cityPageData", cityPageData)
+  if Router.current().route.getName() is "city"
+    cityPageData = Session.get("cityPageData")
+    cityPageData.page++
+    Session.set("cityPageData", cityPageData)
+  else if Router.current().route.getName() is "neighborhood"
+    neighborhoodPageData = Session.get("neighborhoodPageData")
+    neighborhoodPageData.page++
+    Session.set("neighborhoodPageData", neighborhoodPageData)
+
+Template.city.onDestroyed ->
+  Session.set('neighborhoodPageData', null)
 
 CalculateDistance = (lat1, lon1, lat2, lon2) ->
   radlat1 = Math.PI * lat1 / 180

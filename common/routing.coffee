@@ -122,17 +122,16 @@ Router.map ->
       query = _.clone(@params.query)
       query.neighborhoodSlug = @params.neighborhoodSlug
       [
-        citySubs.subscribe("buildings", @params.cityId, query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
+        citySubs.subscribe("buildings", @params.cityId, query, if Meteor.isClient then Session.get("neighborhoodPageData")?.page or 1 else 1)
         Meteor.subscribe("city-buildings-count", @params.cityId, query)
       ]
     data: ->
       return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
-      oldData = Session.get("cityPageData")
-      if oldData?.cityId isnt @params.cityId
-        Session.set("cityPageData", {cityId: @params.cityId, page: 1})
-        Session.set("cityScroll", 0)
+      Session.set("neighborhoodPageData", {page: 1})
+      Session.set("cityPageData", {cityId: @params.cityId, page: 1})
+      Session.set("cityScroll", 0)
       @next()
     onAfterAction: ->
       SEO.set
