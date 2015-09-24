@@ -1,5 +1,8 @@
 positions = [10000, 5000, 0, -5000, -10000]
 
+Template.building.onCreated ->
+  @subscribe("buildingsSimilar", Router.current().data().building._id)
+
 Template.building.helpers
   ironRouterHack: ->
     Router.current() # reactivity

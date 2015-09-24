@@ -81,26 +81,40 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
 
   Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
 
-Meteor.smartPublish "buildingsSimilar", (cityId, slug) ->
-  check(cityId, Match.InArray(cityIds))
-  check(slug, String)
-  selector = {cityId: cityId, slug: slug}
-  #addIsPublishFilter(@userId, selector)
-  building = Buildings.findOne(selector)
+Meteor.smartPublish "buildingsSimilar", (buildingId) ->
+  building = Buildings.findOne(buildingId)
 
+  # Only load the first thumbnail since we only need the thumbnail
   @addDependency "buildings", "images", (building) ->
-    imageIds = _.map building.images, (file) ->
-      file._id
-    [BuildingImages.find({_id: {$in: imageIds}})]
+    _id = building.images?[0]?._id
+    if _id then [BuildingImages.find(_id, {fields: {'copies.thumbs': 1}})] else []
 
   from = building.agroPriceTotalTo - 200
   to = building.agroPriceTotalTo + 200
   selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}
 
-  @addDependency "buildings", "images", (building) ->
-    _id = building.images?[0]?._id
-    if _id then [BuildingImages.find(_id)] else []
-  Buildings.find(selector, {limit: 4})
+  # Limit fields to only those needed to display on similar properties block
+  fields =
+    cityId: 1
+    title: 1
+    images: 1
+    isPublished: 1
+    btype: 1
+    slug: 1
+    neighborhoodSlug: 1
+    bathroomsTo: 1
+    parentId: 1
+    agroIsUnit: 1
+    agroPriceTotalFrom: 1
+    agroPriceTotalTo: 1
+    agroPriceStudioFrom: 1
+    agroPriceStudioTo: 1
+    agroPriceBedroom1From: 1
+    agroPriceBedroom1To: 1
+    agroPriceBedroom2From: 1
+    agroPriceBedroom2To: 1
+
+  Buildings.find(selector, {limit: 4, fields: fields})
 
 Meteor.smartPublish "recommendedBuildings", (buildingIds) ->
   @addDependency "buildings", "images", (building) ->

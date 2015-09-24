@@ -149,7 +149,6 @@ Router.map ->
         buildingSubs.subscribe("buildingParent", @params.cityId, @params.unitSlug or @params.buildingSlug)
         buildingSubs.subscribe("buildingUnits", @params.cityId, @params.unitSlug or @params.buildingSlug)
         buildingSubs.subscribe("buildingAdminSame", @params.cityId, @params.unitSlug or @params.buildingSlug)
-        buildingSubs.subscribe("buildingsSimilar", @params.cityId, @params.unitSlug or @params.buildingSlug)
       ]
     data: ->
       # console.log("cityId: " + @params.cityId)
