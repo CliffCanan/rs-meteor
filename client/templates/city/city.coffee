@@ -14,6 +14,10 @@ $(window).on("resize", setHeights)
 
 markers = {}
 
+Template.city.onCreated ->
+  @data.firstLoad = true
+  @buildingsCount = new ReactiveVar(0)
+
 Template.city.helpers
   firstLoad: ->
     citySubs.dep.depend()
@@ -31,7 +35,7 @@ Template.city.helpers
     !ready
   notAllLoaded: ->
     return false if Session.get "showRecommendations"
-    Template.city.__helpers[" buildings"].call(@).count() < Counts.get("city-buildings-count")
+    Template.instance().buildingsCount.get() < Counts.get("city-buildings-count")
   # TODO: filter by price depend on btype
 
   buildings: ->
@@ -98,12 +102,12 @@ Template.city.helpers
 
           selector._id = {$in: filtered}
       else
-        Session.set("cityGeoLocation", "") 
+        Session.set("cityGeoLocation", "")
 
-    Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+    buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+    Template.instance().buildingsCount.set(buildings.count())
 
-Template.city.onCreated ->
-  @data.firstLoad = true
+    buildings
 
 Template.city.onRendered ->
   instance = @
