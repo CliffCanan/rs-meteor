@@ -87,7 +87,7 @@ Meteor.smartPublish "buildingsSimilar", (buildingId) ->
   # Only load the first thumbnail since we only need the thumbnail
   @addDependency "buildings", "images", (building) ->
     _id = building.images?[0]?._id
-    if _id then [BuildingImages.find(_id, {fields: {'copies.thumbs': 1}})] else []
+    if _id then [BuildingImages.find(_id, {fields: {'copies.thumbsSmall': 1}})] else []
 
   from = building.agroPriceTotalTo - 200
   to = building.agroPriceTotalTo + 200
