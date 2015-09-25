@@ -5,8 +5,19 @@ updateScroll = ->
   else
     Meteor.setTimeout(updateScroll, 100)
 
-Template.cityBuildings.rendered = ->
+Template.cityBuildings.onRendered ->
   updateScroll()
+
+  instance = Template.instance()
+
+  _.defer ->
+    $(".main-city-list").hoverIntent ->
+      if not $(this).hasClass('images-subscribed')
+        $carousel = $(this).find('.carousel')
+        building = Blaze.getData(this)
+        instance.subscribe "buildingImages", building._id
+        $(this).addClass('images-subscribed')
+    , '.main-city-img-link'
 
 Template.cityBuildings.helpers
   checkAvailable: (id) ->
@@ -29,9 +40,22 @@ Template.cityBuildings.helpers
   getThumbnail: (store) ->
     share.getThumbnail.call @, store
   mediaClass: ->
-    return 'video' if @vimeoId?
+    classes = []
+    classes.push 'active' if @_index is 0
+    classes.push 'vimeo' if @vimeoId?
+    classes.join ' '
   isVideo: ->
     @vimeoId?
+  buildingImages: ->
+    imageIds = _.map @images, (file) ->
+      file._id
+    index = 0
+    images = _.map BuildingImages.find({_id: {$in: imageIds}}).fetch(), (item) ->
+      item._index = index 
+      index++
+      item
+
+    images
 
 convertTimeToMins = (time) ->
   if time.indexOf("days") == -1

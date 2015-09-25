@@ -18,6 +18,9 @@ Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
 
+  unless $.fn.hoverIntent
+    $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
+
 Template.city.helpers
   firstLoad: ->
     citySubs.dep.depend()
@@ -149,33 +152,6 @@ Template.city.onRendered ->
       $('.main-city-list').css marginTop: 53
     else
       $('.main-city-list').css marginTop: 0
-      
-    _.defer ->
-      $(".carousel").each ->
-        $carousel = $(this)
-        carousel = $carousel.data("bs.carousel")
-        if carousel
-          carousel.pause()
-          carousel.destroy()
-        $firstItem = $carousel.find(".item:first")
-        if $firstItem.size()
-          $firstItem.addClass("active")
-          $carousel.show().carousel()
-
-          $img = $firstItem.find('img')
-          $img.attr 'src', $img.data('src')
-        else
-          $carousel.hide()
-
-        $carousel.hover ->
-          if not $(this).hasClass('images-subscribed')
-            building = Blaze.getData(this)
-            instance.subscribe "buildingImages", building._id
-            $(this).addClass('images-subscribed')
-
-        $carousel.on 'slide.bs.carousel', (e) ->
-          $img = $('img', e.relatedTarget);
-          $img.attr 'src', $img.data('src')
 
     citySubs.dep.depend()
     if citySubs.ready

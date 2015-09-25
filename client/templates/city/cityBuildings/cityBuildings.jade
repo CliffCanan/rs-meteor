@@ -9,13 +9,13 @@ template(name="cityBuildings")
               i.fa.fa-star
 
           a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}")
-            .building-img-wrap.carousel.slide(id="carousel-{{_id}}", data-ride="carousel", data-interval="false")
+            .building-img-wrap.carousel.slide(id="carousel-{{_id}}" data-interval="false")
               .carousel-inner(role="listbox")
-                each getImages
+                each buildingImages
                   .item(class="{{mediaClass}}")
                     if isVideo
                       i.fa.fa-video-camera.fa-3x
-                    img.building-img(data-src="{{getThumbnail store='thumbs'}}" src="#")
+                    img.building-img(src="{{getThumbnail store='thumbs'}}")
               a.left.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="prev")
                 i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
                 span.sr-only
