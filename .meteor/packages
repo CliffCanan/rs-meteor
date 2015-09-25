@@ -14,7 +14,6 @@ meteorhacks:fast-render
 meteorhacks:subs-manager
 matb33:collection-hooks
 percolate:migrations
-percolatestudio:percolatestudio-mixpanel
 accounts-password
 meteorhacks:kadira
 meteorhacks:npm

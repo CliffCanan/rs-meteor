@@ -5,10 +5,10 @@ process.env.MAIL_URL = 'smtp://localhost:25';
 Meteor.startup ->
   Buildings._ensureIndex({slug: 1}, {unique: true, background: true})
 
-  if Meteor.settings.public.isDebug
+  # if Meteor.settings.public.isDebug
 #    Meteor.setInterval(share.loadFixtures, 300)
 #    mysqlImport()
-  else
+  # else
 #    mysqlImport(true)
 
 #  if Meteor.settings.public.isDebug
