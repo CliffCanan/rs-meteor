@@ -129,10 +129,13 @@ Meteor.methods
       console.log "importImage > buildingId: " + buildingId
       if object.images
         for uri in object.images
-          BuildingImages.insert uri, (err, file) ->
-            Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+          try
+            file = BuildingImages.insert uri
             console.log "image file: ", file
-            Meteor.sleep(1000)
+            file = _.omit(file, 'collection')
+            Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+          catch error
+            console.error(error)
           Meteor.sleep(1500)
       # All images imported for this building. Mark it as complete and it will appear in the list.
       Buildings.update(buildingId, {$set: {isImportCompleted: true, isPublished: true}})
