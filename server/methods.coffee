@@ -120,27 +120,32 @@ Meteor.methods
   "importImagesByBatch": (uploadObject) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
 
-    console.log "====== importImagesByBatch ======"
+    console.log "====== Start importImagesByBatch ======"
 
     clientId = uploadObject.clientId
 
     for object in uploadObject.buildings
       buildingId = object.buildingId
+      console.log "====== Importing images for building id: #{buildingId} ======"
       console.log "importImage > buildingId: " + buildingId
       if object.images
         for uri in object.images
           try
             file = BuildingImages.insert uri
+            Meteor.sleep 500
             console.log "image file: ", file
             file = _.omit(file, 'collection')
             Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+            Meteor.sleep 500
           catch error
             console.error(error)
           Meteor.sleep(1500)
       # All images imported for this building. Mark it as complete and it will appear in the list.
       Buildings.update(buildingId, {$set: {isImportCompleted: true, isPublished: true}})
+      console.log "====== All images for building id: #{buildingId} imported ======"
 
     ClientRecommendations.update(clientId, {$set: {importCompletedAt: new Date()}})
+    console.log "====== End importImagesByBatch ======"
     return true
 
   "importToClientRecommendations": (clientName, buildingIds) ->
