@@ -194,6 +194,9 @@ Router.map ->
 
     # Define all helpers
     Template.rentalApplicationPDF.helpers
+      "checkEquals": (v1, v2) ->
+        v1 is v2
+
       "renderDate": (date) ->
         moment(date).format("MM/DD/YYYY")
 
@@ -212,6 +215,12 @@ Router.map ->
       "signatureData": ->
         if @signature and @signature.svgbase64
           @signature.svgbase64[1]
+
+      "showCriminalHistoryExplanation": ->
+        if @fields.hasFiledForBankruptcy is 'Yes' or @fields.hasBeenEvicted is 'Yes' or @fields.hasRefusedToPayRent is 'Yes' or @fields.hasViolatedOrBrokenAnyLeaseAgreement is 'Yes' or @fields.hasACriminalHistory is 'Yes' or @fields.hasPendingCase is 'Yes' or @fields.isRegisteredSexOffender is 'Yes'
+          return true
+        else
+          return false
 
       # Base URL seems to be required so images can be loaded via absolute paths
       "baseUrl": ->

@@ -2,6 +2,29 @@ saveOtherDocumentType = ''
 
 Template.rentalApplication.onRendered ->
   instance = @
+  $('#partner-ssn').mask('999-99-9999')
+  $('#social-security-number').mask('999-99-9999')
+
+  $('#phone-number').mask('999-999-9999')
+  $('#current-landlord-phone-number').mask('999-999-9999')
+  $('#previous-landlord-phone-number').mask('999-999-9999')
+  $('#first-reference-phone-number').mask('999-999-9999')
+  $('#second-reference-phone-number').mask('999-999-9999')
+  $('#first-emergency-contact-phone-number').mask('999-999-9999')
+  $('#second-emergency-contact-phone-number').mask('999-999-9999')
+
+  $('#is-student').val(@data.fields.isStudent).trigger('change')
+  $('#has-pets').val(@data.fields.hasPets).trigger('change')
+  $('#current-address-ownership').val(@data.fields.currentAddressOwnership).trigger('change')
+  $('#previous-address-ownership').val(@data.fields.previousAddressOwnership).trigger('change')
+  $('#has-filed-for-bankruptcy').val(@data.fields.hasFiledForBankruptcy).trigger('change')
+  $('#has-been-evicted').val(@data.fields.hasBeenEvicted).trigger('change')
+  $('#has-refused-to-pay-rent').val(@data.fields.hasRefusedToPayRent).trigger('change')
+  $('#has-violated-or-broken-any-lease-agreement').val(@data.fields.hasViolatedOrBrokenAnyLeaseAgreement).trigger('change')
+  $('#has-a-criminal-history').val(@data.fields.hasACriminalHistory).trigger('change')
+  $('#has-pending-case').val(@data.fields.hasPendingCase).trigger('change')
+  $('#is-registered-sex-offender').val(@data.fields.isRegisteredSexOffender).trigger('change')
+
   Tracker.autorun ->
     if Security.canOperateWithBuilding() or (instance.data.accessToken and Session.equals('rentalApplicationAccessToken', instance.data.accessToken))
       instance.$('#signature').jSignature()
@@ -82,6 +105,28 @@ Template.rentalApplication.helpers
     return 'selected' if @documentType is value
 
 Template.rentalApplication.events
+  "change #is-student": (event, template) ->
+    if $(event.target).val() is 'Yes'
+      template.$('.student-wrapper').show()
+    else
+      template.$('.student-wrapper').hide()
+
+  "change #has-pets": (event, template) ->
+    if $(event.target).val() is 'Yes'
+      template.$('.pets-wrapper').show()
+    else
+      template.$('.pets-wrapper').hide()
+
+  "change .criminal-history-input-wrapper select": (event, template) ->
+    showExplanationWrapper = false
+    $('.criminal-history-input-wrapper select').each ->
+      showExplanationWrapper = true if $(@).val() == 'Yes'
+
+    if showExplanationWrapper
+      $('.criminal-history-explanation-wrapper').show()
+    else
+      $('.criminal-history-explanation-wrapper').hide()
+
   "change .document-type": (event, template) ->
     documentType = $(event.target).val()
     if documentType
