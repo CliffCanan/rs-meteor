@@ -421,6 +421,10 @@ template(name="rentalApplication")
                   button.btn.btn-success(type="submit") Submit and download PDF
                   a.btn.btn-info(href="{{pathFor 'rentalApplication' id=_id}}/download", target="_blank") Download PDF
 
+              br
+              .col-sm-12
+                a(href="/Consumer_Notice.pdf", target="_blank") Click to read over the Consumer Notice
+
           #rental-application-password.modal.fade
             .modal-dialog
               form#rental-application-password-form.modal-content
