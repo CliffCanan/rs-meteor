@@ -169,7 +169,7 @@ Router.map ->
         if unit
           newRentalApplication.buildingId = unit._id
           newRentalApplication.fields =
-            unitName: unit.title
+            apartmentName: unit.title
 
       insertedId = RentalApplications.insert newRentalApplication
       Router.go('rentalApplication', {id: insertedId}, {replaceState: true})
