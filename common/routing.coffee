@@ -212,6 +212,9 @@ Router.map ->
       "getReadableLongDateTime": (date) ->
         moment(date).format('h:mma, Do MMMM YYYY')
 
+      "formatMoney": (value) ->
+        value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+
       "signatureData": ->
         if @signature and @signature.svgbase64
           @signature.svgbase64[1]
