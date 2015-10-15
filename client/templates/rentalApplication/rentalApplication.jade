@@ -151,7 +151,20 @@ template(name="rentalApplication")
               br
               .form-group
                 label How long at this address
-                input.input-small.form-control(type="text", name="currentAddressDuration", value="#{fields.currentAddressDuration}")
+                select#current-address-duration.form-control(name="currentAddressDuration", value="#{fields.currentAddressDuration}")
+                  option(value="1 month") 1 month
+                  option(value="2 months") 2 months
+                  option(value="3 months") 3 months
+                  option(value="4 months") 4 months
+                  option(value="5 months") 5 months
+                  option(value="6 months") 6 months
+                  option(value="7 months") 7 months
+                  option(value="8 months") 8 months
+                  option(value="9 months") 9 months
+                  option(value="10 months") 10 months
+                  option(value="11 months") 11 months
+                  option(value="12 months") 12 months
+                  option(value="12+ months") 12+ months
               .form-group
                 label Total monthly rent
                 .input-group
@@ -197,7 +210,20 @@ template(name="rentalApplication")
               br
               .form-group
                 label How long at this address
-                input.input-small.form-control(type="text", name="previousAddressDuration", value="#{fields.previousAddressDuration}")
+                select#previous-address-duration.form-control(name="previousAddressDuration", value="#{fields.previousAddressDuration}")
+                  option(value="1 month") 1 month
+                  option(value="2 months") 2 months
+                  option(value="3 months") 3 months
+                  option(value="4 months") 4 months
+                  option(value="5 months") 5 months
+                  option(value="6 months") 6 months
+                  option(value="7 months") 7 months
+                  option(value="8 months") 8 months
+                  option(value="9 months") 9 months
+                  option(value="10 months") 10 months
+                  option(value="11 months") 11 months
+                  option(value="12 months") 12 months
+                  option(value="12+ months") 12+ months
               .form-group
                 label Total monthly rent
                 .input-group

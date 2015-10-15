@@ -215,6 +215,9 @@ Router.map ->
       "formatMoney": (value) ->
         value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 
+      "showPreviousAddress": ->
+        return @fields.previousAddress and (@fields.previousAddressDuration isnt '12+ months' and @fields.previousAddressDuration isnt '12 months')
+
       "signatureData": ->
         if @signature and @signature.svgbase64
           @signature.svgbase64[1]
