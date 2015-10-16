@@ -213,7 +213,7 @@ Router.map ->
         moment(date).format('h:mma, Do MMMM YYYY')
 
       "formatMoney": (value) ->
-        value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') if value
 
       "showPreviousAddress": ->
         return @fields.previousAddress and (@fields.previousAddressDuration isnt '12+ months' and @fields.previousAddressDuration isnt '12 months')
