@@ -246,6 +246,8 @@ Router.map ->
     html = SSR.render('rentalApplicationPDF', rentalApplication)
 
     res = @response
+    res.setHeader('Content-disposition', "inline; filename=Rentscene Rental Application - #{rentalApplication._id}.pdf");
+
     fs = Npm.require('fs')
 
     # Start wkhtmltopdf to process the HTML, with a bigger viewport so the form layout is mantained
