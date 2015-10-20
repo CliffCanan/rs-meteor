@@ -119,6 +119,9 @@ Template.rentalApplication.events
     else
       template.$('.pets-wrapper').hide()
 
+  "click #no-to-all-criminal-history": (event, template) ->
+    template.$('.criminal-history-input-wrapper select').val('No')
+
   "change .criminal-history-input-wrapper select": (event, template) ->
     showExplanationWrapper = false
     $('.criminal-history-input-wrapper select').each ->
