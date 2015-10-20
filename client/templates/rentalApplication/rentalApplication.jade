@@ -407,9 +407,8 @@ template(name="rentalApplication")
                 input.input-large.form-control(type="text", name="secondEmergencyContactAddress", value="#{fields.secondEmergencyContactAddress}")
 
               h3 Required documents
-              p Drop required documents for the application below
               form(action="/file-upload").dropzone.dropzone-user
-                .dz-message Drop files here to upload (or click)
+                .dz-message Drop required documents for the application below to upload (or click)
                 table#files-list.table
                   thead
                     tr
