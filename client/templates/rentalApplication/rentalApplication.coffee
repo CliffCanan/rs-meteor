@@ -238,7 +238,7 @@ Template.rentalApplication.events
     RentalApplications.update template.data._id,
       $set: fields
       , (err, result) ->
-        window.open "#{Router.path('rentalApplication', {id: template.data._id})}/download"
+        location.href = "#{Router.path('rentalApplication', {id: template.data._id})}/download"
         template.$("#rental-application-save-revision").modal('toggle')
 
   "click .revert-rental-application": (event, template) ->

@@ -246,7 +246,7 @@ Router.map ->
     html = SSR.render('rentalApplicationPDF', rentalApplication)
 
     res = @response
-    res.setHeader('Content-disposition', "inline; filename=Rentscene Rental Application - #{rentalApplication._id}.pdf");
+    res.setHeader('Content-disposition', "attachment; filename=Rentscene Rental Application - #{rentalApplication._id}.pdf");
 
     fs = Npm.require('fs')
 
