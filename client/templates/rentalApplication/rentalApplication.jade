@@ -426,10 +426,9 @@ template(name="rentalApplication")
                         td
                           select.form-control.document-type(class="#{documentTypeClass}")
                             option -- Select a document type --
-                            option(value="Bank Statement", selected="{{isSelected 'Bank Statement'}}") Bank Statement
-                            option(value="Drivers License", selected="{{isSelected 'Drivers License'}}") Drivers License
-                            option(value="Immigration Document", selected="{{isSelected 'Immigration Document'}}") Immigration Document
-                            option(value="Pay Stub", selected="{{isSelected 'Pay Stub'}}") Pay Stub
+                            option(value="Identification", selected="{{isSelected 'Identification'}}") Identification
+                            option(value="Proof of Income", selected="{{isSelected 'Proof of Income'}}") Proof of Income
+                            option(value="Bank Statement (Optional)", selected="{{isSelected 'Bank Statement (Optional)'}}") Bank Statement (Optional)
                             option(value="Other", selected="{{isSelected 'Other'}}") Other
                           if isOther
                             .document-type-other-wrapper
