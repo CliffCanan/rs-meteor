@@ -74,14 +74,45 @@
               </div>
               {{/if}}
 
+              {{#if checkEquals fields.hasPartnerRoommate 'I have a partner'}}
+              <br/>
               <div class="form-group">
-                <label>If married, name of partner</label>
+                <label>Name of partner</label>
                 <input type="email" name="nameOfPartner" value="{{fields.nameOfPartner}}" class="input-large form-control"/>
               </div>
               <div class="form-group">
                 <label>Partner SSN</label>
                 <input type="email" name="partnerSSN" value="{{fields.partnerSSN}}" class="input-large form-control"/>
               </div>
+              {{/if}}
+
+              {{#if checkEquals fields.hasPartnerRoommate 'I have a roommate'}}
+              <br/>
+              <div class="form-group">
+                <label>Name of Roommate 1</label>
+                <input type="email" name="nameOfRoommate1" value="{{fields.nameOfRoommate1}}" class="input-large form-control"/>
+              </div>
+              {{#if fields.nameOfRoommate2}}
+              <div class="form-group">
+                <label>Name of Roommate 2</label>
+                <input type="email" name="nameOfRoommate2" value="{{fields.nameOfRoommate2}}" class="input-large form-control"/>
+              </div>
+              {{/if}}
+              {{#if fields.nameOfRoommate3}}
+              <div class="form-group">
+                <label>Name of Roommate 3</label>
+                <input type="email" name="nameOfRoommate3" value="{{fields.nameOfRoommate3}}" class="input-large form-control"/>
+              </div>
+              {{/if}}
+              {{#if fields.nameOfRoommate4}}
+              <div class="form-group">
+                <label>Name of Roommate 4</label>
+                <input type="email" name="nameOfRoommate4" value="{{fields.nameOfRoommate4}}" class="input-large form-control"/>
+              </div>
+              {{/if}}
+              {{/if}}
+
+              <br/>
               <br/>
               <div class="form-group">
                 <label>How many people are in your family</label>

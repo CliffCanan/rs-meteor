@@ -55,8 +55,8 @@ template(name="rentalApplication")
                 select#is-student.form-control(name="isStudent", value="#{fields.isStudent}")
                   option(value="Yes") Yes
                   option(value="No", selected) No
-              br
               .student-wrapper(style="display: none")
+                br
                 .form-group
                   label Institution
                   input.input-large.form-control(type="text", name="institution", value="#{fields.institution}")
@@ -68,11 +68,31 @@ template(name="rentalApplication")
                   input.input-tiny.form-control(type="text", name="anticipatedGraduationYear", value="#{fields.anticipatedGraduationYear}")
               br
               .form-group
-                label If married, name of partner
-                input.input-large.form-control(type="text", name="nameOfPartner", value="#{fields.nameOfPartner}")
-              .form-group
-                label Partner's SSN
-                input#partner-ssn.input-medium.form-control(type="text", name="partnerSSN", value="#{fields.partnerSSN}")
+                label Do you have a partner / roommate(s)?
+                select#has-partner-roommate.form-control(name="hasPartnerRoommate", value="#{fields.hasPartnerRoommate}")
+                  option(value="No") No
+                  option(value="I have a partner", selected) I have a partner
+                  option(value="I have a roommate", selected) I have a roommate(s)
+              .partner-wrapper(style="display: none")
+                .form-group
+                  label Name of partner
+                  input.input-large.form-control(type="text", name="nameOfPartner", value="#{fields.nameOfPartner}")
+                .form-group
+                  label Partner's SSN
+                  input#partner-ssn.input-medium.form-control(type="text", name="partnerSSN", value="#{fields.partnerSSN}")
+              .roommate-wrapper(style="display: none")
+                .form-group
+                  label Name of Roommate 1
+                  input.input-large.form-control(type="text", name="nameOfRoommate1", value="#{fields.nameOfRoommate1}")
+                .form-group
+                  label Name of Roommate 2
+                  input.input-large.form-control(type="text", name="nameOfRoommate2", value="#{fields.nameOfRoommate2}")
+                .form-group
+                  label Name of Roommate 3
+                  input.input-large.form-control(type="text", name="nameOfRoommate3", value="#{fields.nameOfRoommate3}")
+                .form-group
+                  label Name of Roommate 4
+                  input.input-large.form-control(type="text", name="nameOfRoommate4", value="#{fields.nameOfRoommate4}")
               br
               .form-group
                 label How many people are in your family

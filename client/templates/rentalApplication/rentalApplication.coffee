@@ -14,6 +14,7 @@ Template.rentalApplication.onRendered ->
   $('#second-emergency-contact-phone-number').mask('999-999-9999')
 
   $('#is-student').val(@data.fields.isStudent).trigger('change')
+  $('#has-partner-roommate').val(@data.fields.hasPartnerRoommate).trigger('change')
   $('#has-pets').val(@data.fields.hasPets).trigger('change')
   $('#current-address-ownership').val(@data.fields.currentAddressOwnership).trigger('change')
   $('#current-address-duration').val(@data.fields.currentAddressDuration).trigger('change')
@@ -113,11 +114,19 @@ Template.rentalApplication.events
     else
       template.$('.student-wrapper').hide()
 
-  "change #has-pets": (event, template) ->
+  "change #is-student": (event, template) ->
     if $(event.target).val() is 'Yes'
-      template.$('.pets-wrapper').show()
+      template.$('.student-wrapper').show()
     else
-      template.$('.pets-wrapper').hide()
+      template.$('.student-wrapper').hide()
+
+  "change #has-partner-roommate": (event, template) ->
+    template.$('.partner-wrapper').hide()
+    template.$('.roommate-wrapper').hide()
+    if $(event.target).val() is 'I have a partner'
+      template.$('.partner-wrapper').show()
+    else if $(event.target).val() is 'I have a roommate'
+      template.$('.roommate-wrapper').show()
 
   "click #no-to-all-criminal-history": (event, template) ->
     template.$('.criminal-history-input-wrapper select').val('No')
