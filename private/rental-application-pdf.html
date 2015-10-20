@@ -448,7 +448,13 @@
               <h3>Required documents</h3>
               <p>Drop required documents for the application below</p>
               <h3>Signature</h3>
-              <p>I hereby authorize The Rent Scene LLC to obtain and/or verify my credit report, criminal history, employment references and personal references in connection with the processing of this rental application. I also agree to the deposit disclaimer.</p><img src="data:image/svg+xml;base64,{{signatureData}}"/>
+              <p>I hereby authorize The Rent Scene LLC to obtain and/or verify my credit report, criminal history, employment references and personal references in connection with the processing of this rental application. I also agree to the deposit disclaimer.</p>
+              {{#if signatureData}}
+              <img src="data:image/svg+xml;base64,{{signatureData}}"/>
+              {{/if}}
+              <p>
+                <a href="{{absoluteUrl 'Consumer_Notice.pdf'}}" target="_blank">Click to read over the Consumer Notice</a>
+              </p>
             </form>
           </div>
         </div>

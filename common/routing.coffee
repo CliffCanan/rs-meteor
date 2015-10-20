@@ -222,6 +222,9 @@ Router.map ->
         if @signature and @signature.svgbase64
           @signature.svgbase64[1]
 
+      "absoluteUrl": (path) ->
+        Meteor.absoluteUrl path
+
       "showCriminalHistoryExplanation": ->
         if @fields.hasFiledForBankruptcy is 'Yes' or @fields.hasBeenEvicted is 'Yes' or @fields.hasRefusedToPayRent is 'Yes' or @fields.hasViolatedOrBrokenAnyLeaseAgreement is 'Yes' or @fields.hasACriminalHistory is 'Yes' or @fields.hasPendingCase is 'Yes' or @fields.isRegisteredSexOffender is 'Yes'
           return true
