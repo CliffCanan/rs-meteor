@@ -100,6 +100,11 @@ class Building
       @availableAt
   getAvailableAtForDatepicker: ->
     moment(@availableAt).format("MM/DD/YYYY")
+  canApply: ->
+    if @agroIsUnit and @availableAt and @acceptOnlineApplication
+      if moment().diff(moment(@availableAt), 'months') < 4
+        return true
+    false
   getBedrooms: ->
     if @bedroomsFrom
       value = @bedroomsFrom

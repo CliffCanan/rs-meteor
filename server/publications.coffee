@@ -271,4 +271,42 @@ Meteor.smartPublish "pendingReviews", ->
 Meteor.publish null, ->
   if this.userId
     Counts.publish(@, "pendingReviewsCount", BuildingReviews.find({isPublished: false, isRemoved: null}))
+    Counts.publish(@, "rentalApplicationsCount", RentalApplications.find())
   null
+
+Meteor.smartPublish "rentalApplications", ->
+  @addDependency "rentalApplications", "documents", (rentalApplication) ->
+    documentIds = _.map rentalApplication.documents, (file) ->
+      file._id
+    [RentalApplicationDocuments.find({_id: {$in: documentIds}})]
+
+  RentalApplications.find({}, {fields: {password: 0}})
+
+Meteor.smartPublish "rentalApplication", (id, accessToken) ->
+  publish = []
+  accesss = false
+  accessAllDocuments = false
+  if Security.canOperateWithBuilding(this.userId)
+    access = true
+    accessAllDocuments = true
+  else
+    rentalApplication = RentalApplications.findOne(id, {fields: {accessToken: 1}})
+    access = true if rentalApplication.accessToken is accessToken
+
+  if access
+    @addDependency "rentalApplications", "documents", (rentalApplication) ->
+      documentIds = _.map rentalApplication.documentsFromAdmin, (file) ->
+        file._id
+
+      documentsSelector = {}
+      if not accessAllDocuments
+        documentsSelector.canUserView = true
+
+      [RentalApplicationDocuments.find(documentsSelector)]
+
+    publish.push RentalApplications.find(id, {fields: {password: 0}})
+    publish.push RentalApplicationRevisions.find({parentId: id}, {fields: {parentId: 1, updateNote: 1, revisionSavedAt: 1}})
+  else
+    publish.push RentalApplications.find(id, {fields: {accessToken: 1}})
+
+  publish

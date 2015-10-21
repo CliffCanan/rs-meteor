@@ -1,0 +1,546 @@
+template(name="rentalApplication")
+  with this
+    if canAccess
+      #rental-application-wrapper.container   
+        .row
+          .col-lg-8
+            h1 Rental Application
+          .col-lg-4
+            .application-dates
+              .pull-right
+                i.fa.fa-clock-o
+                | Created on {{getReadableLongDate createdAt}}
+                br
+                i.fa.fa-undo
+                a#application-revisions(href="#rental-application-show-revisions", data-toggle="modal") #{rentalApplicationRevisionsCount} Revisions
+          .col-lg-12
+            p
+              | After completing the form below, please click "Submit and download PDF" to save a copy on your computer. Please email the completed PDF to
+              a(href="mailto:info@rentscene.com") info@rentscene.com
+              | .
+
+            form#rental-application-form.form-inline
+              h3 Rent Details
+              .form-group
+                label Which apartment are you applying to
+                input.input-large.form-control(type="text", name="apartmentName", value="#{fields.apartmentName}")
+              br
+              .form-group
+                label Move in date
+                +datepicker(name="moveInDate" value=getDatePickerDateMoveInDate)
+              .form-group
+                label Lenght of lease
+                input.input-small.form-control(type="text", name="lenghtOfLease", value="#{fields.lenghtOfLease}")
+              .form-group
+                label Rent
+                .input-group
+                  .input-group-addon $
+                  input.input-tiny.form-control(type="text", name="rent", value="#{fields.rent}")
+              h3 Personal Information
+              .form-group
+                label Applicant's full name
+                input.input-large.form-control(type="text", name="fullName", value="#{fields.fullName}")
+              .form-group
+                label Date of birth
+                +datepicker(name="dateOfBirth" options=dateOfBirthOptions value=getDatePickerDateDateOfBirth)
+              .form-group
+                label Social security number
+                input#social-security-number.input-medium.form-control(type="text", name="socialSecurityNumber", value="#{fields.socialSecurityNumber}")
+              .form-group
+                label Email
+                input.input-large.form-control(type="email", name="email", value="#{fields.email}")
+              .form-group
+                label Phone number
+                input#phone-number.input-medium.form-control(type="text", name="phoneNumber", value="#{fields.phoneNumber}")
+              br
+              .form-group
+                label Are you a student?
+                select#is-student.form-control(name="isStudent", value="#{fields.isStudent}")
+                  option(value="Yes") Yes
+                  option(value="No", selected) No
+              .student-wrapper(style="display: none")
+                br
+                .form-group
+                  label Institution
+                  input.input-large.form-control(type="text", name="institution", value="#{fields.institution}")
+                .form-group
+                  label Years there?
+                  input.input-tiny.form-control(type="text", name="institutionDuration", value="#{fields.institutionDuration}")
+                .form-group
+                  label Anticipated graduation year?
+                  input.input-tiny.form-control(type="text", name="anticipatedGraduationYear", value="#{fields.anticipatedGraduationYear}")
+              br
+              .form-group
+                label Do you have a partner / roommate(s)?
+                select#has-partner-roommate.form-control(name="hasPartnerRoommate", value="#{fields.hasPartnerRoommate}")
+                  option(value="No") No
+                  option(value="I have a partner", selected) I have a partner
+                  option(value="I have a roommate", selected) I have a roommate(s)
+              .partner-wrapper(style="display: none")
+                .form-group
+                  label Name of partner
+                  input.input-large.form-control(type="text", name="nameOfPartner", value="#{fields.nameOfPartner}")
+                .form-group
+                  label Partner's SSN
+                  input#partner-ssn.input-medium.form-control(type="text", name="partnerSSN", value="#{fields.partnerSSN}")
+                br
+                .form-group
+                  label How many people are in your family
+                  input.input-medium.form-control(type="text", name="familyMembersCount", value="#{fields.familyMembersCount}")
+                .form-group
+                  label Adults
+                  input.input-small.form-control(type="text", name="adultsCount", value="#{fields.adultsCount}")
+                .form-group
+                  label Children
+                  input.input-small.form-control(type="text", name="childrenCount", value="#{fields.childrenCount}")
+              .roommate-wrapper(style="display: none")
+                .form-group
+                  label Name of Roommate 1
+                  input.input-large.form-control(type="text", name="nameOfRoommate1", value="#{fields.nameOfRoommate1}")
+                .form-group
+                  label Name of Roommate 2
+                  input.input-large.form-control(type="text", name="nameOfRoommate2", value="#{fields.nameOfRoommate2}")
+                .form-group
+                  label Name of Roommate 3
+                  input.input-large.form-control(type="text", name="nameOfRoommate3", value="#{fields.nameOfRoommate3}")
+                .form-group
+                  label Name of Roommate 4
+                  input.input-large.form-control(type="text", name="nameOfRoommate4", value="#{fields.nameOfRoommate4}")
+              br
+              .form-group
+                label Names/relationship of individuals occupying the unit 
+                input.input-large.form-control(type="text", name="individualsInUnit", value="#{fields.individualsInUnit}")
+              br
+              .form-group
+                label Do you have any pet(s)?
+                select#has-pets.form-control(name="hasPets", value="#{fields.hasPets}")
+                  option(value="Yes") Yes
+                  option(value="No", selected) No
+              br
+              .pets-wrapper
+                .form-group
+                  label Pet(s)'s name
+                  input.input-medium.form-control(type="text", name="petName", value="#{fields.petName}")
+                .form-group
+                  label Breed(s)
+                  input.input-xlarge.form-control(type="text", name="petBreed", value="#{fields.petBreed}")
+                br
+                .form-group
+                  label Color(s)
+                  input.input-small.form-control(type="text", name="petColor", value="#{fields.petColor}")
+                .form-group
+                  label Age(s)
+                  input.input-small.form-control(type="text", name="petAge", value="#{fields.petAge}")
+                .form-group
+                  label Gender(s)
+                  input.input-small.form-control(type="text", name="petGender", value="#{fields.petGender}")
+                br
+                .form-group
+                  label Weight(s)
+                  input.input-small.form-control(type="text", name="petWeight", value="#{fields.petWeight}")
+                .form-group
+                  label Spayed / Neutered?
+                  input.form-control.checkbox(type="checkbox", name="petSpayedNeutered", value="true")
+                br
+                .form-group
+                  label Additional info
+                  textarea.input-xxlarge.form-control(type="text", name="petAdditionalInfo", value="#{fields.petAdditionalInfo}")
+
+              h3 Prior Rental Information
+              h4 Current address
+              .form-group
+                label How long were you at this address?
+                select#current-address-duration.form-control(name="currentAddressDuration", value="#{fields.currentAddressDuration}")
+                  option(value="N/A") N/A
+                  option(value="1 month") 1 month
+                  option(value="2 months") 2 months
+                  option(value="3 months") 3 months
+                  option(value="4 months") 4 months
+                  option(value="5 months") 5 months
+                  option(value="6 months") 6 months
+                  option(value="7 months") 7 months
+                  option(value="8 months") 8 months
+                  option(value="9 months") 9 months
+                  option(value="10 months") 10 months
+                  option(value="11 months") 11 months
+                  option(value="12 months") 12 months
+                  option(value="12+ months") 12+ months
+              .current-address-wrapper
+                .form-group
+                  label Current address
+                  input.input-large.form-control(type="text", name="currentAddress", value="#{fields.currentAddress}")
+                .form-group
+                  label City
+                  input.input-medium.form-control(type="text", name="currentCity", value="#{fields.currentCity}")
+                .form-group
+                  label State
+                  input.input-small.form-control(type="text", name="currentState", value="#{fields.currentState}")
+                .form-group
+                  label Zip
+                  input.input-small.form-control(type="text", name="currentZip", value="#{fields.currentZip}")
+                br
+                .form-group
+                  label Rent / Own
+                  select#current-address-ownership.form-control(name="currentAddressOwnership", value="#{fields.currentAddressOwnership}")
+                    option(value="Rent") Rent
+                    option(value="Own", selected) Own
+                .form-group
+                  label Current landlord's name
+                  input.input-large.form-control(type="text", name="currentLandlordName", value="#{fields.currentLandlordName}")
+                .form-group
+                  label Landlord's phone #
+                  input#current-landlord-phone-number.input-medium.form-control(type="text", name="currentLandlordPhoneNumber", value="#{fields.currentLandlordPhoneNumber}")
+                br
+                .form-group
+                  label Total monthly rent
+                  .input-group
+                    .input-group-addon $
+                    input.input-tiny.form-control(type="text", name="currentRent", value="#{fields.currentRent}")
+                .form-group
+                  label Total monthly rent that you were individually responsible for
+                  .input-group
+                    .input-group-addon $
+                    input.input-tiny.form-control(type="text", name="currentRentResponsible", value="#{fields.currentRentResponsible}")  
+                br
+                .form-group
+                  label Reason for leaving
+                  input.input-large.form-control(type="text", name="currentReasonForLeaving", value="#{fields.currentReasonForLeaving}")
+              
+              br
+              h4 Previous address (if at your current address less than 12 months)
+              .form-group
+                label How long were you at this address?
+                select#previous-address-duration.form-control(name="previousAddressDuration", value="#{fields.previousAddressDuration}")
+                  option(value="N/A") N/A
+                  option(value="1 month") 1 month
+                  option(value="2 months") 2 months
+                  option(value="3 months") 3 months
+                  option(value="4 months") 4 months
+                  option(value="5 months") 5 months
+                  option(value="6 months") 6 months
+                  option(value="7 months") 7 months
+                  option(value="8 months") 8 months
+                  option(value="9 months") 9 months
+                  option(value="10 months") 10 months
+                  option(value="11 months") 11 months
+                  option(value="12 months") 12 months
+                  option(value="12+ months") 12+ months
+              .previous-address-wrapper(style="display: none")
+                .form-group
+                  label Previous address
+                  input.input-large.form-control(type="text", name="previousAddress", value="#{fields.previousAddress}")
+                .form-group
+                  label City
+                  input.input-medium.form-control(type="text", name="previousCity", value="#{fields.previousCity}")
+                .form-group
+                  label State
+                  input.input-small.form-control(type="text", name="previousState", value="#{fields.previousState}")
+                .form-group
+                  label Zip
+                  input.input-small.form-control(type="text", name="previousZip", value="#{fields.previousZip}")
+                br
+                .form-group
+                  label Rent / Own
+                  select#previous-address-ownership.form-control(name="previousAddressOwnership", value="#{fields.previousAddressOwnership}")
+                    option(value="Rent") Rent
+                    option(value="Own", selected) Own
+                .form-group
+                  label Previous landlord's name
+                  input.input-large.form-control(type="text", name="previousLandlordName", value="#{fields.previousLandlordName}")
+                .form-group
+                  label Landlord's phone #
+                  input#previous-landlord-phone-number.input-medium.form-control(type="text", name="previousLandlordPhoneNumber", value="#{fields.previousLandlordPhoneNumber}")
+                br
+                .form-group
+                  label Total monthly rent
+                  .input-group
+                    .input-group-addon $
+                    input.input-tiny.form-control(type="text", name="previousRent", value="#{fields.previousRent}")
+                .form-group
+                  label Total monthly rent that you were individually responsible for
+                  .input-group
+                    .input-group-addon $
+                    input.input-tiny.form-control(type="text", name="previousRentResponsible", value="#{fields.previousRentResponsible}")  
+                br
+                .form-group
+                  label Reason for leaving
+                  input.input-large.form-control(type="text", name="previousReasonForLeaving", value="#{fields.previousReasonForLeaving}")
+
+              h3 Current Employment Information
+              .form-group
+                label Present employer
+                input.input-large.form-control(type="text", name="presentEmployer", value="#{fields.presentEmployer}")
+              .form-group
+                label Position
+                input.input-medium.form-control(type="text", name="position", value="#{fields.position}")
+              .form-group
+                label Monthly salary
+                .input-group
+                  .input-group-addon $
+                  input.input-tiny.form-control(type="text", name="monthlySalary", value="#{fields.monthlySalary}")
+              br
+              .form-group
+                label Employer's address
+                input.input-large.form-control(type="text", name="employerAddress", value="#{fields.employerAddress}")
+              .form-group
+                label How long at this position
+                input.input-small.form-control(type="text", name="positionDuration", value="#{fields.positionDuration}")
+              br
+              .form-group
+                label Contact person to verify employment
+                input.input-large.form-control(type="text", name="employmentVerificationPerson", value="#{fields.employmentVerificationPerson}")
+              br
+              .form-group
+                label (Phone # / Email)
+                input#employment-verification-contact.input-large.form-control(type="text", name="employmentVerificationContact", value="#{fields.employmentVerificationContact}")
+
+              br
+              br
+
+              .form-group
+                label Other income / source (if applicable)
+                input.input-large.form-control(type="text", name="otherEmployment", value="#{fields.otherEmployment}")
+              br
+              .form-group
+                label Other employer's address
+                input.input-large.form-control(type="text", name="otherEmployerAddress", value="#{fields.otherEmployerAddress}")
+              br
+              .form-group
+                label Contact person to verify employment
+                input.input-large.form-control(type="text", name="otherEmploymentVerificationPerson", value="#{fields.otherEmploymentVerificationPerson}")
+              br
+              .form-group
+                label (Phone # / Email)
+                input#other-employment-verification-contact.input-large.form-control(type="text", name="otherEmploymentVerificationContact", value="#{fields.otherEmploymentVerificationContact}")
+
+              h3 Criminal History
+              .form-group
+                label Have you, or anyone who is included in this application ever:
+                span
+                  a#no-to-all-criminal-history(href="#") No to all
+              br
+              .criminal-history-input-wrapper
+                .form-group
+                  label Filed for bankruptcy?
+                  select#has-filed-for-bankruptcy.form-control(name="hasFiledForBankruptcy", value="#{fields.hasFiledForBankruptcy}")
+                    option(hidden, selected, value="")
+                    option(value="Yes") Yes
+                    option(value="No") No
+                .form-group
+                  label Been evicted?
+                  select#has-been-evicted.form-control(name="hasBeenEvicted", value="#{fields.hasBeenEvicted}")
+                    option(hidden, selected, value="")
+                    option(value="Yes") Yes
+                    option(value="No") No
+                .form-group
+                  label Refused to pay rent?
+                  select#has-refused-to-pay-rent.form-control(name="hasRefusedToPayRent", value="#{fields.hasRefusedToPayRent}")
+                    option(hidden, selected, value="")
+                    option(value="Yes") Yes
+                    option(value="No") No
+                .form-group
+                  label Violated or broken any lease agreement?
+                  select#has-violated-or-broken-any-lease-agreement.form-control(name="hasViolatedOrBrokenAnyLeaseAgreement", value="#{fields.hasViolatedOrBrokenAnyLeaseAgreement}")
+                    option(hidden, selected, value="")
+                    option(value="Yes") Yes
+                    option(value="No") No
+                .form-group
+                  label Has a criminal history?
+                  select#has-a-criminal-history.form-control(name="hasACriminalHistory", value="#{fields.hasACriminalHistory}")
+                    option(hidden, selected, value="")
+                    option(value="Yes") Yes
+                    option(value="No") No
+                .form-group
+                  label Pending case?
+                  select#has-pending-case.form-control(name="hasPendingCase", value="#{fields.hasPendingCase}")
+                    option(hidden, selected, value="")
+                    option(value="Yes") Yes
+                    option(value="No") No
+                .form-group
+                  label Registered sex offender?
+                  select#is-registered-sex-offender.form-control(name="isRegisteredSexOffender", value="#{fields.isRegisteredSexOffender}")
+                    option(hidden, selected, value="")
+                    option(value="Yes") Yes
+                    option(value="No") No
+
+              br
+
+              .criminal-history-explanation-wrapper(style="display: none")
+                .form-group
+                  label Please explain in detail (stating place, offense, date, etc.)
+                  textarea.input-xxlarge.form-control(type="text", name="criminalHistoryExplanation", value="#{fields.criminalHistoryExplanation}")
+
+              h3 Personal References
+              .form-group
+                label Name
+                input.input-large.form-control(type="text", name="firstReferenceName", value="#{fields.firstReferenceName}")
+              .form-group
+                label Years known
+                input.input-small.form-control(type="text", name="firstReferenceYearsKnown", value="#{fields.firstReferenceYearsKnown}")
+              .form-group
+                label Relationship
+                input.input-medium.form-control(type="text", name="firstReferenceRelationship", value="#{fields.firstReferenceRelationship}")
+              .form-group
+                label Phone #
+                input#first-reference-phone-number.input-medium.form-control(type="text", name="firstReferencePhoneNumber", value="#{fields.firstReferencePhoneNumber}")
+
+              .form-group
+                label Name
+                input.input-large.form-control(type="text", name="secondReferenceName", value="#{fields.secondReferenceName}")
+              .form-group
+                label Years known
+                input.input-small.form-control(type="text", name="secondReferenceYearsKnown", value="#{fields.secondReferenceYearsKnown}")
+              .form-group
+                label Relationship
+                input.input-medium.form-control(type="text", name="secondReferenceRelationship", value="#{fields.secondReferenceRelationship}")
+              .form-group
+                label Phone #
+                input#second-reference-phone-number.input-medium.form-control(type="text", name="secondReferencePhoneNumber", value="#{fields.secondReferencePhoneNumber}")
+
+              h3 Emergency Contact
+              p In the event of an emergency, please contact the following person(s):
+              .form-group
+                label Name
+                input.input-large.form-control(type="text", name="firstEmergencyContactName", value="#{fields.firstEmergencyContactName}")
+              .form-group
+                label Phone #
+                input#first-emergency-contact-phone-number.input-medium.form-control(type="text", name="firstEmergencyContactPhoneNumber", value="#{fields.firstEmergencyContactPhoneNumber}")
+              .form-group
+                label Address
+                input.input-large.form-control(type="text", name="firstEmergencyContactAddress", value="#{fields.firstEmergencyContactAddress}")
+
+              .form-group
+                label Name
+                input.input-large.form-control(type="text", name="secondEmergencyContactName", value="#{fields.secondEmergencyContactName}")
+              .form-group
+                label Phone #
+                input#second-emergency-contact-phone-number.input-medium.form-control(type="text", name="secondEmergencyContactPhoneNumber", value="#{fields.secondEmergencyContactPhoneNumber}")
+              .form-group
+                label Address
+                input.input-large.form-control(type="text", name="secondEmergencyContactAddress", value="#{fields.secondEmergencyContactAddress}")
+
+              h3 Attach Documents
+              p  Please attach your ID (license or passport) and 2 recent pay stubs. Students should include school acceptance letter and proof of ability to afford apartment (bank statements, loan documents, award letters, etc.) Thank you!
+              form(action="/file-upload").dropzone.dropzone-user
+                .dz-message To upload your additional documents, drop files here (or click)
+                table#files-list.table
+                  thead
+                    tr
+                      th File name
+                      th Type
+                      th Size
+                      th Uploaded on
+                      if canOperateWithBuilding
+                        th Shared with user
+                      th Actions
+                  tbody
+                    each documents
+                      tr
+                        td #{name}
+                        td
+                          select.form-control.document-type(class="#{documentTypeClass}")
+                            option -- Select a document type --
+                            option(value="Identification", selected="{{isSelected 'Identification'}}") Identification
+                            option(value="Proof of Income", selected="{{isSelected 'Proof of Income'}}") Proof of Income
+                            option(value="Bank Statement (Optional)", selected="{{isSelected 'Bank Statement (Optional)'}}") Bank Statement (Optional)
+                            option(value="Other", selected="{{isSelected 'Other'}}") Other
+                          if isOther
+                            .document-type-other-wrapper
+                              input.form-control.document-type-other(type="text", placeholder="Please specify type", value="#{documentType}")
+                              i.fa.fa-spin.fa-spinner
+                              i.fa.fa-check-circle.text-success
+                        td #{size}
+                        td {{getReadableLongDate uploadedAt}}
+                        td
+                          if isUploadedByAdmin
+                            input.shared-with-user(type="checkbox", checked=canUserView)
+                          else
+                            | Uploaded by user
+                        td
+                          a(href="{{url}}", target="_blank")
+                            i.fa.fa-eye
+                          a.delete-document(href="#")
+                            i.fa.fa-trash
+
+              h3 Deposit Disclaimer
+              p A deposit is equal to one mont's rent and non-refundable. The deposit will be returned to Prospective Tenant promptly if the Landlord rejects the Prospective Tenant's application. In the event Prospective Tenant decides not to lease the premises after payment of the Deposit, the Deposit shall be forfeited on the part of Prospective Tenant.
+              p Application fees are used to process the application and are non-refundable, regardless of the Landlord's approval /denial.
+
+              h3 Signature
+              p I hereby authorize The Rent Scene LLC / any of its affiliates to obtain and/or verify my credit report, criminal history, employment references and personal references in connection with the processing of this rental application. I also agree to the deposit disclaimer above.
+
+              #signature
+
+              .form-group
+                .col-sm-12
+                  button.btn.btn-success(type="submit") Submit and download PDF
+
+              br
+              .col-sm-12
+                a(href="/Consumer_Notice.pdf", target="_blank") Click to read over the Consumer Notice
+
+          #rental-application-password.modal.fade
+            .modal-dialog
+              form#rental-application-password-form.modal-content
+                .modal-header
+                  button.close(type="button", data-dismiss="modal", aria-label="Close")
+                    i.fa.fa-times(aria-hidden="true")
+                  h4.modal-title Enter a password to submit form
+                .modal-body
+                  p Please enter a password for your appplication to keep it protected. You will be prompted to enter it again the next time you visit the form.
+                  .form-group
+                    input#password.form-control(type="password", name="password", placeholder="Your password")
+                .modal-footer
+                  button.btn.btn-success(type="submit") Confirm password
+
+          #rental-application-save-revision.modal.fade
+            .modal-dialog
+              form#rental-application-save-revision-form.modal-content
+                .modal-header
+                  button.close(type="button", data-dismiss="modal", aria-label="Close")
+                    i.fa.fa-times(aria-hidden="true")
+                  h4.modal-title Please enter a note to describe your changes
+                .modal-body
+                  p Please describe what was changed in your application so we can process it accordingly.
+                  .form-group
+                    textarea#updateNote.form-control(name="update-note", placeholder="Note for update", rows="3")
+                .modal-footer
+                  button.btn.btn-success(type="submit") Confirm changes
+
+          #rental-application-show-revisions.modal.fade
+            .modal-dialog
+              form#rental-application-save-revision-form.modal-content
+                .modal-header
+                  button.close(type="button", data-dismiss="modal", aria-label="Close")
+                    i.fa.fa-times(aria-hidden="true")
+                  h4.modal-title Revisions for application
+                .modal-body
+                  p Below are the list of revisions for this form
+                  table.table
+                    thead
+                      tr
+                        th Revision date
+                        th Note
+                        th Actions
+                    tbody
+                      each rentalApplicationRevisions
+                        tr
+                          td {{getReadableShortDateTime revisionSavedAt}}
+                          td {{updateNote}}
+                          td
+                            if isFirstItem this
+                              | Current revision
+                            else
+                              a.revert-rental-application(href="#") Revert to this version
+                .modal-footer
+                  a.btn.btn-info(href="#", data-dismiss="modal") Close
+    else
+      #rental-application-access-wrapper.container
+        .col-lg-12
+          .row
+            h1 Password required
+            p Please enter the password for this application to continue
+            form#rental-application-access-form
+              .form-group
+                input#password.form-control(type="password", name="Password")
+              button.btn.btn-success(type="submit") Continue

@@ -19,3 +19,7 @@ template(name="userMenu")
     span.notification-wrapper
       i.fa.fa-comments
       span.badge.badge-notify #{pendingReviewsCount}
+  a#manage-rental-applications-link.navigation-item-link(href="/admin/rental-applications")
+    span.notification-wrapper
+      i.fa.fa-inbox
+      span.badge.badge-notify #{rentalApplicationsCount}

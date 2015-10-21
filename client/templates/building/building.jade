@@ -118,6 +118,9 @@ template(name="building")
                   label
                     input(type="checkbox", name="isNotAvailable", value="true", checked="{{isNotAvailable}}")
                     | Is not available
+                  label
+                    input(type="checkbox", name="acceptOnlineApplication", value="true", checked="{{acceptOnlineApplication}}")
+                    | Accept online application
                 li.building-main-prop
                   label
                     input.input-from-to.form-control(type="text", name="bedroomsFrom", value="{{bedroomsFrom}}")
@@ -173,6 +176,9 @@ template(name="building")
 
             button.btn.btn-primary.building-main-info-btn.visible-lg-block.check-availability(type="button")
               | Check Availability
+            if canApply
+              a.btn.btn-success.building-main-info-btn.visible-lg-block(href="{{pathFor 'newRentalApplication' query=rentalQuery}}")
+                | Apply for rental
             .building-main-info-desc-wrap.visible-lg-block
               input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
               p.building-main-info-desc

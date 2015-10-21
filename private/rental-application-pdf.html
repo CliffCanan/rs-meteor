@@ -1,0 +1,481 @@
+
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://localhost/pdf.css"/>
+  </head>
+  <body>
+    <div class="container">
+      <div id="rental-application-wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Rental Application</h1>
+          </div>
+          <div class="col-lg-12">
+            <form id="rental-application-form" class="form-inline">
+              <h3>Rent Details</h3>
+              <div class="form-group">
+                <label>Which apartment are you applying to</label>
+                <input type="text" name="apartmentName" value="{{fields.apartmentName}}" class="input-large form-control"/>
+              </div><br/>
+              <div class="form-group">
+                <label>Move in date</label>
+                <input type="text" name="moveInDate" value="{{renderDate fields.moveInDate}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Lenght of lease</label>
+                <input type="text" name="lenghtOfLease" value="{{fields.lenghtOfLease}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Rent</label>
+                <input type="text" name="rent" value="${{formatMoney fields.rent}}" class="input-tiny form-control"/>
+              </div>
+              <h3>Personal Information</h3>
+              <div class="form-group">
+                <label>Applicant's full name</label>
+                <input type="text" name="fullName" value="{{fields.fullName}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Date of birth</label>
+                <input type="text" name="dateOfBirth" value="{{renderDate fields.dateOfBirth}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Social security number</label>
+                <input type="text" name="socialSecurityNumber" value="{{fields.socialSecurityNumber}}" class="input-medium form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="text" name="email" value="{{fields.email}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Phone number</label>
+                <input type="text" name="phoneNumber" value="{{fields.phoneNumber}}" class="input-medium form-control"/>
+              </div>
+
+              {{#if isStudent}}
+              <div class="form-group">
+                <label>Are you a student?</label>
+                <input type="text" name="isStudent" value="{{fields.isStudent}}" class="input-tiny form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Institution</label>
+                <input type="text" name="institution" value="{{fields.institution}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Years there?</label>
+                <input type="text" name="institutionDuration" value="{{fields.institutionDuration}}" class="input-tiny form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Anticipated graduation year?</label>
+                <input type="text" name="anticipatedGraduationYear" value="{{fields.anticipatedGraduationYear}}" class="input-tiny form-control"/>
+              </div>
+              {{/if}}
+
+              {{#if checkEquals fields.hasPartnerRoommate 'I have a partner'}}
+              <br/>
+              <div class="form-group">
+                <label>Name of partner</label>
+                <input type="text" name="nameOfPartner" value="{{fields.nameOfPartner}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Partner SSN</label>
+                <input type="text" name="partnerSSN" value="{{fields.partnerSSN}}" class="input-large form-control"/>
+              </div>
+              {{/if}}
+
+              {{#if checkEquals fields.hasPartnerRoommate 'I have a roommate'}}
+              <br/>
+              <div class="form-group">
+                <label>Name of Roommate 1</label>
+                <input type="text" name="nameOfRoommate1" value="{{fields.nameOfRoommate1}}" class="input-large form-control"/>
+              </div>
+              {{#if fields.nameOfRoommate2}}
+              <div class="form-group">
+                <label>Name of Roommate 2</label>
+                <input type="text" name="nameOfRoommate2" value="{{fields.nameOfRoommate2}}" class="input-large form-control"/>
+              </div>
+              {{/if}}
+              {{#if fields.nameOfRoommate3}}
+              <div class="form-group">
+                <label>Name of Roommate 3</label>
+                <input type="text" name="nameOfRoommate3" value="{{fields.nameOfRoommate3}}" class="input-large form-control"/>
+              </div>
+              {{/if}}
+              {{#if fields.nameOfRoommate4}}
+              <div class="form-group">
+                <label>Name of Roommate 4</label>
+                <input type="text" name="nameOfRoommate4" value="{{fields.nameOfRoommate4}}" class="input-large form-control"/>
+              </div>
+              {{/if}}
+              {{/if}}
+
+              <br/>
+              <br/>
+              <div class="form-group">
+                <label>How many people are in your family</label>
+                <input type="text" name="familyMembersCount" value="{{fields.familyMembersCount}}" class="input-tiny form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Adults</label>
+                <input type="text" name="adultsCount" value="{{fields.adultsCount}}" class="input-tiny form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Children</label>
+                <input type="text" name="childrenCount" value="{{fields.childrenCount}}" class="input-tiny form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Names/relationship of individuals occupying the unit </label>
+                <input type="text" name="individualsInUnit" value="{{fields.individualsInUnit}}" class="input-large form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Do you have any pets?</label>
+                <input type="text" name="hasPets" value="{{fields.hasPets}}" class="input-tiny form-control"/>
+              </div>
+              <br/>
+              {{#if checkEquals fields.hasPets 'Yes'}}
+              <div class="form-group">
+                <label>Pet(s)'s name</label>
+                <input type="text" name="petName" value="{{fields.petName}}" class="input-medium form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Breed(s)</label>
+                <input type="text" name="petBreed" value="{{fields.petBreed}}" class="input-xlarge form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Color(s)</label>
+                <input type="text" name="petColor" value="{{fields.petColor}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Age(s)</label>
+                <input type="text" name="petAge" value="{{fields.petAge}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Gender(s)</label>
+                <input type="text" name="petGender" value="{{fields.petGender}}" class="input-small form-control"/>
+              </div>
+
+              <br/>
+
+              <div class="form-group">
+                <label>Weight(s)</label>
+                <input type="text" name="petWeight" value="{{fields.petWeight}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Spayed / Neutered?</label>
+                <input type="text" name="petSpayedNeutered" value="{{fields.petSpayedNeutered}}" class="input-small form-control"/>
+              </div>
+
+              <br/>
+
+              <div class="form-group">
+                <label>Additional info</label>
+                <input type="text" name="petAdditionalInfo" value="{{fields.petAdditionalInfo}}" class="input-xxlarge form-control"/>
+              </div>
+
+              {{/if}}
+
+              <br/>
+              <h3>Prior Rental Information</h3>
+              <h4>Current address</h4>
+              <div class="form-group">
+                <label>How long at this address</label>
+                <input type="text" name="currentAddressDuration" value="{{fields.currentAddressDuration}}" class="input-small form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Current address</label>
+                <input type="text" name="currentAddress" value="{{fields.currentAddress}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" name="currentCity" value="{{fields.currentCity}}" class="input-medium form-control"/>
+              </div>
+              <div class="form-group">
+                <label>State</label>
+                <input type="text" name="currentState" value="{{fields.currentState}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Zip</label>
+                <input type="text" name="currentZip" value="{{fields.currentZip}}" class="input-small form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Rent / Own</label>
+                <input type="text" name="currentAddressOwnership" value="{{fields.currentAddressOwnership}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Current landlord's name</label>
+                <input type="text" name="currentLandlordName" value="{{fields.currentLandlordName}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Landlord's phone #</label>
+                <input type="text" name="currentLandlordPhoneNumber" value="{{fields.currentLandlordPhoneNumber}}" class="input-medium form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Total monthly rent</label>
+                <input type="text" name="currentRent" value="${{formatMoney fields.currentRent}}" class="input-tiny form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Total monthly rent that you were individually responsible for</label>
+                <input type="text" name="currentRentResponsible" value="${{formatMoney fields.currentRentResponsible}}" class="input-small form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Reason for leaving</label>
+                <input type="text" name="currentReasonForLeaving" value="{{fields.currentReasonForLeaving}}" class="input-large form-control"/>
+              </div>
+              {{#if showPreviousAddress}}
+              <br/>
+              <h4>Previous address</h4>
+              <div class="form-group">
+                <label>How long at this address</label>
+                <input type="text" name="previousAddressDuration" value="{{fields.previousAddressDuration}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Previous address</label>
+                <input type="text" name="previousAddress" value="{{fields.previousAddress}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" name="previousCity" value="{{fields.previousCity}}" class="input-medium form-control"/>
+              </div>
+              <div class="form-group">
+                <label>State</label>
+                <input type="text" name="previousState" value="{{fields.previousState}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Zip</label>
+                <input type="text" name="previousZip" value="{{fields.previousZip}}" class="input-small form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Rent / Own</label>
+                <input type="text" name="previousAddressOwnership" value="{{fields.previousAddressOwnership}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Previous landlord's name</label>
+                <input type="text" name="previousLandlordName" value="{{fields.previousLandlordName}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Landlord's phone #</label>
+                <input type="text" name="previousLandlordPhoneNumber" value="{{fields.previousLandlordPhoneNumber}}" class="input-medium form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Total monthly rent</label>
+                <input type="text" name="previousRent" value="${{formatMoney fields.previousRent}}" class="input-tiny form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Total monthly rent that you were individually responsible for</label>
+                <input type="text" name="previousRentResponsible" value="${{formatMoney fields.previousRentResponsible}}" class="input-small form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Reason for leaving</label>
+                <input type="text" name="currentReasonForLeaving" value="{{fields.currentReasonForLeaving}}" class="input-large form-control"/>
+              </div>
+              {{/if}}
+              <br/>
+
+              <h3>Current Employment Information</h3>
+              <div class="form-group">
+                <label>Present employer</label>
+                <input type="text" name="presentEmployer" value="{{fields.presentEmployer}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Position</label>
+                <input type="text" name="position" value="{{fields.position}}" class="input-medium form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Monthly salary</label>
+                <input type="text" name="monthlySalary" value="${{formatMoney fields.monthlySalary}}" class="input-tiny form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Employer's address</label>
+                <input type="text" name="position" value="{{fields.position}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>How long at this position</label>
+                <input type="text" name="monthlySalary" value="{{fields.monthlySalary}}" class="input-small form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Contact person to verify employment</label>
+                <input type="text" name="employmentVerificationPerson" value="{{fields.employmentVerificationPerson}}" class="input-large form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>(Phone # / Email)</label>
+                <input type="text" name="employmentVerificationContact" value="{{fields.employmentVerificationContact}}" class="input-large form-control"/>
+              </div>
+
+              <br/>
+              <br/>
+
+              <div class="form-group">
+                <label>Other income / source (if applicable)</label>
+                <input type="text" name="otherEmployment" value="{{fields.otherEmployment}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Other employer's address</label>
+                <input type="text" name="otherEmployerAddress" value="{{fields.otherEmployerAddress}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Contact person to verify employment</label>
+                <input type="text" name="otherEmploymentVerificationPerson" value="{{fields.otherEmploymentVerificationPerson}}" class="input-large form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>(Phone # / Email)</label>
+                <input type="text" name="otherEmploymentVerificationContact" value="{{fields.otherEmploymentVerificationContact}}" class="input-large form-control"/>
+              </div>
+
+              <div class="break"></div>
+
+              <h3>Criminal History</h3>
+              <div class="form-group">
+                <label>Have you, or anyone who is included in this application ever:</label>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Filed for bankruptcy?</label>
+                <input type="text" name="hasFiledForBankruptcy" value="{{fields.hasFiledForBankruptcy}}" class="input-tiny form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Been evicted?</label>
+                <input type="text" name="hasBeenEvicted" value="{{fields.hasBeenEvicted}}" class="input-tiny form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Refused to pay rent?</label>
+                <input type="text" name="hasRefusedToPayRent" value="{{fields.hasRefusedToPayRent}}" class="input-tiny form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Violated or broken any lease agreement?</label>
+                <input type="text" name="hasViolatedOrBrokenAnyLeaseAgreement" value="{{fields.hasViolatedOrBrokenAnyLeaseAgreement}}" class="input-tiny form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Has a criminal history?</label>
+                <input type="text" name="hasACriminalHistory" value="{{fields.hasACriminalHistory}}" class="input-tiny form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Pending case?</label>
+                <input type="text" name="hasPendingCase" value="{{fields.hasPendingCase}}" class="input-tiny form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Registered sex offender?</label>
+                <input type="text" name="isRegisteredSexOffender" value="{{fields.isRegisteredSexOffender}}" class="input-tiny form-control"/>
+              </div>
+
+              {{#if showCriminalHistoryExplanation}}
+              <br/>
+              <div class="form-group">
+                <label>Please explain in detail (stating place, offense, date, etc.)</label>
+                <input type="text" name="criminalHistoryExplanation" value="{{fields.criminalHistoryExplanation}}" class="input-xxlarge form-control"/>
+              </div>
+              {{/if}}
+
+              <h3>Personal References</h3>
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="firstReferenceName" value="{{fields.firstReferenceName}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Years known</label>
+                <input type="text" name="firstReferenceYearsKnown" value="{{fields.firstReferenceYearsKnown}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Relationship</label>
+                <input type="text" name="firstReferenceRelationship" value="{{fields.firstReferenceRelationship}}" class="input-medium form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Phone #</label>
+                <input type="text" name="firstReferencePhoneNumber" value="{{fields.firstReferencePhoneNumber}}" class="input-medium form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="secondReferenceName" value="{{fields.secondReferenceName}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Years known</label>
+                <input type="text" name="secondReferenceYearsKnown" value="{{fields.secondReferenceYearsKnown}}" class="input-small form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Relationship</label>
+                <input type="text" name="secondReferenceRelationship" value="{{fields.secondReferenceRelationship}}" class="input-medium form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Phone #</label>
+                <input type="text" name="secondReferencePhoneNumber" value="{{fields.secondReferencePhoneNumber}}" class="input-medium form-control"/>
+              </div>
+
+              <h3>Emergency Contact</h3>
+              <p>
+                In the event of an emergency, please contact the following person(s):
+              </p>
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="firstEmergencyContactName" value="{{fields.firstEmergencyContactName}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Phone #</label>
+                <input type="text" name="firstEmergencyContactPhoneNumber" value="{{fields.firstEmergencyContactPhoneNumber}}" class="input-mediun form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Address</label>
+                <input type="text" name="firstEmergencyContactAddress" value="{{fields.firstEmergencyContactAddress}}" class="input-large form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="secondEmergencyContactName" value="{{fields.secondEmergencyContactName}}" class="input-large form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Phone #</label>
+                <input type="text" name="secondEmergencyContactPhoneNumber" value="{{fields.secondEmergencyContactPhoneNumber}}" class="input-medium form-control"/>
+              </div>
+              <div class="form-group">
+                <label>Address</label>
+                <input type="text" name="secondEmergencyContactAddress" value="{{fields.secondEmergencyContactAddress}}" class="input-large form-control"/>
+              </div>
+
+              <br/>
+              <br/>
+
+              <p style="text-align: center"><strong>Deposit Disclaimer</strong></p>
+              <p>
+                A deposit is equal to one mont's rent and non-refundable. The deposit will be returned to Prospective Tenant promptly if the Landlord rejects the Prospective Tenant's application. In the event Prospective Tenant decides not to lease the premises after payment of the Deposit, the Deposit shall be forfeited on the part of Prospective Tenant.
+              </p>
+              <p>
+                Application fees are used to process the application and are non-refundable, regardless of the Landlord's approval /denial.
+              </p>
+
+              <h3>Signature</h3>
+              <p>I hereby authorize The Rent Scene LLC to obtain and/or verify my credit report, criminal history, employment references and personal references in connection with the processing of this rental application. I also agree to the deposit disclaimer.</p>
+              {{#if signatureData}}
+              <img src="data:image/svg+xml;base64,{{signatureData}}"/>
+              {{/if}}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{#each documents}}
+    <div class="break"></div>
+    <div class="container">
+      <div class="col-lg-12">
+        <h1>{{documentType}}</h1>
+        {{#if isImage}}
+        <img class="document" src="{{baseUrl}}{{url}}" />
+        {{/if}}
+      </div>
+    </div>
+    {{/each}}
+  </body>
+</html>

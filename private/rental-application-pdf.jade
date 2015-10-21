@@ -1,0 +1,96 @@
+html
+  head
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
+    link(rel="stylesheet" href="http://localhost/pdf.css")
+  body
+    .container
+      #rental-application-wrapper
+        .row
+          .col-lg-12
+            h1 Rental Application
+          .col-lg-12
+            p After completing the form below, please click "Download PDF" to save a copy on your computer. Please email the completed PDF to info@therentscene.com with a copy of your Drivers License, Pay Stub, and Bank Statement. Thank you!
+
+            form#rental-application-form.form-inline
+              h3 Rent Details
+              .form-group
+                label Which unit are you applying to
+                input.input-large.form-control(type="text", name="fullName", value="{{fields.unitName}}")
+              br
+              .form-group
+                label Move in date
+                input.input-small.form-control(type="text", name="moveInDate", value="{{fields.moveInDate}}")
+              .form-group
+                label Lenght of lease
+                input.input-small.form-control(type="text", name="lenghtOfLease", value="{{fields.lenghtOfLease}}")
+              .form-group
+                label Rent
+                input.input-tiny.form-control(type="text", name="rent", value="{{fields.rent}}")
+              h3 Personal Information
+              .form-group
+                label Applicant's full name
+                input.input-large.form-control(type="text", name="fullName", value="{{fields.fullName}}")
+              .form-group
+                label Date of birth
+                input.input-small.form-control(type="text", name="dateOfBirth", value="{{fields.dateOfBirth}}")
+              .form-group
+                label Social security number
+                input.input-medium.form-control(type="text", name="socialSecurityNumber", value="{{fields.socialSecurityNumber}}")
+              .form-group
+                label Email
+                input.input-large.form-control(type="email", name="email", value="{{fields.email}}")
+              .form-group
+                label Phone number
+                input.input-medium.form-control(type="text", name="phoneNumber", value="{{fields.phoneNumber}}")
+              br
+              .form-group
+                label Living with partner / family
+                select.form-control(name="livingWithAnother", value="{{fields.livingWithAnother}}")
+                  option(value="Yes") Yes
+                  option(value="No", selected) No
+              br
+              .form-group
+                label Do you have any pets?
+                select.form-control(name="livingWithAnother", value="{{fields.livingWithAnother}}")
+                  option(value="Yes") Yes
+                  option(value="No", selected) No
+              h3 Required documents
+              p Drop required documents for the application below
+              //- form(action="/file-upload").dropzone.dropzone-user
+              //-   .dz-message Drop files here to upload (or click)
+              //-   table#files-list.table
+              //-     thead
+              //-       tr
+              //-         th File name
+              //-         th Type
+              //-         th Size
+              //-         th Uploaded on
+              //-         th Actions
+              //-     tbody
+              //-       each documents
+              //-         tr
+              //-           td #{name}
+              //-           td
+              //-             select.form-control.document-type
+              //-               option -- Select a document type --
+              //-               option(value="Bank Statement", selected="{{isSelected 'Bank Statement'}}") Bank Statement
+              //-               option(value="Drivers License", selected="{{isSelected 'Drivers License'}}") Drivers License
+              //-               option(value="Immigration Document", selected="{{isSelected 'Immigration Document'}}") Immigration Document
+              //-               option(value="Pay Stub", selected="{{isSelected 'Pay Stub'}}") Pay Stub
+              //-               option(value="Other", selected="{{isSelected 'Other'}}") Other
+              //-           td #{size}
+              //-           td {{getReadableLongDate updatedAt}}
+              //-           td
+              //-             a(href="{{url}}", target="_blank")
+              //-               i.fa.fa-eye
+              //-             a(href="#")
+              //-               i.fa.fa-trash
+
+              h3 Signature
+              p I hereby authorize The Rent Scene LLC to obtain and/or verify my credit report, criminal history, employment references and personal references in connection with the processing of this rental application. I also agree to the deposit disclaimer.
+              img(src="data:image/svg+xml;base64,{{signatureData}}")
+    .break
+
+    .container
+      .col-lg-12
+        h1 List of documents

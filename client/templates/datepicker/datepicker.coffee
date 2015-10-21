@@ -3,11 +3,14 @@ Template.datepicker.helpers
 
 Template.datepicker.rendered = ->
   $input = @$("input")
-  $input.datepicker(
+  options = 
     changeMonth: true
     changeYear: true
     dateFormat: "mm/dd/yy"
-  )
+
+  if @data.options
+    options = _.extend(options, @data.options)
+  $input.datepicker options
 
 Template.datepicker.events
 #  "click .selector": (event, template) ->

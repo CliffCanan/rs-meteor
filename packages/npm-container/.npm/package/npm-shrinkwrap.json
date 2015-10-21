@@ -223,6 +223,14 @@
     },
     "vimeo": {
       "version": "1.1.4"
+    },
+    "wkhtmltopdf-selfcontained": {
+      "version": "0.1.6",
+      "dependencies": {
+        "slang": {
+          "version": "0.3.0"
+        }
+      }
     }
   }
 }

@@ -1,0 +1,53 @@
+.break {
+  display: block;
+  clear: both;
+  page-break-after: always;
+}
+
+
+#rental-application-wrapper input {
+  border: 0;
+  border-bottom: 1px solid #888;
+  box-shadow: none;
+  border-radius: 0;
+  height: 24px;
+}
+
+#rental-application-wrapper .form-group {
+  margin-bottom: 15px;
+  margin-right: 15px;
+}
+
+#rental-application-wrapper label {
+  margin-right: 2px;
+}
+
+#rental-application-wrapper .input-xxlarge {
+  width: 650px;
+}
+
+#rental-application-wrapper .input-xlarge {
+  width: 400px;
+}
+
+#rental-application-wrapper .input-large {
+  width: 250px;
+}
+
+#rental-application-wrapper .input-medium {
+  width: 160px;
+}
+
+#rental-application-wrapper .input-small, #rental-application-wrapper .hasDatePicker {
+  width: 110px;
+}
+
+
+#rental-application-wrapper .input-tiny {
+  width: 80px;
+}
+
+img.document {
+  max-width: 1050px;
+  max-height: 1550px;
+}
