@@ -14,7 +14,10 @@ template(name="rentalApplication")
                 i.fa.fa-undo
                 a#application-revisions(href="#rental-application-show-revisions", data-toggle="modal") #{rentalApplicationRevisionsCount} Revisions
           .col-lg-12
-            p After completing the form below, please click "Download PDF" to save a copy on your computer. Please email the completed PDF to info@therentscene.com with a copy of your Drivers License, Pay Stub, and Bank Statement. Thank you!
+            p
+              | After completing the form below, please click "Submit and download PDF" to save a copy on your computer. Please email the completed PDF to 
+              a(href="mailto:info@rentscene.com") info@rentscene.com
+              | with a copy of your ID, (license or passport) 2 most recent Pay Stubs. If you're a student, school acceptance letter and any proof of ability to afford apartment (bank statements, loan documents, award letters, etc.) Thank you!
 
             form#rental-application-form.form-inline
               h3 Rent Details
