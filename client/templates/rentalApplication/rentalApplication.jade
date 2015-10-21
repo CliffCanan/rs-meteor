@@ -146,35 +146,11 @@ template(name="rentalApplication")
                   textarea.input-large.form-control(type="text", name="petAdditionalInfo", value="#{fields.petAdditionalInfo}")
 
               h3 Prior Rental Information
-              
+              h4 Current address
               .form-group
-                label Current address
-                input.input-large.form-control(type="text", name="currentAddress", value="#{fields.currentAddress}")
-              .form-group
-                label City
-                input.input-medium.form-control(type="text", name="currentCity", value="#{fields.currentCity}")
-              .form-group
-                label State
-                input.input-small.form-control(type="text", name="currentState", value="#{fields.currentState}")
-              .form-group
-                label Zip
-                input.input-small.form-control(type="text", name="currentZip", value="#{fields.currentZip}")
-              br
-              .form-group
-                label Rent / Own
-                select#current-address-ownership.form-control(name="currentAddressOwnership", value="#{fields.currentAddressOwnership}")
-                  option(value="Rent") Rent
-                  option(value="Own", selected) Own
-              .form-group
-                label Current landlord's name
-                input.input-large.form-control(type="text", name="currentLandlordName", value="#{fields.currentLandlordName}")
-              .form-group
-                label Landlord's phone #
-                input#current-landlord-phone-number.input-medium.form-control(type="text", name="currentLandlordPhoneNumber", value="#{fields.currentLandlordPhoneNumber}")
-              br
-              .form-group
-                label How long at this address
+                label How long were you at this address?
                 select#current-address-duration.form-control(name="currentAddressDuration", value="#{fields.currentAddressDuration}")
+                  option(value="N/A") N/A
                   option(value="1 month") 1 month
                   option(value="2 months") 2 months
                   option(value="3 months") 3 months
@@ -188,52 +164,53 @@ template(name="rentalApplication")
                   option(value="11 months") 11 months
                   option(value="12 months") 12 months
                   option(value="12+ months") 12+ months
-              .form-group
-                label Total monthly rent
-                .input-group
-                  .input-group-addon $
-                  input.input-tiny.form-control(type="text", name="currentRent", value="#{fields.currentRent}")
-              br
-              .form-group
-                label Total monthly rent that you were individually responsible for
-                .input-group
-                  .input-group-addon $
-                  input.input-tiny.form-control(type="text", name="currentRentResponsible", value="#{fields.currentRentResponsible}")  
-              br
-              .form-group
-                label Reason for leaving
-                input.input-large.form-control(type="text", name="currentReasonForLeaving", value="#{fields.currentReasonForLeaving}")
+              .current-address-wrapper(style="display: none")
+                .form-group
+                  label Current address
+                  input.input-large.form-control(type="text", name="currentAddress", value="#{fields.currentAddress}")
+                .form-group
+                  label City
+                  input.input-medium.form-control(type="text", name="currentCity", value="#{fields.currentCity}")
+                .form-group
+                  label State
+                  input.input-small.form-control(type="text", name="currentState", value="#{fields.currentState}")
+                .form-group
+                  label Zip
+                  input.input-small.form-control(type="text", name="currentZip", value="#{fields.currentZip}")
+                br
+                .form-group
+                  label Rent / Own
+                  select#current-address-ownership.form-control(name="currentAddressOwnership", value="#{fields.currentAddressOwnership}")
+                    option(value="Rent") Rent
+                    option(value="Own", selected) Own
+                .form-group
+                  label Current landlord's name
+                  input.input-large.form-control(type="text", name="currentLandlordName", value="#{fields.currentLandlordName}")
+                .form-group
+                  label Landlord's phone #
+                  input#current-landlord-phone-number.input-medium.form-control(type="text", name="currentLandlordPhoneNumber", value="#{fields.currentLandlordPhoneNumber}")
+                br
+                .form-group
+                  label Total monthly rent
+                  .input-group
+                    .input-group-addon $
+                    input.input-tiny.form-control(type="text", name="currentRent", value="#{fields.currentRent}")
+                .form-group
+                  label Total monthly rent that you were individually responsible for
+                  .input-group
+                    .input-group-addon $
+                    input.input-tiny.form-control(type="text", name="currentRentResponsible", value="#{fields.currentRentResponsible}")  
+                br
+                .form-group
+                  label Reason for leaving
+                  input.input-large.form-control(type="text", name="currentReasonForLeaving", value="#{fields.currentReasonForLeaving}")
               
               br
-              br
+              h4 Previous address (if applicable)
               .form-group
-                label Previous address
-                input.input-large.form-control(type="text", name="previousAddress", value="#{fields.previousAddress}")
-              .form-group
-                label City
-                input.input-medium.form-control(type="text", name="previousCity", value="#{fields.previousCity}")
-              .form-group
-                label State
-                input.input-small.form-control(type="text", name="previousState", value="#{fields.previousState}")
-              .form-group
-                label Zip
-                input.input-small.form-control(type="text", name="previousZip", value="#{fields.previousZip}")
-              br
-              .form-group
-                label Rent / Own
-                select#previous-address-ownership.form-control(name="previousAddressOwnership", value="#{fields.previousAddressOwnership}")
-                  option(value="Rent") Rent
-                  option(value="Own", selected) Own
-              .form-group
-                label Previous landlord's name
-                input.input-large.form-control(type="text", name="previousLandlordName", value="#{fields.previousLandlordName}")
-              .form-group
-                label Landlord's phone #
-                input#previous-landlord-phone-number.input-medium.form-control(type="text", name="previousLandlordPhoneNumber", value="#{fields.previousLandlordPhoneNumber}")
-              br
-              .form-group
-                label How long at this address
+                label How long were you at this address?
                 select#previous-address-duration.form-control(name="previousAddressDuration", value="#{fields.previousAddressDuration}")
+                  option(value="N/A") N/A
                   option(value="1 month") 1 month
                   option(value="2 months") 2 months
                   option(value="3 months") 3 months
@@ -247,21 +224,46 @@ template(name="rentalApplication")
                   option(value="11 months") 11 months
                   option(value="12 months") 12 months
                   option(value="12+ months") 12+ months
-              .form-group
-                label Total monthly rent
-                .input-group
-                  .input-group-addon $
-                  input.input-tiny.form-control(type="text", name="previousRent", value="#{fields.previousRent}")
-              br
-              .form-group
-                label Total monthly rent that you were individually responsible for
-                .input-group
-                  .input-group-addon $
-                  input.input-tiny.form-control(type="text", name="previousRentResponsible", value="#{fields.previousRentResponsible}")  
-              br
-              .form-group
-                label Reason for leaving
-                input.input-large.form-control(type="text", name="previousReasonForLeaving", value="#{fields.previousReasonForLeaving}")
+              .previous-address-wrapper(style="display: none")
+                .form-group
+                  label Previous address
+                  input.input-large.form-control(type="text", name="previousAddress", value="#{fields.previousAddress}")
+                .form-group
+                  label City
+                  input.input-medium.form-control(type="text", name="previousCity", value="#{fields.previousCity}")
+                .form-group
+                  label State
+                  input.input-small.form-control(type="text", name="previousState", value="#{fields.previousState}")
+                .form-group
+                  label Zip
+                  input.input-small.form-control(type="text", name="previousZip", value="#{fields.previousZip}")
+                br
+                .form-group
+                  label Rent / Own
+                  select#previous-address-ownership.form-control(name="previousAddressOwnership", value="#{fields.previousAddressOwnership}")
+                    option(value="Rent") Rent
+                    option(value="Own", selected) Own
+                .form-group
+                  label Previous landlord's name
+                  input.input-large.form-control(type="text", name="previousLandlordName", value="#{fields.previousLandlordName}")
+                .form-group
+                  label Landlord's phone #
+                  input#previous-landlord-phone-number.input-medium.form-control(type="text", name="previousLandlordPhoneNumber", value="#{fields.previousLandlordPhoneNumber}")
+                br
+                .form-group
+                  label Total monthly rent
+                  .input-group
+                    .input-group-addon $
+                    input.input-tiny.form-control(type="text", name="previousRent", value="#{fields.previousRent}")
+                .form-group
+                  label Total monthly rent that you were individually responsible for
+                  .input-group
+                    .input-group-addon $
+                    input.input-tiny.form-control(type="text", name="previousRentResponsible", value="#{fields.previousRentResponsible}")  
+                br
+                .form-group
+                  label Reason for leaving
+                  input.input-large.form-control(type="text", name="previousReasonForLeaving", value="#{fields.previousReasonForLeaving}")
 
               h3 Current employment information
               .form-group

@@ -176,8 +176,17 @@
               </div>
 
               {{/if}}
+
+              {{#if showPriorRental}}
               <br/>
               <h3>Prior rental information</h3>
+              {{#if showCurrentAddress}}
+              <h4>Current address</h4>
+              <div class="form-group">
+                <label>How long at this address</label>
+                <input type="text" name="currentAddressDuration" value="{{fields.currentAddressDuration}}" class="input-small form-control"/>
+              </div>
+              <br/>
               <div class="form-group">
                 <label>Current address</label>
                 <input type="text" name="currentAddress" value="{{fields.currentAddress}}" class="input-large form-control"/>
@@ -209,14 +218,9 @@
               </div>
               <br/>
               <div class="form-group">
-                <label>How long at this address</label>
-                <input type="text" name="currentAddressDuration" value="{{fields.currentAddressDuration}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
                 <label>Total monthly rent</label>
                 <input type="text" name="currentRent" value="${{formatMoney fields.currentRent}}" class="input-tiny form-control"/>
               </div>
-              <br/>
               <div class="form-group">
                 <label>Total monthly rent that you were individually responsible for</label>
                 <input type="text" name="currentRentResponsible" value="${{formatMoney fields.currentRentResponsible}}" class="input-small form-control"/>
@@ -226,8 +230,14 @@
                 <label>Reason for leaving</label>
                 <input type="text" name="currentReasonForLeaving" value="{{fields.currentReasonForLeaving}}" class="input-large form-control"/>
               </div>
+              {{/if}}
               {{#if showPreviousAddress}}
               <br/>
+              <h4>Previous address</h4>
+              <div class="form-group">
+                <label>How long at this address</label>
+                <input type="text" name="previousAddressDuration" value="{{fields.previousAddressDuration}}" class="input-small form-control"/>
+              </div>
               <br/>
               <div class="form-group">
                 <label>Previous address</label>
@@ -260,14 +270,9 @@
               </div>
               <br/>
               <div class="form-group">
-                <label>How long at this address</label>
-                <input type="text" name="previousAddressDuration" value="{{fields.previousAddressDuration}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
                 <label>Total monthly rent</label>
                 <input type="text" name="previousRent" value="${{formatMoney fields.previousRent}}" class="input-tiny form-control"/>
               </div>
-              <br/>
               <div class="form-group">
                 <label>Total monthly rent that you were individually responsible for</label>
                 <input type="text" name="previousRentResponsible" value="${{formatMoney fields.previousRentResponsible}}" class="input-small form-control"/>
@@ -277,6 +282,7 @@
                 <label>Reason for leaving</label>
                 <input type="text" name="currentReasonForLeaving" value="{{fields.currentReasonForLeaving}}" class="input-large form-control"/>
               </div>
+              {{/if}}
               {{/if}}
               <br/>
 
@@ -448,10 +454,10 @@
 
               <p style="text-align: center"><strong>Deposit Disclaimer</strong></p>
               <p>
-                A deposit is equal to one mont’s rent and non-refundable. The deposit will be returned to Prospective Tenant promptly if the Landlord rejects the Prospective Tenant’s application. In the event Prospective Tenant decides not to lease the premises after payment of the Deposit, the Deposit shall be forfeited on the part of Prospective Tenant.
+                A deposit is equal to one mont's rent and non-refundable. The deposit will be returned to Prospective Tenant promptly if the Landlord rejects the Prospective Tenant's application. In the event Prospective Tenant decides not to lease the premises after payment of the Deposit, the Deposit shall be forfeited on the part of Prospective Tenant.
               </p>
               <p>
-                Application fees are used to process the application and are non-refundable, regardless of the Landlord’s approval /denial.
+                Application fees are used to process the application and are non-refundable, regardless of the Landlord's approval / denial.
               </p>
 
               <h3>Signature</h3>
