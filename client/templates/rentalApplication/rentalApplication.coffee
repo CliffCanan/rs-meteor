@@ -13,20 +13,21 @@ Template.rentalApplication.onRendered ->
   $('#first-emergency-contact-phone-number').mask('999-999-9999')
   $('#second-emergency-contact-phone-number').mask('999-999-9999')
 
-  $('#is-student').val(@data.fields.isStudent).trigger('change')
-  $('#has-partner-roommate').val(@data.fields.hasPartnerRoommate).trigger('change')
-  $('#has-pets').val(@data.fields.hasPets).trigger('change')
-  $('#current-address-ownership').val(@data.fields.currentAddressOwnership).trigger('change')
-  $('#current-address-duration').val(@data.fields.currentAddressDuration).trigger('change')
-  $('#previous-address-ownership').val(@data.fields.previousAddressOwnership).trigger('change')
-  $('#previous-address-duration').val(@data.fields.previousAddressDuration).trigger('change')
-  $('#has-filed-for-bankruptcy').val(@data.fields.hasFiledForBankruptcy).trigger('change')
-  $('#has-been-evicted').val(@data.fields.hasBeenEvicted).trigger('change')
-  $('#has-refused-to-pay-rent').val(@data.fields.hasRefusedToPayRent).trigger('change')
-  $('#has-violated-or-broken-any-lease-agreement').val(@data.fields.hasViolatedOrBrokenAnyLeaseAgreement).trigger('change')
-  $('#has-a-criminal-history').val(@data.fields.hasACriminalHistory).trigger('change')
-  $('#has-pending-case').val(@data.fields.hasPendingCase).trigger('change')
-  $('#is-registered-sex-offender').val(@data.fields.isRegisteredSexOffender).trigger('change')
+  if @data.field
+    $('#is-student').val(@data.fields.isStudent).trigger('change')
+    $('#has-partner-roommate').val(@data.fields.hasPartnerRoommate).trigger('change')
+    $('#has-pets').val(@data.fields.hasPets).trigger('change')
+    $('#current-address-ownership').val(@data.fields.currentAddressOwnership).trigger('change')
+    $('#current-address-duration').val(@data.fields.currentAddressDuration).trigger('change')
+    $('#previous-address-ownership').val(@data.fields.previousAddressOwnership).trigger('change')
+    $('#previous-address-duration').val(@data.fields.previousAddressDuration).trigger('change')
+    $('#has-filed-for-bankruptcy').val(@data.fields.hasFiledForBankruptcy).trigger('change')
+    $('#has-been-evicted').val(@data.fields.hasBeenEvicted).trigger('change')
+    $('#has-refused-to-pay-rent').val(@data.fields.hasRefusedToPayRent).trigger('change')
+    $('#has-violated-or-broken-any-lease-agreement').val(@data.fields.hasViolatedOrBrokenAnyLeaseAgreement).trigger('change')
+    $('#has-a-criminal-history').val(@data.fields.hasACriminalHistory).trigger('change')
+    $('#has-pending-case').val(@data.fields.hasPendingCase).trigger('change')
+    $('#is-registered-sex-offender').val(@data.fields.isRegisteredSexOffender).trigger('change')
 
   Tracker.autorun ->
     if Security.canOperateWithBuilding() or (instance.data.accessToken and Session.equals('rentalApplicationAccessToken', instance.data.accessToken))
@@ -62,10 +63,10 @@ Template.rentalApplication.helpers
     return true if Security.canOperateWithBuilding()
     @accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
   getDatePickerDateMoveInDate: ->
-    if @fields.moveInDate
+    if @fields and @fields.moveInDate
       moment(@fields.moveInDate).format("MM/DD/YYYY")
   getDatePickerDateDateOfBirth: ->
-    if @fields.dateOfBirth
+    if @fields and @fields.dateOfBirth
       moment(@fields.dateOfBirth).format("MM/DD/YYYY")
   dateOfBirthOptions: ->
     yearRange: '-100:-17'
