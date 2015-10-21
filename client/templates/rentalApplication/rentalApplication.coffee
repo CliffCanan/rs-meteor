@@ -223,6 +223,7 @@ Template.rentalApplication.events
       $set: fields
       , (err, result) ->
         template.$("#rental-application-password").modal('toggle')
+        location.href = "#{Router.path('rentalApplication', {id: template.data._id})}/download"
 
   "submit #rental-application-save-revision-form": (event, template) ->
     event.preventDefault()
