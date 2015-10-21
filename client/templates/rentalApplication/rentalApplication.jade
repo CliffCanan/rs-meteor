@@ -409,9 +409,9 @@ template(name="rentalApplication")
                 label Address
                 input.input-large.form-control(type="text", name="secondEmergencyContactAddress", value="#{fields.secondEmergencyContactAddress}")
 
-              h3 Required documents
+              h3 Attach documents
               form(action="/file-upload").dropzone.dropzone-user
-                .dz-message Drop required documents for the application below to upload (or click)
+                .dz-message To upload your additional documents, drop files here (or click)
                 table#files-list.table
                   thead
                     tr
