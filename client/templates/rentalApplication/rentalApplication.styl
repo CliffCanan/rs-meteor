@@ -6,8 +6,14 @@
     min-height 0
     border none
     padding 0
-  .dropzone.dz-started .dz-message
-    display block
+  .dropzone
+    .dz-message
+      color #4588fa
+      &:hover, &:focus
+        color #23527c
+        text-decoration underline
+    &.dz-started .dz-message
+      display block
 
   table
     td
