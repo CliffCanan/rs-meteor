@@ -83,6 +83,16 @@ template(name="rentalApplication")
                 .form-group
                   label Partner's SSN
                   input#partner-ssn.input-medium.form-control(type="text", name="partnerSSN", value="#{fields.partnerSSN}")
+                br
+                .form-group
+                  label How many people are in your family
+                  input.input-medium.form-control(type="text", name="familyMembersCount", value="#{fields.familyMembersCount}")
+                .form-group
+                  label Adults
+                  input.input-small.form-control(type="text", name="adultsCount", value="#{fields.adultsCount}")
+                .form-group
+                  label Children
+                  input.input-small.form-control(type="text", name="childrenCount", value="#{fields.childrenCount}")
               .roommate-wrapper(style="display: none")
                 .form-group
                   label Name of Roommate 1
