@@ -128,13 +128,6 @@ Template.rentalApplication.events
     else if $(event.target).val() is 'I have a roommate'
       template.$('.roommate-wrapper').show()
 
-  "change #current-address-duration": (event, template) ->
-    hideIfValues = ['N/A', '12 months', '12+ months']
-    if hideIfValues.indexOf($(event.target).val()) > -1
-      template.$('.current-address-wrapper').hide()
-    else
-      template.$('.current-address-wrapper').show()
-
   "change #previous-address-duration": (event, template) ->
     hideIfValues = ['N/A', '12 months', '12+ months']
     if hideIfValues.indexOf($(event.target).val()) > -1

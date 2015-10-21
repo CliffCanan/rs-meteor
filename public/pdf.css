@@ -22,6 +22,14 @@
   margin-right: 2px;
 }
 
+#rental-application-wrapper .input-xxlarge {
+  width: 650px;
+}
+
+#rental-application-wrapper .input-xlarge {
+  width: 400px;
+}
+
 #rental-application-wrapper .input-large {
   width: 250px;
 }

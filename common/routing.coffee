@@ -215,12 +215,6 @@ Router.map ->
       "formatMoney": (value) ->
         value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') if value
 
-      "showPriorRental": ->
-        return (@fields.currentAddress and (@fields.currentAddressDuration isnt '12+ months' and @fields.currentAddressDuration isnt '12 months' and @fields.currentAddressDuration isnt 'N/A')) or (@fields.previousAddress and (@fields.previousAddressDuration isnt '12+ months' and @fields.previousAddressDuration isnt '12 months' and @fields.previousAddressDuration isnt 'N/A'))
-
-      "showCurrentAddress": ->
-        return @fields.currentAddress and (@fields.currentAddressDuration isnt '12+ months' and @fields.currentAddressDuration isnt '12 months' and @fields.currentAddressDuration isnt 'N/A')
-
       "showPreviousAddress": ->
         return @fields.previousAddress and (@fields.previousAddressDuration isnt '12+ months' and @fields.previousAddressDuration isnt '12 months' and @fields.previousAddressDuration isnt 'N/A')
 

@@ -45,7 +45,7 @@
               </div>
               <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" value="{{fields.email}}" class="input-large form-control"/>
+                <input type="text" name="email" value="{{fields.email}}" class="input-large form-control"/>
               </div>
               <div class="form-group">
                 <label>Phone number</label>
@@ -76,11 +76,11 @@
               <br/>
               <div class="form-group">
                 <label>Name of partner</label>
-                <input type="email" name="nameOfPartner" value="{{fields.nameOfPartner}}" class="input-large form-control"/>
+                <input type="text" name="nameOfPartner" value="{{fields.nameOfPartner}}" class="input-large form-control"/>
               </div>
               <div class="form-group">
                 <label>Partner SSN</label>
-                <input type="email" name="partnerSSN" value="{{fields.partnerSSN}}" class="input-large form-control"/>
+                <input type="text" name="partnerSSN" value="{{fields.partnerSSN}}" class="input-large form-control"/>
               </div>
               {{/if}}
 
@@ -88,24 +88,24 @@
               <br/>
               <div class="form-group">
                 <label>Name of Roommate 1</label>
-                <input type="email" name="nameOfRoommate1" value="{{fields.nameOfRoommate1}}" class="input-large form-control"/>
+                <input type="text" name="nameOfRoommate1" value="{{fields.nameOfRoommate1}}" class="input-large form-control"/>
               </div>
               {{#if fields.nameOfRoommate2}}
               <div class="form-group">
                 <label>Name of Roommate 2</label>
-                <input type="email" name="nameOfRoommate2" value="{{fields.nameOfRoommate2}}" class="input-large form-control"/>
+                <input type="text" name="nameOfRoommate2" value="{{fields.nameOfRoommate2}}" class="input-large form-control"/>
               </div>
               {{/if}}
               {{#if fields.nameOfRoommate3}}
               <div class="form-group">
                 <label>Name of Roommate 3</label>
-                <input type="email" name="nameOfRoommate3" value="{{fields.nameOfRoommate3}}" class="input-large form-control"/>
+                <input type="text" name="nameOfRoommate3" value="{{fields.nameOfRoommate3}}" class="input-large form-control"/>
               </div>
               {{/if}}
               {{#if fields.nameOfRoommate4}}
               <div class="form-group">
                 <label>Name of Roommate 4</label>
-                <input type="email" name="nameOfRoommate4" value="{{fields.nameOfRoommate4}}" class="input-large form-control"/>
+                <input type="text" name="nameOfRoommate4" value="{{fields.nameOfRoommate4}}" class="input-large form-control"/>
               </div>
               {{/if}}
               {{/if}}
@@ -114,73 +114,72 @@
               <br/>
               <div class="form-group">
                 <label>How many people are in your family</label>
-                <input type="email" name="familyMembersCount" value="{{fields.familyMembersCount}}" class="input-tiny form-control"/>
+                <input type="text" name="familyMembersCount" value="{{fields.familyMembersCount}}" class="input-tiny form-control"/>
               </div>
               <div class="form-group">
                 <label>Adults</label>
-                <input type="email" name="adultsCount" value="{{fields.adultsCount}}" class="input-tiny form-control"/>
+                <input type="text" name="adultsCount" value="{{fields.adultsCount}}" class="input-tiny form-control"/>
               </div>
               <div class="form-group">
                 <label>Children</label>
-                <input type="email" name="childrenCount" value="{{fields.childrenCount}}" class="input-tiny form-control"/>
+                <input type="text" name="childrenCount" value="{{fields.childrenCount}}" class="input-tiny form-control"/>
               </div>
               <br/>
               <div class="form-group">
                 <label>Names/relationship of individuals occupying the unit </label>
-                <input type="email" name="individualsInUnit" value="{{fields.individualsInUnit}}" class="input-large form-control"/>
+                <input type="text" name="individualsInUnit" value="{{fields.individualsInUnit}}" class="input-large form-control"/>
               </div>
               <br/>
               <div class="form-group">
                 <label>Do you have any pets?</label>
-                <input type="email" name="hasPets" value="{{fields.hasPets}}" class="input-large form-control"/>
+                <input type="text" name="hasPets" value="{{fields.hasPets}}" class="input-large form-control"/>
               </div>
               <br/>
               {{#if checkEquals fields.hasPets 'Yes'}}
               <div class="form-group">
-                <label>Pet's name</label>
-                <input type="email" name="petName" value="{{fields.petName}}" class="input-medium form-control"/>
+                <label>Pet(s)'s name</label>
+                <input type="text" name="petName" value="{{fields.petName}}" class="input-medium form-control"/>
               </div>
               <div class="form-group">
-                <label>Breed</label>
-                <input type="email" name="petBreed" value="{{fields.petBreed}}" class="input-small form-control"/>
+                <label>Breed(s)</label>
+                <input type="text" name="petBreed" value="{{fields.petBreed}}" class="input-xlarge form-control"/>
+              </div>
+              <br/>
+              <div class="form-group">
+                <label>Color(s)</label>
+                <input type="text" name="petColor" value="{{fields.petColor}}" class="input-small form-control"/>
               </div>
               <div class="form-group">
-                <label>Color</label>
-                <input type="email" name="petColor" value="{{fields.petColor}}" class="input-small form-control"/>
+                <label>Age(s)</label>
+                <input type="text" name="petAge" value="{{fields.petAge}}" class="input-small form-control"/>
               </div>
               <div class="form-group">
-                <label>Age</label>
-                <input type="email" name="petAge" value="{{fields.petAge}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Gender</label>
-                <input type="email" name="petGender" value="{{fields.petGender}}" class="input-small form-control"/>
+                <label>Gender(s)</label>
+                <input type="text" name="petGender" value="{{fields.petGender}}" class="input-small form-control"/>
               </div>
 
               <br/>
 
               <div class="form-group">
-                <label>Weight</label>
-                <input type="email" name="petWeight" value="{{fields.petWeight}}" class="input-small form-control"/>
+                <label>Weight(s)</label>
+                <input type="text" name="petWeight" value="{{fields.petWeight}}" class="input-small form-control"/>
               </div>
               <div class="form-group">
                 <label>Spayed / Neutered?</label>
-                <input type="email" name="petSpayedNeutered" value="{{fields.petSpayedNeutered}}" class="input-small form-control"/>
+                <input type="text" name="petSpayedNeutered" value="{{fields.petSpayedNeutered}}" class="input-small form-control"/>
               </div>
 
               <br/>
 
               <div class="form-group">
                 <label>Additional info</label>
-                <input type="email" name="petAdditionalInfo" value="{{fields.petAdditionalInfo}}" class="input-small form-control"/>
+                <input type="text" name="petAdditionalInfo" value="{{fields.petAdditionalInfo}}" class="input-xxlarge form-control"/>
               </div>
 
               {{/if}}
 
-              {{#if showPriorRental}}
               <br/>
               <h3>Prior rental information</h3>
-              {{#if showCurrentAddress}}
               <h4>Current address</h4>
               <div class="form-group">
                 <label>How long at this address</label>
@@ -230,7 +229,6 @@
                 <label>Reason for leaving</label>
                 <input type="text" name="currentReasonForLeaving" value="{{fields.currentReasonForLeaving}}" class="input-large form-control"/>
               </div>
-              {{/if}}
               {{#if showPreviousAddress}}
               <br/>
               <h4>Previous address</h4>
@@ -238,7 +236,6 @@
                 <label>How long at this address</label>
                 <input type="text" name="previousAddressDuration" value="{{fields.previousAddressDuration}}" class="input-small form-control"/>
               </div>
-              <br/>
               <div class="form-group">
                 <label>Previous address</label>
                 <input type="text" name="previousAddress" value="{{fields.previousAddress}}" class="input-large form-control"/>
@@ -282,7 +279,6 @@
                 <label>Reason for leaving</label>
                 <input type="text" name="currentReasonForLeaving" value="{{fields.currentReasonForLeaving}}" class="input-large form-control"/>
               </div>
-              {{/if}}
               {{/if}}
               <br/>
 
@@ -380,7 +376,7 @@
               <br/>
               <div class="form-group">
                 <label>Please explain in detail (stating place, offense, date, etc.)</label>
-                <input type="text" name="criminalHistoryExplanation" value="{{fields.criminalHistoryExplanation}}" class="input-large form-control"/>
+                <input type="text" name="criminalHistoryExplanation" value="{{fields.criminalHistoryExplanation}}" class="input-xxlarge form-control"/>
               </div>
               {{/if}}
 
@@ -457,7 +453,7 @@
                 A deposit is equal to one mont's rent and non-refundable. The deposit will be returned to Prospective Tenant promptly if the Landlord rejects the Prospective Tenant's application. In the event Prospective Tenant decides not to lease the premises after payment of the Deposit, the Deposit shall be forfeited on the part of Prospective Tenant.
               </p>
               <p>
-                Application fees are used to process the application and are non-refundable, regardless of the Landlord's approval / denial.
+                Application fees are used to process the application and are non-refundable, regardless of the Landlord's approval /denial.
               </p>
 
               <h3>Signature</h3>

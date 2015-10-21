@@ -15,9 +15,9 @@ template(name="rentalApplication")
                 a#application-revisions(href="#rental-application-show-revisions", data-toggle="modal") #{rentalApplicationRevisionsCount} Revisions
           .col-lg-12
             p
-              | After completing the form below, please click "Submit and download PDF" to save a copy on your computer. Please email the completed PDF to 
+              | After completing the form below, please click "Submit and download PDF" to save a copy on your computer. Please email the completed PDF to
               a(href="mailto:info@rentscene.com") info@rentscene.com
-              | with a copy of your ID, (license or passport) 2 most recent Pay Stubs. If you're a student, school acceptance letter and any proof of ability to afford apartment (bank statements, loan documents, award letters, etc.) Thank you!
+              | .
 
             form#rental-application-form.form-inline
               h3 Rent Details
@@ -123,7 +123,8 @@ template(name="rentalApplication")
                   input.input-medium.form-control(type="text", name="petName", value="#{fields.petName}")
                 .form-group
                   label Breed(s)
-                  input.input-small.form-control(type="text", name="petBreed", value="#{fields.petBreed}")
+                  input.input-xlarge.form-control(type="text", name="petBreed", value="#{fields.petBreed}")
+                br
                 .form-group
                   label Color(s)
                   input.input-small.form-control(type="text", name="petColor", value="#{fields.petColor}")
@@ -143,7 +144,7 @@ template(name="rentalApplication")
                 br
                 .form-group
                   label Additional info
-                  textarea.input-large.form-control(type="text", name="petAdditionalInfo", value="#{fields.petAdditionalInfo}")
+                  textarea.input-xxlarge.form-control(type="text", name="petAdditionalInfo", value="#{fields.petAdditionalInfo}")
 
               h3 Prior Rental Information
               h4 Current address
@@ -164,7 +165,7 @@ template(name="rentalApplication")
                   option(value="11 months") 11 months
                   option(value="12 months") 12 months
                   option(value="12+ months") 12+ months
-              .current-address-wrapper(style="display: none")
+              .current-address-wrapper
                 .form-group
                   label Current address
                   input.input-large.form-control(type="text", name="currentAddress", value="#{fields.currentAddress}")
@@ -206,7 +207,7 @@ template(name="rentalApplication")
                   input.input-large.form-control(type="text", name="currentReasonForLeaving", value="#{fields.currentReasonForLeaving}")
               
               br
-              h4 Previous address (if applicable)
+              h4 Previous address (if at your current address less than 12 months)
               .form-group
                 label How long were you at this address?
                 select#previous-address-duration.form-control(name="previousAddressDuration", value="#{fields.previousAddressDuration}")
@@ -360,7 +361,7 @@ template(name="rentalApplication")
               .criminal-history-explanation-wrapper(style="display: none")
                 .form-group
                   label Please explain in detail (stating place, offense, date, etc.)
-                  textarea.input-large.form-control(type="text", name="criminalHistoryExplanation", value="#{fields.criminalHistoryExplanation}")
+                  textarea.input-xxlarge.form-control(type="text", name="criminalHistoryExplanation", value="#{fields.criminalHistoryExplanation}")
 
               h3 Personal references
               .form-group
@@ -412,6 +413,7 @@ template(name="rentalApplication")
                 input.input-large.form-control(type="text", name="secondEmergencyContactAddress", value="#{fields.secondEmergencyContactAddress}")
 
               h3 Attach documents
+              p You'll need to attach your ID (license / passport), 2 recent pay stubs. Students should include school acceptance letter and proof of ability to afford apartment (bank statements, loan documents, award letters, etc.) Thank you! 
               form(action="/file-upload").dropzone.dropzone-user
                 .dz-message To upload your additional documents, drop files here (or click)
                 table#files-list.table
@@ -452,6 +454,10 @@ template(name="rentalApplication")
                             i.fa.fa-eye
                           a.delete-document(href="#")
                             i.fa.fa-trash
+
+              h3 Deposit Disclaimer
+              p A deposit is equal to one mont's rent and non-refundable. The deposit will be returned to Prospective Tenant promptly if the Landlord rejects the Prospective Tenant's application. In the event Prospective Tenant decides not to lease the premises after payment of the Deposit, the Deposit shall be forfeited on the part of Prospective Tenant.
+              p Application fees are used to process the application and are non-refundable, regardless of the Landlord's approval /denial.
 
               h3 Signature
               p I hereby authorize The Rent Scene LLC / any of its affiliates to obtain and/or verify my credit report, criminal history, employment references and personal references in connection with the processing of this rental application. I also agree to the below deposit disclaimer.
