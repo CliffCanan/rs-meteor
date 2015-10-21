@@ -108,44 +108,34 @@ template(name="rentalApplication")
                   input.input-large.form-control(type="text", name="nameOfRoommate4", value="#{fields.nameOfRoommate4}")
               br
               .form-group
-                label How many people are in your family
-                input.input-medium.form-control(type="text", name="familyMembersCount", value="#{fields.familyMembersCount}")
-              .form-group
-                label Adults
-                input.input-small.form-control(type="text", name="adultsCount", value="#{fields.adultsCount}")
-              .form-group
-                label Children
-                input.input-small.form-control(type="text", name="childrenCount", value="#{fields.childrenCount}")
-              br
-              .form-group
                 label Names/relationship of individuals occupying the unit 
                 input.input-large.form-control(type="text", name="individualsInUnit", value="#{fields.individualsInUnit}")
               br
               .form-group
-                label Do you have any pets?
+                label Do you have any pet(s)?
                 select#has-pets.form-control(name="hasPets", value="#{fields.hasPets}")
                   option(value="Yes") Yes
                   option(value="No", selected) No
               br
               .pets-wrapper
                 .form-group
-                  label Pet's name
+                  label Pet(s)'s name
                   input.input-medium.form-control(type="text", name="petName", value="#{fields.petName}")
                 .form-group
-                  label Breed
+                  label Breed(s)
                   input.input-small.form-control(type="text", name="petBreed", value="#{fields.petBreed}")
                 .form-group
-                  label Color
+                  label Color(s)
                   input.input-small.form-control(type="text", name="petColor", value="#{fields.petColor}")
                 .form-group
-                  label Age
+                  label Age(s)
                   input.input-small.form-control(type="text", name="petAge", value="#{fields.petAge}")
                 .form-group
-                  label Gender
+                  label Gender(s)
                   input.input-small.form-control(type="text", name="petGender", value="#{fields.petGender}")
                 br
                 .form-group
-                  label Weight
+                  label Weight(s)
                   input.input-small.form-control(type="text", name="petWeight", value="#{fields.petWeight}")
                 .form-group
                   label Spayed / Neutered?
