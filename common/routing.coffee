@@ -156,7 +156,7 @@ Router.map ->
           meta:
             description: metaTags.description
 
-  @route "/rental-application",
+  @route "/apply",
     name: "newRentalApplication"
     action: ->
       newRentalApplication =
@@ -174,7 +174,7 @@ Router.map ->
       insertedId = RentalApplications.insert newRentalApplication
       Router.go('rentalApplication', {id: insertedId}, {replaceState: true})
   
-  @route "/rental-application/:id",
+  @route "/apply/:id",
     name: "rentalApplication"
     waitOn: ->
       accessToken = Session.get('rentalApplicationAccessToken')
@@ -182,7 +182,7 @@ Router.map ->
     data: ->
       RentalApplications.findOne(@params.id)
 
-  @route "/rental-application/:id/download", ->
+  @route "/apply/:id/download", ->
     rentalApplication = RentalApplications.findOne(@params.id)
 
     # Get PDF template file from the /private directory. It's HTML instead of Jade because of a bug in the jade / jade-compiler package
