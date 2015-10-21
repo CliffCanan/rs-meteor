@@ -323,38 +323,45 @@ template(name="rentalApplication")
                 .form-group
                   label Filed for bankruptcy?
                   select#has-filed-for-bankruptcy.form-control(name="hasFiledForBankruptcy", value="#{fields.hasFiledForBankruptcy}")
+                    option(hidden, selected, value="")
                     option(value="Yes") Yes
-                    option(value="No", selected) No
+                    option(value="No") No
                 .form-group
                   label Been evicted?
                   select#has-been-evicted.form-control(name="hasBeenEvicted", value="#{fields.hasBeenEvicted}")
+                    option(hidden, selected, value="")
                     option(value="Yes") Yes
-                    option(value="No", selected) No
+                    option(value="No") No
                 .form-group
                   label Refused to pay rent?
                   select#has-refused-to-pay-rent.form-control(name="hasRefusedToPayRent", value="#{fields.hasRefusedToPayRent}")
+                    option(hidden, selected, value="")
                     option(value="Yes") Yes
-                    option(value="No", selected) No
+                    option(value="No") No
                 .form-group
                   label Violated or broken any lease agreement?
                   select#has-violated-or-broken-any-lease-agreement.form-control(name="hasViolatedOrBrokenAnyLeaseAgreement", value="#{fields.hasViolatedOrBrokenAnyLeaseAgreement}")
+                    option(hidden, selected, value="")
                     option(value="Yes") Yes
-                    option(value="No", selected) No
+                    option(value="No") No
                 .form-group
                   label Has a criminal history?
                   select#has-a-criminal-history.form-control(name="hasACriminalHistory", value="#{fields.hasACriminalHistory}")
+                    option(hidden, selected, value="")
                     option(value="Yes") Yes
-                    option(value="No", selected) No
+                    option(value="No") No
                 .form-group
                   label Pending case?
                   select#has-pending-case.form-control(name="hasPendingCase", value="#{fields.hasPendingCase}")
+                    option(hidden, selected, value="")
                     option(value="Yes") Yes
-                    option(value="No", selected) No
+                    option(value="No") No
                 .form-group
                   label Registered sex offender?
                   select#is-registered-sex-offender.form-control(name="isRegisteredSexOffender", value="#{fields.isRegisteredSexOffender}")
+                    option(hidden, selected, value="")
                     option(value="Yes") Yes
-                    option(value="No", selected) No
+                    option(value="No") No
 
               br
 

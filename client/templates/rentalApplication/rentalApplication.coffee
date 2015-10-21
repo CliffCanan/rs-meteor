@@ -138,6 +138,7 @@ Template.rentalApplication.events
 
   "click #no-to-all-criminal-history": (event, template) ->
     template.$('.criminal-history-input-wrapper select').val('No')
+    template.$('.criminal-history-explanation-wrapper').hide()
 
   "change .criminal-history-input-wrapper select": (event, template) ->
     showExplanationWrapper = false
