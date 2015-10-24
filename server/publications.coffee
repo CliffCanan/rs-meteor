@@ -307,6 +307,6 @@ Meteor.smartPublish "rentalApplication", (id, accessToken) ->
     publish.push RentalApplications.find(id, {fields: {password: 0}})
     publish.push RentalApplicationRevisions.find({parentId: id}, {fields: {parentId: 1, updateNote: 1, revisionSavedAt: 1}})
   else
-    publish.push RentalApplications.find(id, {fields: {accessToken: 1}})
+    publish.push RentalApplications.find(id, {fields: {accessToken: 1, hasPassword: 1}})
 
   publish

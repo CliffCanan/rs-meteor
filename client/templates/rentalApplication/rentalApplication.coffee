@@ -60,7 +60,7 @@ Template.rentalApplication.onRendered ->
 
 Template.rentalApplication.helpers
   canAccess: ->
-    return true if Security.canOperateWithBuilding()
+    return true if Security.canOperateWithBuilding() or not @hasPassword
     @accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
   getDatePickerDateMoveInDate: ->
     if @fields and @fields.moveInDate
@@ -208,11 +208,15 @@ Template.rentalApplication.events
 
   "submit #rental-application-password-form": (event, template) ->
     event.preventDefault()
+    accessToken = Random.secret()
+
+    Session.set('rentalApplicationAccessToken', accessToken)
 
     fields =
       password: template.$('#rental-application-password-form').find('#password').val()
       hasPassword: true
       fields: $('#rental-application-form').serializeFormJSON()
+      accessToken: accessToken
 
     $jSignature = template.$('#signature')
     if $jSignature.jSignature('isModified')
@@ -223,7 +227,7 @@ Template.rentalApplication.events
     RentalApplications.update template.data._id,
       $set: fields
       , (err, result) ->
-        template.$("#rental-application-password").modal('toggle')
+        $('body').removeClass('modal-open')
         location.href = "#{Router.path('rentalApplication', {id: template.data._id})}/download"
 
   "submit #rental-application-save-revision-form": (event, template) ->
