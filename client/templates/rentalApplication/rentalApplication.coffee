@@ -30,8 +30,9 @@ Template.rentalApplication.onRendered ->
     $('#is-registered-sex-offender').val(@data.fields.isRegisteredSexOffender).trigger('change')
 
   Tracker.autorun ->
-    if Security.canOperateWithBuilding() or (instance.data.accessToken and Session.equals('rentalApplicationAccessToken', instance.data.accessToken))
-      instance.$('#signature').jSignature()
+    if Security.canOperateWithBuilding() or (instance.data.accessToken and Session.equals('rentalApplicationAccessToken', instance.data.accessToken)) or not instance.data.hasPassword
+      instance.$('#signature').not('.processed').jSignature()
+      instance.$('#signature').addClass('processed')
 
       if instance.data.signature
         signatureData = "data:#{instance.data.signature.base30.join(',')}"
