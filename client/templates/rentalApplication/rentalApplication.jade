@@ -73,9 +73,9 @@ template(name="rentalApplication")
               .form-group
                 label Do you have a partner / roommate(s)?
                 select#has-partner-roommate.form-control(name="hasPartnerRoommate", value="#{fields.hasPartnerRoommate}")
-                  option(value="No") No
-                  option(value="I have a partner", selected) I have a partner
-                  option(value="I have a roommate", selected) I have a roommate(s)
+                  option(value="No" selected) No
+                  option(value="I have a partner") I have a partner
+                  option(value="I have a roommate") I have a roommate(s)
               .partner-wrapper(style="display: none")
                 .form-group
                   label Name of partner
