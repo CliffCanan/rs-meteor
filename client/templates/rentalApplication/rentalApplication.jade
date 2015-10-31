@@ -450,7 +450,7 @@ template(name="rentalApplication")
                               i.fa.fa-spin.fa-spinner
                               i.fa.fa-check-circle.text-success
                         td #{size}
-                        td {{getReadableLongDate uploadedAt}}
+                        td {{getFormatted uploadedAt}}
                         td
                           if isUploadedByAdmin
                             input.shared-with-user(type="checkbox", checked=canUserView)
