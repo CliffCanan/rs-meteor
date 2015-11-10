@@ -3,18 +3,45 @@ template(name="index")
   section.head-section-wrap.clearfix
     .head-section
       h2.head-section-title
-        | Find Your Perfect Home
+        | Wish Renting Was Easy?
       p.main-desc
-        | Moving to a new city can be a pain. The Rent Scene is here to help you find and secure the perfect apartment or house
-      .select-city-wrap
-        .select-city-shadow
-          span.select-city
-            i.fa.fa-globe
-            | Select a City
-        ul.city-list.list-unstyled
-          each cities
-            li.city-item
-              a.city-item-link(href="{{pathFor route='city' data=getCityData}}") {{value}}
+        | It can be. We handle all the busywork so you don't have to.
+      .benefits-wrap
+        .benefits-shadow
+          .col-lg-6.benefits-shadow-heading
+            h3 How we help you (free!):
+          .col-lg-6.benefits-shadow-list
+            ul.fa-ul
+              li
+                i.fa-li.fa.fa-check
+                | Screen out fake ads
+              li
+                i.fa-li.fa.fa-check
+                | Schedule all your appointments
+              li
+                i.fa-li.fa.fa-check
+                | Take video of available units
+              li
+                i.fa-li.fa.fa-check
+                | Get your questions answered
+      .buttons-wrap
+        .col-lg-6
+          .button-shadow
+            a#browse-button(href="#")
+              span.button-text.button-browse
+                  i.fa.fa-globe
+                  | Browse Listings
+          ul.city-list.list-unstyled
+            each cities
+              li.city-item
+                a.city-item-link(href="{{pathFor route='city' data=getCityData}}") {{value}}
+        .col-lg-6
+          .button-shadow
+            a#expert-button(href="#")
+              span.button-text.button-expert
+                i.fa.fa-user
+                | Work with an expert
+
       a.more-info(href="/") Scroll for more
   section.testimonials-wrap.clearfix
     .testimonials

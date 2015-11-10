@@ -4,5 +4,7 @@ Template.index.helpers
 Template.index.rendered = ->
 
 Template.index.events
-  "click .contact-us": grab encapsulate (event, template) ->
+  "click .contact-us, click #expert-button": grab encapsulate (event, template) ->
     $('#contactUsPopup').modal('show')
+  "click #browse-button": ->
+    $('.city-list').slideToggle()
