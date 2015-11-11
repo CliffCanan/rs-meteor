@@ -178,7 +178,6 @@ Template.city.onRendered ->
                 if infoWindowId
                   markers[infoWindowId].setIcon(defaultIcon)
 
-                mixpanel.track("property-container-map")
                 html = Blaze.toHTMLWithData(Template.buildingMarker, building)
                 infowindow.setContent(html)
                 infowindow.open(map, marker)
