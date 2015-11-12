@@ -4,7 +4,7 @@ template(name="buildingMarker")
       a.cpr-property-map-image-link(href="{{pathFor route='building' buildingSlug=slug}}")
         with mainImage
           .uk-overlay.cpr-overlay
-            img.cpr-property-map-featured-image(src="{{url store='thumbs'}}")
+            img.cpr-property-map-featured-image(src="{{getThumbnail store='thumbs'}}")
         h2.gradient_caption.cpr-property-map-bedrooms {{title}}
     .cpr-property-details-map
       i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
