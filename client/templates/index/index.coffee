@@ -10,4 +10,5 @@ Template.index.events
     $('#contactUsPopup').modal('show')
   "click #browse-button": (event, template) ->
     event.stopPropagation()
+    event.preventDefault()
     $('.city-list').slideToggle()
