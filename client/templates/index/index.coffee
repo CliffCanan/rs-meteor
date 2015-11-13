@@ -4,7 +4,10 @@ Template.index.helpers
 Template.index.rendered = ->
 
 Template.index.events
+  "click .head-section-wrap": (event, template) ->
+    $('.city-list').slideUp()
   "click .contact-us, click #expert-button": grab encapsulate (event, template) ->
     $('#contactUsPopup').modal('show')
-  "click #browse-button": ->
+  "click #browse-button": (event, template) ->
+    event.stopPropagation()
     $('.city-list').slideToggle()
