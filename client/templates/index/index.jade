@@ -7,24 +7,33 @@ template(name="index")
       p.main-desc
         | It can be. We handle all the busywork so you don't have to.
       .benefits-wrap
-        .benefits-shadow
-          .col-lg-6.benefits-shadow-heading
-            h3 How we help you (free!):
-          .col-lg-6.benefits-shadow-list
-            ul.fa-ul
-              li
-                i.fa-li.fa.fa-check
-                | Screen out fake ads
-              li
-                i.fa-li.fa.fa-check
-                | Schedule all your appointments
-              li
-                i.fa-li.fa.fa-check
-                | Take video of available units
-              li
-                i.fa-li.fa.fa-check
-                | Get your questions answered
+        i.fa.fa-plus
+        .concierge-wrap
+          h3 Concierge
+          ul.fa-ul
+            li
+              i.fa-li.fa.fa-check
+              | Personal advice
+            li
+              i.fa-li.fa.fa-check
+              | Once point of contact
+        .technology-wrap
+          h3 Technology
+          ul.fa-ul
+            li
+              i.fa-li.fa.fa-check
+              | Tour scheduling
+            li
+              i.fa-li.fa.fa-check
+              | Applications &amp; payments
+          
       .buttons-wrap
+        .col-lg-6
+          .button-shadow
+            a#expert-button(href="#")
+              span.button-text.button-expert
+                i.fa.fa-user
+                | Work with an expert
         .col-lg-6
           .button-shadow
             a#browse-button(href="#")
@@ -35,12 +44,6 @@ template(name="index")
             each cities
               li.city-item
                 a.city-item-link(href="{{pathFor route='city' data=getCityData}}") {{value}}
-        .col-lg-6
-          .button-shadow
-            a#expert-button(href="#")
-              span.button-text.button-expert
-                i.fa.fa-user
-                | Work with an expert
 
       a.more-info(href="/") Scroll for more
   section.testimonials-wrap.clearfix

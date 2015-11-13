@@ -12,7 +12,7 @@
 .head-section-wrap
   position relative
   width 100%
-  height 750px
+  height 800px
 
 .head-section
   max-width 1280px
@@ -45,34 +45,46 @@
 .home-page
   .benefits-wrap
     color #FFF
-    margin 40px 0 0
+    margin 30px auto
+    margin-bottom 10px
     position relative
-
-  .benefits-shadow
-    background rgba(0, 0, 0, .3)
-    border-radius 5px
-    display inline-block
-    padding 10px 0
-    position relative
-    width 260px
-    @media screen and (min-width: 360px)
-      width 315px
-    @media screen and (min-width: 768px)
-      width 500px
-
-  .benefits-shadow-heading
-    margin-top 10px
-    padding 0
-    h3
-      font-size 20px
+    height 300px
+    width 520px
+    .fa-plus
+      font-size 24px
+      left 250px
+      position absolute
+      top 135px
+      z-index 999
     
-  .benefits-shadow-list
-    padding 0
-    text-align left
+  .concierge-wrap, .technology-wrap
+    background rgba(0, 0, 0, .3)
+    position absolute
+    height 300px
+    width 300px
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    h3
+      margin-top 40px
     ul
+      margin-left 80px
+      margin-top 150px
       margin-bottom 0
-    i
-      color #a0c6e6
+      li
+        text-align left
+        width 180px
+      i
+        color #a0c6e6
+        width 35px
+
+  .concierge-wrap
+    background rgba(0, 0, 0, .3) url('/concierge.png') no-repeat 70px
+    left 0
+  
+  .technology-wrap
+    background rgba(0, 0, 0, .3) url('/screens.png') no-repeat 90px
+    right 0
 
   .buttons-wrap
     margin 0 auto
