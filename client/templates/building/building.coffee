@@ -8,11 +8,12 @@ Template.building.helpers
     Router.current() # reactivity
     editBuildingId = Session.get("editBuildingId")
 
-    if $.fn.imgLiquid
-      initImgLiquid()
-    else
+    unless $.fn.imgLiquid
       $.getScript '/js/imgLiquid-min.js', ->
-        initImgLiquid()
+        $('#carousel-example-generic .item').imgLiquid
+          fill: false
+          verticalAlign: '50%'
+        $('#carousel-example-generic .item').css('visibility', 'visible')
 
     _.defer ->
       $('[data-toggle="tooltip"]').tooltip()
@@ -28,6 +29,12 @@ Template.building.helpers
         $carousel.show().carousel()
       else
         $carousel.hide()
+
+      if $.fn.imgLiquid
+        $('#carousel-example-generic .item').imgLiquid
+          fill: false
+          verticalAlign: '50%'
+        $('#carousel-example-generic .item').css('visibility', 'visible')
 
     return ""
 
@@ -452,12 +459,6 @@ calcRoute = (from, to, context) ->
           context.travelInfoWindow.setPosition(leg.start_location)
           context.travelInfoWindow.open(map)
           $('.gm-style-iw').next('div').hide()
-
-initImgLiquid = ->
-  $('#carousel-example-generic .item').imgLiquid
-    fill: false
-    verticalAlign: '50%'
-  $('#carousel-example-generic .item').css('visibility', 'visible')
 
 CalculateDistance = (lat1, lon1, lat2, lon2) ->
   radlat1 = Math.PI * lat1 / 180
