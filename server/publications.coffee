@@ -18,7 +18,7 @@ Meteor.publish "allUsers", ->
     return []
   Meteor.users.find()
 
-Meteor.smartPublish "buildings", (cityId, query, page) ->
+Meteor.publish "buildings", (cityId, query, page) ->
   query.from = "" + query.from
   query.to = "" + query.to
   check(cityId, Match.InArray(cityIds))
@@ -46,10 +46,6 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
   selector = {parentId: {$exists: false}, cityId: cityId}
   addQueryFilter(query, selector)
   addIsPublishFilter(@userId, selector)
-
-  @addDependency "buildings", "images", (building) ->
-    _id = building.images?[0]?._id
-    if _id then [BuildingImages.find(_id, {fields: {'copies.thumbs': 1}})] else []
 
   # Limit fields to only those needed to display on city listing. Other fields are for building page.
   fields =
@@ -81,7 +77,21 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
 
-  Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
+  buildingsCursor = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
+  buildings = buildingsCursor.fetch()
+
+  images = []
+
+  if buildings
+    imageIds = []
+    buildings.forEach (building) ->
+      _id = building.images?[0]?._id
+      imageIds.push _id
+
+    if imageIds.length
+      images = BuildingImages.find {_id: $in: imageIds}, {fields: 'copies.thumbsSmall': 1}
+
+  [buildingsCursor, images]
 
 Meteor.publish "buildingsSimilar", (buildingId) ->
   building = Buildings.findOne(buildingId)
@@ -123,7 +133,7 @@ Meteor.publish "buildingsSimilar", (buildingId) ->
       imageIds.push _id
 
     if imageIds.length
-      images = BuildingImages.find _id: {$in: imageIds}
+      images = BuildingImages.find {_id: $in: imageIds}, {fields: 'copies.thumbsSmall': 1}
 
   [similarBuildingsCursor, images]
 

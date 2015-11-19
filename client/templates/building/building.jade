@@ -259,7 +259,7 @@ template(name="building")
                   each getMedia
                     .item
                       if isImage
-                        img.building-img(src="{{getThumbnail store='thumbs'}}")
+                        img.building-img(src="{{getThumbnail store='thumbsSmall'}}")
                       else
                         if isFirstSlide
                           iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="100%", height="500" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
