@@ -164,24 +164,23 @@ Meteor.publish "city-buildings-count", (cityId, query) ->
 Meteor.publish "singleBuilding", (buildingId) ->
   Buildings.find(buildingId)
 
-Meteor.smartPublish "building", (cityId, slug) ->
-  # console.log("cityId: ", cityId)
-  # console.log("slug: ", slug)
+Meteor.publish "building", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
   check(slug, String)
-  @addDependency "buildings", "images", (building) ->
-    imageIds = _.map building.images, (file) ->
-      file._id
-    [BuildingImages.find({_id: {$in: imageIds}})]
-
-  @addDependency "buildings", "reviews", (building) ->
-    BuildingReviews.find({buildingId: building._id, isPublished: true, isRemoved: null})
 
   selector = {cityId: String(cityId), slug: String(slug)}
   # addIsPublishFilter(@userId, selector)
-  buildings = Buildings.find(selector)
-  # console.log("buildings: ", buildings.fetch())
-  buildings
+  
+  buildingsCursor = Buildings.find(selector)
+  building = buildingsCursor.fetch()[0]
+
+  imageIds = _.map building.images, (file) ->
+    file._id
+  
+  buildingImagesCursor = BuildingImages.find({_id: {$in: imageIds}}, {fields: 'copies.thumbs': 1})
+  buildingReviewsCursor = BuildingReviews.find({buildingId: building._id, isPublished: true, isRemoved: null})
+
+  [buildingsCursor, buildingImagesCursor, buildingReviewsCursor]
 
 Meteor.smartPublish "buildingParent", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
