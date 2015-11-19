@@ -83,13 +83,8 @@ Meteor.smartPublish "buildings", (cityId, query, page) ->
 
   Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
 
-Meteor.smartPublish "buildingsSimilar", (buildingId) ->
+Meteor.publish "buildingsSimilar", (buildingId) ->
   building = Buildings.findOne(buildingId)
-
-  # Only load the first thumbnail since we only need the thumbnail
-  @addDependency "buildings", "images", (building) ->
-    _id = building.images?[0]?._id
-    if _id then [BuildingImages.find(_id, {fields: {'copies.thumbsSmall': 1}})] else []
 
   from = building.agroPriceTotalTo - 200
   to = building.agroPriceTotalTo + 200
@@ -116,7 +111,21 @@ Meteor.smartPublish "buildingsSimilar", (buildingId) ->
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
 
-  Buildings.find(selector, {limit: 4, fields: fields})
+  similarBuildingsCursor = Buildings.find(selector, {limit: 4, fields: fields})
+  similarBuildings = similarBuildingsCursor.fetch()
+
+  images = []
+
+  if similarBuildings
+    imageIds = []
+    similarBuildings.forEach (building) ->
+      _id = building.images?[0]?._id
+      imageIds.push _id
+
+    if imageIds.length
+      images = BuildingImages.find _id: {$in: imageIds}
+
+  [similarBuildingsCursor, images]
 
 Meteor.smartPublish "recommendedBuildings", (buildingIds) ->
   @addDependency "buildings", "images", (building) ->
