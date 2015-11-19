@@ -15,7 +15,7 @@ template(name="buildingImagesEdit")
               #element1.thumbnail-image
                 if isVideo
                   i.fa.fa-video-camera.fa-3x
-                img.building-img.img-thumbnail(src="{{getThumbnail store='thumbsSmall'}}")
+                img.building-img.img-thumbnail(src="{{getThumbnail store='thumbs'}}")
                 #element2.cover-image
                   button.remove-image( type='button', aria-label='Remove' data-toggle="modal" data-target="#confirmRemoval")
                     span.fa.fa-trash(aria-hidden='true')

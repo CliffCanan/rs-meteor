@@ -89,7 +89,7 @@ Meteor.publish "buildings", (cityId, query, page) ->
       imageIds.push _id
 
     if imageIds.length
-      images = BuildingImages.find {_id: $in: imageIds}, {fields: 'copies.thumbsSmall': 1}
+      images = BuildingImages.find {_id: $in: imageIds}, {fields: 'copies.thumbs': 1}
 
   [buildingsCursor, images]
 
@@ -133,7 +133,7 @@ Meteor.publish "buildingsSimilar", (buildingId) ->
       imageIds.push _id
 
     if imageIds.length
-      images = BuildingImages.find {_id: $in: imageIds}, {fields: 'copies.thumbsSmall': 1}
+      images = BuildingImages.find {_id: $in: imageIds}, {fields: 'copies.thumbs': 1}
 
   [similarBuildingsCursor, images]
 
