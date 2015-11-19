@@ -8,6 +8,12 @@ Template.building.helpers
     Router.current() # reactivity
     editBuildingId = Session.get("editBuildingId")
 
+    if $.fn.imgLiquid
+      initImgLiquid()
+    else
+      $.getScript '/js/imgLiquid-min.js', ->
+        initImgLiquid()
+
     _.defer ->
       $('[data-toggle="tooltip"]').tooltip()
       addthis?.init()
@@ -124,12 +130,6 @@ Template.building.helpers
     Session.get('reviewFormDefaults')
 
 Template.building.onRendered ->
-  if $.fn.imgLiquid
-    initImgLiquid()
-  else
-    $.getScript '/js/imgLiquid-min.js', ->
-      initImgLiquid()
-
   instance = @
   $('[data-toggle="popover"]').popover
     html: true
@@ -454,7 +454,6 @@ calcRoute = (from, to, context) ->
           $('.gm-style-iw').next('div').hide()
 
 initImgLiquid = ->
-  console.log 'initing img imgLiquid'
   $('#carousel-example-generic .item').imgLiquid
     fill: false
     verticalAlign: '50%'
