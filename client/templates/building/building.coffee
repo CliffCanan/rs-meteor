@@ -8,12 +8,6 @@ Template.building.helpers
     Router.current() # reactivity
     editBuildingId = Session.get("editBuildingId")
 
-    if $.fn.imgLiquid
-      initImgLiquid()
-    else
-      $.getScript '/js/imgLiquid-min.js', ->
-        initImgLiquid()
-
     _.defer ->
       $('[data-toggle="tooltip"]').tooltip()
       addthis?.init()
@@ -130,6 +124,12 @@ Template.building.helpers
     Session.get('reviewFormDefaults')
 
 Template.building.onRendered ->
+  if $.fn.imgLiquid
+    initImgLiquid()
+  else
+    $.getScript '/js/imgLiquid-min.js', ->
+      initImgLiquid()
+
   instance = @
   $('[data-toggle="popover"]').popover
     html: true
