@@ -57,6 +57,7 @@ Template.contactUs.rendered = ->
           form.data('formValidation').resetForm()
           $('#contactUsPopup').modal('hide')
           $('#messageSentPopup').modal('show')
+          analytics.track "Submitted Contact Us form"
           form.find(".submit-button").prop("disabled", false)
           form.find(".loading").hide()
       )
