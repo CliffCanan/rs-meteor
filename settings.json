@@ -22,6 +22,10 @@
     },
     "addThis": {
       "token": "ra-53a971e6726f30bc"
+    },
+    "analyticsSettings": {
+      "Google Analytics": {"trackingId": "UA-37790473-1"},
+      "Mixpanel": {"token": "283e4e17cb04be1a047e27cb6c429d4a", "people": true}
     }
   }
 }

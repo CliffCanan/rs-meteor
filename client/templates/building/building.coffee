@@ -269,6 +269,7 @@ Template.building.events
 
   "click .check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
+    analytics.track "Clicked Check Availability button", {buildingId: @_id, buildingName: @title}
     $('#checkAvailabilityPopup').modal('show')
 
   "click .unit-check-availability": grab encapsulate (event, template) ->

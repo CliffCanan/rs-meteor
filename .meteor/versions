@@ -92,6 +92,7 @@ mrt:smart-publish@0.2.0
 npm-bcrypt@0.7.8_2
 npm-container@1.1.0
 observe-sequence@1.0.6
+okgrow:analytics@1.0.4
 ordered-dict@1.0.3
 pdftk:pdftk@0.7.0
 percolate:migrations@0.7.6

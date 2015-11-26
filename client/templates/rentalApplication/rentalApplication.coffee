@@ -202,6 +202,7 @@ Template.rentalApplication.events
         alert result.message
   "submit #rental-application-form": (event, template) ->
     event.preventDefault()
+    analytics.track "Submitted Rental Application form"
     if @hasPassword
       template.$("#rental-application-save-revision").modal('toggle')
     else

@@ -16,6 +16,7 @@ Template.header.onRendered ->
 
 Template.header.events
   "click .contact-us": grab encapsulate (event, template) ->
+    analytics.track "Clicked Contact Us Link"
     $('#contactUsPopup').modal('show')
 
   "click #view-recommendations": (event, template) ->

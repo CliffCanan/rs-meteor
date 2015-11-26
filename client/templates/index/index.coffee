@@ -8,7 +8,10 @@ Template.index.events
     $('.city-list').slideUp()
   "click .contact-us, click #expert-button": grab encapsulate (event, template) ->
     $('#contactUsPopup').modal('show')
+  "click #expert-button": (event, template) ->
+    analytics.track "Clicked Work with an expert button"
   "click #browse-button": (event, template) ->
     event.stopPropagation()
     event.preventDefault()
+    analytics.track "Clicked Browse Listings button"
     $('.city-list').slideToggle()
