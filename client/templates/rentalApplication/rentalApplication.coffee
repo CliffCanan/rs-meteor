@@ -13,7 +13,7 @@ Template.rentalApplication.onRendered ->
   $('#first-emergency-contact-phone-number').mask('999-999-9999')
   $('#second-emergency-contact-phone-number').mask('999-999-9999')
 
-  if @data.field
+  if @data.fields
     $('#is-student').val(@data.fields.isStudent).trigger('change')
     $('#has-partner-roommate').val(@data.fields.hasPartnerRoommate).trigger('change')
     $('#has-pets').val(@data.fields.hasPets).trigger('change')
