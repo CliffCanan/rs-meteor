@@ -6,10 +6,9 @@ Template.index.rendered = ->
 Template.index.events
   "click .head-section-wrap": (event, template) ->
     $('.city-list').slideUp()
-  "click .contact-us, click #expert-button": grab encapsulate (event, template) ->
-    $('#contactUsPopup').modal('show')
-  "click #expert-button": (event, template) ->
+  "click #expert-button": grab encapsulate (event, template) ->
     analytics.track "Clicked Work with an expert button"
+    $('#contactUsPopup').modal('show')
   "click #browse-button": (event, template) ->
     event.stopPropagation()
     event.preventDefault()
