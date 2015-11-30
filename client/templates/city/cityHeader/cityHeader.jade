@@ -32,7 +32,7 @@ template(name="cityHeader")
           | Features
         form.form-building-features-filter.features-section.dropdown-menu.dropdown-menu-right
           h3.filter-title
-            | Filter the search results by the criteria that you need, in order to find your best apartment!
+            | Filter the search results by the criteria you need.
           ul.filter-list.list-unstyled.clearfix
             li.checkbox-wrap.col-md-6
               input#security.css-checkbox(type="checkbox", name="security", value="true", checked="{{query.security}}")
@@ -45,7 +45,7 @@ template(name="cityHeader")
             li.checkbox-wrap.col-md-6
               input#pets.css-checkbox(type="checkbox", name="pets", value="true", checked="{{query.pets}}")
               label.css-label(for="pets")
-                | Pet friendly
+                | Pet Friendly
             //li.checkbox-wrap.col-md-6
             //  input#managedBuildings.css-checkbox(type="checkbox", value="true")
             //  label.css-label(for="managedBuildings")
@@ -57,7 +57,7 @@ template(name="cityHeader")
             li.checkbox-wrap.col-md-6
               input#loundry.css-checkbox(type="checkbox", name="laundry", value="true", checked="{{query.laundry}}")
               label.css-label(for="loundry")
-                | Loundry In-unit
+                | Laundry In-unit
             li.checkbox-wrap.col-md-6
               input#parking.css-checkbox(type="checkbox", name="parking", value="true", checked="{{query.parking}}")
               label.css-label(for="parking")
@@ -65,13 +65,13 @@ template(name="cityHeader")
             li.checkbox-wrap.col-md-6
               input#utilities.css-checkbox(type="checkbox", name="utilities", value="true", checked="{{query.utilities}}")
               label.css-label(for="utilities")
-                | Utilities inclided
+                | Utilities Included
             //li.checkbox-wrap.col-md-6
             //  input#listings.css-checkbox(type="checkbox", name="listings", value="true", checked="{{query.listings}}")
             //  label.css-label(for="listings")
             //    | Private listings
           label.city-features-date
-            | Availible from/before
+            | Available from/before
             +datepicker(name="available" value=query.available)
           button.btn.btn-primary.apply-changes-btn(type="submit")
             | Apply Changes
