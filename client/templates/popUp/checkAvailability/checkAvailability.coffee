@@ -60,6 +60,7 @@ Template.checkAvailability.rendered = ->
             form.find(".submit-button").prop("disabled", false)
             form.find(".loading").hide()
             analytics.track "Submitted Check Availability form", {buildingId: building._id, buildingName: building.title, label: building.title}
+            analytics.page title: "Submitted Check Availability form"
       )
   )
 
