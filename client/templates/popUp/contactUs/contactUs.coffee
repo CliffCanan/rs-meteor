@@ -58,7 +58,7 @@ Template.contactUs.rendered = ->
           $('#contactUsPopup').modal('hide')
           $('#messageSentPopup').modal('show')
           analytics.track "Submitted Contact Us form"
-          analytics.page title: "Submitted Contact Us form"
+          analytics.page title: "Submitted Contact Us form", path: '/submit-contact-us-form'
           form.find(".submit-button").prop("disabled", false)
           form.find(".loading").hide()
       )
