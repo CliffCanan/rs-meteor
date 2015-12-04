@@ -125,20 +125,32 @@ Meteor.methods
     clientId = uploadObject.clientId
 
     for object in uploadObject.buildings
+      index = 0
       buildingId = object.buildingId
       console.log "====== Importing images for building id: #{buildingId} ======"
       console.log "importImage > buildingId: " + buildingId
       if object.images
+        request = Meteor.npmRequire 'request'
         for uri in object.images
           try
-            file = BuildingImages.insert uri
-            Meteor.sleep 500
-            console.log "image file: ", file
-            file = _.omit(file, 'collection')
-            Buildings.update(_id: buildingId, {$addToSet: {images: file}})
-            Meteor.sleep 500
+            # With the new MLS, we have to request for each image directly
+            # The insert URL function for CollectionFS uses a HEAD request to query the URL and MLS returns a 404
+            # We'll have to use our own GET request instead
+            request.get({url: uri, encoding: null}, Meteor.bindEnvironment (e, r, buffer) ->
+              file = new FS.File()
+              file.attachData buffer, {type: 'image/jpeg'}, (error) ->
+                throw error if error
+                file.name "#{buildingId}_#{index}.jpeg";
+
+                BuildingImages.insert file, (error, fileObj) ->
+                  fileObj = _.omit(fileObj, 'collection')
+                  Buildings.update(_id: buildingId, {$addToSet: {images: fileObj}})
+                  index++
+                Meteor.sleep 500
+            )
+            Meteor.sleep 500 
           catch error
-            console.error(error)
+            console.error error.stack()
           Meteor.sleep(1500)
       # All images imported for this building. Mark it as complete and it will appear in the list.
       Buildings.update(buildingId, {$set: {isImportCompleted: true, isPublished: true}})
