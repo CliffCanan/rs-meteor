@@ -146,9 +146,10 @@ Meteor.methods
                   fileObj = _.omit(fileObj, 'collection')
                   Buildings.update(_id: buildingId, {$addToSet: {images: fileObj}})
                   index++
-                Meteor.sleep 500
+                  Meteor.sleep 1500
+                Meteor.sleep 1500
             )
-            Meteor.sleep 500 
+            Meteor.sleep 1500
           catch error
             console.error error.stack()
           Meteor.sleep(1500)
