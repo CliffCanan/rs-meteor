@@ -3,6 +3,11 @@ positions = [10000, 5000, 0, -5000, -10000]
 Template.building.onCreated ->
   @subscribe("buildingsSimilar", Router.current().data().building._id)
 
+  # Show Check Availability popup after 15 seconds
+  @popupTimeoutHandle = Meteor.setTimeout ->
+    $('.check-availability').trigger('click')
+  , 15000
+
 Template.building.helpers
   ironRouterHack: ->
     Router.current() # reactivity
@@ -232,6 +237,10 @@ Template.building.onRendered ->
         map.setCenter(latLng)
         if instance.travelMarkers
           instance.travelMarkers.start.setPosition(latLng)
+
+Template.building.onDestroyed ->
+  # Clear timeout when user exits the page so it doesn't trigger.
+  Meteor.clearTimeout(@popupTimeoutHandle)
 
 Template.building.events
   "click .travel-mode-icon img": (event, template) ->
