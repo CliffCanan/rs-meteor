@@ -15,7 +15,6 @@ meteorhacks:subs-manager
 matb33:collection-hooks
 percolate:migrations
 accounts-password
-meteorhacks:kadira
 meteorhacks:npm
 npm-container
 email
@@ -25,7 +24,6 @@ cfs:filesystem
 cfs:graphicsmagick
 cfs:ejson-file
 mrt:smart-publish
-meteorhacks:zones
 manuelschoebel:wait-on-lib
 tmeasday:publish-counts
 sergeyt:typeahead
@@ -35,7 +33,7 @@ manuelschoebel:ms-seo
 gadicohen:sitemaps
 meteorhacks:aggregate
 reactive-var
-cfs:gridfs
+#cfs:gridfs
 froatsnook:sleep
 dbarrett:dropzonejs
 steeve:jsignature
@@ -45,3 +43,5 @@ momentjs:moment
 pdftk:pdftk
 sewdn:masked-input
 okgrow:analytics
+meteorhacks:cluster
+meteorhacks:kadira

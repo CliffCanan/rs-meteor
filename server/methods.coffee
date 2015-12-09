@@ -152,7 +152,6 @@ Meteor.methods
             Meteor.sleep 1500
           catch error
             console.error error.stack()
-          Meteor.sleep(1500)
       # All images imported for this building. Mark it as complete and it will appear in the list.
       Buildings.update(buildingId, {$set: {isImportCompleted: true, isPublished: true}})
       console.log "====== All images for building id: #{buildingId} imported ======"

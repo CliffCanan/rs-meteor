@@ -9,7 +9,7 @@ template(name="rentalApplication")
             .application-dates
               .pull-right
                 i.fa.fa-clock-o
-                | Created on {{getReadableLongDate createdAt}}
+                | Created on: {{getReadableLongDate createdAt}}
                 br
                 i.fa.fa-undo
                 a#application-revisions(href="#rental-application-show-revisions", data-toggle="modal") #{rentalApplicationRevisionsCount} Revisions
@@ -17,7 +17,7 @@ template(name="rentalApplication")
             p
               | After completing the form below, please click "Submit and download PDF" to save a copy on your computer. Please email the completed PDF to
               a(href="mailto:info@rentscene.com") info@rentscene.com
-              | .
+              |.
 
             form#rental-application-form.form-inline
               h3 Rent Details
