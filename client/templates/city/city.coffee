@@ -17,6 +17,7 @@ markers = {}
 Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
+  Session.set('adminShowUnpublishedProperties', false)
 
   unless $.fn.hoverIntent
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
@@ -51,6 +52,8 @@ Template.city.helpers
       selector = {_id: {$in: buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}
     else
       selector = {parentId: {$exists: false}, cityId: @cityId}
+      selector.isPublished = true if not Session.get('adminShowUnpublishedProperties')
+
       if @neighborhoodSlug
         selector.neighborhoodSlug = @neighborhoodSlug
       addQueryFilter(@query, selector)

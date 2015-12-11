@@ -131,5 +131,10 @@ template(name="cityHeader")
     .filter-wrap.building-title-search-wrapper
       input.building-title-search.form-control(type="text", placeholder="Search buildings", value="{{query.q}}")
 
+    .filter-wrap.unpublished-property-toggle-wrapper
+      label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect
+        input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
+        span.mdl-switch__label Show unpublished properties
+
 template(name="neighborhoodSuggestion")
   span(class="#{id}") #{value}
