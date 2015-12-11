@@ -7,6 +7,7 @@ Template.datepicker.rendered = ->
     changeMonth: true
     changeYear: true
     dateFormat: "mm/dd/yy"
+    minDate: new Date()
 
   if @data.options
     options = _.extend(options, @data.options)
