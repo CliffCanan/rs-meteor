@@ -133,6 +133,7 @@ Meteor.methods
         request = Meteor.npmRequire 'request'
         for uri in object.images
           try
+<<<<<<< Updated upstream
             # With the new MLS, we have to request for each image directly
             # The insert URL function for CollectionFS uses a HEAD request to query the URL and MLS returns a 404
             # We'll have to use our own GET request instead
@@ -150,6 +151,13 @@ Meteor.methods
                 Meteor.sleep 1500
             )
             Meteor.sleep 1500
+=======
+            BuildingImages.insert uri, (err, file) ->
+              console.log "image file: ", file
+              Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+              Meteor.sleep 500
+            Meteor.sleep 500
+>>>>>>> Stashed changes
           catch error
             console.error error.stack()
       # All images imported for this building. Mark it as complete and it will appear in the list.
