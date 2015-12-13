@@ -134,8 +134,8 @@ template(name="cityHeader")
     if canOperateWithBuilding
       .filter-wrap.unpublished-property-toggle-wrapper
         label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect
-          input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
-          span.mdl-switch__label Show unpublished properties
+          input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox" title="Show unpublished properties")
+          //span.mdl-switch__label Show unpublished properties
 
 template(name="neighborhoodSuggestion")
   span(class="#{id}") #{value}
