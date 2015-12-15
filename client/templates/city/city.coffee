@@ -26,7 +26,7 @@ Template.city.onCreated ->
   if !Meteor.user()
     @popupTimeoutHandle = Meteor.setTimeout ->
       $('.contact-us').trigger('click')
-    , 12000
+    , 14000
 
 Template.city.helpers
   firstLoad: ->
