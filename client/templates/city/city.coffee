@@ -62,7 +62,7 @@ Template.city.helpers
 
       if @neighborhoodSlug
         selector.neighborhoodSlug = @neighborhoodSlug
-      addQueryFilter(@query, selector)
+      addQueryFilter(@query, selector, Meteor.userId())
 
       if query.hasOwnProperty('address') == true
         travelMode = Session.get "travelMode"

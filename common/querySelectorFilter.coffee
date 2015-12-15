@@ -1,4 +1,4 @@
-@addQueryFilter = (query, selector) ->
+@addQueryFilter = (query, selector, userId) ->
   fieldName = "agroPriceTotalFrom"
   if query.neighborhoodSlug
     selector.neighborhoodSlug = query.neighborhoodSlug
@@ -14,7 +14,22 @@
     if priceTo
       selector[fieldName].$lte = priceTo
   if query.q
-    selector.title = createTextSearchRegexp(decodeURIComponent(query.q))
+    # If Admin, search query should also look in admin fields
+    if userId and Security.canOperateWithBuilding(userId)
+      regexSearch = createTextSearchRegexp(decodeURIComponent(query.q))
+      selector.$or = [
+        {title: regexSearch}
+        {mlsNo: regexSearch}
+        {adminAvailability: regexSearch}
+        {adminEscorted: regexSearch}
+        {adminAppFee: regexSearch}
+        {adminAvailability: regexSearch}
+        {adminScheduling: regexSearch}
+        {adminContact: regexSearch}
+        {adminNotes: regexSearch}
+      ]
+    else
+      selector.title = createTextSearchRegexp(decodeURIComponent(query.q))
   boolFieldNames = ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
   for boolFieldName in boolFieldNames
     if query[boolFieldName]
@@ -23,4 +38,3 @@
     available = new Date(decodeURIComponent(query.available))
     if available.getTime()
       selector.$or = [{availableAt: {$exists: false}}, {availableAt: {$lte: available}}]
-      

@@ -368,6 +368,12 @@ template(name="building")
                   +buildingAdminFieldsEdit
               else
                 with adminBuilding
+                  if mlsNo
+                    .building-admin-info
+                      span.building-admin-info-text
+                        | MLS #:
+                      span.building-admin-info-data
+                        | {{mlsNo}}
                   .building-admin-info
                     span.building-admin-info-text
                       | How to check availability:
