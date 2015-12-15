@@ -2,9 +2,9 @@ template(name="city")
   +cityHeader
   unless clientRecommendationsList
     .city-side-bar.right-bar.clearfix.col-lg-3
-    #gmap
+      #gmap
 
-  .city-page-wrap&attributes(clientRecommendationsList ? {'class': 'col-lg-12'} : {'class': 'col-lg-9'})
+  .city-page-wrap.col-lg-9
 
     .main-city-list-wrap.left-bar.clearfix.pull-left
       if showClientRecommendationsName
