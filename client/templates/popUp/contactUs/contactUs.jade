@@ -7,28 +7,33 @@ template(name="contactUs")
           .modal-header
             button.close(type='button', data-dismiss='modal', aria-label='Close')
               i.fa.fa-times(aria-hidden='true')
-            h4#myModalLabel.modal-title Let us start your apartment search today!
+            h4#myModalLabel.modal-title Searching Alone Sucks - Talk To Our Local Experts!
           .modal-body
             p.form-group
-              | Dealing with brokers on Craigslist can be frustrating and time consuming. We'll save your time by organizing all your tours, and we will give you unbiased advice.
-            fieldset.form-group.contact-us-field
+              | Dealing with brokers and emailing a dozen landlords is frustrating. And time consuming. Instead, our experts can be your single contact to answer questions, confirm unit availability, schedule viewings, and more. Take advantage of unbiased advice to find your next home.
+
+			fieldset.form-group.contact-us-field
               input.form-control(name="name" placeholder="Full name")
-            fieldset.form-group.contact-us-field
+
+			fieldset.form-group.contact-us-field
               input.form-control(name="email" placeholder="Email address")
-            fieldset.row.contact-us-field
+
+			fieldset.row.contact-us-field
               .form-group.col-lg-6
                 select.form-control(name="bedrooms")
-                  option(value="") Nr. bedrooms
+                  option(value="") # of Bedrooms
                   option(value="studio") Studio
-                  option(value="1") 1 bedroom
-                  option(value="2") 2 bedroom
-                  option(value="3") 3 bedroom
-                  option(value="4") 4 bedroom
+                  option(value="1") 1 Bedroom
+                  option(value="2") 2 Bedroom
+                  option(value="3") 3 Bedroom
+                  option(value="4") 4 Bedroom
               .form-group.col-lg-6
                 input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
-            fieldset.form-group.contact-us-field
+
+			fieldset.form-group.contact-us-field
               label Are you planning a visit {{cityName}} to view apartments?
-            fieldset.form-group.contact-us-field
+
+			fieldset.form-group.contact-us-field
               span.radio-inline
                 input#inlineRadio1.css-checkbox(type='radio', name='tourOption', value='yes', checked)
                 label.css-label(for="inlineRadio1")
@@ -44,17 +49,17 @@ template(name="contactUs")
 
             fieldset.row.contact-us-field
               .form-group.col-lg-6
-                +datepicker(id="contactUsTourDate" placeholder="Tour date" class="tour-date" name="contactUsTourDate")
+                +datepicker(id="contactUsTourDate" placeholder="Tour Date" class="tour-date" name="contactUsTourDate")
               .form-group.col-lg-6
-                +datepicker(id="contactUsMoveInDate" placeholder="Move in date" class="move-in-data" name="contactUsMoveInDate")
+                +datepicker(id="contactUsMoveInDate" placeholder="Move-In Date" class="move-in-data" name="contactUsMoveInDate")
             fieldset.form-group.contact-us-field
-              textarea.form-control(name="question" placeholder="Question/Comments", rows="4")
+              textarea.form-control(name="question" placeholder="Question/Comments", rows="3")
           .modal-footer
             if serverError
               .form-group
                 .alert.alert-danger(role="alert")
-                  strong Sorry! Server error occured! We are probably already fixing it:)
-            .form-group
-              button.btn.btn-primary.submit-button(type="submit")
-                .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
-                | Submit
+                  strong Sorry! Server error occured! We are probably already working hard to get it fixed ASAP! :-)
+            button.btn.btn-primary.submit-button(type="submit")
+              .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
+              | Submit
+              i.fa.fw.fa-check(aria-hidden='true')

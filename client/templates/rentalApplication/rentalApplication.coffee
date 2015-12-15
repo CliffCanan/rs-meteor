@@ -4,14 +4,13 @@ Template.rentalApplication.onRendered ->
   instance = @
   $('#partner-ssn').mask('999-99-9999')
   $('#social-security-number').mask('999-99-9999')
-
   $('#phone-number').mask('999-999-9999')
-  $('#current-landlord-phone-number').mask('999-999-9999')
-  $('#previous-landlord-phone-number').mask('999-999-9999')
-  $('#first-reference-phone-number').mask('999-999-9999')
-  $('#second-reference-phone-number').mask('999-999-9999')
-  $('#first-emergency-contact-phone-number').mask('999-999-9999')
-  $('#second-emergency-contact-phone-number').mask('999-999-9999')
+  $('#current-landlord-phone-number').mask('(999) 999-9999')
+  $('#previous-landlord-phone-number').mask('(999) 999-9999')
+  $('#first-reference-phone-number').mask('(999) 999-9999')
+  $('#second-reference-phone-number').mask('(999) 999-9999')
+  $('#first-emergency-contact-phone-number').mask('(999) 999-9999')
+  $('#second-emergency-contact-phone-number').mask('(999) 999-9999')
 
   if @data.fields
     $('#is-student').val(@data.fields.isStudent).trigger('change')

@@ -34,6 +34,8 @@
 
 .fv-form-bootstrap .help-block {
     margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
 }
 .fv-form-bootstrap .tooltip-inner {
     text-align: left;
