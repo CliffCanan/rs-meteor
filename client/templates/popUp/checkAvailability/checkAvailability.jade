@@ -13,36 +13,43 @@ template(name="checkAvailability")
               h4#myModalLabel.modal-title Check Availability
             .modal-body
               p.form-group.availability-field
-                | We will gladly help you check availability of {{propertyName}}. Please specify your contact details, and our agent will contact you soon.
+                | We will gladly help you check availability of 
+                span(class="text-primary) {{propertyName}}
+                | . &nbsp;Please enter your contact details, and our agent will contact you soon.
               fieldset.form-group.availability-field
                 input.form-control(name="name" placeholder="Name")
               fieldset.form-group.availability-field
                 input.form-control(name="email" placeholder="Email address")
               fieldset.form-group.availability-field
-                textarea.form-control(name="question" placeholder="Question", rows="4")
+                textarea.form-control(name="question" placeholder="Is this unit still available?", rows="4")
+
               if condition agroIsUnit 'is' false
-                fieldset.form-group.availability-field
-                  select.form-control(name="bedrooms")
-                    option(value="") Nr. bedrooms
-                    option(value="studio") Studio
-                    option(value="1") 1 bedroom
-                    option(value="2") 2 bedrooms
-                    option(value="3") 3 bedrooms
-                    option(value="4") 4 bedrooms
-                    option(value="5") 5+ bedrooms
+                fieldset.form-inline.availability-field
+                  .form-group
+                    label.availability-text.col-xs-5(for="bedrooms")
+                      | # of Bedrooms
+                    select.form-control(name="bedrooms")
+                      option(value="") -  Select  -
+                      option(value="studio") Studio
+                      option(value="1") 1
+                      option(value="2") 2
+                      option(value="3") 3
+                      option(value="4") 4
+                      option(value="5") 5+
+
               fieldset.form-inline.availability-field
                 .form-group
-                  label.availability-text(for="datetimeForm")
-                    | Move-in date
-                  +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="mm/dd/yyyy" class="moveInData-moveInDate-editor" name="moveInDate")
+                  label.availability-text.col-xs-5(for="datetimeForm")
+                    | Move-In Date
+                  +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="MM/DD/YYYY" class="moveInData-moveInDate-editor" name="moveInDate")
+
             .modal-footer
               if serverError
                 .form-group
                   .alert.alert-danger(role="alert")
-                    strong Sorry! Server error occured! We are probably already fixing it:)
-              fieldset.form-group.availability-field.clearfix
+                    strong Sorry! Server error occurred! We are probably already fixing it:)
+              fieldset.form-group.availability-field.m-b-0.clearfix
                 button.btn.btn-primary.submit-button(type="submit")
                   .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
                   | Submit
-                //-button.btn.btn-default.cancel-button Cancel
-
+                  i.fa.fa-check(aria-hidden='true')

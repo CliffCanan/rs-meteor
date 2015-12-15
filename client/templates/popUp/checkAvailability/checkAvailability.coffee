@@ -15,17 +15,17 @@ Template.checkAvailability.rendered = ->
       name:
         validators:
           notEmpty:
-            message: 'Please enter your name'
+            message: 'Please enter your name.'
       email:
         validators:
           notEmpty:
-            message: 'Please enter your email address'
+            message: 'Please enter your email address.'
           emailAddress:
-            message: 'Please enter a valid email address'
+            message: 'Please enter a valid email address.'
       moveInDate:
         validators:
           notEmpty:
-            message: 'Please enter Move-in date in MM/DD/YYYY format'
+            message: 'Please enter your target move-in date.'
           date:
             format: "MM/DD/YYYY"
             min: moment().subtract(1, "d").toDate()
@@ -48,6 +48,7 @@ Template.checkAvailability.rendered = ->
       if not json.bedrooms
         json.bedrooms = ""
       json.link = "city/"+building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
+      console.log(json)
       CheckAvailabilityRequests.insert(json, callback = (error, id) ->
           if error
             Session.set("serverError", true)
@@ -62,7 +63,13 @@ Template.checkAvailability.rendered = ->
             analytics.track "Submitted Check Availability form", {buildingId: building._id, buildingName: building.title, label: building.title}
             analytics.page title: "Submitted Check Availability form", path: '/submit-availability-form'
             # Send FB conversion tracking to FB
-            window._fbq.push(['track', '6038680638409'])
+            # OLD window._fbq.push(['track', '6038680638409'])
+            # NEW (Added 12/14/15) by CC
+            fbq "track", "Lead",
+              content_name: building.title.replace(' ','_')
+              content_category: "CheckAvailability"
+              value: 2.5
+              currency: 'USD'
       )
   )
 
