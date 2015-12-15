@@ -9,7 +9,8 @@ header
 
   .home-page &
     background rgba(39, 43, 48, .1)
-
+    transition .5s all ease-in-out
+	
   .header-wrap
     width 100%
     padding 20px 10px
@@ -62,7 +63,10 @@ header
           padding 10px
           text-decoration none
 
-
           &.active, &:hover
             color #ffcc33
             text-decoration none
+
+.home-page
+  header.navbar-dark
+    background #272b30
