@@ -4,6 +4,12 @@ template(name="buildingAdminFieldsEdit")
       | Same as building:
       span.building-admin-same-id-select-placeholder
   with adminBuilding
+    if mlsNo
+      .building-admin-info
+        label.building-admin-form-text
+          | MLS #:
+        span.building-admin-info-data
+          | {{mlsNo}}
     .form-group
       label.building-admin-form-text
         | How to check availability:

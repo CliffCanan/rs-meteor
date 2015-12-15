@@ -44,7 +44,7 @@ Meteor.publish "buildings", (cityId, query, page) ->
   limit = page * itemsPerPage
 
   selector = {parentId: {$exists: false}, cityId: cityId}
-  addQueryFilter(query, selector)
+  addQueryFilter(query, selector, @userId)
   addIsPublishFilter(@userId, selector)
 
   # Limit fields to only those needed to display on city listing. Other fields are for building page.
@@ -77,10 +77,26 @@ Meteor.publish "buildings", (cityId, query, page) ->
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
 
+  if Security.canOperateWithBuilding(@userId)
+    adminFields = {
+      title: 1
+      mlsNo: 1
+      adminAvailability: 1
+      adminEscorted: 1
+      adminAppFee: 1
+      adminAvailability: 1
+      adminScheduling: 1
+      adminContact: 1
+      adminNotes: 1
+    }
+    fields = _.extend fields, adminFields
+
   buildingsCursor = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
   buildings = buildingsCursor.fetch()
 
-  images = []
+  cursors = []
+
+  cursors.push buildingsCursor
 
   if buildings
     imageIds = []
@@ -90,8 +106,9 @@ Meteor.publish "buildings", (cityId, query, page) ->
 
     if imageIds.length
       images = BuildingImages.find {_id: $in: imageIds}, {fields: 'copies.thumbs': 1}
+      cursors.push images
 
-  [buildingsCursor, images]
+  cursors
 
 Meteor.publish "buildingsSimilar", (buildingId) ->
   building = Buildings.findOne(buildingId)
