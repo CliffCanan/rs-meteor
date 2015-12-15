@@ -35,6 +35,7 @@ Template.city.helpers
   clientRecommendationsList: ->
     Router.current().route.getName() is "clientRecommendations"
   showClientRecommendationsName: ->
+    $('city-page-wrap').removeClass('col-lg-9').addClass('col-lg-12')
     Template.city.__helpers[" clientRecommendationsList"].call(@) and not Security.canManageClients()
   loadingBuildings: ->
     citySubs.dep.depend()
