@@ -33,9 +33,13 @@ Template.city.helpers
     citySubs.dep.depend()
     !citySubs.ready and @firstLoad
   clientRecommendationsList: ->
-    Router.current().route.getName() is "clientRecommendations"
+    if Router.current().route.getName() is "clientRecommendations"
+      $("city-page-wrap").removeClass("col-lg-9").addClass("col-lg-12")
+      return true
+    else
+      $("city-page-wrap").removeClass("col-lg-12").addClass("col-lg-12")
+    false
   showClientRecommendationsName: ->
-    $('city-page-wrap').removeClass('col-lg-9').addClass('col-lg-12')
     Template.city.__helpers[" clientRecommendationsList"].call(@) and not Security.canManageClients()
   loadingBuildings: ->
     citySubs.dep.depend()
