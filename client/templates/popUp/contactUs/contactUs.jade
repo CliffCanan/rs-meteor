@@ -12,13 +12,13 @@ template(name="contactUs")
             p.form-group
               | Dealing with brokers and emailing a dozen landlords is frustrating. And time consuming. Instead, our experts can be your single contact to answer questions, confirm unit availability, schedule viewings, and more. Take advantage of unbiased advice to find your next home.
 
-			fieldset.form-group.contact-us-field
+            fieldset.form-group.contact-us-field
               input.form-control(name="name" placeholder="Full name")
 
-			fieldset.form-group.contact-us-field
+            fieldset.form-group.contact-us-field
               input.form-control(name="email" placeholder="Email address")
 
-			fieldset.row.contact-us-field
+            fieldset.row.contact-us-field
               .form-group.col-lg-6
                 select.form-control(name="bedrooms")
                   option(value="") # of Bedrooms
@@ -30,10 +30,10 @@ template(name="contactUs")
               .form-group.col-lg-6
                 input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
 
-			fieldset.form-group.contact-us-field
+            fieldset.form-group.contact-us-field
               label Are you planning a visit {{cityName}} to view apartments?
 
-			fieldset.form-group.contact-us-field
+            fieldset.form-group.contact-us-field
               span.radio-inline
                 input#inlineRadio1.css-checkbox(type='radio', name='tourOption', value='yes', checked)
                 label.css-label(for="inlineRadio1")
