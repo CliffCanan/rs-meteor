@@ -1,9 +1,10 @@
 template(name="city")
   +cityHeader
-  .city-side-bar.right-bar.clearfix.col-lg-3
+  if !clientRecommendationsList
+    .city-side-bar.right-bar.clearfix.col-lg-3
     #gmap
 
-  .city-page-wrap.col-lg-9
+  .city-page-wrap(class= !clientRecommendationsList ? "col-lg-9" : "col-lg-12")
 
     .main-city-list-wrap.left-bar.clearfix.pull-left
       if showClientRecommendationsName
