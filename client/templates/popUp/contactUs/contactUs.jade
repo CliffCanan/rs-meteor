@@ -13,7 +13,7 @@ template(name="contactUs")
               | Dealing with brokers and emailing a dozen landlords is frustrating. And time consuming. Instead, our experts can be your single contact to answer questions, confirm unit availability, schedule viewings, and more. Take advantage of unbiased advice to find your next home.
 
             fieldset.form-group.contact-us-field
-              input.form-control(name="name" placeholder="Full name")
+              input.form-control(name="name" placeholder="Name")
 
             fieldset.form-group.contact-us-field
               input.form-control(name="email" placeholder="Email address")
@@ -31,21 +31,21 @@ template(name="contactUs")
                 input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
 
             fieldset.form-group.contact-us-field
-              label Are you planning a visit {{cityName}} to view apartments?
+              label.col-xs-5 Are you planning a visit {{cityName}} to view apartments?
 
-            fieldset.form-group.contact-us-field
-              span.radio-inline
-                input#inlineRadio1.css-checkbox(type='radio', name='tourOption', value='yes', checked)
-                label.css-label(for="inlineRadio1")
-                  | Yes
-              span.radio-inline
-                input#inlineRadio2.css-checkbox(type='radio', name='tourOption', value='no')
-                label.css-label(for="inlineRadio2")
-                  | No
-              span.radio-inline
-                input#inlineRadio3.css-checkbox(type='radio', name='tourOption', value='notSure')
-                label.css-label(for="inlineRadio3")
-                  | Not Sure
+              .col-xs-7
+                span.radio-inline
+                  input#inlineRadio1.css-checkbox(type='radio', name='tourOption', value='yes', checked)
+                  label.css-label(for="inlineRadio1")
+                    | Yes
+                span.radio-inline
+                  input#inlineRadio2.css-checkbox(type='radio', name='tourOption', value='no')
+                  label.css-label(for="inlineRadio2")
+                    | No
+                span.radio-inline
+                  input#inlineRadio3.css-checkbox(type='radio', name='tourOption', value='notSure')
+                  label.css-label(for="inlineRadio3")
+                    | Not Sure
 
             fieldset.row.contact-us-field
               .form-group.col-lg-6
