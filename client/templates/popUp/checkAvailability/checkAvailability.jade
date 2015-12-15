@@ -26,7 +26,7 @@ template(name="checkAvailability")
               if condition agroIsUnit 'is' false
                 fieldset.row.form-inline.availability-field
                   .col-xs-5
-                    label.availability-text(for="bedrooms") | # of Bedrooms
+                    label.availability-text(for="bedrooms") # of Bedrooms
                   .col-xs-7
                     select.form-control(name="bedrooms")
                       option(value="") -  Select  -
@@ -39,7 +39,7 @@ template(name="checkAvailability")
 
               fieldset.row.form-inline.availability-field
                 .col-xs-5
-                  label.availability-text.col-xs-5(for="datetimeForm")
+                  label.availability-text(for="datetimeForm")
                     | Move-In Date
                 .col-xs-7
                   +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="MM/DD/YYYY" class="moveInData-moveInDate-editor" name="moveInDate")
