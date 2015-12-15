@@ -7,6 +7,7 @@ Template.contactUs.helpers
 
 Template.contactUs.rendered = ->
   Session.set("serverError", false)
+
   cityId = @.data?.cityId
   form = @$("form")
   form.formValidation(
@@ -26,7 +27,7 @@ Template.contactUs.rendered = ->
       bedrooms:
         validators:
           notEmpty:
-            message: 'Please enter number of bedrooms'
+            message: 'Please select your target number of bedrooms'
       contactUsTourDate:
         validators:
           date:
