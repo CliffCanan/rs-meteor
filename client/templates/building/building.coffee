@@ -3,10 +3,11 @@ positions = [10000, 5000, 0, -5000, -10000]
 Template.building.onCreated ->
   @subscribe("buildingsSimilar", Router.current().data().building._id)
 
-  # Show Check Availability popup after 15 seconds
-  @popupTimeoutHandle = Meteor.setTimeout ->
-    $('.check-availability').trigger('click')
-  , 15000
+  # Show Check Availability Popup after 15 seconds
+  if !Meteor.user()
+    @popupTimeoutHandle = Meteor.setTimeout ->
+      $('.check-availability').trigger('click')
+    , 10000
 
 Template.building.helpers
   ironRouterHack: ->

@@ -22,6 +22,12 @@ Template.city.onCreated ->
   unless $.fn.hoverIntent
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
 
+  # Show Contact Us Popup after 15 seconds
+  if !Meteor.user()
+    @popupTimeoutHandle = Meteor.setTimeout ->
+      $('.contact-us').trigger('click')
+    , 12000
+
 Template.city.helpers
   firstLoad: ->
     citySubs.dep.depend()
