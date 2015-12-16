@@ -2,6 +2,8 @@
   max-width 500px
   .contact-us-form
     padding 20px
+    @media screen and (min-width: 768px)
+      padding 5%
     .modal-header
       border 0 none
       font-family 'Montserrat', Helvetica, sans-serif
@@ -16,12 +18,13 @@
       box-sizing border-box
       padding 0
       .contact-us-field
-        margin-bottom 20px
         font-family 'Montserrat', Helvetica, sans-serif
         font-size 14px
         color #272b30
         &.row
-          margin-bottom 0
+          margin-bottom 16px
+          .form-group
+            margin-bottom 0px
         .form-control
           &::-webkit-input-placeholder
             color #272b30

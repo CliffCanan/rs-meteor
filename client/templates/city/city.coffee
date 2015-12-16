@@ -14,6 +14,7 @@ $(window).on("resize", setHeights)
 
 markers = {}
 
+
 Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
@@ -23,10 +24,11 @@ Template.city.onCreated ->
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
 
   # Show Contact Us Popup after 15 seconds
-  if !Meteor.user()
+  if Router.current().route.getName() is "clientRecommendations" and not Meteor.user()
     @popupTimeoutHandle = Meteor.setTimeout ->
       $('.contact-us').trigger('click')
     , 14000
+
 
 Template.city.helpers
   firstLoad: ->
