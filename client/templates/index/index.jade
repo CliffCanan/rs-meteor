@@ -5,7 +5,7 @@ template(name="index")
       h2.head-section-title
         | Wish Renting Was Easy?
       p.main-desc
-        | It can be. &nbsp;We handle all the busywork so you don't have to.
+        | It can be. &nbsp;Let's find the perfect apartment for you.
       .benefits-wrap
         i.fa.fa-plus
         .concierge-wrap
@@ -31,15 +31,15 @@ template(name="index")
         .col-lg-6
           .button-shadow
             a#expert-button(href="#")
-              span.button-text.button-expert
-                i.fa.fa-user
-                | Work with an expert
+              button.btn.btn-lg.btn-success.button-text.button-expert
+                i.fa.fa-user.m-r-10
+                | Need help? Talk to an expert
         .col-lg-6
           .button-shadow
             a#browse-button(href="#")
-              span.button-text.button-browse
-                  i.fa.fa-globe
-                  | Browse Listings
+              button.btn.btn-lg.btn-primary.button-text.button-browse
+                  i.fa.fa-globe.m-r-10
+                  | Browse Apartments
           ul.city-list.list-unstyled
             each cities
               li.city-item
