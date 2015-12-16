@@ -7,7 +7,9 @@ template(name="contactUs")
           .modal-header
             button.close(type='button', data-dismiss='modal', aria-label='Close')
               i.fa.fa-times(aria-hidden='true')
-            h4#myModalLabel.modal-title Searching Alone Sucks - Use A Local Expert
+            h4#myModalLabel.modal-title
+              i.fa.fa-street-view.text-primary.m-r-5
+              | Searching Alone Sucks - Use A Local Expert
 
           .modal-body
             p.form-group
@@ -16,12 +18,12 @@ template(name="contactUs")
               | where you live. &nbsp;Take advantage of unbiased advice and put our team of experts to work. &nbsp;We'll schedule tours, deal with landlords, and stay with you until you love your next apartment.
 
             fieldset.row.form-group.contact-us-field
-              label.col-sm-5.col-md-4 | Name
+              label.col-sm-5.col-md-4 Name
               .col-sm-7.col-md-8
                 input.form-control(name="name" placeholder="Name")
 
             fieldset.row.form-group.contact-us-field
-              label.col-sm-5.col-md-4 | Email Address
+              label.col-sm-5.col-md-4 Email Address
               .col-sm-7.col-md-8
                 input.form-control(name="email" placeholder="Email address")
 
@@ -47,7 +49,7 @@ template(name="contactUs")
                     input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
 
             fieldset.row.form-group.contact-us-field
-              label.col-xs-5 Are you planning a visit {{cityName}} to view apartments?
+              label.col-xs-5 I want to tour this unit in person.
 
               .col-xs-7
                 span.radio-inline
@@ -76,9 +78,9 @@ template(name="contactUs")
             if serverError
               .form-group
                 .alert.alert-danger(role="alert")
-                  strong Sorry! Server error occured! We are probably already working hard to get it fixed ASAP! :-)
-            button.btn.btn-primary.submit-button(type="submit")
-              .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
-              i.fa.fw.fa-check(aria-hidden='true')
+                  strong Sorry! Server error occured! We are already working hard to get it fixed ASAP! :-)
+            button.btn.btn-primary.btn-lg.btn-block.submit-button(type="submit")
               | Let's Go
+              .fa.fa-spin.fa-refresh.m-l-10.loading(style="display: none;")
+              i.fa.fa-chevron-circle-right.m-l-10(aria-hidden='true')
 

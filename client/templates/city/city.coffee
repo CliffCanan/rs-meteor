@@ -24,9 +24,10 @@ Template.city.onCreated ->
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
 
   # Show Contact Us Popup after 15 seconds
-  if Router.current().route.getName() is "clientRecommendations" and not Meteor.user()
+  if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
     @popupTimeoutHandle = Meteor.setTimeout ->
-      $('.contact-us').trigger('click')
+      unless $('body').hasClass('modal-open')
+        $('.contact-us').trigger('click')
     , 14000
 
 

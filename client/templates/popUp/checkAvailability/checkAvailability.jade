@@ -31,7 +31,7 @@ template(name="checkAvailability")
                     .form-group
                       .input-group
                         .input-group-addon
-                          i.fa.fa-bed
+                          i.fa.fa-fw.fa-bed
                         select.form-control(name="bedrooms")
                           option(value="") -  Select  -
                           option(value="studio") Studio
@@ -52,10 +52,8 @@ template(name="checkAvailability")
               if serverError
                 .form-group
                   .alert.alert-danger(role="alert")
-                    strong Sorry! Server error occurred! We are probably already fixing it:)
-              fieldset.form-group.availability-field.m-b-0.clearfix
-                button.btn.btn-primary.submit-button(type="submit")
-                  .fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
-                  i.fa.fw.fa-check(aria-hidden='true')
-                  | Submit Inquiry
-                  
+                    strong Sorry! Server error occurred! We are already working hard to get it fixed ASAP :-)
+              button.btn.btn-primary.btn-lg.btn-block.submit-button(type="submit")
+                | Let's Go
+                .fa.fa-spin.fa-refresh.m-l-10.loading(style="display: none;")
+                i.fa.fa-chevron-circle-right.m-l-10(aria-hidden='true')
