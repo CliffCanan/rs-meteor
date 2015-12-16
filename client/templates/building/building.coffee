@@ -1,19 +1,14 @@
 positions = [10000, 5000, 0, -5000, -10000]
 
-isCheckAvailModalShowing = false
-
-$('#checkAvailabilityPopup').on 'hidden.bs.modal', (e) ->
-  isCheckAvailModalShowing = false
-
 Template.building.onCreated ->
   @subscribe("buildingsSimilar", Router.current().data().building._id)
 
   # Show Check Availability Popup after 15 seconds
   if !Meteor.user()
-    if !isCheckAvailModalShowing
-      @popupTimeoutHandle = Meteor.setTimeout ->
+    @popupTimeoutHandle = Meteor.setTimeout ->
+      unless $('body').hasClass('modal-open')
         $('.check-availability').trigger('click')
-      , 11000
+    , 11000
 
 Template.building.helpers
   ironRouterHack: ->
@@ -287,12 +282,10 @@ Template.building.events
     Session.set("currentUnit", @)
     analytics.track "Clicked Check Availability button", {buildingId: @_id, buildingName: @title, label: @title}
     $('#checkAvailabilityPopup').modal('show')
-    isCheckAvailModalShowing  = true
 
   "click .unit-check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
     $('#checkAvailabilityPopup').modal('show')
-    isCheckAvailModalShowing = true
 
   "click .building-unit-item-more": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", true)

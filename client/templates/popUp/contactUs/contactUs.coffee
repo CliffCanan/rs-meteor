@@ -42,7 +42,9 @@ Template.contactUs.rendered = ->
             message: 'Please enter future date in MM/DD/YYYY format'
   ).on("success.form.fv", grab encapsulate (event) ->
       form.find(".submit-button").prop("disabled", true)
-      form.find(".loading").show()
+      form.find(".submit-button i").fadeOut(200)
+      form.find(".loading").fadeIn(300)
+
       json = form.serializeFormJSON()
       json.yes = json.tourOption is "yes"
       json.no = json.tourOption is "no"
@@ -83,3 +85,9 @@ Template.contactUs.events
     template.$('form').formValidation 'revalidateField', 'contactUsTourDate'
   "change .move-in-data": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'contactUsMoveInDate'
+
+  "change input[name='tourOption']": (event, template) ->
+    if $(event.target).val() is 'no'
+      template.$('#contactUsTourDate').attr('disabled', true)
+    else
+      template.$('#contactUsTourDate').attr('disabled', false)
