@@ -6,6 +6,7 @@ template(name="header")
         a.hide-text(href="/")
           | Rentscene
           img.logo(src="/images/logo.png", alt="Rentscene")
+
       ul.navigation
         li.navigation-item.hidden
           a.navigation-item-link(href="/")
@@ -25,6 +26,7 @@ template(name="header")
             +userMenu
           else
             +loginButtons
+
       if canManageClients
         +clientSearchBar
 
