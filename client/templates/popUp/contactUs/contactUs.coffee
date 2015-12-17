@@ -70,11 +70,11 @@ Template.contactUs.rendered = ->
           form.find(".submit-button").prop("disabled", false)
           form.find(".loading").hide()
 
-          # NEW (Added 12/14/15) by CC
+          # (Added 12/14/15 by CC)
           fbq "track", "Lead",
             content_name: cityNameForFB.replace(' ','_')
             content_category: "ContactUs"
-            value: 2.0
+            value: 30.0
             currency: 'USD'
       )
   )

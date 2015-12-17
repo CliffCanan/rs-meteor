@@ -62,13 +62,11 @@ Template.checkAvailability.rendered = ->
             form.find(".loading").hide()
             analytics.track "Submitted Check Availability form", {buildingId: building._id, buildingName: building.title, label: building.title}
             analytics.page title: "Submitted Check Availability form", path: '/submit-availability-form'
-            # Send FB conversion tracking to FB
-            # OLD window._fbq.push(['track', '6038680638409'])
-            # NEW (Added 12/14/15) by CC
+            # Send FB conversion tracking to FB (Added 12/14/15 by CC)
             fbq "track", "Lead",
               content_name: building.title.replace(' ','_')
               content_category: "CheckAvailability"
-              value: 2.5
+              value: 30.0
               currency: 'USD'
       )
   )
