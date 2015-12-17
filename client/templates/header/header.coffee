@@ -35,12 +35,3 @@ Template.header.events
     event.preventDefault()
     share.exitRecommendationsMode()
     return
-
-
-$(window).scroll ->
-  "use strict"
-  scroll = $(window).scrollTop()
-  if scroll > 780
-    $("header").addClass "navbar-dark"
-  else
-    $("header").removeClass "navbar-dark"

@@ -14,3 +14,11 @@ Template.index.events
     event.preventDefault()
     analytics.track "Clicked Browse Listings button"
     $('.city-list').slideToggle()
+
+$(window).scroll ->
+  "use strict"
+  scroll = $(window).scrollTop()
+  if scroll > 730
+    $("header").addClass "navbar-dark"
+  else
+    $("header").removeClass "navbar-dark"
