@@ -4,6 +4,9 @@ Template.checkAvailability.helpers
   propertyName: ->
     if Session.get("currentUnit")
       return Session.get("currentUnit").title
+  currentCity: ->
+    cityId = @query.cityId || @cityId
+    cities[cityId].long
 
 Template.checkAvailability.rendered = ->
   form = @$("form")
@@ -33,7 +36,7 @@ Template.checkAvailability.rendered = ->
       city:
         validators:
           notEmpty:
-            message: 'For now we need city!'
+            message: 'We need a city to search!'
   ).on("success.form.fv", grab encapsulate (event) ->
       form.find(".submit-button").prop("disabled", true)
       form.find(".loading").show()
