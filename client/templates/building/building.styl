@@ -4,8 +4,13 @@
     margin-bottom 10px
     float right
   .breadcrumb
-    padding 5px 0 5px 15px
+    padding 0 5px
     background #fff
+    @media screen and (max-width: 768px)
+      margin-bottom 10px
+    @media screen and (min-width: 1200px)
+      padding 5px 0 5px 15px
+      font-size 16px
     & > li
         &.active
           color #272b30
@@ -32,40 +37,47 @@
     .building-main-info
       @media screen and (min-width: 1200px)
         float right
-      padding 0 20px
       box-sizing border-box
       .building-main-info-title
         font-family 'Montserrat', Helvetica, sans-serif
-        font-size 26px
+        font-size 24px
         font-weight bold
         margin 0 20px 20px 0
-        padding 0
+        padding 0 2.5% 0 0
         color #272b30
         float left
-        width 300px
         @media screen and (min-width: 1200px)
+          font-size 28px
           width 100%
           float none
+          padding 0
       .building-main-price-wrap
         clear both
         display table
-        margin 20px 0
+        margin 15px 0
         border 1px solid #999
-        border-radius 3px
+        border-radius 4px
         padding 0
         box-sizing border-box
+        @media screen and (min-width: 1200px)
+          clear both
         .building-main-price-opt
           font-family 'Montserrat', Helvetica, sans-serif
-          font-size 16px
+          font-size 15px
           font-weight bold
           text-align right
           border-bottom 1px solid #999
-          padding 15px
+          padding 9px
+          @media screen and (min-width: 1200px)
+            font-size 16px
+            padding 15px
           &:last-child
             border 0 none
         .building-main-price
           color #cc9900
-          padding 0 20px 0 0
+          padding 0 10px 0 0
+          @media screen and (min-width: 768px)
+            padding 0 20px 0 0
           display inline-block
           vertical-align middle
           text-align right
@@ -73,22 +85,33 @@
             width 50px
         .building-main-rooms
           border-left 1px solid #c7c7c7
-          padding 0 0 0 20px
+          padding 0 0 0 10px
+          @media screen and (min-width: 768px)
+            padding 0 0 0 20px
           display inline-block
           min-width 118px
           vertical-align middle
           text-align left
+          text-transform capitalize
       .building-main-prop-list
         font-size 0
         .building-main-prop
           color #272b30
-          font-size 16px
-          margin 10px 0
+          font-size 15px
+          margin 5px 0
           float none
           display inline-block
           vertical-align top
+          padding-right 0
+          @media screen and (min-width: 768px)
+            font-size 16px
+            text-indent -12px
+            padding-left 8.5%
           .building-main-prop-text
             padding 0 5px
+            margin-right 5px
+          .fa-question-circle
+            margin-left 5%
 
           .label-radio
             margin-left 5px
@@ -100,14 +123,10 @@
             width 60px
             text-align right
             display inline-block
-      .building-main-info-btn
-        @media screen and (min-width: 1200px)
-          width 300px
-        font-weight bold
 
 .building-main-info-desc-wrap
   .building-main-info-desc
-    padding 25px 0 0
+    padding 20px 0 0
     font-size 16px
     margin 0
 
@@ -225,7 +244,7 @@
     padding 10px 20px
     margin-bottom 15px
     font-family 'Montserrat', Helvetica, sans-serif
-    font-size 12px
+    font-size 15px
     font-weight bold
     .fa
       padding 0 10px 0 0
@@ -264,19 +283,19 @@
         font-family 'Montserrat', Helvetica, sans-serif
         margin 0 0 5px
         i
-          padding 0 10px 0 0
+          padding 0 7% 0 0
           font-size 12px
         .unit-price
           font-size 14px
           color #cc9900
-          padding 0 10px 0 0
+          padding 0 6% 0 0
           display inline-block
           vertical-align middle
           border-right 1px solid #c7c7c7
         .unit-type
           font-size 12px
           color #272b30
-          padding 0 0 0 10px
+          padding 0 0 0 6%
           display inline-block
           vertical-align middle
     .building-unit-btn-wrap
@@ -294,6 +313,8 @@
         padding 0 10px 0 0
         line-height 30px
         font-size 12px
+        .fa-check
+          color #4588fa
 
   .building-features
     font-size 16px
@@ -437,10 +458,12 @@ h4
 h2.section-title
   background-color #ebebeb
   font-family 'Montserrat', Helvetica, sans-serif
-  font-size 12px
+  font-size 15px
   font-weight bold
   margin-bottom 15px
   padding 10px 20px
+  i
+    margin-right 5px
 
 h3.section-title
   background-color #ebebeb
@@ -450,11 +473,16 @@ h3.section-title
 .similar-properties
   .main-city-item-link
     font-family 'Montserrat', Helvetica, sans-serif
-    font-size 16px
+    font-size 15px
+    line-height 1.4
     color #272b30
-    text-decoration none  
+    text-decoration none
+    .main-city-item img
+      border-radius 10px
+      @media screen and (min-width: 900px)
+        box-shadow 0 10px 16px -6px rgba(0,0,0,.3)
   .main-city-item-wrap
-    padding 15px 0
+    padding 15px 0 5px
     p
       font-weight bold
     .similar-property-price
