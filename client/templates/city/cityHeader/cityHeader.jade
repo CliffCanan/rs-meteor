@@ -17,7 +17,7 @@ template(name="cityHeader")
       .bedroom-type-select.city-sub-header-list-wrap.dropdown.city-filter
         button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
           i.fa.fa-bed
-          span.button-text {{currentBedroomType}}
+          span.button-text.hide-sm {{currentBedroomType}}
           span.caret
         ul.city-sub-header-list.dropdown-menu.list-unstyled
           li.city-sub-header-item(data-value="") Any
@@ -29,7 +29,7 @@ template(name="cityHeader")
       .dropdown.city-filter.features-wrap
         button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
           i.fa.fa-check
-          span Features
+          span.hide-sm Features
         form.form-building-features-filter.features-section.dropdown-menu.dropdown-menu-right
           h3.filter-title
             | Filter the search results by the criteria you need.
@@ -81,7 +81,7 @@ template(name="cityHeader")
       .dropdown.city-filter.features-wrap
         button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
           i.fa.fa-map-marker
-          span Filter by Location
+          span.hide-sm Filter by Location
         form.form-building-filter.filter-section.dropdown-menu.dropdown-menu-right
           h3.filter-title
             | Enter your most common  destination (work, school, etc) to find appartments close to it.
