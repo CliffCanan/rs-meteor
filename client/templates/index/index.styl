@@ -157,6 +157,8 @@
   border-radius 5px
   margin 0 5px
   text-align left
+  position absolute
+  width: 96%
 
 .city-item
   text-decoration none
@@ -214,6 +216,9 @@
   text-align center
   overflow hidden
 
+  img
+    box-shadow 0 3px 10px -2px rgba(0,0,0,.3)
+
 article
   margin 0 0 20px
   min-height 280px
@@ -225,10 +230,12 @@ blockquote
   min-height 242px
   @media screen and (min-width: 768px)
     min-height 242px
+    box-shadow 0 3px 14px -4px rgba(0,0,0,.25)
   @media screen and (min-width: 992px)
-    min-height 181px
+    min-height 205px
   @media screen and (min-width: 1200px)
-    min-height 286px
+    min-height 270px
+    box-shadow 0 4px 18px -5px rgba(0,0,0,.38)
   padding 20px
   box-sizing border-box
   margin 0 0 15px
@@ -248,8 +255,10 @@ blockquote
   padding 0
   margin 0
   font-size 14px
+  @media screen and (min-width: 992px)
+    font-size 15px
   font-weight bold
-  line-height 22px
+  line-height 1.5
 
 .quote-footer
   font-size 100%
