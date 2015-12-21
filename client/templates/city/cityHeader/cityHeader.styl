@@ -11,9 +11,8 @@
   .dropdown
     float left
 
-.city-sub-header-list-wrap,
-.features-wrap
-  margin 0 10px 0 0
+.city-sub-header-list-wrap > .row > .col-sm-2
+  padding 0 5px
   .button-text
     display inline-block
     text-transform uppercase
@@ -21,9 +20,9 @@
     .button-text
       width 142px
   &.bedroom-type-select
-    max-width 150px
-    .button-text
-      width 86px
+    min-width 126px
+    .city-sub-header-list
+      padding 0 8%
   .city-sub-header-title
     width 100%
     font-family 'Montserrat', Helvetica, sans-serif
@@ -32,18 +31,19 @@
     font-weight normal
     text-align left
     padding 5px 15px
+
   .city-sub-header-list
     box-sizing border-box
     min-width 100px
     padding 0 20px
     box-shadow 0 1px 0 rgba(0,0,0,0.3)
-    top 27px
+    top 30px
     border 1px solid #cfcfcf
     border-top 0
-    border-radius 0 0 3px 3px
-    width 100%
+    border-radius 2px 2px 5px 5px
+    width 99%
     text-transform uppercase
-    padding-top 11px
+    padding-top 10px
     .city-sub-header-item
       padding 10px 0
       font-family 'Montserrat', Helvetica, sans-serif
@@ -64,13 +64,14 @@
     &.fa-times
       color #CCC
       display none
-      right 10px
+      right 20px
+  a.clear-neighborhood-filter + span
+    width 100%
   .city-sub-header-list
     width auto
   .typeahead
-    padding-left 32px
-    padding-right 20px
-    width 215px
+    padding-left 26px
+    padding-right 12px
   .tt-hint
     color #999
   
@@ -103,34 +104,31 @@
     margin 0
 
 .city-subheader-price
-  margin 0 15px 0 25px
-  padding 5px 0
   display inline-block
   font-size 0
-  vertical-align top
   float left
+  padding 3px 10px
+  vertical-align top
+  width 24.5%
   .city-subheader-price-val
-    font-size 12px
+    font-size 13px
     font-weight bold
     text-transform uppercase
     vertical-align middle
-    line-height 14px
+    margin-right 10px
   b
-    width 60px
     font-family 'Montserrat', Helvetica, sans-serif
-    font-size 14px
+    font-size 13.5px
     color #272b30
-    display inline-block
-    padding 0 5px
-    vertical-align middle
-    line-height 14px
+    position absolute
+    bottom -18px
 
   .slider.slider-horizontal
-    margin 0 5px 0 10px
-    width 180px
-    vertical-align middle
+    margin 0
+    width 72%
+    left 7%
     .slider-track
-      height 7px
+      height 6px
       .slider-handle
         background-color #4588fa
         width 15px
