@@ -104,6 +104,7 @@ Template.contactUs.rendered = ->
 Template.contactUs.events
   "change .tour-date": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'contactUsTourDate'
+
   "change .move-in-data": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'contactUsMoveInDate'
 
@@ -113,5 +114,5 @@ Template.contactUs.events
     else
       template.$('#contactUsTourDate').attr('disabled', false)
 
-$("#contactUsPopup").on "hidden.bs.modal", ->
-  $("#contactUsPopup form").formValidation "resetForm", true
+  $("#contactUsPopup").on "hidden.bs.modal", ->
+    $("#contactUsPopup form").formValidation "resetForm", true

@@ -86,6 +86,5 @@ Template.checkAvailability.events
   "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'moveInDate'
 
-
-$("#checkAvailabilityPopup").on "hidden.bs.modal", ->
-  $("#checkAvailabilityPopup form").formValidation "resetForm", true
+  $("#checkAvailabilityPopup").on "hidden.bs.modal", ->
+    $("#checkAvailabilityPopup form").formValidation "resetForm", true
