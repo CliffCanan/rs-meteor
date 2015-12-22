@@ -16,7 +16,9 @@
     display inline-block
     text-transform uppercase
   &.col-sm-2
-    padding 0 5px
+    padding 0 15px 10px
+    @media screen and (min-width: 1200px)
+      padding 0 5px
   &.city-select
     .button-text
       width 142px
@@ -111,6 +113,10 @@
   padding 3px 10px
   vertical-align top
   width 24.5%
+  @media screen and (max-width: 768px)
+    height 55px
+    width 47%
+    padding-top 10px
   .city-subheader-price-val
     font-size 13px
     font-weight bold
@@ -311,6 +317,8 @@
   font-size 14px
   color #272b30
   font-weight bold
+  @media screen and (max-width: 768px)
+    height 42px
 
 .selectArrivalTime 
   padding-bottom 10px
@@ -336,6 +344,11 @@ body.admin-logged-in
     .mdl-switch.is-checked .mdl-switch__thumb
       background-color #149bdf
 
-.hide-sm
-  @media screen and (max-width: 768px)
+@media screen and (max-width: 768px)
+  .btn
+    padding-top 10px !important
+    padding-bottom 10px !important
+
+@media screen and (min-width: 768px)
+  .hide-sm
     display none
