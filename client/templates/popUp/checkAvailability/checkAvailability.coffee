@@ -14,17 +14,25 @@ Template.checkAvailability.rendered = ->
   form.formValidation(
     framework: 'bootstrap'
     live: 'disabled'
+    icon:
+      valid: "fa fa-check"
+      invalid: "fa fa-remove"
+      validating: "fa fa-refresh"
     fields:
       name:
         validators:
           notEmpty:
-            message: 'Please enter your name.'
+            message: 'Please enter your name :-)'
       email:
         validators:
           notEmpty:
             message: 'Please enter your email address.'
           emailAddress:
-            message: 'Please enter a valid email address.'
+            message: 'Please enter a valid email address!'
+      bedrooms:
+        validators:
+          notEmpty:
+            message: 'Please select your target number of bedrooms'
       moveInDate:
         validators:
           notEmpty:
@@ -69,7 +77,7 @@ Template.checkAvailability.rendered = ->
             fbq "track", "Lead",
               content_name: building.title.replace(' ','_')
               content_category: "CheckAvailability"
-              value: 30.0
+              value: 25.0
               currency: 'USD'
       )
   )
@@ -77,3 +85,7 @@ Template.checkAvailability.rendered = ->
 Template.checkAvailability.events
   "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'moveInDate'
+
+
+$("#checkAvailabilityPopup").on "hidden.bs.modal", ->
+  $("#checkAvailabilityPopup form").formValidation "resetForm", true

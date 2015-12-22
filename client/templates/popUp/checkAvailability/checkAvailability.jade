@@ -7,19 +7,24 @@ template(name="checkAvailability")
       .modal-dialog
         .modal-content
           form.availability-form
+
             .modal-header
               button.close(type='button', data-dismiss='modal', aria-label='Close')
                 i.fa.fa-times(aria-hidden='true')
               h4#myModalLabel.modal-title Check Availability
+
             .modal-body
               p.form-group.availability-field
                 | We will gladly help you check availability of 
                 span(class="text-primary") {{propertyName}}
                 | . &nbsp;Tell us a little about your needs, and our {{currentCity}} rep will contact you soon.
+
               fieldset.form-group.availability-field
                 input.form-control(name="name" placeholder="Name")
+
               fieldset.form-group.availability-field
                 input.form-control(name="email" placeholder="Email address")
+
               fieldset.form-group.availability-field
                 textarea.form-control(name="question" placeholder="Is this unit still available?", rows="4")
 
