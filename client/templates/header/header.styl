@@ -45,6 +45,12 @@ header
       margin 0
       padding 0
       list-style none
+      @media screen and (max-width: 500px)
+        position absolute
+        top 22px
+        right 0
+        .fa-paper-plane
+          display
 
       .navigation-item
         display inline-block
@@ -61,6 +67,14 @@ header
           font-size 14px
           color #fff
           padding 10px
+          @media screen and (max-width: 500px)
+            padding 8px
+            .fa-paper-plane
+              margin 0
+              font-size 80%
+              position relative
+              top -1px
+              right 1px
           text-decoration none
           transition .16s color ease
 
@@ -73,4 +87,4 @@ header
 
 .home-page
   header.navbar-dark
-    background #272b30
+    background rgba(39,43,48,.95)

@@ -2,7 +2,7 @@ body
   font-family 'Raleway', Helvetica, sans-serif
   font-size 14.5px
   background #fff
-  color #444
+  color #333
   margin 0
   padding 0
   width 100%
@@ -14,6 +14,9 @@ main
   padding 10px
   @media screen and (min-width: 768px)
     padding 20px
+
+.p-relative
+  position relative
 
 a
   color #4588fa
@@ -37,6 +40,20 @@ button > .fa
 a.carousel-control .fa
   margin-left 0
   margin-right 0
+
+.modal-body,
+.modal-body p
+  line-height 1.4
+@media screen and (max-width: 768px)
+  .modal-title
+    text-indent -13px
+    padding-left 25px
+  .modal-body .row .col-xs-6:first-child
+    padding-right 5px
+  .modal-body .row .col-xs-6:last-child
+    padding-left 5px
+  .modal-body .row .col-xs-6 .input-group .form-control
+    padding 5px
 
 .mb0
   margin-bottom 0
