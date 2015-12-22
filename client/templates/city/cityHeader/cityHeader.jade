@@ -17,7 +17,7 @@ template(name="cityHeader")
           i.fa.fa-times
         input.form-control.typeahead(type="text", placeholder="Search neighborhood", autocomplete="false", data-source="neighborhoodSearch", data-selected="selectedNeighborhood", data-min-length="0", data-limit="9", data-template="neighborhoodSuggestion", value="{{currentNeighborhood}}")
 
-      .col-sm-2.bedroom-type-select.city-sub-header-list-wrap.dropdown.city-filter
+      .col-sm-1.bedroom-type-select.city-sub-header-list-wrap.dropdown.city-filter
         button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
           i.fa.fa-bed
           span.button-text.hide-sm {{currentBedroomType}}
