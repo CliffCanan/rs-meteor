@@ -11,7 +11,7 @@ template(name="cityHeader")
           each cities
             li.city-sub-header-item(data-value="{{key}}") {{value}}
 
-      .col-sm-2.neighborhood-select.city-sub-header-list-wrap.dropdown.city-filter.hide-sm
+      .col-sm-2.neighborhood-select.city-sub-header-list-wrap.dropdown.city-filter.hide-md
         i.fa.fa-map-signs
         a.clear-neighborhood-filter(href="{{pathFor 'city' cityId=cityId}}")
           i.fa.fa-times
@@ -20,7 +20,7 @@ template(name="cityHeader")
       .col-xs-6.col-sm-1.bedroom-type-select.city-sub-header-list-wrap.dropdown.city-filter
         button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
           i.fa.fa-bed
-          span.button-text.hide-sm {{currentBedroomType}}
+          span.button-text.hide-md {{currentBedroomType}}
           span.caret
         ul.city-sub-header-list.dropdown-menu.list-unstyled
           li.city-sub-header-item(data-value="") Any
@@ -29,11 +29,11 @@ template(name="cityHeader")
 
       +cityHeaderSlider
 
-      .col-xs-2.col-sm-1.p-l-5
+      .col-xs-2.col-sm-1
         .dropdown.city-filter.features-wrap
           button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
             i.fa.fa-fw.fa-check
-            span.hide-sm Features
+            span.hide-md Features
           form.form-building-features-filter.features-section.dropdown-menu.dropdown-menu-right
             h3.filter-title
               | Filter the search results by the criteria you need.
@@ -86,7 +86,7 @@ template(name="cityHeader")
         .dropdown.city-filter
           button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
             i.fa.fa-fw.fa-map-marker
-            span.hide-sm Location
+            span.hide-md Location
           form.form-building-filter.filter-section.dropdown-menu.dropdown-menu-right
             h3.filter-title
               | Enter any common destination (work, school, etc) to find nearyby appartments.
@@ -129,12 +129,12 @@ template(name="cityHeader")
               .col-sm-6
                 button.btn.btn-primary.apply-changes-btn(type="submit")
                   | Apply
-                  span.hide-sm Changes
+                  span.hide-md Changes
               .col-sm-6
                 span.clear-btn.form-building-address-filter-reset
                   | Clear Filter
 
-      .col-xs-8.pull-right.building-title-search-wrapper
+      .col-xs-8.col-sm-2.pull-right.building-title-search-wrapper
         input.building-title-search.form-control(type="text", placeholder="Search buildings", value="{{query.q}}")
 
       if canOperateWithBuilding

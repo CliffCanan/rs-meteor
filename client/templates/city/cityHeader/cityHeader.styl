@@ -10,6 +10,8 @@
   box-sizing border-box
   .dropdown
     float left
+  .btn
+    height 42px
 
 .city-sub-header-list-wrap
   .button-text
@@ -317,8 +319,10 @@
   font-size 14px
   color #272b30
   font-weight bold
-  @media screen and (max-width: 768px)
-    height 42px
+  height 42px
+  @media screen and (min-width: 768px)
+    padding 0 0 0 5px
+
 
 .selectArrivalTime 
   padding-bottom 10px
@@ -345,10 +349,9 @@ body.admin-logged-in
       background-color #149bdf
 
 @media screen and (max-width: 768px)
-  .btn
-    padding-top 10px !important
-    padding-bottom 10px !important
-
-@media screen and (min-width: 768px)
   .hide-sm
+    display none
+
+@media screen and (max-width: 992px)
+  .hide-md
     display none
