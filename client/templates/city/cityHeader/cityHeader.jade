@@ -2,7 +2,7 @@ template(name="cityHeader")
   .city-sub-header.clearfix
 
     .row
-      .col-sm-2.city-select.city-sub-header-list-wrap.dropdown.city-filter
+      .col-xs-12.col-sm-2.city-select.city-sub-header-list-wrap.dropdown.city-filter
         button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
           i.fa.fa-globe
           span.button-text {{currentCity}}
@@ -11,13 +11,13 @@ template(name="cityHeader")
           each cities
             li.city-sub-header-item(data-value="{{key}}") {{value}}
 
-      .col-sm-2.neighborhood-select.city-sub-header-list-wrap.dropdown.city-filter
+      .col-sm-2.neighborhood-select.city-sub-header-list-wrap.dropdown.city-filter.hide-sm
         i.fa.fa-map-signs
         a.clear-neighborhood-filter(href="{{pathFor 'city' cityId=cityId}}")
           i.fa.fa-times
         input.form-control.typeahead(type="text", placeholder="Search neighborhood", autocomplete="false", data-source="neighborhoodSearch", data-selected="selectedNeighborhood", data-min-length="0", data-limit="9", data-template="neighborhoodSuggestion", value="{{currentNeighborhood}}")
 
-      .col-sm-1.bedroom-type-select.city-sub-header-list-wrap.dropdown.city-filter
+      .col-xs-6.col-sm-1.bedroom-type-select.city-sub-header-list-wrap.dropdown.city-filter
         button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
           i.fa.fa-bed
           span.button-text.hide-sm {{currentBedroomType}}
@@ -29,10 +29,10 @@ template(name="cityHeader")
 
       +cityHeaderSlider
 
-      .col-sm-1.p-l-5
+      .col-xs-2.col-sm-1.p-l-5
         .dropdown.city-filter.features-wrap
           button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
-            i.fa.fa-check
+            i.fa.fa-fw.fa-check
             span.hide-sm Features
           form.form-building-features-filter.features-section.dropdown-menu.dropdown-menu-right
             h3.filter-title
@@ -82,10 +82,10 @@ template(name="cityHeader")
             span.clear-btn.form-building-features-filter-reset
               | Clear Filter
 
-      #location-filter-wrapper.col-sm-1
+      #location-filter-wrapper.col-xs-2.col-sm-1
         .dropdown.city-filter
           button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
-            i.fa.fa-map-marker
+            i.fa.fa-fw.fa-map-marker
             span.hide-sm Location
           form.form-building-filter.filter-section.dropdown-menu.dropdown-menu-right
             h3.filter-title
@@ -134,7 +134,7 @@ template(name="cityHeader")
                 span.clear-btn.form-building-address-filter-reset
                   | Clear Filter
 
-      .pull-right.building-title-search-wrapper
+      .col-xs-8.pull-right.building-title-search-wrapper
         input.building-title-search.form-control(type="text", placeholder="Search buildings", value="{{query.q}}")
 
       if canOperateWithBuilding
