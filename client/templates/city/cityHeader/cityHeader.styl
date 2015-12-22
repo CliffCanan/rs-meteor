@@ -3,6 +3,10 @@
   padding 10px 20px
   @media screen and (min-width: 768px)
     padding 15px 25px
+    .dropdown.open > .dropdown-menu
+      left auto
+      right 0
+      .form-control height 42px
   @media screen and (min-width: 992px)
     padding 18px 25px
   @media screen and (min-width: 1200px)
@@ -121,18 +125,27 @@
     height 55px
     width 47%
     padding-top 10px
+  b
+    font-family 'Montserrat', Helvetica, sans-serif
+    font-size 13px
+    color #272b30
+    position absolute
+    bottom 6px
+    @media screen and (min-width: 768px)
+      bottom -18px
+      font-size 13.5px
   .city-subheader-price-val
     font-size 13px
     font-weight bold
     text-transform uppercase
     vertical-align middle
     margin-right 10px
-  b
-    font-family 'Montserrat', Helvetica, sans-serif
-    font-size 13.5px
-    color #272b30
-    position absolute
-    bottom -18px
+    + b
+      @media screen and (min-width: 768px)
+        left 35px
+  .price-slider + b
+    @media screen and (min-width: 768px)
+      right 0
 
   .slider.slider-horizontal
     margin 0
@@ -169,21 +182,26 @@
       color #272b30
 
   .features-section, .location-list
-    width 420px
+    width 290px
     box-sizing border-box
-    padding 20px
+    padding 10px 
     box-shadow 0 1px 0 rgba(0, 0, 0, 0.3)
     top 38px
     border 1px solid #cfcfcf
     border-top 0
     border-radius 0 3px 3px 3px
+    @media screen and (min-width: 768px)
+      padding 20px 
+      width 410px
     .filter-title
       font-size 14px
       padding 0 0 10px
       margin 0
       line-height 20px
     .filter-list
-      padding 15px 0
+      padding 5px 0
+      @media screen and (min-width: 768px)
+        padding 15px 0
       .css-checkbox
         position absolute
         z-index -1000
@@ -223,22 +241,28 @@
     .city-features-date
       font-size 12px
       display block
-      margin 0 0 25px
+      margin 0 0 20px
       .form-control
-        width 120px
+        width 80%
+        height 42px
 
     .clear-btn
       padding 0 25px
       cursor pointer
-  .filter-section 
-    width 340px
+  .filter-section
+    width 290px
     box-sizing border-box
-    padding 25px
+    padding 12px
     box-shadow 0 1px 0 rgba(0, 0, 0, 0.3)
     top 38px
     border 1px solid #cfcfcf
     border-top 0
     border-radius 0 3px 3px 3px
+    @media sceeen and (max-width: 768px)
+      left -50px
+    @media screen and (min-width: 768px)
+      padding 22px 
+      width 340px
     .filter-title
       font-size 14px
       padding 0 0 10px
@@ -314,6 +338,8 @@
       clear both
   
 .travelMode
+  @media screen and (max-width: 768px)
+    top 8px
   img
     cursor pointer
 
@@ -342,6 +368,10 @@
   
 .form-building-address-filter-reset 
   cursor pointer
+  @media screen and (max-width: 768px)
+    position relative
+    top 10px
+    left 25px
     
 body.admin-logged-in
   .building-title-search-wrapper
