@@ -7,7 +7,7 @@ template(name="contactUs")
           .modal-header
             button.close(type='button', data-dismiss='modal', aria-label='Close')
               i.fa.fa-times(aria-hidden='true')
-            h4#myModalLabel.modal-title
+            h4.modal-title
               i.fa.fa-street-view.text-primary.m-r-5
               | Searching Alone Sucks - Use A Local Expert
 
@@ -48,7 +48,7 @@ template(name="contactUs")
                       i.fa.fa-usd
                     input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
 
-            fieldset.row.form-group.contact-us-field
+            fieldset.row.form-group.contact-us-field#tour-question-wrapper
               label.col-xs-5 I want to tour this unit in person.
 
               .col-xs-7
@@ -66,9 +66,9 @@ template(name="contactUs")
                     | Not Sure
 
             fieldset.row.contact-us-field
-              .form-group.col-lg-6
+              .form-group.col-xs-6
                 +datepicker(id="contactUsTourDate" placeholder="Tour Date" class="tour-date" name="contactUsTourDate")
-              .form-group.col-lg-6
+              .form-group.col-xs-6
                 +datepicker(id="contactUsMoveInDate" placeholder="Move-In Date" class="move-in-data" name="contactUsMoveInDate")
 
             fieldset.form-group.contact-us-field.m-t-20
