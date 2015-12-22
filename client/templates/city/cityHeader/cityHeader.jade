@@ -34,7 +34,7 @@ template(name="cityHeader")
           button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
             i.fa.fa-fw.fa-check
             span.hide-md Features
-          form.form-building-features-filter.features-section.dropdown-menu.dropdown-menu-right
+          form.form-building-features-filter.features-section.dropdown-menu.dropdown-menu-left
             h3.filter-title
               | Filter the search results by the criteria you need.
             ul.filter-list.list-unstyled.clearfix
@@ -75,7 +75,7 @@ template(name="cityHeader")
               //  label.css-label(for="listings")
               //    | Private listings
             label.city-features-date
-              | Available from/before
+              | Available From
               +datepicker(name="available" value=query.available)
             button.btn.btn-primary.apply-changes-btn(type="submit")
               | Apply Changes
@@ -87,7 +87,7 @@ template(name="cityHeader")
           button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
             i.fa.fa-fw.fa-map-marker
             span.hide-md Location
-          form.form-building-filter.filter-section.dropdown-menu.dropdown-menu-right
+          form.form-building-filter.filter-section.dropdown-menu.dropdown-menu-left
             h3.filter-title
               | Enter any common destination (work, school, etc) to find nearyby appartments.
             ul.filter-list.list-unstyled.clearfix
@@ -109,25 +109,25 @@ template(name="cityHeader")
                        | Less than 30 min
               .col-sm-6
                 .row
-                  .col-sm-4.travelMode#walker
+                  .col-xs-4.travelMode#walker
                     if condition travelMode 'is' 'walking'
                       img(src="/images/walk-active.png")
                     else
                       img(src="/images/walk.png")
-                  .col-sm-4.travelMode#car
+                  .col-xs-4.travelMode#car
                     if condition travelMode 'is' 'driving'
                       img(src="/images/car-active.png")
                     else
                       img(src="/images/car.png")
-                  .col-sm-4.travelMode#bike
+                  .col-xs-4.travelMode#bike
                     if condition travelMode 'is' 'bicycling'
                       img(src="/images/bike-active.png")
                     else
                       img(src="/images/bike.png")
 
             .row
-              .col-sm-6
-                button.btn.btn-primary.apply-changes-btn(type="submit")
+              .col-xs-6
+                button.btn.btn-block.btn-primary.apply-changes-btn(type="submit")
                   | Apply
                   span.hide-md Changes
               .col-sm-6

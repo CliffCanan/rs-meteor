@@ -32,16 +32,16 @@ Template.cityHeader.helpers
   currentBedroomType: ->
     btypes[@query.btype]?.lower ? "Any"
   arrivalTime: ->
-    if Session.get "selectedTime"
-      selectedTime = Session.get "selectedTime"
-      if selectedTime == "10m"
-        "Less than 10min"
-      else if selectedTime == "20m"
-        "Less than 20min"
-      else if selectedTime == "30m"
-        "Less than 30min"
+    lessThanTxt = (if $(window).width() < 600 then "<" else "Less than")
+    if Session.get("selectedTime")
+      selectedTime = Session.get("selectedTime")
+      if selectedTime is "10m"
+        lessThanTxt + " 10 min"
+      else if selectedTime is "20m"
+        lessThanTxt + " 20 min"
+      else lessThanTxt + " 30 min"  if selectedTime is "30m"
     else
-      "Less than 10min"
+      lessThanTxt + " 10 min"
   travelMode: ->
     Session.get('travelMode')
   getDestination: ->
