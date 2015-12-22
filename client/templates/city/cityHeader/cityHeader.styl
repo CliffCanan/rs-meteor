@@ -6,7 +6,8 @@
     .dropdown.open > .dropdown-menu
       left auto
       right 0
-      .form-control height 42px
+      .form-control
+        height 42px
   @media screen and (min-width: 992px)
     padding 18px 25px
   @media screen and (min-width: 1200px)
@@ -21,15 +22,18 @@
   .button-text
     display inline-block
     text-transform uppercase
-  &.col-sm-2
+  &.col-sm-2,
     padding 0 15px 10px
     @media screen and (min-width: 1200px)
-      padding 0 5px
+      padding 0 6px
+  &.bedroom-type-select
+    @media screen and (min-width: 1200px)
+      padding 0 6px
   &.city-select
     .button-text
       width 142px
   &.bedroom-type-select
-    min-width 126px
+    min-width 124px
     .city-sub-header-list
       padding 0 8%
   .city-sub-header-title
@@ -145,7 +149,7 @@
         left 35px
   .price-slider + b
     @media screen and (min-width: 768px)
-      right 0
+      right 15px
 
   .slider.slider-horizontal
     margin 0
@@ -163,7 +167,7 @@
         background #8f9092
 
 @media screen and (min-width: 768px)
-  #features-filter-container
+  #features-container
     padding-left 0
   #location-filter-wrapper
     padding-left 10px
@@ -258,9 +262,9 @@
     border 1px solid #cfcfcf
     border-top 0
     border-radius 0 3px 3px 3px
-    @media sceeen and (max-width: 768px)
-      left -50px
+    left -50px
     @media screen and (min-width: 768px)
+      left 0
       padding 22px 
       width 340px
     .filter-title
@@ -350,17 +354,21 @@
   float left
 
 .building-title-search-wrapper
-  max-width 205px
+  max-width 14.2%
   @media screen and (min-width: 768px)
     padding 0 0 0 5px
-
-.building-title-search
-  font-size 14px
-  color #272b30
-  font-weight bold
-  height 42px
-  @media screen and (min-width: 768px)
-    padding 0 0 0 5px
+  input
+    font-size 14px
+    color #272b30
+    font-weight bold
+    height 42px
+    padding-left 32px
+  i
+    position absolute
+    top 14px
+    left 13px
+    font-size 90%
+    opacity 0.6
 
 
 .selectArrivalTime 
