@@ -13,33 +13,54 @@ Template.contactUs.rendered = ->
   form.formValidation(
     framework: 'bootstrap'
     live: 'disabled'
+    icon:
+      valid: "fa fa-check"
+      invalid: "fa fa-remove"
+      validating: "fa fa-refresh"
     fields:
       name:
         validators:
           notEmpty:
-            message: 'Please enter your name'
+            message: 'Please enter your name :-)'
       email:
         validators:
           notEmpty:
-            message: 'Please enter your email address'
+            message: 'Please enter your email address.'
           emailAddress:
-            message: 'Please enter a valid email address'
+            message: 'Please enter a valid email address!'
       bedrooms:
         validators:
           notEmpty:
             message: 'Please select your target number of bedrooms'
+      maxMonthlyRent:
+        validators:
+          notEmpty:
+            message: 'Please enter the MOST you\'re willing to pay per month.'
+          greaterThan:
+            value: 1000
+            message: "Most of our units begin at $1,000/mo, unfortunately."
+          lessThan:
+            value: 5000
+            message: "Most of our units are below $5,000/mo, unfortunately."
+      tourOption:
+        validators:
+          notEmpty:
+            message: 'Please select an option.'
       contactUsTourDate:
         validators:
-          date:
-            format: "MM/DD/YYYY"
-            min: moment().subtract(1, "d").toDate()
-            message: 'Please enter future date in MM/DD/YYYY format'
+          callback:
+            message: 'When would you like to schedule a tour?'
+            callback: (value, validator, $field) ->
+              channel = form.find("[name=\"tourOption\"]:checked").val()
+              (if (channel isnt "yes") then true else (value isnt ""))
       contactUsMoveInDate:
         validators:
+          notEmpty:
+            message: 'When would you like to move in?'
           date:
             format: "MM/DD/YYYY"
             min: moment().subtract(1, "d").toDate()
-            message: 'Please enter future date in MM/DD/YYYY format'
+            message: 'Please select a date in the future!'
   ).on("success.form.fv", grab encapsulate (event) ->
       form.find(".submit-button").prop("disabled", true)
       form.find(".submit-button i").fadeOut(200)
@@ -74,7 +95,7 @@ Template.contactUs.rendered = ->
           fbq "track", "Lead",
             content_name: cityNameForFB.replace(' ','_')
             content_category: "ContactUs"
-            value: 30.0
+            value: 25.0
             currency: 'USD'
       )
   )
@@ -91,3 +112,6 @@ Template.contactUs.events
       template.$('#contactUsTourDate').attr('disabled', true)
     else
       template.$('#contactUsTourDate').attr('disabled', false)
+
+$("#contactUsPopup").on "hidden.bs.modal", ->
+  $("#contactUsPopup form").formValidation "resetForm", true
