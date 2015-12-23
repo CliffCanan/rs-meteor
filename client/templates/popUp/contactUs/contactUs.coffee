@@ -48,13 +48,6 @@ Template.contactUs.rendered = ->
         validators:
           notEmpty:
             message: 'Please select an option.'
-      contactUsTourDate:
-        validators:
-          callback:
-            message: 'When would you like to schedule a tour?'
-            callback: (value, validator, $field) ->
-              tourValue = $("form.contact-us-form [name=\"tourOption\"]:checked").val()
-              (if (channel isnt "yes") then true else (value isnt ""))
       contactUsMoveInDate:
         validators:
           notEmpty:
@@ -63,6 +56,14 @@ Template.contactUs.rendered = ->
             format: "MM/DD/YYYY"
             min: moment().subtract(1, "d").toDate()
             message: 'Please select a date in the future!'
+      contactUsTourDate:
+        validators:
+          callback:
+            message: 'When would you like to schedule a tour?'
+            callback: (value, validator, $field) ->
+              tourValue = $("form.contact-us-form [name=\"tourOption\"]:checked").val()
+              (if (tourValue isnt "yes") then true else (value isnt ""))
+
   ).on("change", "[name=\"tourOption\"]", (e) ->
     $("form.contact-us-form").formValidation "revalidateField", "contactUsTourDate"
   ).on("success.field.fv", (e, data) ->
