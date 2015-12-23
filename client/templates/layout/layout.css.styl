@@ -59,24 +59,28 @@ a.carousel-control .fa
 .modal-body
   p
     font-size 15.5px
+  .form-control
+    @media screen and (min-width: 768px)
+      height 36px
+    @media screen and (min-width: 992px)
+      height 38px
 
 
 @media screen and (max-width: 768px)
-  .modal-body .form-control
-    height 36px
   .modal-title
     text-indent -13px
     padding-left 25px
-  .modal-body .row .col-xs-6:first-child
+  .modal-body .row .col-xs-6
+  &:first-child
     padding-right 5px
-  .modal-body .row .col-xs-6:last-child
+  &:last-child
     padding-left 5px
-  .modal-body .row .col-xs-6 .input-group .form-control
-    padding 5px
+    .input-group .form-control
+      padding 5px
+  .form-control-feedback
+    display none
 
-@media screen and (max-width: 1200px)
-  .modal-body .form-control
-    height 38px
+
 
 .mb0
   margin-bottom 0

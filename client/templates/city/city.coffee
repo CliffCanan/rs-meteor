@@ -274,6 +274,10 @@ Template.city.onRendered ->
         bounds.extend markers[i].getPosition()     
       map.fitBounds(bounds)
 
+  $("#contactUsPopup").on "hide.bs.modal", (e) ->
+    $("#contactUsPopup form").formValidation "resetForm", true
+
+
 incrementPageNumber = ->
   if Router.current().route.getName() is "city"
     cityPageData = Session.get("cityPageData")

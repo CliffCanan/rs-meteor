@@ -240,6 +240,13 @@ Template.building.onRendered ->
         if instance.travelMarkers
           instance.travelMarkers.start.setPosition(latLng)
 
+  $("#checkAvailabilityPopup").on "hide.bs.modal", (e) ->
+    $("#checkAvailabilityPopup form").formValidation "resetForm", true
+
+  $("#contactUsPopup").on "hide.bs.modal", (e) ->
+    $("#contactUsPopup form").formValidation "resetForm", true
+
+
 Template.building.onDestroyed ->
   # Clear timeout when user exits the page so it doesn't trigger.
   Meteor.clearTimeout(@popupTimeoutHandle)
@@ -281,7 +288,6 @@ Template.building.events
   "click .check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
     analytics.track "Clicked Check Availability button", {buildingId: @_id, buildingName: @title, label: @title}
-    $('#checkAvailabilityPopup form').formValidation 'resetForm', true
     $('#checkAvailabilityPopup').modal('show')
 
   "click .unit-check-availability": grab encapsulate (event, template) ->
