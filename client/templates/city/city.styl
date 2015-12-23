@@ -27,11 +27,13 @@
       text-align left
     .main-city-item
       margin 0 0 2rem 0
-      padding 15px
+      padding 2%
       padding-bottom 0
       box-sizing border-box
       border 1px solid #eeeeee
       border-radius 3px
+      @media screen and (min-width: 768px)
+        padding 15px
       .main-city-img-link
         position relative
         display block
@@ -43,7 +45,9 @@
         img
           width 100%
       .main-city-item-wrap
-        padding 15px 0
+        padding 0
+        @media screen and (min-width: 768px)
+          padding 15px 0
         .main-city-info-btn
           color #4588fa
           padding 10px 0 0
