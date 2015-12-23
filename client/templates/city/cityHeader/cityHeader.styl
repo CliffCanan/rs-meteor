@@ -139,22 +139,28 @@
       bottom -18px
       font-size 13.5px
   .city-subheader-price-val
+    display none
     font-size 13px
     font-weight bold
     text-transform uppercase
     vertical-align middle
     margin-right 10px
+    @media screen and (min-width: 768px)
+      display inline-block
     + b
       @media screen and (min-width: 768px)
         left 35px
   .price-slider + b
+    right 5px
     @media screen and (min-width: 768px)
       right 15px
 
   .slider.slider-horizontal
     margin 0
-    width 70%
     left 7%
+    width 90%
+    @media screen and (min-width: 768px)
+      width 70%
     .slider-track
       height 6px
       .slider-handle
@@ -354,8 +360,8 @@
   float left
 
 .building-title-search-wrapper
-  max-width 14.2%
   @media screen and (min-width: 768px)
+    max-width 14.2%
     padding 0 0 0 5px
   input
     font-size 14px
@@ -366,9 +372,11 @@
   i
     position absolute
     top 14px
-    left 13px
+    left 25px
     font-size 90%
     opacity 0.6
+    @media screen and (min-width: 768px)
+      left 13px
 
 
 .selectArrivalTime 
