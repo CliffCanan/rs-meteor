@@ -13,6 +13,8 @@ Template.contactUs.rendered = ->
   form.formValidation(
     framework: 'bootstrap'
     live: 'disabled'
+    err:
+      container: "tooltip"
     icon:
       valid: "fa fa-check"
       invalid: "fa fa-remove"
@@ -51,7 +53,7 @@ Template.contactUs.rendered = ->
           callback:
             message: 'When would you like to schedule a tour?'
             callback: (value, validator, $field) ->
-              channel = form.find("[name=\"tourOption\"]:checked").val()
+              tourValue = $("form.contact-us-form [name=\"tourOption\"]:checked").val()
               (if (channel isnt "yes") then true else (value isnt ""))
       contactUsMoveInDate:
         validators:
@@ -61,6 +63,14 @@ Template.contactUs.rendered = ->
             format: "MM/DD/YYYY"
             min: moment().subtract(1, "d").toDate()
             message: 'Please select a date in the future!'
+  ).on("change", "[name=\"tourOption\"]", (e) ->
+    $("form.contact-us-form").formValidation "revalidateField", "contactUsTourDate"
+  ).on("success.field.fv", (e, data) ->
+    if data.field is "contactUsTourDate"
+      tourValue = $("form.contact-us-form [name=\"tourOption\"]:checked").val()
+      if tourValue isnt "yes"
+        data.element.closest(".form-group").removeClass "has-success"
+        data.element.data("fv.icon").hide()
   ).on("success.form.fv", grab encapsulate (event) ->
       form.find(".submit-button").prop("disabled", true)
       form.find(".submit-button i").fadeOut(200)
@@ -99,9 +109,8 @@ Template.contactUs.rendered = ->
             currency: 'USD'
       )
   )
+  
 
-  $("#contactUsPopup").on "hidden.bs.modal", ->
-    $("#contactUsPopup form").formValidation "resetForm", true
 
 Template.contactUs.events
   "change .tour-date": grab encapsulate (event, template) ->

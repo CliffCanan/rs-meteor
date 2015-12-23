@@ -2924,9 +2924,6 @@ select[multiple].form-group-lg .form-control {
     position: relative;
     margin-left: 0;
   }
-  .form-inline .has-feedback .form-control-feedback {
-    top: 0;
-  }
 }
 .form-horizontal .radio,
 .form-horizontal .checkbox,

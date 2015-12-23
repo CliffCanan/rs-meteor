@@ -53,8 +53,18 @@ a.carousel-control .fa
 .modal-body p
   line-height 1.45
 
-.modal-body p
-  font-size 15.5px
+.modal-content
+  margin-bottom 30px
+
+.modal-body
+  p
+    font-size 15.5px
+  .form-control
+    @media screen and (max-width: 768px)
+      height 36px
+    @media screen and (max-width: 992px)
+      height 38px
+
 
 @media screen and (max-width: 768px)
   .modal-title

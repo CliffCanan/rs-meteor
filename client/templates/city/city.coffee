@@ -351,3 +351,6 @@ setDefaultImagesForCalc = ->
   $("#walker-calc").find("img").attr("src", "/images/walk.png")
   $("#car-calc").find("img").attr("src", "/images/car.png")
   $("#bike-calc").find("img").attr("src", "/images/bike.png")    
+
+$("#contactUsPopup").on "hidden.bs.modal", ->
+  $("#contactUsPopup form").formValidation "resetForm", true
