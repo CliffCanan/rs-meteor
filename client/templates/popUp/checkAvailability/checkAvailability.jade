@@ -29,7 +29,7 @@ template(name="checkAvailability")
                 textarea.form-control(name="question" placeholder="Is this unit still available?", rows="4")
 
               if condition agroIsUnit 'is' false
-                fieldset.row.form-inline.availability-field
+                fieldset.row.form-inline.availability-field#bedrooms-wrapper
                   .col-xs-5
                     label.availability-text(for="bedrooms") # of Bedrooms
                   .col-xs-7
@@ -50,7 +50,7 @@ template(name="checkAvailability")
                 .col-xs-5
                   label.availability-text(for="datetimeForm")
                     | Move-In Date
-                .col-xs-7
+                .col-xs-7.form-group
                   +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="MM/DD/YYYY" class="moveInData-moveInDate-editor" name="moveInDate")
 
             .modal-footer

@@ -484,3 +484,6 @@ CalculateDistance = (lat1, lon1, lat2, lon2) ->
   dist = dist * 180 / Math.PI
   dist = dist * 60 * 1.1515
   #console.log dist
+
+$("#contactUsPopup").on "hidden.bs.modal", ->
+  $("#contactUsPopup form").formValidation "resetForm", true
