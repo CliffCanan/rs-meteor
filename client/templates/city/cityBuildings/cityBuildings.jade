@@ -1,7 +1,7 @@
 template(name="cityBuildings")
   ul.main-city-list.list-unstyled.row
     each buildings
-      li.col-sm-6.col-xs-12
+      li.col-xs-12.col-sm-6.col-md-4
         .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
         
           if shouldShowRecommendToggle
