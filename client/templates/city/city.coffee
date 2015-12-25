@@ -30,6 +30,10 @@ Template.city.onCreated ->
         $('.contact-us').trigger('click')
     , 14000
 
+  if typeof($('.HB-Bar') != 'undefined')
+    $('.HB-Bar').addClass('hidden')
+    $('#hellobar-pusher').addClass('hidden')
+
 
 Template.city.helpers
   firstLoad: ->

@@ -10,6 +10,11 @@ Template.building.onCreated ->
         $('.check-availability').trigger('click')
     , 11000
 
+  if typeof($('.HB-Bar') != 'undefined')
+    $('.HB-Bar').addClass('hidden')
+    $('#hellobar-pusher').addClass('hidden')
+
+
 Template.building.helpers
   ironRouterHack: ->
     Router.current() # reactivity
