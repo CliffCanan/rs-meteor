@@ -3,18 +3,6 @@ positions = [10000, 5000, 0, -5000, -10000]
 Template.building.onCreated ->
   @subscribe("buildingsSimilar", Router.current().data().building._id)
 
-  # Show Check Availability Popup after 15 seconds
-  if !Meteor.user()
-    @popupTimeoutHandle = Meteor.setTimeout ->
-      unless $('body').hasClass('modal-open')
-        $('.check-availability').trigger('click')
-    , 11000
-
-  if typeof($('.HB-Bar') != 'undefined')
-    $('.HB-Bar').addClass('hidden')
-    $('#hellobar-pusher').addClass('hidden')
-
-
 Template.building.helpers
   ironRouterHack: ->
     Router.current() # reactivity
@@ -244,6 +232,18 @@ Template.building.onRendered ->
         map.setCenter(latLng)
         if instance.travelMarkers
           instance.travelMarkers.start.setPosition(latLng)
+
+
+  # Show Check Availability Popup after 15 seconds
+  if !Meteor.user()
+    @popupTimeoutHandle = Meteor.setTimeout ->
+      unless $('body').hasClass('modal-open')
+        $('.check-availability').trigger('click')
+    , 11000
+
+  if typeof($('.HB-Bar') != 'undefined')
+    $('.HB-Bar').addClass('hidden')
+    $('#hellobar-pusher').addClass('hidden')
 
   $("#checkAvailabilityPopup").on "hide.bs.modal", (e) ->
     $("#checkAvailabilityPopup form").formValidation "resetForm", true

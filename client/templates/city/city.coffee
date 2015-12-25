@@ -23,17 +23,6 @@ Template.city.onCreated ->
   unless $.fn.hoverIntent
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
 
-  # Show Contact Us Popup after 15 seconds
-  if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
-    @popupTimeoutHandle = Meteor.setTimeout ->
-      unless $('body').hasClass('modal-open')
-        $('.contact-us').trigger('click')
-    , 14000
-
-  if typeof($('.HB-Bar') != 'undefined')
-    $('.HB-Bar').addClass('hidden')
-    $('#hellobar-pusher').addClass('hidden')
-
 
 Template.city.helpers
   firstLoad: ->
@@ -277,6 +266,17 @@ Template.city.onRendered ->
       for i, marker of markers
         bounds.extend markers[i].getPosition()     
       map.fitBounds(bounds)
+
+  # Show Contact Us Popup after 15 seconds
+  if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
+    @popupTimeoutHandle = Meteor.setTimeout ->
+      unless $('body').hasClass('modal-open')
+        $('.contact-us').trigger('click')
+    , 14000
+
+  if typeof($('.HB-Bar') != 'undefined')
+    $('.HB-Bar').addClass('hidden')
+    $('#hellobar-pusher').addClass('hidden')
 
   $("#contactUsPopup").on "hide.bs.modal", (e) ->
     $("#contactUsPopup form").formValidation "resetForm", true
