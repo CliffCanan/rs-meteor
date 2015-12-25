@@ -274,7 +274,8 @@ Template.city.onRendered ->
         $('.contact-us').trigger('click')
     , 14000
 
-  if typeof($('.HB-Bar') != 'undefined')
+  if typeof($('.HB-Bar')) != 'undefined'
+    console.log("Hiding .HB-Bar - End of Template.city.onRendered");
     $('.HB-Bar').addClass('hidden')
     $('#hellobar-pusher').addClass('hidden')
 

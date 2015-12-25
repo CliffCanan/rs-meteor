@@ -6,9 +6,18 @@ body
   margin 0
   padding 0
   width 100%
+  iframe.hellobar.hb-animateIn ~ .page-wrapper
+    header
+      top 30px
+    main
+      margin-top 40px !important
+      @media screen and (min-width: 1200px)
+        margin-top 45px !important
 
 main
   margin 70px 0 0
+  @media screen and (min-width: 1200px)
+    margin 75px 0 0
 
 .content-wrapper
   padding 10px

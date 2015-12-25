@@ -31,11 +31,15 @@
 
   .building-page
     max-width 1280px
-    margin 0
+    margin 0 -15px
+    @media screen and (min-width: 600px)
+      margin 0
     clear both
 
     .building-main-info
       box-sizing border-box
+      @media screen and (max-width: 992px)
+        margin-bottom 20px
       @media screen and (min-width: 1200px)
         float right
       .building-main-info-title
@@ -93,6 +97,7 @@
           vertical-align middle
           text-align left
           text-transform capitalize
+
       .building-main-prop-list
         font-size 0
         .building-main-prop
@@ -208,11 +213,20 @@
       display inline-block
 
   .building-img-wrap
-    height 500px
+    height 280px
+    @media screen and (min-width: 768px)
+      height 360px
+    @media screen and (min-width: 992px)
+      height 500px
     max-width 800px
     .item
-      height 500px
+      height 280px
+      @media screen and (min-width: 768px)
+        height 360px
+      @media screen and (min-width: 992px)
+        height 500px
       visibility hidden
+
     a.recommend-toggle
       color #FFF
       font-size 25px
@@ -227,6 +241,7 @@
     .building-img
       margin 0 auto
       max-height 500px
+
     .carousel-control
       height 100%
       width 9%
@@ -239,7 +254,6 @@
     .right
       .building-img-icon
         right 0
-
     .left
       .building-img-icon
         left 0

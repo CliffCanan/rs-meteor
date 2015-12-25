@@ -241,7 +241,8 @@ Template.building.onRendered ->
         $('.check-availability').trigger('click')
     , 11000
 
-  if typeof($('.HB-Bar') != 'undefined')
+  if typeof($('.HB-Bar')) != 'undefined'
+    console.log("Hiding .HB-Bar - End of Template.building.onRendered");
     $('.HB-Bar').addClass('hidden')
     $('#hellobar-pusher').addClass('hidden')
 
