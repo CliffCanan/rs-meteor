@@ -267,17 +267,20 @@ Template.city.onRendered ->
         bounds.extend markers[i].getPosition()     
       map.fitBounds(bounds)
 
-  # Show Contact Us Popup after 15 seconds
+  # Show Contact Us Popup after 14 seconds
   if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
     @popupTimeoutHandle = Meteor.setTimeout ->
       unless $('body').hasClass('modal-open')
         $('.contact-us').trigger('click')
     , 14000
 
-  if typeof($('.HB-Bar')) != 'undefined'
-    console.log("Hiding .HB-Bar - End of Template.city.onRendered");
-    $('.HB-Bar').addClass('hidden')
-    $('#hellobar-pusher').addClass('hidden')
+  Meteor.setTimeout ->
+    if typeof($('.HB-Bar')) != 'undefined'
+      #console.log("Hiding .HB-Bar - End of Template.city.onRendered");
+      $('.HB-Bar').addClass('hidden')
+      $('#hellobar-pusher').addClass('hidden')
+  , 200
+
 
   $("#contactUsPopup").on "hide.bs.modal", (e) ->
     $("#contactUsPopup form").formValidation "resetForm", true

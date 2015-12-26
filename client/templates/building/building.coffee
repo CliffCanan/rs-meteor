@@ -234,17 +234,20 @@ Template.building.onRendered ->
           instance.travelMarkers.start.setPosition(latLng)
 
 
-  # Show Check Availability Popup after 15 seconds
+  # Show Check Availability Popup after 11 seconds
   if !Meteor.user()
     @popupTimeoutHandle = Meteor.setTimeout ->
       unless $('body').hasClass('modal-open')
         $('.check-availability').trigger('click')
     , 11000
 
-  if typeof($('.HB-Bar')) != 'undefined'
-    console.log("Hiding .HB-Bar - End of Template.building.onRendered");
-    $('.HB-Bar').addClass('hidden')
-    $('#hellobar-pusher').addClass('hidden')
+  Meteor.setTimeout ->
+    if typeof($('.HB-Bar')) != 'undefined'
+      #console.log("Hiding .HB-Bar - End of Template.building.onRendered");
+      $('.HB-Bar').addClass('hidden')
+      $('#hellobar-pusher').addClass('hidden')
+  , 200
+
 
   $("#checkAvailabilityPopup").on "hide.bs.modal", (e) ->
     $("#checkAvailabilityPopup form").formValidation "resetForm", true
