@@ -371,3 +371,65 @@ a.carousel-control .fa
   -webkit-animation-name: pulse;
   animation-name: pulse;
 }
+
+
+.spin-wrapper {
+    -webkit-animation: logo-spin 10.5s ease-in-out infinite;
+    -moz-animation: logo-spin 10.5s ease-in-out infinite;
+    animation: logo-spin 10.5s ease-in-out infinite;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+}
+
+    .spin-wrapper:hover {
+        -webkit-animation-play-state: paused;
+        -moz-animation-play-state: paused;
+        animation-play-state: paused;
+    }
+
+.paused-animations-ie .spin-wrapper {
+    animation-play-state: paused;
+}
+
+@-webkit-keyframes logo-spin {
+    90% {
+        -webkit-transform: rotate3d(0,1,0,0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate3d(0,1,0,-180deg);
+    }
+}
+
+@-moz-keyframes logo-spin {
+    90% {
+        -moz-transform: rotate3d(0,1,0,0deg);
+    }
+
+    100% {
+        -moz-transform: rotate3d(0,1,0,-180deg);
+    }
+}
+
+@keyframes logo-spin {
+    90% {
+        -webkit-transform: rotate3d(0,1,0,0deg);
+        -moz-transform: rotate3d(0,1,0,0deg);
+        -ms-transform: rotate3d(0,1,0,0deg);
+        -o-transform: rotate3d(0,1,0,0deg);
+        transform: rotate3d(0,1,0,0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate3d(0,1,0,-180deg);
+        -moz-transform: rotate3d(0,1,0,-180deg);
+        -ms-transform: rotate3d(0,1,0,-180deg);
+        -o-transform: rotate3d(0,1,0,-180deg);
+        transform: rotate3d(0,1,0,-180deg);
+    }
+}
