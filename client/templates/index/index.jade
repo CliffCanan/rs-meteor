@@ -45,6 +45,31 @@ template(name="index")
               li.city-item
                 a.city-item-link(href="{{pathFor route='city' data=getCityData}}") {{value}}
 
+
+  section.main-section.clearfix
+    h2.main-section-title
+      | Your Personal Search Assistant
+    ul.services-list.list-unstyled
+      li.services-item
+        img(src="/images/personal.png", alt="Expert Advice")
+        h3.main-section-sub-title
+          | Expert Advice
+        p.main-section-desc
+          | Work with an area expert every step of your search
+      li.services-item
+        img(src="/images/photo-camera.png", alt="Tour Virtually")
+        h3.main-section-sub-title
+          | Tour Virtually
+        p.main-section-desc
+          | Can't make it in person? Request videos to rent confidently
+      li.services-item
+        img(src="/images/key.png", alt="Apply Online")
+        h3.main-section-sub-title
+            | Apply Online
+        p.main-section-desc
+            | Submit your application and payments electronically
+
+
   section.testimonials-wrap.clearfix
     .testimonials
       .testimonials-section.col-lg-3.col-md-6.col-sm-6.col-xs-12
@@ -103,27 +128,20 @@ template(name="index")
                 a.quote-author-link(href="/") Philadelphia
           img(src="/images/testimonials-4.png", alt="Kirsten S, Philadelphia")
 
-  section.footer-section.clearfix
-    h2.footer-section-title
-      | Your Personal Search Assistant
-    ul.services-list.list-unstyled
-      li.services-item
-        img(src="/images/personal.png", alt="Expert Advice")
-        h3.footer-section-sub-title
-          | Expert Advice
-        p.footer-section-desc
-          | Work with an area expert every step of your search
-      li.services-item
-        img(src="/images/photo-camera.png", alt="Tour Virtually")
-        h3.footer-section-sub-title
-          | Tour Virtually
-        p.footer-section-desc
-          | Can't make it in person? Request videos to rent confidently
-      li.services-item
-        img(src="/images/key.png", alt="Apply Online")
-        h3.footer-section-sub-title
-            | Apply Online
-        p.footer-section-desc
-            | Submit your application and payments electronically
+  section.contact-us-section.col-xs-12.clearfix
+    .text-center
+      h2.m-t-10.p-b-15
+      | Find A Great Apartment Now
+      a.col-xs-6.btn.btn-link.p-0(href="http://www.rentscene.com/city/philadelphia/")
+        span.fa-stack.fa-lg
+          i.fa.fa-circle.fa-stack-2x
+          i.fa.fa-search.fa-stack-1x(style="font-size: 75%")
+        p.m-t-10 | Search Myself
+
+      a.col-xs-6.btn.btn-link.p-0(href="tel://1-267-463-2428")
+        span.fa-stack.fa-lg
+          i.fa.fa-circle.fa-stack-2x
+          i.fa.fa-mobile.fa-stack-1x
+        p.m-t-10 | Call Us Now
 
   +contactUs

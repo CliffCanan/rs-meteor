@@ -7,12 +7,13 @@ body
   padding 0
   width 100%
   iframe.hellobar.hb-animateIn:not(.hidden) ~ .page-wrapper
-    header
-      top 30px
-    main
-      margin-top 40px !important
-      @media screen and (min-width: 1200px)
-        margin-top 45px !important
+    @media screen and (min-width: 768px)
+      header
+        top 30px
+      main
+        margin-top 40px !important
+        @media screen and (min-width: 1200px)
+          margin-top 45px !important
 
 main
   margin 70px 0 0
@@ -96,9 +97,9 @@ a.carousel-control .fa
     .form-control
       font-size 12.5px
 
-  .hellobar,
-  #hellobar-pusher
-    display none
+  body .hellobar,
+  body #hellobar-pusher
+    display none !important
 
 
 .mb0
