@@ -1,0 +1,24 @@
+{
+  "servers": [
+    {
+      "host": "104.131.46.123",
+      "username": "root",
+      "password": "aff0347#0d!e2",
+      "env": {}
+    }
+  ],
+  "setupMongo": false,
+  "setupNode": false,
+  "nodeVersion": "0.10.36",
+  "setupPhantom": false,
+  "appName": "rentscene",
+  "app": "/opt/rs-2",
+  "env": {
+    "PORT": 80,
+    "ROOT_URL": "http://rentscene.com/",
+    "MONGO_URL": "mongodb://dbAdmin:389hg8747hg7ad7873hd@candidate.19.mongolayer.com:10839/rentscene",
+    "MONGO_OPLOG_URL": "mongodb://dbAdmin:389hg8747hg7ad7873hd@candidate.19.mongolayer.com:10839,candidate.1.mongolayer.com:10385/local?authSource=rentscene",
+    "CLUSTER_WORKERS_COUNT": "auto"
+  },
+  "deployCheckWaitTime": 260
+}
