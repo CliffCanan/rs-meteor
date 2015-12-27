@@ -96,9 +96,26 @@
               -ms-user-select none
               user-select none
 
+      .input-group-addon .fa
+        width 1.1em
+        @media screen and (min-width: 768px)
+          width 1.275em
+
     .modal-footer
       border 0 none
       padding 0
       .form-group
         .btn
           background-color #4588fa
+
+#contactUsPopup #tour-question-wrapper label
+  .generic
+    display none
+  .specific
+    display inline
+
+.home-page #contactUsPopup #tour-question-wrapper label
+  .generic
+    display inline
+  .specific
+    display none

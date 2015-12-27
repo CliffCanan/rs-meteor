@@ -15,7 +15,11 @@ template(name="contactUs")
             p.form-group
               | You should
               strong love
-              | where you live. &nbsp;Take advantage of unbiased advice and put our team of experts to work. &nbsp;We'll schedule tours, deal with landlords, and stay with you until you love your next apartment.
+              | where you live. 
+              span.hide-sm &nbsp;
+              | Take advantage of unbiased advice and put our team of experts to work. 
+              span.hide-sm &nbsp;
+              | We'll schedule tours, deal with landlords, and stay with you until you love your next apartment.
 
             fieldset.row.form-group.contact-us-field
               label.col-sm-5.col-md-4 Name
@@ -49,7 +53,11 @@ template(name="contactUs")
                     input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
 
             fieldset.row.form-group.contact-us-field#tour-question-wrapper
-              label.col-xs-5 I want to tour this unit in person.
+              label.col-xs-5
+                | I want to tour 
+                span.specific this unit 
+                span.generic units 
+                | in person.
 
               .col-xs-7
                 span.radio-inline
