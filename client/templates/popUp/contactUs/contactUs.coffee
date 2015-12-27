@@ -8,7 +8,7 @@ Template.contactUs.helpers
 Template.contactUs.rendered = ->
   Session.set("serverError", false)
 
-  $('i[data-toggle="popover"]').popover
+  $('i[data-toggle="popover"]').popover()
 
   cityId = @.data?.cityId
   form = @$("form")
