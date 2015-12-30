@@ -19,22 +19,22 @@ template(name="rentalApplication")
               a(href="mailto:info@rentscene.com") info@rentscene.com
               |.
 
-            form#rental-application-form.form-inline
+            form#rental-application-form.form-horizontal
               h3 Rent Details
               .form-group
                 label.col-sm-4.col-md-3 Apartment you are applying to
                 .col-sm-6
                   input.form-control(type="text", name="apartmentName", value="#{fields.apartmentName}")
               .form-group
-                label.col-xs-4.col-sm-3 Move in date
-                .col-sm-4.col-md-3.col-lg-2
+                label.col-xs-4.col-sm-3 Move-In Date
+                .col-sm-4.col-md-3.col-lg-2.p-r-5
                   +datepicker(name="moveInDate" value=getDatePickerDateMoveInDate)
-                label.col-xs-4.col-sm-2 Length of lease
+                label.col-xs-4.col-sm-2 Length of Lease
                 .col-sm-4.col-md-3.col-lg-2
                   input.form-control(type="text", name="lenghtOfLease", value="#{fields.lenghtOfLease}")
               .form-group
                 label.col-xs-4.col-sm-3 Rent
-                .col-sm-4.col-md-3.col-lg-2
+                .col-sm-4.col-md-3.col-lg-2.p-r-5
                   .input-group
                     .input-group-addon $
                     input.form-control(type="text", name="rent", value="#{fields.rent}")
@@ -49,20 +49,21 @@ template(name="rentalApplication")
                 .col-sm-9.col-md-8.col-lg-6
                   input.input-large.form-control(type="email", name="email", value="#{fields.email}")
               .form-group
-                label.col-sm-3 Phone number
+                label.col-sm-3 Phone #
                 .col-sm-9.col-md-8.col-lg-6
                   input#phone-number.form-control(type="text", name="phoneNumber", value="#{fields.phoneNumber}")
               .form-group
-                label.col-sm-3 Date of birth
-                .col-sm-3.col-md-2
+                label.col-sm-3 Date of Birth
+                .col-sm-3.col-md-2.p-r-5
                   +datepicker(name="dateOfBirth" options=dateOfBirthOptions value=getDatePickerDateDateOfBirth)
-                label.col-sm-2 Social Security Number
-                .col-sm-3.col-md-2
+                label.col-sm-2 SSN
+                  small Social Security Number
+                .col-sm-3.col-md-2.p-r-5
                   input#social-security-number.form-control(type="text", name="socialSecurityNumber", value="#{fields.socialSecurityNumber}")
 
               .form-group
                 label.col-sm-3 Are You a Student?
-                  i.fa.fa-fw.fw-graduation-cap
+                  i.fa.fa-fw.fa-graduation-cap.m-l-5
                 .col-sm-4.col-md-3.col-lg-2
                   select#is-student.form-control(name="isStudent", value="#{fields.isStudent}")
                     option(value="Yes") Yes
@@ -73,10 +74,10 @@ template(name="rentalApplication")
                   .col-sm-6.col-md-2
                     input.form-control(type="text", name="institution", value="#{fields.institution}")
                   label.col-sm-4.col-md-1.p-0 Years Attended
-                  .col-sm-6.col-md-2.p-0
+                  .col-sm-6.col-md-2.p-l-5.p-r-5
                     input.form-control(type="text", name="institutionDuration", value="#{fields.institutionDuration}")
                   label.col-sm-4.col-md-1 Grad Year
-                  .col-sm-6.col-md-1.p-l-0
+                  .col-sm-6.col-md-1.p-l-5.p-r-5
                     input.form-control(type="text", name="anticipatedGraduationYear", value="#{fields.anticipatedGraduationYear}")
 
               .col-xs-12.col-sm-10
@@ -129,22 +130,22 @@ template(name="rentalApplication")
                     input.form-control(type="text", name="nameOfRoommate4", value="#{fields.nameOfRoommate4}")
 
               .form-group
-                label.col-sm-4 Names/relationship of individuals occupying the unit 
-                .col-sm-6
-                  input.form-control(type="text", name="individualsInUnit", value="#{fields.individualsInUnit}")
+                label.col-sm-4.col-md-3 Names/relationship of individuals occupying the unit 
+                .col-sm-6.col-md-5.col-lg-4
+                  textarea.form-control(type="text", name="individualsInUnit", value="#{fields.individualsInUnit}")
 
               .col-xs-12.col-sm-10
                 div.section-spacer
 
               .form-group
-                label.col-sm-4.col-md-3 Do you have any pet(s)?
+                label.col-sm-4.col-md-3 Any Pets?
                 .col-sm-3.col-lg-2
                   select#has-pets.form-control(name="hasPets", value="#{fields.hasPets}")
                     option(value="Yes") Yes
                     option(value="No", selected) No
-                label.col-sm-1(style="display: none") How Many?
-                .col-sm-2.col-lg-1(style="display: none")
-                  select#has-pets.form-control(name="petsNumber", value="#{fields.hasPets}")
+                label.col-sm-2.pets-wrapper(style="display: none") How Many?
+                .col-sm-2.col-lg-1.p-l-10.p-r-0(style="display: none")
+                  select#has-pets.form-control(name="petsNumber", value="#{fields.petsNumber}")
                     option(value="1", selected) 1
                     option(value="2") 2
                     option(value="3") 3
@@ -156,7 +157,7 @@ template(name="rentalApplication")
                   .col-sm-2
                     input.form-control(type="text", name="petName", value="#{fields.petName}")
                   label.col-sm-2.p-l-25 Breed(s)
-                  .col-sm-2.p-l-0
+                  .col-sm-2.p-l-10
                     input.form-control(type="text", name="petBreed", value="#{fields.petBreed}")
                 .form-group
                   label.col-sm-3.col-sm-offset-1.col-md-2 Color(s)
@@ -224,7 +225,7 @@ template(name="rentalApplication")
                       option(value="Own", selected) Own
                 .form-group
                   label.col-sm-4.col-md-3 Current Landlord's Name
-                  .col-sm-8.col.md-7
+                  .col-sm-8.col-md-7
                     input.form-control(type="text", name="currentLandlordName", value="#{fields.currentLandlordName}")
                 .form-group
                   label.col-sm-4.col-md-3 Landlord's phone #
@@ -232,13 +233,12 @@ template(name="rentalApplication")
                     input#current-landlord-phone-number.form-control(type="text", name="currentLandlordPhoneNumber", value="#{fields.currentLandlordPhoneNumber}")
                 .form-group
                   label.col-sm-4.col-md-3 Total Monthly Rent
-                  .col-sm-6
+                  .col-sm-3.col-md-2.p-r-10
                     .input-group
                       .input-group-addon $
                       input.form-control(type="text", name="currentRent", value="#{fields.currentRent}")
-                .form-group
-                  label.col-sm-4.col-md-3.p-l-0 Total monthly rent that you were individually responsible for
-                  .col-sm-6
+                  label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.p-l-0 Total monthly rent that you were individually responsible for
+                  .col-sm-3.col-sm-pull-2.col-md-2.col-md-pull-0
                     .input-group
                       .input-group-addon $
                       input.form-control(type="text", name="currentRentResponsible", value="#{fields.currentRentResponsible}")  
@@ -339,7 +339,7 @@ template(name="rentalApplication")
                   input.form-control(type="text", name="positionDuration", value="#{fields.positionDuration}")
               .form-group
                 label.col-sm-4.col-md-3 Employer's Address
-                .col-sm-7.col-md-8
+                .col-sm-6.col-md-7
                   input.form-control(type="text", name="employerAddress", value="#{fields.employerAddress}")
               .form-group
                 label.col-sm-4.col-md-3 Contact Person
@@ -442,7 +442,6 @@ template(name="rentalApplication")
                 label.col-sm-4.col-md-3 Name
                 .col-sm-4.col-md-3
                   input.input-large.form-control(type="text", name="secondReferenceName", value="#{fields.secondReferenceName}")
-              .form-group
                 label.col-sm-2 Years Known
                 .col-sm-4.col-md-2
                   input.form-control(type="text", name="secondReferenceYearsKnown", value="#{fields.secondReferenceYearsKnown}")
@@ -450,7 +449,6 @@ template(name="rentalApplication")
                 label.col-sm-4.col-md-3 Relationship
                 .col-sm-4.col-md-3
                   input.form-control(type="text", name="secondReferenceRelationship", value="#{fields.secondReferenceRelationship}")
-              .form-group
                 label.col-sm-2 Phone #
                 .col-sm-4.col-md-2
                   input#second-reference-phone-number.form-control(type="text", name="secondReferencePhoneNumber", value="#{fields.secondReferencePhoneNumber}")
@@ -540,8 +538,9 @@ template(name="rentalApplication")
               //- .g-recaptcha.m-b-10(data-sitekey="6Lf7GhMTAAAAAKDluSFj1iYdvKYnlxWUhSFS2N0K")
 
               .form-group.m-b-20
-                button.btn.btn-lg.btn-success(type="submit") Submit and Download PDF
-                  i.fa.fa-cloud-download.m-l-10
+                .col-xs-12
+                  button.btn.btn-lg.btn-success(type="submit") Submit and Download PDF
+                    i.fa.fa-cloud-download.m-l-10
 
           #rental-application-password.modal.fade
             .modal-dialog

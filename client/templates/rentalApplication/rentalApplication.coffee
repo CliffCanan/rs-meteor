@@ -118,7 +118,7 @@ Template.rentalApplication.events
   "change #has-pets": (event, template) ->
     if $(event.target).val() is 'Yes'
       template.$('.pets-wrapper').show()
-    else
+    else if $(event.target).val() is 'No'
       template.$('.pets-wrapper').hide()
 
   "change #has-partner-roommate": (event, template) ->

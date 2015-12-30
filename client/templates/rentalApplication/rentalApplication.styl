@@ -2,23 +2,15 @@
   max-width 1000px
   h3
     color #4588fa
+    @media screen and (min-width: 768px)
+      margin 30px 0 12px
+    @media screen and (min-width: 1200px)
+      margin 36px 0 16px
   .well
     font-size 16px
 
   .application-dates
     margin-top 25px
-  .dropzone
-    min-height 0
-    border none
-    padding 0
-  .dropzone
-    .dz-message
-      color #4588fa
-      &:hover, &:focus
-        color #23527c
-        text-decoration underline
-    &.dz-started .dz-message
-      display block
 
   table
     td
@@ -31,11 +23,17 @@
     width 100%
     label
       text-align right
+
   .section-spacer
     background rgba(0,10,20,.1)
     height 1px
     border-radius 3px
     margin 10px auto 30px
+
+  label > small
+    display block
+    font-size 80%
+    font-weight normal
 
   .pets-wrapper
     display none
@@ -77,6 +75,20 @@
     border 5px solid #CCC
     margin-bottom 20px
     width 400px
+
+  .dropzone
+    min-height 0
+    border none
+    padding 0
+    .dz-message
+      font-size 16px
+      font-weight bold
+      color #4588fa
+      &:hover, &:focus
+        color #23527c
+        text-decoration underline
+    &.dz-started .dz-message
+      display block
 
   #dropzone-template-container
     display none
