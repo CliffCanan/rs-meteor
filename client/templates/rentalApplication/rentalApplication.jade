@@ -14,12 +14,16 @@ template(name="rentalApplication")
                 i.fa.fa-undo
                 a#application-revisions(href="#rental-application-show-revisions", data-toggle="modal") #{rentalApplicationRevisionsCount} Revisions
           .col-lg-12
-            p.well.m-t-20
-              | After completing the form below, please click "Submit and download PDF" to save a copy on your computer. Please email the completed PDF to
-              a(href="mailto:info@rentscene.com") info@rentscene.com
-              |.
-
             form#rental-application-form.form-horizontal
+              .form-group
+                .col-xs-12.col-sm-10.col-md-9
+              p.well.m-t-20
+                | After completing the form below, please click
+                strong "Submit and download PDF"
+                | to save a copy on your computer. Please email the completed PDF to
+                a(href="mailto:info@rentscene.com") info@rentscene.com
+                |.
+
               h3 Rent Details
               .form-group
                 label.col-sm-4.col-md-3 Apartment you are applying to
@@ -41,22 +45,22 @@ template(name="rentalApplication")
 
               h3 Personal Information
               .form-group
-                label.col-sm-3 Applicant's full name
-                .col-sm-8.col-md-7.col-lg-6
+                label.col-sm-3 Applicant's Full Name
+                .col-sm-8.col-md-7.col-lg-5
                   input.form-control(type="text", name="fullName", value="#{fields.fullName}")
               .form-group
                 label.col-sm-3 Email
-                .col-sm-8.col-md-7.col-lg-6
+                .col-sm-8.col-md-7.col-lg-5
                   input.input-large.form-control(type="email", name="email", value="#{fields.email}")
               .form-group
                 label.col-sm-3 Phone #
-                .col-sm-8.col-md-7.col-lg-6
+                .col-sm-8.col-md-7.col-lg-5
                   input#phone-number.form-control(type="text", name="phoneNumber", value="#{fields.phoneNumber}")
               .form-group
                 label.col-sm-3 Date of Birth
                 .col-sm-3.col-md-2.p-r-10
                   +datepicker(name="dateOfBirth" options=dateOfBirthOptions value=getDatePickerDateDateOfBirth)
-                label.col-sm-2 SSN
+                label.col-sm-2.col-lg-1.p-r-0.p-l-0.align-top SSN
                   small Social Security Number
                 .col-sm-3.col-md-2
                   input#social-security-number.form-control(type="text", name="socialSecurityNumber", value="#{fields.socialSecurityNumber}")
@@ -73,12 +77,12 @@ template(name="rentalApplication")
                   label.col-sm-2.col-sm-offset-1 Institution
                   .col-sm-6.col-md-2
                     input.form-control(type="text", name="institution", value="#{fields.institution}")
-                  label.col-sm-4.col-md-1.p-0 Years Attended
+                  label.col-sm-4.col-md-1.p-0.align-top Years Attended
                   .col-sm-6.col-md-2.p-l-5.p-r-5
                     input.form-control(type="text", name="institutionDuration", value="#{fields.institutionDuration}")
-                  label.col-sm-4.col-md-1 Grad Year
+                  label.col-sm-4.col-md-1.align-top Grad Year
                   .col-sm-6.col-md-1.p-l-5.p-r-5
-                    input.form-control(type="text", name="anticipatedGraduationYear", value="#{fields.anticipatedGraduationYear}")
+                    input.form-control.num-max-4(type="text", name="anticipatedGraduationYear", value="#{fields.anticipatedGraduationYear}")
 
               .col-xs-12.col-sm-10
                 div.section-spacer
@@ -157,19 +161,105 @@ template(name="rentalApplication")
 
               .form-group
                 label.col-sm-4.col-md-3 Any Pets?
-                .col-sm-3.col-lg-2
+
+                .col-sm-6.col-md-7.text-left
+                  .pet-box#dogBox
+                    img(src="../../dog.png", alt="Dog")
+                  .pet-box#catBox
+                    img(src="../../cat.png", alt="Cat")
+                  .pet-box#otherBox
+                    img(src="../../other.png", alt="Other Animal")
+                  .pet-box#noPetsBox
+                    img(src="../../nopets.png", alt="No Pets")
+
+                .col-sm-3.col-lg-2.hidden
                   select#has-pets.form-control(name="hasPets", value="#{fields.hasPets}")
                     option(value="Yes") Yes
                     option(value="No", selected) No
-                label.col-sm-2.pets-wrapper(style="display: none") How Many?
-                .col-sm-2.col-lg-1.p-l-10.p-r-0(style="display: none")
-                  select#has-pets.form-control(name="petsNumber", value="#{fields.petsNumber}")
-                    option(value="1", selected) 1
-                    option(value="2") 2
-                    option(value="3") 3
-                    option(value="4+") 4+
 
-              .pets-wrapper
+              #cats-table-wrapper
+                .form-group
+                  .col-sm-1.col-md-2.col-lg-offset-1.text-right
+                    button.btn.btn-link.addPet#addCat
+                      i.fa.fa-plus-circle
+                      | Add Cat
+                  .col-xs-12.col-sm-9.col-md-8.p-l-0
+                    table.table.table-bordered.table-striped.numbered
+                      thead
+                        tr
+                          th #
+                          th Cat Name
+                          th Weight
+                          th Age
+                          th Color
+                          th.small Spayed/Neutered?
+                      tbody
+                        tr
+                          td 1
+                          td
+                            input.form-control(type="text", name="cat1Name", value="#{fields.cat1Name}")
+                          td
+                            input.form-control(type="text", name="cat1Weight", value="#{fields.cat1Weight}")
+                          td
+                            input.form-control(type="text", name="cat1Age", value="#{fields.cat1Age}")
+                          td
+                            input.form-control(type="text", name="cat1Color", value="#{fields.cat1Color}")
+                          td
+                            select.form-control(name="cat1Neutered", value="#{fields.cat1Neutered}")
+                              option(value="Yes") Yes
+                              option(value="No") No
+                .form-group
+                  label.col-sm-4.col-md-3 Additional Info
+                  .col-sm-6.col-md-8
+                    textarea.form-control(type="text", name="catAdditionalInfo", value="#{fields.catAdditionalInfo}")
+
+              #dogs-table-wrapper
+                .form-group
+                  .col-sm-1.col-md-2.col-lg-offset-1.text-right
+                    button.btn.btn-link.addPet#addDog
+                      i.fa.fa-plus-circle
+                      | Add Dog
+                  .col-xs-12.col-sm-10.col-md-9.p-l-0
+                    table.table.table-bordered.table-striped.numbered
+                      thead
+                        tr
+                          th #
+                          th Dog Name
+                          th Breed
+                          th Weight
+                          th Age
+                          th Color
+                          th Gender
+                          th.small Spayed/Neutered?
+                      tbody
+                        tr
+                          td 1
+                          td
+                            input.form-control(type="text", name="dog1Name", value="#{fields.dog1Name}")
+                          td
+                            input.form-control(type="text", name="dog1Breed", value="#{fields.dog1Breed}")
+                          td
+                            input.form-control(type="text", name="dog1Weight", value="#{fields.dog1Weight}")
+                          td
+                            input.form-control(type="text", name="dog1Age", value="#{fields.dog1Age}")
+                          td
+                            input.form-control(type="text", name="dog1Color", value="#{fields.dog1Color}")
+                          td
+                            select.form-control(type="text", name="dog1Gender", value="#{fields.dog1Gender}")
+                              option(value="Yes") Yes
+                              option(value="No") No
+                          td
+                            select.form-control(name="dog1Neutered", value="#{fields.dog1Neutered}")
+                              option(value="Yes") Yes
+                              option(value="No") No
+                .form-group
+                  label.col-sm-4.col-md-3 Additional Info
+                  .col-sm-6.col-md-8
+                    textarea.form-control(type="text", name="dogAdditionalInfo", value="#{fields.dogAdditionalInfo}")
+
+
+
+              .pets-wrapper.hidden
                 .form-group
                   label.col-sm-3.col-sm-offset-1.col-md-2 Pet(s)'s name
                   .col-sm-2
@@ -194,15 +284,13 @@ template(name="rentalApplication")
                   label.col-sm-2 Spayed / Neutered?
                   .col-sm-1
                     input.form-control.checkbox(type="checkbox", name="petSpayedNeutered", value="true")
-                .form-group
-                  label.col-sm-4.col-md-3 Additional Info
-                  .col-sm-6.col-md-7
-                    textarea.form-control(type="text", name="petAdditionalInfo", value="#{fields.petAdditionalInfo}")
+
+
 
               h3 Prior Rental Information
               h4 Current Address
               .form-group
-                label.col-sm-4.col-md-3.align-top How long were you at this address?
+                label.col-sm-4.col-md-3.align-top How long have you lived at this address?
                 .col-sm-3.col-md-2
                   select#current-address-duration.form-control(name="currentAddressDuration", value="#{fields.currentAddressDuration}")
                     option(value="N/A") N/A
@@ -219,6 +307,11 @@ template(name="rentalApplication")
                     option(value="11 months") 11 months
                     option(value="12 months") 12 months
                     option(value="12+ months") 12+ months
+                label.col-sm-2.p-l-5 Rent / Own
+                .col-sm-3.col-md-2.p-r-10
+                  select#current-address-ownership.form-control(name="currentAddressOwnership", value="#{fields.currentAddressOwnership}")
+                    option(value="Rent") Rent
+                    option(value="Own", selected) Own
 
               .current-address-wrapper
                 .form-group
@@ -234,13 +327,7 @@ template(name="rentalApplication")
                     input.input-small.form-control(type="text", name="currentState", value="#{fields.currentState}")
                   label.col-sm-1 ZIP
                   .col-sm-1.p-l-0
-                    input.input-small.form-control.p-l-5.num-max-5(type="text", name="currentZip", value="#{fields.currentZip}")
-                .form-group
-                  label.col-sm-4.col-md-3 Rent / Own
-                  .col-sm-3.col-md-2.p-r-10
-                    select#current-address-ownership.form-control(name="currentAddressOwnership", value="#{fields.currentAddressOwnership}")
-                      option(value="Rent") Rent
-                      option(value="Own", selected) Own
+                    input.input-small.form-control.p-l-5.p-r-5.num-max-5(type="text", name="currentZip", value="#{fields.currentZip}")
                 .form-group
                   label.col-sm-4.col-md-3 Current Landlord's Name
                   .col-sm-6
@@ -266,8 +353,9 @@ template(name="rentalApplication")
                     textarea.form-control(type="text", name="currentReasonForLeaving", value="#{fields.currentReasonForLeaving}")
 
               .previous-address-wrapper(style="display: none")
-                h4.m-t-25 Previous Address
-                  i.fa.fa-question-circle.text-primary.m-l-5(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Only needed if you've lived at your current address for less than 12 months.")
+                h4.m-t-30 Previous Address
+                  small.m-l-5
+                    i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Only needed if you've lived at your current address for less than 12 months.")
                 .form-group
                   label.col-sm-4.col-md-3.align-top How long were you at this address?
                   .col-sm-3.col-md-2
@@ -286,9 +374,14 @@ template(name="rentalApplication")
                       option(value="11 months") 11 months
                       option(value="12 months") 12 months
                       option(value="12+ months") 12+ months
+                  label.col-sm-2.p-l-5 Rent / Own
+                  .col-sm-3.col-md-2
+                    select#previous-address-ownership.form-control(name="previousAddressOwnership", value="#{fields.previousAddressOwnership}")
+                      option(value="Rent", selected) Rent
+                      option(value="Own") Own
 
                 .form-group
-                  label.col-sm-4.col-md-3 Previous Address
+                  label.col-sm-4.col-md-3 Address
                   .col-sm-6
                     input.input-large.form-control(type="text", name="previousAddress", value="#{fields.previousAddress}")
                 .form-group
@@ -299,14 +392,8 @@ template(name="rentalApplication")
                   .col-sm-1
                     input.form-control(type="text", name="previousState", value="#{fields.previousState}")
                   label.col-sm-1 ZIP
-                  .col-sm-1.col-l-0
-                    input.form-control.p-l-5.num-max-5(type="text", name="previousZip", value="#{fields.previousZip}")
-                .form-group
-                  label.col-sm-4.col-md-3 Rent / Own
-                  .col-sm-3.col-md-2
-                    select#previous-address-ownership.form-control(name="previousAddressOwnership", value="#{fields.previousAddressOwnership}")
-                      option(value="Rent", selected) Rent
-                      option(value="Own") Own
+                  .col-sm-1.p-l-0
+                    input.form-control.p-l-5.p-r-5.num-max-5(type="text", name="previousZip", value="#{fields.previousZip}")
                 .form-group
                   label.col-sm-4.col-md-3 Previous Landlord's Name
                   .col-sm-6
@@ -348,7 +435,6 @@ template(name="rentalApplication")
                   .input-group
                     .input-group-addon $
                     input.form-control(type="text", name="monthlySalary", value="#{fields.monthlySalary}")
-
               .form-group
                 label.col-sm-4.col-md-3 How long at this position
                 .col-sm-3.col-md-2.p-r-10
@@ -364,6 +450,9 @@ template(name="rentalApplication")
                 label.col-sm-2 Phone or Email
                 .col-sm-2.p-l-5
                   input#employment-verification-contact.form-control(type="text", name="employmentVerificationContact", value="#{fields.employmentVerificationContact}")
+
+              .col-xs-12.col-sm-10
+                div.section-spacer
 
               .form-group
                 label.col-sm-4.col-md-3.align-top Other Income / Source (if applicable)
@@ -439,7 +528,7 @@ template(name="rentalApplication")
 
               h3 Personal References
               .form-group
-                .col-xs-12.col-sm-10
+                .col-xs-12.col-md-11
                   table.table.table-bordered.numbered
                     thead
                       tr
@@ -554,10 +643,9 @@ template(name="rentalApplication")
 
               //- .g-recaptcha.m-b-10(data-sitekey="6Lf7GhMTAAAAAKDluSFj1iYdvKYnlxWUhSFS2N0K")
 
-              .form-group.m-b-20
-                .col-xs-12
-                  button.btn.btn-lg.btn-success(type="submit") Submit and Download PDF
-                    i.fa.fa-cloud-download.m-l-10
+              .m-b-20
+                button.btn.btn-lg.btn-success(type="submit") Submit and Download PDF
+                  i.fa.fa-cloud-download.m-l-10
 
           #rental-application-password.modal.fade
             .modal-dialog
