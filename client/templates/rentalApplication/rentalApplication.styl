@@ -22,18 +22,36 @@
     margin-bottom 15px
     width 100%
     label
+      margin-top 4px
       text-align right
+
+    input#social-security-number
+      letter-spacing 1px
+      @media screen and (min-width: 1200px)
+        letter-spacing 2px
+
+    .form-control
+      @media screen and (min-width: 768px)
+        font-size 15px
+    label > small
+      display block
+      font-size 80%
+      font-weight normal
+    &:not(.align-top)
+      position relative
+      top -2px
 
   .section-spacer
     background rgba(0,10,20,.1)
     height 1px
     border-radius 3px
     margin 10px auto 30px
+    @media screen and (min-width: 1200px)
+      margin 20px auto 40px
 
-  label > small
-    display block
-    font-size 80%
-    font-weight normal
+  .roommate-wrapper table tr > th:first-child,
+  .roommate-wrapper table tr > td:first-child
+    width 30px
 
   .pets-wrapper
     display none

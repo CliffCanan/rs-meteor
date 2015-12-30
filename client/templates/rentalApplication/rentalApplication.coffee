@@ -121,6 +121,12 @@ Template.rentalApplication.events
     else if $(event.target).val() is 'No'
       template.$('.pets-wrapper').hide()
 
+  "change #current-address-duration": (event, template) ->
+    if $(event.target).val() is '12+ months'
+      template.$('#previous-address-wrapper').fadeOut()
+    else if $(event.target).val() is 'No'
+      template.$('#previous-address-wrapper').fadeIn()
+
   "change #has-partner-roommate": (event, template) ->
     template.$('.partner-wrapper').hide()
     template.$('.roommate-wrapper').hide()

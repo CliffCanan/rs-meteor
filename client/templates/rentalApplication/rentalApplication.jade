@@ -84,7 +84,7 @@ template(name="rentalApplication")
                 div.section-spacer
 
               .form-group
-                label.col-sm-4.col-md-3 Do you have a partner / roommate(s)?
+                label.col-sm-4.col-md-3.align-top Do you have a partner / roommate(s)?
                 .col-sm-4.col-md-3
                   select#has-partner-roommate.form-control(name="hasPartnerRoommate", value="#{fields.hasPartnerRoommate}")
                     option(value="No" selected) No
@@ -113,23 +113,41 @@ template(name="rentalApplication")
 
               .roommate-wrapper(style="display: none")
                 .form-group
-                  label.col-sm-4.col-md-3 Name of Roommate 1
-                  .col-sm-6.col-md-5.col-lg-4
-                    input.form-control(type="text", name="nameOfRoommate1", value="#{fields.nameOfRoommate1}")
-                .form-group
-                  label.col-sm-4.col-md-3 Name of Roommate 2
-                  .col-sm-6.col-md-5.col-lg-4
-                    input.form-control(type="text", name="nameOfRoommate2", value="#{fields.nameOfRoommate2}")
-                .form-group
-                  label.col-sm-4.col-md-3 Name of Roommate 3
-                  .col-sm-6.col-md-5.col-lg-4
-                    input.form-control(type="text", name="nameOfRoommate3", value="#{fields.nameOfRoommate3}")
-                .form-group
-                  label.col-sm-4.col-md-3 Name of Roommate 4
-                  .col-sm-6.col-md-5.col-lg-4
-                    input.form-control(type="text", name="nameOfRoommate4", value="#{fields.nameOfRoommate4}")
+                  .col-xs-12.col-sm-9.col-sm-offset-1.col-md-8.col-md-offset-2.col-lg-7.col-lg-offset-3
+                    table.table.table-bordered.table-striped
+                      thead
+                        tr
+                          th #
+                          th Name
+                          th Relationship
+                      tbody
+                        tr
+                          td 1
+                          td
+                            input.form-control(type="text", name="nameOfRoommate1", value="#{fields.nameOfRoommate1}")
+                          td
+                            input.form-control(type="text", name="relationshipOfRoommate1", value="#{fields.relationshipOfRoommate1}")
+                        tr
+                          td 2
+                          td
+                            input.form-control(type="text", name="nameOfRoommate2", value="#{fields.nameOfRoommate2}")
+                          td
+                            input.form-control(type="text", name="relationshipOfRoommate2", value="#{fields.relationshipOfRoommate2}")
+                        tr
+                          td 3
+                          td
+                            input.form-control(type="text", name="nameOfRoommate3", value="#{fields.nameOfRoommate3}")
+                          td
+                            input.form-control(type="text", name="relationshipOfRoommate3", value="#{fields.relationshipOfRoommate3}")
+                        tr
+                          td 4
+                          td
+                            input.form-control(type="text", name="nameOfRoommate4", value="#{fields.nameOfRoommate4}")
+                          td
+                            input.form-control(type="text", name="relationshipOfRoommate4", value="#{fields.relationshipOfRoommate4}")
+                    
 
-              .form-group
+              .form-group.hidden
                 label.col-sm-4.col-md-3 Names/relationship of individuals occupying the unit 
                 .col-sm-6.col-md-5.col-lg-4
                   textarea.form-control(type="text", name="individualsInUnit", value="#{fields.individualsInUnit}")
@@ -184,7 +202,7 @@ template(name="rentalApplication")
               h3 Prior Rental Information
               h4 Current Address
               .form-group
-                label.col-sm-4.col-md-3 How long were you at this address?
+                label.col-sm-4.col-md-3.align-top How long were you at this address?
                 .col-sm-3.col-md-2
                   select#current-address-duration.form-control(name="currentAddressDuration", value="#{fields.currentAddressDuration}")
                     option(value="N/A") N/A
@@ -237,7 +255,7 @@ template(name="rentalApplication")
                     .input-group
                       .input-group-addon $
                       input.form-control(type="text", name="currentRent", value="#{fields.currentRent}")
-                  label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.p-l-0 Total monthly rent that you were individually responsible for
+                  label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.p-l-0.align-top Total monthly rent that you were individually responsible for
                   .col-sm-3.col-sm-pull-2.col-md-2.col-md-pull-0
                     .input-group
                       .input-group-addon $
@@ -247,26 +265,26 @@ template(name="rentalApplication")
                   .col-sm-8.col-md-7
                     textarea.form-control(type="text", name="currentReasonForLeaving", value="#{fields.currentReasonForLeaving}")
 
-
-              h4.m-t-10 Previous Address (if at your current address less than 12 months)
-              .form-group
-                label.col-sm-4.col-md-3 How long were you at this address?
-                .col-sm-3.col-md-2
-                  select#previous-address-duration.form-control(name="previousAddressDuration", value="#{fields.previousAddressDuration}")
-                    option(value="N/A") N/A
-                    option(value="1 month") 1 month
-                    option(value="2 months") 2 months
-                    option(value="3 months") 3 months
-                    option(value="4 months") 4 months
-                    option(value="5 months") 5 months
-                    option(value="6 months") 6 months
-                    option(value="7 months") 7 months
-                    option(value="8 months") 8 months
-                    option(value="9 months") 9 months
-                    option(value="10 months") 10 months
-                    option(value="11 months") 11 months
-                    option(value="12 months") 12 months
-                    option(value="12+ months") 12+ months
+              #previous-address-wrapper(style="display:none")
+                h4.m-t-25 Previous Address (if at your current address less than 12 months)
+                .form-group
+                  label.col-sm-4.col-md-3.align-top How long were you at this address?
+                  .col-sm-3.col-md-2
+                    select#previous-address-duration.form-control(name="previousAddressDuration", value="#{fields.previousAddressDuration}")
+                      option(value="N/A") N/A
+                      option(value="1 month") 1 month
+                      option(value="2 months") 2 months
+                      option(value="3 months") 3 months
+                      option(value="4 months") 4 months
+                      option(value="5 months") 5 months
+                      option(value="6 months") 6 months
+                      option(value="7 months") 7 months
+                      option(value="8 months") 8 months
+                      option(value="9 months") 9 months
+                      option(value="10 months") 10 months
+                      option(value="11 months") 11 months
+                      option(value="12 months") 12 months
+                      option(value="12+ months") 12+ months
 
               .previous-address-wrapper(style="display: none")
                 .form-group
@@ -350,7 +368,7 @@ template(name="rentalApplication")
                   input#employment-verification-contact.form-control(type="text", name="employmentVerificationContact", value="#{fields.employmentVerificationContact}")
 
               .form-group
-                label.col-sm-4.col-md-3 Other Income / Source (if applicable)
+                label.col-sm-4.col-md-3.align-top Other Income / Source (if applicable)
                 .col-sm-6.col-md-7
                   input.input-large.form-control(type="text", name="otherEmployment", value="#{fields.otherEmployment}")
               .form-group
@@ -373,7 +391,7 @@ template(name="rentalApplication")
 
               .criminal-history-input-wrapper
                 .form-group
-                  label.col-xs-3.col-sm-2 Filed For Bankruptcy?
+                  label.col-xs-3.col-sm-2.align-top Filed For Bankruptcy?
                   .col-xs-3.col-sm-1
                     select#has-filed-for-bankruptcy.form-control(name="hasFiledForBankruptcy", value="#{fields.hasFiledForBankruptcy}")
                       option(hidden, selected, value="")
@@ -385,13 +403,13 @@ template(name="rentalApplication")
                       option(hidden, selected, value="")
                       option(value="Yes") Yes
                       option(value="No") No
-                  label.col-xs-3.col-sm-2 Refused to pay rent?
+                  label.col-xs-3.col-sm-2.align-top Refused to pay rent?
                   .col-xs-3.col-sm-1
                     select#has-refused-to-pay-rent.form-control(name="hasRefusedToPayRent", value="#{fields.hasRefusedToPayRent}")
                       option(hidden, selected, value="")
                       option(value="Yes") Yes
                       option(value="No") No
-                  label.col-xs-3.col-sm-2 Violated or broken any lease agreement?
+                  label.col-xs-3.col-sm-2.align-top Violated or broken any lease agreement?
                   .col-xs-3.col-sm-1
                     select#has-violated-or-broken-any-lease-agreement.form-control(name="hasViolatedOrBrokenAnyLeaseAgreement", value="#{fields.hasViolatedOrBrokenAnyLeaseAgreement}")
                       option(hidden, selected, value="")
@@ -409,7 +427,7 @@ template(name="rentalApplication")
                       option(hidden, selected, value="")
                       option(value="Yes") Yes
                       option(value="No") No
-                  label.col-xs-3.col-sm-2 Registered Sex Offender?
+                  label.col-xs-3.col-sm-2.align-top Registered Sex Offender?
                   .col-xs-3.col-sm-1
                     select#is-registered-sex-offender.form-control(name="isRegisteredSexOffender", value="#{fields.isRegisteredSexOffender}")
                       option(hidden, selected, value="")
