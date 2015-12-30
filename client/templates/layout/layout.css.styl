@@ -434,3 +434,68 @@ a.carousel-control .fa
         transform: rotate3d(0,1,0,-180deg);
     }
 }
+
+
+.sumome-smartbar-button {
+  backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  animation-name: wiggle;
+  -ms-animation-name: wiggle;
+  -moz-animation-name: wiggle;
+  -webkit-animation-name: wiggle;
+  animation-duration: 5s;
+  -ms-animation-duration: 5s;
+  -moz-animation-duration: 5s;
+  -webkit-animation-duration: 5s;
+  animation-timing-function: linear;\
+  -ms-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -ms-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-play-state: running;
+  -ms-animation-play-state: running;
+  -moz-animation-play-state: running;
+  -webkit-animation-play-state: running;
+}
+
+.sumome-smartbar-form:hover .sumome-smartbar-button {
+  animation-play-state:paused;
+  -ms-animation-play-state:paused;
+  -moz-animation-play-state:paused;
+  -webkit-animation-play-state:paused
+}
+.hb-paused-animations-ie #hellobar-bar .hb-cta.wiggle{animation-play-state:paused}
+
+@-webkit-keyframes wiggle{
+  2%{-webkit-transform:translateX(3px) rotate(2deg);transform:translateX(3px) rotate(2deg)}
+  4%{-webkit-transform:translateX(-3px) rotate(-2deg);transform:translateX(-3px) rotate(-2deg)}
+  6%{-webkit-transform:translateX(3px) rotate(2deg);transform:translateX(3px) rotate(2deg)}
+  8%{-webkit-transform:translateX(-3px) rotate(-2deg);transform:translateX(-3px) rotate(-2deg)}
+  10%{-webkit-transform:translateX(2px) rotate(1deg);transform:translateX(2px) rotate(1deg)}
+  12%{-webkit-transform:translateX(-2px) rotate(-1deg);transform:translateX(-2px) rotate(-1deg)}
+  14%{-webkit-transform:translateX(2px) rotate(1deg);transform:translateX(2px) rotate(1deg)}
+  16%{-webkit-transform:translateX(-2px) rotate(-1deg);transform:translateX(-2px) rotate(-1deg)}
+  18%{-webkit-transform:translateX(1px) rotate(0);transform:translateX(1px) rotate(0)}
+  20%{-webkit-transform:translateX(-1px) rotate(0);transform:translateX(-1px) rotate(0)}}
+
+@keyframes wiggle{
+  2%{-webkit-transform:translateX(3px) rotate(2deg);transform:translateX(3px) rotate(2deg)}
+  4%{-webkit-transform:translateX(-3px) rotate(-2deg);transform:translateX(-3px) rotate(-2deg)}
+  6%{-webkit-transform:translateX(3px) rotate(2deg);transform:translateX(3px) rotate(2deg)}
+  8%{-webkit-transform:translateX(-3px) rotate(-2deg);transform:translateX(-3px) rotate(-2deg)}
+  10%{-webkit-transform:translateX(2px) rotate(1deg);transform:translateX(2px) rotate(1deg)}
+  12%{-webkit-transform:translateX(-2px) rotate(-1deg);transform:translateX(-2px) rotate(-1deg)}
+  14%{-webkit-transform:translateX(2px) rotate(1deg);transform:translateX(2px) rotate(1deg)}
+  16%{-webkit-transform:translateX(-2px) rotate(-1deg);transform:translateX(-2px) rotate(-1deg)}
+  18%{-webkit-transform:translateX(1px) rotate(0);transform:translateX(1px) rotate(0)}
+  20%{-webkit-transform:translateX(-1px) rotate(0);transform:translateX(-1px) rotate(0)}
+}

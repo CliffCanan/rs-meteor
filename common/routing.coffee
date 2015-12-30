@@ -21,10 +21,10 @@ Router.map ->
     name: "index"
     onAfterAction: ->
       SEO.set
-        title: share.formatPageTitle "Rent Scene - Apartments and Condos for Rent", false
+        title: share.formatPageTitle "Rent Scene - Find Awesome Apartments and Condos", false
         meta:
           description: "Rent Scene helps you find a great place to live. Search for apartments and condos in Philadelphia, Washington DC, Chicago, and other major cities."
-          keywords: "rent, rental, apartment, home, bedroom, bathroom, lease condo, condominium, philadelphia, chicago, boston, washington dc, rittenhouse square, parking, gym, fitness, utilities, pets"
+          keywords: "rent, rental, apartment, landlord, tenant, home, bedroom, bathroom, lease, condo, condominium, philadelphia, center city, chicago, washington dc, rittenhouse square, parking, gym, utilities, pets"
   @route "/check-availability",
     name: "checkAvailability"
   @route "/tour-signup",
