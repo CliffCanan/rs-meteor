@@ -21,7 +21,7 @@
   .form-group
     margin-bottom 15px
     width 100%
-    label
+    label:not(.align-top)
       margin-top 4px
       text-align right
 
@@ -37,7 +37,6 @@
       display block
       font-size 80%
       font-weight normal
-    &:not(.align-top)
       position relative
       top -2px
 
@@ -49,8 +48,8 @@
     @media screen and (min-width: 1200px)
       margin 20px auto 40px
 
-  .roommate-wrapper table tr > th:first-child,
-  .roommate-wrapper table tr > td:first-child
+  table.numbered tr > th:first-child,
+  table.numbered tr > td:first-child
     width 30px
 
   .pets-wrapper

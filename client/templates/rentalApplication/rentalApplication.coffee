@@ -12,6 +12,9 @@ Template.rentalApplication.onRendered ->
   $('#first-emergency-contact-phone-number').mask('(999) 999-9999')
   $('#second-emergency-contact-phone-number').mask('(999) 999-9999')
 
+  $('input.num-max-2').mask('99')
+  $('input.num-max-5').mask('99999')
+
   if @data.fields
     $('#is-student').val(@data.fields.isStudent).trigger('change')
     $('#has-partner-roommate').val(@data.fields.hasPartnerRoommate).trigger('change')
@@ -121,12 +124,6 @@ Template.rentalApplication.events
     else if $(event.target).val() is 'No'
       template.$('.pets-wrapper').hide()
 
-  "change #current-address-duration": (event, template) ->
-    if $(event.target).val() is '12+ months'
-      template.$('#previous-address-wrapper').fadeOut()
-    else if $(event.target).val() is 'No'
-      template.$('#previous-address-wrapper').fadeIn()
-
   "change #has-partner-roommate": (event, template) ->
     template.$('.partner-wrapper').hide()
     template.$('.roommate-wrapper').hide()
@@ -135,12 +132,12 @@ Template.rentalApplication.events
     else if $(event.target).val() is 'I have a roommate'
       template.$('.roommate-wrapper').show()
 
-  "change #previous-address-duration": (event, template) ->
+  "change #current-address-duration": (event, template) ->
     hideIfValues = ['N/A', '12 months', '12+ months']
     if hideIfValues.indexOf($(event.target).val()) > -1
-      template.$('.previous-address-wrapper').hide()
+      template.$('.previous-address-wrapper').fadeOut('fast')
     else
-      template.$('.previous-address-wrapper').show()
+      template.$('.previous-address-wrapper').fadeIn()
 
   "click #no-to-all-criminal-history": (event, template) ->
     template.$('.criminal-history-input-wrapper select').val('No')
