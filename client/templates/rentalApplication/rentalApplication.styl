@@ -5,9 +5,14 @@
     @media screen and (min-width: 768px)
       margin 30px 0 12px
     @media screen and (min-width: 1200px)
-      margin 36px 0 16px
+      margin 40px 0 16px
+  h4 small
+    opacity .75
+    &:hover
+      opacity 1
   .well
     font-size 16px
+    text-align left
 
   .application-dates
     margin-top 25px
@@ -51,6 +56,48 @@
   table.numbered tr > th:first-child,
   table.numbered tr > td:first-child
     width 30px
+
+  .pet-box
+    border 2px solid rgba(147,149,152,.8)
+    border-radius 50%
+    cursor pointer
+    display inline-block
+    height auto
+    margin-right 1.25%
+    overflow hidden
+    position relative
+    transition all .2s ease    
+    width 23%
+    @media screen and (min-width: 992px)
+      border-width 3px
+      &:active
+        top 3px
+    &:hover
+      box-shadow 0 5px 16px -3px rgba(32,33,34,.5)
+    &.selected
+      border-color #4588fa
+      box-shadow 0 5px 16px -3px rgba(32,33,34,.5)
+    &:active
+
+    img
+      width 100%
+      padding 10px
+      @media screen and (min-width: 1200px)
+        padding 16px
+
+  #cats-table-wrapper,
+  #dogs-table-wrapper
+    display none
+    position relative
+    .btn.addPet
+      position absolute
+      right 0
+      top 48px
+    table
+      margin-top 15px
+      margin-bottom 25px
+      @media screen and (min-width: 1200px)
+        margin-bottom 32px
 
   .pets-wrapper
     display none

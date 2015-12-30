@@ -13,6 +13,7 @@ Template.rentalApplication.onRendered ->
   $('#second-emergency-contact-phone-number').mask('(999) 999-9999')
 
   $('input.num-max-2').mask('99')
+  $('input.num-max-4').mask('9999')
   $('input.num-max-5').mask('99999')
 
   $('[data-toggle="tooltip"]').tooltip()
@@ -122,17 +123,43 @@ Template.rentalApplication.events
 
   "change #has-pets": (event, template) ->
     if $(event.target).val() is 'Yes'
-      template.$('.pets-wrapper').show()
+      template.$('.pets-wrapper').slideDown()
     else if $(event.target).val() is 'No'
-      template.$('.pets-wrapper').hide()
+      template.$('.pets-wrapper').slideUp()
+
+  "click .pet-box": (event, template) ->
+    if $(event.target).hasClass('selected')
+      template.$(@).removeClass('selected')
+      if $(event.target).id is 'catBox'
+        template.$('#cats-table-wrapper').slideUp()
+      else if $(event.target).id is 'dogBox'
+        template.$('#dogs-table-wrapper').slideUp()
+    else
+      template.$(@).addClass('selected')
+      if $(event.target).id is 'catBox'
+        template.$('#cats-table-wrapper').slideDown()
+      else if $(event.target).id is 'dogBox'
+        template.$('#dogs-table-wrapper').slideDown()
+      else if $(event.target).id is 'noPetsBox'
+        template.$('#cats-table-wrapper').slideUp()
+        template.$('#dogs-table-wrapper').slideUp()
+
+  "click #addCat": (event, template) ->
+    rowNum = $("#catsTable tbody tr").length
+    template.$('#catsTable tbody').append("<tr><td>" + rowNum + "</td><td><input class='form-control' type='text' name='cat" + rowNum + "Name' /></td><td><input class='form-control' type='text' name='cat" + rowNum + "Weight' /></td><td><input class='form-control' type='text' name='cat" + rowNum + "Age' /></td><td><input class='form-control' type='text' name='cat" + rowNum + "Color' /></td><td><select class='form-control' name='cat" + rowNum + "Neutered'><option value='Yes'>Yes</option><option value='No'>No</option></select></td> </tr>");
+
+  "click #addDog": (event, template) ->
+    rowNum = $("#dogsTable tbody tr").length
+    template.$('#dogsTable tbody').append("<tr><td>" + rowNum + "</td><td><input class='form-control' type='text' name='dog" + rowNum + "Name' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Breed' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Weight' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Age' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Color' /></td><td><select class='form-control' name='dog" + rowNum + "Gender'><option value='Male'>Male</option><option value='Female'>Female</option></select></td><td><select class='form-control' name='dog" + rowNum + "Neutered'><option value='Yes'>Yes</option><option value='No'>No</option></select></td> </tr>");
+
 
   "change #has-partner-roommate": (event, template) ->
     template.$('.partner-wrapper').hide()
     template.$('.roommate-wrapper').hide()
     if $(event.target).val() is 'I have a partner'
-      template.$('.partner-wrapper').show()
+      template.$('.partner-wrapper').slideDown()
     else if $(event.target).val() is 'I have a roommate'
-      template.$('.roommate-wrapper').show()
+      template.$('.roommate-wrapper').slideDown()
 
   "change #current-address-duration": (event, template) ->
     hideIfValues = ['N/A', '12 months', '12+ months']
@@ -204,6 +231,7 @@ Template.rentalApplication.events
         Session.set('rentalApplicationAccessToken', result.accessToken)
       else
         alert result.message
+
   "submit #rental-application-form": (event, template) ->
     event.preventDefault()
     analytics.track "Submitted Rental Application form"
