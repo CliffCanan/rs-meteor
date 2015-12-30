@@ -15,6 +15,8 @@ Template.rentalApplication.onRendered ->
   $('input.num-max-2').mask('99')
   $('input.num-max-5').mask('99999')
 
+  $('[data-toggle="tooltip"]').tooltip()
+
   if @data.fields
     $('#is-student').val(@data.fields.isStudent).trigger('change')
     $('#has-partner-roommate').val(@data.fields.hasPartnerRoommate).trigger('change')

@@ -42,29 +42,29 @@ template(name="rentalApplication")
               h3 Personal Information
               .form-group
                 label.col-sm-3 Applicant's full name
-                .col-sm-9.col-md-8.col-lg-6
+                .col-sm-8.col-md-7.col-lg-6
                   input.form-control(type="text", name="fullName", value="#{fields.fullName}")
               .form-group
                 label.col-sm-3 Email
-                .col-sm-9.col-md-8.col-lg-6
+                .col-sm-8.col-md-7.col-lg-6
                   input.input-large.form-control(type="email", name="email", value="#{fields.email}")
               .form-group
                 label.col-sm-3 Phone #
-                .col-sm-9.col-md-8.col-lg-6
+                .col-sm-8.col-md-7.col-lg-6
                   input#phone-number.form-control(type="text", name="phoneNumber", value="#{fields.phoneNumber}")
               .form-group
                 label.col-sm-3 Date of Birth
-                .col-sm-3.col-md-2.p-r-5
+                .col-sm-3.col-md-2.p-r-10
                   +datepicker(name="dateOfBirth" options=dateOfBirthOptions value=getDatePickerDateDateOfBirth)
                 label.col-sm-2 SSN
                   small Social Security Number
-                .col-sm-3.col-md-2.p-r-5
+                .col-sm-3.col-md-2
                   input#social-security-number.form-control(type="text", name="socialSecurityNumber", value="#{fields.socialSecurityNumber}")
 
               .form-group
                 label.col-sm-3 Are You a Student?
                   i.fa.fa-fw.fa-graduation-cap.m-l-5
-                .col-sm-4.col-md-3.col-lg-2
+                .col-sm-4.col-md-3.col-lg-2.p-r-10
                   select#is-student.form-control(name="isStudent", value="#{fields.isStudent}")
                     option(value="Yes") Yes
                     option(value="No", selected) No
@@ -227,17 +227,17 @@ template(name="rentalApplication")
                     input.input-large.form-control(type="text", name="currentAddress", value="#{fields.currentAddress}")
                 .form-group
                   label.col-sm-4.col-md-3 City
-                  .col-sm-2
+                  .col-sm-2.p-r-10
                     input.input-medium.form-control(type="text", name="currentCity", value="#{fields.currentCity}")
                   label.col-sm-1.p-r-5 State
                   .col-sm-1
                     input.input-small.form-control(type="text", name="currentState", value="#{fields.currentState}")
                   label.col-sm-1 ZIP
-                  .col-sm-1.col-l-0
+                  .col-sm-1.p-l-0
                     input.input-small.form-control.p-l-5.num-max-5(type="text", name="currentZip", value="#{fields.currentZip}")
                 .form-group
                   label.col-sm-4.col-md-3 Rent / Own
-                  .col-sm-3.col-md-2
+                  .col-sm-3.col-md-2.p-r-10
                     select#current-address-ownership.form-control(name="currentAddressOwnership", value="#{fields.currentAddressOwnership}")
                       option(value="Rent") Rent
                       option(value="Own", selected) Own
@@ -255,7 +255,7 @@ template(name="rentalApplication")
                     .input-group
                       .input-group-addon $
                       input.form-control(type="text", name="currentRent", value="#{fields.currentRent}")
-                  label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.p-l-0.p-r-5.align-top(style="font-size:96%") Total monthly rent that you were individually responsible for
+                  label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.col-lg-2.p-l-0.p-r-5.align-top(style="font-size:96%") Total monthly rent that you were individually responsible for
                   .col-sm-3.col-sm-pull-2.col-md-2.col-md-pull-0
                     .input-group
                       .input-group-addon $
@@ -265,27 +265,28 @@ template(name="rentalApplication")
                   .col-sm-6
                     textarea.form-control(type="text", name="currentReasonForLeaving", value="#{fields.currentReasonForLeaving}")
 
-              h4.m-t-25 Previous Address (if at your current address less than 12 months)
-              .form-group
-                label.col-sm-4.col-md-3.align-top How long were you at this address?
-                .col-sm-3.col-md-2
-                  select#previous-address-duration.form-control(name="previousAddressDuration", value="#{fields.previousAddressDuration}")
-                    option(value="N/A") N/A
-                    option(value="1 month") 1 month
-                    option(value="2 months") 2 months
-                    option(value="3 months") 3 months
-                    option(value="4 months") 4 months
-                    option(value="5 months") 5 months
-                    option(value="6 months") 6 months
-                    option(value="7 months") 7 months
-                    option(value="8 months") 8 months
-                    option(value="9 months") 9 months
-                    option(value="10 months") 10 months
-                    option(value="11 months") 11 months
-                    option(value="12 months") 12 months
-                    option(value="12+ months") 12+ months
-
               .previous-address-wrapper(style="display: none")
+                h4.m-t-25 Previous Address
+                  i.fa.fa-question-circle.text-primary.m-l-5(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Only needed if you've lived at your current address for less than 12 months.")
+                .form-group
+                  label.col-sm-4.col-md-3.align-top How long were you at this address?
+                  .col-sm-3.col-md-2
+                    select#previous-address-duration.form-control(name="previousAddressDuration", value="#{fields.previousAddressDuration}")
+                      option(value="N/A") N/A
+                      option(value="1 month") 1 month
+                      option(value="2 months") 2 months
+                      option(value="3 months") 3 months
+                      option(value="4 months") 4 months
+                      option(value="5 months") 5 months
+                      option(value="6 months") 6 months
+                      option(value="7 months") 7 months
+                      option(value="8 months") 8 months
+                      option(value="9 months") 9 months
+                      option(value="10 months") 10 months
+                      option(value="11 months") 11 months
+                      option(value="12 months") 12 months
+                      option(value="12+ months") 12+ months
+
                 .form-group
                   label.col-sm-4.col-md-3 Previous Address
                   .col-sm-6
@@ -321,7 +322,7 @@ template(name="rentalApplication")
                     .input-group
                       .input-group-addon $
                       input.input-tiny.form-control(type="text", name="previousRent", value="#{fields.previousRent}")
-                  label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.p-l-0.p-r-5.align-top(style="font-size:96%") Total monthly rent that you were individually responsible for
+                  label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.col-lg-2.p-l-0.p-r-5.align-top(style="font-size:96%") Total monthly rent that you were individually responsible for
                   .col-sm-3.col-sm-pull-2.col-md-2.col-md-pull-0
                     .input-group
                       .input-group-addon $
@@ -376,7 +377,6 @@ template(name="rentalApplication")
                 label.col-sm-4.col-md-3 Contact Person
                 .col-sm-3.col-md-2.p-r-10
                   input.form-control(type="text", name="otherEmploymentVerificationPerson", value="#{fields.otherEmploymentVerificationPerson}")
-              .form-group
                 label.col-sm-2 Phone or Email
                 .col-sm-2.p-l-5
                   input#other-employment-verification-contact.input-large.form-control(type="text", name="otherEmploymentVerificationContact", value="#{fields.otherEmploymentVerificationContact}")
@@ -439,8 +439,8 @@ template(name="rentalApplication")
 
               h3 Personal References
               .form-group
-                .col-xs-12.col-sm-9.col-sm-offset-1.col-md-8.col-md-offset-2.col-lg-7.col-lg-offset-3
-                  table.table.table-bordered.table-striped.numbered
+                .col-xs-12.col-sm-10
+                  table.table.table-bordered.numbered
                     thead
                       tr
                         th #
