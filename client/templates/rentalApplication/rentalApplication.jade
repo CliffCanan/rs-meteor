@@ -21,7 +21,6 @@ template(name="rentalApplication")
 
             form#rental-application-form.form-inline
               h3 Rent Details
-
               .form-group
                 label.col-sm-4.col-md-3 Apartment you are applying to
                 .col.sm-8
@@ -63,7 +62,6 @@ template(name="rentalApplication")
                 label.col-sm-3 Phone number
                 .col-sm-9.col-md-8.col-lg-6
                   input#phone-number.input-medium.form-control(type="text", name="phoneNumber", value="#{fields.phoneNumber}")
-
               .form-group
                 label.col-sm-3 Are you a student?
                 .col-sm-4.col-md-3.col-lg-2
@@ -75,11 +73,9 @@ template(name="rentalApplication")
                   label.col-sm-4.col-md-2 Institution
                   .col-sm-8.col-md-4
                     input.input-large.form-control(type="text", name="institution", value="#{fields.institution}")
-
                   label.col-sm-4.col-md-1 Years Attended
                   .col-sm-8.col-md-2
                     input.input-tiny.form-control(type="text", name="institutionDuration", value="#{fields.institutionDuration}")
-
                   label.col-sm-4.col-md-1 Graduation Year
                   .col-sm-8.col-md-2
                     input.input-tiny.form-control(type="text", name="anticipatedGraduationYear", value="#{fields.anticipatedGraduationYear}")
@@ -130,12 +126,10 @@ template(name="rentalApplication")
                   .col-sm-6.col-md-5.col-lg-4
                     input.input-large.form-control(type="text", name="nameOfRoommate4", value="#{fields.nameOfRoommate4}")
 
-
               .form-group
                 label.col-sm-4 Names/relationship of individuals occupying the unit 
                 .col-sm-6
                   input.input-large.form-control(type="text", name="individualsInUnit", value="#{fields.individualsInUnit}")
-
               .form-group
                 label.col-sm-4.col-md-3 Do you have any pet(s)?
                 .col-sm-1
@@ -151,7 +145,6 @@ template(name="rentalApplication")
                   label.col-sm-2 Breed(s)
                   .col-sm-3
                     input.input-xlarge.form-control(type="text", name="petBreed", value="#{fields.petBreed}")
-
                 .form-group
                   label.col-sm-1 Color(s)
                   .col-sm-3
@@ -162,7 +155,6 @@ template(name="rentalApplication")
                   label.col-sm-1 Gender(s)
                   .col-sm-3
                     input.input-small.form-control(type="text", name="petGender", value="#{fields.petGender}")
-
                 .form-group
                   label.col-sm-1 Weight(s)
                   .col-sm-3
@@ -170,7 +162,6 @@ template(name="rentalApplication")
                   label.col-sm-2 Spayed / Neutered?
                   .col-sm-2
                     input.form-control.checkbox(type="checkbox", name="petSpayedNeutered", value="true")
-
                 .form-group
                   label.col-sm-4.col-md-3 Additional Info
                   .col-sm-6.col-md-5.col-lg-4
@@ -213,7 +204,6 @@ template(name="rentalApplication")
                   label.col-sm-4.col-md-3 ZIP
                   .col-sm-6.col.md-7
                     input.input-small.form-control(type="text", name="currentZip", value="#{fields.currentZip}")
-
                 .form-group
                   label.col-sm-4.col-md-3 Rent / Own
                   .col-sm-6.col.md-2
@@ -228,7 +218,6 @@ template(name="rentalApplication")
                   label.col-sm-4.col-md-3 Landlord's phone #
                   .col-sm-8.col.md-2
                     input#current-landlord-phone-number.input-medium.form-control(type="text", name="currentLandlordPhoneNumber", value="#{fields.currentLandlordPhoneNumber}")
-
                 .form-group
                   label.col-sm-4.col-md-3 Total Monthly Rent
                   .col-sm-6
@@ -241,12 +230,11 @@ template(name="rentalApplication")
                     .input-group
                       .input-group-addon $
                       input.input-tiny.form-control(type="text", name="currentRentResponsible", value="#{fields.currentRentResponsible}")  
-
                 .form-group
                   label.col-sm-4.col-md-3 Reason For Leaving
                   .col-sm-6
                     input.input-large.form-control(type="text", name="currentReasonForLeaving", value="#{fields.currentReasonForLeaving}")
-              
+
 
               h4.m-t-10 Previous Address (if at your current address less than 12 months)
               .form-group
@@ -337,20 +325,17 @@ template(name="rentalApplication")
                 label.col-sm-3.col-md-2 How long at this position
                 .col-sm-2
                   input.input-small.form-control(type="text", name="positionDuration", value="#{fields.positionDuration}")
-
               .form-group
                 label.col-sm-3.col-md-2 Employer's Address
                 .col-sm-7.col-md-8
                   input.input-large.form-control(type="text", name="employerAddress", value="#{fields.employerAddress}")
-
               .form-group
                 label.col-sm-3 Contact Person //to verify employment
                 .col-sm-4
                   input.input-large.form-control(type="text", name="employmentVerificationPerson", value="#{fields.employmentVerificationPerson}")
                 label.col-sm-2 (Phone # / Email)
                 .col-sm-3
-                input#employment-verification-contact.input-large.form-control(type="text", name="employmentVerificationContact", value="#{fields.employmentVerificationContact}")
-
+                  input#employment-verification-contact.input-large.form-control(type="text", name="employmentVerificationContact", value="#{fields.employmentVerificationContact}")
 
               .form-group
                 label.col-sm-4.col-md-3 Other Income / Source (if applicable)
