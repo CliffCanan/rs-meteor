@@ -23,37 +23,27 @@ template(name="rentalApplication")
               h3 Rent Details
               .form-group
                 label.col-sm-4.col-md-3 Apartment you are applying to
-                .col.sm-8
-                  input.input-large.form-control(type="text", name="apartmentName", value="#{fields.apartmentName}")
-              br
+                .col-sm-6
+                  input.form-control(type="text", name="apartmentName", value="#{fields.apartmentName}")
               .form-group
                 label.col-xs-4.col-sm-3 Move in date
                 .col-sm-4.col-md-3.col-lg-2
                   +datepicker(name="moveInDate" value=getDatePickerDateMoveInDate)
-              .form-group
-                label.col-xs-4.col-sm-3 Length of lease
+                label.col-xs-4.col-sm-2 Length of lease
                 .col-sm-4.col-md-3.col-lg-2
-                  input.input-small.form-control(type="text", name="lenghtOfLease", value="#{fields.lenghtOfLease}")
+                  input.form-control(type="text", name="lenghtOfLease", value="#{fields.lenghtOfLease}")
               .form-group
                 label.col-xs-4.col-sm-3 Rent
                 .col-sm-4.col-md-3.col-lg-2
                   .input-group
                     .input-group-addon $
-                    input.input-tiny.form-control(type="text", name="rent", value="#{fields.rent}")
+                    input.form-control(type="text", name="rent", value="#{fields.rent}")
 
               h3 Personal Information
               .form-group
                 label.col-sm-3 Applicant's full name
                 .col-sm-9.col-md-8.col-lg-6
-                  input.input-large.form-control(type="text", name="fullName", value="#{fields.fullName}")
-              .form-group
-                label.col-sm-3 Date of birth
-                .col-sm-9.col-md-8.col-lg-6
-                  +datepicker(name="dateOfBirth" options=dateOfBirthOptions value=getDatePickerDateDateOfBirth)
-              .form-group
-                label.col-sm-3 Social Security Number
-                .col-sm-9.col-md-8.col-lg-6
-                  input#social-security-number.input-medium.form-control(type="text", name="socialSecurityNumber", value="#{fields.socialSecurityNumber}")
+                  input.form-control(type="text", name="fullName", value="#{fields.fullName}")
               .form-group
                 label.col-sm-3 Email
                 .col-sm-9.col-md-8.col-lg-6
@@ -61,111 +51,134 @@ template(name="rentalApplication")
               .form-group
                 label.col-sm-3 Phone number
                 .col-sm-9.col-md-8.col-lg-6
-                  input#phone-number.input-medium.form-control(type="text", name="phoneNumber", value="#{fields.phoneNumber}")
+                  input#phone-number.form-control(type="text", name="phoneNumber", value="#{fields.phoneNumber}")
               .form-group
-                label.col-sm-3 Are you a student?
+                label.col-sm-3 Date of birth
+                .col-sm-3.col-md-2
+                  +datepicker(name="dateOfBirth" options=dateOfBirthOptions value=getDatePickerDateDateOfBirth)
+                label.col-sm-2 Social Security Number
+                .col-sm-3.col-md-2
+                  input#social-security-number.form-control(type="text", name="socialSecurityNumber", value="#{fields.socialSecurityNumber}")
+
+              .form-group
+                label.col-sm-3 Are You a Student?
+                  i.fa.fa-fw.fw-graduation-cap
                 .col-sm-4.col-md-3.col-lg-2
                   select#is-student.form-control(name="isStudent", value="#{fields.isStudent}")
                     option(value="Yes") Yes
                     option(value="No", selected) No
               .student-wrapper(style="display: none")
                 .form-group
-                  label.col-sm-4.col-md-2 Institution
-                  .col-sm-8.col-md-4
-                    input.input-large.form-control(type="text", name="institution", value="#{fields.institution}")
-                  label.col-sm-4.col-md-1 Years Attended
-                  .col-sm-8.col-md-2
-                    input.input-tiny.form-control(type="text", name="institutionDuration", value="#{fields.institutionDuration}")
-                  label.col-sm-4.col-md-1 Graduation Year
-                  .col-sm-8.col-md-2
-                    input.input-tiny.form-control(type="text", name="anticipatedGraduationYear", value="#{fields.anticipatedGraduationYear}")
+                  label.col-sm-2.col-sm-offset-1 Institution
+                  .col-sm-6.col-md-2
+                    input.form-control(type="text", name="institution", value="#{fields.institution}")
+                  label.col-sm-4.col-md-1.p-0 Years Attended
+                  .col-sm-6.col-md-2.p-0
+                    input.form-control(type="text", name="institutionDuration", value="#{fields.institutionDuration}")
+                  label.col-sm-4.col-md-1 Grad Year
+                  .col-sm-6.col-md-1.p-l-0
+                    input.form-control(type="text", name="anticipatedGraduationYear", value="#{fields.anticipatedGraduationYear}")
+
+              .col-xs-12.col-sm-10
+                div.section-spacer
 
               .form-group
                 label.col-sm-4.col-md-3 Do you have a partner / roommate(s)?
-                .col-sm-4.col-md-3.col-lg-2
+                .col-sm-4.col-md-3
                   select#has-partner-roommate.form-control(name="hasPartnerRoommate", value="#{fields.hasPartnerRoommate}")
                     option(value="No" selected) No
                     option(value="I have a partner") I have a partner
                     option(value="I have a roommate") I have a roommate(s)
               .partner-wrapper(style="display: none")
                 .form-group
-                  label.col-sm-4.col-md-3 Name of partner
-                  .col-sm-6.col-md-5.col-lg-4
-                    input.input-large.form-control(type="text", name="nameOfPartner", value="#{fields.nameOfPartner}")
+                  label.col-sm-4.col-md-3 Partner's Name
+                  .col-sm-6.col-md-4.col-lg-3
+                    input.form-control(type="text", name="nameOfPartner", value="#{fields.nameOfPartner}")
                 .form-group
                   label.col-sm-4.col-md-3 Partner's SSN
-                  .col-sm-6.col-md-5.col-lg-4
-                    input#partner-ssn.input-medium.form-control(type="text", name="partnerSSN", value="#{fields.partnerSSN}")
+                  .col-sm-6.col-md-4.col-lg-3
+                    input#partner-ssn.form-control(type="text", name="partnerSSN", value="#{fields.partnerSSN}")
 
                 .form-group
                   label.col-sm-4.col-md-3 How many people are in your family
-                  .col-sm-2.col-lg-1
-                    input.input-medium.form-control(type="text", name="familyMembersCount", value="#{fields.familyMembersCount}")
+                  .col-sm-2
+                    input.form-control(type="text", name="familyMembersCount", value="#{fields.familyMembersCount}")
                   label.col-sm-1 Adults
                   .col-sm-1
-                    input.input-small.form-control(type="text", name="adultsCount", value="#{fields.adultsCount}")
+                    input.form-control(type="text", name="adultsCount", value="#{fields.adultsCount}")
                   label.col-sm-1 Children
                   .col-sm-1
-                    input.input-small.form-control(type="text", name="childrenCount", value="#{fields.childrenCount}")
+                    input.form-control(type="text", name="childrenCount", value="#{fields.childrenCount}")
 
               .roommate-wrapper(style="display: none")
                 .form-group
                   label.col-sm-4.col-md-3 Name of Roommate 1
                   .col-sm-6.col-md-5.col-lg-4
-                    input.input-large.form-control(type="text", name="nameOfRoommate1", value="#{fields.nameOfRoommate1}")
+                    input.form-control(type="text", name="nameOfRoommate1", value="#{fields.nameOfRoommate1}")
                 .form-group
                   label.col-sm-4.col-md-3 Name of Roommate 2
                   .col-sm-6.col-md-5.col-lg-4
-                    input.input-large.form-control(type="text", name="nameOfRoommate2", value="#{fields.nameOfRoommate2}")
+                    input.form-control(type="text", name="nameOfRoommate2", value="#{fields.nameOfRoommate2}")
                 .form-group
                   label.col-sm-4.col-md-3 Name of Roommate 3
                   .col-sm-6.col-md-5.col-lg-4
-                    input.input-large.form-control(type="text", name="nameOfRoommate3", value="#{fields.nameOfRoommate3}")
+                    input.form-control(type="text", name="nameOfRoommate3", value="#{fields.nameOfRoommate3}")
                 .form-group
                   label.col-sm-4.col-md-3 Name of Roommate 4
                   .col-sm-6.col-md-5.col-lg-4
-                    input.input-large.form-control(type="text", name="nameOfRoommate4", value="#{fields.nameOfRoommate4}")
+                    input.form-control(type="text", name="nameOfRoommate4", value="#{fields.nameOfRoommate4}")
 
               .form-group
                 label.col-sm-4 Names/relationship of individuals occupying the unit 
                 .col-sm-6
-                  input.input-large.form-control(type="text", name="individualsInUnit", value="#{fields.individualsInUnit}")
+                  input.form-control(type="text", name="individualsInUnit", value="#{fields.individualsInUnit}")
+
+              .col-xs-12.col-sm-10
+                div.section-spacer
+
               .form-group
                 label.col-sm-4.col-md-3 Do you have any pet(s)?
-                .col-sm-1
+                .col-sm-3.col-lg-2
                   select#has-pets.form-control(name="hasPets", value="#{fields.hasPets}")
                     option(value="Yes") Yes
                     option(value="No", selected) No
+                label.col-sm-1(style="display: none") How Many?
+                .col-sm-2.col-lg-1(style="display: none")
+                  select#has-pets.form-control(name="petsNumber", value="#{fields.hasPets}")
+                    option(value="1", selected) 1
+                    option(value="2") 2
+                    option(value="3") 3
+                    option(value="4+") 4+
 
               .pets-wrapper
                 .form-group
-                  label.col-sm-2 Pet(s)'s name
-                  .col-sm-3
-                    input.input-medium.form-control(type="text", name="petName", value="#{fields.petName}")
-                  label.col-sm-2 Breed(s)
-                  .col-sm-3
-                    input.input-xlarge.form-control(type="text", name="petBreed", value="#{fields.petBreed}")
-                .form-group
-                  label.col-sm-1 Color(s)
-                  .col-sm-3
-                    input.input-small.form-control(type="text", name="petColor", value="#{fields.petColor}")
-                  label.col-sm-1 Age(s)
-                  .col-sm-3
-                    input.input-small.form-control(type="text", name="petAge", value="#{fields.petAge}")
-                  label.col-sm-1 Gender(s)
-                  .col-sm-3
-                    input.input-small.form-control(type="text", name="petGender", value="#{fields.petGender}")
-                .form-group
-                  label.col-sm-1 Weight(s)
-                  .col-sm-3
-                    input.input-small.form-control(type="text", name="petWeight", value="#{fields.petWeight}")
-                  label.col-sm-2 Spayed / Neutered?
+                  label.col-sm-3.col-sm-offset-1.col-md-2 Pet(s)'s name
                   .col-sm-2
+                    input.form-control(type="text", name="petName", value="#{fields.petName}")
+                  label.col-sm-2.p-l-25 Breed(s)
+                  .col-sm-2.p-l-0
+                    input.form-control(type="text", name="petBreed", value="#{fields.petBreed}")
+                .form-group
+                  label.col-sm-3.col-sm-offset-1.col-md-2 Color(s)
+                  .col-sm-2
+                    input.form-control(type="text", name="petColor", value="#{fields.petColor}")
+                  label.col-sm-1 Age(s)
+                  .col-sm-1.p-l-0
+                    input.form-control(type="text", name="petAge", value="#{fields.petAge}")
+                  label.col-sm-1 Gender(s)
+                  .col-sm-1.p-l-0
+                    input.form-control(type="text", name="petGender", value="#{fields.petGender}")
+                .form-group
+                  label.col-sm-3.col-sm-offset-1.col-md-2 Weight(s)
+                  .col-sm-2
+                    input.form-control(type="text", name="petWeight", value="#{fields.petWeight}")
+                  label.col-sm-2 Spayed / Neutered?
+                  .col-sm-1
                     input.form-control.checkbox(type="checkbox", name="petSpayedNeutered", value="true")
                 .form-group
                   label.col-sm-4.col-md-3 Additional Info
-                  .col-sm-6.col-md-5.col-lg-4
-                    textarea.input-xxlarge.form-control(type="text", name="petAdditionalInfo", value="#{fields.petAdditionalInfo}")
+                  .col-sm-6.col-md-7
+                    textarea.form-control(type="text", name="petAdditionalInfo", value="#{fields.petAdditionalInfo}")
 
               h3 Prior Rental Information
               h4 Current Address
@@ -197,43 +210,42 @@ template(name="rentalApplication")
                   label.col-sm-4.col-md-3 City
                   .col-sm-2
                     input.input-medium.form-control(type="text", name="currentCity", value="#{fields.currentCity}")
-                  label.col-sm-2 State
-                  .col-sm-2
+                  label.col-sm-1 State
+                  .col-sm-1
                     input.input-small.form-control(type="text", name="currentState", value="#{fields.currentState}")
-                  br
-                  label.col-sm-4.col-md-3 ZIP
-                  .col-sm-6.col.md-7
+                  label.col-sm-1 ZIP
+                  .col-sm-2
                     input.input-small.form-control(type="text", name="currentZip", value="#{fields.currentZip}")
                 .form-group
                   label.col-sm-4.col-md-3 Rent / Own
-                  .col-sm-6.col.md-2
+                  .col-sm-3.col-md-2
                     select#current-address-ownership.form-control(name="currentAddressOwnership", value="#{fields.currentAddressOwnership}")
                       option(value="Rent") Rent
                       option(value="Own", selected) Own
                 .form-group
                   label.col-sm-4.col-md-3 Current Landlord's Name
-                  .col-sm-8.col.md-2
-                    input.input-large.form-control(type="text", name="currentLandlordName", value="#{fields.currentLandlordName}")
+                  .col-sm-8.col.md-7
+                    input.form-control(type="text", name="currentLandlordName", value="#{fields.currentLandlordName}")
                 .form-group
                   label.col-sm-4.col-md-3 Landlord's phone #
-                  .col-sm-8.col.md-2
-                    input#current-landlord-phone-number.input-medium.form-control(type="text", name="currentLandlordPhoneNumber", value="#{fields.currentLandlordPhoneNumber}")
+                  .col-sm-8.col-md-7
+                    input#current-landlord-phone-number.form-control(type="text", name="currentLandlordPhoneNumber", value="#{fields.currentLandlordPhoneNumber}")
                 .form-group
                   label.col-sm-4.col-md-3 Total Monthly Rent
                   .col-sm-6
                     .input-group
                       .input-group-addon $
-                      input.input-tiny.form-control(type="text", name="currentRent", value="#{fields.currentRent}")
+                      input.form-control(type="text", name="currentRent", value="#{fields.currentRent}")
                 .form-group
-                  label.col-sm-4.col-md-3 Total monthly rent that you were individually responsible for
+                  label.col-sm-4.col-md-3.p-l-0 Total monthly rent that you were individually responsible for
                   .col-sm-6
                     .input-group
                       .input-group-addon $
-                      input.input-tiny.form-control(type="text", name="currentRentResponsible", value="#{fields.currentRentResponsible}")  
+                      input.form-control(type="text", name="currentRentResponsible", value="#{fields.currentRentResponsible}")  
                 .form-group
                   label.col-sm-4.col-md-3 Reason For Leaving
-                  .col-sm-6
-                    input.input-large.form-control(type="text", name="currentReasonForLeaving", value="#{fields.currentReasonForLeaving}")
+                  .col-sm-8.col-md-7
+                    textarea.form-control(type="text", name="currentReasonForLeaving", value="#{fields.currentReasonForLeaving}")
 
 
               h4.m-t-10 Previous Address (if at your current address less than 12 months)
@@ -261,31 +273,31 @@ template(name="rentalApplication")
                   label.col-sm-4.col-md-3 Previous Address
                   .col-sm-6.col-md-7
                     input.input-large.form-control(type="text", name="previousAddress", value="#{fields.previousAddress}")
+                .form-group
                   label.col-sm-4.col-md-3 City
                   .col-sm-2
-                    input.input-medium.form-control(type="text", name="previousCity", value="#{fields.previousCity}")
-                  label.col-sm-2 State
+                    input.form-control(type="text", name="previousCity", value="#{fields.previousCity}")
+                  label.col-sm-1 State
+                  .col-sm-1
+                    input.form-control(type="text", name="previousState", value="#{fields.previousState}")
+                  label.col-sm-1 ZIP
                   .col-sm-2
-                    input.input-small.form-control(type="text", name="previousState", value="#{fields.previousState}")
-                  br
-                  label.col-sm-4.col-md-3 ZIP
-                  .col-sm-6.col.md-7
-                    input.input-small.form-control(type="text", name="previousZip", value="#{fields.previousZip}")
+                    input.form-control(type="text", name="previousZip", value="#{fields.previousZip}")
 
                 .form-group
                   label.col-sm-4.col-md-3 Rent / Own
-                  .col-sm-6.col.md-2
+                  .col-sm-3.col-md-2
                     select#previous-address-ownership.form-control(name="previousAddressOwnership", value="#{fields.previousAddressOwnership}")
-                      option(value="Rent") Rent
-                      option(value="Own", selected) Own
+                      option(value="Rent", selected) Rent
+                      option(value="Own") Own
                 .form-group
                   label.col-sm-4.col-md-3 Previous Landlord's Name
-                  .col-sm-8.col.md-2
-                    input.input-large.form-control(type="text", name="previousLandlordName", value="#{fields.previousLandlordName}")
+                  .col-sm-8.col.md-7
+                    input.form-control(type="text", name="previousLandlordName", value="#{fields.previousLandlordName}")
                 .form-group
-                  label.col-sm-4.col-md-3 Landlord's phone #
-                  .col-sm-8.col.md-2
-                    input#previous-landlord-phone-number.input-medium.form-control(type="text", name="previousLandlordPhoneNumber", value="#{fields.previousLandlordPhoneNumber}")
+                  label.col-sm-4.col-md-3 Landlord's Phone #
+                  .col-sm-8.col.md-7
+                    input#previous-landlord-phone-number.form-control(type="text", name="previousLandlordPhoneNumber", value="#{fields.previousLandlordPhoneNumber}")
 
                 .form-group
                   label.col-sm-4.col-md-3 Total Monthly Rent
@@ -302,40 +314,40 @@ template(name="rentalApplication")
 
                 .form-group
                   label.col-sm-4.col-md-3 Reason For Leaving
-                  .col-sm-6
-                    input.input-large.form-control(type="text", name="previousReasonForLeaving", value="#{fields.previousReasonForLeaving}")
+                  .col-sm-8.col-md-7
+                    textarea.input-large.form-control(type="text", name="previousReasonForLeaving", value="#{fields.previousReasonForLeaving}")
 
 
               h3 Current Employment Information
               .form-group
-                label.col-sm-3.col-md-2 Present Employer
-                .col-sm-7.col-md-8
-                  input.input-large.form-control(type="text", name="presentEmployer", value="#{fields.presentEmployer}")
+                label.col-sm-4.col-md-3 Present Employer
+                .col-sm-6.col-md-7
+                  input.form-control(type="text", name="presentEmployer", value="#{fields.presentEmployer}")
               .form-group
-                label.col-sm-3.col-md-2 Position
+                label.col-sm-4.col-md-3 Position
                 .col-sm-3
-                  input.input-medium.form-control(type="text", name="position", value="#{fields.position}")
-                label.col-sm-2 Monthly Salary
-                .col-sm-2
+                  input.form-control(type="text", name="position", value="#{fields.position}")
+                label.col-sm-2.p-l-0 Monthly Salary
+                .col-sm-2.p-l-0
                   .input-group
                     .input-group-addon $
-                    input.input-tiny.form-control(type="text", name="monthlySalary", value="#{fields.monthlySalary}")
+                    input.form-control(type="text", name="monthlySalary", value="#{fields.monthlySalary}")
 
               .form-group
-                label.col-sm-3.col-md-2 How long at this position
-                .col-sm-2
-                  input.input-small.form-control(type="text", name="positionDuration", value="#{fields.positionDuration}")
-              .form-group
-                label.col-sm-3.col-md-2 Employer's Address
-                .col-sm-7.col-md-8
-                  input.input-large.form-control(type="text", name="employerAddress", value="#{fields.employerAddress}")
-              .form-group
-                label.col-sm-3 Contact Person //to verify employment
-                .col-sm-4
-                  input.input-large.form-control(type="text", name="employmentVerificationPerson", value="#{fields.employmentVerificationPerson}")
-                label.col-sm-2 (Phone # / Email)
+                label.col-sm-4.col-md-3 How long at this position
                 .col-sm-3
-                  input#employment-verification-contact.input-large.form-control(type="text", name="employmentVerificationContact", value="#{fields.employmentVerificationContact}")
+                  input.form-control(type="text", name="positionDuration", value="#{fields.positionDuration}")
+              .form-group
+                label.col-sm-4.col-md-3 Employer's Address
+                .col-sm-7.col-md-8
+                  input.form-control(type="text", name="employerAddress", value="#{fields.employerAddress}")
+              .form-group
+                label.col-sm-4.col-md-3 Contact Person
+                .col-sm-3
+                  input.form-control(type="text", name="employmentVerificationPerson", value="#{fields.employmentVerificationPerson}")
+                label.col-sm-2 Phone or Email
+                .col-sm-2
+                  input#employment-verification-contact.form-control(type="text", name="employmentVerificationContact", value="#{fields.employmentVerificationContact}")
 
               .form-group
                 label.col-sm-4.col-md-3 Other Income / Source (if applicable)
@@ -346,11 +358,11 @@ template(name="rentalApplication")
                 .col-sm-6.col-md-7
                   input.input-large.form-control(type="text", name="otherEmployerAddress", value="#{fields.otherEmployerAddress}")
               .form-group
-                label.col-sm-4.col-md-3 Contact Person //to Verify Employment
+                label.col-sm-4.col-md-3 Contact Person
                 .col-sm-6.col-md-7
                   input.input-large.form-control(type="text", name="otherEmploymentVerificationPerson", value="#{fields.otherEmploymentVerificationPerson}")
               .form-group
-                label.col-sm-4.col-md-3 (Phone # / Email)
+                label.col-sm-4.col-md-3 Phone or Email
                 .col-sm-6.col-md-7
                   input#other-employment-verification-contact.input-large.form-control(type="text", name="otherEmploymentVerificationContact", value="#{fields.otherEmploymentVerificationContact}")
 
@@ -407,47 +419,49 @@ template(name="rentalApplication")
               .criminal-history-explanation-wrapper(style="display: none")
                 .form-group
                   label.col-sm-4.col-md-3 Please explain in detail (stating place, offense, date, etc.)
-                  textarea.input-xxlarge.form-control(type="text", name="criminalHistoryExplanation", value="#{fields.criminalHistoryExplanation}")
+                  .col-sm-6.col-md-7
+                    textarea.form-control(type="text", name="criminalHistoryExplanation", value="#{fields.criminalHistoryExplanation}")
 
               h3 Personal References
               .form-group
-                label.col-sm-1 Name
+                label.col-sm-4.col-md-3 Name
                 .col-sm-4.col-md-3
-                  input.input-large.form-control(type="text", name="firstReferenceName", value="#{fields.firstReferenceName}")
-                label.col-sm-1 Years Known
-                .col-sm-4.col-md-1
-                  input.input-small.form-control(type="text", name="firstReferenceYearsKnown", value="#{fields.firstReferenceYearsKnown}")
-                label.col-sm-1 Relationship
+                  input.form-control(type="text", name="firstReferenceName", value="#{fields.firstReferenceName}")
+                label.col-sm-2 Years Known
                 .col-sm-4.col-md-2
-                  input.input-medium.form-control(type="text", name="firstReferenceRelationship", value="#{fields.firstReferenceRelationship}")
-                label.col-sm-1 Phone #
+                  input.form-control(type="text", name="firstReferenceYearsKnown", value="#{fields.firstReferenceYearsKnown}")
+              .form-group
+                label.col-sm-4.col-md-3 Relationship
+                .col-sm-4.col-md-3
+                  input.form-control(type="text", name="firstReferenceRelationship", value="#{fields.firstReferenceRelationship}")
+                label.col-sm-2 Phone #
                 .col-sm-4.col-md-2
-                  input#first-reference-phone-number.input-medium.form-control(type="text", name="firstReferencePhoneNumber", value="#{fields.firstReferencePhoneNumber}")
+                  input#first-reference-phone-number.form-control(type="text", name="firstReferencePhoneNumber", value="#{fields.firstReferencePhoneNumber}")
 
               .form-group
-                label.col-sm-1 Name
+                label.col-sm-4.col-md-3 Name
                 .col-sm-4.col-md-3
                   input.input-large.form-control(type="text", name="secondReferenceName", value="#{fields.secondReferenceName}")
               .form-group
-                label.col-sm-1 Years Known
-                .col-sm-4.col-md-1
-                  input.input-small.form-control(type="text", name="secondReferenceYearsKnown", value="#{fields.secondReferenceYearsKnown}")
-              .form-group
-                label.col-sm-1 Relationship
+                label.col-sm-2 Years Known
                 .col-sm-4.col-md-2
-                  input.input-medium.form-control(type="text", name="secondReferenceRelationship", value="#{fields.secondReferenceRelationship}")
+                  input.form-control(type="text", name="secondReferenceYearsKnown", value="#{fields.secondReferenceYearsKnown}")
               .form-group
-                label.col-sm-1 Phone #
+                label.col-sm-4.col-md-3 Relationship
+                .col-sm-4.col-md-3
+                  input.form-control(type="text", name="secondReferenceRelationship", value="#{fields.secondReferenceRelationship}")
+              .form-group
+                label.col-sm-2 Phone #
                 .col-sm-4.col-md-2
-                  input#second-reference-phone-number.input-medium.form-control(type="text", name="secondReferencePhoneNumber", value="#{fields.secondReferencePhoneNumber}")
+                  input#second-reference-phone-number.form-control(type="text", name="secondReferencePhoneNumber", value="#{fields.secondReferencePhoneNumber}")
 
               h3 Emergency Contacts
               p.well.well-sm In the event of an emergency, please contact the following person(s):
               .form-group
-                label.col-sm-1 Name
+                label.col-sm-2 Name
                 .col-sm-4.col-md-3
                   input.input-large.form-control(type="text", name="firstEmergencyContactName", value="#{fields.firstEmergencyContactName}")
-                label.col-sm-1 Phone #
+                label.col-sm-1.p-r-0 Phone #
                 .col-sm-3.col-md-2
                   input#first-emergency-contact-phone-number.input-medium.form-control(type="text", name="firstEmergencyContactPhoneNumber", value="#{fields.firstEmergencyContactPhoneNumber}")
                 label.col-sm-1 Address
@@ -455,12 +469,12 @@ template(name="rentalApplication")
                   input.input-large.form-control(type="text", name="firstEmergencyContactAddress", value="#{fields.firstEmergencyContactAddress}")
 
               .form-group
-                label.col-sm-1 Name
+                label.col-sm-2 Name
                 .col-sm-4.col-md-3
                   input.input-large.form-control(type="text", name="secondEmergencyContactName", value="#{fields.secondEmergencyContactName}")
-                label.col-sm-1 Phone #
+                label.col-sm-1.p-r-0 Phone #
                 .col-sm-3.col-md-2
-                  input#second-emergency-contact-phone-number.input-medium.form-control(type="text", name="secondEmergencyContactPhoneNumber", value="#{fields.secondEmergencyContactPhoneNumber}")
+                  input#second-emergency-contact-phone-number.form-control(type="text", name="secondEmergencyContactPhoneNumber", value="#{fields.secondEmergencyContactPhoneNumber}")
                 label.col-sm-1 Address
                 .col-sm-3.col-md-2
                   input.input-large.form-control(type="text", name="secondEmergencyContactAddress", value="#{fields.secondEmergencyContactAddress}")
@@ -513,18 +527,19 @@ template(name="rentalApplication")
                             i.fa.fa-trash
 
               h3.m-t-15 Deposit Disclaimer
-              p I have submitted a non-refundable Application Deposit in which is equal to one (1) month's rent. This application deposit is made in consideration of Rent Scene LLC / an authorized representative rather directly / indirectly taking the prospective leased premises off the rental market, and preparing the premises for my occupancy on or before the proposed move in date. Accordingly, if I do not take occupancy of the apartment after signing this application, I understand that I forfeit my Application Deposit. If Rent Scene LLC / an authorized representative rather directly / indirectly denies my application, the application deposit will be refunded. Please be aware that if information necessary for the completion of the approval process is not provided, Rent Scene LLC / its affiliates reserve the right to deny the application. I also agree that at the signing of this application, my move-in date, if approved by management, is final and I will be responsible for rent beginning on the specified date. I understand that upon signing the written lease agreement, my Application Deposit will be applied towards my Security Deposit and/or First Month's Rent. I understand it is my sole responsibility to carry rental insurance for all of my personal property. I understand that with the exception of cleaning and painting, the apartment will be rented as is. All agreements to make any changes to the apartment, or do additional repairs/upgrades, or to credit my account for any reason must be placed in writing and signed by myself and an authorized representative from the apartment for which I am applying to. Verbal agreements will not be honored.
+              p.text-cond I have submitted a non-refundable Application Deposit in which is equal to one (1) month's rent. This application deposit is made in consideration of Rent Scene LLC / an authorized representative rather directly / indirectly taking the prospective leased premises off the rental market, and preparing the premises for my occupancy on or before the proposed move in date. Accordingly, if I do not take occupancy of the apartment after signing this application, I understand that I forfeit my Application Deposit. If Rent Scene LLC / an authorized representative rather directly / indirectly denies my application, the application deposit will be refunded. Please be aware that if information necessary for the completion of the approval process is not provided, Rent Scene LLC / its affiliates reserve the right to deny the application. I also agree that at the signing of this application, my move-in date, if approved by management, is final and I will be responsible for rent beginning on the specified date. I understand that upon signing the written lease agreement, my Application Deposit will be applied towards my Security Deposit and/or First Month's Rent. I understand it is my sole responsibility to carry rental insurance for all of my personal property. I understand that with the exception of cleaning and painting, the apartment will be rented as is. All agreements to make any changes to the apartment, or do additional repairs/upgrades, or to credit my account for any reason must be placed in writing and signed by myself and an authorized representative from the apartment for which I am applying to. Verbal agreements will not be honored.
 
               h3 Applicant's Consent
-              p I hereby authorize Rent Scene LLC, its affiliates or a third party delegated by Rent Scene LLC, to obtain a consumer report, and other information it deems necessary, for the purpose of evaluating my application. I understand that such information may include, but is not limited to, credit history, civil and criminal information, records of arrest, rental history, employment/salary details, vehicle records, licensing records, and/or any other necessary information. I understand that subsequent consumer reports may be obtained and utilized under this authorization in connection with an update, renewal, extension or collection with respect or in connection with the rental lease of a residence, which this application was made. I hereby expressly release Rent Scene LCC, its affiliates and any procurer or furnisher of information, from any liability whatsoever in the use, procurement, or furnishing of such information, and understand that my application information may be provided to various local, state, and/or federal government agencies including without limitation, various law enforcement agencies.
-              p By signing below, I agree that I have read and understand the information contained in the Deposit Disclaimer and
+              p.text-cond I hereby authorize Rent Scene LLC, its affiliates or a third party delegated by Rent Scene LLC, to obtain a consumer report, and other information it deems necessary, for the purpose of evaluating my application. I understand that such information may include, but is not limited to, credit history, civil and criminal information, records of arrest, rental history, employment/salary details, vehicle records, licensing records, and/or any other necessary information. I understand that subsequent consumer reports may be obtained and utilized under this authorization in connection with an update, renewal, extension or collection with respect or in connection with the rental lease of a residence, which this application was made. I hereby expressly release Rent Scene LCC, its affiliates and any procurer or furnisher of information, from any liability whatsoever in the use, procurement, or furnishing of such information, and understand that my application information may be provided to various local, state, and/or federal government agencies including without limitation, various law enforcement agencies.
+              p.affirmation By signing below, I agree that I have read and understand the information contained in the Deposit Disclaimer and
                 a(href="/Consumer_Notice.pdf", target="_blank") Consumer Notice
-                | and am bound by the terms there-in.
+                | and am bound by the terms therein.
+
               #signature
 
               //- .g-recaptcha.m-b-10(data-sitekey="6Lf7GhMTAAAAAKDluSFj1iYdvKYnlxWUhSFS2N0K")
 
-              .form-group.m-b-10
+              .form-group.m-b-20
                 button.btn.btn-lg.btn-success(type="submit") Submit and Download PDF
                   i.fa.fa-cloud-download.m-l-10
 

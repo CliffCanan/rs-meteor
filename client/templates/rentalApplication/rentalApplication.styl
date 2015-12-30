@@ -1,5 +1,5 @@
 #rental-application-wrapper
-
+  max-width 1000px
   h3
     color #4588fa
   .well
@@ -27,11 +27,23 @@
       cursor pointer
 
   .form-group
+    margin-bottom 15px
     width 100%
-      
+    label
+      text-align right
+  .section-spacer
+    background rgba(0,10,20,.1)
+    height 1px
+    border-radius 3px
+    margin 10px auto 30px
+
   .pets-wrapper
     display none
-      
+
+  .criminal-history-input-wrapper
+    .form-group .col-sm-1
+      padding 0 5px
+
   select.document-type.other
     width 70px
 
@@ -47,7 +59,20 @@
       right 5px
       top 3px
       z-index 999
-      
+
+  p.text-cond
+    color #666
+    font-size 13.5px
+    line-height 1.5
+
+  p.affirmation
+    font-size 18px
+    font-weight 600
+    line-height 1.5
+    margin 20px 0
+    a
+      font-weight 600
+    
   #signature
     border 5px solid #CCC
     margin-bottom 20px
