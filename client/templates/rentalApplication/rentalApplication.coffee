@@ -131,15 +131,13 @@ Template.rentalApplication.events
 
   "click .pet-box": (event, template) ->
     if $(event.target).hasClass('selected')
-      console.log "...clicked target had class '.selected'!"
-      $(this).removeClass('selected')
+      $(event.target).removeClass('selected')
       if $(event.target).attr('id') is 'catBox'
         template.$('#cats-table-wrapper').slideUp()
       else if $(event.target).attr('id') is 'dogBox'
         template.$('#dogs-table-wrapper').slideUp()
     else
-      console.log "...clicked target DID NOT have class '.selected'!"
-      $(this).addClass('selected')
+      $(event.target).addClass('selected')
       if $(event.target).attr('id') is 'catBox'
         template.$('#cats-table-wrapper').slideDown()
       else if $(event.target).attr('id') is 'dogBox'
@@ -150,11 +148,17 @@ Template.rentalApplication.events
 
   "click #addCat": (event, template) ->
     rowNum = $("#catsTable tbody tr").length + 1
-    template.$('#catsTable tbody').append("<tr><td>" + rowNum + "</td><td><input class='form-control' type='text' name='cat" + rowNum + "Name' /></td><td><input class='form-control' type='text' name='cat" + rowNum + "Weight' /></td><td><input class='form-control' type='text' name='cat" + rowNum + "Age' /></td><td><input class='form-control' type='text' name='cat" + rowNum + "Color' /></td><td><select class='form-control' name='cat" + rowNum + "Neutered'><option value='Yes'>Yes</option><option value='No'>No</option></select></td> </tr>");
+    if rowNum > 5
+      alert "Oh my, that's a lot of cats. Since most buildings don't allow that many feline roommates, it might be best if we spoke with you to discuss your situation. Please email team@rentscene.com or call (267) 463-2426. Thanks!"
+    else
+      template.$('#catsTable tbody').append("<tr><td>" + rowNum + "</td><td><input class='form-control' type='text' name='cat" + rowNum + "Name' /></td><td><input class='form-control' type='text' name='cat" + rowNum + "Weight' /></td><td><input class='form-control' type='text' name='cat" + rowNum + "Age' /></td><td><input class='form-control' type='text' name='cat" + rowNum + "Color' /></td><td><select class='form-control' name='cat" + rowNum + "Neutered'><option value='Yes'>Yes</option><option value='No'>No</option></select></td> </tr>");
 
   "click #addDog": (event, template) ->
     rowNum = $("#dogsTable tbody tr").length + 1
-    template.$('#dogsTable tbody').append("<tr><td>" + rowNum + "</td><td><input class='form-control' type='text' name='dog" + rowNum + "Name' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Breed' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Weight' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Age' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Color' /></td><td><select class='form-control' name='dog" + rowNum + "Gender'><option value='Male'>Male</option><option value='Female'>Female</option></select></td><td><select class='form-control' name='dog" + rowNum + "Neutered'><option value='Yes'>Yes</option><option value='No'>No</option></select></td> </tr>");
+    if rowNum > 5
+      alert "Wow, that's a lot of dogs. Since most buildings don't allow that many canine companions, it might be best if we spoke with you to discuss your situation. Please email team@rentscene.com or call (267) 463-2426. Thanks!"
+    else
+      template.$('#dogsTable tbody').append("<tr><td>" + rowNum + "</td><td><input class='form-control' type='text' name='dog" + rowNum + "Name' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Breed' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Weight' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Age' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Color' /></td><td><select class='form-control' name='dog" + rowNum + "Gender'><option value='Male'>Male</option><option value='Female'>Female</option></select></td><td><select class='form-control' name='dog" + rowNum + "Neutered'><option value='Yes'>Yes</option><option value='No'>No</option></select></td> </tr>");
 
 
   "change #has-partner-roommate": (event, template) ->

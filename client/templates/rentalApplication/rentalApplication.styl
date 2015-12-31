@@ -80,22 +80,22 @@
 
     &#dogBox
       background url(../../dog_inactive.png) center center no-repeat
-      background-size 80%
+      background-size 80% !important
       &.selected
         background url(../../dog.png) center center no-repeat
     &#catBox
       background url(../../cat_inactive.png) center center no-repeat
-      background-size 80%
+      background-size 80% !important
       &.selected
         background url(../../cat.png) center center no-repeat
     &#otherBox
       background url(../../other_inactive.png) center center no-repeat
-      background-size 80%
+      background-size 80% !important
       &.selected
         background url(../../other.png) center center no-repeat
     &#noPetsBox
       background url(../../nopets_inactive.png) center center no-repeat
-      background-size 80%
+      background-size 80% !important
       &.selected
         background url(../../nopets.png) center center no-repeat
 
@@ -111,6 +111,8 @@
       position absolute
       right 0
       top 48px
+      @media screen and (min-width: 1200px)
+        top 60px
     table
       margin-top 15px
       margin-bottom 25px
