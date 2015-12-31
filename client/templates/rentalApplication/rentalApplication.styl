@@ -35,6 +35,10 @@
     .form-control
       @media screen and (min-width: 768px)
         font-size 15px
+        height 36px
+      @media screen and (min-width: 1200px)
+        font-size 16px
+        height 38px
     label > small
       display block
       font-size 82%
@@ -53,7 +57,7 @@
 
   table.numbered tr > th:first-child,
   table.numbered tr > td:first-child
-    width 30px
+    text-align center
 
   .pet-box
     border 2px solid rgba(147,149,152,.8)
@@ -70,6 +74,9 @@
       border-width 3px
       &:active
         top 3px
+    @media screen and (min-width: 1200px)
+      width 21%
+      margin-right 3%
     &:hover
       box-shadow 0 5px 16px -3px rgba(32,33,34,.5)
     &.selected
@@ -77,7 +84,7 @@
       box-shadow 0 5px 16px -3px rgba(32,33,34,.5)
     &:active
       top 2px
-
+    
     &.selected:after
       content: "No Pets";
       font-size: 16px;
@@ -174,6 +181,7 @@
     font-weight 600
     line-height 1.5
     margin 20px 0
+    max-width 700px
     a
       font-weight 600
     
