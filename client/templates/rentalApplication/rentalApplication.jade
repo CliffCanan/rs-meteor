@@ -211,7 +211,7 @@ template(name="rentalApplication")
                               option(value="No") No
                 .form-group
                   label.col-sm-1.col-md-2.p-l-5 Additional Info
-                  .col-xs-12.col-sm-9.col-md-8.p-l-10
+                  .col-xs-12.col-sm-9.col-md-8.col-lg-5
                     textarea.form-control(type="text", name="catAdditionalInfo", value="#{fields.catAdditionalInfo}")
 
               #dogs-table-wrapper
@@ -247,22 +247,22 @@ template(name="rentalApplication")
                             input.form-control(type="text", name="dog1Color", value="#{fields.dog1Color}")
                           td
                             select.form-control(type="text", name="dog1Gender", value="#{fields.dog1Gender}")
-                              option(value="Yes") Yes
-                              option(value="No") No
+                              option(value="Male") Male
+                              option(value="Female") Female
                           td
                             select.form-control(name="dog1Neutered", value="#{fields.dog1Neutered}")
                               option(value="Yes") Yes
                               option(value="No") No
                 .form-group
                   label.col-sm-1.col-md-2.p-l-5 Additional Info
-                  .col-xs-12.col-sm-9.col-md-8.p-l-10
+                  .col-xs-12.col-sm-9.col-md-8.col-lg-5
                     textarea.form-control(type="text", name="dogAdditionalInfo", value="#{fields.dogAdditionalInfo}")
 
               #otherpet-wrapper
                 .form-group
                   label.col-sm-2.p-l-5 Pet Info
                     small Please describe your pet.
-                  .col-xs-12.col-sm-8.col-md-7.p-l-10
+                  .col-xs-12.col-sm-9.col-md-8.col-lg-5
                     textarea.form-control(type="text", name="otherPetAdditionalInfo", value="#{fields.otherPetAdditionalInfo}")
 
 
@@ -489,8 +489,8 @@ template(name="rentalApplication")
               h3 Criminal History
               .form-group
                 .col-xs-12.col-sm-10.col-md-9.p-r-5
-                  .well Have you, or anyone who is included in this application ever:
-                    a#no-to-all-criminal-history.m-l-5(href="#") No to all
+                  .well Have you or anyone who is included in this application ever...
+                    a#no-to-all-criminal-history.m-l-10(href="#") No to all
 
               .criminal-history-input-wrapper
                 .form-group
