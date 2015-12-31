@@ -7,12 +7,9 @@
     @media screen and (min-width: 1200px)
       margin 40px 0 16px
   h4 small
-    opacity .75
+    opacity .8
     &:hover
       opacity 1
-  .well
-    font-size 16px
-    text-align left
 
   .application-dates
     margin-top 25px
@@ -40,8 +37,9 @@
         font-size 15px
     label > small
       display block
-      font-size 80%
+      font-size 82%
       font-weight normal
+      line-height 14px
       position relative
       top -2px
 
@@ -78,12 +76,32 @@
       border-color #4588fa
       box-shadow 0 5px 16px -3px rgba(32,33,34,.5)
     &:active
+      top 2px
+
+    &#dogBox
+      background url(../../dog_inactive.png) center center no-repeat
+      background-size 80%
+      &.selected
+        background url(../../dog.png) center center no-repeat
+    &#catBox
+      background url(../../cat_inactive.png) center center no-repeat
+      background-size 80%
+      &.selected
+        background url(../../cat.png) center center no-repeat
+    &#otherBox
+      background url(../../other_inactive.png) center center no-repeat
+      background-size 80%
+      &.selected
+        background url(../../other.png) center center no-repeat
+    &#noPetsBox
+      background url(../../nopets_inactive.png) center center no-repeat
+      background-size 80%
+      &.selected
+        background url(../../nopets.png) center center no-repeat
 
     img
       width 100%
-      padding 10px
-      @media screen and (min-width: 1200px)
-        padding 16px
+      visibility hidden
 
   #cats-table-wrapper,
   #dogs-table-wrapper
@@ -105,6 +123,9 @@
   .criminal-history-input-wrapper
     .form-group .col-sm-1
       padding 0 5px
+    select
+      padding-left 5px
+      padding-right 8px
 
   select.document-type.other
     width 70px

@@ -128,19 +128,22 @@ Template.rentalApplication.events
       template.$('.pets-wrapper').slideUp()
 
   "click .pet-box": (event, template) ->
+    console.log "Clicked a Pet Box!"
     if $(event.target).hasClass('selected')
-      template.$(@).removeClass('selected')
-      if $(event.target).id is 'catBox'
+      console.log "...clicked target had class '.selected'!"
+      $(@).removeClass('selected')
+      if $(event.target).attr('id') is 'catBox'
         template.$('#cats-table-wrapper').slideUp()
-      else if $(event.target).id is 'dogBox'
+      else if $(event.target).attr('id') is 'dogBox'
         template.$('#dogs-table-wrapper').slideUp()
     else
-      template.$(@).addClass('selected')
-      if $(event.target).id is 'catBox'
+      console.log "...clicked target DID NOT have class '.selected'!"
+      $(@).addClass('selected')
+      if $(event.target).attr('id') is 'catBox'
         template.$('#cats-table-wrapper').slideDown()
-      else if $(event.target).id is 'dogBox'
+      else if $(event.target).attr('id') is 'dogBox'
         template.$('#dogs-table-wrapper').slideDown()
-      else if $(event.target).id is 'noPetsBox'
+      else if $(event.target).attr('id') is 'noPetsBox'
         template.$('#cats-table-wrapper').slideUp()
         template.$('#dogs-table-wrapper').slideUp()
 

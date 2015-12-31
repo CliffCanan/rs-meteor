@@ -17,23 +17,23 @@ template(name="rentalApplication")
             form#rental-application-form.form-horizontal
               .form-group
                 .col-xs-12.col-sm-10.col-md-9
-              p.well.m-t-20
-                | After completing the form below, please click
-                strong "Submit and download PDF"
-                | to save a copy on your computer. Please email the completed PDF to
-                a(href="mailto:info@rentscene.com") info@rentscene.com
-                |.
+                  p.well.m-t-20.m-b-0
+                    | After completing the form below, please click
+                    strong "Submit and Download PDF"
+                    | to save a copy on your computer. &nbsp;Please email the completed PDF to
+                    a(href="mailto:info@rentscene.com") info@rentscene.com
+                    |.
 
               h3 Rent Details
               .form-group
                 label.col-sm-4.col-md-3 Apartment you are applying to
-                .col-sm-6
+                .col-sm-6.col-md-5
                   input.form-control(type="text", name="apartmentName", value="#{fields.apartmentName}")
               .form-group
                 label.col-xs-4.col-sm-3 Move-In Date
                 .col-sm-4.col-md-3.col-lg-2.p-r-5
                   +datepicker(name="moveInDate" value=getDatePickerDateMoveInDate)
-                label.col-xs-4.col-sm-2 Length of Lease
+                label.col-xs-4.col-sm-2.col-md-1.p-l-5.p-r-5.align-top Lease Length
                 .col-sm-4.col-md-3.col-lg-2
                   input.form-control(type="text", name="lenghtOfLease", value="#{fields.lenghtOfLease}")
               .form-group
@@ -117,7 +117,8 @@ template(name="rentalApplication")
 
               .roommate-wrapper(style="display: none")
                 .form-group
-                  .col-xs-12.col-sm-9.col-sm-offset-1.col-md-8.col-md-offset-2.col-lg-7.col-lg-offset-3
+                  label.col-sm-4.col-md-3 Roommate Info
+                  .col-xs-12.col-sm-8.col-lg-7
                     table.table.table-bordered.table-striped.numbered
                       thead
                         tr
@@ -164,13 +165,13 @@ template(name="rentalApplication")
 
                 .col-sm-6.col-md-7.text-left
                   .pet-box#dogBox
-                    img(src="../../dog.png", alt="Dog")
+                    img(src="../../dog_inactive.png", alt="Dog")
                   .pet-box#catBox
-                    img(src="../../cat.png", alt="Cat")
+                    img(src="../../cat_inactive.png", alt="Cat")
                   .pet-box#otherBox
-                    img(src="../../other.png", alt="Other Animal")
+                    img(src="../../other_inactive.png", alt="Other Animal")
                   .pet-box#noPetsBox
-                    img(src="../../nopets.png", alt="No Pets")
+                    img(src="../../nopets_inactive.png", alt="No Pets")
 
                 .col-sm-3.col-lg-2.hidden
                   select#has-pets.form-control(name="hasPets", value="#{fields.hasPets}")
@@ -180,11 +181,11 @@ template(name="rentalApplication")
               #cats-table-wrapper
                 .form-group
                   .col-sm-1.col-md-2.col-lg-offset-1.text-right
-                    button.btn.btn-link.addPet#addCat
+                    a.btn.btn-link.addPet#addCat(href="#")
                       i.fa.fa-plus-circle
                       | Add Cat
                   .col-xs-12.col-sm-9.col-md-8.p-l-0
-                    table.table.table-bordered.table-striped.numbered
+                    table#catsTable.table.table-bordered.table-striped.numbered
                       thead
                         tr
                           th #
@@ -216,11 +217,11 @@ template(name="rentalApplication")
               #dogs-table-wrapper
                 .form-group
                   .col-sm-1.col-md-2.col-lg-offset-1.text-right
-                    button.btn.btn-link.addPet#addDog
+                    a.btn.btn-link.addPet#addDog(href="#")
                       i.fa.fa-plus-circle
                       | Add Dog
                   .col-xs-12.col-sm-10.col-md-9.p-l-0
-                    table.table.table-bordered.table-striped.numbered
+                    table#dogsTable.table.table-bordered.table-striped.numbered
                       thead
                         tr
                           th #
@@ -308,10 +309,10 @@ template(name="rentalApplication")
                     option(value="12 months") 12 months
                     option(value="12+ months") 12+ months
                 label.col-sm-2.p-l-5 Rent / Own
-                .col-sm-3.col-md-2.p-r-10
+                .col-sm-3.col-md-2
                   select#current-address-ownership.form-control(name="currentAddressOwnership", value="#{fields.currentAddressOwnership}")
-                    option(value="Rent") Rent
-                    option(value="Own", selected) Own
+                    option(value="Rent", selected) Rent
+                    option(value="Own") Own
 
               .current-address-wrapper
                 .form-group
@@ -338,11 +339,15 @@ template(name="rentalApplication")
                     input#current-landlord-phone-number.form-control(type="text", name="currentLandlordPhoneNumber", value="#{fields.currentLandlordPhoneNumber}")
                 .form-group
                   label.col-sm-4.col-md-3 Total Monthly Rent
+                    small
+                      i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the TOTAL monthly rent for the unit, i.e. the sum of what each occupant paid.")
                   .col-sm-3.col-md-2.p-r-10
                     .input-group
                       .input-group-addon $
                       input.form-control(type="text", name="currentRent", value="#{fields.currentRent}")
-                  label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.col-lg-2.p-l-0.p-r-5.align-top(style="font-size:96%") Total monthly rent that you were individually responsible for
+                  label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.col-lg-2.p-l-0.p-r-5.align-top(style="font-size:96%") YOUR Monthly Rent
+                    small
+                      i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the total amount YOU paid each month.")
                   .col-sm-3.col-sm-pull-2.col-md-2.col-md-pull-0
                     .input-group
                       .input-group-addon $
@@ -405,11 +410,15 @@ template(name="rentalApplication")
 
                 .form-group
                   label.col-sm-4.col-md-3 Total Monthly Rent
+                    small
+                      i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the TOTAL monthly rent for the unit, i.e. the sum of what each occupant paid.")
                   .col-sm-3.col-md-2.p-r-10
                     .input-group
                       .input-group-addon $
                       input.input-tiny.form-control(type="text", name="previousRent", value="#{fields.previousRent}")
-                  label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.col-lg-2.p-l-0.p-r-5.align-top(style="font-size:96%") Total monthly rent that you were individually responsible for
+                  label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.col-lg-2.p-l-0.p-r-5.align-top(style="font-size:96%") YOUR Monthly Rent
+                    small
+                      i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the total amount YOU paid each month.")
                   .col-sm-3.col-sm-pull-2.col-md-2.col-md-pull-0
                     .input-group
                       .input-group-addon $
@@ -471,7 +480,9 @@ template(name="rentalApplication")
                   input#other-employment-verification-contact.input-large.form-control(type="text", name="otherEmploymentVerificationContact", value="#{fields.otherEmploymentVerificationContact}")
 
               h3 Criminal History
-              p.well.well-sm Have you, or anyone who is included in this application ever:
+              .form-group
+                .col-xs-12.col-sm-10.col-md-9
+                  .well Have you, or anyone who is included in this application ever:
                 span
                   a#no-to-all-criminal-history(href="#") No to all
 
@@ -560,34 +571,38 @@ template(name="rentalApplication")
                           input#second-reference-phone-number.form-control(type="text", name="secondReferencePhoneNumber", value="#{fields.secondReferencePhoneNumber}")
 
               h3 Emergency Contacts
-              p.well.well-sm In the event of an emergency, please contact the following person(s):
               .form-group
-                label.col-sm-2 Name
+                .col-xs-12.col-sm-10.col-md-9
+                  .well In the event of an emergency, please contact the following person(s):
+              .form-group
+                label.col-sm-2.col-md-1 Name
                 .col-sm-4.col-md-3
                   input.input-large.form-control(type="text", name="firstEmergencyContactName", value="#{fields.firstEmergencyContactName}")
                 label.col-sm-1.p-r-0 Phone #
                 .col-sm-3.col-md-2
                   input#first-emergency-contact-phone-number.input-medium.form-control(type="text", name="firstEmergencyContactPhoneNumber", value="#{fields.firstEmergencyContactPhoneNumber}")
                 label.col-sm-1.p-l-10 Address
-                .col-sm-3.col-md-2.p-l-5
+                .col-sm-3.col-md-3.p-l-5
                   input.input-large.form-control(type="text", name="firstEmergencyContactAddress", value="#{fields.firstEmergencyContactAddress}")
 
               .form-group
-                label.col-sm-2 Name
+                label.col-sm-2.col-md-1 Name
                 .col-sm-4.col-md-3
                   input.input-large.form-control(type="text", name="secondEmergencyContactName", value="#{fields.secondEmergencyContactName}")
                 label.col-sm-1.p-r-0 Phone #
                 .col-sm-3.col-md-2
                   input#second-emergency-contact-phone-number.form-control(type="text", name="secondEmergencyContactPhoneNumber", value="#{fields.secondEmergencyContactPhoneNumber}")
                 label.col-sm-1.p-l-10 Address
-                .col-sm-3.col-md-2.p-l-5
+                .col-sm-3.col-md-3.p-l-5
                   input.input-large.form-control(type="text", name="secondEmergencyContactAddress", value="#{fields.secondEmergencyContactAddress}")
 
               h3 Attach Documents
-              p.well.well-sm Please attach your ID (license or passport) and 2 recent pay stubs.
-                br
-                strong Students
-                | should include school acceptance letter and proof of ability to afford apartment (bank statements, loan documents, award letters, etc.)
+              .form-group
+                .col-xs-12.col-sm-10.col-md-9
+                  .well Please attach your ID (license or passport) and 2 recent pay stubs.
+                span.show.m-t-10
+                  strong Students
+                  | should include school acceptance letter and proof of ability to afford apartment (bank statements, loan documents, award letters, etc.)
 
               form(action="/file-upload").dropzone.dropzone-user
                 .dz-message To upload your additional documents, drop files here (or click)
