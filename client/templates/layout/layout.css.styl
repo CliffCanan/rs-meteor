@@ -60,6 +60,18 @@ a.carousel-control .fa
 .has-feedback .form-control
   padding-right: 15px
 
+.well
+  color #111
+  font-size 16px
+  text-align left
+
+.popover
+  min-width 250px
+  .popover-title
+    font-size 15px
+    text-transform capitalize
+    @media screen and (min-width: 768px)
+      font-size: 16px !important
 
 .modal-body,
 .modal-body p
@@ -98,10 +110,6 @@ a.carousel-control .fa
       padding 5px 6px
     .form-control
       font-size 12.5px
-
-  body .hellobar,
-  body #hellobar-pusher
-    display none !important
 
 
 .mb0
@@ -388,9 +396,9 @@ a.carousel-control .fa
 
 
 .spin-wrapper {
-    -webkit-animation: logo-spin 8.5s ease-in-out alternate infinite;
-    -moz-animation: logo-spin 8.5s ease-in-out alternate infinite;
-    animation: logo-spin 8.5s ease-in-out alternate infinite;
+    -webkit-animation: logo-spin 10s ease-in-out alternate infinite;
+    -moz-animation: logo-spin 10s ease-in-out alternate infinite;
+    animation: logo-spin 10s ease-in-out alternate infinite;
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
     -ms-transform-style: preserve-3d;
@@ -411,7 +419,7 @@ a.carousel-control .fa
 }
 
 @-webkit-keyframes logo-spin {
-    89% {
+    88% {
         -webkit-transform: rotate3d(0,1,0,0deg);
     }
 
@@ -421,7 +429,7 @@ a.carousel-control .fa
 }
 
 @-moz-keyframes logo-spin {
-    89% {
+    88% {
         -moz-transform: rotate3d(0,1,0,0deg);
     }
 
@@ -431,7 +439,7 @@ a.carousel-control .fa
 }
 
 @keyframes logo-spin {
-    89% {
+    88% {
         -webkit-transform: rotate3d(0,1,0,0deg);
         -moz-transform: rotate3d(0,1,0,0deg);
         -ms-transform: rotate3d(0,1,0,0deg);
@@ -462,10 +470,10 @@ a.carousel-control .fa
   -ms-animation-name wiggle
   -moz-animation-name wiggle
   -webkit-animation-name wiggle
-  animation-duration 5s
-  -ms-animation-duration 5s
-  -moz-animation-duration 5s
-  -webkit-animation-duration 5s
+  animation-duration 6s
+  -ms-animation-duration 6s
+  -moz-animation-duration 6s
+  -webkit-animation-duration 6s
   animation-timing-function linear
   -ms-animation-timing-function linear
   -moz-animation-timing-function linear
@@ -487,46 +495,16 @@ a.carousel-control .fa
   -webkit-animation-play-state paused
 
 @-webkit-keyframes wiggle {
-    2% {
-      -webkit-transform:translateX(3px) rotate(2deg);
-      transform:translateX(3px) rotate(2deg);
-    }
-    4% {
-      -webkit-transform:translateX(-3px) rotate(-2deg);
-      transform:translateX(-3px) rotate(-2deg);
-    }
-    6% {
-      -webkit-transform:translateX(3px) rotate(2deg);
-      transform:translateX(3px) rotate(2deg);
-    }
-    8% {
-      -webkit-transform:translateX(-3px) rotate(-2deg);
-      transform:translateX(-3px) rotate(-2deg);
-    }
-    10% {
-      -webkit-transform:translateX(2px) rotate(1deg);
-      transform:translateX(2px) rotate(1deg);
-    }
-    12% {
-      -webkit-transform:translateX(-2px) rotate(-1deg);
-      transform:translateX(-2px) rotate(-1deg);
-    }
-    14% {
-      -webkit-transform:translateX(2px) rotate(1deg);
-      transform:translateX(2px) rotate(1deg);
-    }
-    16% {
-      -webkit-transform:translateX(-2px) rotate(-1deg);
-      transform:translateX(-2px) rotate(-1deg);
-    }
-    18% {
-      -webkit-transform:translateX(1px) rotate(0);
-      transform:translateX(1px) rotate(0);
-    }
-    20% {
-      -webkit-transform:translateX(-1px) rotate(0);
-      transform:translateX(-1px) rotate(0);
-    }
+  2% {-webkit-transform:translateX(3px) rotate(2deg);transform:translateX(3px) rotate(2deg);}
+  4% {-webkit-transform:translateX(-3px) rotate(-2deg);transform:translateX(-3px) rotate(-2deg);}
+  6% {-webkit-transform:translateX(3px) rotate(2deg);transform:translateX(3px) rotate(2deg);}
+  8% {-webkit-transform:translateX(-3px) rotate(-2deg);transform:translateX(-3px) rotate(-2deg);}
+  10% {-webkit-transform:translateX(2px) rotate(1deg);transform:translateX(2px) rotate(1deg);}
+  12% {-webkit-transform:translateX(-2px) rotate(-1deg);transform:translateX(-2px) rotate(-1deg);}
+  14% {-webkit-transform:translateX(2px) rotate(1deg);transform:translateX(2px) rotate(1deg);}
+  16% {-webkit-transform:translateX(-2px) rotate(-1deg);transform:translateX(-2px) rotate(-1deg);}
+  18% {-webkit-transform:translateX(1px) rotate(0);transform:translateX(1px) rotate(0);}
+  20% {-webkit-transform:translateX(-1px) rotate(0);transform:translateX(-1px) rotate(0);}
 }
 
 @keyframes wiggle {
