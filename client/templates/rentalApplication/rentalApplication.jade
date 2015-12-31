@@ -180,11 +180,11 @@ template(name="rentalApplication")
 
               #cats-table-wrapper
                 .form-group
-                  .col-sm-1.col-md-2.col-lg-offset-1.text-right
+                  .col-sm-1.col-md-2.text-right
                     a.btn.btn-link.addPet#addCat(href="#")
                       i.fa.fa-plus-circle
                       | Add Cat
-                  .col-xs-12.col-sm-9.col-md-8.p-l-0
+                  .col-xs-12.col-sm-9.col-md-8.p-l-10
                     table#catsTable.table.table-bordered.table-striped.numbered
                       thead
                         tr
@@ -210,17 +210,17 @@ template(name="rentalApplication")
                               option(value="Yes") Yes
                               option(value="No") No
                 .form-group
-                  label.col-sm-4.col-md-3 Additional Info
-                  .col-sm-6.col-md-8
+                  label.col-sm-1.col-md-2.p-l-5 Additional Info
+                  .col-xs-12.col-sm-9.col-md-8.p-l-10
                     textarea.form-control(type="text", name="catAdditionalInfo", value="#{fields.catAdditionalInfo}")
 
               #dogs-table-wrapper
                 .form-group
-                  .col-sm-1.col-md-2.col-lg-offset-1.text-right
+                  .col-sm-1.col-md-2.text-right
                     a.btn.btn-link.addPet#addDog(href="#")
                       i.fa.fa-plus-circle
                       | Add Dog
-                  .col-xs-12.col-sm-10.col-md-9.p-l-0
+                  .col-xs-12.col-sm-10.col-md-9
                     table#dogsTable.table.table-bordered.table-striped.numbered
                       thead
                         tr
@@ -254,8 +254,8 @@ template(name="rentalApplication")
                               option(value="Yes") Yes
                               option(value="No") No
                 .form-group
-                  label.col-sm-4.col-md-3 Additional Info
-                  .col-sm-6.col-md-8
+                  label.col-sm-1.col-md-2.p-l-5 Additional Info
+                  .col-xs-12.col-sm-9.col-md-8.p-l-10
                     textarea.form-control(type="text", name="dogAdditionalInfo", value="#{fields.dogAdditionalInfo}")
 
 
@@ -598,7 +598,7 @@ template(name="rentalApplication")
               .form-group
                 .col-xs-12.col-sm-10.col-md-9
                   .well Please attach your ID (license or passport) and 2 recent pay stubs.
-                    span.show.m-t-10.hide-non-student
+                    div.m-t-10.hide-non-student
                       strong Students
                       | should include school acceptance letter and proof of ability to afford apartment (bank statements, loan documents, award letters, etc.)
 
