@@ -163,7 +163,7 @@ template(name="rentalApplication")
               .form-group
                 label.col-sm-4.col-md-3 Any Pets?
 
-                .col-sm-6.col-md-7.text-left
+                .col-sm-6.col-md-7.col-lg-6.text-left
                   .pet-box#dogBox
                     img(src="../../dog_inactive.png", alt="Dog")
                   .pet-box#catBox
@@ -285,7 +285,6 @@ template(name="rentalApplication")
                   label.col-sm-2 Spayed / Neutered?
                   .col-sm-1
                     input.form-control.checkbox(type="checkbox", name="petSpayedNeutered", value="true")
-
 
 
               h3 Prior Rental Information
@@ -481,10 +480,9 @@ template(name="rentalApplication")
 
               h3 Criminal History
               .form-group
-                .col-xs-12.col-sm-10.col-md-9
+                .col-xs-12.col-sm-10.col-md-9.p-r-5
                   .well Have you, or anyone who is included in this application ever:
-                span
-                  a#no-to-all-criminal-history(href="#") No to all
+                    a#no-to-all-criminal-history.m-l-5(href="#") No to all
 
               .criminal-history-input-wrapper
                 .form-group
@@ -600,9 +598,9 @@ template(name="rentalApplication")
               .form-group
                 .col-xs-12.col-sm-10.col-md-9
                   .well Please attach your ID (license or passport) and 2 recent pay stubs.
-                span.show.m-t-10
-                  strong Students
-                  | should include school acceptance letter and proof of ability to afford apartment (bank statements, loan documents, award letters, etc.)
+                    span.show.m-t-10.hide-non-student
+                      strong Students
+                      | should include school acceptance letter and proof of ability to afford apartment (bank statements, loan documents, award letters, etc.)
 
               form(action="/file-upload").dropzone.dropzone-user
                 .dz-message To upload your additional documents, drop files here (or click)
