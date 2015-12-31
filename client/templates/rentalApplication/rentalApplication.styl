@@ -78,26 +78,45 @@
     &:active
       top 2px
 
+    &.selected:after
+      content: "No Pets";
+      font-size: 16px;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+      bottom: -35px;
+      width: 100%;
+      text-align: center;
+      text-transform: uppercase;
+
     &#dogBox
       background url(../../dog_inactive.png) center center no-repeat
       background-size 80% !important
       &.selected
         background url(../../dog.png) center center no-repeat
+        &:after
+          content: "Dogs";
     &#catBox
       background url(../../cat_inactive.png) center center no-repeat
       background-size 80% !important
       &.selected
         background url(../../cat.png) center center no-repeat
+        &:after
+          content: "Cats";
     &#otherBox
       background url(../../other_inactive.png) center center no-repeat
       background-size 80% !important
       &.selected
         background url(../../other.png) center center no-repeat
+        &:after
+          content: "Other";
     &#noPetsBox
       background url(../../nopets_inactive.png) center center no-repeat
       background-size 80% !important
       &.selected
         background url(../../nopets.png) center center no-repeat
+        &:after
+          content: "No Pets";
 
     img
       width 100%

@@ -142,9 +142,13 @@ Template.rentalApplication.events
         template.$('#cats-table-wrapper').slideDown()
       else if $(event.target).attr('id') is 'dogBox'
         template.$('#dogs-table-wrapper').slideDown()
-      else if $(event.target).attr('id') is 'noPetsBox'
+
+      if $(event.target).attr('id') is 'noPetsBox'
+        template.$('.pet-box:not(#noPetsBox)').removeClass('selected')
         template.$('#cats-table-wrapper').slideUp()
         template.$('#dogs-table-wrapper').slideUp()
+      else
+        template.$('.pet-box#noPetsBox').removeClass('selected')
 
   "click #addCat": (event, template) ->
     rowNum = $("#catsTable tbody tr").length + 1

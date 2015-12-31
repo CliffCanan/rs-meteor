@@ -164,13 +164,13 @@ template(name="rentalApplication")
                 label.col-sm-4.col-md-3 Any Pets?
 
                 .col-sm-6.col-md-7.col-lg-6.text-left
-                  .pet-box#dogBox
+                  .pet-box#dogBox(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Yes - I have a dog!")
                     img(src="../../dog_inactive.png", alt="Dog")
-                  .pet-box#catBox
+                  .pet-box#catBox(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Yes - I have a cat!")
                     img(src="../../cat_inactive.png", alt="Cat")
-                  .pet-box#otherBox
+                  .pet-box#otherBox(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Yes - I have another kind of pet!")
                     img(src="../../other_inactive.png", alt="Other Animal")
-                  .pet-box#noPetsBox
+                  .pet-box#noPetsBox(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Nope - I do not have any pets.")
                     img(src="../../nopets_inactive.png", alt="No Pets")
 
                 .col-sm-3.col-lg-2.hidden
