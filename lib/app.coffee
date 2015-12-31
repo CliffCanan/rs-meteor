@@ -37,6 +37,12 @@
     human: "Stamford, CT"
     latitude: 41.05
     longitude: -73.54
+  trenton:
+    short: "Trenton"
+    long: "TRENTON, NJ"
+    human: "Trenton, NJ"
+    latitude: 40.22
+    longitude: -74.76
   "washington-dc":
     short: "Washington"
     long: "WASHINGTON, DC"

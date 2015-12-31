@@ -183,6 +183,52 @@ Meteor.methods
     else
       return false
 
+  "importPropertyFromIDX": (property) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
+
+    # Check if property exists
+    building = Buildings.findOne({'source.mlsNo': property.source.mlsNo}, {fields: {_id: 1}})
+
+    if building
+      buildingId = building._id
+      message = "Found existing building with id #{buildingId}"
+    else
+      buildingId = Promise.await Buildings.insert property
+      message = "Inserted new building with id #{buildingId}"
+
+      RETS = Meteor.npmRequire('rets-client');
+      clientSettings =
+        loginUrl: 'http://ptest.mris.com:6103/ptest/login'
+        username: 'TRNRETSTEST'
+        password: 'DBk9sH'
+        version:'RETS/1.7.2'
+        userAgent: "MRIS Conduit/2.0"
+
+      console.log "Getting photos for building with ListingKey: #{property.source.listingKey}"
+      RETS.getAutoLogoutClient clientSettings, Meteor.bindEnvironment (client) ->
+        return client.objects.getPhotos("Property", "Photo", property.source.listingKey)
+        .then Meteor.bindEnvironment (photos) ->
+          i = 1
+          console.log "Received #{photos.length} photos."
+          Promise.all(photos.map (photo) ->
+            return new Promise (resolvePhoto) ->
+              newFile = new FS.File()
+              Promise.await newFile.attachData photo.buffer, type: photo.mime
+              extension = photo.mime.split('/')[1]
+              fileName = "#{property._id}_#{photo.objectId}.#{extension}"
+              newFile.name(fileName)
+              file = Promise.await BuildingImages.insert newFile
+              Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+              console.log "Saving #{fileName} - #{i} / #{photos.length} photos."
+              i++
+              Meteor.sleep 2000
+              resolvePhoto()
+          ).then ->
+            console.log "All images added for #{property._id}"
+
+      console.log message
+      message
+
   "createClient": (clientName) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
     [firstName, lastName] = clientName.split ' '
