@@ -123,30 +123,32 @@ Template.rentalApplication.events
       template.$('.student-wrapper').slideUp()
       template.$('.hide-non-student').hide()
 
-  "change #has-pets": (event, template) ->
-    if $(event.target).val() is 'Yes'
-      template.$('.pets-wrapper').slideDown()
-    else if $(event.target).val() is 'No'
-      template.$('.pets-wrapper').slideUp()
-
   "click .pet-box": (event, template) ->
     if $(event.target).hasClass('selected')
       $(event.target).removeClass('selected')
+
       if $(event.target).attr('id') is 'catBox'
         template.$('#cats-table-wrapper').slideUp()
       else if $(event.target).attr('id') is 'dogBox'
         template.$('#dogs-table-wrapper').slideUp()
+      else if $(event.target).attr('id') is 'dogBox'
+        template.$('#otherpet-wrapper').slideUp()
+
     else
       $(event.target).addClass('selected')
+
       if $(event.target).attr('id') is 'catBox'
         template.$('#cats-table-wrapper').slideDown()
       else if $(event.target).attr('id') is 'dogBox'
         template.$('#dogs-table-wrapper').slideDown()
+      else if $(event.target).attr('id') is 'otherBox'
+        template.$('#otherpet-wrapper').slideDown()
 
       if $(event.target).attr('id') is 'noPetsBox'
         template.$('.pet-box:not(#noPetsBox)').removeClass('selected')
         template.$('#cats-table-wrapper').slideUp()
         template.$('#dogs-table-wrapper').slideUp()
+        template.$('#otherpet-wrapper').slideUp()
       else
         template.$('.pet-box#noPetsBox').removeClass('selected')
 

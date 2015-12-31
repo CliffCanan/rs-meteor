@@ -18,7 +18,7 @@ Template.index.events
 $(window).scroll ->
   "use strict"
   scroll = $(window).scrollTop()
-  if scroll > 550 or ($(window).width() < 600 and scroll > 150)
+  if scroll > 500 or ($(window).width() < 800 and scroll > 100)
     $("header").addClass "navbar-dark"
   else
     $("header").removeClass "navbar-dark"

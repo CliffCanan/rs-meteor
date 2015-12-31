@@ -59,7 +59,7 @@
     margin 30px auto 20px
     position relative
     padding 1px 20px 20px
-    background rgbargba(6,13,25,0.66)
+    background rgba(6,13,25,0.66)
     @media screen and (min-width: 768px)
       background transparent
       width 260px
@@ -78,6 +78,9 @@
     border-radius: 50%;
     h3
       margin-top 18px
+      letter-spacing .5px
+      max-width 100%
+      width 100%
     ul
       max-width 50%
       margin 130px auto 0
@@ -94,7 +97,9 @@
     display none
 
   .concierge-wrap
-    background transparent url('/concierge.png') no-repeat center
+    background transparent url('/concierge.png') no-repeat center 65px
+    ul
+      margin-top 145px
   
   .technology-wrap
     background transparent url('/screens.png') no-repeat center
@@ -104,7 +109,7 @@
       height 960px
     .benefits-wrap
       height 300px
-      width 530px
+      width 565px
       .fa-plus
         display block
     .concierge-wrap, .technology-wrap
@@ -122,33 +127,38 @@
           font-size 16px
     .concierge-wrap
       background-size 140px
-      background-position 70px
+      background-position 70px 110px
       left 0
+      h3
+        max-width 200px
+      ul
+        margin-top 130px
+      
     .technology-wrap
       background-size 122px
       background-position 90px
       right 0
     .buttons-wrap
       margin-top 10px
+
   @media screen and (min-width: 992px)
     .home-page-bg
       height 990px
     .benefits-wrap
-      height 300px
-      width 550px
+      height 310px
+      width 570px
 
   .buttons-wrap
     margin 0 auto
     margin-top 20px
     text-align left
     width 270px
-    @media screen and (min-width: 360px)
-      width 320px
     @media screen and (min-width: 768px)
       margin-top 0
       width 540px
-    .col-lg-6
-      padding 0
+    .col-md-6
+      padding-left 10px
+      padding-left 10px
 
   .button-shadow
     background rgba(0, 0, 0, .3)
