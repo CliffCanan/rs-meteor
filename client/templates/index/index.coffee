@@ -5,25 +5,18 @@ Template.index.rendered = ->
   #- Background slideshow
   $(".home-page-bg").vegas
     slides: [
-      src: "../../images/living-room.jpg"
-      #animation: "kenburns"
-    ,
-      src: "../../images/bedroom.png"
-      #animation: "kenburnsRight"
-    ,
-      src: "../../images/kitchen.png"
-      #animation: "kenburnsDown"
-    ,
-      src: "../../images/living-room2.jpg"
-      #animation: "kenburnsUp"
-      #animationDuration: 7000
+      src: "/images/home-bg/philly2.png",
+      src: "/images/home-bg/living-room.jpg",
+      src: "/images/home-bg/bedroom.png",
+      src: "/images/home-bg/kitchen.png",
+      src: "/images/home-bg/living-room2.jpg"
     ]
     #-overlay: "landlordlandingpage/assets/img/backgrounds/overlays/06.png"
-    delay: 8000
+    delay: 8500
     transition: [ "blur", "blur2", "fade" ]
+    transitionDuration: 1500
     #walk: (index, slideSettings) ->
     #  $("#top-carousel").carousel "prev"
-
 
 
 
