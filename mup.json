@@ -13,6 +13,9 @@
   "setupPhantom": false,
   "appName": "rentscene",
   "app": "/opt/rs-2",
+  "ssl": {
+    "pem": "./ssl/bundle.pem"
+  },
   "env": {
     "PORT": 80,
     "ROOT_URL": "http://rentscene.com/",
