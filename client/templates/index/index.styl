@@ -8,6 +8,10 @@
   height 1100px
   position absolute !important
   z-index -1
+  @media screen and (min-width: 768px)
+    height 740px
+  @media screen and (min-width: 1200px)
+    height 730px
 
 .head-section-wrap
   position relative
@@ -64,7 +68,10 @@
     background rgba(6,13,25,0.66)
     @media screen and (min-width: 768px)
       background transparent
-      width 260px
+      height 300px
+      width 565px
+    @media screen and (min-width: 1200px)
+      width 590px
     .fa-plus
       display none
       font-size 35px
@@ -72,26 +79,59 @@
       position absolute
       top 138px
       z-index 999
+      @media screen and (min-width: 768px)
+        display block
+      @media screen and (min-width: 1200px)
+        left 280px
+        top 143px
+
   .buttons-wrap
     text-shadow: none
-  .concierge-wrap, .technology-wrap
+    @media screen and (min-width: 768px)
+      margin-top 10px
+      width 540px
+    @media screen and (min-width: 1200px)
+      margin-top 25px
+
+  .concierge-wrap,
+  .technology-wrap
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
+    @media screen and (min-width: 768px)
+      background-color rgba(6,8,11,0.6)
+      position absolute
+      height 320px
+      width 320px
+    @media screen and (min-width: 1200px)
+      height 330px
+      width 330px
     h3
       margin-top 18px
       letter-spacing .5px
       max-width 100%
       width 100%
+      @media screen and (min-width: 768px)
+        margin 40px auto 0
+      @media screen and (min-width: 1200px)
+        letter-spacing .25px
     ul
       max-width 50%
       margin 130px auto 0
       font-family 'Open Sans', 'Raleway', Helvetica, Arial, sans-serif
       font-size 15px
       font-weight normal
+      @media screen and (min-width: 768px)
+        margin 130px auto 0
       li
         text-align left
         width 180px
+        @media screen and (min-width: 768px)
+          width 194px
+          font-size 16px
+        @media screen and (min-width: 1200px)
+          width 200px
+          font-size 17px
       i
         color #5894fb
         width 35px
@@ -101,44 +141,25 @@
 
   .concierge-wrap
     background transparent url('/images/concierge.png') no-repeat center 65px
+    @media screen and (min-width: 768px)
+      background-size 140px
+      background-position center 110px
+      left 0
+    @media screen and (min-width: 1200px)
+      background-position center 114px
     ul
       margin-top 145px
   
   .technology-wrap
     background transparent url('/images/screens.png') no-repeat center
-    
-  @media screen and (min-width: 768px)
-    .home-page-bg
-      height 740px
-    .benefits-wrap
-      height 300px
-      width 565px
-      .fa-plus
-        display block
-    .concierge-wrap,
-    .technology-wrap
-      background-color rgba(6,8,11,0.6)
-      height 320px
-      position absolute
-      width 320px
-      h3
-        margin 40px auto 0
-      ul
-        margin 130px auto 0
-        li
-          width 194px
-          font-size 16px
-    .concierge-wrap
-      background-size 140px
-      background-position center 110px
-      left 0
-      
-    .technology-wrap
+    @media screen and (min-width: 768px)
       background-size 122px
       background-position center
       right 0
-    .buttons-wrap
-      margin-top 10px
+    @media screen and (min-width: 1200px)
+      background-size 122px
+      background-position center 112px
+
 
   @media screen and (min-width: 992px)
     .home-page-bg
@@ -152,9 +173,6 @@
     margin-top 20px
     text-align left
     width 270px
-    @media screen and (min-width: 768px)
-      margin-top 0
-      width 540px
     .col-md-6
       padding-left 10px
       padding-left 10px
@@ -172,16 +190,6 @@
     border-radius 5px
     box-sizing border-box
     width 100%
-    
-  .button-browse:after
-    content: "\25BC";
-    display: inline-block;
-    float: right;
-    
-  .button-expert:after
-    content: "\25B6";
-    display: inline-block;
-    float: right;
 
 .city-list
   background #fff
@@ -213,30 +221,6 @@
     &:hover
       color #fff
       text-decoration none
-
-.more-info
-  position absolute
-  left 20px
-  bottom 20px
-  display block
-  text-align left
-  color #fff
-  font-family 'Montserrat', Helvetica, sans-serif
-  font-size 14px
-  text-decoration none
-  &.active, &:hover, &:focus
-    color #ffcc33
-    text-decoration none
-  &:before
-    content ""
-    background url(/images/scroll-icon.png) no-repeat left center
-    display inline-block
-    width 22px
-    height 36px
-    vertical-align middle
-    padding 0 28px 0 0
-  &:hover:before, &:focus:before
-    background url(/images/scroll-icon-hover.png) no-repeat left center
 
 .testimonials-wrap
   background #ececec
@@ -298,7 +282,6 @@ blockquote
   font-weight 500
   @media screen and (min-width: 992px)
     font-size 15px
-
 
 .quote-footer
   font-size 100%
@@ -391,37 +374,8 @@ blockquote
   @media screen and (min-width: 600px)
     display none
 
-
 #ui-datepicker-div 
   z-index 9999 !important
 
-
-  @media screen and (min-width: 1200px)
-    .home-page-bg
-      height 730px
-    .benefits-wrap
-      width 590px
-      .fa-plus
-        left 280px
-        top 143px
-    .concierge-wrap,
-    .technology-wrap
-      height 330px
-      width 330px
-      h3
-        letter-spacing .25px
-      ul
-        margin 130px auto 0
-        li
-          width 200px
-          font-size 17px
-    .concierge-wrap
-      background-size 140px
-      background-position center 114px
-      
-    .technology-wrap
-      background-size 122px
-      background-position center 112px
-
-    .buttons-wrap
-      margin-top 25px
+.vegas-overlay
+  opacity .2

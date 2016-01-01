@@ -15,13 +15,12 @@ Template.index.rendered = ->
     ,
       src: "/images/home-bg/living-room2.jpg"
     ]
-    #-overlay: "landlordlandingpage/assets/img/backgrounds/overlays/06.png"
+    overlay: "/images/home-bg/overlays/06.png"
     delay: 8500
     transition: [ "blur", "blur2", "fade" ]
-    transitionDuration: 1500
-    #walk: (index, slideSettings) ->
-    #  $("#top-carousel").carousel "prev"
-
+    transitionDuration: 1750
+    #-walk: (index, slideSettings) ->
+    #-  $("#top-carousel").carousel "prev"
 
 
 
