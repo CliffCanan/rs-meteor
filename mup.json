@@ -9,7 +9,7 @@
   ],
   "setupMongo": false,
   "setupNode": false,
-  "nodeVersion": "0.10.36",
+  "nodeVersion": "0.10.40",
   "setupPhantom": false,
   "appName": "rentscene",
   "app": "/opt/rs-2",
