@@ -66,7 +66,7 @@ Router.map ->
         recommendation = @data()
 
         firstBuilding = Buildings.findOne(recommendation.buildingIds[0]) if recommendation.buildingIds
-        firstCityId = if firstBuilding then firstBuilding.cityId else 'atlanta'
+        firstCityId = if firstBuilding then firstBuilding.cityId else 'philadelphia'
         @params.cityId = if @params.query.cityId then @params.query.cityId else firstCityId
         []
 
