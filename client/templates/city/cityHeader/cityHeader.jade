@@ -2,11 +2,11 @@ template(name="cityHeader")
   .city-sub-header.clearfix
 
     .row
-      .col-xs-12.col-sm-2.city-select.city-sub-header-list-wrap.dropdown.city-filter
+      .col-xs-12.col-sm-2.city-select.city-sub-header-list-wrap.dropdown.city-filter.p-r-5
         button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
           i.fa.fa-globe
           span.button-text {{currentCity}}
-          span.caret
+          span.caret.hide-md
         ul.city-sub-header-list.dropdown-menu.list-unstyled
           each cities
             li.city-sub-header-item(data-value="{{key}}") {{value}}
