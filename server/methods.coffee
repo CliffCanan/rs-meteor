@@ -218,29 +218,33 @@ Meteor.methods
 
     console.log "Getting photos for building with ListingKey: #{property.source.listingKey}"
     RETS.getAutoLogoutClient clientSettings, Meteor.bindEnvironment (client) ->
-      return client.objects.getPhotos("Property", "Photo", property.source.listingKey)
-      .then Meteor.bindEnvironment (photos) ->
-        i = 1
-        console.log "Received #{photos.length} objects."
-        Promise.all(photos.map (photo) ->
-          return new Promise (resolvePhoto) ->
-            if photo.buffer
-              newFile = new FS.File()
-              Promise.await newFile.attachData photo.buffer, type: photo.mime
-              extension = photo.mime.split('/')[1]
-              fileName = "#{property._id}_#{photo.objectId}.#{extension}"
-              newFile.name(fileName)
-              file = Promise.await BuildingImages.insert newFile
-              Buildings.update(_id: buildingId, {$addToSet: {images: file}})
-              console.log "Saving #{fileName} - #{i} / #{photos.length} photos."
-              i++
-              Meteor.sleep 1000
-              resolvePhoto()
-            else
-              fut.return status: 400, message: photo.error.message, buildingId: property._id, mlsNo: property.source.mlsNo
-        ).then ->
-          console.log "All photos processed for #{property._id}"
-          fut.return status: 200, message: 'done', buildingId: property._id, mlsNo: property.source.mlsNo
+      try
+        return client.objects.getPhotos("Property", "Photo", property.source.listingKey)
+        .then Meteor.bindEnvironment (photos) ->
+          i = 1
+          console.log "Received #{photos.length} objects."
+          Promise.all(photos.map (photo) ->
+            return new Promise (resolvePhoto) ->
+              if photo.buffer
+                newFile = new FS.File()
+                Promise.await newFile.attachData photo.buffer, type: photo.mime
+                extension = photo.mime.split('/')[1]
+                fileName = "#{property._id}_#{photo.objectId}.#{extension}"
+                newFile.name(fileName)
+                file = Promise.await BuildingImages.insert newFile
+                Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+                console.log "Saving #{fileName} - #{i} / #{photos.length} photos."
+                i++
+                Meteor.sleep 1000
+                resolvePhoto()
+              else
+                fut.return status: 400, message: photo.error.message, buildingId: property._id, mlsNo: property.source.mlsNo
+          ).then ->
+            console.log "All photos processed for #{property._id}"
+            fut.return status: 200, message: 'done', buildingId: property._id, mlsNo: property.source.mlsNo
+      catch error
+        console.log error.message
+        fut.return status: 400, message: error.message, buildingId: property._id, mlsNo: property.source.mlsNo
 
     fut.wait()
 
