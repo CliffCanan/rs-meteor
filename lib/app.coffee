@@ -31,6 +31,12 @@
     human: "Philadelphia, PA"
     latitude: 39.95
     longitude: -75.17
+  princeton:
+    short: "Princeton"
+    long: "PRINCETON, NJ"
+    human: "Princeton, NJ"
+    latitude: 40.35
+    longitude: -74.67
   stamford:
     short: "Stamford"
     long: "STAMFORD, CT"
