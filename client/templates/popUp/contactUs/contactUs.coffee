@@ -85,6 +85,8 @@ Template.contactUs.rendered = ->
       json.notSure = json.tourOption is "notSure"
       json.cityId = if cityId then cityId else ''
       json.cityName = if cityId then cities[cityId].short else ''
+      json.contactUsTourDate = if json.contactUsTourDate then json.contactUsTourDate else ''
+      json.phoneNumber = if json.phoneNumber then json.phoneNumber else ''
 
       cityNameForFB = json.cityName
 

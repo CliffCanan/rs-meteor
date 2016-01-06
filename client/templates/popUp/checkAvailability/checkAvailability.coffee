@@ -59,6 +59,7 @@ Template.checkAvailability.rendered = ->
       json.cityId = building.cityId
       json.buildingName = building.title
       json.buildingId = building._id
+      json.phoneNumber = if json.phoneNumber then json.phoneNumber else ''
       if not json.bedrooms
         json.bedrooms = ""
       json.link = "city/"+building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
