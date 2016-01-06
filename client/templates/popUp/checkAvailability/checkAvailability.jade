@@ -1,4 +1,23 @@
 template(name="checkAvailability")
+  script(type='text/javascript').
+    goog_snippet_vars2 = function() {
+      var w = window;
+      w.google_conversion_id = 971362509;
+      w.google_conversion_label = "Jy4BCLua72IQzaGXzwM";
+      w.google_remarketing_only = false;
+    }
+    //- DO NOT CHANGE THE CODE BELOW.
+    goog_report_conversion2 = function(url) {
+      goog_snippet_vars2();
+      window.google_conversion_format = "3";
+      window.google_is_call = true;
+      var opt = new Object();
+      opt.onload_callback = function() {
+    }
+    var conv_handler = window['google_trackConversion'];
+    if (typeof(conv_handler) == 'function') {
+      conv_handler(opt);
+    }
   +messageSent
   //-button.btn.btn-primary.check-availability Check Availability
   //-.addthis_sharing_toolbox

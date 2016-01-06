@@ -6,6 +6,7 @@ ContactUsRequests.allow
       _id: Match.Id
       name: String
       email: String
+      phoneNumber: String
       bedrooms: String
       maxMonthlyRent: String
       contactUsMoveInDate: String

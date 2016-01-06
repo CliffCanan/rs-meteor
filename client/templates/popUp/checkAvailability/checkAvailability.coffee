@@ -9,8 +9,13 @@ Template.checkAvailability.helpers
     cities[cityId].long
 
 Template.checkAvailability.rendered = ->
+
+  $.getScript 'https://www.googleadservices.com/pagead/conversion_async.js'
+
   form = @$("form")
+
   building = @.data.building
+
   form.formValidation(
     framework: 'bootstrap'
     live: 'disabled'
@@ -65,19 +70,27 @@ Template.checkAvailability.rendered = ->
             Session.set("serverError", true)
           else
             Session.set("serverError", false)
+
             $('#checkAvailabilityPopup').modal('hide')
+
             form.trigger('reset')
             form.data('formValidation').resetForm()
+
             $('#messageSentPopup').modal('show')
+
             form.find(".submit-button").prop("disabled", false)
             form.find(".loading").hide()
+
             analytics.track "Submitted Check Availability form", {buildingId: building._id, buildingName: building.title, label: building.title}
             analytics.page title: "Submitted Check Availability form", path: '/submit-availability-form'
+
+            goog_report_conversion2()
+
             # Send FB conversion tracking to FB (Added 12/14/15 by CC)
             fbq "track", "Lead",
               content_name: building.title.replace(' ','_')
               content_category: "CheckAvailability"
-              value: 25.0
+              value: 20.0
               currency: 'USD'
       )
   )
