@@ -5,6 +5,7 @@ CheckAvailabilityRequests.allow
       _id: Match.Id
       name: String
       email: String
+      phoneNumber: String
       moveInDate: String
       cityName: String
       cityId: String
