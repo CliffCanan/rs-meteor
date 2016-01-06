@@ -12,15 +12,17 @@
       padding 5px 0 5px 15px
       font-size 16px
     & > li
-        &.active
-          color #272b30
-        & + li
-          &:before
-            padding 0 15px
-            color #272b30
-            content ">"
-        a
-          color #4588fa
+      &.active
+        color #272b30
+        font-weight bold
+      & + li
+        &:before
+          font normal normal normal 14px/1 FontAwesome
+          color #6C6E70
+          content "\f105"
+          padding 0 15px
+      a
+        color #4588fa
 
   .building-sidebar
     height 100%
@@ -55,6 +57,7 @@
           width 100%
           float none
           padding 0
+          margin-bottom 5px
       .building-main-price-wrap
         clear both
         display table
@@ -100,6 +103,8 @@
 
       .building-main-prop-list
         font-size 0
+        @media screen and (min-width: 992px)
+          padding 0
         .building-main-prop
           color #272b30
           font-size 15px
@@ -302,7 +307,7 @@
         font-family 'Montserrat', Helvetica, sans-serif
         margin 0 0 5px
         i
-          padding 0 7% 0 0
+          padding 0 2px 0 0
           font-size 12px
         .unit-price
           font-size 14px

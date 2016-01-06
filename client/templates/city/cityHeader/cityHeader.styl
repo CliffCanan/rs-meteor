@@ -15,6 +15,8 @@
   box-sizing border-box
   .dropdown
     float left
+    @media screen and (min-width: 992px)
+      float none
   .btn
     height 42px
 
@@ -28,14 +30,14 @@
       padding 0 6px
   &.bedroom-type-select
     @media screen and (min-width: 1200px)
-      padding 0 6px
+      padding 0 10px
   &.city-select
     .button-text
       width 142px
   &.bedroom-type-select
-    min-width 124px
+    min-width 122px
     .city-sub-header-list
-      padding 0 8%
+      padding 0 9%
   .city-sub-header-title
     width 100%
     font-family 'Montserrat', Helvetica, sans-serif
@@ -121,14 +123,15 @@
   display inline-block
   font-size 0
   float left
-  padding 3px 12px 2px 2px
+  padding 10px 12px 2px 2px
   vertical-align top
-  width 24.5%
+  width 47%
   position relative
   @media screen and (max-width: 768px)
     height 55px
-    width 47%
-    padding-top 10px
+  @media screen and (min-width: 768px)
+    padding 3px 15px 2px
+    width 30%
   b
     font-family 'Montserrat', Helvetica, sans-serif
     font-size 13px
@@ -149,7 +152,7 @@
       display inline-block
     + b
       @media screen and (min-width: 768px)
-        left 35px
+        left 50px
   .price-slider + b
     right 5px
     @media screen and (min-width: 768px)
@@ -172,11 +175,21 @@
         box-shadow none
         background #8f9092
 
-@media screen and (min-width: 768px)
-  #features-container
-    padding-left 0
+
   #location-filter-wrapper
     padding-left 10px
+
+#features-container,
+#location-filter-wrapper
+  @media screen and (min-width: 768px)
+    padding 0 15px
+  @media screen and (min-width: 992px)
+    .dropdown
+      float none
+      padding 0 5px
+      .dropdown-toggle
+        width 100%
+
 
 .dropdown
   .features-btn
@@ -187,6 +200,7 @@
     .caret
       position absolute
       top 19px
+      right 18%
 
 .open
   & > .dropdown-toggle
@@ -365,8 +379,12 @@
 
 .building-title-search-wrapper
   @media screen and (min-width: 768px)
-    max-width 14.2%
     padding 0 0 0 5px
+  @media screen and (min-width: 992px)
+    max-width 13%
+    padding 0 10px 0 5px
+  @media screen and (min-width: 1200px)
+    max-width 15%
   input
     font-size 14px
     color #272b30
