@@ -3,7 +3,7 @@ Template.checkAvailability.helpers
     Session.get("serverError")
   propertyName: ->
     if Session.get("currentUnit")
-      return Session.get("currentUnit").title
+      return Session.get("currentUnit").title.trim()
   currentCity: ->
     cityId = @query.cityId || @cityId
     cities[cityId].long
