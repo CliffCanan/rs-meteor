@@ -33,7 +33,7 @@ template(name="cityHeader")
         .dropdown.city-filter.features-wrap
           button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
             i.fa.fa-fw.fa-check
-            span.hide-md Features
+            span.hide-sm Features
           form.form-building-features-filter.features-section.dropdown-menu.dropdown-menu-left
             h3.filter-title
               | Filter the search results by the criteria you need.
@@ -82,11 +82,11 @@ template(name="cityHeader")
             span.clear-btn.form-building-features-filter-reset
               | Clear Filter
 
-      #location-filter-wrapper.col-xs-2.col-sm-1
+      #location-filter-wrapper.col-xs-2
         .dropdown.city-filter
           button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
             i.fa.fa-fw.fa-map-marker
-            span.hide-md Location
+            span.hide-sm Location
           form.form-building-filter.filter-section.dropdown-menu.dropdown-menu-left
             h3.filter-title
               | Enter any common destination (work, school, etc) to find nearyby appartments.
@@ -134,7 +134,7 @@ template(name="cityHeader")
                 span.clear-btn.form-building-address-filter-reset
                   | Clear Filter
 
-      .col-xs-8.col-sm-2.pull-right.building-title-search-wrapper
+      .col-xs-8.col-sm-2.building-title-search-wrapper
         input.building-title-search.form-control(type="text", placeholder="Search buildings", value="{{query.q}}")
         i.fa.fa-fw.fa-search
 
