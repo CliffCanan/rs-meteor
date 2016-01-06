@@ -183,7 +183,7 @@ Meteor.methods
     else
       return false
 
-  "importPropertyFromIDX": (property) ->
+  "importPropertyFromIDX": (property, options) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
 
     if not cities[property.cityId]
@@ -194,9 +194,16 @@ Meteor.methods
 
     if building
       buildingId = building._id
-      message = "Found existing building with id #{buildingId}"
-      console.log message
-      return status: 204, message: message, buildingId: buildingId, mlsNo: property.source.mlsNo 
+
+      if options.force is true
+        if building.images
+          _.each building.images (buildingImage) ->
+            BuildingImages.remove(buildingImage._id);
+        Buildings.remove(buildingId);
+      else
+        message = "Found existing building with id #{buildingId}"
+        console.log message
+        return status: 204, message: message, buildingId: buildingId, mlsNo: property.source.mlsNo 
 
     Future = Npm.require('fibers/future')
     fut = new Future()
