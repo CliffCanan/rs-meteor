@@ -50,6 +50,7 @@ ecmascript-runtime@0.2.6
 ejson@1.0.7
 email@1.0.8
 fastclick@1.0.7
+force-ssl@1.0.6
 froatsnook:sleep@1.1.0
 gadicohen:robots-txt@0.0.10
 gadicohen:sitemaps@0.0.23
