@@ -217,8 +217,8 @@ Meteor.methods
       userAgent: "MRIS Conduit/2.0"
 
     console.log "Getting photos for building with ListingKey: #{property.source.listingKey}"
-    RETS.getAutoLogoutClient clientSettings, Meteor.bindEnvironment (client) ->
-      try
+    try
+      RETS.getAutoLogoutClient clientSettings, Meteor.bindEnvironment (client) ->
         return client.objects.getPhotos("Property", "Photo", property.source.listingKey)
         .then Meteor.bindEnvironment (photos) ->
           i = 1
@@ -242,9 +242,9 @@ Meteor.methods
           ).then ->
             console.log "All photos processed for #{property._id}"
             fut.return status: 200, message: 'done', buildingId: property._id, mlsNo: property.source.mlsNo
-      catch error
-        console.log error.message
-        fut.return status: 400, message: error.message, buildingId: property._id, mlsNo: property.source.mlsNo
+    catch error
+      console.log error.message
+      fut.return status: 400, message: error.message, buildingId: property._id, mlsNo: property.source.mlsNo
 
     fut.wait()
 
