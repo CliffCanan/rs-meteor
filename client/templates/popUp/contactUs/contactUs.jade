@@ -13,9 +13,6 @@ template(name="contactUs")
       window.google_is_call = true;
       var opt = new Object();
       opt.onload_callback = function() {
-      if (typeof(url) != 'undefined') {
-        window.location = url;
-      }
     }
     var conv_handler = window['google_trackConversion'];
     if (typeof(conv_handler) == 'function') {

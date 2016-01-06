@@ -8,6 +8,8 @@ Template.contactUs.helpers
 Template.contactUs.rendered = ->
   Session.set("serverError", false)
 
+  $.getScript 'https://www.googleadservices.com/pagead/conversion_async.js'
+
   $('i[data-toggle="popover"]').popover()
 
   cityId = @.data?.cityId
@@ -101,6 +103,8 @@ Template.contactUs.rendered = ->
           analytics.track "Submitted Contact Us form"
           analytics.page title: "Submitted Contact Us form", path: '/submit-contact-us-form'
 
+          goog_report_conversion()
+
           form.find(".submit-button").prop("disabled", false)
           form.find(".loading").hide()
 
@@ -108,7 +112,7 @@ Template.contactUs.rendered = ->
           fbq "track", "Lead",
             content_name: cityNameForFB.replace(' ','_')
             content_category: "ContactUs"
-            value: 25.0
+            value: 20.0
             currency: 'USD'
       )
   )
