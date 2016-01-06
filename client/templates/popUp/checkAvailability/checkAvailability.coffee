@@ -10,8 +10,6 @@ Template.checkAvailability.helpers
 
 Template.checkAvailability.rendered = ->
 
-  $.getScript 'https://www.googleadservices.com/pagead/conversion_async.js'
-
   form = @$("form")
 
   building = @.data.building
@@ -83,8 +81,6 @@ Template.checkAvailability.rendered = ->
 
             analytics.track "Submitted Check Availability form", {buildingId: building._id, buildingName: building.title, label: building.title}
             analytics.page title: "Submitted Check Availability form", path: '/submit-availability-form'
-
-            goog_report_conversion2()
 
             # Send FB conversion tracking to FB (Added 12/14/15 by CC)
             fbq "track", "Lead",

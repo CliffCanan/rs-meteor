@@ -5,29 +5,8 @@ Template.contactUs.helpers
     if @cityId
       "to " + cities[@cityId].short
 
-Template.city.onCreated ->
-  goog_snippet_vars = ->
-    w = window
-    w.google_conversion_id = 971362509
-    w.google_conversion_label = "U6-FCPq4gGMQzaGXzwM"
-    w.google_remarketing_only = false
-
-  #- DO NOT CHANGE THE CODE BELOW.
-  goog_report_conversion = (url) ->
-    goog_snippet_vars()
-    window.google_conversion_format = "3"
-    window.google_is_call = true
-    opt = new Object()
-    opt.onload_callback = ->
-      window.location = url  unless typeof (url) is "undefined"
-
-    conv_handler = window["google_trackConversion"]
-    conv_handler opt  if typeof (conv_handler) is "function"
-
 Template.contactUs.rendered = ->
   Session.set("serverError", false)
-
-  $.getScript 'https://www.googleadservices.com/pagead/conversion_async.js'
 
   $('i[data-toggle="popover"]').popover()
 
@@ -124,12 +103,12 @@ Template.contactUs.rendered = ->
           analytics.track "Submitted Contact Us form"
           analytics.page title: "Submitted Contact Us form", path: '/submit-contact-us-form'
 
-          goog_report_conversion()
+          #-goog_report_conversion()
 
           form.find(".submit-button").prop("disabled", false)
           form.find(".loading").hide()
 
-          # (Added 12/14/15 by CC)
+          #- (Added 12/14/15 by CC)
           fbq "track", "Lead",
             content_name: cityNameForFB.replace(' ','_')
             content_category: "ContactUs"
