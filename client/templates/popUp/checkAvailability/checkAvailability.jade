@@ -13,14 +13,18 @@ template(name="checkAvailability")
       window.google_is_call = true;
       var opt = new Object();
       opt.onload_callback = function() {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      }
+      var conv_handler = window['google_trackConversion'];
+      if (typeof(conv_handler) == "function") {
+        conv_handler(opt);
+      }
     }
-    var conv_handler = window['google_trackConversion'];
-    if (typeof(conv_handler) == 'function') {
-      conv_handler(opt);
-    }
+
   +messageSent
-  //-button.btn.btn-primary.check-availability Check Availability
-  //-.addthis_sharing_toolbox
+
   with building
     #checkAvailabilityPopup.modal.fade(tabindex='-1', role='dialog',data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
       .modal-dialog
