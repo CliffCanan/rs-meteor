@@ -241,6 +241,10 @@ Meteor.methods
         ).then ->
           console.log "All photos processed for #{property._id}"
           fut.return status: 200, message: 'done', buildingId: property._id, mlsNo: property.source.mlsNo
+
+      .catch Meteor.bindEnvironment (error) ->
+        console.log error
+        fut.return status: 400, message: error.message, buildingId: property._id, mlsNo: property.source.mlsNo
     
     .catch Meteor.bindEnvironment (error) ->
       console.log error
