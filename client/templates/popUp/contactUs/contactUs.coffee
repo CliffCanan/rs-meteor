@@ -92,15 +92,16 @@ Template.contactUs.rendered = ->
 
       ContactUsRequests.insert(json, callback = (error, id) ->
         if error
-           Session.set("serverError", true)
+          Session.set("serverError", true)
         else
           Session.set("serverError", false)
+
+          console.log("Contact Us Form Submitted Successfully!")
+
           form.trigger('reset')
           form.data('formValidation').resetForm()
           $('#contactUsPopup').modal('hide')
-          $('#messageSentPopup').modal('show')
-
-          console.log("Contact Us Form Submitted Successfully!")
+          #-$('#messageSentPopup').modal('show')
 
           analytics.track "Submitted Contact Us form"
           analytics.page title: "Submitted Contact Us form", path: '/submit-contact-us-form'
@@ -116,6 +117,15 @@ Template.contactUs.rendered = ->
             content_category: "ContactUs"
             value: 20.0
             currency: 'USD'
+
+          swal
+            title: "Great Success!"
+            text: "Good news - our team is already on the hunt to find the perfect apartment for you. We'll be in touch within the next 24 hours with any follow-up questions, and then you'll get a customized list of apartments that we think you will love."
+            type: "success"
+            showCancelButton: false
+            confirmButtonColor: "#4588fa"
+            confirmButtonText: "Great!"
+            #-html: true
       )
   )
   

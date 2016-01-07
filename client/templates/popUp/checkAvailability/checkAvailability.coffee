@@ -65,30 +65,38 @@ Template.checkAvailability.rendered = ->
       json.link = "city/"+building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
       console.log(json)
       CheckAvailabilityRequests.insert(json, callback = (error, id) ->
-          if error
-            Session.set("serverError", true)
-          else
-            Session.set("serverError", false)
+        if error
+          Session.set("serverError", true)
+        else
+          Session.set("serverError", false)
 
-            $('#checkAvailabilityPopup').modal('hide')
+          $('#checkAvailabilityPopup').modal('hide')
+          #-$('#messageSentPopup').modal('show')
 
-            form.trigger('reset')
-            form.data('formValidation').resetForm()
+          form.trigger('reset')
+          form.data('formValidation').resetForm()
 
-            $('#messageSentPopup').modal('show')
+          form.find(".submit-button").prop("disabled", false)
+          form.find(".loading").hide()
 
-            form.find(".submit-button").prop("disabled", false)
-            form.find(".loading").hide()
+          analytics.track "Submitted Check Availability form", {buildingId: building._id, buildingName: building.title, label: building.title}
+          analytics.page title: "Submitted Check Availability form", path: '/submit-availability-form'
 
-            analytics.track "Submitted Check Availability form", {buildingId: building._id, buildingName: building.title, label: building.title}
-            analytics.page title: "Submitted Check Availability form", path: '/submit-availability-form'
+          # Send FB conversion tracking to FB (Added 12/14/15 by CC)
+          fbq "track", "Lead",
+            content_name: building.title.replace(' ','_')
+            content_category: "CheckAvailability"
+            value: 20.0
+            currency: 'USD'
 
-            # Send FB conversion tracking to FB (Added 12/14/15 by CC)
-            fbq "track", "Lead",
-              content_name: building.title.replace(' ','_')
-              content_category: "CheckAvailability"
-              value: 20.0
-              currency: 'USD'
+          swal
+            title: "Request Submitted!"
+            text: "We've received your info and we'll be in touch within the next 24 hours to let you know if this unit is still available."
+            type: "success"
+            showCancelButton: false
+            confirmButtonColor: "#4588fa"
+            confirmButtonText: "Great"
+            #-html: true
       )
   )
 
