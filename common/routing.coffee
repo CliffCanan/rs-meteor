@@ -7,6 +7,7 @@ Router.configure
   loadingTemplate: "loading"
   yieldTemplates:
     "header": {to: "header"}
+    "footer": {to: "footer"}
 
 Router.plugin("dataNotFound", {notFoundTemplate: "notFound"})
 Router.onBeforeAction ->
@@ -25,12 +26,16 @@ Router.map ->
         meta:
           description: "Rent Scene helps you find a great place to live. Search for apartments and condos in Philadelphia, Washington DC, Chicago, and other major cities."
           keywords: "rent, rental, apartment, landlord, tenant, home, bedroom, bathroom, lease, condo, condominium, philadelphia, center city, chicago, washington dc, rittenhouse square, parking, gym, utilities, pets"
+
   @route "/check-availability",
     name: "checkAvailability"
+
   @route "/tour-signup",
     name: "tourSignup"
+
   @route "/login",
     name: "login"
+
   @route "/userlist/:userListId",
     name: "userlist"
     fastRender: true
@@ -43,6 +48,7 @@ Router.map ->
       )
     onBeforeAction: ->
       @next()
+
   @route "/propertylist/:slug",
     name: "propertylist"
     fastRender: true
@@ -58,6 +64,7 @@ Router.map ->
       )
     onBeforeAction: ->
       @next()
+
   @route "recommendations/:clientId",
     name: "clientRecommendations"
     fastRender: true
@@ -86,6 +93,7 @@ Router.map ->
         title: share.formatPageTitle "Recommendations for #{@data().name}"
         meta: 
           robots: "noindex"
+
   @route "/city/:cityId",
     name: "city"
     fastRender: true
@@ -120,6 +128,7 @@ Router.map ->
         title: share.formatPageTitle "Rental Apartments and Condos in #{cities[@params.cityId].long}"
         meta:
           description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
+
   @route "/city/:cityId/:neighborhoodSlug",
     name: "neighborhood"
     fastRender: true
@@ -144,6 +153,7 @@ Router.map ->
         title: share.formatPageTitle "Rental Apartments and Condos in #{cities[@params.cityId].long}"
         meta:
           description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
+
   @route "/city/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
     name: "building"
     fastRender: true
@@ -332,6 +342,7 @@ Router.map ->
       Meteor.loginWithToken(@params.token)
       share.autologinDetected = true
       Router.go("index")
+
   @route "/admin/userspanel",
     name: "usersPanel"
     subscriptions: ->
@@ -340,6 +351,7 @@ Router.map ->
       return null  unless users = Meteor.users.find()
       _.extend @params,
         users: users
+
   @route "/admin/reviews",
     name: "adminReviews"
     waitOn: ->
