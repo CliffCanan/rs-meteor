@@ -1,0 +1,64 @@
+template(name="quickView")
+  .container   
+    .row
+      .col-lg-8
+        h1 Rental Application
+      .col-lg-4
+        .application-dates
+          .pull-right
+            i.fa.fa-clock-o
+            | Created on: {{getReadableLongDate createdAt}}
+            br
+            i.fa.fa-undo
+            a#application-revisions(href="#rental-application-show-revisions", data-toggle="modal") #{rentalApplicationRevisionsCount} Revisions
+      .col-lg-12
+        .input-group
+          select.form-control.select-city(data-column="2")
+            option.reset(value="") Filter by city
+            each cities
+              option(value="#{key}") {{value}}
+          button.reset Reset search
+
+        if buildingsReady
+          table#quick-view-table.table
+            thead
+              tr
+                th
+                th Building
+                th City
+                th Unit
+                th Beds
+                th Bathrooms
+                th Square Ft
+                th Building entry
+                th Laundry
+                th Date available
+                th Price
+            tbody
+              each buildings
+                tr
+                  +quickViewBuilding
+                each children
+                  tr.tablesorter-childRow
+                    +quickViewBuilding
+        else
+          h1.text-center
+            i.fa.fa-spin.fa-spinner    
+
+template(name="quickViewBuilding")
+  if isParent
+    td
+      a.toggle-units(href="#")
+        i.fa.fa-plus-circle
+  else
+    td
+  td {{title}}
+  td {{cityId}}
+  td {{unitCount}}
+  td {{bedroomsFrom}}
+  td {{bathroomsFrom}}
+  td {{sqftFrom}}
+  td
+  td {{laundry}}
+  td {{getFormatted availableAt}}
+  td {{price}}

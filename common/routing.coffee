@@ -326,6 +326,12 @@ Router.map ->
       SEO.set
         title: 'Admin: Manage Rental Applications | Rent Scene'
 
+  @route "/quick-view",
+    name: "quickView"
+    waitOn: ->
+      Meteor.subscribe 'allBuildings'
+    fastRender: true
+
   @route "/autologin/:token",
     name: "autologin"
     onBeforeAction: ->
