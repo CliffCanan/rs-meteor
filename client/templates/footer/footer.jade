@@ -1,3 +1,39 @@
 template(name="footer")
-  footer.page-footer.text-center
-    span.copyright &copy; 2015 Rent Scene LLC. All Rights Reserved.
+  footer.page-footer(itemtype="http://schema.org/WPFooter")
+
+    .container
+      .row
+        .col-xs-12
+          .row
+            .col-xs-12.col-sm-3
+              a.hide-text(href="/")
+                | Rent Scene
+                img.logo.animated.spin-wrapper(src="/images/logo-icon-white.png", itemprop="image", alt="Rentscene Icon")
+                img.logo-text(src="/images/logo-text-white.png", itemprop="image", alt="Rentscene")
+              p.slogan Guiding You Home.
+
+            .col-xs-12.col-sm-9
+              .row
+                .col-xs-12.col-sm-4
+                  h5 Company
+                  a(href="/", itemprop="url") About Rent Scene
+                  a(href="/", itemprop="url") Join The Team
+                  a(href="/", itemprop="url") Blog
+                  a(href="/", itemprop="url") Privacy Policy
+
+                .col-xs-12.col-sm-4
+                  h5 Social
+                  a(href="https://twitter.com/RentScene", itemprop="url", target="_blank") Twitter
+                  a(href="https://www.facebook.com/RentScene/", itemprop="url", target="_blank") Facebook
+                  a(href="https://plus.google.com/+RentScenePhiladelphia/about", itemprop="url", target="_blank", rel="publisher") Google+
+                  a(href="https://www.linkedin.com/company/5276179", itemprop="url", target="_blank") LinkedIn
+
+                .col-xs-12.col-sm-4
+                  h5 Help
+                  a(href="/", itemprop="url", target="_blank") Support Center
+                  a(href="mailto:team@rentscene.com", itemprop="url", target="_blank") Email Support
+                  a(href="tel://1-267-463-2428", itemprop="url") Phone Support
+
+      .row
+        .col-xs-12.copyright-wrap.clearfix
+          span.copyright &copy; 2015 Rent Scene LLC. All Rights Reserved.
