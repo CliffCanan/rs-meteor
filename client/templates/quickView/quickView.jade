@@ -1,17 +1,8 @@
 template(name="quickView")
   .container   
     .row
-      .col-lg-8
-        h1 Rental Application
-      .col-lg-4
-        .application-dates
-          .pull-right
-            i.fa.fa-clock-o
-            | Created on: {{getReadableLongDate createdAt}}
-            br
-            i.fa.fa-undo
-            a#application-revisions(href="#rental-application-show-revisions", data-toggle="modal") #{rentalApplicationRevisionsCount} Revisions
       .col-lg-12
+        h1 Buildings Quick View
         #filter-wrapper.form-inline
           .form-group
             select.form-control.filter(data-column="3")
