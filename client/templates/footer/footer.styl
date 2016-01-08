@@ -4,6 +4,11 @@
   padding 30px 0 8px
   background #33383D
   border-top 1px solid rgba(0,0,0,0.05)
+  @media screen and (max-width: 767px)
+    text-align center
+
+  @media screen and (max-width: 767px)
+    #logocolumn padding-right 0
 
   .hide-text
     display block
@@ -12,6 +17,9 @@
     color transparent
     margin 0
     text-shadow none
+
+  .spin-wrapper
+    .animation-delay 4s
 
   .logo
     height 30px
@@ -44,7 +52,7 @@
     margin 5px 0
     line-height 1.5
     transition .15s all ease
-    &:hover
+    &:hover,&:active
       color #bbb
 
   .copyright-wrap

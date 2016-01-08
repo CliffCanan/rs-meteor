@@ -20,6 +20,7 @@ Router.onBeforeAction ->
 Router.map ->
   @route "/",
     name: "index"
+    fastRender: true
     onAfterAction: ->
       SEO.set
         title: share.formatPageTitle "Rent Scene - Find Awesome Apartments and Condos", false
@@ -356,7 +357,9 @@ Router.map ->
     name: "adminReviews"
     waitOn: ->
       Meteor.subscribe("pendingReviews")
-      
+
+  @route "/featured-props",
+    name: "featuredProps"      
 
   @route "/(.*)",
     name: "notFound"
