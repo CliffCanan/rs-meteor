@@ -126,6 +126,7 @@ service-configuration@1.0.5
 session@1.1.1
 sewdn:masked-input@1.0.6
 sha@1.0.4
+snamoah:bootstrap-wizard@0.0.1
 spacebars@1.0.7
 spacebars-compiler@1.0.7
 spiderable@1.0.9
