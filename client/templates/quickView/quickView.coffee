@@ -30,8 +30,11 @@ Template.quickView.onRendered ->
           widgetOptions:
             filter_columnFilters: false
             filter_reset: '.reset'
+            filter_childRows: true
+            filter_childByColumn: true
+            filter_childWithSibs: false
 
-        $.tablesorter.filter.bindSearch $table, $('.select-city')
+        $.tablesorter.filter.bindSearch $table, $('.filter')
 
         $('#quick-view-table').removeClass('table-striped')
         
@@ -89,6 +92,16 @@ Template.quickView.helpers
 
     
 Template.quickViewBuilding.helpers
+  bedrooms: ->
+    value = @bedroomsFrom
+    unless @bedroomsFrom is @bedroomsTo
+      value += " - " + @bedroomsTo
+    value
+  bathrooms: ->
+    value = @bathroomsFrom
+    unless @bathroomsFrom is @bathroomsTo
+      value += " - " + @bathroomsTo
+    value
   securityValue: ->
     switch @security
       when 0 then "Unknown"

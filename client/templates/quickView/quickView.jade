@@ -14,9 +14,14 @@ template(name="quickView")
       .col-lg-12
         #filter-wrapper.form-inline
           .form-group
-            select.form-control.select-city(data-column="2")
-              option.reset(value="") Filter by city
+            select.form-control.filter(data-column="3")
+              option.reset(value="") City
               each cities
+                option(value="#{key}") {{value}}
+          .form-group
+            select.form-control.filter(data-column="4")
+              option.reset(value="") Beds
+              each btypes
                 option(value="#{key}") {{value}}
           btn.reset.btn.btn-info Reset search
 
@@ -26,10 +31,11 @@ template(name="quickView")
               tr
                 th(data-sorter="false")
                 th Building
-                th City
                 th Unit
+                th Btypes
+                th City
                 th Beds
-                th Bathrooms
+                th Baths
                 th Sqft
                 th Entry
                 th Laundry
@@ -51,14 +57,18 @@ template(name="quickViewBuilding")
     td
       a.toggle-units(href="#")
         i.fa.fa-plus-square-o
+    td
+      a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
+    td
   else
     td
-  td
-    a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
+    td
+      a(href="{{pathFor route='building' data=processedRouteData}}") {{../title}}
+    td {{title}}  
   td {{cityId}}
-  td {{unitCount}}
-  td {{getBedrooms}}
-  td {{getBathrooms}}
+  td {{btype}}
+  td {{bedrooms}}
+  td {{bathrooms}}
   td {{getSqft}}
   td {{securityValue}}
   td {{laundryValue}}
