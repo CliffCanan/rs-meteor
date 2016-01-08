@@ -328,9 +328,6 @@ Router.map ->
 
   @route "/quick-view",
     name: "quickView"
-    waitOn: ->
-      Meteor.subscribe 'allBuildings'
-    fastRender: true
 
   @route "/autologin/:token",
     name: "autologin"

@@ -257,6 +257,48 @@ Meteor.publish "allBuildings", ->
   else
     []
 
+Meteor.publish "allBuildingsQuickView", ->
+  if Security.canOperateWithBuilding(@userId)
+    fields =
+      cityId: 1
+      title: 1
+      images: 1
+      isPublished: 1
+      position: 1
+      parentId: 1
+      btype: 1
+      isOnMap: 1
+      latitude: 1
+      longitude: 1
+      slug: 1
+      neighborhoodSlug: 1
+      fitnessCenter: 1
+      security: 1
+      laundry: 1
+      parking: 1
+      pets: 1
+      utilities: 1
+      bedroomsFrom: 1
+      bedroomsTo: 1
+      bathroomsFrom: 1
+      bathroomsTo: 1
+      sqftFrom: 1
+      sqftTo: 1
+      agroIsUnit: 1
+      agroPriceTotalFrom: 1
+      agroPriceTotalTo: 1
+      agroPriceStudioFrom: 1
+      agroPriceStudioTo: 1
+      agroPriceBedroom1From: 1
+      agroPriceBedroom1To: 1
+      agroPriceBedroom2From: 1
+      agroPriceBedroom2To: 1
+      availableAt: 1
+
+    Buildings.find({}, {fields: fields})
+  else
+    []
+
 Meteor.publish "userListBuildings", (userListId)->
   check(userListId, Match.Any)
   userList = UserLists.findOne({_id:userListId})

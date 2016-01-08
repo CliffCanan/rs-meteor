@@ -1,9 +1,9 @@
 Template.quickView.onCreated ->
   @tablesorterReady = new ReactiveVar()
   @buildingsReady = new ReactiveVar()
-  # @autorun =>
-  #   handle = @subscribe 'allBuildings'
-  #   @buildingsReady.set handle.ready()
+  @autorun =>
+    handle = @subscribe 'allBuildingsQuickView'
+    @buildingsReady.set handle.ready()
   self = @
 
   $("<link/>", {
@@ -13,7 +13,6 @@ Template.quickView.onCreated ->
   }).appendTo("head");
 
   $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.25.0/js/jquery.tablesorter.min.js', ->
-    # $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.25.0/js/widgets/widget-filter.min.js', ->
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.25.0/js/jquery.tablesorter.widgets.min.js', ->
       self.tablesorterReady.set(true)
 
@@ -21,19 +20,32 @@ Template.quickView.onRendered ->
   instance = @
 
   @autorun =>
-    if Template.instance().tablesorterReady.get()
+    if Template.instance().buildingsReady.get() and Template.instance().tablesorterReady.get()
       Tracker.afterFlush ->
         $table = $('#quick-view-table').tablesorter
           theme: "bootstrap"
-          widgets: ["filter"]
+          widthFixed: true
+          headerTemplate : '{content} {icon}'
+          widgets: ["uitheme", "filter"]
           widgetOptions:
             filter_columnFilters: false
             filter_reset: '.reset'
 
         $.tablesorter.filter.bindSearch $table, $('.select-city')
-        $('#quick-view-table').on('click', '.toggle-units', ->
+
+        $('#quick-view-table').removeClass('table-striped')
+        
+        $('#quick-view-table').on 'click', '.toggle-units', ->
           $(@).closest('tr').nextUntil('tr.tablesorter-hasChildRow').find('td').toggle()
-        )
+
+          $i = $(@).find('i')
+
+          if $i.hasClass('fa-plus-square-o')
+            $i.removeClass('fa-plus-square-o')
+            $i.addClass('fa-minus-square-o')
+          else
+            $i.removeClass('fa-minus-square-o')
+            $i.addClass('fa-plus-square-o')
 
 
 Template.quickView.helpers
@@ -52,8 +64,7 @@ Template.quickView.helpers
     parents
 
   buildingsReady: ->
-    true
-  #   Template.instance().buildingsReady.get()
+    Template.instance().buildingsReady.get()
 
   options: ->
     columns: [
@@ -78,5 +89,18 @@ Template.quickView.helpers
 
     
 Template.quickViewBuilding.helpers
+  securityValue: ->
+    switch @security
+      when 0 then "Unknown"
+      when 1 then "Doorman"
+      when 2 then "No Doorman"
+  laundryValue: ->
+    switch @laundry
+      when 0 then "Unknown"
+      when 1 then "In-unit Laundry"
+      when 2 then "Shared Laundry"
+      when 3 then "No Laundry"
   unitCount: ->
     if @children then @children.length else '-'
+  availableAtFormatted: ->
+    if @availableAt then @availableAt.getMonth() + "/" + @availableAt.getDate() + "/" +@availableAt.getFullYear() else '-'
