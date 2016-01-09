@@ -8,7 +8,7 @@
 
 // Flip the pane when hovered
 .card-container:not(.manual-flip):hover .card,
-.card-container.hover.manual-flip .card{
+.card-container.hover.manual-flip .card {
 	-webkit-transform: rotateY( 180deg );
 -moz-transform: rotateY( 180deg );
  -o-transform: rotateY( 180deg );
@@ -47,7 +47,7 @@
   left 0
   background-color #FFF
   @media screen and (min-width: 768px)
-    box-shadow 0 12px 20px -8px rgba(0,0,0,0.25)
+    box-shadow 0 6px 12px -3px rgba(0,0,0,0.25)
 
 // Front pane, placed above back
 .front
@@ -63,6 +63,9 @@
 
   h5
     margin 10px 0 5px
+
+  .footer
+    padding 2px 0 !important
 
 .card-container,
 .front,
@@ -80,11 +83,29 @@
     overflow hidden
     border-radius 10px 10px 0 0
 
+    ribbon
+      background #ffda00
+      box-shadow 0 0 8px rgba(0,0,0,.3)
+      color #fff
+      font-family "Open Sans", Helvetica, "Raleway", "Roboto", Arial, sans-serif
+      font-size 13px
+      font-weight bold
+      letter-spacing .3px
+      padding 3px
+      position absolute
+      text-align center
+      text-transform uppercase
+      text-shadow 0 0px 1px rgba(0,0,0,.2), 0 1px 0px rgba(0,0,0,.3)
+      transform rotateZ(-45deg)
+      top 30px
+      left -50px
+      width 210px
+
     img
       width 100%
 
   .user
-    display none // Hiding b/c we aren't using this image currently, but may in the future.
+    display none !important // Hiding b/c we aren't using this image currently, but may in the future.
     border-radius 50%
     display block
     height 120px
@@ -116,6 +137,7 @@
       font-size 13px
       .fa-li
         top 5px
+        color #2A982C
 
   .name
     font-size 22px
@@ -137,13 +159,14 @@
     font-weight bold
     line-height 1
     text-align center
+    text-shadow 0 -1px 0 rgba(0,0,0,.2)
     margin 5px auto 15px
     max-width 120px
     padding 5px 2px
 
   .footer 
-    border-top 1px solid #EEEEEE
-    color #999999
+    border-top 1px solid #EEE
+    color #999
     padding 10px 0
     text-align center
     width 100%
@@ -164,8 +187,8 @@
     padding 15px 10px 0
 
   .neighborhood
-    border-bottom 1px solid #EEEEEE
-    color #999999
+    border-bottom 1px solid #EEE
+    color #999
     font-size 14px
     font-weight 400
     padding-bottom 10px
