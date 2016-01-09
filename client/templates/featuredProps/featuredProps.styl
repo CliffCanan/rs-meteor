@@ -46,7 +46,8 @@
   top 0
   left 0
   background-color #FFF
-  box-shadow 0 8px 12px -5px rgba(0,0,0,.35)
+  @media screen and (min-width: 768px)
+    box-shadow 0 12px 20px -8px rgba(0,0,0,0.25)
 
 // Front pane, placed above back
 .front
@@ -60,27 +61,30 @@
   transform rotateY( 180deg )
   z-index 3
 
+  h5
+    margin 10px 0 5px
+
 .card-container,
 .front,
 .back 
   width 100%
-  height 400px
+  height 360px
   border-radius 10px
 
 .card
   background none repeat scroll 0 0 #FFF
-  border-radius 4px
   color #444
 
   .cover
     height 138px
     overflow hidden
-    border-radius 4px 4px 0 0
+    border-radius 10px 10px 0 0
 
     img
       width 100%
 
   .user
+    display none // Hiding b/c we aren't using this image currently, but may in the future.
     border-radius 50%
     display block
     height 120px
@@ -96,7 +100,9 @@
   .content
     background-color transparent
     box-shadow none
-    padding 10px 20px
+    padding 0 15px
+    @media screen and (min-width: 768px)
+      padding 0 20px
 
     .main
       min-height 140px
@@ -124,11 +130,16 @@
     line-height 20px
 
   .price
-    color #3c763d
-    font-size 18px
+    background-color #5cb85c
+    border-radius 15px
+    color #fff
+    font-size 15px
     font-weight bold
+    line-height 1
     text-align center
-    margin-bottom 15px
+    margin 5px auto 15px
+    max-width 120px
+    padding 5px 2px
 
   .footer 
     border-top 1px solid #EEEEEE
