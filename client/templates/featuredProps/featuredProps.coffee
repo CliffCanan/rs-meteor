@@ -7,6 +7,6 @@ Template.featuredProps.onRendered = ->
 
 Template.featuredProps.events
   "click .check-availability": grab encapsulate (event, template) ->
-    Session.set("currentUnit", @)
-    analytics.track "Clicked Featured Unit Check Availability Btn ", {buildingId: @_id, buildingName: @title, label: @title}
+    #Session.set("currentUnit", @)
+    #analytics.track "Clicked Featured Unit Check Availability Btn ", {buildingId: @_id, buildingName: @title, label: @title}
     $('#checkAvailabilityPopup').modal('show')
