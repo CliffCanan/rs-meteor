@@ -1,5 +1,5 @@
-.main-section-title
-  padding 25px 15px 20px
+.featured-props-wrap .main-section-title
+  padding 25px 15px 20px !important
 
 // Entire Container, Keeps Perspective
 .card-container
@@ -55,6 +55,13 @@
 // Front pane, placed above back
 .front
   z-index 2
+
+  .footer
+    border-top 1px solid #EEE
+    color #888
+    padding 10px 0
+    text-align center
+    width 100%
 
 // Back, initially hidden pane
 .back
@@ -185,18 +192,13 @@
     position absolute
     bottom 0
     left 0
-    & .front
-      border-top 1px solid #EEE
-      color #888
-      padding 10px 0
-      text-align center
-      width 100%
 
     .action-links
       font-size 18px
 
       a
         margin: 0 7px
+
 
   .header
     padding 15px 0 0
