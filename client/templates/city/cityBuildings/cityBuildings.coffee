@@ -32,20 +32,26 @@ Template.cityBuildings.helpers
   	else
   		#console.log "c"
   		return true
+
   shouldShowRecommendToggle: ->
     Router.current().route.getName() is "clientRecommendations" and Security.canManageClients()
+
   isRecommended: ->
     buildingIds = Router.current().data().buildingIds || []
     @._id in buildingIds
+
   getThumbnail: (store) ->
     share.getThumbnail.call @, store
+
   mediaClass: ->
     classes = []
     classes.push 'active' if @_index is 0
     classes.push 'vimeo' if @vimeoId?
     classes.join ' '
+
   isVideo: ->
     @vimeoId?
+
   buildingImages: ->
     imageIds = _.map @images, (file) ->
       file._id

@@ -1,24 +1,12 @@
 Template.index.helpers
 
 
-Template.index.rendered = ->
+Template.featuredProps.onRendered = ->
+  building = @data.building
 
 
-
-Template.index.events
-  "click .example": (event, template) ->
-    $('.city-list').slideUp()
-
-  "click #example1": grab encapsulate (event, template) ->
-    analytics.track "Clicked Work with an expert button"
-    $('#contactUsPopup').modal('show')
-
-  "click #example": (event, template) ->
-    event.stopPropagation()
-    event.preventDefault()
-    analytics.track "Clicked Browse Listings button"
-    $('.city-list').slideToggle()
-
-  "click #example": grab encapsulate (event, template) ->
-    analytics.track "Clicked Get Started button"
-    $('#contactUsPopup').modal('show')
+Template.featuredProps.events
+  "click .check-availability": grab encapsulate (event, template) ->
+    Session.set("currentUnit", @)
+    analytics.track "Clicked Featured Unit Check Availability Btn ", {buildingId: @_id, buildingName: @title, label: @title}
+    $('#checkAvailabilityPopup').modal('show')

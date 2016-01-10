@@ -167,10 +167,6 @@ Router.map ->
         buildingSubs.subscribe("buildingAdminSame", @params.cityId, @params.unitSlug or @params.buildingSlug)
       ]
     data: ->
-      # console.log("cityId: " + @params.cityId)
-      # console.log("neighborhoodSlug: " + @params.neighborhoodSlug)
-      # console.log("unitSlug: " + @params.unitSlug)
-      # console.log("buildingSlug: " + @params.buildingSlug)
       building = Buildings.findOne({cityId: String(@params.cityId), slug: String(@params.unitSlug or @params.buildingSlug)})
       return null unless building
       _.extend {}, @params,
@@ -359,7 +355,15 @@ Router.map ->
       Meteor.subscribe("pendingReviews")
 
   @route "/featured-props",
-    name: "featuredProps"      
+    name: "featuredProps"
+    data: ->
+      building = Buildings.findOne({cityId: String(@params.cityId), slug: String(@params.unitSlug or @params.buildingSlug)})
+      return null unless building
+      _.extend {}, @params,
+        building: building
+    onAfterAction: ->
+      SEO.set
+        title: 'Featured Listings | Rent Scene'    
 
   @route "/(.*)",
     name: "notFound"

@@ -16,6 +16,11 @@ body
         @media screen and (min-width: 1200px)
           margin-top 45px !important
 
+  &.admin-logged-in
+    #sumome-modal-mask, .sumome-scrollbox-popup
+      display none !important
+      visibility hidden !important
+
 main
   margin 70px 0 0
   @media screen and (min-width: 1200px)
@@ -46,6 +51,25 @@ button > .fa
   float right
   position relative
   top 8px
+
+.text-primary
+  color #4588fa
+
+.btn-primary
+  background-color #4caeff !important
+  font-weight bold
+  &:hover
+    background-color #4588fa !important
+
+.btn-lg,
+.btn-group-lg > .btn
+  text-shadow 0 -1px 0px rgba(0,0,0,.25)
+  @media screen and (min-width: 768px)
+    text-shadow 0 -1px 0px rgba(0,0,0,0.5)
+
+.is-not-published
+  background-color rgba(200, 200, 200, 0.6)
+
 
 a.carousel-control .fa
   margin-left 0

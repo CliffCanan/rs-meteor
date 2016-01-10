@@ -3,7 +3,7 @@ positions = [10000, 5000, 0, -5000, -10000]
 Template.building.onCreated ->
   @subscribe("buildingsSimilar", Router.current().data().building._id)
 
-Template.building.helpers
+Template.building.helpers 
   ironRouterHack: ->
     Router.current() # reactivity
     editBuildingId = Session.get("editBuildingId")
@@ -67,12 +67,14 @@ Template.building.helpers
       @buildingUnits()
     else
       @buildingUnits(4)
+
   displayBuildingPrice: (queryBtype) ->
     fieldName = "agroPrice" + (if queryBtype then queryBtype.charAt(0).toUpperCase() + queryBtype.slice(1) else "Total")
     fieldNameFrom = fieldName + "From"
     fieldNameTo = fieldName + "To"
     if @[fieldNameFrom]
       "$" + accounting.formatNumber(@[fieldNameFrom]) + (if @[fieldNameFrom] is @[fieldNameTo] then "" else "+")
+
   bedroomTypes: (queryBtype) ->
     if queryBtype
       if queryBtype is "studio"
