@@ -357,8 +357,8 @@ Router.map ->
   @route "/featured-props",
     name: "featuredProps"
     data: ->
-      building = Buildings.findOne({cityId: "philadelphia", slug: "2040-market-st"})
-      return null unless building
+      #building = Buildings.findOne({cityId: "philadelphia", slug: "2040-market-st"})
+      #return null unless building
       _.extend {}, @params,
         building: building
     onAfterAction: ->
