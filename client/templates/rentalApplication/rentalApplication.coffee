@@ -2,6 +2,7 @@ saveOtherDocumentType = ''
 
 Template.rentalApplication.onRendered ->
   instance = @
+  $('#rentAmnt').mask('9,999')
   $('#partner-ssn').mask('999-99-9999')
   $('#social-security-number').mask('999-99-9999')
   $('#phone-number').mask('(999) 999-9999')
@@ -131,7 +132,7 @@ Template.rentalApplication.events
         template.$('#cats-table-wrapper').slideUp()
       else if $(event.target).attr('id') is 'dogBox'
         template.$('#dogs-table-wrapper').slideUp()
-      else if $(event.target).attr('id') is 'dogBox'
+      else if $(event.target).attr('id') is 'otherBox'
         template.$('#otherpet-wrapper').slideUp()
 
     else

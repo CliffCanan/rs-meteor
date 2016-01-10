@@ -21,14 +21,18 @@ template(name="rentalApplication")
                     | After completing the form below, please click
                     strong "Submit and Download PDF"
                     | to save a copy on your computer. &nbsp;Please email the completed PDF to
-                    a(href="mailto:info@rentscene.com") info@rentscene.com
-                    |.
+                    a(href="mailto:info@rentscene.com") info@rentscene.com.
 
               h3 Rent Details
+
               .form-group
                 label.col-sm-4.col-md-3 Apartment you are applying to
                 .col-sm-6.col-md-5
-                  input.form-control(type="text", name="apartmentName", value="#{fields.apartmentName}")
+                  .input-group
+                    span.input-group-addon
+                      i.fa.fa-fw.fa-building
+                    input.form-control(type="text", name="apartmentName", value="#{fields.apartmentName}")
+
               .form-group
                 label.col-xs-4.col-sm-3 Move-In Date
                 .col-sm-4.col-md-3.col-lg-2.p-r-5
@@ -36,14 +40,19 @@ template(name="rentalApplication")
                 label.col-xs-4.col-sm-2.col-md-1.p-l-5.p-r-5.align-top Lease Length
                 .col-sm-4.col-md-3.col-lg-2
                   input.form-control(type="text", name="lenghtOfLease", value="#{fields.lenghtOfLease}")
+
               .form-group
                 label.col-xs-4.col-sm-3 Rent
                 .col-sm-4.col-md-3.col-lg-2.p-r-5
                   .input-group
-                    .input-group-addon $
-                    input.form-control(type="text", name="rent", value="#{fields.rent}")
+                    span.input-group-addon
+                      i.fa.fa-fw.fa-usd
+                    input.form-control(type="text", id="rentAmnt" name="rent", value="#{fields.rent}")
+                    span.input-group-addon .00
+
 
               h3 Personal Information
+
               .form-group
                 label.col-sm-3 Applicant's Full Name
                 .col-sm-8.col-md-7.col-lg-5
@@ -51,11 +60,17 @@ template(name="rentalApplication")
               .form-group
                 label.col-sm-3 Email
                 .col-sm-8.col-md-7.col-lg-5
-                  input.input-large.form-control(type="email", name="email", value="#{fields.email}")
+                  .input-group
+                    span.input-group-addon
+                      i.fa.fa-fw.fa-envelope
+                    input.input-large.form-control(type="email", name="email", value="#{fields.email}")
               .form-group
                 label.col-sm-3 Phone #
                 .col-sm-8.col-md-7.col-lg-5
-                  input#phone-number.form-control(type="text", name="phoneNumber", value="#{fields.phoneNumber}")
+                  .input-group
+                    span.input-group-addon
+                      i.fa.fa-fw.fa-mobile
+                    input#phone-number.form-control(type="text", name="phoneNumber", value="#{fields.phoneNumber}")
               .form-group
                 label.col-sm-3 Date of Birth
                 .col-sm-3.col-md-2.p-r-10
@@ -105,7 +120,9 @@ template(name="rentalApplication")
                     input#partner-ssn.form-control(type="text", name="partnerSSN", value="#{fields.partnerSSN}")
 
                 .form-group
-                  label.col-sm-4.col-md-3 How many people are in your family
+                  label.col-sm-4.col-md-3.align-top How many
+                    strong total
+                    | people will live here?
                   .col-sm-2
                     input.form-control.num-max-2(type="text", name="familyMembersCount", value="#{fields.familyMembersCount}", maxlength="2")
                   label.col-sm-1 Adults
@@ -260,8 +277,8 @@ template(name="rentalApplication")
 
               #otherpet-wrapper
                 .form-group
-                  label.col-sm-2.p-l-5 Pet Info
-                    small Please describe your pet.
+                  label.col-sm-2.p-l-5.align-top Pet Info
+                    small Please describe your pet (size, weight, type, etc).
                   .col-xs-12.col-sm-9.col-md-8.col-lg-5
                     textarea.form-control(type="text", name="otherPetAdditionalInfo", value="#{fields.otherPetAdditionalInfo}")
 
@@ -324,6 +341,7 @@ template(name="rentalApplication")
                   label.col-sm-4.col-md-3 Current Address
                   .col-sm-6
                     input.input-large.form-control(type="text", name="currentAddress", value="#{fields.currentAddress}")
+
                 .form-group
                   label.col-sm-4.col-md-3 City
                   .col-sm-2.p-r-10
@@ -334,33 +352,39 @@ template(name="rentalApplication")
                   label.col-sm-1 ZIP
                   .col-sm-1.p-l-0
                     input.input-small.form-control.p-l-5.p-r-5.num-max-5(type="text", name="currentZip", value="#{fields.currentZip}")
+
                 .form-group
                   label.col-sm-4.col-md-3 Current Landlord's Name
                   .col-sm-6
                     input.form-control(type="text", name="currentLandlordName", value="#{fields.currentLandlordName}")
+
                 .form-group
                   label.col-sm-4.col-md-3 Landlord's Phone #
                   .col-sm-6
                     input#current-landlord-phone-number.form-control(type="text", name="currentLandlordPhoneNumber", value="#{fields.currentLandlordPhoneNumber}")
+
                 .form-group
-                  label.col-sm-4.col-md-3 Total Monthly Rent
+                  label.col-sm-4.col-md-3 TOTAL Monthly Rent
                     small
                       i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the TOTAL monthly rent for the unit, i.e. the sum of what each occupant paid.")
                   .col-sm-3.col-md-2.p-r-10
                     .input-group
-                      .input-group-addon $
+                      span.input-group-addon
+                        i.fa.fa-fw.fa-usd
                       input.form-control(type="text", name="currentRent", value="#{fields.currentRent}")
                   label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.col-lg-2.p-l-0.p-r-5.align-top YOUR Monthly Rent
                     small
                       i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the total amount YOU paid each month.")
                   .col-sm-3.col-sm-pull-2.col-md-2.col-md-pull-0
                     .input-group
-                      .input-group-addon $
+                      span.input-group-addon
+                        i.fa.fa-fw.fa-usd
                       input.form-control(type="text", name="currentRentResponsible", value="#{fields.currentRentResponsible}")  
+
                 .form-group
                   label.col-sm-4.col-md-3 Reason For Leaving
                   .col-sm-6
-                    textarea.form-control(type="text", name="currentReasonForLeaving", value="#{fields.currentReasonForLeaving}")
+                    textarea.form-control(type="text", name="currentReasonForLeaving", value="#{fields.currentReasonForLeaving}", rows="2")
 
               .previous-address-wrapper(style="display: none")
                 h4.m-t-30 Previous Address
@@ -394,6 +418,7 @@ template(name="rentalApplication")
                   label.col-sm-4.col-md-3 Address
                   .col-sm-6
                     input.input-large.form-control(type="text", name="previousAddress", value="#{fields.previousAddress}")
+
                 .form-group
                   label.col-sm-4.col-md-3 City
                   .col-sm-2
@@ -404,10 +429,12 @@ template(name="rentalApplication")
                   label.col-sm-1 ZIP
                   .col-sm-1.p-l-0
                     input.form-control.p-l-5.p-r-5.num-max-5(type="text", name="previousZip", value="#{fields.previousZip}")
+
                 .form-group
                   label.col-sm-4.col-md-3 Previous Landlord's Name
                   .col-sm-6
                     input.form-control(type="text", name="previousLandlordName", value="#{fields.previousLandlordName}")
+
                 .form-group
                   label.col-sm-4.col-md-3 Landlord's Phone #
                   .col-sm-6
@@ -437,10 +464,12 @@ template(name="rentalApplication")
               br
 
               h3 Current Employment Information
+
               .form-group
                 label.col-sm-4.col-md-3 Present Employer
                 .col-sm-6
                   input.form-control(type="text", name="presentEmployer", value="#{fields.presentEmployer}")
+
               .form-group
                 label.col-sm-4.col-md-3 Position
                 .col-sm-3
@@ -448,16 +477,20 @@ template(name="rentalApplication")
                 label.col-sm-1.p-l-0.p-r-10.align-top Monthly Salary
                 .col-sm-2.p-l-0
                   .input-group
-                    .input-group-addon $
+                    span.input-group-addon
+                      i.fa.fa-fw.fa-usd
                     input.form-control(type="text", name="monthlySalary", value="#{fields.monthlySalary}")
+
               .form-group
                 label.col-sm-4.col-md-3 How long at this position
                 .col-sm-3.col-md-2.p-r-10
                   input.form-control(type="text", name="positionDuration", value="#{fields.positionDuration}")
+
               .form-group
                 label.col-sm-4.col-md-3 Employer's Address
                 .col-sm-6
                   input.form-control(type="text", name="employerAddress", value="#{fields.employerAddress}")
+
               .form-group
                 label.col-sm-4.col-md-3 Contact Person
                 .col-sm-3.col-md-2.p-r-10
@@ -470,16 +503,19 @@ template(name="rentalApplication")
                 div.section-spacer
 
               .form-group
-                label.col-sm-4.col-md-3.align-top Other Income / Source (if applicable)
+                label.col-sm-4.col-md-3.align-top Other Income Source
+                  small If Applicable.
                 .col-sm-6
                   input.form-control(type="text", name="otherEmployment", value="#{fields.otherEmployment}")
+
               .form-group
                 label.col-sm-4.col-md-3 Other Employer's Address
                 .col-sm-6
                   input.form-control(type="text", name="otherEmployerAddress", value="#{fields.otherEmployerAddress}")
+
               .form-group
                 label.col-sm-4.col-md-3 Contact Person
-                .col-sm-3.col-md-2.p-r-10
+                .col-sm-3.col-md-2.p-r-5
                   input.form-control(type="text", name="otherEmploymentVerificationPerson", value="#{fields.otherEmploymentVerificationPerson}")
                 label.col-sm-2 Phone or Email
                 .col-sm-2.p-l-5
@@ -487,6 +523,7 @@ template(name="rentalApplication")
 
 
               h3 Criminal History
+
               .form-group
                 .col-xs-12.col-sm-10.col-md-9.p-r-5
                   .well Have you or anyone who is included in this application ever...
@@ -543,7 +580,9 @@ template(name="rentalApplication")
                   .col-sm-6.col-md-7
                     textarea.form-control(type="text", name="criminalHistoryExplanation", value="#{fields.criminalHistoryExplanation}")
 
+
               h3 Personal References
+
               .form-group
                 .col-xs-12.col-md-11
                   table.table.numbered
@@ -576,10 +615,13 @@ template(name="rentalApplication")
                         td
                           input#second-reference-phone-number.form-control(type="text", name="secondReferencePhoneNumber", value="#{fields.secondReferencePhoneNumber}")
 
+
               h3 Emergency Contacts
+
               .form-group
-                .col-xs-12.col-sm-10.col-md-9
+                .col-xs-12.col-sm-11
                   .well In the event of an emergency, please contact the following person(s):
+
               .form-group
                 label.col-sm-2.col-md-1 Name
                 .col-sm-4.col-md-3
@@ -602,9 +644,11 @@ template(name="rentalApplication")
                 .col-sm-3.col-md-3.p-l-5
                   input.input-large.form-control(type="text", name="secondEmergencyContactAddress", value="#{fields.secondEmergencyContactAddress}")
 
+
               h3 Attach Documents
+
               .form-group
-                .col-xs-12.col-sm-10.col-md-9
+                .col-xs-12.col-sm-11
                   .well Please attach your ID (license or passport) and 2 recent pay stubs.
                     div.m-t-10.hide-non-student
                       strong Students
@@ -664,8 +708,8 @@ template(name="rentalApplication")
 
               //- .g-recaptcha.m-b-10(data-sitekey="6Lf7GhMTAAAAAKDluSFj1iYdvKYnlxWUhSFS2N0K")
 
-              .m-b-20
-                button.btn.btn-lg.btn-success(type="submit") Submit and Download PDF
+              .m-b-30
+                button.btn.btn-lg.btn-success(type="submit") Submit &amp; Download PDF
                   i.fa.fa-cloud-download.m-l-10
 
           #rental-application-password.modal.fade
