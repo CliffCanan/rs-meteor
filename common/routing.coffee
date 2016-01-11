@@ -95,7 +95,7 @@ Router.map ->
         meta: 
           robots: "noindex"
 
-  @route "/city/:cityId",
+  @route "/city/:cityId?",
     name: "city"
     fastRender: true
     subscriptions: ->
@@ -130,7 +130,7 @@ Router.map ->
         meta:
           description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
 
-  @route "/city/:cityId/:neighborhoodSlug",
+  @route "/city/:cityId/:neighborhoodSlug?",
     name: "neighborhood"
     fastRender: true
     subscriptions: ->

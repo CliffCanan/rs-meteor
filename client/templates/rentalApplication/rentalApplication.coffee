@@ -74,22 +74,23 @@ Template.rentalApplication.helpers
 
     appId = @_id
 
+    Session.set('rentalApplicationAccessToken', @accessToken)
+
     swal
         title: "Password Required"
         text: "Please enter the password for this application to continue:"
         type: "input"
-        inputPlaceholder: "Enter note here"
+        inputPlaceholder: "Enter password here"
         inputType: "password"
         confirmButtonColor: "#4588fa"
-        confirmButtonText: "Confirm Changes"
+        confirmButtonText: "Continue"
         closeOnConfirm: false
-        showLoaderOnConfirm: true
         animation: "slide-from-top"
         , (inputValue) ->
           return false  if inputValue is false
 
           if inputValue is ""
-            swal.showInputError "Please enter a password to submit the application!"
+            swal.showInputError "Please enter the password you entered when you first created this application."
             return false
             
           params =
@@ -99,8 +100,9 @@ Template.rentalApplication.helpers
           console.log(params)
 
           Meteor.call 'processRentalApplicationPassword', params, (err, result) ->
+           console.log("ProcessRentalApplicationPW RESULT is: " + result)
+
            if result.success
-             Session.set('rentalApplicationAccessToken', result.accessToken)
              return true
            else
              alert result.message
