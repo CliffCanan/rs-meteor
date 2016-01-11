@@ -203,6 +203,9 @@ Router.map ->
 
       insertedId = RentalApplications.insert newRentalApplication
       Router.go('rentalApplication', {id: insertedId}, {replaceState: true})
+    onAfterAction: ->
+      SEO.set
+        title: 'Rental Application | Rent Scene'
   
   @route "/apply/:id",
     name: "rentalApplication"
@@ -211,6 +214,9 @@ Router.map ->
       Meteor.subscribe('rentalApplication', @params.id, accessToken)
     data: ->
       RentalApplications.findOne(@params.id)
+    onAfterAction: ->
+      SEO.set
+        title: 'Rental Application | Rent Scene'
 
   @route "/apply/:id/download", ->
     rentalApplication = RentalApplications.findOne(@params.id)
