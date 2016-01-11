@@ -68,12 +68,17 @@ Template.rentalApplication.onRendered ->
 Template.rentalApplication.helpers
   canAccess: ->
     return true if Security.canOperateWithBuilding() or not @hasPassword
-    
+
+    console.log("Helpers -> Can Access -> @_id is (next line):")
+    console.log(@_id)
+    console.log(@)
+
     swal
-        title: "Enter a Note"
-        text: "Please describe what was changed in your application so we can process it accordingly."
+        title: "Password Required"
+        text: "Please enter the password for this application to continue:"
         type: "input"
         inputPlaceholder: "Enter note here"
+        inputType: "password"
         confirmButtonColor: "#4588fa"
         confirmButtonText: "Confirm Changes"
         closeOnConfirm: false
@@ -89,6 +94,10 @@ Template.rentalApplication.helpers
           params =
             id: @_id
             password: inputValue
+
+          console.log(inputValue)
+          console.log(params)
+
           Meteor.call 'processRentalApplicationPassword', params, (err, result) ->
            if result.success
              Session.set('rentalApplicationAccessToken', result.accessToken)
@@ -196,7 +205,7 @@ Template.rentalApplication.events
     if rowNum > 5
       swal
         title: ""
-        text: "Wow, that's a lot of dogs. Since most buildings don't allow that many canine companions, it might be best if we spoke with you to discuss your situation. Please email team@rentscene.com or call (267) 463-2426. Thanks!"
+        text: "Oh my, that's a lot of cats. Since most buildings don't allow that many feline roommates, it might be best if we spoke with you to discuss your situation. Please email team@rentscene.com or call (267) 463-2426. Thanks!"
         type: "warning"
         showCancelButton: false
         confirmButtonColor: "#4588fa"
@@ -288,6 +297,11 @@ Template.rentalApplication.events
 
   "submit #rental-application-access-form": (event, template) ->
     event.preventDefault()
+
+    console.log("Events -> Submit Rental Application Access Form -> @_id is (next line):")
+    console.log(@_id)
+    console.log(@)
+
     params =
       id: @_id
       password: template.$(event.target).find('#password').val()
