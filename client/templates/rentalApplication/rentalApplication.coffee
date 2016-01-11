@@ -69,9 +69,10 @@ Template.rentalApplication.helpers
   canAccess: ->
     return true if Security.canOperateWithBuilding() or not @hasPassword
 
-    console.log("Helpers -> Can Access -> @_id is (next line):")
-    console.log(@_id)
+    console.log("Helpers -> Can Access -> @ is (next line):")
     console.log(@)
+
+    appId = @_id
 
     swal
         title: "Password Required"
@@ -92,10 +93,9 @@ Template.rentalApplication.helpers
             return false
             
           params =
-            id: @_id
+            id: appId
             password: inputValue
 
-          console.log(inputValue)
           console.log(params)
 
           Meteor.call 'processRentalApplicationPassword', params, (err, result) ->
@@ -106,7 +106,7 @@ Template.rentalApplication.helpers
              alert result.message
              return false
 
-    @accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
+   # @accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
 
     #return true if Security.canOperateWithBuilding() or not @hasPassword
     #@accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
