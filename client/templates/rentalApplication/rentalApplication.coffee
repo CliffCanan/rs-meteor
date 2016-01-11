@@ -1,6 +1,54 @@
 saveOtherDocumentType = ''
 
 Template.rentalApplication.onRendered ->
+  console.log('OnRendered Fired')
+
+  if Security.canOperateWithBuilding() or not @hasPassword
+  else
+    console.log("onRendered -> @ is (next line):")
+    console.log(@)
+
+    appId = @_id
+
+    Session.set('rentalApplicationAccessToken', @accessToken)
+
+    swal
+        title: "Password Required"
+        text: "Please enter the password for this application to continue:"
+        type: "input"
+        inputPlaceholder: "Enter password here"
+        inputType: "password"
+        confirmButtonColor: "#4588fa"
+        confirmButtonText: "Continue"
+        closeOnConfirm: false
+        allowEscapeKey: false
+        allowOutsideClick: false
+        animation: "slide-from-top"
+        , (inputValue) ->
+          return false  if inputValue is false
+
+          if inputValue is ""
+            swal.showInputError "Please enter the password you entered when you first created this application."
+            return false
+            
+          params =
+            id: appId
+            password: inputValue
+
+          console.log(params)
+
+          Meteor.call 'processRentalApplicationPassword', params, (err, result) ->
+           console.log("ProcessRentalApplicationPW RESULT is: (next line)")
+           console.log(result)
+
+           if result.success
+             swal.close()
+             Session.equals('rentalApplicationAccessToken', result.accessToken)
+             $('.access-wrapper').removeClass('hidden')
+             return true
+           else
+             alert result.message
+    
   instance = @
   $('#rentAmnt').mask('9,999')
   $('#partner-ssn').mask('999-99-9999')
@@ -102,11 +150,11 @@ Template.rentalApplication.helpers
           console.log(params)
 
           Meteor.call 'processRentalApplicationPassword', params, (err, result) ->
-           console.log("ProcessRentalApplicationPW RESULT is: (next line)"
+           console.log("ProcessRentalApplicationPW RESULT is: (next line)")
            console.log(result)
 
            if result.success
-             swal.close();
+             swal.close()
              Session.equals('rentalApplicationAccessToken', result.accessToken)
              $('.access-wrapper').removeClass('hidden')
              return true
