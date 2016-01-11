@@ -767,13 +767,14 @@ template(name="rentalApplication")
                               a.revert-rental-application(href="#") Revert to this version
                 .modal-footer
                   a.btn.btn-info(href="#", data-dismiss="modal") Close
+
     else
       #rental-application-access-wrapper.container
         .col-lg-12
           .row
-            h1 Password required
-            p Please enter the password for this application to continue
-            form#rental-application-access-form
+            h1 Password Required
+            p Please enter the password for this application to continue:
+            form#rental-application-access-form.m-b-30
               .form-group
                 input#password.form-control(type="password", name="Password")
               button.btn.btn-success(type="submit") Continue
