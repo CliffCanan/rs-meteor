@@ -2,8 +2,10 @@ saveOtherDocumentType = ''
 
 Template.rentalApplication.onRendered ->
   console.log('OnRendered Fired')
+  console.log(@)
 
-  if Security.canOperateWithBuilding() or not @hasPassword
+  unless @hasPassword
+    template.$('.access-wrapper').removeClass('hidden')
   else
     console.log("onRendered -> @ is (next line):")
     console.log(@)
@@ -44,7 +46,7 @@ Template.rentalApplication.onRendered ->
            if result.success
              swal.close()
              Session.equals('rentalApplicationAccessToken', result.accessToken)
-             $('.access-wrapper').removeClass('hidden')
+             template.$('.access-wrapper').removeClass('hidden')
              return true
            else
              alert result.message
