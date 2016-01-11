@@ -3,9 +3,9 @@ saveOtherDocumentType = ''
 Template.rentalApplication.onRendered ->
   console.log('OnRendered Fired')
   console.log(@)
-
+  ###
   unless @hasPassword
-    template.$('.access-wrapper').removeClass('hidden')
+    $('.access-wrapper').removeClass('hidden')
   else
     console.log("onRendered -> @ is (next line):")
     console.log(@)
@@ -50,7 +50,7 @@ Template.rentalApplication.onRendered ->
              return true
            else
              alert result.message
-    
+    ###
   instance = @
   $('#rentAmnt').mask('9,999')
   $('#partner-ssn').mask('999-99-9999')
@@ -122,6 +122,7 @@ Template.rentalApplication.helpers
     console.log("Helpers -> Can Access -> @ is (next line):")
     console.log(@)
 
+    ###
     appId = @_id
 
     Session.set('rentalApplicationAccessToken', @accessToken)
@@ -163,11 +164,8 @@ Template.rentalApplication.helpers
            else
              alert result.message
              return false
-
-    #@accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
-
-    #return true if Security.canOperateWithBuilding() or not @hasPassword
-    #@accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
+    ###
+    @accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
 
   getDatePickerDateMoveInDate: ->
     if @fields and @fields.moveInDate
