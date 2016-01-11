@@ -85,6 +85,8 @@ Template.rentalApplication.helpers
         confirmButtonColor: "#4588fa"
         confirmButtonText: "Continue"
         closeOnConfirm: false
+        allowEscapeKey: false
+        allowOutsideClick: false
         animation: "slide-from-top"
         , (inputValue) ->
           return false  if inputValue is false
@@ -100,15 +102,19 @@ Template.rentalApplication.helpers
           console.log(params)
 
           Meteor.call 'processRentalApplicationPassword', params, (err, result) ->
-           console.log("ProcessRentalApplicationPW RESULT is: " + result)
+           console.log("ProcessRentalApplicationPW RESULT is: (next line)"
+           console.log(result)
 
            if result.success
+             swal.close();
+             Session.equals('rentalApplicationAccessToken', result.accessToken)
+             $('.access-wrapper').removeClass('hidden')
              return true
            else
              alert result.message
              return false
 
-   # @accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
+    #@accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
 
     #return true if Security.canOperateWithBuilding() or not @hasPassword
     #@accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)

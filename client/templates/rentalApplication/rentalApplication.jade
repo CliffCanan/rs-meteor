@@ -1,7 +1,7 @@
 template(name="rentalApplication")
   with this
-    if canAccess
-      #rental-application-wrapper.container   
+    //if canAccess
+      #rental-application-wrapper.container.access-wrapper.hidden
         .row
           .col-lg-8
             h1 Rental Application
@@ -768,8 +768,8 @@ template(name="rentalApplication")
                 .modal-footer
                   a.btn.btn-info(href="#", data-dismiss="modal") Close
 
-    else
-      #rental-application-access-wrapper.container
+    //else
+      #rental-application-access-wrapper.container.hidden
         .col-lg-12
           .row
             h1 Password Required
