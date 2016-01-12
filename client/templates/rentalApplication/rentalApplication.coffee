@@ -118,7 +118,8 @@ Template.rentalApplication.helpers
       moment(@fields.dateOfBirth).format("MM/DD/YYYY")
 
   dateOfBirthOptions: ->
-    yearRange: '-100:-17'
+    #yearRange: '-100:-17'
+    minDate: '-100y'
     maxDate: '-17y'
 
   documents: ->
@@ -294,6 +295,7 @@ Template.rentalApplication.events
       RentalApplicationDocuments.remove(@_id)
 
   "submit #rental-application-access-form": (event, template) ->
+    # CLIFF (1/12/16) CAN PROBABLY DELETE THIS SECTION, THIS CAN NOW BE HANDLED FROM THE SWEET ALERT CALLBACK FUNCTION
     event.preventDefault()
 
     console.log("Events -> Submit Rental Application Access Form -> @_id is (next line):")
