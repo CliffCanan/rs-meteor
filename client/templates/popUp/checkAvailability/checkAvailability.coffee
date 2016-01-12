@@ -1,9 +1,12 @@
 Template.checkAvailability.helpers
+
   serverError: ->
     Session.get("serverError")
+
   propertyName: ->
     if Session.get("currentUnit")
       return Session.get("currentUnit").title.trim()
+
   currentCity: ->
     cityId = @query.cityId || @cityId
     cities[cityId].long
@@ -52,8 +55,10 @@ Template.checkAvailability.rendered = ->
       form.find(".submit-button").prop("disabled", true)
       form.find(".loading").show()
 #      change to Id
+
       if Session.get("currentUnit")
         building = Session.get("currentUnit")
+
       json = form.serializeFormJSON()
       json.cityName = building.city
       json.cityId = building.cityId
@@ -63,7 +68,9 @@ Template.checkAvailability.rendered = ->
       if not json.bedrooms
         json.bedrooms = ""
       json.link = "city/"+building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
+
       console.log(json)
+
       CheckAvailabilityRequests.insert(json, callback = (error, id) ->
         if error
           Session.set("serverError", true)
@@ -80,7 +87,7 @@ Template.checkAvailability.rendered = ->
           form.find(".loading").hide()
 
           analytics.track "Submitted Check Availability form", {buildingId: building._id, buildingName: building.title, label: building.title}
-          analytics.page title: "Submitted Check Availability form", path: '/submit-availability-form'
+          analytics.page title: "Submitted Check Availability Form", path: '/submit-availability-form'
 
           # Send FB conversion tracking to FB (Added 12/14/15 by CC)
           fbq "track", "Lead",

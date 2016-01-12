@@ -7,6 +7,8 @@ Template.index.rendered = ->
   $(".home-page-bg").vegas
     slides: [
       src: "/images/home-bg/philly2.png"
+      transition: "fade"
+      transition­Duration: 750
     ,
       src: "/images/home-bg/living-room.jpg"
     ,
@@ -16,12 +18,12 @@ Template.index.rendered = ->
     ,
       src: "/images/home-bg/living-room2.jpg"
     ]
-    overlay: "/images/home-bg/overlays/06.png"
     delay: 8500
+    overlay: "/images/home-bg/overlays/06.png"
+    #-shuffle: true
     transition: [ "blur", "blur2", "fade" ]
     transitionDuration: 1750
     #-walk: (index, slideSettings) ->
-    #-  $("#top-carousel").carousel "prev"
 
 
 Template.index.events
@@ -29,17 +31,17 @@ Template.index.events
     $('.city-list').slideUp()
 
   "click #expert-button": grab encapsulate (event, template) ->
-    analytics.track "Clicked Work with an expert button"
+    analytics.track "Clicked Talk With An Expert Button"
     $('#contactUsPopup').modal('show')
 
   "click #browse-button": (event, template) ->
     event.stopPropagation()
     event.preventDefault()
-    analytics.track "Clicked Browse Listings button"
+    analytics.track "Clicked Browse Listings Button"
     $('.city-list').slideToggle()
 
   "click #getStarted": grab encapsulate (event, template) ->
-    analytics.track "Clicked Get Started button"
+    analytics.track "Clicked Get Started Button"
     $('#contactUsPopup').modal('show')
 
 

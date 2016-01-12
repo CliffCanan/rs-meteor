@@ -384,7 +384,6 @@ Template.rentalApplication.events
         confirmButtonColor: "#4588fa"
         confirmButtonText: "Confirm Changes"
         closeOnConfirm: false
-        showLoaderOnConfirm: true
         animation: "slide-from-top"
         , (inputValue) ->
           return false  if inputValue is false

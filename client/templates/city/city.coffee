@@ -14,7 +14,6 @@ $(window).on("resize", setHeights)
 
 markers = {}
 
-
 Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
@@ -28,6 +27,7 @@ Template.city.helpers
   firstLoad: ->
     citySubs.dep.depend()
     !citySubs.ready and @firstLoad
+
   clientRecommendationsList: ->
     if Router.current().route.getName() is "clientRecommendations"
       $(".city-page-wrap").removeClass("col-lg-9").addClass("col-lg-12")
@@ -35,8 +35,10 @@ Template.city.helpers
     else
       $(".city-page-wrap").removeClass("col-lg-12").addClass("col-lg-12")
     false
+
   showClientRecommendationsName: ->
     Template.city.__helpers[" clientRecommendationsList"].call(@) and not Security.canManageClients()
+
   loadingBuildings: ->
     citySubs.dep.depend()
     ready = citySubs.ready
@@ -44,6 +46,7 @@ Template.city.helpers
       cityPageData = Session.get("neighborhoodPageData") or Session.get("cityPageData")
       Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage) if cityPageData
     !ready
+
   notAllLoaded: ->
     return false if Session.get "showRecommendations"
     Template.instance().buildingsCount.get() < Counts.get("city-buildings-count")
@@ -54,6 +57,7 @@ Template.city.helpers
 
     query = Router.current().params.query
     controller = Router.current()
+
     if Session.get "showRecommendations"
       buildingIds = Router.current().data().buildingIds
       selector = {_id: {$in: buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}
@@ -88,12 +92,19 @@ Template.city.helpers
               i++
 
             if location == undefined
-              #$(".form-building-filter")[0].reset();
               $(".form-building-filter").get(0).reset()
               $(".form-building-filter").trigger("submit")
               Session.set "cityGeoLocation", ""
-              $('#messageAlert').modal('show')
+
+              swal
+                title: "No Listings Near That Address"
+                text: "We're always adding more listings in more areas but haven't gotten to that one yet. Please try another address, or email <a href='mailto:team@rentscene.com' target='_blank'>team@rentscene.com</a> to let us know we should prioritize this area."
+                type: "warning"
+                confirmButtonColor: "#4588fa"
+                confirmButtonText: "Ok"
+                html: true
             else
+              # analytics.track "Filtered Listings By Location" # This might be duplicative, already tracking when Location Filter form is submitted, while this is on re-loading the page.
               Session.set("cityGeoLocation", [location.lat(), location.lng()])
             
         if Session.get "cityGeoLocation"

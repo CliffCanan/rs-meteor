@@ -7,6 +7,7 @@ Template.cityHeader.onRendered ->
     Session.set "travelMode", "walking"
 
   $('#location-filter-wrapper').find('.dropdown.city-filter').on('shown.bs.dropdown', ->
+    analytics.track "Clicked Location Filter Dropdown"
     $('#address').focus()
   )
 
@@ -22,15 +23,19 @@ Template.cityHeader.helpers
   currentCity: ->
     cityId = @query.cityId || @cityId
     cities[cityId].long
+
   currentNeighborhood: ->
     if neighborhoodsListRaw?
       neighborhoodSlug = @query.neighborhoodSlug || @neighborhoodSlug
       neighborhoodsListRaw[neighborhoodSlug] || ''
+
   neighborhoods: ->
     cityId = @query.cityId || @cityId
     share.neighborhoodsInCity cityId
+
   currentBedroomType: ->
     btypes[@query.btype]?.lower ? "Any"
+
   arrivalTime: ->
     lessThanTxt = (if $(window).width() < 600 then "<" else "Less than")
     if Session.get("selectedTime")
@@ -42,17 +47,20 @@ Template.cityHeader.helpers
       else lessThanTxt + " 30 min"  if selectedTime is "30m"
     else
       lessThanTxt + " 10 min"
+
   travelMode: ->
     Session.get('travelMode')
+
   getDestination: ->
     destination = if Session.get('cityName') then Session.get('cityName') else ''
+
   neighborhoodSearch: (query, sync, async) ->
     neighborhoods = share.neighborhoodsInCity(Router.current().data().cityId)
     neighborhoodsObject = []
     if neighborhoods
       if not query or query is 'All'
-        # Get Top 8 neighborhood by number of properties in each neighborhood. The neighborhood array is conveniently sorted by
-        # most properties first.
+        # Get Top 8 neighborhoods by number of properties in each neighborhood. The neighborhood array is 
+        # conveniently sorted by most properties first.
         for neighborhood in (_.first(neighborhoods, 8))
           neighborhoodsObject.push
             id: neighborhood.slug
@@ -91,9 +99,6 @@ Template.cityHeader.helpers
         Router.go("neighborhood", {cityId: Router.current().data().cityId, neighborhoodSlug: neighborhoodSlug}, {query: data.query})
 
 Template.cityHeader.events
-  "click .selectArrivalTime .dropdown button": (event, template) ->
-    $(event.currentTarget).parent().toggleClass("open")
-
   "click .city-select li": (event, template) ->
     data = template.data
     Session.set "enteredAddress", null
@@ -124,12 +129,17 @@ Template.cityHeader.events
     data = template.data
     $li = $(event.currentTarget)
     $li.closest(".dropdown").removeClass("open")
+
     query = data.query
+
     if btype = $li.attr("data-value")
+      analytics.track "Filtered Listings By Bedroom Type", {label: btype}
       query.btype = btype
     else
       delete query.btype
+
     routeName = Router.current().route.getName()
+
     if routeName is "clientRecommendations"
       Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
     else
@@ -137,6 +147,9 @@ Template.cityHeader.events
       routeParams.cityId = data.cityId if data.cityId
       routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
       Router.go(routeName, routeParams, {query: query})
+
+  "click .selectArrivalTime .dropdown button": (event, template) ->
+    $(event.currentTarget).parent().toggleClass("open")
 
   "click .travelMode": (event, template) ->
     $item = $(event.currentTarget)
@@ -171,18 +184,6 @@ Template.cityHeader.events
       Router.go(routeName, routeParams, {query: query})
   , 300)
 
-  "click #filterAddress": (event, template) ->
-    event.preventDefault()
-    data = template.data
-    query = data.query
-    query.address = $("#address").val()
-
-    routeName = Router.current().route.getName()
-    routeParams = {}
-    routeParams.cityId = data.cityId if data.cityId
-    routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
-    Router.go(routeName, routeParams, {query: query}, 300)
-
   "click #show-unpublished-properties-toggle": (event, template) ->
     currentValue = Session.get('adminShowUnpublishedProperties')
     Session.set('adminShowUnpublishedProperties', !currentValue)
@@ -195,6 +196,7 @@ Template.cityHeader.events
 
     if $("#address").val() != ""
       query.address = $("#address").val()
+      analytics.track "Filtered Listings By Location", {label: query.address}
       Session.set('enteredAddress', query.address)
     else
       Session.set('enteredAddress', null)
@@ -217,16 +219,23 @@ Template.cityHeader.events
     query = data.query
     $form = $(event.currentTarget)
     $form.closest(".dropdown").removeClass("open")
+
     values = $form.serializeJSON({parseAll: true})
+
     for fieldName in fieldNames
       if value = values[fieldName]
         query[fieldName] = value
       else
         delete query[fieldName]
+
     if values.available
       query.available = encodeURIComponent(values.available)
     else
       delete query.available
+
+    console.log(query)
+
+    analytics.track "Filtered Listings By Features"
 
     routeName = Router.current().route.getName()
     if routeName is "clientRecommendations"

@@ -34,9 +34,11 @@ template(name="cityHeader")
           button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
             i.fa.fa-fw.fa-check
             span.hide-sm Features
+
           form.form-building-features-filter.features-section.dropdown-menu.dropdown-menu-left
             h3.filter-title
-              | Filter the search results by the criteria you need.
+              | Filter the apartment listings by the criteria you need.
+
             ul.filter-list.list-unstyled.clearfix
               li.checkbox-wrap.col-md-6
                 input#security.css-checkbox(type="checkbox", name="security", value="true", checked="{{query.security}}")
@@ -74,6 +76,7 @@ template(name="cityHeader")
               //  input#listings.css-checkbox(type="checkbox", name="listings", value="true", checked="{{query.listings}}")
               //  label.css-label(for="listings")
               //    | Private listings
+
             label.city-features-date
               | Available From
               +datepicker(name="available" value=query.available)
@@ -87,9 +90,11 @@ template(name="cityHeader")
           button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
             i.fa.fa-fw.fa-map-marker
             span.hide-sm Location
-          form.form-building-filter.filter-section.dropdown-menu.dropdown-menu-left
+
+          form.form-building-filter.location-filter-section.dropdown-menu.dropdown-menu-left
             h3.filter-title
               | Enter any common destination (work, school, etc) to find nearyby appartments.
+
             ul.filter-list.list-unstyled.clearfix
               input#address.form-control(type="text", name="address", placeholder="Destination Address", value="{{getDestination}}")
             .row.selectArrivalTime
@@ -107,7 +112,7 @@ template(name="cityHeader")
                     li#30m.selectTime
                       a(href="#")
                        | Less than 30 min
-              .col-xs-6
+              .col-xs-6.p-t-5
                 .row
                   .col-xs-4.travelMode#walker
                     if condition travelMode 'is' 'walking'
@@ -131,11 +136,11 @@ template(name="cityHeader")
                   | Apply
                   span.hide-md Changes
               .col-sm-6
-                span.clear-btn.form-building-address-filter-reset
+                span.btn.btn-link.clear-btn.form-building-address-filter-reset
                   | Clear Filter
 
       .col-xs-8.col-sm-2.building-title-search-wrapper
-        input.building-title-search.form-control(type="text", placeholder="Search buildings", value="{{query.q}}")
+        input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
         i.fa.fa-fw.fa-search
 
       if canOperateWithBuilding
