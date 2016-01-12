@@ -37,6 +37,10 @@ Meteor.publish "buildings", (cityId, query, page) ->
     available: Match.Optional(String)
     neighborhoodSlug: Match.Optional(String)
     address: Match.Optional(String)
+    utm_source: Match.Optional(String)
+    utm_medium: Match.Optional(String)
+    utm_content: Match.Optional(String)
+    utm_campaign: Match.Optional(String)
 
   page = parseInt(page)
   unless page > 0
