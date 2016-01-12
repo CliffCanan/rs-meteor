@@ -8,7 +8,7 @@ Template.index.rendered = ->
     slides: [
       src: "/images/home-bg/philly2.png"
       transition: "fade"
-      transition­Duration: 750
+      transitionDuration: 750
     ,
       src: "/images/home-bg/living-room.jpg"
     ,
@@ -31,17 +31,17 @@ Template.index.events
     $('.city-list').slideUp()
 
   "click #expert-button": grab encapsulate (event, template) ->
-    analytics.track "Clicked Talk With An Expert Button"
+    analytics.track "Clicked Talk With An Expert Button" unless Meteor.user()
     $('#contactUsPopup').modal('show')
 
   "click #browse-button": (event, template) ->
     event.stopPropagation()
     event.preventDefault()
-    analytics.track "Clicked Browse Listings Button"
+    analytics.track "Clicked Browse Listings Button" unless Meteor.user()
     $('.city-list').slideToggle()
 
   "click #getStarted": grab encapsulate (event, template) ->
-    analytics.track "Clicked Get Started Button"
+    analytics.track "Clicked Get Started Button" unless Meteor.user()
     $('#contactUsPopup').modal('show')
 
 

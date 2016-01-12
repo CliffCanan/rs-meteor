@@ -21,12 +21,13 @@ Template.header.onRendered ->
 
 Template.header.events
   "click .contact-us": grab encapsulate (event, template) ->
-    analytics.track "Clicked Contact Us Link"
+    analytics.track "Clicked Contact Us Header Btn" unless Meteor.user()
     $('#contactUsPopup form').formValidation 'resetForm', true
     $('#contactUsPopup').modal('show')
 
   "click #view-recommendations": (event, template) ->
     event.preventDefault()
+    analytics.track "Clicked View Recommendations Btn" unless Meteor.user()
     clientObject = Session.get("recommendationsClientObject")
     Session.set "showRecommendations", true
     Router.go "clientRecommendations", clientId: clientObject.clientId

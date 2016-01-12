@@ -7,7 +7,7 @@ Template.cityHeader.onRendered ->
     Session.set "travelMode", "walking"
 
   $('#location-filter-wrapper').find('.dropdown.city-filter').on('shown.bs.dropdown', ->
-    analytics.track "Clicked Location Filter Dropdown"
+    analytics.track "Clicked Location Filter Dropdown" unless Meteor.user()
     $('#address').focus()
   )
 
@@ -133,7 +133,7 @@ Template.cityHeader.events
     query = data.query
 
     if btype = $li.attr("data-value")
-      analytics.track "Filtered Listings By Bedroom Type", {label: btype}
+      analytics.track "Filtered Listings By Bedroom Type", {label: btype} unless Meteor.user()
       query.btype = btype
     else
       delete query.btype
@@ -196,7 +196,7 @@ Template.cityHeader.events
 
     if $("#address").val() != ""
       query.address = $("#address").val()
-      analytics.track "Filtered Listings By Location", {label: query.address}
+      analytics.track "Filtered Listings By Location", {label: query.address} unless Meteor.user()
       Session.set('enteredAddress', query.address)
     else
       Session.set('enteredAddress', null)
@@ -235,7 +235,7 @@ Template.cityHeader.events
 
     console.log(query)
 
-    analytics.track "Filtered Listings By Features"
+    analytics.track "Filtered Listings By Features" unless Meteor.user()
 
     routeName = Router.current().route.getName()
     if routeName is "clientRecommendations"

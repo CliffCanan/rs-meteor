@@ -298,11 +298,12 @@ Template.building.events
 
   "click .check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
-    analytics.track "Clicked Check Availability button", {buildingId: @_id, buildingName: @title, label: @title}
+    analytics.track "Clicked Check Availability button", {buildingId: @_id, buildingName: @title, label: @title} unless Meteor.user()
     $('#checkAvailabilityPopup').modal('show')
 
   "click .unit-check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
+    analytics.track "Clicked Check Availability Of Unit Btn" unless Meteor.user()
     $('#checkAvailabilityPopup').modal('show')
 
   "click .building-unit-item-more": grab encapsulate (event, template) ->
