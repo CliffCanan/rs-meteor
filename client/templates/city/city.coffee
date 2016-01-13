@@ -58,7 +58,8 @@ Template.city.helpers
       buildingIds = Router.current().data().buildingIds
       selector = {_id: {$in: buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}
     else
-      selector = {parentId: {$exists: false}, cityId: @cityId}
+      # selector = {parentId: {$exists: false}, cityId: @cityId}
+      selector = {cityId: @cityId}
       selector.isPublished = true if not Session.get('adminShowUnpublishedProperties')
 
       if @neighborhoodSlug

@@ -110,6 +110,105 @@ Meteor.publish "buildings", (cityId, query, page) ->
 
   cursors
 
+Meteor.publish "buildingsQuickView", (cityId, query, page) ->
+  query.from = "" + query.from
+  query.to = "" + query.to
+  check(cityId, Match.InArray(cityIds))
+  check(page, Number)
+  check query,
+    btype: Match.Optional(Match.InArray(btypesIds))
+    from: Match.Optional(String)
+    to: Match.Optional(String)
+    q: Match.Optional(String)
+    security: Match.Optional(String)
+    fitnessCenter: Match.Optional(String)
+    pets: Match.Optional(String)
+    laundry: Match.Optional(String)
+    parking: Match.Optional(String)
+    utilities: Match.Optional(String)
+    available: Match.Optional(String)
+    neighborhoodSlug: Match.Optional(String)
+    address: Match.Optional(String)
+
+  page = parseInt(page)
+  unless page > 0
+    page = 1
+  limit = page * itemsPerPage
+
+  selector = {cityId: cityId}
+  addQueryFilter(query, selector, @userId)
+  addIsPublishFilter(@userId, selector)
+
+  # Limit fields to only those needed to display on city listing. Other fields are for building page.
+  fields =
+    cityId: 1
+    title: 1
+    images: 1
+    isPublished: 1
+    position: 1
+    parentId: 1
+    btype: 1
+    isOnMap: 1
+    latitude: 1
+    longitude: 1
+    slug: 1
+    neighborhoodSlug: 1
+    fitnessCenter: 1
+    security: 1
+    laundry: 1
+    parking: 1
+    pets: 1
+    utilities: 1
+    bedroomsFrom: 1
+    bedroomsTo: 1
+    bathroomsFrom: 1
+    bathroomsTo: 1
+    sqftFrom: 1
+    sqftTo: 1
+    agroIsUnit: 1
+    agroPriceTotalFrom: 1
+    agroPriceTotalTo: 1
+    agroPriceStudioFrom: 1
+    agroPriceStudioTo: 1
+    agroPriceBedroom1From: 1
+    agroPriceBedroom1To: 1
+    agroPriceBedroom2From: 1
+    agroPriceBedroom2To: 1
+    availableAt: 1
+
+  if Security.canOperateWithBuilding(@userId)
+    adminFields = {
+      title: 1
+      mlsNo: 1
+      adminAvailability: 1
+      adminEscorted: 1
+      adminAppFee: 1
+      adminAvailability: 1
+      adminScheduling: 1
+      adminContact: 1
+      adminNotes: 1
+    }
+    fields = _.extend fields, adminFields
+
+  buildingsCursor = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
+  buildings = buildingsCursor.fetch()
+
+  cursors = []
+
+  cursors.push buildingsCursor
+
+  if buildings
+    imageIds = []
+    buildings.forEach (building) ->
+      _id = building.images?[0]?._id
+      imageIds.push _id
+
+    if imageIds.length
+      images = BuildingImages.find {_id: $in: imageIds}, {fields: 'copies.thumbs': 1}
+      cursors.push images
+
+  cursors
+
 Meteor.publish "buildingsSimilar", (buildingId) ->
   building = Buildings.findOne(buildingId)
 

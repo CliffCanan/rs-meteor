@@ -21,7 +21,8 @@ template(name="city")
       if firstLoad
         +loadingSpinner
       else
-        +cityBuildings(buildings=buildings queryBtype=query.btype)
+        +cityQuickView(buildings=buildings queryBtype=query.btype)
+        //- +cityBuildings(buildings=buildings queryBtype=query.btype)
 
         if loadingBuildings
           +loadingSpinner

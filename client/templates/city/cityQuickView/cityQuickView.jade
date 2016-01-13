@@ -1,0 +1,23 @@
+template(name="cityQuickView")
+  table#quick-view-table.table
+    thead
+      tr
+        th(data-sorter="false")
+        th Building
+        th Unit
+        th Btypes
+        th City
+        th Beds
+        th Baths
+        th Sqft
+        th Entry
+        th Laundry
+        th Available
+        th Price
+    tbody
+      each buildingsProcessed
+        tr
+          +quickViewBuilding
+        each children
+          tr.tablesorter-childRow
+            +quickViewBuilding
