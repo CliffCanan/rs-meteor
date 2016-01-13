@@ -320,7 +320,6 @@ Template.rentalApplication.events
     #analytics.page title: "Submitted Rental Application form", path: '/submit-rental-application-form'
 
     if @hasPassword
-      #template.$("#rental-application-save-revision").modal('toggle')
       swal
         title: "Enter a Note"
         text: "Please describe what was changed in your application so we can process it accordingly."
@@ -334,7 +333,7 @@ Template.rentalApplication.events
           return false  if inputValue is false
 
           if inputValue is ""
-            swal.showInputError "Please enter a password to submit the application!"
+            swal.showInputError "Please enter a note so we can process your application accordingly."
             return false
 
           fields =
@@ -356,8 +355,9 @@ Template.rentalApplication.events
           RentalApplications.update template.data._id,
             $set: fields
             , (err, result) ->
+              swal("Saved!", "Please wait while the PDF is being downloaded.", "success")
               location.href = "#{Router.path('rentalApplication', {id: template.data._id})}/download"
-              template.$("#rental-application-save-revision").modal('toggle')
+
     else
       swal
         title: "Enter a Password"
@@ -395,8 +395,8 @@ Template.rentalApplication.events
           RentalApplications.update template.data._id,
             $set: fields
             , (err, result) ->
+              swal("Saved!", "Please wait while the PDF is being downloaded.", "success")
               location.href = "#{Router.path('rentalApplication', {id: template.data._id})}/download"
-              #swal "Nice!", "Password: " + inputValue, "success"
 
 
   "click .revert-rental-application": (event, template) ->

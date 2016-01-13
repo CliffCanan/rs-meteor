@@ -712,34 +712,6 @@ template(name="rentalApplication")
                 button.btn.btn-lg.btn-success(type="submit") Submit &amp; Download PDF
                   i.fa.fa-cloud-download.m-l-10
 
-          #rental-application-password.modal.fade
-            .modal-dialog
-              form#rental-application-password-form.modal-content
-                .modal-header
-                  button.close(type="button", data-dismiss="modal", aria-label="Close")
-                    i.fa.fa-times(aria-hidden="true")
-                  h4.modal-title Enter a password to submit form
-                .modal-body
-                  p Please enter a password for your appplication to keep it protected. You will be prompted to enter it again the next time you visit the form.
-                  .form-group
-                    input#password.form-control(type="password", name="password", placeholder="Your password")
-                .modal-footer
-                  button.btn.btn-success(type="submit") Confirm password
-
-          #rental-application-save-revision.modal.fade
-            .modal-dialog
-              form#rental-application-save-revision-form.modal-content
-                .modal-header
-                  button.close(type="button", data-dismiss="modal", aria-label="Close")
-                    i.fa.fa-times(aria-hidden="true")
-                  h4.modal-title Please enter a note to describe your changes
-                .modal-body
-                  p Please describe what was changed in your application so we can process it accordingly.
-                  .form-group
-                    textarea#updateNote.form-control(name="update-note", placeholder="Note for update", rows="3")
-                .modal-footer
-                  button.btn.btn-success(type="submit") Confirm changes
-
           #rental-application-show-revisions.modal.fade
             .modal-dialog
               form#rental-application-save-revision-form.modal-content
@@ -772,9 +744,4 @@ template(name="rentalApplication")
       #rental-application-access-wrapper.container
         .col-lg-12
           .row
-            h1 Password Required
-            p Please enter the password for this application to continue:
-            form#rental-application-access-form.m-b-30
-              .form-group
-                input#password.form-control(type="password", name="Password")
-              button.btn.btn-success(type="submit") Continue
+            
