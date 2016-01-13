@@ -381,7 +381,7 @@ Template.rentalApplication.events
           Session.set('rentalApplicationAccessToken', accessToken)
 
           fields =
-            password: template.$('#rental-application-password-form').find('#password').val()
+            password: inputValue
             hasPassword: true
             fields: $('#rental-application-form').serializeFormJSON()
             accessToken: accessToken
