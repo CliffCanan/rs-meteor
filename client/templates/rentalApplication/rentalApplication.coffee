@@ -119,6 +119,7 @@ Template.rentalApplication.helpers
 
   dateOfBirthOptions: ->
     #yearRange: '-100:-17'
+    dateFormat: "m/d/yy"
     minDate: '-100y'
     maxDate: '-17y'
 
