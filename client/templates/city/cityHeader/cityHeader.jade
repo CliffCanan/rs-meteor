@@ -2,14 +2,14 @@ template(name="cityHeader")
   .city-sub-header.clearfix
 
     .row
-      .col-xs-12.col-sm-2.city-select.city-sub-header-list-wrap.dropdown.city-filter
+      .col-xs-12.col-sm-2.listing-type-select.city-sub-header-list-wrap.dropdown.city-filter
         button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
-          i.fa.fa-globe
-          span.button-text {{currentCity}}
+          i.fa.fa-building
+          span.button-text {{currentListingType}}
           span.caret
         ul.city-sub-header-list.dropdown-menu.list-unstyled
-          each cities
-            li.city-sub-header-item(data-value="{{key}}") {{value}}
+          li.city-sub-header-item(data-value="managed") Managed Buildings
+          li.city-sub-header-item(data-value="private") Private Listings
 
       .col-sm-2.neighborhood-select.city-sub-header-list-wrap.dropdown.city-filter.hide-md
         i.fa.fa-map-signs

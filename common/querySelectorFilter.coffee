@@ -38,3 +38,8 @@
     available = new Date(decodeURIComponent(query.available))
     if available.getTime()
       selector.$or = [{availableAt: {$exists: false}}, {availableAt: {$lte: available}}]
+  if query.listingType
+    if query.listingType is 'managed'
+      selector['source.source'] = {$ne: 'IDX'}
+    if query.listingType is 'private'
+      selector['source.source'] = 'IDX'

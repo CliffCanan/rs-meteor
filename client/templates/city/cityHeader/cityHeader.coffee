@@ -29,6 +29,12 @@ Template.cityHeader.helpers
   neighborhoods: ->
     cityId = @query.cityId || @cityId
     share.neighborhoodsInCity cityId
+  currentListingType: ->
+    if @query.listingType
+      if @query.listingType is 'managed' then return 'Managed Buildings'
+      if @query.listingType is 'private' then return 'Private Listings'
+    else
+      'Managed Buildings'
   currentBedroomType: ->
     btypes[@query.btype]?.lower ? "Any"
   arrivalTime: ->
@@ -119,6 +125,21 @@ Template.cityHeader.events
       $(event.target).typeahead('val', neighborhoodsListRaw[data.neighborhoodSlug])
     else
       $(event.target).attr('placeholder', 'Search neighborhood')
+
+  "click .listing-type-select li": (event, template) ->
+    data = template.data
+    $li = $(event.currentTarget)
+    $li.closest(".dropdown").removeClass("open")
+    query = data.query
+    if listingType = $li.attr("data-value")
+      query.listingType = listingType
+    else
+      delete query.listingType
+
+    routeParams = {}
+    routeParams.cityId = data.cityId if data.cityId
+    routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+    Router.go('city', routeParams, {query: query})
 
   "click .bedroom-type-select li": (event, template) ->
     data = template.data
