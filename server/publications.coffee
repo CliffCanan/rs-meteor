@@ -37,6 +37,7 @@ Meteor.publish "buildings", (cityId, query, page) ->
     available: Match.Optional(String)
     neighborhoodSlug: Match.Optional(String)
     address: Match.Optional(String)
+    listingType: Match.Optional(String)
 
   page = parseInt(page)
   unless page > 0
@@ -76,6 +77,8 @@ Meteor.publish "buildings", (cityId, query, page) ->
     agroPriceBedroom1To: 1
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
+
+  fields['source.source'] = 1
 
   if Security.canOperateWithBuilding(@userId)
     adminFields = {
