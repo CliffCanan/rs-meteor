@@ -94,7 +94,15 @@ class Building
         sqft += "+"
       sqft
   getFeatures: ->
-    if @features?.length then @features else @parent()?.features
+    # Filter out 'Tenant Pays..' features to comply with TrendMLS requirements
+    if @source and @source.source is 'IDX'
+      if @features
+        _.reject @features, (feature) ->
+          (feature.indexOf 'Tenant Pays') > -1
+      else
+        []
+    else  
+      if @features?.length then @features else @parent()?.features
   getAvailableAt: ->
     if @agroIsUnit and @availableAt > new Date()
       @availableAt
