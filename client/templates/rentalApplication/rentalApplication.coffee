@@ -37,7 +37,11 @@ Template.rentalApplication.onRendered ->
              instance.$('.access-wrapper').removeClass('hidden')
              return true
            else
-             alert result.message
+             swal
+               title: "Oh No!"
+               text: result.message
+               type: "error"
+               confirmButtonColor: "#4588fa"
     else
       $('.access-wrapper').removeClass('hidden')
   

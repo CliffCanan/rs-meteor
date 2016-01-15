@@ -13,8 +13,13 @@ template(name="rentalApplication")
                 br
                 i.fa.fa-undo
                 a#application-revisions(href="#rental-application-show-revisions", data-toggle="modal") #{rentalApplicationRevisionsCount} Revisions
+
           .col-lg-12
             form#rental-application-form.form-horizontal
+
+              .pmcshell
+                img(src="images/pmclogo.jpg", itemprop="image", alt="PMC Property Group")
+
               .form-group
                 .col-xs-12.col-sm-10.col-md-9
                   p.well.m-t-20.m-b-0
