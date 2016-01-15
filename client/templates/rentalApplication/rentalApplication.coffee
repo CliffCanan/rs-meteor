@@ -405,3 +405,12 @@ Template.rentalApplication.events
 
   "click .revert-rental-application": (event, template) ->
     Meteor.call 'revertRentalApplication', @_id if confirm "Are you sure you want to revert to '#{@updateNote}'?"
+
+
+$(window).scroll ->
+  "use strict"
+  scroll = $(window).scrollTop()
+  if scroll > 2100 and scroll < 3750
+    $(".pmcshell").slideUp()
+  else
+    $(".pmcshell").slideDown()
