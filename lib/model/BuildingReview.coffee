@@ -18,11 +18,11 @@ class BuildingReview
     else
       "Anonymous"
 
-  displayPersona: ->
-    if @renterPersona and @renterPersona isnt 'Other'
-      "#{parsedName}, #{@renterPersona}"
-    else
-      ""
+#  displayPersona: ->
+#    if @renterPersona and @renterPersona isnt 'Other'
+#      "#{parsedName}, #{@renterPersona}"
+#    else
+#      ""
 
 share.Transformations.BuildingReview = _.partial(share.transform, BuildingReview)
 
