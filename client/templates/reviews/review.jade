@@ -3,21 +3,15 @@ template(name="review")
     if showBuildingLink
       div.building
         a(href="{{pathFor route='building' data=building.processedRouteData}}") #{building.title}
-    div.author(property="author", typeof="http://schema.org/Person")
-      span(property="name") #{displayName}
-      if canOperateWithBuilding
-        br
-        span
-          | (
-          a(href="mailto:#{email}") #{email}
-          | )
-    div.posted-date #{formatedCreatedAt}
+
+    h3(property="name") #{title}
+
     div.total-rating(property="reviewRating", typeof="http://schema.org/Rating")
       i.fa.fa-star
       span(property="ratingValue") #{totalRating}
       | /
       span(property="bestRating") 10
-    h3(property="name") #{title}
+
     if isPublished
       p.review-body-summary #{formattedBody}
       p.review-body-full(property="reviewBody") #{body}
@@ -27,9 +21,22 @@ template(name="review")
       each reviewItems
         div.review-item-rating.col-lg-6
           +reviewBar
+
     if showMoreLink
-      p.mb0
-        a.review-view-more(href="#") View more
+      p.mb0.text-center
+        a.review-view-more(href="#") View More...
+
+    div.author(property="author", typeof="http://schema.org/Person")
+      span(property="name") #{displayName}
+      span.displayPersona #{displayPersona}
+      if canOperateWithBuilding
+        br
+        span
+          | (
+          a(href="mailto:#{email}") #{email}
+          | )
+
+    div.posted-date #{formatedCreatedAt}
 
     if canOperateWithBuilding
       .admin-actions

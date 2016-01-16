@@ -9,43 +9,67 @@
     width 165px
 
   .total-rating
+    line-height 20px
     position absolute
     right 10px
     top 18px
     i
       color #D2AE04
       float left
-      font-size 25px
+      font-size 18px
     span
       display inline-block
-      margin-left 8px
-      font-size 18px
-      margin-top -2px
+      font-size 17px
+      margin-top -1px
+      &nth-child(2)
+        margin-left 8px
   
   .author
     color #222
-    display block
-    font-size 85%
     font-weight bold
+    @media screen and (min-width: 768px)
+      font-size 15px
+
+    .displayPersona
+      display block
+      font-size 90%
+      font-weight normal
+      line-height 1.3
+      text-transform capitalize
+      
   .posted-date
-    font-size 70%
+    color #aaa
+    font-size 85%
+    line-height 1.5
 
   h3
     color #000
     font-size 14px
     font-weight bold
-    margin-bottom 0px
-    margin-top 15px
+    line-height 1.3
+    margin-bottom 5px
+    margin-top 0
+    max-width 70%
+    @media screen and (min-width: 768px)
+      font-size 15px
+      line-height 1.4
+      max-width 85%
+
+  p
+    line-height 1.5
 
   .review-item-rating
     color #333
     font-weight bold
-    font-size 85%
-    margin-bottom 20px
+    font-size 86%
+    margin-bottom 15px
+
     .item-label
       float left
+
     .item-score
       float right
+
     .bar
       clear both
       background-color #F3F3F3

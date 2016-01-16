@@ -5,7 +5,7 @@ Template.review.helpers
     moment(@createdAt).format('MM/DD/YYYY')
   formattedBody: ->
     if @body.length > 0
-      "#{@body.slice(0, 90).trim()}..."
+      "#{@body.slice(0, 100).trim()}..."
     else
       @body
   isPublished: ->
