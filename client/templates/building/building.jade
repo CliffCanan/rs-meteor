@@ -412,13 +412,14 @@ template(name="building")
                     span.building-admin-info-data
                       | {{adminNotes}}
 
-          h2.section-title
-            i.fa.fa-star
-            |  Reviews
-            a.btn.btn-xs.btn-primary.pull-right(href="#review-form-modal", data-toggle="modal") Leave A Review
-          +reviews(buildingReviews=buildingReviews)
-          +reviewForm(defaults=reviewFormDefaults)
-          +reviewSent
+          .col-xs-12
+            h2.section-title
+              i.fa.fa-star
+              |  Reviews
+              a.btn.btn-xs.btn-primary.pull-right(href="#review-form-modal", data-toggle="modal") Leave A Review
+            +reviews(buildingReviews=buildingReviews)
+            +reviewForm(defaults=reviewFormDefaults)
+            +reviewSent
 
           footer.clearfix
             h2.section-title
