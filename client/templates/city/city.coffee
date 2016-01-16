@@ -12,17 +12,27 @@
 
 $(window).on("resize", setHeights)
 
-markers = {}
+@setHeights = ->
+  $window = $(window)
+  windowHeight = $window.outerHeight()
+  if window.matchMedia("(min-width: 1200px)").matches
+    headerHeight = $(".header-wrap").outerHeight()
+    filterHeight = $(".city-sub-header").outerHeight()
+    $(".right-bar, .left-bar").outerHeight(windowHeight - headerHeight - filterHeight)
+  else
+    $(".right-bar").outerHeight(windowHeight * 0.6)
+    $(".left-bar").css("height", "auto")
 
+markers = {}
 
 Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
+  @viewType = new ReactiveVar('thumbnails')
   Session.set('adminShowUnpublishedProperties', false)
 
   unless $.fn.hoverIntent
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
-
 
 Template.city.helpers
   firstLoad: ->
@@ -58,8 +68,7 @@ Template.city.helpers
       buildingIds = Router.current().data().buildingIds
       selector = {_id: {$in: buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}
     else
-      # selector = {parentId: {$exists: false}, cityId: @cityId}
-      selector = {cityId: @cityId}
+      selector = {parentId: {$exists: false}, cityId: @cityId}
       selector.isPublished = true if not Session.get('adminShowUnpublishedProperties')
 
       if @neighborhoodSlug
@@ -121,7 +130,27 @@ Template.city.helpers
     buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
     Template.instance().buildingsCount.set(buildings.count())
 
+    if Template.instance().viewType.get() is 'quickView'
+      parents = buildings.fetch()
+      _.each parents, (parent) ->
+        parent.isParent = true
+
+        children = Buildings.find({parentId: parent._id}).fetch()
+        if children.length
+          parent.children = children
+          parent.hasChildren = true
+
+      buildings = parents
+
     buildings
+
+  currentViewType: ->
+    switch Template.instance().viewType.get()
+      when 'quickView' then return "Quick view"
+      else return "Thumbnails"
+
+  showThumbnails: ->
+    Template.instance().viewType.get() is 'thumbnails'
 
 Template.city.onRendered ->
   instance = @
@@ -318,6 +347,10 @@ Template.city.events
     cityId = $(event.currentTarget).attr("data-value")
     cityData = cities[cityId]
     template.map.setCenter(new google.maps.LatLng(cityData.latitude, cityData.longitude))
+
+  "click .view-list-wrapper li": (event, template) ->
+    viewType = $(event.currentTarget).attr('data-value')
+    template.viewType.set viewType
 
   "mouseover .main-city-list li": (event, template) ->
     marker = markers[@_id]

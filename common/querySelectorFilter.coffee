@@ -1,4 +1,4 @@
-@addQueryFilter = (query, selector, userId) ->
+@addQueryFilter = (query, selector, userId, skip = {}) ->
   fieldName = "agroPriceTotalFrom"
   if query.neighborhoodSlug
     selector.neighborhoodSlug = query.neighborhoodSlug
@@ -14,22 +14,23 @@
     if priceTo
       selector[fieldName].$lte = priceTo
   if query.q
-    # If Admin, search query should also look in admin fields
-    if userId and Security.canOperateWithBuilding(userId)
-      regexSearch = createTextSearchRegexp(decodeURIComponent(query.q))
-      selector.$or = [
-        {title: regexSearch}
-        {mlsNo: regexSearch}
-        {adminAvailability: regexSearch}
-        {adminEscorted: regexSearch}
-        {adminAppFee: regexSearch}
-        {adminAvailability: regexSearch}
-        {adminScheduling: regexSearch}
-        {adminContact: regexSearch}
-        {adminNotes: regexSearch}
-      ]
-    else
-      selector.title = createTextSearchRegexp(decodeURIComponent(query.q))
+    unless skip.q  
+      # If Admin, search query should also look in admin fields
+      if userId and Security.canOperateWithBuilding(userId)
+        regexSearch = createTextSearchRegexp(decodeURIComponent(query.q))
+        selector.$or = [
+          {title: regexSearch}
+          {mlsNo: regexSearch}
+          {adminAvailability: regexSearch}
+          {adminEscorted: regexSearch}
+          {adminAppFee: regexSearch}
+          {adminAvailability: regexSearch}
+          {adminScheduling: regexSearch}
+          {adminContact: regexSearch}
+          {adminNotes: regexSearch}
+        ]
+      else
+        selector.title = createTextSearchRegexp(decodeURIComponent(query.q))
   boolFieldNames = ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
   for boolFieldName in boolFieldNames
     if query[boolFieldName]

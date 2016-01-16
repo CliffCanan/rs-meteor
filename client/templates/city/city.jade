@@ -15,14 +15,24 @@ template(name="city")
           i.fa.fa-plus
           | Add Listing
 
+      .view-list-wrapper.dropdown.pull-left
+        button.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
+          span.button-text.hide-md {{currentViewType}}
+          span.caret
+        ul.dropdown-menu.list-unstyled
+          li.city-sub-header-item(data-value="thumbnails") Thumbnails
+          li.city-sub-header-item(data-value="quickView") Quick view
+
       if clientRecommendationsList
         +clientRecommendationsToggle
 
       if firstLoad
         +loadingSpinner
       else
-        +cityQuickView(buildings=buildings queryBtype=query.btype)
-        //- +cityBuildings(buildings=buildings queryBtype=query.btype)
+        if showThumbnails
+          +cityBuildings(buildings=buildings queryBtype=query.btype)
+        else
+          +cityQuickView(buildings=buildings queryBtype=query.btype)
 
         if loadingBuildings
           +loadingSpinner

@@ -34,7 +34,7 @@ template(name="quickView")
                 th Price
             tbody
               each buildings
-                tr
+                tr.tablesorter-hasChildRow
                   +quickViewBuilding
                 each children
                   tr.tablesorter-childRow
@@ -46,8 +46,9 @@ template(name="quickView")
 template(name="quickViewBuilding")
   if isParent
     td
-      a.toggle-units(href="#")
-        i.fa.fa-plus-square-o
+      if hasChildren
+        a.toggle-units(href="#")
+          i.fa.fa-plus-square-o
     td
       a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
     td

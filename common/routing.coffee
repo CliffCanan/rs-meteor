@@ -1,6 +1,7 @@
 adminSubs = new SubsManager()
 @citySubs = new SubsManager()
 buildingSubs = new SubsManager()
+@quickViewSubs = new SubsManager()
 
 Router.configure
   layoutTemplate: "layout"

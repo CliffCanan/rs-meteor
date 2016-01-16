@@ -136,7 +136,7 @@ Meteor.publish "buildingsQuickView", (cityId, query, page) ->
   limit = page * itemsPerPage
 
   selector = {cityId: cityId}
-  addQueryFilter(query, selector, @userId)
+  addQueryFilter(query, selector, @userId, {q: true})
   addIsPublishFilter(@userId, selector)
 
   # Limit fields to only those needed to display on city listing. Other fields are for building page.
@@ -190,7 +190,7 @@ Meteor.publish "buildingsQuickView", (cityId, query, page) ->
     }
     fields = _.extend fields, adminFields
 
-  buildingsCursor = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
+  buildingsCursor = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, fields: fields})
   buildings = buildingsCursor.fetch()
 
   cursors = []
