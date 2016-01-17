@@ -57,7 +57,7 @@ Template.reviews.events
 
     $('.reviews li').css(zIndex: 10)
 
-    if $target.html() is 'View More'
+    if $target.html() is 'View More...'
       $target.parent().siblings('.review-breakdown').slideDown()
       $target.parent().siblings('.review-body-summary').hide()
       $target.parent().siblings('.review-body-full').show()

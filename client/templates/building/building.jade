@@ -59,11 +59,11 @@ template(name="building")
             else
               h1.col-xs-12.col-sm-8.col-md-12.building-main-info-title(itemprop="name") {{getUnitTitle}}
               h4.col-xs-12.col-sm-8.col-md-12.building-main-info-address(itemprop="address", itemscope, itemtype="http://schema.org/PostalAddress")
-                span(itemprop="streetAddress") {{address}}
+                span.m-r-5(itemprop="streetAddress") {{address}}
                 | &#124;
-                span(itemprop="addressLocality") {{cityName}}
-                meta(itemprop="postalCode", content="{{postalCode}}") {{postalCode}}
-                meta(itemprop="addressCountry", content="USA")
+                span.m-l-5(itemprop="addressLocality") {{cityName}}
+                //-meta(itemprop="postalCode", content="{{postalCode}}") {{postalCode}}
+                //-meta(itemprop="addressCountry", content="USA")
 
             if isEdit
               .building-main-price-wrap
@@ -151,8 +151,8 @@ template(name="building")
                   li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
                     i.fa.fa-check.blue-icon
                     span.building-main-prop-text
-                      | {{.}} Square Feet
-                //-if isNotNullOrUndefined isFurnished
+                      | {{.}} sq ft
+
                 if isFurnished
                   li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
                     i.fa.fa-check.blue-icon
@@ -169,11 +169,13 @@ template(name="building")
                       | {{text}}
                     if commentValue
                       i.fa.fa-question-circle
+
                 with getBathrooms
                   li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
                     i.fa.fa-check.blue-icon
                     span.building-main-prop-text
                       | {{.}}
+
                 if isNotAvailable
                   li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
                     i.fa.fa-times.grey-icon
@@ -186,14 +188,15 @@ template(name="building")
                       span.building-main-prop-text
                         | Available: {{moment . 'MM/DD/YYYY'}}
 
-            button.btn.btn-lg.btn-block.btn-primary.building-main-info-btn.m-t-20.check-availability(type="button")
+            button.btn.btn-lg.btn-block.btn-primary.building-main-info-btn.m-t-25.check-availability(type="button")
               | Check Availability
-              i.fa.fa-fw.fa-mouse-pointer.m-l-10
+              i.fa.fa-fw.fa-share.m-l-10
             
 
             if canApply
               a.btn.btn-success.building-main-info-btn.visible-lg-block(href="{{pathFor 'newRentalApplication' query=rentalQuery}}")
                 | Apply for rental
+
             .building-main-info-desc-wrap.visible-lg-block
               input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
               p.building-main-info-desc
@@ -201,12 +204,7 @@ template(name="building")
                   textarea.form-control(name="description") {{{description}}}
                 else
                   | {{{getDescription}}}
-              //-p.building-main-info-desc
-              //-  | The Sansom contains 104 newly constructed apartments and an assortment of noteworthy community amenities.
-              //-  | Apartment types are varied and include a mix of one-bedrooms, one-bedrooms with dens, two-bedrooms, and
-              //-  | studios. The apartments feature
               //-  span.building-desc-more-target
-              //-    |exceptional finishes, including granite countertops, stainless steel
               //-    | kitchen appliances, hardwood floors, and in-unit washer/dryers.
               //-label.building-main-more-trigger(for="mainDescMoreLarge")
               //-ul.building-share-list.list-unstyled.clearfix
@@ -218,7 +216,8 @@ template(name="building")
               //-    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
               //-  li.building-share.pull-left
               //-    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
-              +social
+                +social
+
 
           .col-xs-12.col-lg-7.building-info-wrap
             if isEdit
@@ -302,19 +301,24 @@ template(name="building")
               //-    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
               //-  li.building-share.pull-left
               //-    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
-              +social
+                  +social
 
             if buildingUnits.count
               section.building-info-section
+
                 h2.building-info-title
                   i.fa.fa-fw.fa-key
-                  | {{buildingUnits.count}} Available Units
+                  if buildingUnits.count > 1
+                    | {{buildingUnits.count}} Available Units
+                  else
+                    | {{buildingUnits.count}} Available Unit
+
                 //-p.building-info-desc
                 //-  | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
-                //-  | mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum
-                //-  | id ligula porta felis euismod semper.
+
                 .building-unit-list-wrap
                   ul.building-unit-list.list-unstyled.row
+
                     each buildingUnitsLimited
                       li.building-unit-item-wrap.col-sm-6.col-xs-12
                         .building-unit-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
@@ -435,7 +439,7 @@ template(name="building")
             +reviewForm(defaults=reviewFormDefaults)
             +reviewSent
 
-          footer.clearfix
+          footer.p-t-10.clearfix
             h2.section-title
               i.fa.fa-fw.fa-building
               | Similar Properties
