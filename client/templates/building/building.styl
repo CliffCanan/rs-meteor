@@ -54,7 +54,7 @@
         font-family 'Montserrat', Helvetica, sans-serif
         font-size 24px
         font-weight bold
-        margin 0 20px 20px 0
+        margin 0 20px 5px 0
         padding 0 2.5% 0 0
         color #272b30
         float left
@@ -63,7 +63,6 @@
           width 100%
           float none
           padding 0
-          margin-bottom 5px
 
       .rating-pie-wrap
         position absolute
@@ -122,8 +121,7 @@
 
       .building-main-prop-list
         font-size 0
-        @media screen and (min-width: 992px)
-          padding 0
+        padding 0
         .building-main-prop
           color #272b30
           font-size 15px
@@ -135,12 +133,15 @@
           @media screen and (min-width: 768px)
             font-size 16px
             text-indent -12px
-            padding-left 8.5%
+            padding-left 7%
           .building-main-prop-text
-            padding 0 5px
-            margin-right 5px
+            @media screen and (min-width: 768px)
+              padding 0 5px
+            @media screen and (min-width: 992px)
+              margin-right 5px
           .fa-question-circle
-            margin-left 5%
+            font-size 14px
+            margin-left 4%
 
           .label-radio
             margin-left 5px
@@ -393,8 +394,9 @@
 
   .building-features
     font-size 15.5px
-    color #272b30
+    color #222
     padding-bottom 10px
+    padding-right 5px
     float none
     display inline-block
     vertical-align top
@@ -552,28 +554,46 @@ h3.section-title
   font-family "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif
 
 .similar-properties
-  .main-city-item img
-    border-radius 10px
-    @media screen and (min-width: 900px)
-      box-shadow 0 8px 12px -5px rgba(0,0,0,.3)
+  .main-city-item
+    .main-city-img-link > div
+      background-size cover
+      background-repeat no-repeat
+      background-position center center
+      border-radius 10px
+      width 100%
+      height 200px
+      @media screen and (min-width: 400px)
+        height 220px
+      @media screen and (min-width: 500px)
+        height 240px
+      @media screen and (min-width: 650px)
+        height 270px
+      @media screen and (min-width: 768px)
+        height 240px
+      @media screen and (min-width: 1200px)
+        height 180px
+      @media screen and (min-width: 900px)
+        box-shadow 0 8px 12px -5px rgba(0,0,0,.3)
 
   .main-city-item-link
+    color #272b30
     font-family 'Montserrat', Helvetica, sans-serif
     font-size 15px
     line-height 1.4
-    color #272b30
     text-decoration none
+    margin-bottom 0
 
   .main-city-item-wrap
     padding 15px 0 5px
     p
       font-weight bold
     .similar-property-price
-      color #cc9900
+      color rgb(220, 210, 0)
       padding 0 10px 0 0
       display inline-block
       vertical-align middle
-      font-size 14px
+      font-size 14.5px
+      text-shadow 0 0px 0px rgba(0,0,0,.6)
 
 .showRatingText
   margin-top 8px

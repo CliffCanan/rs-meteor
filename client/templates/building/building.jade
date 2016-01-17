@@ -88,19 +88,17 @@ template(name="building")
             else
               if agroIsUnit
                 with getUnitPrice
-                  .building-main-price-wrap.col-sm-4.col-lg-10.col-lg-offset-1
+                  .building-main-price-wrap.col-xs-12.col-sm-4.col-lg-10.col-lg-offset-1
                     .building-main-price-opt
                       span.building-main-price {{price}}
                       span.building-main-rooms {{type}}
               else
                 with prices
-                  .building-main-price-wrap.col-sm-4.col-lg-10.col-lg-offset-1
+                  .building-main-price-wrap.col-xs-12.col-sm-4.col-lg-10.col-lg-offset-1
                     each .
                       .building-main-price-opt
-                        span.building-main-price
-                          | {{price}}
-                        span.building-main-rooms
-                          | {{type}}
+                        span.building-main-price {{price}}
+                        span.building-main-rooms {{type}}
 
             if isEdit
               ul.col-xs-12.col-sm-8.col-lg-12.building-main-prop-list.list-unstyled.clearfix
@@ -448,19 +446,22 @@ template(name="building")
             h2.section-title
               i.fa.fa-fw.fa-building
               | Similar Properties
+
             ul.main-city-list.list-unstyled.row.similar-properties
               if Template.subscriptionsReady
                 each similarProperties .
-                  li.col-lg-3
+                  li.col-xs-12.col-sm-6.col-lg-3
                     .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
+
                       a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
-                        img(style="width:100%;height:184px" src="{{#if mainImage}}{{mainImage.url store='thumbs' auth=false}}{{else}}/images/placeholder.png{{/if}}")
+                        div(style="height:184px; background-image: url('{{#if mainImage}}{{mainImage.url store='thumbs' auth=false}}{{else}}/images/placeholder.png{{/if}}')")
+
                       .main-city-item-wrap
                         .row
-                          .col-md-8
+                          .col-md-9.col-lg-12
                             p.main-city-item-link
                               | {{title}}
-                          .col-md-4
+                          .col-md-3.col-lg-12
                             p.similar-property-price
                               | {{displayBuildingPrice ../queryBtype}}
 

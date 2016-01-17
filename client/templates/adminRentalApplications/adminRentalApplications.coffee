@@ -25,11 +25,8 @@ Template.adminRentalApplications.events
       showCancelButton: true
       animation: "slide-from-top"
       , (isConfirm) ->
-        console.log("Delete Application Swal -> callback reached")
-        console.log(appId)
         if isConfirm
           RentalApplications.remove(appId)
-          console.log("Delete Application Swal -> isConfirm was TRUE")
           swal
             title: "Application Deleted"
             text: "That rental application has been deleted successfully."

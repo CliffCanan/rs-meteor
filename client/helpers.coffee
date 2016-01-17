@@ -31,6 +31,9 @@ Template.registerHelper "getReadableShortDateTime", (date) ->
 Template.registerHelper "getReadableLongDateTime", (date) ->
   moment(date).format('h:mma, Do MMMM YYYY')
 
+Template.registerHelper "getReadableLongDateTimeAlt", (date) ->
+  moment(date).format('MMM D YYYY  |  h:mma')
+
 Template.registerHelper "getUser", (userId) ->
   user = Meteor.users.findOne(userId)
   if user

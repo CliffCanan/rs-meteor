@@ -280,18 +280,11 @@ Template.city.onRendered ->
 
   # Show Contact Us Popup after 14 seconds
   if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
-    @popupTimeoutHandle = Meteor.setTimeout ->
-      unless $('body').hasClass('modal-open')
-        $('.contact-us').trigger('click')
-    , 14000
-
-  Meteor.setTimeout ->
-    if typeof($('.HB-Bar')) != 'undefined'
-      #console.log("Hiding .HB-Bar - End of Template.city.onRendered");
-      $('.HB-Bar').addClass('hidden')
-      $('#hellobar-pusher').addClass('hidden')
-  , 200
-
+    if $(window).width() > 600
+      @popupTimeoutHandle = Meteor.setTimeout ->
+        unless $('body').hasClass('modal-open')
+          $('.contact-us').trigger('click')
+      , 14000
 
   $("#contactUsPopup").on "hide.bs.modal", (e) ->
     $("#contactUsPopup form").formValidation "resetForm", true

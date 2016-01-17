@@ -61,7 +61,6 @@ Template.reviews.events
       $target.parent().siblings('.review-breakdown').slideDown()
       $target.parent().siblings('.review-body-summary').hide()
       $target.parent().siblings('.review-body-full').show()
-      $('.review-view-more').html('View More')
       $review.css
         zIndex: 20
       $target.html('View Less')
