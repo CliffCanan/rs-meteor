@@ -303,7 +303,7 @@ Template.rentalApplication.events
       confirmButtonText: "Delete"
       animation: "slide-from-top"
       , (confirm) ->
-        if confirm ''
+        if confirm
           RentalApplications.update(template.data._id, { $pull: { documents: {"EJSON$value.EJSON_id": @_id } }})
           RentalApplicationDocuments.remove(@_id)
 

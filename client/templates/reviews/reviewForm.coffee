@@ -105,7 +105,7 @@ Template.reviewForm.helpers
     if Template.instance().data.defaults
       'Edit A Review'
     else
-      'Wright A New Review'
+      'Write A New Review'
   submitText: ->
     if Template.instance().data.defaults
       'Save Review'
