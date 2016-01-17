@@ -308,7 +308,7 @@ template(name="building")
 
                 h2.building-info-title
                   i.fa.fa-fw.fa-key
-                  if buildingUnits.count > 1
+                  if condition buildingUnits.count "gt" 1
                     | {{buildingUnits.count}} Available Units
                   else
                     | {{buildingUnits.count}} Available Unit
@@ -358,13 +358,14 @@ template(name="building")
                               li.building-unit-prop
                                 i.fa.fa-fw.fa-check
                                 | {{.}}
+
                 if condition buildingUnits.count "gt" 4
                   if Session "showAllBuildingUnits"
                     a.building-unit-item-less(href="#", title="less")
                       | Hide Units
                   else
                     a.building-unit-item-more(href="#", title="more")
-                      | View all {{buildingUnits.count}} Units
+                      | View All {{buildingUnits.count}} Units
 
             if isEdit
               +buildingFeaturesEdit
