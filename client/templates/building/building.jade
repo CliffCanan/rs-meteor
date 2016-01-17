@@ -1,19 +1,25 @@
 template(name="building")
   +checkAvailability(building=building)
 
-  .city-page-wrap.col-lg-9
+  .city-page-wrap.col-lg-9(itemscope, itemtype="http://schema.org/LocalBusiness")
+
     with building
+
       form.building-form.content-wrapper.left-bar
         ol.breadcrumb
-          li
-            a(href="/", title='home') Home
-          li
-            a(href="{{pathFor route='city'}}") {{cityName}}
-          li
-            a(href="{{pathFor route='neighborhood'}}") {{neighborhood}}
+          li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+            a(href="/", title='home', itemprop="url")
+              span(itemprop="title") Home
+          li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+            a(href="{{pathFor route='city'}}", itemprop="url")
+              span(itemprop="title") {{cityName}}
+          li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+            a(href="{{pathFor route='neighborhood'}}", itemprop="url")
+              span(itemprop="title") {{neighborhood}}
           with parent
-            li
-              a(href="{{pathFor route='building' data=getRouteData}}") {{title}}
+            li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+              a(href="{{pathFor route='building' data=getRouteData}}", itemprop="url")
+              span(itemprop="title") {{title}}
           li.active {{title}}
 
         if canOperateWithBuilding
@@ -44,12 +50,20 @@ template(name="building")
                 i.fa.fa-pencil-square-o
                 | Edit
 
-        article.building-page.clearfix(vocab="http://schema.org/", typeof="Place")
+
+        article.building-page.clearfix
+
           aside.building-main-info.col-xs-12.col-lg-5
             if isEdit
               input.building-main-info-title(type="text", name="title", value="{{title}}")
             else
-              h2.col-xs-12.col-sm-8.col-md-12.building-main-info-title {{getUnitTitle}}
+              h1.col-xs-12.col-sm-8.col-md-12.building-main-info-title(itemprop="name") {{getUnitTitle}}
+              h4.col-xs-12.col-sm-8.col-md-12.building-main-info-address(itemprop="address", itemscope, itemtype="http://schema.org/PostalAddress")
+                span(itemprop="streetAddress") {{address}}
+                | &#124;
+                span(itemprop="addressLocality") {{cityName}}
+                meta(itemprop="postalCode", content="{{postalCode}}") {{postalCode}}
+                meta(itemprop="addressCountry", content="USA")
 
             if isEdit
               .building-main-price-wrap
@@ -256,6 +270,7 @@ template(name="building")
                 if canRecommend
                   a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
                     i.fa.fa-star
+
                 .carousel-inner(role="listbox")
                   each getMedia
                     .item
@@ -263,17 +278,16 @@ template(name="building")
                         img.building-img(src="{{getThumbnail store='thumbs'}}")
                       else
                         if isFirstSlide
-                          iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="100%", height="500" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+                          iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
                         else
-                          iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="100%", height="500" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen) 
+                          iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen) 
+
                 a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
                   i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
-                  span.sr-only
-                    | Previous
+                  span.sr-only Previous
                 a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
                   i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
-                  span.sr-only
-                    | Next
+                  span.sr-only Next
 
             .building-main-info-desc-wrap.hidden-lg
               unless isEdit

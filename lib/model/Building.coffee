@@ -46,11 +46,13 @@ class Building
     _.extend(@, doc)
   cityName: ->
     cities[@cityId].short
+
   processedTitle: ->
     if Session.get "showRecommendations"
       building = getCurrentClientUnit(@_id)
       return @getUnitTitle.call building if building
     return @title
+
   getRouteData: ->
     data =
       cityId: @cityId
@@ -60,19 +62,23 @@ class Building
       data.buildingSlug = parent.slug
       data.unitSlug = @slug
     data
+
   processedRouteData: ->
     if Session.get "showRecommendations"
       building = getCurrentClientUnit(@_id)
       return @getRouteData.call building if building
     return @getRouteData()
+
   mainImage: ->
     file = @getImages()?[0]
     file  if file?.url
+
   getImages: ->
     if @images?.length
       @images
     else
       @parent()?.images
+
   getMedia: ->
     if @images?.length
       @images.map (item, index) ->
@@ -80,10 +86,13 @@ class Building
         item
     else
       @parent()?.images
+
   getVideo: ->
     @vimeoId
+
   getDescription: ->
     @description ? @parent()?.description
+
   getSqft: ->
     if @sqftFrom
       sqft = @sqftFrom
@@ -93,18 +102,23 @@ class Building
       else
         sqft += "+"
       sqft
+
   getFeatures: ->
     if @features?.length then @features else @parent()?.features
+
   getAvailableAt: ->
     if @agroIsUnit and @availableAt > new Date()
       @availableAt
+
   getAvailableAtForDatepicker: ->
     moment(@availableAt).format("MM/DD/YYYY")
+
   canApply: ->
     if @agroIsUnit and @availableAt and @acceptOnlineApplication
       if moment().diff(moment(@availableAt), 'months') < 4
         return true
     false
+
   getBedrooms: ->
     if @bedroomsFrom
       value = @bedroomsFrom
@@ -114,6 +128,7 @@ class Building
       if @bedroomsTo > 1
         value += "s"
       value
+
   getBathrooms: ->
     if @bathroomsFrom
       value = @bathroomsFrom
@@ -133,10 +148,12 @@ class Building
     if parent
       title = parent.title + " " + title
     title
+
   getUnitPrice: ->
     if @priceFrom
       price: formatPriceDisplay(@priceFrom, @priceTo)
       type: btypes[@btype]?.lower
+
   complexFields: (edit = false) ->
     fields = []
     for fieldName in ["laundry", "security", "fitnessCenter", "pets", "parking", "utilities"]
@@ -205,6 +222,7 @@ class Building
             types.push(i)
             postfix = " Bedrooms"
         types.join(", ") + postfix
+
   bedroomTypesArray: ->
     types = []
     postfix = ""
@@ -216,6 +234,7 @@ class Building
       if @["agroPriceBedroom" + i + "From"]
         types.push("#{i} Bedroom")
     types
+
   displayBuildingPrice: (queryBtype) ->
     if Session.get "showRecommendations"
       unit = getCurrentClientUnit(@_id)
@@ -227,13 +246,16 @@ class Building
     fieldNameTo = fieldName + "To"
     if @[fieldNameFrom]
       "$" + accounting.formatNumber(@[fieldNameFrom]) + (if @[fieldNameFrom] is @[fieldNameTo] then "" else "+")
+
   buildingUnits: (limit) ->
     options = {sort: {createdAt: -1, _id: 1}}
     if limit
       options.limit = limit
     Buildings.find({parentId: @_id}, options)
+
   parent: ->
     Buildings.findOne(@parentId)  if @parentId
+
   prices: ->
     prices = []
     for key, value of btypes
@@ -245,6 +267,7 @@ class Building
           price: formatPriceDisplay(@[fieldNameFrom], @[fieldNameTo])
           type: value.lower
     prices
+
   metaTags: ->
     bedrooms = @bedroomTypesArray()
     city = cities[@cityId].human

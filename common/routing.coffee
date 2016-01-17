@@ -126,7 +126,7 @@ Router.map ->
       @next()
     onAfterAction: ->
       SEO.set
-        title: share.formatPageTitle "Rental Apartments and Condos in #{cities[@params.cityId].long}"
+        title: share.formatPageTitle "Rental Apartments in #{cities[@params.cityId].long}"
         meta:
           description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
 
@@ -151,7 +151,7 @@ Router.map ->
       @next()
     onAfterAction: ->
       SEO.set
-        title: share.formatPageTitle "Rental Apartments and Condos in #{cities[@params.cityId].long}"
+        title: share.formatPageTitle "Rental Apartments in #{cities[@params.cityId].long}"
         meta:
           description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
 
@@ -178,13 +178,21 @@ Router.map ->
       @next()
     onAfterAction: ->
       if @data() and @data().building
+        console.log("Routing -> building -> onAfterAction if@data() and @data().building REACHED")
         building = @data().building
         metaTags = building.metaTags()
         if metaTags.title
+          console.log("Routing -> building -> onAfterAction -> metaTags.Title EXISTS")
           SEO.set
             title: metaTags.title
             meta:
               description: metaTags.description
+        else
+          console.log("Routing -> building -> onAfterAction -> metaTags.Title DOES NOT EXIST")
+      else
+        console.log("Routing -> building -> onAfterAction if@data() and @data().building NOT REACHED")
+        SEO.set
+          title: share.formatPageTitle "#{cities[@params.cityId].short} Apartment"
 
   @route "/apply",
     name: "newRentalApplication"

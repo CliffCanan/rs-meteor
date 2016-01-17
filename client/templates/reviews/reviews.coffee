@@ -67,7 +67,7 @@ Template.reviews.events
         zIndex: 20
       $target.html('View Less')
     else
-      $('.review-breakdown').hide()
+      $('.review-breakdown').slideUp()
       $('.review-body-summary').show()
       $('.review-body-full').hide()
       #$('footer').css('opacity', 1)

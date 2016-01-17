@@ -1,16 +1,19 @@
 template(name="review")
-  div.review(property="review", typeof="Review")
+  div.review(itemprop="review", itemscope, itemtype="http://schema.org/Review")
     if showBuildingLink
       div.building
         a(href="{{pathFor route='building' data=building.processedRouteData}}") #{building.title}
 
-    h3(property="name") #{title}
+    h3(itemprop="name") #{title}
 
-    div.total-rating(property="reviewRating", typeof="http://schema.org/Rating")
-      i.fa.fa-star
-      span(property="ratingValue") #{totalRating}
-      | /
-      span(property="bestRating") 10
+    div.total-rating
+      i.fa.fa-star 
+      span(itemprop="reviewRating", itemscope, itemtype="http://schema.org/Rating")
+        meta(itemprop="worstRating" content="0")
+        span(itemprop="ratingValue") #{totalRating}
+        | /
+        span(itemprop="bestRating") 10
+
 
     if isPublished
       p.review-body-summary #{formattedBody}

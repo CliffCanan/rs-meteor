@@ -63,6 +63,11 @@
           float none
           padding 0
           margin-bottom 5px
+
+      .building-main-info-address
+        margin 0
+        padding 0
+
       .building-main-price-wrap
         clear both
         display table
@@ -223,18 +228,28 @@
       display inline-block
 
   .building-img-wrap
-    height 280px
-    @media screen and (min-width: 768px)
-      height 360px
-    @media screen and (min-width: 992px)
-      height 500px
     max-width 800px
+    height 200px
+    @media screen and (min-width: 350px)
+      height 220px
+    @media screen and (min-width: 400px)
+      height 260px
+    @media screen and (min-width: 450px)
+      height 300px
+    @media screen and (min-width: 600px)
+      height 330px
+    @media screen and (min-width: 768px)
+      height 390px
+    @media screen and (min-width: 992px)
+      height 450px
+    @media screen and (min-width: 1200px)
+      height 310px
+    @media screen and (min-width: 1300px)
+      height 336px
+    @media screen and (min-width: 1350px)
+      height 354px
     .item
-      height 280px
-      @media screen and (min-width: 768px)
-        height 360px
-      @media screen and (min-width: 992px)
-        height 500px
+      height 100%
       visibility hidden
 
     a.recommend-toggle
