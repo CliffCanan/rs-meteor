@@ -26,53 +26,53 @@ Template.reviewForm.onRendered ->
       title:
         validators:
           notEmpty:
-            message: 'Please enter a title for your review'
+            message: 'Please give your review a title.'
       body:
         validators:
           notEmpty:
-            message: 'Please enter a review'
+            message: 'Please enter your review.'
       name:
         validators:
           notEmpty:
-            message: 'Please enter your name'
+            message: 'Please enter your name.'
       email:
         validators:
           notEmpty:
-            message: 'Please enter your email address'
+            message: 'Please enter your email address.'
           emailAddress:
-            message: 'Please enter a valid email address'
+            message: 'Please enter a valid email address.'
       renterPersona:
         validators:
           notEmpty:
-            message: 'Please select an option'
+            message: 'Please select an option from the dropdown menu.'
       totalRating:
         validators:
           notEmpty:
-            message: 'Please leave a rating for this question'
+            message: 'Please select a number 1-10 for your overall rating.'
       noise:
         validators:
           notEmpty:
-            message: 'Please leave a rating for this question'
+            message: 'Please leave a rating for this question.'
       location:
         validators:
           notEmpty:
-            message: 'Please leave a rating for this question'
+            message: 'Please leave a rating for this question.'
       amenities:
         validators:
           notEmpty:
-            message: 'Please leave a rating for this question'
+            message: 'Please leave a rating for this question.'
       management:
         validators:
           notEmpty:
-            message: 'Please leave a rating for this question'
+            message: 'Please leave a rating for this question.'
       value:
         validators:
           notEmpty:
-            message: 'Please leave a rating for this question'
+            message: 'Please leave a rating for this question.'
       quality:
         validators:
           notEmpty:
-            message: 'Please leave a rating for this question'
+            message: 'Please leave a rating for this question.'
   ).on("success.form.fv", (event) ->
     event.preventDefault()
     success = false
@@ -103,14 +103,14 @@ Template.reviewForm.onRendered ->
 Template.reviewForm.helpers
   modalTitle: ->
     if Template.instance().data.defaults
-      'Editing a review'
+      'Edit A Review'
     else
-      'Leave a new review'
+      'Wright A New Review'
   submitText: ->
     if Template.instance().data.defaults
-      'Save review'
+      'Save Review'
     else
-      'Post review'
+      'Post Review'
 
 Template.reviewForm.events
   "keyup #name": (event, target) ->

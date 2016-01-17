@@ -16,6 +16,7 @@ template(name="cityBuildings")
                     if isVideo
                       i.fa.fa-video-camera.fa-3x
                     img.building-img(src="{{getThumbnail store='thumbs'}}", itemprop="image", alt="{{processedTitle}}")
+
               a.left.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="prev")
                 i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
                 span.sr-only

@@ -160,12 +160,16 @@
     border-top 4px solid #4588fa
     margin 25px 0 15px 
     padding 15px 5% 10px
+    @media screen and (min-width: 992px)
+      margin-top 30px
 
     p
       line-height 1.6
       @media screen and (min-width: 992px)
         font-size 15px
         line-height 1.5
+      @media screen and (min-width: 1200px)
+        font-size 16px
 
     textarea
       width 100%
@@ -382,16 +386,19 @@
           color #4588fa
 
   .building-features
-    font-size 16px
+    font-size 15.5px
     color #272b30
-    padding-bottom 20px
+    padding-bottom 10px
     float none
     display inline-block
     vertical-align top
     i
       float left
+      position relative
+      top 2px
     .building-features-text
       display block
+      font-weight bold
       overflow hidden
 
 .blue-icon
@@ -539,16 +546,18 @@ h3.section-title
   font-family "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif
 
 .similar-properties
+  .main-city-item img
+    border-radius 10px
+    @media screen and (min-width: 900px)
+      box-shadow 0 8px 12px -5px rgba(0,0,0,.3)
+
   .main-city-item-link
     font-family 'Montserrat', Helvetica, sans-serif
     font-size 15px
     line-height 1.4
     color #272b30
     text-decoration none
-    .main-city-item img
-      border-radius 10px
-      @media screen and (min-width: 900px)
-        box-shadow 0 10px 16px -6px rgba(0,0,0,.3)
+
   .main-city-item-wrap
     padding 15px 0 5px
     p

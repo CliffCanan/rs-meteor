@@ -115,11 +115,11 @@ Template.rentalApplication.helpers
 
   getDatePickerDateMoveInDate: ->
     if @fields and @fields.moveInDate
-      moment(@fields.moveInDate).format("MM/DD/YYYY")
+      moment(@fields.moveInDate).format("m/d/yy")
 
   getDatePickerDateDateOfBirth: ->
     if @fields and @fields.dateOfBirth
-      moment(@fields.dateOfBirth).format("MM/DD/YYYY")
+      moment(@fields.dateOfBirth).format("m/d/yy")
 
   dateOfBirthOptions: ->
     #yearRange: '-100:-17'
@@ -295,12 +295,20 @@ Template.rentalApplication.events
     , 1500
 
   "click .delete-document": (event, template) ->
-    if confirm 'Are you sure you want to delete this document?'
-      RentalApplications.update(template.data._id, { $pull: { documents: {"EJSON$value.EJSON_id": @_id } }})
-      RentalApplicationDocuments.remove(@_id)
+    swal
+      title: "Delete Application?"
+      text: "Are you sure you want to delete this application?"
+      type: "warning"
+      confirmButtonColor: "#4588fa"
+      confirmButtonText: "Delete"
+      animation: "slide-from-top"
+      , (confirm) ->
+        if confirm ''
+          RentalApplications.update(template.data._id, { $pull: { documents: {"EJSON$value.EJSON_id": @_id } }})
+          RentalApplicationDocuments.remove(@_id)
 
   "submit #rental-application-access-form": (event, template) ->
-    # CLIFF (1/12/16) CAN PROBABLY DELETE THIS SECTION, THIS CAN NOW BE HANDLED FROM THE SWEET ALERT CALLBACK FUNCTION
+    # CLIFF (1/12/16): CAN PROBABLY DELETE THIS SECTION, THIS CAN NOW BE HANDLED FROM THE SWEET ALERT CALLBACK FUNCTION
     event.preventDefault()
 
     console.log("Events -> Submit Rental Application Access Form -> @_id is (next line):")

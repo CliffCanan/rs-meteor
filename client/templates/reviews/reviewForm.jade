@@ -2,15 +2,19 @@ template(name="reviewForm")
   div#review-form-modal.modal.fade
     .modal-dialog
       form#review-form.modal-content
+
         .modal-header
           button.close(type="button", data-dismiss="modal", aria-label="Close")
             i.fa.fa-times(aria-hidden="true")
           h4.modal-title #{modalTitle}
+
         .modal-body
           .form-group
             input#title.form-control(placeholder="Review title", name="title" value="#{defaults.title}")
+
           .form-group
             textarea#body.form-control(placeholder="Review body", name="body")
+
           .form-group
             label.control-label What type of renter do you most closely resemble?
             select#renter-persona.form-control(name="renterPersona")
@@ -22,6 +26,7 @@ template(name="reviewForm")
               option(value=" Working professional")  Working professional
               option(value="Retired") Retired
               option(value="Other") Other
+
           .form-group
             label.control-label How likely are you to recommend this building to a friend?
             label.radio-inline
@@ -54,6 +59,7 @@ template(name="reviewForm")
             label.radio-inline
               input(type="radio", name="totalRating", value="10")
               | 10
+
           hr
           .form-group
             label.control-label Noise:
