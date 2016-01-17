@@ -4,7 +4,7 @@ template(name="reviews")
       | No reviews yet. Be the first to <a id="review-form-link" href="#review-form-modal" data-toggle="modal">leave a review</a>!
   else
     div.average-rating(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
-      div(property="aggregateRating", typeof="AggregateRating")
+      div
         | Rated
         span.avgRating(itemprop="ratingValue") #{averageRating}
         | /
