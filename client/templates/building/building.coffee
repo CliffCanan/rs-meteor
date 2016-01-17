@@ -45,7 +45,8 @@ Template.building.helpers
       rating
 
   getRatingValue: (rating) ->
-    rating/10
+    parseInt(rating, 10)/10
+
 
   rentalQuery: ->
     buildingId: @_id
@@ -241,6 +242,15 @@ Template.building.onRendered ->
         map.setCenter(latLng)
         if instance.travelMarkers
           instance.travelMarkers.start.setPosition(latLng)
+
+
+  $(".rating-pie-chart").easyPieChart
+    size: 32
+    barColor: "#3fabe1"
+    trackColor: "#f2f2f2"
+    scaleColor: "#dfe0e0"
+    lineCap: "round"
+    animate: 2300
 
 
   # Show Check Availability Popup after 12 seconds

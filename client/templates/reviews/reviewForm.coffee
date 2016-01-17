@@ -96,8 +96,13 @@ Template.reviewForm.onRendered ->
           alert err.reason
         else
           $('#review-form-modal').modal('hide')
-          $('#review-sent-modal').modal('show')
-      
+          swal
+            title: "Review Submitted!"
+            text: "Your review is now in the queue and should appear shortly. Thank you, you're awesome!"
+            type: "success"
+            confirmButtonColor: "#4588fa"
+            confirmButtonText: "Continue Browsing"
+            animation: "slide-from-top"
   )
 
 Template.reviewForm.helpers
