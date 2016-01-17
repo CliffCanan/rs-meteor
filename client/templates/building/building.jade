@@ -60,8 +60,8 @@ template(name="building")
               h1.col-xs-12.col-sm-8.col-md-12.building-main-info-title(itemprop="name") {{getUnitTitle}}
 
               .rating-pie-wrap(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
-                .rating-pie-chart(data-percent="{{getRatingValue}}")
-                  span.avgRating(itemprop="ratingValue") {{getRating}}
+                .rating-pie-chart(data-percent="{{averageRatingAll}}")
+                  span.avgRating(itemprop="ratingValue") {{averageRatingAll}}
 
               h4.col-xs-12.col-sm-8.col-md-12.building-main-info-address(itemprop="address", itemscope, itemtype="http://schema.org/PostalAddress")
                 span.m-r-5(itemprop="streetAddress") {{address}}
@@ -454,7 +454,7 @@ template(name="building")
                     .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
 
                       a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
-                        div(style="height:184px; background-image: url('{{#if mainImage}}{{mainImage.url store='thumbs' auth=false}}{{else}}/images/placeholder.png{{/if}}')")
+                        div(style="background-image: url('{{#if mainImage}}{{mainImage.url store='thumbs' auth=false}}{{else}}/images/placeholder.png{{/if}}')")
 
                       .main-city-item-wrap
                         .row

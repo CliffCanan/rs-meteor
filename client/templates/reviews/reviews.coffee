@@ -30,12 +30,13 @@ Template.reviews.onRendered ->
 
 Template.reviews.helpers
   averageRating: ->
-    buildings = Template.instance().data.buildingReviews.fetch()
+    allReviews = Template.instance().data.buildingReviews.fetch()
     totalRating = 0
-    for building in buildings
-      totalRating += parseInt(building.totalRating, 10)
 
-    (totalRating / buildings.length).toFixed(1)
+    for review in allReviews
+      totalRating += parseInt(review.totalRating, 10)
+
+    (totalRating / allReviews.length).toFixed(1)
 
   reviewsCount: ->
     Template.instance().data.buildingReviews.count()
