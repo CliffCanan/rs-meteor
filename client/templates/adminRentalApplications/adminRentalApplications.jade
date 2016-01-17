@@ -2,21 +2,22 @@ template(name="adminRentalApplications")
   #manage-rental-applications-wrapper.container
     .row
       .col-lg-8
-        h1 Manage rental applications
+        h1 Manage Rental Applications
       .col-lg-4
         .header-actions.pull-right
           a.btn.btn-info(href="{{pathFor 'newRentalApplication'}}")
             i.fa.fa-plus
-            | Add new application
-      .col-lg-12
+            | Add New Application
+
+      .col-lg-12.m-t-15
         if rentalApplications.count
           table.table.table-bordered
             thead
               tr
-                th Created at
-                th Applicant name
-                th Unit name
-                th Updated at
+                th Created At
+                th Applicant Name
+                th Unit
+                th Last Updated
                 th Status
                 th Actions
             tbody
@@ -33,4 +34,4 @@ template(name="adminRentalApplications")
                     a.delete-application(href="#")
                       i.fa.fa-trash
         else
-          h3 No rental applications found
+          h3 No rental applications found.

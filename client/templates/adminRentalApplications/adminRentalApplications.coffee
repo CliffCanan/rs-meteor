@@ -13,13 +13,25 @@ Template.adminRentalApplications.helpers
 
 Template.adminRentalApplications.events
   "click .delete-application": (event, template) ->
+    appId = @_id
+
     swal
       title: "Delete Application?"
-      text: "Are you sure you want to delete this rental application?"
+      text: "Are you sure you want to permanently delete this rental application?"
       type: "warning"
       confirmButtonColor: "#4588fa"
       confirmButtonText: "Delete"
+      closeOnConfirm: false
+      showCancelButton: true
       animation: "slide-from-top"
-      , (confirm) ->
-        if confirm
-          RentalApplications.remove(@_id)
+      , (isConfirm) ->
+        console.log("Delete Application Swal -> callback reached")
+        console.log(appId)
+        if isConfirm
+          RentalApplications.remove(appId)
+          console.log("Delete Application Swal -> isConfirm was TRUE")
+          swal
+            title: "Application Deleted"
+            text: "That rental application has been deleted successfully."
+            type: "success"
+            confirmButtonColor: "#4588fa"

@@ -62,7 +62,6 @@ Template.reviews.events
       $target.parent().siblings('.review-body-summary').hide()
       $target.parent().siblings('.review-body-full').show()
       $('.review-view-more').html('View More')
-      #$('footer').css('opacity', 0.3)
       $review.css
         zIndex: 20
       $target.html('View Less')
@@ -70,5 +69,4 @@ Template.reviews.events
       $('.review-breakdown').slideUp()
       $('.review-body-summary').show()
       $('.review-body-full').hide()
-      #$('footer').css('opacity', 1)
-      $target.html('View More')
+      $target.html('View More...')
