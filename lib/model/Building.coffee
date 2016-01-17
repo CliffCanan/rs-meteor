@@ -307,8 +307,8 @@ class Building
       if sqft or featuresSummary then endPeriod = '. ' else endPeriod = ''
       description = "#{@displayBuildingPrice()} #{bedrooms[0]} apartment available #{availableDate} at #{@title}. #{featuresSummary}#{sqft}#{endPeriod}View photos videos, maps and floorplans of units in #{@neighborhood}, #{city}"
 
-    #title: title
-    #description: description
+    title: title
+    description: description
 
 
 share.Transformations.Building = _.partial(share.transform, Building)
