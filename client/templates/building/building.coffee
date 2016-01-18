@@ -252,7 +252,7 @@ Template.building.onRendered ->
         if instance.travelMarkers
           instance.travelMarkers.start.setPosition(latLng)
 
-
+  ###
   $(".rating-pie-chart").easyPieChart
     size: 32
     barColor: "#3fabe1"
@@ -260,7 +260,7 @@ Template.building.onRendered ->
     scaleColor: "#dfe0e0"
     lineCap: "round"
     animate: 2300
-
+  ###
 
   # Show Check Availability Popup after 12 seconds
   if !Meteor.user()

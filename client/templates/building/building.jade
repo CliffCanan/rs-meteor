@@ -59,9 +59,9 @@ template(name="building")
             else
               h1.col-xs-12.col-sm-8.col-md-12.building-main-info-title(itemprop="name") {{getUnitTitle}}
 
-              .rating-pie-wrap(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
-                .rating-pie-chart(data-percent="{{averageRatingAll}}")
-                  span.avgRating(itemprop="ratingValue") {{averageRatingAll}}
+              //-.rating-pie-wrap(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
+              //-  .rating-pie-chart(data-percent="{{averageRatingAll}}")
+              //-    span.avgRating(itemprop="ratingValue") {{averageRatingAll}}
 
               h4.col-xs-12.col-sm-8.col-md-12.building-main-info-address(itemprop="address", itemscope, itemtype="http://schema.org/PostalAddress")
                 span.m-r-5(itemprop="streetAddress") {{address}}
