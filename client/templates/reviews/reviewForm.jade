@@ -10,10 +10,10 @@ template(name="reviewForm")
 
         .modal-body
           .form-group
-            input#title.form-control(placeholder="Review title", name="title" value="#{defaults.title}")
+            input#title.form-control(placeholder="Review Title", name="title" value="#{defaults.title}")
 
           .form-group
-            textarea#body.form-control(placeholder="Review body", name="body")
+            textarea#body.form-control(placeholder="Review Text", name="body", rows="3")
 
           .form-group
             label.control-label What type of renter do you most closely resemble?
@@ -23,7 +23,7 @@ template(name="reviewForm")
               option(value="Grad Student") Grad Student
               option(value="Family") Family
               option(value="Couple") Couple
-              option(value=" Working professional")  Working professional
+              option(value=" Working professional")  Working Professional
               option(value="Retired") Retired
               option(value="Other") Other
 

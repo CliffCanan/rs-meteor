@@ -19,7 +19,7 @@ template(name="building")
           with parent
             li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
               a(href="{{pathFor route='building' data=getRouteData}}", itemprop="url")
-              span(itemprop="title") {{title}}
+                span(itemprop="title") {{title}}
           li.active {{title}}
 
         if canOperateWithBuilding
@@ -473,7 +473,7 @@ template(name="building")
               .modal-header
                 button.close(type='button', data-dismiss='modal', aria-label='Close')
                   span(aria-hidden='true') &times;
-                h4#myModalLabel.modal-title Remove {{removeMediaType}}.
+                h4#myModalLabel.modal-title Remove {{removeMediaType}}
               .modal-body
                 | Are you sure?
               .modal-footer

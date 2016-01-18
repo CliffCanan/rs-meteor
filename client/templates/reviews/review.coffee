@@ -4,7 +4,7 @@ Template.review.helpers
   formatedCreatedAt: ->
     moment(@createdAt).format('MM/DD/YYYY')
   formattedBody: ->
-    if @body.length > 0
+    if @body.length > 140
       "#{@body.slice(0, 140).trim()}..."
     else
       @body

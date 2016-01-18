@@ -59,14 +59,14 @@ Template.reviews.events
     $('.reviews li').css(zIndex: 10)
 
     if $target.html() is 'View More...'
-      $target.parent().siblings('.review-breakdown').slideDown()
       $target.parent().siblings('.review-body-summary').hide()
-      $target.parent().siblings('.review-body-full').show()
+      $target.parent().siblings('.review-body-full').slideDown('fast')
+      $target.parent().siblings('.review-breakdown').slideDown('fast')
       $review.css
         zIndex: 20
       $target.html('View Less')
     else
-      $('.review-breakdown').slideUp()
-      $('.review-body-summary').show()
-      $('.review-body-full').hide()
+      $target.parent().siblings('.review-breakdown').slideUp('fast')
+      $target.parent().siblings('.review-body-full').slideUp('fast')
+      $target.parent().siblings('.review-body-summary').show()
       $target.html('View More...')
