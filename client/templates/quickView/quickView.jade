@@ -59,10 +59,10 @@ template(name="quickViewBuilding")
     td {{title}}  
   td {{cityId}}
   td {{btype}}
-  td {{bedrooms}}
+  td {{bedroomTypes ../queryBtype}}
   td {{bathrooms}}
   td {{getSqft}}
   td {{securityValue}}
   td {{laundryValue}}
   td {{availableAtFormatted}}
-  td {{displayBuildingPrice}}
+  td {{displayBuildingPrice ../queryBtype}}

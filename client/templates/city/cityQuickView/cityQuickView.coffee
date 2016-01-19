@@ -14,7 +14,11 @@ Template.cityQuickView.onCreated ->
       self.tablesorterReady.set(true)
 
   @autorun =>
+    data = Router.current().data()
     params = Router.current().params
+
+    if data.neighborhoodSlug
+      params.query.neighborhoodSlug = data.neighborhoodSlug
     handle = quickViewSubs.subscribe "buildingsQuickView", params.cityId, params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1
     @buildingsReady.set handle.ready()
 

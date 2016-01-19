@@ -139,6 +139,9 @@ Meteor.publish "buildingsQuickView", (cityId, query, page) ->
   addQueryFilter(query, selector, @userId, {q: true})
   addIsPublishFilter(@userId, selector)
 
+  _.each (_.keys selector), (key) ->
+    delete selector[key] if key.indexOf('agro') > -1
+
   # Limit fields to only those needed to display on city listing. Other fields are for building page.
   fields =
     cityId: 1

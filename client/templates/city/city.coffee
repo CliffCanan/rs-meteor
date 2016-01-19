@@ -71,8 +71,12 @@ Template.city.helpers
       selector = {parentId: {$exists: false}, cityId: @cityId}
       selector.isPublished = true if not Session.get('adminShowUnpublishedProperties')
 
+      if Template.instance().viewType.get() is 'thumbnails'
+        limit = Session.get("cityBuildingsLimit")
+
       if @neighborhoodSlug
         selector.neighborhoodSlug = @neighborhoodSlug
+
       addQueryFilter(@query, selector, Meteor.userId())
 
       if query.hasOwnProperty('address') == true
@@ -107,7 +111,7 @@ Template.city.helpers
               Session.set("cityGeoLocation", [location.lat(), location.lng()])
             
         if Session.get "cityGeoLocation"
-          buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+          buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit})
           address = Session.get "cityGeoLocation"
 
           buildings.forEach (building) ->
@@ -127,20 +131,32 @@ Template.city.helpers
       else
         Session.set("cityGeoLocation", "")
 
-    buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
+    buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit})
+
     Template.instance().buildingsCount.set(buildings.count())
 
     if Template.instance().viewType.get() is 'quickView'
+      processedParents = []
       parents = buildings.fetch()
+
+      childSelector = {}
+
+      # Remove agro* fields that only applied for parent buildings.
+      _.each (_.keys selector), (key) ->
+        childSelector[key] = selector[key] if key.indexOf('agro') is -1
+
+      childSelector.btype = @query.btype
       _.each parents, (parent) ->
+        childSelector.parentId = parent._id
         parent.isParent = true
 
-        children = Buildings.find({parentId: parent._id}).fetch()
-        if children.length
-          parent.children = children
+        children = Buildings.find(childSelector)
+        if children.count()
+          parent.children = children.fetch()
           parent.hasChildren = true
+          processedParents.push parent
 
-      buildings = parents
+      buildings = processedParents
 
     buildings
 
