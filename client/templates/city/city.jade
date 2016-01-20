@@ -31,13 +31,14 @@ template(name="city")
       else
         if showThumbnails
           +cityBuildings(buildings=buildings queryBtype=query.btype)
+
+          if notAllLoaded
+            .load-more.loading-btn-wrap
+              .loading-btn.btn.btn-primary.btn-lg
+                | Load More
+
         else
           +cityQuickView(buildings=buildings queryBtype=query.btype)
 
         if loadingBuildings
           +loadingSpinner
-        else
-          if notAllLoaded
-            .load-more.loading-btn-wrap
-              .loading-btn.btn.btn-primary.btn-lg
-                | Load More

@@ -16,9 +16,8 @@ Template.cityQuickView.onCreated ->
   @autorun =>
     data = Router.current().data()
     params = Router.current().params
+    params.query.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
 
-    if data.neighborhoodSlug
-      params.query.neighborhoodSlug = data.neighborhoodSlug
     handle = quickViewSubs.subscribe "buildingsQuickView", params.cityId, params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1
     @buildingsReady.set handle.ready()
 
@@ -83,6 +82,12 @@ Template.cityQuickView.helpers
 
   buildingsReady: ->
     Template.instance().buildingsReady.get()
+
+  rowClass: ->
+    if @hasChildren
+      'tablesorter-hasChildRow info'
+    else
+      'warning'
   
 # Separate events for recommend toggle
 Template.cityQuickView.events

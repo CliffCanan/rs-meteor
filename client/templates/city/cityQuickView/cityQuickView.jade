@@ -1,5 +1,5 @@
 template(name="cityQuickView")
-  table#quick-view-table.table
+  table#quick-view-table.table.table-condensed
     thead
       tr
         th(data-sorter="false")
@@ -16,7 +16,7 @@ template(name="cityQuickView")
         th Price
     tbody
       each buildings
-        tr.tablesorter-hasChildRow
+        tr(class="{{rowClass}}")
           +quickViewBuilding
         each children
           tr.tablesorter-childRow

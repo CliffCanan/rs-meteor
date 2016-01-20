@@ -1,0 +1,23 @@
+template(name="quickViewBuilding")
+  if isParent
+    td
+      if hasChildren
+        a.toggle-units(href="#")
+          i.fa.fa-plus-square-o
+    td
+      a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
+    td
+  else
+    td
+    td
+      a(href="{{pathFor route='building' data=processedRouteData}}") {{../title}}
+    td {{title}}  
+  td {{cityId}}
+  td {{btype}}
+  td {{bedroomTypes ../queryBtype}}
+  td {{bathrooms}}
+  td {{getSqft}}
+  td {{securityValue}}
+  td {{laundryValue}}
+  td {{availableAtFormatted}}
+  td {{displayBuildingPrice ../queryBtype}}

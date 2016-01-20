@@ -145,7 +145,7 @@ Template.city.helpers
       _.each (_.keys selector), (key) ->
         childSelector[key] = selector[key] if key.indexOf('agro') is -1
 
-      childSelector.btype = @query.btype
+      childSelector.btype = @query.btype if @query.btype
       _.each parents, (parent) ->
         childSelector.parentId = parent._id
         parent.isParent = true
@@ -154,7 +154,8 @@ Template.city.helpers
         if children.count()
           parent.children = children.fetch()
           parent.hasChildren = true
-          processedParents.push parent
+        
+        processedParents.push parent
 
       buildings = processedParents
 
