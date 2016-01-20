@@ -151,6 +151,7 @@ share.exitRecommendationsMode = () ->
   $('.typeahead').val null
   Session.set "recommendationsClientObject", null
   Session.set "showRecommendations", null
+  Session.set 'clientId', null
   return
 
 if Meteor.isServer

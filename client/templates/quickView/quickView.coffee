@@ -39,7 +39,7 @@ Template.quickView.onRendered ->
         $('#quick-view-table').removeClass('table-striped')
         
         $('#quick-view-table').on 'click', '.toggle-units', ->
-          $(@).closest('tr').nextUntil('tr.tablesorter-hasChildRow').find('td').toggle()
+          $(@).closest('tr').nextUntil('tr:not(.tablesorter-childRow)').find('td').toggle()
 
           $i = $(@).find('i')
 

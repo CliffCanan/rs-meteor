@@ -5,12 +5,28 @@ template(name="quickViewBuilding")
         a.toggle-units(href="#")
           i.fa.fa-plus-square-o
     td
-      a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
+      if shouldShowRecommendToggle
+        div.recommend-toggle-wrapper
+          a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}", data-isrecommended="{{#if isRecommended}}true{{else}}false{{/if}}")
+            if isRecommended
+              i.fa.fa-star
+            else
+              i.fa.fa-star-o
+        div.title-wrapper
+          a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
     td
   else
     td
     td
-      a(href="{{pathFor route='building' data=processedRouteData}}") {{../title}}
+      if shouldShowRecommendToggle
+        div.recommend-toggle-wrapper
+          a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}", data-isrecommended="{{#if isRecommended}}true{{else}}false{{/if}}")
+            if isRecommended
+              i.fa.fa-star
+            else
+              i.fa.fa-star-o
+        div.title-wrapper
+          a(href="{{pathFor route='building' data=processedRouteData}}") {{../title}}
     td {{title}}  
   td {{cityId}}
   td {{btype}}

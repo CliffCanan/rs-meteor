@@ -6,12 +6,13 @@ template(name="clientRecommendationsToggle")
     label#my-recommendations-toggle.btn.btn-primary
       input(type="radio", name="view-toggle")
       | My Recommendations
-    if isTemplateSubscriptionsReady
-      if canManageClients
-        if isImportPending
-          i#import-status.fa.fa-2x.fa-exclamation-circle.text-warning(data-toggle="tooltip", data-placement="auto" title="#{importCompletedCount}/#{totalPropertiesCount} properties", data-original-title="#{importCompletedCount}/#{totalPropertiesCount} properties")
-        else 
-          i#import-status.fa.fa-2x.fa-check-circle.text-success(data-toggle="tooltip", data-placement="auto" title="#{completedImportText}", data-original-title="#{completedImportText}")
-      else
-        if isImportPending
-          i#import-status.fa.fa-2x.fa-exclamation-circle.text-warning(data-toggle="tooltip", data-placement="auto" title="FYI - we are in the process of adding recommendations - check back soon to see more!")
+    if showImportStatus  
+      if isTemplateSubscriptionsReady
+        if canManageClients
+          if isImportPending
+            i#import-status.fa.fa-2x.fa-exclamation-circle.text-warning(data-toggle="tooltip", data-placement="auto" title="#{importCompletedCount}/#{totalPropertiesCount} properties", data-original-title="#{importCompletedCount}/#{totalPropertiesCount} properties")
+          else 
+            i#import-status.fa.fa-2x.fa-check-circle.text-success(data-toggle="tooltip", data-placement="auto" title="#{completedImportText}", data-original-title="#{completedImportText}")
+        else
+          if isImportPending
+            i#import-status.fa.fa-2x.fa-exclamation-circle.text-warning(data-toggle="tooltip", data-placement="auto" title="FYI - we are in the process of adding recommendations - check back soon to see more!")

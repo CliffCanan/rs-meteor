@@ -1,6 +1,6 @@
 template(name="city")
   +cityHeader
-  unless clientRecommendationsList
+  if showMap
     .city-side-bar.right-bar.clearfix.col-lg-3
       #gmap
 
@@ -23,22 +23,25 @@ template(name="city")
           li.city-sub-header-item(data-value="thumbnails") Thumbnails
           li.city-sub-header-item(data-value="quickView") Quick view
 
-      if clientRecommendationsList
+      if isClientRecommendationsList
         +clientRecommendationsToggle
 
       if firstLoad
         +loadingSpinner
       else
-        if showThumbnails
-          +cityBuildings(buildings=buildings queryBtype=query.btype)
+        if buildings
+          if showThumbnails
+            +cityBuildings(buildings=buildings queryBtype=query.btype)
 
-          if notAllLoaded
-            .load-more.loading-btn-wrap
-              .loading-btn.btn.btn-primary.btn-lg
-                | Load More
+            if notAllLoaded
+              .load-more.loading-btn-wrap
+                .loading-btn.btn.btn-primary.btn-lg
+                  | Load More
 
+          else
+            +cityQuickView(buildings=buildings queryBtype=query.btype)
+
+          if loadingBuildings
+            +loadingSpinner
         else
-          +cityQuickView(buildings=buildings queryBtype=query.btype)
-
-        if loadingBuildings
-          +loadingSpinner
+          h3 No buildings matching this criteria.

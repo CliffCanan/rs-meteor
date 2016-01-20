@@ -2,6 +2,7 @@ Template.cityQuickView.onCreated ->
   self = @
   @tablesorterReady = new ReactiveVar()
   @buildingsReady = new ReactiveVar()
+  @initialRecommendBuildingId = new ReactiveVar()
 
   $("<link/>", {
      rel: "stylesheet",
@@ -54,7 +55,7 @@ Template.cityQuickView.onRendered ->
         $('#quick-view-table').removeClass('table-striped')
         
         $('#quick-view-table').on 'click', '.toggle-units', ->
-          $(@).closest('tr').nextUntil('tr.tablesorter-hasChildRow').find('td').toggle()
+          $(@).closest('tr').nextUntil('tr:not(.tablesorter-childRow)').find('td').toggle()
 
           $i = $(@).find('i')
 
@@ -91,13 +92,22 @@ Template.cityQuickView.helpers
   
 # Separate events for recommend toggle
 Template.cityQuickView.events
-  "click .recommend-toggle": (event, template) ->
-    clientId = Router.current().data().clientId
-    buildingId = @._id
-    buildingIds = Router.current().data().buildingIds || []
-
-    if @._id in buildingIds
-      Meteor.call "unrecommendBuilding", clientId, buildingId
+  'click a.recommend-toggle': (event, template) ->
+    if clientObject = Session.get('recommendationsClientObject')
+      $target = $(event.target).parent()
+      if $target.data('isrecommended') is false
+        Meteor.call "recommendBuilding", clientObject._id, @_id
+        $target.data('isrecommended', true)
+      else if $target.data('isrecommended') is true
+        Meteor.call "unrecommendBuilding", clientObject._id, @_id
+        $target.data('isrecommended', false)
     else
-      Meteor.call "recommendBuilding", clientId, buildingId
+      template.initialRecommendBuildingId.set @_id
+      $('#quick-view-recommend-popup').modal('toggle')
 
+  'click #start-recommending': (event, template) ->
+    $('#quick-view-recommend-popup').modal('toggle')
+    clientObject = ClientRecommendations.findOne(Session.get('clientId'))
+    console.log "Session ID is %s, initial Id is %s", Session.get('clientId'), template.initialRecommendBuildingId.get()
+    Meteor.call "recommendBuilding", Session.get('clientId'), template.initialRecommendBuildingId.get()
+    Session.set('recommendationsClientObject', clientObject)

@@ -24,3 +24,11 @@ Template.quickViewBuilding.helpers
     if @children then @children.length else '-'
   availableAtFormatted: ->
     if @availableAt then @availableAt.getMonth() + "/" + @availableAt.getDate() + "/" +@availableAt.getFullYear() else '-'
+  shouldShowRecommendToggle: ->
+    Security.canManageClients()
+  isRecommended: ->
+    if clientRecommendationObject = Session.get('recommendationsClientObject')
+      clientRecommendation = ClientRecommendations.findOne(clientRecommendationObject._id)
+      if clientRecommendation
+        return true if clientRecommendation.buildingIds.indexOf(@_id) > -1
+    false

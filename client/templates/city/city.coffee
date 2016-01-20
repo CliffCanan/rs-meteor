@@ -35,18 +35,21 @@ Template.city.onCreated ->
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
 
 Template.city.helpers
+  showMap: ->
+    Router.current().route.getName() isnt "clientRecommendations"
   firstLoad: ->
     citySubs.dep.depend()
     !citySubs.ready and @firstLoad
-  clientRecommendationsList: ->
+  isClientRecommendationsList: ->
     if Router.current().route.getName() is "clientRecommendations"
       $(".city-page-wrap").removeClass("col-lg-9").addClass("col-lg-12")
       return true
     else
+      return true if Session.get('recommendationsClientObject')
       $(".city-page-wrap").removeClass("col-lg-12").addClass("col-lg-12")
     false
   showClientRecommendationsName: ->
-    Template.city.__helpers[" clientRecommendationsList"].call(@) and not Security.canManageClients()
+    Template.city.__helpers[" isClientRecommendationsList"].call(@) and not Security.canManageClients()
   loadingBuildings: ->
     citySubs.dep.depend()
     ready = citySubs.ready
@@ -61,12 +64,17 @@ Template.city.helpers
 
   buildings: ->
     filtered = []
+    buildings = []
 
     query = Router.current().params.query
     controller = Router.current()
     if Session.get "showRecommendations"
-      buildingIds = Router.current().data().buildingIds
-      selector = {_id: {$in: buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}
+      if Router.current().route.getName() is "clientRecommendations"
+        buildingIds = Router.current().data().buildingIds or []
+        selector = {_id: {$in: buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}
+      else
+        buildingIds = ClientRecommendations.findOne(Session.get('recommendationsClientObject')._id).buildingIds or []
+        selector = {_id: {$in: buildingIds}, isPublished: true}
     else
       selector = {parentId: {$exists: false}, cityId: @cityId}
       selector.isPublished = true if not Session.get('adminShowUnpublishedProperties')
@@ -139,25 +147,26 @@ Template.city.helpers
       processedParents = []
       parents = buildings.fetch()
 
-      childSelector = {}
+      if parents
+        childSelector = {}
 
-      # Remove agro* fields that only applied for parent buildings.
-      _.each (_.keys selector), (key) ->
-        childSelector[key] = selector[key] if key.indexOf('agro') is -1
+        # Remove agro* fields that only applied for parent buildings.
+        _.each (_.keys selector), (key) ->
+          childSelector[key] = selector[key] if key.indexOf('agro') is -1
 
-      childSelector.btype = @query.btype if @query.btype
-      _.each parents, (parent) ->
-        childSelector.parentId = parent._id
-        parent.isParent = true
+        childSelector.btype = @query.btype if @query.btype
+        _.each parents, (parent) ->
+          childSelector.parentId = parent._id
+          parent.isParent = true
 
-        children = Buildings.find(childSelector)
-        if children.count()
-          parent.children = children.fetch()
-          parent.hasChildren = true
-        
-        processedParents.push parent
+          children = Buildings.find(childSelector)
+          if children.count()
+            parent.children = children.fetch()
+            parent.hasChildren = true
+          
+          processedParents.push parent
 
-      buildings = processedParents
+        buildings = processedParents
 
     buildings
 

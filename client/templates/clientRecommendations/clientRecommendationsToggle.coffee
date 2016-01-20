@@ -81,6 +81,8 @@ Template.clientRecommendationsToggle.onRendered ->
       $('#import-status').tooltip()
 
 Template.clientRecommendationsToggle.helpers
+  showImportStatus: ->
+    Router.current().route.getName() is "clientRecommendations"
   isTemplateSubscriptionsReady: ->
     if Template.instance().subscriptionsReady() is true
       Tracker.afterFlush ->
@@ -132,7 +134,9 @@ Template.clientRecommendationsToggle.helpers
 Template.clientRecommendationsToggle.events
   "click #all-listings-toggle": ->
     Session.set "showRecommendations", false
+    $('.main-city-list-wrap').css('height', '100%')
     return
   "click #my-recommendations-toggle": ->
     Session.set "showRecommendations", true
+    $('.main-city-list-wrap').css('height', '100%')
     return

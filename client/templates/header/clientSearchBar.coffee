@@ -2,6 +2,8 @@ Template.clientSearchBar.onCreated ->
   @subscribe "ClientRecommendations"
 
 Template.clientSearchBar.helpers
+  showExitRecommendationIcon: ->
+    Template.instance().data.type isnt 'session'
   clientsSearch: (query, sync, async) ->
     suggestions = ClientRecommendations.find(name: {$regex: new RegExp query, "i"})
     if suggestions.count()
@@ -17,17 +19,28 @@ Template.clientSearchBar.helpers
       ])
       return
   selectedClient: (event, suggestion, datasetName) ->
+    instance = Template.instance()
     $target = $(event.target)
     if suggestion.id is 'new'
-      newClientName = $('.twitter-typeahead pre').html();
+      newClientName = instance.$('.twitter-typeahead pre').html()
+      $target.val 'Creating new client...'
+      
       Meteor.call "createClient", newClientName, (err, data) ->
-        $target.val ''
         cityPageData = Session.get "cityPageData"
         Session.set "showRecommendations", false
-        Router.go "clientRecommendations", {clientId: data.clientId}, query: {cityId: cityPageData.cityId} unless err
+
+        if instance.data.type is 'session'
+          $target.val newClientName
+          Session.set('clientId', data.clientId)
+        else
+          $target.val ''
+          Router.go "clientRecommendations", {clientId: data.clientId}, query: {cityId: cityPageData.cityId} unless err
     else
       $target.val ''
-      Router.go "clientRecommendations", {clientId: suggestion.id}
+      if Template.instance().data.type is 'session'
+        Session.set('clientId', suggestion.id)
+      else
+        Router.go "clientRecommendations", {clientId: suggestion.id}
 
 Template.clientSearchBar.onRendered(->
   Meteor.typeahead.inject()

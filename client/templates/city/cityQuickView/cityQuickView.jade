@@ -21,3 +21,21 @@ template(name="cityQuickView")
         each children
           tr.tablesorter-childRow
             +quickViewBuilding
+
+  #quick-view-recommend-popup.modal.fade(tabindex='-1', role='dialog', data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        form.contact-us-form
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              i.fa.fa-times(aria-hidden='true')
+            h4.modal-title Find an existing client or create a new client
+
+          .modal-body
+            +clientSearchBar(type="session")
+
+          .modal-footer
+            a#start-recommending.btn.btn-primary.btn-lg.btn-block
+              | Let's Go
+              .fa.fa-spin.fa-refresh.m-l-10.loading(style="display: none;")
+              i.fa.fa-chevron-circle-right.m-l-10(aria-hidden='true')

@@ -1,6 +1,4 @@
-# fs = Meteor.npmRequire("fs")
-ab = Meteor.npmRequire("base64-arraybuffer")
-
+# Methods can be called from both client and server to take advantage of latency compensation. Server only methods are below.
 Meteor.methods
   "insertBuilding": (cityId) ->
     throw new Meteor.Error("wrong city " + cityId)  unless cityId in cityIds
@@ -91,105 +89,15 @@ Meteor.methods
       choices.push(choice)
     choices
 
-  "importProperties": (data) ->
-    console.log "====== importProperties ======"
-    console.log "importProperties > data: ", data
-
-    errors = []
-    errors.push({message: "error", reason: "no permissions", 0}) unless Security.canOperateWithBuilding()
-    for property in data
-      try
-        id = Buildings.insert(property)
-        console.log "Inserted new building with id #{id}"
-      catch error
-        errors.push({message:"error", reason: "could not insert", id: property.source.mlsNo})
-    if errors then errors else true
-
-  "importImage": (buildingId, uri) ->
-    return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
-
-    console.log "====== importImage ======"
-    console.log "importImage > buildingId: " + buildingId
-    # console.log "importImage > base64image: ", base64image
-     
-    BuildingImages.insert uri, (err, file) ->
-      Buildings.update(_id: buildingId, {$addToSet: {images: file}})
-      console.log "image file: ", file
-    return true
-
-  "importImagesByBatch": (uploadObject) ->
-    return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
-
-    console.log "====== Start importImagesByBatch ======"
-
-    clientId = uploadObject.clientId
-
-    for object in uploadObject.buildings
-      index = 0
-      buildingId = object.buildingId
-      console.log "====== Importing images for building id: #{buildingId} ======"
-      console.log "importImage > buildingId: " + buildingId
-      if object.images
-        request = Meteor.npmRequire 'request'
-        for uri in object.images
-          try
-            # With the new MLS, we have to request for each image directly
-            # The insert URL function for CollectionFS uses a HEAD request to query the URL and MLS returns a 404
-            # We'll have to use our own GET request instead
-            request.get({url: uri, encoding: null}, Meteor.bindEnvironment (e, r, buffer) ->
-              file = new FS.File()
-              file.attachData buffer, {type: 'image/jpeg'}, (error) ->
-                throw error if error
-                file.name "#{buildingId}_#{index}.jpeg";
-
-                BuildingImages.insert file, (error, fileObj) ->
-                  fileObj = _.omit(fileObj, 'collection')
-                  Buildings.update(_id: buildingId, {$addToSet: {images: fileObj}})
-                  index++
-                  Meteor.sleep 1500
-                Meteor.sleep 1500
-            )
-            Meteor.sleep 1500
-          catch error
-            console.error error.stack()
-      # All images imported for this building. Mark it as complete and it will appear in the list.
-      Buildings.update(buildingId, {$set: {isImportCompleted: true, isPublished: true}})
-      console.log "====== All images for building id: #{buildingId} imported ======"
-
-    ClientRecommendations.update(clientId, {$set: {importCompletedAt: new Date()}})
-    console.log "====== End importImagesByBatch ======"
-    return true
-
-  "importToClientRecommendations": (clientName, buildingIds) ->
-    return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
-
-    console.log "====== importToClientRecommendations ======"
-    console.log "clientName: #{clientName}"
-    console.log "buildingIds: #{buildingIds}"
-
-    if buildingIds.length
-      currentUser = Meteor.users.findOne(this.userId)
-      result = ClientRecommendations.upsert
-        name: clientName,
-        {
-          $addToSet: {buildingIds: {$each: buildingIds}}
-          $set: {
-            userId: currentUser._id
-            userName: currentUser.profile.name
-            createdAt: new Date()
-          }
-        }
-      return result
-    else
-      return false
-
   "createClient": (clientName) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
-    [firstName, lastName] = clientName.split ' '
+    firstName = clientName
+    [firstName, lastName] = firstName.split ' '
     fields =
       name: clientName
       firstName: firstName
       lastName: lastName
+      buildingIds: []
     clientId = ClientRecommendations.insert(fields)
     clientId: clientId
     url: Router.routes["clientRecommendations"].path(clientId: clientId)
@@ -224,41 +132,6 @@ Meteor.methods
         Buildings.remove(id)
 
     ClientRecommendations.remove(clientId)
-
-  "getVimeoVideos": () ->
-    Vimeo = Meteor.npmRequire('vimeo').Vimeo
-    vimeo = new Vimeo(Meteor.settings.vimeo.clientId, Meteor.settings.vimeo.clientSecret, Meteor.settings.vimeo.accessToken)
-    getVideoParams = 
-      method: 'GET'
-      path: '/me/videos'
-
-    videos = []
-
-    response = Async.runSync (done) ->
-      vimeo.request getVideoParams, (error, body, status_code, headers) ->
-        data = body.data
-
-        data.forEach (item) ->
-          thumbnail = _.where(item.pictures.sizes, {"width": 295})
-          thumbnailLink = thumbnail[0].link
-
-          video =
-            vimeoId: item.uri.replace('/videos/', '')
-            createdAt: new Date()
-            uploadedAt: new Date(item.created_time)
-            name: item.name,
-            thumbnail: thumbnailLink,
-            embed: item.embed.html
-            duration: item.duration
-
-          videos.push video
-
-        done(null, videos)
-
-    response.result.forEach (video) ->
-      VimeoVideos.upsert({vimeoId: video.vimeoId}, {$set: video})
-
-    response.result
 
   "insertReview": (reviewObject) ->
     reviewObject.createdAt = new Date()
@@ -378,3 +251,131 @@ Meteor.methods
     processedRentalApplication.updateNote = "Revert to '#{previousRentalApplication.updateNote}'"
     RentalApplications.update parentId, $set: processedRentalApplication
 
+if Meteor.isServer
+  Meteor.methods
+    "importProperties": (data) ->
+      console.log "====== importProperties ======"
+      console.log "importProperties > data: ", data
+
+      errors = []
+      errors.push({message: "error", reason: "no permissions", 0}) unless Security.canOperateWithBuilding()
+      for property in data
+        try
+          id = Buildings.insert(property)
+          console.log "Inserted new building with id #{id}"
+        catch error
+          errors.push({message:"error", reason: "could not insert", id: property.source.mlsNo})
+      if errors then errors else true
+
+    "importImage": (buildingId, uri) ->
+      return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
+
+      console.log "====== importImage ======"
+      console.log "importImage > buildingId: " + buildingId
+      # console.log "importImage > base64image: ", base64image
+       
+      BuildingImages.insert uri, (err, file) ->
+        Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+        console.log "image file: ", file
+      return true
+
+    "importImagesByBatch": (uploadObject) ->
+      return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
+
+      console.log "====== Start importImagesByBatch ======"
+
+      clientId = uploadObject.clientId
+
+      for object in uploadObject.buildings
+        index = 0
+        buildingId = object.buildingId
+        console.log "====== Importing images for building id: #{buildingId} ======"
+        console.log "importImage > buildingId: " + buildingId
+        if object.images
+          request = Meteor.npmRequire 'request'
+          for uri in object.images
+            try
+              # With the new MLS, we have to request for each image directly
+              # The insert URL function for CollectionFS uses a HEAD request to query the URL and MLS returns a 404
+              # We'll have to use our own GET request instead
+              request.get({url: uri, encoding: null}, Meteor.bindEnvironment (e, r, buffer) ->
+                file = new FS.File()
+                file.attachData buffer, {type: 'image/jpeg'}, (error) ->
+                  throw error if error
+                  file.name "#{buildingId}_#{index}.jpeg";
+
+                  BuildingImages.insert file, (error, fileObj) ->
+                    fileObj = _.omit(fileObj, 'collection')
+                    Buildings.update(_id: buildingId, {$addToSet: {images: fileObj}})
+                    index++
+                    Meteor.sleep 1500
+                  Meteor.sleep 1500
+              )
+              Meteor.sleep 1500
+            catch error
+              console.error error.stack()
+        # All images imported for this building. Mark it as complete and it will appear in the list.
+        Buildings.update(buildingId, {$set: {isImportCompleted: true, isPublished: true}})
+        console.log "====== All images for building id: #{buildingId} imported ======"
+
+      ClientRecommendations.update(clientId, {$set: {importCompletedAt: new Date()}})
+      console.log "====== End importImagesByBatch ======"
+      return true
+
+    "importToClientRecommendations": (clientName, buildingIds) ->
+      return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
+
+      console.log "====== importToClientRecommendations ======"
+      console.log "clientName: #{clientName}"
+      console.log "buildingIds: #{buildingIds}"
+
+      if buildingIds.length
+        currentUser = Meteor.users.findOne(this.userId)
+        result = ClientRecommendations.upsert
+          name: clientName,
+          {
+            $addToSet: {buildingIds: {$each: buildingIds}}
+            $set: {
+              userId: currentUser._id
+              userName: currentUser.profile.name
+              createdAt: new Date()
+            }
+          }
+        return result
+      else
+        return false
+
+  "getVimeoVideos": () ->
+    Vimeo = Meteor.npmRequire('vimeo').Vimeo
+    vimeo = new Vimeo(Meteor.settings.vimeo.clientId, Meteor.settings.vimeo.clientSecret, Meteor.settings.vimeo.accessToken)
+    getVideoParams = 
+      method: 'GET'
+      path: '/me/videos'
+
+    videos = []
+
+    response = Async.runSync (done) ->
+      vimeo.request getVideoParams, (error, body, status_code, headers) ->
+        data = body.data
+
+        data.forEach (item) ->
+          thumbnail = _.where(item.pictures.sizes, {"width": 295})
+          thumbnailLink = thumbnail[0].link
+
+          video =
+            vimeoId: item.uri.replace('/videos/', '')
+            createdAt: new Date()
+            uploadedAt: new Date(item.created_time)
+            name: item.name,
+            thumbnail: thumbnailLink,
+            embed: item.embed.html
+            duration: item.duration
+
+          videos.push video
+
+        done(null, videos)
+
+    response.result.forEach (video) ->
+      VimeoVideos.upsert({vimeoId: video.vimeoId}, {$set: video})
+
+    response.result
