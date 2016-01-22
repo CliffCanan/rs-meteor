@@ -12,8 +12,8 @@ template(name="quickViewBuilding")
               i.fa.fa-star
             else
               i.fa.fa-star-o
-        div.title-wrapper
-          a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
+      div.title-wrapper
+        a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
     td
   else
     td
@@ -25,8 +25,8 @@ template(name="quickViewBuilding")
               i.fa.fa-star
             else
               i.fa.fa-star-o
-        div.title-wrapper
-          a(href="{{pathFor route='building' data=processedRouteData}}") {{../title}}
+      div.title-wrapper
+        a(href="{{pathFor route='building' data=processedRouteData}}") {{../title}}
     td {{title}}  
   td {{cityId}}
   td {{btype}}
