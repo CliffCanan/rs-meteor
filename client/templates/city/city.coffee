@@ -62,6 +62,7 @@ Template.city.helpers
   buildings: ->
     filtered = []
     buildings = []
+    reactive = false
 
     query = Router.current().params.query
     controller = Router.current()
@@ -78,6 +79,7 @@ Template.city.helpers
 
       if Template.instance().viewType.get() is 'thumbnails'
         limit = Session.get("cityBuildingsLimit")
+        reactive = true
 
       if @neighborhoodSlug
         selector.neighborhoodSlug = @neighborhoodSlug
@@ -136,7 +138,7 @@ Template.city.helpers
       else
         Session.set("cityGeoLocation", "")
 
-    buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit})
+    buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, reactive: reactive})
 
     Template.instance().buildingsCount.set(buildings.count())
 
