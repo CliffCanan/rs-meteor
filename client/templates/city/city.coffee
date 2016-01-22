@@ -31,9 +31,6 @@ Template.city.onCreated ->
   @viewType = new ReactiveVar('thumbnails')
   Session.set('adminShowUnpublishedProperties', false)
 
-  unless $.fn.hoverIntent
-    $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
-
 Template.city.helpers
   showMap: ->
     Router.current().route.getName() isnt "clientRecommendations"

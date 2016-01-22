@@ -11,13 +11,15 @@ Template.cityBuildings.onRendered ->
   instance = Template.instance()
 
   _.defer ->
-    $(".main-city-list").hoverIntent ->
-      if not $(this).hasClass('images-subscribed')
-        $carousel = $(this).find('.carousel')
-        building = Blaze.getData(this)
-        instance.subscribe "buildingImages", building._id
-        $(this).addClass('images-subscribed')
-    , '.main-city-img-link'
+    unless $.fn.hoverIntent
+      $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js', ->
+        $(".main-city-list").hoverIntent ->
+          if not $(this).hasClass('images-subscribed')
+            $carousel = $(this).find('.carousel')
+            building = Blaze.getData(this)
+            instance.subscribe "buildingImages", building._id
+            $(this).addClass('images-subscribed')
+        , '.main-city-img-link'
 
 Template.cityBuildings.helpers
   checkAvailable: (id) ->
