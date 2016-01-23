@@ -1,3 +1,7 @@
+Template.cityHeader.onCreated ->
+  $.getScript '../../misc/svgcheckbox/svgcheckbox.js'
+
+
 Template.cityHeader.onRendered ->
   Meteor.typeahead.inject()
   if Session.get "enteredAddress"
@@ -18,6 +22,7 @@ Template.cityHeader.onRendered ->
         $('.neighborhood-select .typeahead').typeahead('val', '')
 
   $('.neighborhood-select .fa-times').show() if Router.current() and Router.current().route.getName() is 'neighborhood'
+
 
 Template.cityHeader.helpers
   currentCity: ->

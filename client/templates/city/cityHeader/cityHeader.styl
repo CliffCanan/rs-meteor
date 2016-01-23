@@ -3,11 +3,16 @@
   box-shadow 0 3px 10px -2px rgba(0,0,0,.3)
   padding 10px 20px
   z-index 101
+  box-sizing border-box
   @media screen and (min-width: 768px)
     padding 15px 25px
     .dropdown.open > .dropdown-menu
       left auto
       right 0
+      &.location-filter-section
+        height 260px
+      &.features-section
+        height 310px
       .form-control
         height 42px
   @media screen and (min-width: 992px)
@@ -15,7 +20,6 @@
     padding 18px 25px
   @media screen and (min-width: 1200px)
     padding 18px 30px
-  box-sizing border-box
   .dropdown
     float left
   .btn
@@ -52,7 +56,6 @@
     box-sizing border-box
     min-width 100px
     padding 0 20px
-    box-shadow 0 1px 0 rgba(0,0,0,0.3)
     top 30px
     border 1px solid #cfcfcf
     border-top 0
@@ -216,7 +219,6 @@
     width 290px
     box-sizing border-box
     padding 10px 
-    box-shadow 0 1px 0 rgba(0, 0, 0, 0.3)
     top 38px
     border 1px solid #cfcfcf
     border-top 0
@@ -224,16 +226,20 @@
     @media screen and (min-width: 768px)
       padding 20px 
       width 410px
+
     .filter-title
-      font-size 15px
-      padding 0 0 8px
+      font-size 1.5px
+      padding 0 0 4px
       margin 0
       line-height 20px
+
     .filter-list
+      margin 0 -15px
       padding 5px 0
       @media screen and (min-width: 768px)
         padding 10px 0
-      .css-checkbox
+
+      .css-checkbox-DELETE
         position absolute
         z-index -1000
         left -1000px
@@ -257,10 +263,10 @@
             cursor pointer
         &:checked
           & + label
-            &.css-label
+            &.css-label-DELETE
               background-position 0 -25px
       label
-        &.css-label
+        &.css-label-DELETE
           background-image url(/images/checkbox.png)
           -webkit-touch-callout none
           -webkit-user-select none
@@ -361,6 +367,8 @@
 
 .selectArrivalTime 
   padding-bottom 10px
+  @media screen and (min-width: 768px)
+    padding-bottom 15px
   
 .form-building-address-filter-reset 
   cursor pointer

@@ -2,20 +2,50 @@ template(name="cityHeader")
   .city-sub-header.clearfix
 
     .row
-      //.col-xs-12.col-sm-2.city-select.city-sub-header-list-wrap.dropdown.city-filter.p-r-5
-      //  button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
-      //    i.fa.fa-globe
-      //    span.button-text {{currentCity}}
-      //    span.caret.hide-md
-      //  ul.city-sub-header-list.dropdown-menu.list-unstyled
-      //    each cities
-      //      li.city-sub-header-item(data-value="{{key}}") {{value}}
+      //-.col-xs-12.col-sm-2.city-select.city-sub-header-list-wrap.dropdown.city-filter.p-r-5
+      //-  button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
+      //-    i.fa.fa-globe
+      //-    span.button-text {{currentCity}}
+      //-    span.caret.hide-md
+      //-  ul.city-sub-header-list.dropdown-menu.list-unstyled
+      //-    each cities
+      //-      li.city-sub-header-item(data-value="{{key}}") {{value}}
 
-      .col-sm-2.neighborhood-select.city-sub-header-list-wrap.dropdown.city-filter.hide-md
-        i.fa.fa-map-signs
-        a.clear-neighborhood-filter(href="{{pathFor 'city' cityId=cityId}}")
-          i.fa.fa-times
-        input.form-control.typeahead(type="text", placeholder="Search neighborhood", autocomplete="false", data-source="neighborhoodSearch", data-selected="selectedNeighborhood", data-min-length="0", data-limit="9", data-template="neighborhoodSuggestion", value="{{currentNeighborhood}}")
+      //.col-sm-2.neighborhood-select.city-sub-header-list-wrap.dropdown.city-filter.hide-md
+      //  i.fa.fa-map-signs
+      //  a.clear-neighborhood-filter(href="{{pathFor 'city' cityId=cityId}}")
+      //    i.fa.fa-times
+      //  input.form-control.typeahead(type="text", placeholder="Search neighborhood", autocomplete="false", data-source="neighborhoodSearch", data-selected="selectedNeighborhood", data-min-length="0", data-limit="9", data-template="neighborhoodSuggestion", value="{{currentNeighborhood}}")
+
+      .col-sm-2.neighborhood-select.city-sub-header-list-wrap.hide-md
+        .dropdown.city-filter.features-wrap
+          button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
+            i.fa.fa-fw.fa-map-signs
+            span.hide-sm Neighborhoods
+
+          form.form-neighborhoods-filter.features-section.dropdown-menu.dropdown-menu-left(style="left:0")
+            h3.filter-title Select a neighborhood:
+
+            ul.filter-list.list-unstyled.clearfix
+
+              li.col-sm-6
+                a#cc-east(href="/city/philadelphia/center-city-east") Center City East
+
+              li.col-sm-6
+                a#cc-west(href="/city/philadelphia/center-city-west") Center City West
+
+              li.col-sm-6
+                a#rittenhouse(href="/city/philadelphia/rittenhouse-square") Rittenhouse Square
+
+              li.col-sm-6
+                a#fairmount(href="/city/philadelphia/fitler-square") Fairmount
+
+              li.col-sm-6
+                a#wash-sq(href="/city/philadelphia/fitler-square") Fitler Square
+
+              li.col-sm-6
+                a#wash-sq(href="/city/philadelphia/washington-square") Washington Square
+
 
       .col-xs-6.col-sm-1.bedroom-type-select.city-sub-header-list-wrap.dropdown.city-filter
         button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
@@ -35,55 +65,38 @@ template(name="cityHeader")
             i.fa.fa-fw.fa-check
             span.hide-sm Features
 
-          form.form-building-features-filter.features-section.dropdown-menu.dropdown-menu-left
-            h3.filter-title
-              | Filter the apartment listings by the criteria you need.
+          form.form-building-features-filter.features-section.dropdown-menu.ac-custom.ac-checkbox.ac-checkmark(autocomplete="off")
+            h3.filter-title Filter the apartment listings by:
 
             ul.filter-list.list-unstyled.clearfix
               li.checkbox-wrap.col-md-6
                 input#security.css-checkbox(type="checkbox", name="security", value="true", checked="{{query.security}}")
-                label.css-label(for="security")
-                  | Doorman
+                label.css-label(for="security") Doorman
+
               li.checkbox-wrap.col-md-6
                 input#fitnessCenter.css-checkbox(type="checkbox", name="fitnessCenter", value="true", checked="{{query.fitnessCenter}}")
-                label.css-label(for="fitnessCenter")
-                  | Fitness Center
+                label.css-label(for="fitnessCenter") Fitness Center
+
               li.checkbox-wrap.col-md-6
                 input#pets.css-checkbox(type="checkbox", name="pets", value="true", checked="{{query.pets}}")
-                label.css-label(for="pets")
-                  | Pet Friendly
-              //li.checkbox-wrap.col-md-6
-              //  input#managedBuildings.css-checkbox(type="checkbox", value="true")
-              //  label.css-label(for="managedBuildings")
-              //    | Managed buildings
-              //li.checkbox-wrap.col-md-6
-              //  input#brownstone.css-checkbox(type="checkbox", value="true")
-              //  label.css-label(for="brownstone")
-              //    | Brownstone
+                label.css-label(for="pets") Pet Friendly
+
               li.checkbox-wrap.col-md-6
                 input#loundry.css-checkbox(type="checkbox", name="laundry", value="true", checked="{{query.laundry}}")
-                label.css-label(for="loundry")
-                  | Laundry In-unit
+                label.css-label(for="loundry") Laundry In-unit
+
               li.checkbox-wrap.col-md-6
                 input#parking.css-checkbox(type="checkbox", name="parking", value="true", checked="{{query.parking}}")
-                label.css-label(for="parking")
-                  | Parking
+                label.css-label(for="parking") Parking
+
               li.checkbox-wrap.col-md-6
                 input#utilities.css-checkbox(type="checkbox", name="utilities", value="true", checked="{{query.utilities}}")
-                label.css-label(for="utilities")
-                  | Utilities Included
-              //li.checkbox-wrap.col-md-6
-              //  input#listings.css-checkbox(type="checkbox", name="listings", value="true", checked="{{query.listings}}")
-              //  label.css-label(for="listings")
-              //    | Private listings
+                label.css-label(for="utilities") Utilities Included
 
-            label.city-features-date
-              | Available From
+            label.city-features-date Available From
               +datepicker(name="available" value=query.available)
-            button.btn.btn-primary.apply-changes-btn(type="submit")
-              | Apply Changes
-            span.clear-btn.form-building-features-filter-reset
-              | Clear Filter
+            button.btn.btn-primary.apply-changes-btn(type="submit") Apply Changes
+            span.clear-btn.form-building-features-filter-reset Clear Filter
 
       #location-filter-wrapper.col-xs-2
         .dropdown.city-filter
@@ -92,26 +105,22 @@ template(name="cityHeader")
             span.hide-sm Location
 
           form.form-building-filter.location-filter-section.dropdown-menu.dropdown-menu-left
-            h3.filter-title
-              | Enter any common destination (work, school, etc) to find nearyby appartments.
+            h3.filter-title Enter any common destination (work, school, etc) to find nearyby appartments.
 
             ul.filter-list.list-unstyled.clearfix
               input#address.form-control(type="text", name="address", placeholder="Destination Address", value="{{getDestination}}")
             .row.selectArrivalTime
               .col-sm-6
                 .dropdown
-                  button.dropdown-toggle.btn.btn-default(type="button", aria-expanded="false")
-                    | {{arrivalTime}}
+                  button.dropdown-toggle.btn.btn-default(type="button", aria-expanded="false") {{arrivalTime}}
                   ul.dropdown-menu.option(role="menu")       
                     li#10m.selectTime
-                      a(href="#")
-                       | Less than 10 min
+                      a(href="#") Less than 10 min
                     li#20m.selectTime
-                      a(href="#")
-                       | Less than 20 min
+                      a(href="#") Less than 20 min
                     li#30m.selectTime
-                      a(href="#")
-                       | Less than 30 min
+                      a(href="#") Less than 30 min
+
               .col-xs-6.p-t-5
                 .row
                   .col-xs-4.travelMode#walker
@@ -132,12 +141,10 @@ template(name="cityHeader")
 
             .row
               .col-xs-6
-                button.btn.btn-block.btn-primary.apply-changes-btn(type="submit")
-                  | Apply
+                button.btn.btn-block.btn-primary.apply-changes-btn(type="submit") Apply
                   span.hide-md Changes
               .col-sm-6
-                span.btn.btn-link.clear-btn.form-building-address-filter-reset
-                  | Clear Filter
+                span.btn.btn-link.clear-btn.form-building-address-filter-reset Clear Filter
 
       .col-xs-8.col-sm-2.building-title-search-wrapper
         input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
