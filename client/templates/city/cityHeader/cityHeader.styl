@@ -13,6 +13,8 @@
         height 260px
       &.features-section
         height 310px
+      &.neighborhoods-filter
+        height 150px
       .form-control
         height 42px
   @media screen and (min-width: 992px)
@@ -71,57 +73,7 @@
       cursor pointer
       &:hover
         color #4588fa
-        
-.neighborhood-select
-  i
-    font-size 14px
-    position absolute
-    top 14px
-    z-index 999
-    &.fa-map-signs
-      left 24px
-    &.fa-times
-      color #CCC
-      display none
-      right 20px
-  a.clear-neighborhood-filter + span
-    width 100%
-  .city-sub-header-list
-    width auto
-  .typeahead
-    padding-left 29px
-    padding-right 12px
-    height 42px
-  .tt-hint
-    color #999
-  
-  .tt-menu
-    width 280px
-    margin 12px 0
-    padding 8px 0
-    background-color #fff
-    border 1px solid #ccc
-    border 1px solid rgba(0, 0, 0, 0.2)
-    border-radius 8px
-    box-shadow 0 5px 10px rgba(0,0,0,.2)
 
-  .tt-suggestion
-    padding 3px 20px
-    font-size 14px
-    line-height 20px
-    &:hover
-      cursor pointer
-      color #fff
-      background-color #0097cf
-    .all
-      font-style italic
-
-  .tt-suggestion.tt-cursor
-    color #fff
-    background-color #0097cf
-
-  .tt-suggestion p
-    margin 0
 
 .city-subheader-price
   display inline-block
@@ -215,20 +167,18 @@
       border-color #ccc
       color #272b30
 
-  .features-section, .location-filter-section
+  .features-section, .location-filter-section, .neighborhoods-section
     width 290px
-    box-sizing border-box
     padding 10px 
     top 38px
     border 1px solid #cfcfcf
     border-top 0
-    border-radius 0 3px 3px 3px
     @media screen and (min-width: 768px)
       padding 20px 
       width 410px
 
     .filter-title
-      font-size 1.5px
+      font-size 15px
       padding 0 0 4px
       margin 0
       line-height 20px
@@ -282,6 +232,7 @@
       .form-control
         width 80%
         height 42px
+        margin-top 5px
 
     .clear-btn
       padding 0 25px

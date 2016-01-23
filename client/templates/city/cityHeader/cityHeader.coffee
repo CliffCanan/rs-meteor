@@ -1,5 +1,5 @@
 Template.cityHeader.onCreated ->
-  $.getScript '../../misc/svgcheckbox/svgcheckbox.js'
+  $.getScript '/misc/svgcheckbox/svgcheckbox.js'
 
 
 Template.cityHeader.onRendered ->

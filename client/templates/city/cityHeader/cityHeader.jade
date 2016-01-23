@@ -23,7 +23,7 @@ template(name="cityHeader")
             i.fa.fa-fw.fa-map-signs
             span.hide-sm Neighborhoods
 
-          form.form-neighborhoods-filter.features-section.dropdown-menu.dropdown-menu-left(style="left:0")
+          form.neighborhoods-section.dropdown-menu.dropdown-menu-left(style="left:0")
             h3.filter-title Select a neighborhood:
 
             ul.filter-list.list-unstyled.clearfix
@@ -107,8 +107,10 @@ template(name="cityHeader")
           form.form-building-filter.location-filter-section.dropdown-menu.dropdown-menu-left
             h3.filter-title Enter any common destination (work, school, etc) to find nearyby appartments.
 
-            ul.filter-list.list-unstyled.clearfix
-              input#address.form-control(type="text", name="address", placeholder="Destination Address", value="{{getDestination}}")
+            .row.clearfix
+              .col-xs-12.p-t-10.p-b-10
+                input#address.form-control(type="text", name="address", placeholder="Destination Address", value="{{getDestination}}")
+
             .row.selectArrivalTime
               .col-sm-6
                 .dropdown
