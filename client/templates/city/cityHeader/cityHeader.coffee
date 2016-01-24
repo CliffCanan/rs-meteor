@@ -105,6 +105,8 @@ Template.cityHeader.helpers
         Router.go("neighborhood", {cityId: Router.current().data().cityId, neighborhoodSlug: neighborhoodSlug}, {query: data.query})
 
 Template.cityHeader.events
+  #- City Dropdown removed Dec 2015
+  ###
   "click .city-select li": (event, template) ->
     data = template.data
     Session.set "enteredAddress", null
@@ -130,6 +132,7 @@ Template.cityHeader.events
       $(event.target).typeahead('val', neighborhoodsListRaw[data.neighborhoodSlug])
     else
       $(event.target).attr('placeholder', 'Search neighborhood')
+  ###
 
   "click .bedroom-type-select li": (event, template) ->
     data = template.data

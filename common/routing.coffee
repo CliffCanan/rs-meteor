@@ -388,6 +388,12 @@ Router.map ->
       SEO.set
         title: 'Featured Listings | Rent Scene'    
 
+  @route "/neighborhoods",
+    name: "neighborhoods"
+    onAfterAction: ->
+      SEO.set
+        title: 'Center City East | Rent Scene' 
+
   @route "/(.*)",
     name: "notFound"
 
