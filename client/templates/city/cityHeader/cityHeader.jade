@@ -107,14 +107,14 @@ template(name="cityHeader")
             span.hide-sm Distance Search
 
           form.form-building-filter.location-filter-section.dropdown-menu.dropdown-menu-left
-            h3.filter-title Enter any common destination (work, school, etc) to find nearyby appartments.
+            h3.filter-title Enter any destination (work, school, etc) to find nearyby appartments.
 
             .row.clearfix
               .col-xs-12.p-t-10.p-b-10
                 input#address.form-control(type="text", name="address", placeholder="Destination Address", value="{{getDestination}}")
 
             .row.selectArrivalTime
-              .col-sm-6
+              .col-xs-5.col-sm-6
                 .dropdown
                   button.dropdown-toggle.btn.btn-default(type="button", aria-expanded="false") {{arrivalTime}}
                   ul.dropdown-menu.option(role="menu")       
@@ -129,19 +129,28 @@ template(name="cityHeader")
                 .row
                   .col-xs-4.travelMode#walker
                     if condition travelMode 'is' 'walking'
-                      img(src="/images/walk-active.png")
+                      a(href="/")
+                        i.fa.fa-fw.fa-male.text-primary
                     else
-                      img(src="/images/walk.png")
+                      a(href="/")
+                        i.fa.fa-fw.fa-male
+
                   .col-xs-4.travelMode#car
                     if condition travelMode 'is' 'driving'
+                      a(href="/")
+                        i.fa.fa-fw.fa-car.text-primary
                       img(src="/images/car-active.png")
                     else
-                      img(src="/images/car.png")
+                      a(href="/")
+                        i.fa.fa-fw.fa-car
+
                   .col-xs-4.travelMode#bike
                     if condition travelMode 'is' 'bicycling'
-                      img(src="/images/bike-active.png")
+                      a(href="/")
+                        i.fa.fa-fw.fa-bicycle.text-primary
                     else
-                      img(src="/images/bike.png")
+                      a(href="/")
+                        i.fa.fa-fw.fa-bicycle
 
             .row
               .col-xs-6
