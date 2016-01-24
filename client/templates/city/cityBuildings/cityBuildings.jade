@@ -1,6 +1,9 @@
 template(name="cityBuildings")
+
   ul.main-city-list.list-unstyled.row
+
     each buildings
+
       li.col-xs-12.col-sm-6.col-md-4
         .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
         
@@ -19,12 +22,10 @@ template(name="cityBuildings")
 
               a.left.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="prev")
                 i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
-                span.sr-only
-                  | Previous
+                span.sr-only Previous
               a.right.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="next")
                 i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
-                span.sr-only
-                  | Next
+                span.sr-only Next
           
           .main-city-item-wrap
             h2.main-city-item-title
@@ -33,7 +34,5 @@ template(name="cityBuildings")
 
             .main-city-info.clearfix
               i.fa(class="{{#if agroIsUnit}}fa-bed{{else}}fa-building{{/if}}")
-              span.main-city-price
-                | {{displayBuildingPrice ../queryBtype}}
-              span.main-city-desc
-                | {{bedroomTypes ../queryBtype}}
+              span.main-city-price {{displayBuildingPrice ../queryBtype}}
+              span.main-city-desc {{bedroomTypes ../queryBtype}}

@@ -3,14 +3,31 @@ template(name="footer")
 
     .container
       .row
-        .col-xs-12
+        .col-xs-12(itemscope, itemtype="http://schema.org/LocalBusiness")
           .row
-            .col-xs-12.col-sm-3#logocolumn
-              a.hide-text(href="/")
-                | Rent Scene
-                img.logo.animated.spin-wrapper(src="/images/logo-icon-white.png", itemprop="image", alt="Rentscene Icon")
-                img.logo-text(src="/images/logo-text-white.png", itemprop="image", alt="Rentscene")
-              p.slogan Guiding You Home.
+
+            .col-xs-12.col-sm-3.text-center#logocolumn
+              .row
+                .col-xs-12
+                  a.hide-text(href="/") Rent Scene
+                    img.logo.animated.spin-wrapper(src="/images/logo-icon-white.png", itemprop="image", alt="Rentscene Icon")
+                    img.logo-text(src="/images/logo-text-white.png", itemprop="image", alt="Rentscene")
+                  p.slogan Guiding You Home.
+
+                .col-xs-12
+                  .contact-info
+                    .address(itemprop="address", itemscope, itemtype="http://schema.org/PostalAddress")
+                      span.show(itemprop="streetAddress") 1500 John F. Kennedy Blvd.
+                      span.show Suite 1510
+                      span.show(itemprop="addressLocality") Philadelphia
+                      =","
+                      span.show(itemprop="addressRegion") PA 
+                      span.show(itemprop="postalCode") 19013
+                    .phone-email
+                      span.show
+                      i.fa.fa-fw.fa-mobile.hidden
+                        .span(itemprop="telephone") (267) 463-2428
+                      a.show(href="mailto:team@rentscene.com" target="_blank" itemprop="email")team@rentscene.com
 
             .col-xs-12.col-sm-9
               .row

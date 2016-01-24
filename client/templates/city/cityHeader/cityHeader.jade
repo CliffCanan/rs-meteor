@@ -20,11 +20,13 @@ template(name="cityHeader")
       .col-sm-2.neighborhood-select.city-sub-header-list-wrap.hide-md
         .dropdown.city-filter.features-wrap
           button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
-            i.fa.fa-fw.fa-map-signs
+            i.fa.fa-fw.fa-map
             span.hide-sm Neighborhoods
 
           form.neighborhoods-section.dropdown-menu.dropdown-menu-left(style="left:0")
-            h3.filter-title Select a neighborhood:
+            h3.filter-title
+              i.fa.fa-fw.fa-map-signs.m-r-5
+              | Select A Neighborhood:
 
             ul.filter-list.list-unstyled.clearfix
 
@@ -66,7 +68,7 @@ template(name="cityHeader")
             span.hide-sm Features
 
           form.form-building-features-filter.features-section.dropdown-menu.ac-custom.ac-checkbox.ac-checkmark(autocomplete="off")
-            h3.filter-title Filter the apartment listings by:
+            h3.filter-title Filter apartment listings by:
 
             ul.filter-list.list-unstyled.clearfix
               li.checkbox-wrap.col-md-6
@@ -101,8 +103,8 @@ template(name="cityHeader")
       #location-filter-wrapper.col-xs-2
         .dropdown.city-filter
           button.features-btn.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
-            i.fa.fa-fw.fa-map-marker
-            span.hide-sm Location
+            i.fa.fa-fw.fa-street-view
+            span.hide-sm Distance Search
 
           form.form-building-filter.location-filter-section.dropdown-menu.dropdown-menu-left
             h3.filter-title Enter any common destination (work, school, etc) to find nearyby appartments.

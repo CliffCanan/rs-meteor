@@ -22,6 +22,9 @@ Template.city.onCreated ->
   unless $.fn.hoverIntent
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
 
+  console.log('CITY -> onCreated -> About to get svg checkbox script')
+  $.getScript '/misc/svgcheckbox/svgcheckbox.js'
+
 
 Template.city.helpers
   firstLoad: ->
@@ -136,6 +139,7 @@ Template.city.helpers
 Template.city.onRendered ->
   instance = @
 
+  console.log('CITY -> onRendered -> About to get .imgLiquid() script')
   $.getScript '/js/imgLiquid-min.js', ->
     $('.main-city-item .item.video').imgLiquid();
 

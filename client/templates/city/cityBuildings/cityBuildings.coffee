@@ -19,18 +19,17 @@ Template.cityBuildings.onRendered ->
         $(this).addClass('images-subscribed')
     , '.main-city-img-link'
 
+
 Template.cityBuildings.helpers
+
   checkAvailable: (id) ->
   	if  Session.get("addressgeo")
   		filtered = Session.get 'filtered'
   		if filtered.indexOf(id) == -1
-  			#console.log "a"
   			return false
   		else 
-  			#console.log "b"
   			return true
   	else
-  		#console.log "c"
   		return true
 
   shouldShowRecommendToggle: ->
@@ -95,4 +94,3 @@ Template.cityBuildings.events
       Meteor.call "unrecommendBuilding", clientId, buildingId
     else
       Meteor.call "recommendBuilding", clientId, buildingId
-
