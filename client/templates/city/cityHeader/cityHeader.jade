@@ -30,24 +30,9 @@ template(name="cityHeader")
 
             ul.filter-list.list-unstyled.clearfix
 
-              li.col-sm-6
-                a#cc-east(href="/city/philadelphia/center-city-east") Center City East
-
-              li.col-sm-6
-                a#cc-west(href="/city/philadelphia/center-city-west") Center City West
-
-              li.col-sm-6
-                a#rittenhouse(href="/city/philadelphia/rittenhouse-square") Rittenhouse Square
-
-              li.col-sm-6
-                a#fairmount(href="/city/philadelphia/fitler-square") Fairmount
-
-              li.col-sm-6
-                a#wash-sq(href="/city/philadelphia/fitler-square") Fitler Square
-
-              li.col-sm-6
-                a#wash-sq(href="/city/philadelphia/washington-square") Washington Square
-
+              each neighborhoods
+                li.col-sm-6
+                  a(href="/city/#{../cityId}/#{slug}", id="#{slug}") #{name}
 
       .col-xs-6.col-sm-1.bedroom-type-select.city-sub-header-list-wrap.dropdown.city-filter
         button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
