@@ -1,27 +1,27 @@
 template(name="building")
   +checkAvailability(building=building)
 
-  ol.breadcrumb
-    li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
-      a(href="/", title='home', itemprop="url")
-        span(itemprop="title") Home
-    li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
-      a(href="{{pathFor route='city'}}", itemprop="url")
-        span(itemprop="title") {{cityName}}
-    li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
-      a(href="{{pathFor route='neighborhood'}}", itemprop="url")
-        span(itemprop="title") {{neighborhood}}
-    with parent
+  with building
+
+    ol.breadcrumb
       li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
-        a(href="{{pathFor route='building' data=getRouteData}}", itemprop="url")
-          span(itemprop="title") {{title}}
-    li.active {{title}}
+        a(href="/", title='home', itemprop="url")
+          span(itemprop="title") Home
+      li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+        a(href="{{pathFor route='city'}}", itemprop="url")
+          span(itemprop="title") {{cityName}}
+      li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+        a(href="{{pathFor route='neighborhood'}}", itemprop="url")
+          span(itemprop="title") {{neighborhood}}
+      with parent
+        li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+          a(href="{{pathFor route='building' data=getRouteData}}", itemprop="url")
+            span(itemprop="title") {{title}}
+      li.active {{title}}
 
-  .city-page-wrap.col-lg-12(itemscope, itemtype="http://schema.org/LocalBusiness")
+    .city-page-wrap.col-lg-12(itemscope, itemtype="http://schema.org/LocalBusiness")
 
-    with building
-
-      form.building-form.content-wrapper.left-bar.p-t-10
+      form.building-form.content-wrapper.p-t-10
 
         if canOperateWithBuilding
           .control-buttons.btn-group
@@ -119,11 +119,33 @@ template(name="building")
                     i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
                     span.sr-only Next
 
-              .building-main-info-desc-wrap.hidden-lg
-                unless isEdit
-                  p.building-main-info-desc
-                    | {{{getDescription}}}
-                  +social
+
+              .building-main-info-desc-wrap
+                input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
+
+                .row
+                  .col-xs-12.col-sm-8
+                    .building-main-info-desc
+                      if isEdit
+                        textarea.form-control(name="description") {{{description}}}
+                      else
+                        | {{{getDescription}}}
+
+                  .col-xs-12.col-sm-4
+                    .walk-score-wrap
+                      div
+                        h2 {{address}}
+                        h3 Walker's Paradise
+                        .icon-wrap
+                          div
+                            a(href="#")
+                              img(src="//pp.walk.sc/badge/walk/{{address}}-{{cityName}}.svg", alt="Walk Score of {{address}} {{cityName}} {{postalCode}}")
+                              img(src="//pp.walk.sc/badge/transit/{{address}}-{{cityName}}.svg", alt="Transit Score of {{address}} {{cityName}} {{postalCode}}")
+                              img(src="//pp.walk.sc/badge/bike/{{address}}-{{cityName}}.svg", alt="Bike Score of {{address}} {{cityName}} {{postalCode}}")
+                        p
+                          a(href="/client/templates/neighborhoods/")
+                            | Learn more about {{cityName}}
+
 
               if buildingUnits.count
                 section.building-info-section
@@ -365,32 +387,6 @@ template(name="building")
               if canApply
                 a.btn.btn-success.building-main-info-btn.visible-lg-block(href="{{pathFor 'newRentalApplication' query=rentalQuery}}") Apply Now
 
-              .building-main-info-desc-wrap.visible-lg-block
-                input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
-
-                .row
-                  .col-xs-12.col-sm-8
-                    .building-main-info-desc
-                      if isEdit
-                        textarea.form-control(name="description") {{{description}}}
-                      else
-                        | {{{getDescription}}}
-
-                  .col-xs-12.col-sm-4
-                    .walk-score-wrap
-                      div
-                        h2 {{address}}
-                        h3 Walker's Paradise
-                        .icon-wrap
-                          div
-                            a(href="#")
-                              img(src="//pp.walk.sc/badge/walk/{{address}}-{{cityName}}.svg", alt="Walk Score of {{address}} {{cityName}} {{postalCode}}")
-                              img(src="//pp.walk.sc/badge/transit/{{address}}-{{cityName}}.svg", alt="Transit Score of {{address}} {{cityName}} {{postalCode}}")
-                              img(src="//pp.walk.sc/badge/bike/{{address}}-{{cityName}}.svg", alt="Bike Score of {{address}} {{cityName}} {{postalCode}}")
-                        p
-                          a(href="/client/templates/neighborhoods/")
-                            | Learn more about {{cityName}}
-
 
           .map-container.clearfix.col-sm-12
             #gmap
@@ -410,8 +406,11 @@ template(name="building")
               | Similar Properties
 
             ul.main-city-list.list-unstyled.row.similar-properties
+
               if Template.subscriptionsReady
+
                 each similarProperties .
+
                   li.col-xs-12.col-sm-6.col-lg-3
                     .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
 

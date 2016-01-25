@@ -172,6 +172,9 @@ Template.building.helpers
 
 Template.building.onRendered ->
   instance = @
+
+  $('main').addClass('container')
+
   $('[data-toggle="popover"]').popover
     html: true
     title: 'Commute Calculator <a class="close" data-dismiss="popover" href="#">&times;</a>'
@@ -221,8 +224,8 @@ Template.building.onRendered ->
   map = new google.maps.Map document.getElementById("gmap"),
     zoom: 16
     center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
-    streetViewControl: false
-    scaleControl: false
+    streetViewControl: true
+    scaleControl: true
     rotateControl: false
     panControl: false
     overviewMapControl: false

@@ -54,19 +54,24 @@ Template.reviews.events
 
   'click .review-view-more': (event, template) ->
     $target = $(event.target)
-    $review = $target.parents('li')
-
-    $('.reviews li').css(zIndex: 10)
+    $review = $target.parents('.review')
 
     if $target.html() is 'View More...'
-      $target.parent().siblings('.review-body-summary').hide()
-      $target.parent().siblings('.review-body-full').slideDown('fast')
-      $target.parent().siblings('.review-breakdown').slideDown('fast')
       $review.css
-        zIndex: 20
+        height: 'auto'
+      $target.parent().siblings('.review-body-summary').hide()
+      $target.parent().siblings('.review-body-full').slideDown(300)
+      $target.parent().siblings('.review-breakdown').slideDown(300)
+
+
+$('li.testy .review-body-full').slideDown(300);
+$('li.testy .review-body-full').height()
+
       $target.html('View Less')
     else
-      $target.parent().siblings('.review-breakdown').slideUp('fast')
-      $target.parent().siblings('.review-body-full').slideUp('fast')
+      $review.css
+        height: '190px'
+      $target.parent().siblings('.review-breakdown').slideUp(300)
+      $target.parent().siblings('.review-body-full').slideUp(300)
       $target.parent().siblings('.review-body-summary').show()
       $target.html('View More...')

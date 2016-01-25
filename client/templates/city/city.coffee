@@ -139,9 +139,10 @@ Template.city.helpers
 Template.city.onRendered ->
   instance = @
 
-  console.log('CITY -> onRendered -> About to get .imgLiquid() script')
   $.getScript '/js/imgLiquid-min.js', ->
     $('.main-city-item .item.video').imgLiquid();
+
+  $('main').removeClass('container')
 
   cityCircle = undefined
 
