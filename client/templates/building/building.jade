@@ -251,7 +251,7 @@ template(name="building")
                   .building-main-price-opt
                     span.building-main-price
                       input.text-right(type="text", name="priceFrom", value="{{priceFrom}}")
-                        | -
+                      | -
                       input.text-right(type="text", name="priceTo", value="{{priceTo}}")
                     span.building-main-rooms Unit
                   each btypesFields .
@@ -283,7 +283,7 @@ template(name="building")
                       input.input-from-to.form-control(type="text", name="sqftFrom", value="{{sqftFrom}}")
                       | -
                       input.input-from-to.form-control(type="text", name="sqftTo", value="{{sqftTo}}")
-                      | Square Feets
+                      | Square Ft
                   each complexFields true
                     li.building-main-prop
                       b {{label}}:
