@@ -142,9 +142,9 @@ template(name="building")
                               img(src="//pp.walk.sc/badge/walk/{{address}}-{{cityName}}.svg", alt="Walk Score of {{address}} {{cityName}} {{postalCode}}")
                               img(src="//pp.walk.sc/badge/transit/{{address}}-{{cityName}}.svg", alt="Transit Score of {{address}} {{cityName}} {{postalCode}}")
                               img(src="//pp.walk.sc/badge/bike/{{address}}-{{cityName}}.svg", alt="Bike Score of {{address}} {{cityName}} {{postalCode}}")
-                        p
-                          a(href="/client/templates/neighborhoods/")
-                            | Learn more about {{cityName}}
+                       //- p
+                       //-   a(href="/neighborhoods/")
+                       //-     | Learn more about {{cityName}}
 
 
               if buildingUnits.count
