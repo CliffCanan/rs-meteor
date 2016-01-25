@@ -55,202 +55,6 @@ template(name="building")
         .building-page.clearfix
           .row
 
-            .col-xs-12.col-md-7.col-lg-8.building-info-wrap
-
-              if isEdit
-                +buildingParentIdEdit
-                label.building-admin-edit
-                  span.building-admin-edit-text City:
-                  select.form-control(name="cityId")
-                    each cities
-                      option(value="{{key}}", selected="{{condition key 'is' ../cityId}}") {{value}}
-
-                label.building-admin-edit
-                  span.building-admin-edit-text Address:
-                  input.form-control(type="text", name="address", value="{{address}}")
-                label.building-admin-edit
-                  span.building-admin-edit-text Postal code:
-                  input.form-control(type="text", name="postalCode", value="{{postalCode}}")
-                label.building-admin-edit
-                  span.building-admin-edit-text Neighborhood:
-                  input.form-control(type="text", name="neighborhood", value="{{neighborhood}}")
-                label.building-admin-edit
-                  input(type="checkbox", name="isOnMap", value="true", checked="{{isOnMap}}")
-                  span.building-admin-edit-text.building-admin-edit-check Is on map
-                label.building-admin-edit
-                  span.building-admin-edit-text Unit type:
-                  select.form-control(name="btype")
-                    each btypes
-                      option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
-                label.building-admin-edit.form-inline
-                  span.building-admin-edit-text Position:
-                  select.select-position-defs.form-control
-                    option(value="10000", selected="{{condition position 'is' 10000}}") Very High (10000)
-                    option(value="5000", selected="{{condition position 'is' 5000}}") High (5000)
-                    option(value="0", selected="{{condition position 'is' 0}}") Medium (0)
-                    option(value="-5000", selected="{{condition position 'is' -5000}}") Low (-5000)
-                    option(value="-10000", selected="{{condition position 'is' -10000}}") Very Low (-10000)
-                    option(value="manual", selected="{{isManualPosition}}") Manual
-                  input.form-control.text-right.input-building-postion(class="{{#unless isManualPosition}}hidden{{/unless}}" type="text", name="position", value="{{position}}")
-
-              if isEdit
-                +buildingImagesEdit
-              else
-                .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel", data-interval="false")
-                  if canRecommend
-                    a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
-                      i.fa.fa-star
-
-                  .carousel-inner(role="listbox")
-                    each getMedia
-                      .item
-                        if isImage
-                          img.building-img(src="{{getThumbnail store='thumbs'}}")
-                        else
-                          if isFirstSlide
-                            iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
-                          else
-                            iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen) 
-
-                  a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
-                    i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
-                    span.sr-only Previous
-                  a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
-                    i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
-                    span.sr-only Next
-
-
-              .building-main-info-desc-wrap
-                input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
-
-                .row
-                  .col-xs-12.col-sm-8
-                    .building-main-info-desc
-                      if isEdit
-                        textarea.form-control(name="description") {{{description}}}
-                      else
-                        | {{{getDescription}}}
-
-                  .col-xs-12.col-sm-4
-                    .walk-score-wrap
-                      div
-                        h2 {{address}}
-                        h3 Walker's Paradise
-                        .icon-wrap
-                          div
-                            a(href="#")
-                              img(src="//pp.walk.sc/badge/walk/{{address}}-{{cityName}}.svg", alt="Walk Score of {{address}} {{cityName}} {{postalCode}}")
-                              img(src="//pp.walk.sc/badge/transit/{{address}}-{{cityName}}.svg", alt="Transit Score of {{address}} {{cityName}} {{postalCode}}")
-                              img(src="//pp.walk.sc/badge/bike/{{address}}-{{cityName}}.svg", alt="Bike Score of {{address}} {{cityName}} {{postalCode}}")
-                       //- p
-                       //-   a(href="/neighborhoods/")
-                       //-     | Learn more about {{cityName}}
-
-
-              if buildingUnits.count
-                section.building-info-section
-
-                  h2.section-title
-                    i.fa.fa-fw.fa-key
-                    if condition buildingUnits.count "gt" 1
-                      | {{buildingUnits.count}} Available Units
-                    else
-                      | {{buildingUnits.count}} Available Unit
-
-
-                  .building-unit-list-wrap
-                    ul.building-unit-list.list-unstyled.row
-
-                      each buildingUnitsLimited
-                        li.building-unit-item-wrap.col-sm-6.col-xs-12
-                          .building-unit-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
-                            if canManageClients
-                              a.recommend-toggle(href="#", class="{{#if unitIsRecommended}}active{{/if}}")
-                                i.fa.fa-star
-                            with mainImage
-                              img.pull-left(src="{{getThumbnail store='thumbs'}}")
-                            .building-unit-info.clearfix
-                              h3.building-unit-info-title
-                                a(href="{{pathFor route='building' data=getRouteData}}") {{title}}
-                              .building-unit-info-price
-                                i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
-                                with getUnitPrice
-                                  span.unit-price {{price}}
-                                span.unit-type {{bedroomTypes}}
-                            .building-unit-btn-wrap
-                              .col-xs-6.p-l-0
-                                button.building-unit-btn.btn.btn-default.check-availability(type="button") Check Availability
-                              .col-xs-6.p-r-0
-                                a.show.building-unit-btn.btn.btn-default(type="button", href="{{pathFor route='building' data=getRouteData}}") Full Listing
-                            ul.building-unit-prop-list.list-unstyled
-                              if isNotAvailable
-                                li.building-unit-prop
-                                  i.fa.fa-fw.fa-check
-                                  | Earliest move-in: Not Currently Available
-                              else
-                                with getAvailableAt
-                                  li.building-unit-prop
-                                    i.fa.fa-fw.fa-check
-                                    | {{moment . 'MM/DD/YYYY'}}
-                              with getBathrooms
-                                li.building-unit-prop
-                                  i.fa.fa-fw.fa-check
-                                  | {{.}}
-
-                  if condition buildingUnits.count "gt" 4
-                    if Session "showAllBuildingUnits"
-                      a.building-unit-item-less(href="#", title="less") Hide Units
-                    else
-                      a.building-unit-item-more(href="#", title="more") View All {{buildingUnits.count}} Units
-
-              if isEdit
-                +buildingFeaturesEdit
-              else
-                with getFeatures
-                  section.building-info-section
-                    h2.section-title
-                      i.fa.fa-fw.fa-check
-                      | Additional Features
-                    ul.building-features-list.list-unstyled.row
-                      each .
-                        li.building-features.col-sm-4.col-xs-6
-                          i.fa.fa-fw.fa-check.blue-icon.m-r-5
-                          span.building-features-text {{.}}
-                         
-
-              if canOperateWithBuilding
-                if isEdit
-                  unless parentId
-                    +buildingAdminFieldsEdit
-                else
-                  with adminBuilding
-                    if mlsNo
-                      .building-admin-info
-                        span.building-admin-info-text MLS #:
-                        span.building-admin-info-data {{mlsNo}}
-                    .building-admin-info
-                      span.building-admin-info-text How to check availability:
-                      span.building-admin-info-data {{adminAvailability}}
-                    .building-admin-info
-                      span.building-admin-info-text Escorted:
-                      span.building-admin-info-data {{adminEscorted}}
-                    .building-admin-info
-                      span.building-admin-info-text Application Fee:
-                      span.building-admin-info-data {{adminAppFee}}
-                    .building-admin-info
-                      span.building-admin-info-text Office Hours:
-                      span.building-admin-info-data {{adminAvailability}}
-                    .building-admin-info
-                      span.building-admin-info-text Scheduling Instructions:
-                      span.building-admin-info-data {{adminScheduling}}
-                    .building-admin-info
-                      span.building-admin-info-text Contact Instructions:
-                      span.building-admin-info-data {{adminContact}}
-                    .building-admin-info
-                      span.building-admin-info-text Notes:
-                      span.building-admin-info-data {{adminNotes}}
-
-
             .building-main-info.col-xs-12.col-lg-5.col-lg-4
               if isEdit
                 input.building-main-info-title(type="text", name="title", value="{{title}}")
@@ -386,6 +190,215 @@ template(name="building")
 
               if canApply
                 a.btn.btn-success.building-main-info-btn.visible-lg-block(href="{{pathFor 'newRentalApplication' query=rentalQuery}}") Apply Now
+
+              if buildingUnits.count
+                section.building-info-section
+
+                  h2.section-title
+                    i.fa.fa-fw.fa-key
+                    | Units
+
+                  .building-unit-list-wrap
+                    ul.building-unit-list.list-unstyled
+
+                      each buildingUnitsLimited
+
+                        li.building-unit-item-wrap
+                          .building-unit-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
+
+                            if canManageClients
+                              .row
+                                .col-xs-12
+                                  a.recommend-toggle(href="#", class="{{#if unitIsRecommended}}active{{/if}}")
+                                    i.fa.fa-star
+
+                            .row
+                              .col-sm-6.unit-img-wrap
+                                with mainImage
+                                  img.pull-left(src="{{getThumbnail store='thumbs'}}")
+
+                              .col-sm-6
+                                .building-unit-info.clearfix
+                                  h3.building-unit-info-title
+                                    a(href="{{pathFor route='building' data=getRouteData}}") {{title}}
+                                  .building-unit-info-price
+                                    div
+                                      span.unit-type
+                                        i.fa.fa-fw.fa-bed
+                                        | {{bedroomTypes}}
+                                      with getUnitPrice
+                                        span.unit-price {{price}}
+                                    div
+                                      with getBathrooms
+                                        span.unit-baths
+                                          img.bath-icon(src="/images/bath.svg")
+                                          | {{.}}
+
+                                .building-unit-btn-wrap
+                                  a.building-unit-btn.btn.btn-default.center-block(type="button", href="{{pathFor route='building' data=getRouteData}}") Full Listing
+
+
+                                ul.building-unit-prop-list.list-unstyled
+                                  if isNotAvailable
+                                    li.building-unit-prop
+                                      i.fa.fa-fw.fa-calendar-check-o
+                                      | Earliest Move-In: Not Currently Available
+                                  else
+                                    with getAvailableAt
+                                      li.building-unit-prop
+                                        i.fa.fa-fw.fa-check
+                                        | {{moment . 'MM/DD/YYYY'}}
+
+                            .building-unit-btn-wrap
+                              //-.col-xs-6.p-l-0
+                              //-  button.building-unit-btn.btn.btn-default.check-availability(type="button") Check Availability
+
+                  if condition buildingUnits.count "gt" 4
+                    if Session "showAllBuildingUnits"
+                      a.building-unit-item-less(href="#", title="less") Hide Units
+                    else
+                      a.building-unit-item-more(href="#", title="more") View All {{buildingUnits.count}} Units
+
+
+            .col-xs-12.col-md-7.col-lg-8.building-info-wrap
+
+              if isEdit
+                +buildingParentIdEdit
+                label.building-admin-edit
+                  span.building-admin-edit-text City:
+                  select.form-control(name="cityId")
+                    each cities
+                      option(value="{{key}}", selected="{{condition key 'is' ../cityId}}") {{value}}
+
+                label.building-admin-edit
+                  span.building-admin-edit-text Address:
+                  input.form-control(type="text", name="address", value="{{address}}")
+                label.building-admin-edit
+                  span.building-admin-edit-text Postal code:
+                  input.form-control(type="text", name="postalCode", value="{{postalCode}}")
+                label.building-admin-edit
+                  span.building-admin-edit-text Neighborhood:
+                  input.form-control(type="text", name="neighborhood", value="{{neighborhood}}")
+                label.building-admin-edit
+                  input(type="checkbox", name="isOnMap", value="true", checked="{{isOnMap}}")
+                  span.building-admin-edit-text.building-admin-edit-check Is on map
+                label.building-admin-edit
+                  span.building-admin-edit-text Unit type:
+                  select.form-control(name="btype")
+                    each btypes
+                      option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
+                label.building-admin-edit.form-inline
+                  span.building-admin-edit-text Position:
+                  select.select-position-defs.form-control
+                    option(value="10000", selected="{{condition position 'is' 10000}}") Very High (10000)
+                    option(value="5000", selected="{{condition position 'is' 5000}}") High (5000)
+                    option(value="0", selected="{{condition position 'is' 0}}") Medium (0)
+                    option(value="-5000", selected="{{condition position 'is' -5000}}") Low (-5000)
+                    option(value="-10000", selected="{{condition position 'is' -10000}}") Very Low (-10000)
+                    option(value="manual", selected="{{isManualPosition}}") Manual
+                  input.form-control.text-right.input-building-postion(class="{{#unless isManualPosition}}hidden{{/unless}}" type="text", name="position", value="{{position}}")
+
+              if isEdit
+                +buildingImagesEdit
+              else
+                .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel", data-interval="false")
+                  if canRecommend
+                    a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
+                      i.fa.fa-star
+
+                  .carousel-inner(role="listbox")
+                    each getMedia
+                      .item
+                        if isImage
+                          img.building-img(src="{{getThumbnail store='thumbs'}}")
+                        else
+                          if isFirstSlide
+                            iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+                          else
+                            iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen) 
+
+                  a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
+                    i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
+                    span.sr-only Previous
+                  a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
+                    i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
+                    span.sr-only Next
+
+
+              .building-main-info-desc-wrap
+                input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
+
+                .row
+                  .col-xs-12.col-sm-8
+                    .building-main-info-desc
+                      if isEdit
+                        textarea.form-control(name="description") {{{description}}}
+                      else
+                        | {{{getDescription}}}
+
+                  .col-xs-12.col-sm-4
+                    .walk-score-wrap
+                      div
+                        h2 {{address}}
+                        h3 Walker's Paradise
+                        .icon-wrap
+                          div
+                            a(href="#")
+                              img(src="//pp.walk.sc/badge/walk/{{address}}-{{cityName}}.svg", alt="Walk Score of {{address}} {{cityName}} {{postalCode}}")
+                              img(src="//pp.walk.sc/badge/transit/{{address}}-{{cityName}}.svg", alt="Transit Score of {{address}} {{cityName}} {{postalCode}}")
+                              img(src="//pp.walk.sc/badge/bike/{{address}}-{{cityName}}.svg", alt="Bike Score of {{address}} {{cityName}} {{postalCode}}")
+                       //- p
+                       //-   a(href="/neighborhoods/")
+                       //-     | Learn more about {{cityName}}
+
+
+              if isEdit
+                +buildingFeaturesEdit
+              else
+                with getFeatures
+                  section.building-info-section
+                    h2.section-title
+                      i.fa.fa-fw.fa-check
+                      | Building Amenities
+                    ul.building-features-list.list-unstyled.row
+                      each .
+                        li.building-features.col-sm-4.col-xs-6
+                          i.fa.fa-fw.fa-check.blue-icon.m-r-5
+                          span.building-features-text {{.}}
+                         
+
+              if canOperateWithBuilding
+                if isEdit
+                  unless parentId
+                    +buildingAdminFieldsEdit
+                else
+                  with adminBuilding
+                    if mlsNo
+                      .building-admin-info
+                        span.building-admin-info-text MLS #:
+                        span.building-admin-info-data {{mlsNo}}
+                    .building-admin-info
+                      span.building-admin-info-text How to check availability:
+                      span.building-admin-info-data {{adminAvailability}}
+                    .building-admin-info
+                      span.building-admin-info-text Escorted:
+                      span.building-admin-info-data {{adminEscorted}}
+                    .building-admin-info
+                      span.building-admin-info-text Application Fee:
+                      span.building-admin-info-data {{adminAppFee}}
+                    .building-admin-info
+                      span.building-admin-info-text Office Hours:
+                      span.building-admin-info-data {{adminAvailability}}
+                    .building-admin-info
+                      span.building-admin-info-text Scheduling Instructions:
+                      span.building-admin-info-data {{adminScheduling}}
+                    .building-admin-info
+                      span.building-admin-info-text Contact Instructions:
+                      span.building-admin-info-data {{adminContact}}
+                    .building-admin-info
+                      span.building-admin-info-text Notes:
+                      span.building-admin-info-data {{adminNotes}}
+
 
 
           .map-container.clearfix.col-sm-12
