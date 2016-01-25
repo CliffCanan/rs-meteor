@@ -190,18 +190,15 @@ Meteor.smartPublish "building", (cityId, slug) ->
   # console.log("slug: ", slug)
   check(cityId, Match.InArray(cityIds))
   check(slug, String)
-
   @addDependency "buildings", "images", (building) ->
     imageIds = _.map building.images, (file) ->
       file._id
     [BuildingImages.find({_id: {$in: imageIds}})]
 
-  @addDependency "buildings", "reviews", (building) ->
-    BuildingReviews.find({buildingId: building._id, isPublished: true, isRemoved: null})
-
   selector = {cityId: String(cityId), slug: String(slug)}
   # addIsPublishFilter(@userId, selector)
   buildings = Buildings.find(selector)
+
   # console.log("buildings: ", buildings.fetch())
   buildings
 
@@ -209,9 +206,7 @@ Meteor.smartPublish "buildingParent", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
   check(slug, String)
   childBuilding = Buildings.findOne({cityId: cityId, slug: slug})
-
   return [] if not childBuilding
-
   @addDependency "buildings", "parentId", (building) ->
     parent = Buildings.findOne(building.parentId)
     if parent
@@ -227,12 +222,23 @@ Meteor.smartPublish "buildingParent", (cityId, slug) ->
   addIsPublishFilter(@userId, selector)
   [Buildings.find(selector)]
 
+Meteor.publish "buildingReviews", (buildingId) ->
+  BuildingReviews.find({buildingId: buildingId, isPublished: true, isRemoved: null})
+
+Meteor.publish "buildingForSimilar", (buildingId) ->
+  fields =
+    cityId: 1
+    bathroomsTo: 1
+    agroPriceTotalTo: 1
+    agroPriceTotalTo: 1
+
+  Buildings.find(buildingId, {fields: fields})
+
 Meteor.smartPublish "buildingUnits", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
   check(slug, String)
   parentBuilding = Buildings.findOne({cityId: cityId, slug: slug})
   return [] if not parentBuilding
-
   @addDependency "buildings", "images", (building) ->
     imageIds = _.map building.images, (file) ->
       file._id

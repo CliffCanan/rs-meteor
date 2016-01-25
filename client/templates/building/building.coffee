@@ -1,7 +1,17 @@
 positions = [10000, 5000, 0, -5000, -10000]
 
 Template.building.onCreated ->
-  @subscribe("buildingsSimilar", Router.current().data().building._id)
+  building = Router.current().data().building
+
+  if building.parentId
+    buildingSimilarId = building.parentId
+    # Subscribe to the parent building that only returns the few fields required to search for similar buildings.
+    @subscribe("buildingForSimilar", buildingSimilarId)
+  else
+    buildingSimilarId = building._id
+
+  @subscribe("buildingReviews", buildingSimilarId)
+  @subscribe("buildingsSimilar", buildingSimilarId)
 
 Template.building.helpers 
   ironRouterHack: ->
@@ -67,6 +77,7 @@ Template.building.helpers
     @position not in positions
 
   similarProperties: (building) ->
+    building = Buildings.findOne(building.parentId) if building.agroIsUnit and building.parentId
     from = building.agroPriceTotalTo - 200
     to = building.agroPriceTotalTo + 200
     selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}  
@@ -143,7 +154,11 @@ Template.building.helpers
       return 'video' if media.vimeoId?
 
   buildingReviews: ->
-    BuildingReviews.find({buildingId: Template.instance().data.building._id, isPublished: true}, {sort: {createdAt: -1}})
+    if @agroIsUnit and @parentId
+      buildingId = @parentId
+    else
+      buildingId = @_id
+    BuildingReviews.find({buildingId: buildingId, isPublished: true}, {sort: {createdAt: -1}})
 
   reviewFormDefaults: ->
     Session.get('reviewFormDefaults')
