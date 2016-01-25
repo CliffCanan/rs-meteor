@@ -211,8 +211,9 @@ Template.building.onRendered ->
     rotateControl: false
     panControl: false
     overviewMapControl: false
-    mapTypeControl: false
+    mapTypeControl: true
     mapTypeId: google.maps.MapTypeId.ROADMAP
+
   @map = map
   @directionsDisplay.setMap(map)
   @directionsDisplay.setOptions suppressMarkers: true

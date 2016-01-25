@@ -1,5 +1,6 @@
 template(name="review")
   div.review(itemprop="review", itemscope, itemtype="http://schema.org/Review")
+
     if showBuildingLink
       div.building
         a(href="{{pathFor route='building' data=building.processedRouteData}}") #{building.title}
@@ -29,17 +30,19 @@ template(name="review")
       p.text-center
         a.review-view-more(href="#") View More...
 
-    div.author(property="author", typeof="http://schema.org/Person")
-      span(property="name") #{displayName}
-      //span.displayPersona #{displayPersona}
-      if canOperateWithBuilding
-        br
-        small
-          | (
-          a(href="mailto:#{email}") #{email}
-          | )
+    .author-date-box
+      div.author(property="author", typeof="http://schema.org/Person")
+        span(property="name") #{displayName}
+        //span.displayPersona #{displayPersona}
 
-    div.posted-date #{formatedCreatedAt}
+        if canOperateWithBuilding
+          br
+          small
+            | (
+            a(href="mailto:#{email}") #{email}
+            | )
+
+      div.posted-date #{formatedCreatedAt}
 
     if canOperateWithBuilding
       .admin-actions

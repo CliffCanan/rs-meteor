@@ -1,40 +1,36 @@
+.breadcrumb
+  padding 5px
+  background #fff
+  margin 0 5px
+  @media screen and (max-width: 768px)
+    padding 8px 5px 7px
+    border 1px solid rgba(188,190,192,.4)
+  @media screen and (min-width: 1200px)
+    padding 12px 5px 10px
+    font-size 16px
+  & > li
+    @media screen and (max-width: 600px)
+      font-size 12.5px
+      letter-spacing -.3px
+    &.active
+      color #272b30
+      font-weight bold
+    & + li
+      &:before
+        font normal normal normal 14px/1 FontAwesome
+        color #6C6E70
+        content "\f105"
+        padding 0 5px
+        @media screen and (min-width: 768px)
+          padding 0 15px
+    a
+      color #4588fa
+
 .content-wrapper
   height 100%
   .control-buttons
     margin-bottom 10px
     float right
-  .breadcrumb
-    padding 0 5px
-    background #fff
-    @media screen and (max-width: 768px)
-      margin-bottom 10px
-    @media screen and (min-width: 1200px)
-      padding 5px 0 5px 15px
-      font-size 16px
-    & > li
-      @media screen and (max-width: 600px)
-        font-size 12.5px
-        letter-spacing -.3px
-      &.active
-        color #272b30
-        font-weight bold
-      & + li
-        &:before
-          font normal normal normal 14px/1 FontAwesome
-          color #6C6E70
-          content "\f105"
-          padding 0 5px
-          @media screen and (min-width: 768px)
-            padding 0 15px
-      a
-        color #4588fa
-
-  .building-sidebar
-    height 100%
-    padding 0
-    float none
-    @media screen and (min-width: 1200px)
-      float right
 
   .building-page
     max-width 1280px
@@ -315,16 +311,6 @@
       .building-img-icon
         left 0
 
-  .building-info-title
-    background-color #ebebeb
-    padding 10px 20px
-    margin-bottom 15px
-    font-family 'Montserrat', Helvetica, sans-serif
-    font-size 15px
-    font-weight bold
-    .fa
-      padding 0 10px 0 0
-
   .building-unit-item
     border 1px solid #999
     border-radius 3px
@@ -486,34 +472,89 @@ input[readonly] {
   background-color: white !important;
   cursor: text !important;
 }
-footer
-  clear both
-  padding 0 15px
-  .building-page-similar-item
-    padding-left 0
-    .building-page-similar-link
-      display inline-block
-      &:hover
-        text-decoration none
-      .building-page-similar-img
-        max-width 250px
-      .building-page-similar-info
-        font-family 'Montserrat', Helvetica, sans-serif
-        padding 10px 0
-        .building-page-similar-price
-          font-size 18px
-          color #cc9900
-          padding 0 0 0 10px
-          display inline-block
-          vertical-align middle
 
-        .building-page-similar-desc
-          padding 0 10px 0 0
-          font-size 16px
-          color #272b30
-          font-weight bold
-          display inline-block
-          vertical-align middle
+.walk-score-wrap
+  border 1px solid #bbb
+  padding 0
+  margin 0
+  width 100%
+
+  *
+    padding 0
+    margin 0
+    border 0
+    outline 0
+
+  > div
+    margin 11px 9px 0
+
+  h2,h3,p
+    background none
+    font-style normal
+    text-overflow ellipsis
+    overflow hidden
+    white-space nowrap
+    text-align left
+    text-decoration none
+    vertical-align baseline
+    
+  h2
+    font 15px/19px 'Arial Black', Gadget, sans-serif
+    font-weight normal
+    color #222
+
+  h3
+    color #666
+    font 12px/14px Verdana, Arial, Helvetica, sans-serif
+    font-weight bold
+    margin 2px 0 4px
+  
+  .icon-wrap
+    position relative
+    padding-bottom 25%
+    width 100%
+
+    > div
+      position absolute
+      top 0
+      bottom 0
+      left 0
+      right 0
+
+      img
+        background none
+        border-radius 0
+        box-shadow none
+        color transparent
+        float left
+        margin 0 0 0 2%
+        width 30.6666%
+
+  p,p>a
+    color #999
+    font-size 11px
+    font-family Verdana, Arial, Helvetica, sans-serif
+    line-height 13px
+    clear:both
+  p
+    padding: 8px 0
+
+
+.map-container
+  height 300px
+  margin-top 25px
+  margin-bottom 20px
+  @media screen and (min-width: 768px)
+    height 350px
+  @media screen and (min-width: 992px)
+    height 400px
+    margin-top 30px
+    margin-bottom 30px
+
+  #gmap
+    height 100%
+    background-color rgba(229,230,232,.95)
+
 
 .building-admin-info
   padding 0 0 10px
@@ -539,7 +580,6 @@ h2.section-title
   background-color #ebebeb
   font-family 'Montserrat', Helvetica, sans-serif
   font-size 15px
-  font-weight bold
   margin-bottom 15px
   padding 10px 20px
   i
@@ -551,7 +591,6 @@ h2.section-title
 h3.section-title
   background-color #ebebeb
   padding 10px 20px
-  font-family "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif
 
 .similar-properties
   .main-city-item
@@ -599,6 +638,7 @@ h3.section-title
   margin-top 8px
 
 .calcPop
-  position: absolute
-  bottom: 10px
-  cursor: pointer
+  position absolute
+  bottom 8px
+  left 24px
+  cursor pointer

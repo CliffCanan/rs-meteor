@@ -1,26 +1,27 @@
 template(name="building")
   +checkAvailability(building=building)
 
-  .city-page-wrap.col-lg-9(itemscope, itemtype="http://schema.org/LocalBusiness")
+  ol.breadcrumb
+    li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+      a(href="/", title='home', itemprop="url")
+        span(itemprop="title") Home
+    li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+      a(href="{{pathFor route='city'}}", itemprop="url")
+        span(itemprop="title") {{cityName}}
+    li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+      a(href="{{pathFor route='neighborhood'}}", itemprop="url")
+        span(itemprop="title") {{neighborhood}}
+    with parent
+      li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+        a(href="{{pathFor route='building' data=getRouteData}}", itemprop="url")
+          span(itemprop="title") {{title}}
+    li.active {{title}}
+
+  .city-page-wrap.col-lg-12(itemscope, itemtype="http://schema.org/LocalBusiness")
 
     with building
 
       form.building-form.content-wrapper.left-bar.p-t-10
-        ol.breadcrumb
-          li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
-            a(href="/", title='home', itemprop="url")
-              span(itemprop="title") Home
-          li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
-            a(href="{{pathFor route='city'}}", itemprop="url")
-              span(itemprop="title") {{cityName}}
-          li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
-            a(href="{{pathFor route='neighborhood'}}", itemprop="url")
-              span(itemprop="title") {{neighborhood}}
-          with parent
-            li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
-              a(href="{{pathFor route='building' data=getRouteData}}", itemprop="url")
-                span(itemprop="title") {{title}}
-          li.active {{title}}
 
         if canOperateWithBuilding
           .control-buttons.btn-group
@@ -51,398 +52,359 @@ template(name="building")
                 | Edit
 
 
-        article.building-page.clearfix
+        .building-page.clearfix
+          .row
 
-          aside.building-main-info.col-xs-12.col-lg-5
-            if isEdit
-              input.building-main-info-title(type="text", name="title", value="{{title}}")
-            else
-              h1.col-xs-12.col-sm-8.col-md-12.building-main-info-title(itemprop="name") {{getUnitTitle}}
+            .col-xs-12.col-md-7.col-lg-8.building-info-wrap
 
-              //-.rating-pie-wrap(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
-              //-  .rating-pie-chart(data-percent="{{averageRatingAll}}")
-              //-    span.avgRating(itemprop="ratingValue") {{averageRatingAll}}
+              if isEdit
+                +buildingParentIdEdit
+                label.building-admin-edit
+                  span.building-admin-edit-text City:
+                  select.form-control(name="cityId")
+                    each cities
+                      option(value="{{key}}", selected="{{condition key 'is' ../cityId}}") {{value}}
 
-              h4.col-xs-12.col-sm-8.col-md-12.building-main-info-address(itemprop="address", itemscope, itemtype="http://schema.org/PostalAddress")
-                span.m-r-5(itemprop="streetAddress") {{address}}
-                | &#124;
-                span.m-l-5(itemprop="addressLocality") {{cityName}}
-                //-meta(itemprop="postalCode", content="{{postalCode}}") {{postalCode}}
-                //-meta(itemprop="addressCountry", content="USA")
+                label.building-admin-edit
+                  span.building-admin-edit-text Address:
+                  input.form-control(type="text", name="address", value="{{address}}")
+                label.building-admin-edit
+                  span.building-admin-edit-text Postal code:
+                  input.form-control(type="text", name="postalCode", value="{{postalCode}}")
+                label.building-admin-edit
+                  span.building-admin-edit-text Neighborhood:
+                  input.form-control(type="text", name="neighborhood", value="{{neighborhood}}")
+                label.building-admin-edit
+                  input(type="checkbox", name="isOnMap", value="true", checked="{{isOnMap}}")
+                  span.building-admin-edit-text.building-admin-edit-check Is on map
+                label.building-admin-edit
+                  span.building-admin-edit-text Unit type:
+                  select.form-control(name="btype")
+                    each btypes
+                      option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
+                label.building-admin-edit.form-inline
+                  span.building-admin-edit-text Position:
+                  select.select-position-defs.form-control
+                    option(value="10000", selected="{{condition position 'is' 10000}}") Very High (10000)
+                    option(value="5000", selected="{{condition position 'is' 5000}}") High (5000)
+                    option(value="0", selected="{{condition position 'is' 0}}") Medium (0)
+                    option(value="-5000", selected="{{condition position 'is' -5000}}") Low (-5000)
+                    option(value="-10000", selected="{{condition position 'is' -10000}}") Very Low (-10000)
+                    option(value="manual", selected="{{isManualPosition}}") Manual
+                  input.form-control.text-right.input-building-postion(class="{{#unless isManualPosition}}hidden{{/unless}}" type="text", name="position", value="{{position}}")
 
-            if isEdit
-              .building-main-price-wrap
-                .building-main-price-opt
-                  span.building-main-price
-                    input.text-right(type="text", name="priceFrom", value="{{priceFrom}}")
-                    | -
-                    input.text-right(type="text", name="priceTo", value="{{priceTo}}")
-                  span.building-main-rooms Unit
-                each btypesFields .
+              if isEdit
+                +buildingImagesEdit
+              else
+                .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel", data-interval="false")
+                  if canRecommend
+                    a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
+                      i.fa.fa-star
+
+                  .carousel-inner(role="listbox")
+                    each getMedia
+                      .item
+                        if isImage
+                          img.building-img(src="{{getThumbnail store='thumbs'}}")
+                        else
+                          if isFirstSlide
+                            iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+                          else
+                            iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen) 
+
+                  a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
+                    i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
+                    span.sr-only Previous
+                  a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
+                    i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
+                    span.sr-only Next
+
+              .building-main-info-desc-wrap.hidden-lg
+                unless isEdit
+                  p.building-main-info-desc
+                    | {{{getDescription}}}
+                  +social
+
+              if buildingUnits.count
+                section.building-info-section
+
+                  h2.section-title
+                    i.fa.fa-fw.fa-key
+                    if condition buildingUnits.count "gt" 1
+                      | {{buildingUnits.count}} Available Units
+                    else
+                      | {{buildingUnits.count}} Available Unit
+
+
+                  .building-unit-list-wrap
+                    ul.building-unit-list.list-unstyled.row
+
+                      each buildingUnitsLimited
+                        li.building-unit-item-wrap.col-sm-6.col-xs-12
+                          .building-unit-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
+                            if canManageClients
+                              a.recommend-toggle(href="#", class="{{#if unitIsRecommended}}active{{/if}}")
+                                i.fa.fa-star
+                            with mainImage
+                              img.pull-left(src="{{getThumbnail store='thumbs'}}")
+                            .building-unit-info.clearfix
+                              h3.building-unit-info-title
+                                a(href="{{pathFor route='building' data=getRouteData}}") {{title}}
+                              .building-unit-info-price
+                                i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
+                                with getUnitPrice
+                                  span.unit-price {{price}}
+                                span.unit-type {{bedroomTypes}}
+                            .building-unit-btn-wrap
+                              .col-xs-6.p-l-0
+                                button.building-unit-btn.btn.btn-default.check-availability(type="button") Check Availability
+                              .col-xs-6.p-r-0
+                                a.show.building-unit-btn.btn.btn-default(type="button", href="{{pathFor route='building' data=getRouteData}}") Full Listing
+                            ul.building-unit-prop-list.list-unstyled
+                              if isNotAvailable
+                                li.building-unit-prop
+                                  i.fa.fa-fw.fa-check
+                                  | Earliest move-in: Not Currently Available
+                              else
+                                with getAvailableAt
+                                  li.building-unit-prop
+                                    i.fa.fa-fw.fa-check
+                                    | {{moment . 'MM/DD/YYYY'}}
+                              with getBathrooms
+                                li.building-unit-prop
+                                  i.fa.fa-fw.fa-check
+                                  | {{.}}
+
+                  if condition buildingUnits.count "gt" 4
+                    if Session "showAllBuildingUnits"
+                      a.building-unit-item-less(href="#", title="less") Hide Units
+                    else
+                      a.building-unit-item-more(href="#", title="more") View All {{buildingUnits.count}} Units
+
+              if isEdit
+                +buildingFeaturesEdit
+              else
+                with getFeatures
+                  section.building-info-section
+                    h2.section-title
+                      i.fa.fa-fw.fa-check
+                      | Additional Features
+                    ul.building-features-list.list-unstyled.row
+                      each .
+                        li.building-features.col-sm-4.col-xs-6
+                          i.fa.fa-fw.fa-check.blue-icon.m-r-5
+                          span.building-features-text {{.}}
+                         
+
+              if canOperateWithBuilding
+                if isEdit
+                  unless parentId
+                    +buildingAdminFieldsEdit
+                else
+                  with adminBuilding
+                    if mlsNo
+                      .building-admin-info
+                        span.building-admin-info-text MLS #:
+                        span.building-admin-info-data {{mlsNo}}
+                    .building-admin-info
+                      span.building-admin-info-text How to check availability:
+                      span.building-admin-info-data {{adminAvailability}}
+                    .building-admin-info
+                      span.building-admin-info-text Escorted:
+                      span.building-admin-info-data {{adminEscorted}}
+                    .building-admin-info
+                      span.building-admin-info-text Application Fee:
+                      span.building-admin-info-data {{adminAppFee}}
+                    .building-admin-info
+                      span.building-admin-info-text Office Hours:
+                      span.building-admin-info-data {{adminAvailability}}
+                    .building-admin-info
+                      span.building-admin-info-text Scheduling Instructions:
+                      span.building-admin-info-data {{adminScheduling}}
+                    .building-admin-info
+                      span.building-admin-info-text Contact Instructions:
+                      span.building-admin-info-data {{adminContact}}
+                    .building-admin-info
+                      span.building-admin-info-text Notes:
+                      span.building-admin-info-data {{adminNotes}}
+
+
+            .building-main-info.col-xs-12.col-lg-5.col-lg-4
+              if isEdit
+                input.building-main-info-title(type="text", name="title", value="{{title}}")
+              else
+                h1.col-xs-12.col-sm-8.col-md-12.building-main-info-title(itemprop="name") {{getUnitTitle}}
+
+                //-.rating-pie-wrap(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
+                //-  .rating-pie-chart(data-percent="{{averageRatingAll}}")
+                //-    span.avgRating(itemprop="ratingValue") {{averageRatingAll}}
+
+                h4.col-xs-12.col-sm-8.col-md-12.building-main-info-address(itemprop="address", itemscope, itemtype="http://schema.org/PostalAddress")
+                  span.m-r-5(itemprop="streetAddress") {{address}}
+                  | &#124;
+                  span.m-l-5(itemprop="addressLocality") {{cityName}}
+                  //-meta(itemprop="postalCode", content="{{postalCode}}") {{postalCode}}
+                  //-meta(itemprop="addressCountry", content="USA")
+
+              if isEdit
+                .building-main-price-wrap
                   .building-main-price-opt
                     span.building-main-price
-                      input.text-right(type="text", name="{{nameFrom}}", value="{{valueFrom}}")
-                      | -
-                      input.text-right(type="text", name="{{nameTo}}", value="{{valueTo}}")
-                    span.building-main-rooms {{type}}
-            else
-              if agroIsUnit
-                with getUnitPrice
-                  .building-main-price-wrap.col-xs-12.col-sm-4.col-lg-10.col-lg-offset-1
+                      input.text-right(type="text", name="priceFrom", value="{{priceFrom}}")
+                        | -
+                      input.text-right(type="text", name="priceTo", value="{{priceTo}}")
+                    span.building-main-rooms Unit
+                  each btypesFields .
                     .building-main-price-opt
-                      span.building-main-price {{price}}
+                      span.building-main-price
+                        input.text-right(type="text", name="{{nameFrom}}", value="{{valueFrom}}")
+                        | -
+                        input.text-right(type="text", name="{{nameTo}}", value="{{valueTo}}")
                       span.building-main-rooms {{type}}
               else
-                with prices
-                  .building-main-price-wrap.col-xs-12.col-sm-4.col-lg-10.col-lg-offset-1
-                    each .
+                if agroIsUnit
+                  with getUnitPrice
+                    .building-main-price-wrap.col-xs-12.col-sm-4.col-lg-10.col-lg-offset-1
                       .building-main-price-opt
                         span.building-main-price {{price}}
                         span.building-main-rooms {{type}}
-
-            if isEdit
-              ul.col-xs-12.col-sm-8.col-lg-12.building-main-prop-list.list-unstyled.clearfix
-                li.building-main-prop
-                  label
-                    input.input-from-to.form-control(type="text", name="sqftFrom", value="{{sqftFrom}}")
-                    | -
-                    input.input-from-to.form-control(type="text", name="sqftTo", value="{{sqftTo}}")
-                    | Square Feets
-                each complexFields true
-                  li.building-main-prop
-                    b {{label}}:
-                    .label-radio-wrap
-                      each values
-                        label.label-radio
-                          input(type="radio", name="{{name}}", value="{{value}}", checked="{{isChecked}}")
-                          | {{text}}
-                    label
-                      | Comment:
-                      input.input-comment.form-control(type="text", name="{{commentName}}", value="{{commentValue}}")
-                li.building-main-prop
-                  label
-                    | Is furnished:
-                    select(name="isFurnished", value="true", checked="{{isFurnished}}")
-                      option(value="", selected="{{condition isFurnished 'is' undefined}}")
-                      option(value="true", selected="{{condition isFurnished 'is' true}}") Yes
-                      option(value="false", selected="{{condition isFurnished 'is' false}}") No
-                li.building-main-prop
-                  label
-                    | Available at:
-                    +datepicker(name="availableAt" value=getAvailableAtForDatepicker)
-                  label
-                    input(type="checkbox", name="isNotAvailable", value="true", checked="{{isNotAvailable}}")
-                    | Is not available
-                  label
-                    input(type="checkbox", name="acceptOnlineApplication", value="true", checked="{{acceptOnlineApplication}}")
-                    | Accept online application
-                li.building-main-prop
-                  label
-                    input.input-from-to.form-control(type="text", name="bedroomsFrom", value="{{bedroomsFrom}}")
-                    | -
-                    input.input-from-to.form-control(type="text", name="bedroomsTo", value="{{bedroomsTo}}")
-                    | Bedrooms
-                li.building-main-prop
-                  label
-                    input.input-from-to.form-control(type="text", name="bathroomsFrom", value="{{bathroomsFrom}}")
-                    | -
-                    input.input-from-to.form-control(type="text", name="bathroomsTo", value="{{bathroomsTo}}")
-                    | Bathrooms
-            else
-              ul.col-xs-12.col-sm-8.col-lg-12.building-main-prop-list.list-unstyled.clearfix
-                with getSqft
-                  li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
-                    i.fa.fa-check.blue-icon
-                    span.building-main-prop-text
-                      | {{.}} sq ft
-
-                if isFurnished
-                  li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
-                    i.fa.fa-check.blue-icon
-                    span.building-main-prop-text
-                      | Furnished
-                    //-else
-                    //-  i.fa.fa-times.grey-icon
-                    //-  span.building-main-prop-text
-                    //-    | Not Furnished
-                each complexFields
-                  li.building-main-prop.col-xs-12.col-sm-4.col-lg-6(data-toggle="tooltip", data-placement="top", title="{{commentValue}}")
-                    i.fa(class="{{iconClass}}")
-                    span.building-main-prop-text
-                      | {{text}}
-                    if commentValue
-                      i.fa.fa-question-circle
-
-                with getBathrooms
-                  li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
-                    i.fa.fa-check.blue-icon
-                    span.building-main-prop-text
-                      | {{.}}
-
-                if isNotAvailable
-                  li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
-                    i.fa.fa-times.grey-icon
-                    span.building-main-prop-text
-                      | Not Currently Available
                 else
-                  with getAvailableAt
+                  with prices
+                    .building-main-price-wrap.col-xs-12.col-sm-4.col-lg-10.col-lg-offset-1
+                      each .
+                        .building-main-price-opt
+                          span.building-main-price {{price}}
+                          span.building-main-rooms {{type}}
+
+              if isEdit
+                ul.col-xs-12.col-sm-8.col-lg-12.building-main-prop-list.list-unstyled.clearfix
+                  li.building-main-prop
+                    label
+                      input.input-from-to.form-control(type="text", name="sqftFrom", value="{{sqftFrom}}")
+                      | -
+                      input.input-from-to.form-control(type="text", name="sqftTo", value="{{sqftTo}}")
+                      | Square Feets
+                  each complexFields true
+                    li.building-main-prop
+                      b {{label}}:
+                      .label-radio-wrap
+                        each values
+                          label.label-radio
+                            input(type="radio", name="{{name}}", value="{{value}}", checked="{{isChecked}}")
+                            | {{text}}
+                      label Comment:
+                        input.input-comment.form-control(type="text", name="{{commentName}}", value="{{commentValue}}")
+                  li.building-main-prop
+                    label Is furnished:
+                      select(name="isFurnished", value="true", checked="{{isFurnished}}")
+                        option(value="", selected="{{condition isFurnished 'is' undefined}}")
+                        option(value="true", selected="{{condition isFurnished 'is' true}}") Yes
+                        option(value="false", selected="{{condition isFurnished 'is' false}}") No
+                  li.building-main-prop
+                    label Available at:
+                      +datepicker(name="availableAt" value=getAvailableAtForDatepicker)
+                    label
+                      input(type="checkbox", name="isNotAvailable", value="true", checked="{{isNotAvailable}}")
+                      | Is Not Available
+                    label
+                      input(type="checkbox", name="acceptOnlineApplication", value="true", checked="{{acceptOnlineApplication}}")
+                      | Accept Online App
+                  li.building-main-prop
+                    label
+                      input.input-from-to.form-control(type="text", name="bedroomsFrom", value="{{bedroomsFrom}}")
+                      | -
+                      input.input-from-to.form-control(type="text", name="bedroomsTo", value="{{bedroomsTo}}")
+                      | Bedrooms
+                  li.building-main-prop
+                    label
+                      input.input-from-to.form-control(type="text", name="bathroomsFrom", value="{{bathroomsFrom}}")
+                      | -
+                      input.input-from-to.form-control(type="text", name="bathroomsTo", value="{{bathroomsTo}}")
+                      | Bathrooms
+              else
+                ul.col-xs-12.col-sm-8.col-lg-12.building-main-prop-list.list-unstyled.clearfix
+                  with getSqft
                     li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
                       i.fa.fa-check.blue-icon
                       span.building-main-prop-text
-                        | Available: {{moment . 'MM/DD/YYYY'}}
+                        | {{.}} sq ft
 
-            button.btn.btn-lg.btn-block.btn-primary.building-main-info-btn.m-t-25.check-availability(type="button")
-              | Check Availability
-              i.fa.fa-fw.fa-share.m-l-10
-            
+                  if isFurnished
+                    li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
+                      i.fa.fa-check.blue-icon
+                      span.building-main-prop-text Furnished
 
-            if canApply
-              a.btn.btn-success.building-main-info-btn.visible-lg-block(href="{{pathFor 'newRentalApplication' query=rentalQuery}}")
-                | Apply for rental
+                  each complexFields
+                    li.building-main-prop.col-xs-12.col-sm-4.col-lg-6(data-toggle="tooltip", data-placement="top", title="{{commentValue}}")
+                      i.fa(class="{{iconClass}}")
+                      span.building-main-prop-text
+                        | {{text}}
+                      if commentValue
+                        i.fa.fa-question-circle
 
-            .building-main-info-desc-wrap.visible-lg-block
-              input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
-              p.building-main-info-desc
-                if isEdit
-                  textarea.form-control(name="description") {{{description}}}
-                else
-                  | {{{getDescription}}}
-              //-  span.building-desc-more-target
-              //-    | kitchen appliances, hardwood floors, and in-unit washer/dryers.
-              //-label.building-main-more-trigger(for="mainDescMoreLarge")
-              //-ul.building-share-list.list-unstyled.clearfix
-              //-  li.building-share.pull-left
-              //-    a.building-share-icon.fa.fa-fw.fa-facebook(href="/", title="facebook")
-              //-  li.building-share.pull-left
-              //-    a.building-share-icon.fa.fa-fw.fa-twitter(href="/", title="twitter")
-              //-  li.building-share.pull-left
-              //-    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
-              //-  li.building-share.pull-left
-              //-    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
-                  +social
+                  with getBathrooms
+                    li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
+                      i.fa.fa-check.blue-icon
+                      span.building-main-prop-text
+                        | {{.}}
 
+                  if isNotAvailable
+                    li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
+                      i.fa.fa-times.grey-icon
+                      span.building-main-prop-text Not Currently Available
+                  else
+                    with getAvailableAt
+                      li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
+                        i.fa.fa-check.blue-icon
+                        span.building-main-prop-text
+                          | Available: {{moment . 'MM/DD/YYYY'}}
 
-          .col-xs-12.col-lg-7.building-info-wrap
-            if isEdit
-              +buildingParentIdEdit
-              label.building-admin-edit
-                span.building-admin-edit-text
-                  | City:
-                select.form-control(name="cityId")
-                  each cities
-                    option(value="{{key}}", selected="{{condition key 'is' ../cityId}}") {{value}}
-              label.building-admin-edit
-                span.building-admin-edit-text
-                  | Address:
-                input.form-control(type="text", name="address", value="{{address}}")
-              label.building-admin-edit
-                span.building-admin-edit-text
-                  | Postal code:
-                input.form-control(type="text", name="postalCode", value="{{postalCode}}")
-              label.building-admin-edit
-                span.building-admin-edit-text
-                  | Neighborhood:
-                input.form-control(type="text", name="neighborhood", value="{{neighborhood}}")
-              label.building-admin-edit
-                input(type="checkbox", name="isOnMap", value="true", checked="{{isOnMap}}")
-                span.building-admin-edit-text.building-admin-edit-check
-                  | Is on map
-              label.building-admin-edit
-                span.building-admin-edit-text
-                  | Unit type:
-                select.form-control(name="btype")
-                  each btypes
-                    option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
-              label.building-admin-edit.form-inline
-                span.building-admin-edit-text
-                  | Position:
-                select.select-position-defs.form-control
-                  option(value="10000", selected="{{condition position 'is' 10000}}") Very High (10000)
-                  option(value="5000", selected="{{condition position 'is' 5000}}") High (5000)
-                  option(value="0", selected="{{condition position 'is' 0}}") Medium (0)
-                  option(value="-5000", selected="{{condition position 'is' -5000}}") Low (-5000)
-                  option(value="-10000", selected="{{condition position 'is' -10000}}") Very Low (-10000)
-                  option(value="manual", selected="{{isManualPosition}}") Manual
-                input.form-control.text-right.input-building-postion(class="{{#unless isManualPosition}}hidden{{/unless}}" type="text", name="position", value="{{position}}")
+              button.btn.btn-lg.btn-block.btn-primary.building-main-info-btn.m-t-25.check-availability(type="button") Check Availability
+                i.fa.fa-fw.fa-share.m-l-10
 
-            if isEdit
-              +buildingImagesEdit
-            else
-              .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel", data-interval="false")
-                if canRecommend
-                  a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
-                    i.fa.fa-star
+              if canApply
+                a.btn.btn-success.building-main-info-btn.visible-lg-block(href="{{pathFor 'newRentalApplication' query=rentalQuery}}") Apply Now
 
-                .carousel-inner(role="listbox")
-                  each getMedia
-                    .item
-                      if isImage
-                        img.building-img(src="{{getThumbnail store='thumbs'}}")
+              .building-main-info-desc-wrap.visible-lg-block
+                input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
+
+                .row
+                  .col-xs-12.col-sm-8
+                    .building-main-info-desc
+                      if isEdit
+                        textarea.form-control(name="description") {{{description}}}
                       else
-                        if isFirstSlide
-                          iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
-                        else
-                          iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen) 
+                        | {{{getDescription}}}
 
-                a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
-                  i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
-                  span.sr-only Previous
-                a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
-                  i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
-                  span.sr-only Next
+                  .col-xs-12.col-sm-4
+                    .walk-score-wrap
+                      div
+                        h2 {{address}}
+                        h3 Walker's Paradise
+                        .icon-wrap
+                          div
+                            a(href="#")
+                              img(src="//pp.walk.sc/badge/walk/{{address}}-{{cityName}}.svg", alt="Walk Score of {{address}} {{cityName}} {{postalCode}}")
+                              img(src="//pp.walk.sc/badge/transit/{{address}}-{{cityName}}.svg", alt="Transit Score of {{address}} {{cityName}} {{postalCode}}")
+                              img(src="//pp.walk.sc/badge/bike/{{address}}-{{cityName}}.svg", alt="Bike Score of {{address}} {{cityName}} {{postalCode}}")
+                        p
+                          a(href="/client/templates/neighborhoods/")
+                            | Learn more about {{cityName}}
 
-            .building-main-info-desc-wrap.hidden-lg
-              unless isEdit
-                p.building-main-info-desc
-                  | {{{getDescription}}}
-              //-ul.building-share-list.list-unstyled.clearfix.hidden-lg
-              //-  li.building-share.pull-left
-              //-    a.building-share-icon.fa.fa-fw.fa-facebook(href="/", title="facebook")
-              //-  li.building-share.pull-left
-              //-    a.building-share-icon.fa.fa-fw.fa-twitter(href="/", title="twitter")
-              //-  li.building-share.pull-left
-              //-    a.building-share-icon.fa.fa-fw.fa-paper-plane(href="/", title="share")
-              //-  li.building-share.pull-left
-              //-    a.building-share-icon.fa.fa-fw.fa-plus(href="/", title="plus")
-                  +social
 
-            if buildingUnits.count
-              section.building-info-section
+          .map-container.clearfix.col-sm-12
+            #gmap
+            img.calcPop(src="/images/map-marker-filter.png", style="position: absolute;", data-toggle="popover", data-placement="top" )
 
-                h2.building-info-title
-                  i.fa.fa-fw.fa-key
-                  if condition buildingUnits.count "gt" 1
-                    | {{buildingUnits.count}} Available Units
-                  else
-                    | {{buildingUnits.count}} Available Unit
-
-                //-p.building-info-desc
-                //-  | Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus
-
-                .building-unit-list-wrap
-                  ul.building-unit-list.list-unstyled.row
-
-                    each buildingUnitsLimited
-                      li.building-unit-item-wrap.col-sm-6.col-xs-12
-                        .building-unit-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
-                          if canManageClients
-                            a.recommend-toggle(href="#", class="{{#if unitIsRecommended}}active{{/if}}")
-                              i.fa.fa-star
-                          with mainImage
-                            img.pull-left(src="{{getThumbnail store='thumbs'}}")
-                          .building-unit-info.clearfix
-                            h3.building-unit-info-title
-                              a(href="{{pathFor route='building' data=getRouteData}}") {{title}}
-                            .building-unit-info-price
-                              i.fa(class="{{#if parentId}}fa-key{{else}}fa-building{{/if}}")
-                              with getUnitPrice
-                                span.unit-price
-                                  | {{price}}
-                              span.unit-type
-                                | {{bedroomTypes}}
-                          .building-unit-btn-wrap
-                            .col-xs-6.p-l-0
-                              button.building-unit-btn.btn.btn-default.check-availability(type="button")
-                                | Check Availability
-                            .col-xs-6.p-r-0
-                              a.show.building-unit-btn.btn.btn-default(type="button", href="{{pathFor route='building' data=getRouteData}}")
-                                | Full Listing
-                          ul.building-unit-prop-list.list-unstyled
-                            if isNotAvailable
-                              li.building-unit-prop
-                                i.fa.fa-fw.fa-check
-                                | Earliest move-in: Not Currently Available
-                            else
-                              with getAvailableAt
-                                li.building-unit-prop
-                                  i.fa.fa-fw.fa-check
-                                  | {{moment . 'MM/DD/YYYY'}}
-                            with getBathrooms
-                              li.building-unit-prop
-                                i.fa.fa-fw.fa-check
-                                | {{.}}
-
-                if condition buildingUnits.count "gt" 4
-                  if Session "showAllBuildingUnits"
-                    a.building-unit-item-less(href="#", title="less")
-                      | Hide Units
-                  else
-                    a.building-unit-item-more(href="#", title="more")
-                      | View All {{buildingUnits.count}} Units
-
-            if isEdit
-              +buildingFeaturesEdit
-            else
-              with getFeatures
-                section.building-info-section
-                  h2.building-info-title
-                    i.fa.fa-fw.fa-check
-                    | Additional Features
-                  ul.building-features-list.list-unstyled.row
-                    each .
-                      li.building-features.col-sm-4.col-xs-6
-                        i.fa.fa-fw.fa-check.blue-icon.m-r-5
-                        span.building-features-text
-                          | {{.}}
-                         
-
-            if canOperateWithBuilding
-              if isEdit
-                unless parentId
-                  +buildingAdminFieldsEdit
-              else
-                with adminBuilding
-                  if mlsNo
-                    .building-admin-info
-                      span.building-admin-info-text
-                        | MLS #:
-                      span.building-admin-info-data
-                        | {{mlsNo}}
-                  .building-admin-info
-                    span.building-admin-info-text
-                      | How to check availability:
-                    span.building-admin-info-data
-                      | {{adminAvailability}}
-                  .building-admin-info
-                    span.building-admin-info-text
-                      | Escorted:
-                    span.building-admin-info-data
-                      | {{adminEscorted}}
-                  .building-admin-info
-                    span.building-admin-info-text
-                      | Application fee:
-                    span.building-admin-info-data
-                      | {{adminAppFee}}
-                  .building-admin-info
-                    span.building-admin-info-text
-                      | Office hours:
-                    span.building-admin-info-data
-                      | {{adminAvailability}}
-                  .building-admin-info
-                    span.building-admin-info-text
-                      | Scheduling instructions:
-                    span.building-admin-info-data
-                      | {{adminScheduling}}
-                  .building-admin-info
-                    span.building-admin-info-text
-                      | Contact instructions:
-                    span.building-admin-info-data
-                      | {{adminContact}}
-                  .building-admin-info
-                    span.building-admin-info-text
-                      | Notes:
-                    span.building-admin-info-data
-                      | {{adminNotes}}
-
-          .col-xs-12
+          .col-xs-12.col-sm-7.col-md-8.col-lg-9
             h2.section-title
-              i.fa.fa-star
+              i.fa.fa-fw.fa-commenting.fa-flip-horizontal
               |  Reviews
               a.btn.btn-xs.btn-primary.pull-right(href="#review-form-modal", data-toggle="modal") Leave A Review
             +reviews(buildingReviews=buildingReviews)
             +reviewForm(defaults=reviewFormDefaults)
 
-          footer.p-t-10.clearfix
+          .col-sm-5.col-md-4.col-lg-3
             h2.section-title
               i.fa.fa-fw.fa-building
               | Similar Properties
@@ -474,8 +436,7 @@ template(name="building")
                 button.close(type='button', data-dismiss='modal', aria-label='Close')
                   span(aria-hidden='true') &times;
                 h4#myModalLabel.modal-title Remove {{removeMediaType}}
-              .modal-body
-                | Are you sure?
+              .modal-body Are you sure?
               .modal-footer
                 button.btn.btn-primary.confirm-removal(type='button') Yes
                 button.btn.btn-default(type='button', data-dismiss='modal') No
@@ -487,8 +448,7 @@ template(name="building")
                 button.close(type="button", data-dismiss="modal", aria-label="Close")
                   span(aria-hidden="true") &times;
                 h4#confirmBuildingRemovalLabel.modal-title Sorry.
-              .modal-body
-                | Are you sure?
+              .modal-body Are you sure?
               .modal-footer
                 button.btn.btn-primary.confirm-building-removal(type="button") Yes
                 button.btn.btn-default(type="button", data-dismiss="modal") No
@@ -499,11 +459,5 @@ template(name="building")
               .modal-header
                 button.close(type="button", data-dismiss="modal", aria-label="Close")
                   span(aria-hidden="true") &times;
-                h4#confirmBuildingRemovalLabel.modal-title Sorry.
-              .modal-body
-                | You have to login at first to leave any review.                  
-
-  .city-side-bar.right-bar.clearfix.col-lg-3
-    #gmap
-    img.calcPop(src="/images/map-marker-filter.png", style="position: absolute;", data-toggle="popover", data-placement="top" )
-
+                h4#confirmBuildingRemovalLabel.modal-title Sorry!
+              .modal-body You have to login at first to leave a review.

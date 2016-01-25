@@ -129,28 +129,21 @@ template(name="cityHeader")
                 .row
                   .col-xs-4.travelMode#walker
                     if condition travelMode 'is' 'walking'
-                      a(href="/")
-                        i.fa.fa-fw.fa-male.text-primary
+                      i.fa.fa-fw.fa-male.text-primary
                     else
-                      a(href="/")
-                        i.fa.fa-fw.fa-male
+                      i.fa.fa-fw.fa-male
 
                   .col-xs-4.travelMode#car
                     if condition travelMode 'is' 'driving'
-                      a(href="/")
-                        i.fa.fa-fw.fa-car.text-primary
-                      img(src="/images/car-active.png")
+                      i.fa.fa-fw.fa-car.text-primary
                     else
-                      a(href="/")
-                        i.fa.fa-fw.fa-car
+                      i.fa.fa-fw.fa-car
 
                   .col-xs-4.travelMode#bike
                     if condition travelMode 'is' 'bicycling'
-                      a(href="/")
-                        i.fa.fa-fw.fa-bicycle.text-primary
+                      i.fa.fa-fw.fa-bicycle.text-primary
                     else
-                      a(href="/")
-                        i.fa.fa-fw.fa-bicycle
+                      i.fa.fa-fw.fa-bicycle
 
             .row
               .col-xs-6
