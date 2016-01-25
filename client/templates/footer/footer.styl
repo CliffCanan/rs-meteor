@@ -1,13 +1,15 @@
 .page-footer
+  background #33383D
+  border-top 1px solid rgba(0,0,0,0.05)
   width 100%
   height auto
   padding 30px 0 8px
-  background #33383D
-  border-top 1px solid rgba(0,0,0,0.05)
+  text-shadow 0 -1px 0 rgba(15,17,18,0.4)
   @media screen and (max-width: 767px)
     text-align center
+    text-shadow 0 -2px 0 rgba(15,17,18,0.2)
 
-  @media screen and (max-width: 767px)
+  @media screen and (min-width: 767px)
     #logocolumn
       padding-right 0
 
@@ -15,8 +17,9 @@
     color rgba(255,255,255,.4)
     font-size 12.5px
     line-height 1.45
-    margin-left 35px
     text-shadow 0 -1px 0 rgba(0,0,0,.3)
+    @media screen and (max-width: 767px)
+      margin-left 35px
     div
       padding 0 0 1em
       margin 0 auto 10px
