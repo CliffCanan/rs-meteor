@@ -62,15 +62,10 @@ Template.reviews.events
       $target.parent().siblings('.review-body-summary').hide()
       $target.parent().siblings('.review-body-full').slideDown(300)
       $target.parent().siblings('.review-breakdown').slideDown(300)
-
-
-$('li.testy .review-body-full').slideDown(300);
-$('li.testy .review-body-full').height()
-
       $target.html('View Less')
     else
       $review.css
-        height: '190px'
+        height: '195px'
       $target.parent().siblings('.review-breakdown').slideUp(300)
       $target.parent().siblings('.review-body-full').slideUp(300)
       $target.parent().siblings('.review-body-summary').show()

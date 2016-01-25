@@ -25,6 +25,20 @@ Template.city.onCreated ->
   console.log('CITY -> onCreated -> About to get svg checkbox script')
   $.getScript '/misc/svgcheckbox/svgcheckbox.js'
 
+  # Show Contact Us Popup after 14 seconds
+  if Router.current().route.getName() != "clientRecommendations" and not Meteor.user() and $(window).width() > 600
+    unless Session.get "hasSeenContactUsPopup" == true
+      @popupTimeoutHandle = Meteor.setTimeout ->
+        unless $('body').hasClass('modal-open')
+          $('.contact-us').trigger('click')
+      , 14000
+
+  $("#contactUsPopup").on "hide.bs.modal", (e) ->
+    $("#contactUsPopup form").formValidation "resetForm", true
+
+  $("#contactUsPopup").on "shown.bs.modal", (e) ->
+    Session.set "hasSeenContactUsPopup", true
+
 
 Template.city.helpers
   firstLoad: ->
@@ -282,17 +296,6 @@ Template.city.onRendered ->
       for i, marker of markers
         bounds.extend markers[i].getPosition()     
       map.fitBounds(bounds)
-
-  # Show Contact Us Popup after 14 seconds
-  if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
-    if $(window).width() > 600
-      @popupTimeoutHandle = Meteor.setTimeout ->
-        unless $('body').hasClass('modal-open')
-          $('.contact-us').trigger('click')
-      , 14000
-
-  $("#contactUsPopup").on "hide.bs.modal", (e) ->
-    $("#contactUsPopup form").formValidation "resetForm", true
 
 
 incrementPageNumber = ->

@@ -44,6 +44,8 @@ Template.index.events
     analytics.track "Clicked Get Started Button" unless Meteor.user()
     $('#contactUsPopup').modal('show')
 
+$("#contactUsPopup").on "shown.bs.modal", (e) ->
+  Session.set "hasSeenContactUsPopup", true
 
 $(window).scroll ->
   "use strict"

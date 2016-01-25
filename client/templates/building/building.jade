@@ -396,7 +396,8 @@ template(name="building")
             h2.section-title
               i.fa.fa-fw.fa-commenting.fa-flip-horizontal
               |  Reviews
-              a.btn.btn-xs.btn-primary.pull-right(href="#review-form-modal", data-toggle="modal") Leave A Review
+              a.btn.btn-xs.btn-default.pull-right(href="#review-form-modal", data-toggle="modal")
+                i.fa-fa-pencil-square-o.text-primary
             +reviews(buildingReviews=buildingReviews)
             +reviewForm(defaults=reviewFormDefaults)
 
@@ -411,7 +412,7 @@ template(name="building")
 
                 each similarProperties .
 
-                  li.col-xs-12.col-sm-6.col-lg-3
+                  li.col-xs-12
                     .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
 
                       a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
