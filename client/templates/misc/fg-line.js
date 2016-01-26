@@ -1,4 +1,7 @@
-$('body').on('focus', '.form-control', function () {
+console.log("Reached FG-LINE.js")
+
+$('body').on('focus', '.form-control', function ()
+{
     $(this).closest('.fg-line').addClass('fg-toggled');
 })
 

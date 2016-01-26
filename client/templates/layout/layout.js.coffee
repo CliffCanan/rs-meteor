@@ -4,4 +4,9 @@ Template.layout.helpers
 
 Template.layout.rendered = ->
 
-Template.layout.events
+
+console.log("Layout.js.cof -> #1")
+
+Template.layout.onCreated = ->
+  console.log("Layout.js.cof -> #2 (onCreated)")
+$.getScript '/misc/fg-line.js'
