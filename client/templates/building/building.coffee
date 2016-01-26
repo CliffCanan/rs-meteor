@@ -290,15 +290,16 @@ Template.building.onRendered ->
     animate: 2300
   ###
 
-  # Show Check Availability Popup after 12 seconds
-  if !Meteor.user() and $(window).width() > 600 and (Session.get "hasSeenContactUsPopup" != true) && (Session.get "hasSeenCheckAvailabilityPopup" != true)
-    console.log('Check Availability timer - 1')
-    @popupTimeoutHandle = Meteor.setTimeout ->
-      console.log('Check Availability timer - 2')
-      unless $('body').hasClass('modal-open')
-        console.log('Check Availability timer - 3')
-        $('.check-availability').trigger('click')
-    , 12000
+  # Show Check Availability Popup after 11 seconds
+  if !Meteor.user() and $(window).width() > 600 
+    unless Session.get "hasSeenCheckAvailabilityPopup" == true || Session.get "hasSeenContactUsPopup" == true
+      console.log('Check Availability timer - 1')
+      @popupTimeoutHandle = Meteor.setTimeout ->
+        console.log('Check Availability timer - 2')
+        unless $('body').hasClass('modal-open')
+          console.log('Check Availability timer - 3')
+          $('.check-availability').trigger('click')
+      , 11000
 
   $("#checkAvailabilityPopup").on "shown.bs.modal", (e) ->
     console.log("Check Avail Popup Fired - 295")
