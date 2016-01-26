@@ -293,11 +293,8 @@ Template.building.onRendered ->
   # Show Check Availability Popup after 12 seconds
   if !Meteor.user() and $(window).width() > 600 
     unless Session.get "hasSeenCheckAvailabilityPopup" == true || Session.get "hasSeenContactUsPopup" == true
-      console.log('Check Availability timer - 1')
       @popupTimeoutHandle = Meteor.setTimeout ->
-        console.log('Check Availability timer - 2')
         unless $('body').hasClass('modal-open')
-          console.log('Check Availability timer - 3')
           $('.check-availability').trigger('click')
       , 12000
 
