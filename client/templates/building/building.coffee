@@ -1,5 +1,7 @@
 positions = [10000, 5000, 0, -5000, -10000]
 
+unitsCount = 0
+
 Template.building.onCreated ->
   building = Router.current().data().building
 
@@ -86,8 +88,8 @@ Template.building.helpers
   buildingUnitsLimited: ->
     if Session.get("showAllBuildingUnits")
       unitsList = @buildingUnits()
-      if ($(window).width() > 600 && unitsList.length > 4)
-        $('ul.building-unit-list').addClass('scroll')
+      unitsCount = unitsList.length
+      console.log('building Helper -> buildingUnitsLimited unitsCount: [' + unitsCount + ']')
       unitsList
     else
       @buildingUnits(4)
@@ -356,8 +358,19 @@ Template.building.events
   "click .building-unit-item-more": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", true)
 
+    console.log('building -> clicked View More -> unitsCount: [' + unitsCount + ']')
+
+    if unitsCount > 4
+      console.log('Adding class "scroll" to ul.building-unit-list')
+      $('ul.building-unit-list').addClass('scroll')
+
+
   "click .building-unit-item-less": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", false)
+
+    if unitsCount > 4
+      console.log('Removing class "scroll" to ul.building-unit-list')
+      $('ul.building-unit-list').removeClass('scroll')
 
   "click .remove-image": grab encapsulate (event, template) ->
     Session.set("imageToRemove", @)
