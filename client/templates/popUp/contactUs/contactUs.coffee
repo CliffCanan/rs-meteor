@@ -101,22 +101,23 @@ Template.contactUs.rendered = ->
           form.trigger('reset')
           form.data('formValidation').resetForm()
           $('#contactUsPopup').modal('hide')
-          #-$('#messageSentPopup').modal('show')
 
-          analytics.track "Submitted Contact Us form"
-          analytics.page title: "Submitted Contact Us form", path: '/submit-contact-us-form'
+          unless Meteor.user()
+            console.log("Not a Meteor User - sending analytics info")
+            analytics.track "Submitted Contact Us form"
+            analytics.page title: "Submitted Contact Us form", path: '/submit-contact-us-form'
 
-          #-goog_report_conversion()
+            #-goog_report_conversion()
+
+            #- (Added 12/14/15 by CC)
+            fbq "track", "Lead",
+              content_name: cityNameForFB.replace(' ','_')
+              content_category: "ContactUs"
+              value: 20.0
+              currency: 'USD'
 
           form.find(".submit-button").prop("disabled", false)
           form.find(".loading").hide()
-
-          #- (Added 12/14/15 by CC)
-          fbq "track", "Lead",
-            content_name: cityNameForFB.replace(' ','_')
-            content_category: "ContactUs"
-            value: 20.0
-            currency: 'USD'
 
           swal
             title: "Great Success!"
