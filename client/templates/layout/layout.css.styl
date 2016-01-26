@@ -454,28 +454,26 @@ a.carousel-control .fa
 }
 
 
-.spin-wrapper {
-    -webkit-animation: logo-spin 10s ease-in-out alternate infinite;
-    -moz-animation: logo-spin 10s ease-in-out alternate infinite;
-    animation: logo-spin 10s ease-in-out alternate infinite;
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    -ms-transform-style: preserve-3d;
-    -o-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    -webkit-backface-visibility: visible;
-    backface-visibility: visible;
-}
+.spin-wrapper
+  @media screen and (min-width: 768px)
+    -webkit-animation logo-spin 10s ease-in-out alternate infinite
+    -moz-animation logo-spin 10s ease-in-out alternate infinite
+    animation logo-spin 10s ease-in-out alternate infinite
+    -webkit-transform-style preserve-3d
+    -moz-transform-style preserve-3d
+    -ms-transform-style preserve-3d
+    -o-transform-style preserve-3d
+    transform-style preserve-3d
+    -webkit-backface-visibility visible
+    backface-visibility visible
 
-    .spin-wrapper:hover {
-        -webkit-animation-play-state: paused;
-        -moz-animation-play-state: paused;
-        animation-play-state: paused;
-    }
+  &:hover
+    -webkit-animation-play-state paused
+    -moz-animation-play-state paused
+    animation-play-state paused
 
-.paused-animations-ie .spin-wrapper {
-    animation-play-state: paused;
-}
+.paused-animations-ie .spin-wrapper
+    animation-play-state paused
 
 @-webkit-keyframes logo-spin {
     88% {
