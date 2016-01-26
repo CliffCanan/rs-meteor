@@ -324,6 +324,234 @@ a.carousel-control .fa
 .sumome-scrollbox-content
   padding 0px !important
 
+
+/**  FG-LINE (For styling inputs)  **/
+.fg-line
+  position relative
+  vertical-align top
+
+  &:not(.form-group)
+    display inline-block
+    width 100%
+
+  .form-control
+    resize none
+
+    &:not(:disabled)
+      color #000
+
+    &:disabled
+      color #9d9d9d
+      background transparent
+
+  &:not(.disabled):after,&:not(.readonly):after
+    position absolute
+    z-index 3
+    bottom 0
+    left 0
+    height 2px
+    width 0
+    content ""
+    -webkit-transition all
+    -o-transition all
+    transition all
+    -webkit-transition-duration 300ms
+    transition-duration 300ms
+
+  &:not([class*=has-]):after
+    background #0fa1ea
+
+  &.input-toggled:after,&.fg-toggled:after
+    width 100%
+
+  &.readonly .form-control 
+    color #9d9d9d
+    background transparent
+
+  &.has-success:after
+    background #4caf50
+
+  &.has-warning:after 
+    background #ffc107
+
+  &.has-error:after
+    background #f44336
+
+/* Validation Stats for inner fg-line*/
+
+.has-success .fg-line:after
+  background #4caf50
+
+.has-warning .fg-line:after
+  background #ffc107
+
+.has-error .fg-line:after
+  background #f44336
+
+.fg-float
+  margin-top 2px
+  position relative
+
+  &.form-group
+    -webkit-transition .4s margin ease
+    transition .4s margin ease
+    @media screen and (min-width: 768px)
+      margin-bottom 20px
+
+    > span
+      font-size 25px
+      position absolute
+      left -35px
+
+  .form-control
+    -webkit-appearance none
+    -moz-appearance none
+    appearance none
+    background transparent
+    border-radius 0
+    padding 0
+    position relative
+    z-index 1
+	&:focus
+      box-shadow none
+    &.auto-size
+      padding-top 6px
+
+    &::-moz-placeholder
+      color #fff
+      opacity 1
+
+    &:-ms-input-placeholder
+      color #fff
+
+    &::-webkit-input-placeholder
+      color #ffffff
+
+  .fg-label
+    -webkit-transition all
+    -o-transition all
+    transition all
+    -webkit-transition-duration 200ms
+    transition-duration 200ms
+    font-size 17px
+    position absolute
+    top 5px
+    font-weight 400
+    color #959595
+    pointer-events none
+    z-index 0
+    left 0
+    white-space nowrap
+
+  .fg-toggled + .fg-label
+    top -20px
+    font-size 11px
+
+
+.has-success .help-block,
+.has-success .control-label,
+.has-success .radio,
+.has-success .checkbox,
+.has-success .radio-inline,
+.has-success .checkbox-inline,
+.has-success.radio label,
+.has-success.checkbox label,
+.has-success.radio-inline label,
+.has-success.checkbox-inline label {
+    color: #4caf50;
+}
+
+.has-success
+  .form-control
+    border-color #4caf50
+    -webkit-box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
+    box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
+
+    &:focus
+      border-color #4caf50
+      -webkit-box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #fcfefc
+      box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #fcfefc
+
+  .input-group-addon
+    color #4caf50
+    border-color #b5dfb7
+    background-color #fff
+
+  .form-control-feedback
+    color #4caf50
+
+.has-warning .help-block,
+.has-warning .control-label,
+.has-warning .radio,
+.has-warning .checkbox,
+.has-warning .radio-inline,
+.has-warning .checkbox-inline,
+.has-warning.radio label,
+.has-warning.checkbox label,
+.has-warning.radio-inline label,
+.has-warning.checkbox-inline label {
+    color: #ff9800;
+}
+
+.has-warning 
+  .form-control
+    border-color #ffd699
+    -webkit-box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
+    box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
+
+    &:focus
+      border-color #ffc166
+      -webkit-box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #fff
+      box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #fff
+
+  .input-group-addon
+    color #ff9800
+    border-color #ffd699
+    background-color #fff
+
+  .form-control-feedback
+    color #ff9800
+
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label {
+    color: #dd1e00;
+}
+
+.has-error
+  .form-control
+    border-color #fccbc7
+    -webkit-box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
+    box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
+
+    &:focus
+      border-color #f99d97
+      -webkit-box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #fff
+      box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #fff
+
+  .input-group-addon
+    color #f44336
+    border-color #fccbc7
+    background-color #fff
+
+  .form-control-feedback
+    color #f44336
+
+.has-success,.has-warning,.has-error
+  .form-control
+    box-shadow none
+
+
+
+
+/**  ANIMATIONS  **/
 .animated
   -webkit-animation-duration 1s
   animation-duration 1s
@@ -584,7 +812,6 @@ a.carousel-control .fa
 
 
 /** SVG CHECKBOX CSS **/
-
 .ac-custom {
 	padding: 0 3em;
 	max-width: 900px;

@@ -290,7 +290,7 @@ Template.building.onRendered ->
     animate: 2300
   ###
 
-  # Show Check Availability Popup after 11 seconds
+  # Show Check Availability Popup after 12 seconds
   if !Meteor.user() and $(window).width() > 600 
     unless Session.get "hasSeenCheckAvailabilityPopup" == true || Session.get "hasSeenContactUsPopup" == true
       console.log('Check Availability timer - 1')
@@ -299,7 +299,7 @@ Template.building.onRendered ->
         unless $('body').hasClass('modal-open')
           console.log('Check Availability timer - 3')
           $('.check-availability').trigger('click')
-      , 11000
+      , 12000
 
   $("#checkAvailabilityPopup").on "shown.bs.modal", (e) ->
     console.log("Check Avail Popup Fired - 295")

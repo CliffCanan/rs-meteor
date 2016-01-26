@@ -12,6 +12,8 @@ Template.checkAvailability.helpers
 
 Template.checkAvailability.rendered = ->
 
+  $('#leadphone').mask('(999) 999-9999')
+
   form = @$("form")
 
   building = @.data.building
@@ -106,10 +108,16 @@ Template.checkAvailability.rendered = ->
       )
   )
 
+
+Template.city.onCreated ->
   $("#checkAvailabilityPopup").on "hidden.bs.modal", ->
+    console.log("Check Availability - Popup hidden - 112")
     $("#checkAvailabilityPopup form").formValidation "resetForm", true
+
+  console.log("Check Avail -> onCreated -> getting fg-line.js")
+  $.getScript '/misc/fg-line.js'
+
 
 Template.checkAvailability.events
   "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'moveInDate'
-
