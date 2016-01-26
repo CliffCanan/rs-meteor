@@ -81,7 +81,6 @@ Template.checkAvailability.rendered = ->
           Session.set("serverError", false)
 
           $('#checkAvailabilityPopup').modal('hide')
-          #-$('#messageSentPopup').modal('show')
 
           form.trigger('reset')
           form.data('formValidation').resetForm()
@@ -89,15 +88,17 @@ Template.checkAvailability.rendered = ->
           form.find(".submit-button").prop("disabled", false)
           form.find(".loading").hide()
 
-          analytics.track "Submitted Check Availability form", {buildingId: building._id, buildingName: building.title, label: building.title}
-          analytics.page title: "Submitted Check Availability Form", path: '/submit-availability-form'
+          unless Meteor.user()
+            console.log("Not a Meteor User - sending analytics info")
+            analytics.track "Submitted Check Availability form", {buildingId: building._id, buildingName: building.title, label: building.title}
+            analytics.page title: "Submitted Check Availability Form", path: '/submit-availability-form'
 
-          # Send FB conversion tracking to FB (Added 12/14/15 by CC)
-          fbq "track", "Lead",
-            content_name: building.title.replace(' ','_')
-            content_category: "CheckAvailability"
-            value: 20.0
-            currency: 'USD'
+            # Send FB conversion tracking to FB (Added 12/14/15 by CC)
+            fbq "track", "Lead",
+              content_name: building.title.replace(' ','_')
+              content_category: "CheckAvailability"
+              value: 20.0
+              currency: 'USD'
 
           swal
             title: "Request Submitted!"
@@ -126,6 +127,10 @@ Template.checkAvailability.events
   "focus .form-control.fg-line": (event, template) ->
     console.log("Check Avail - Events - Input Focused")
     $(event.target).closest('.fg-line').addClass('fg-toggled');
+
+  "focus .form-control.fg-line": ->
+    console.log("Check Avail - Events - Input Focused")
+    $@.closest('.fg-line').addClass('fg-toggled');
 
   "blur .form-control.fg-line": (event, template) ->
     console.log("Check Avail - Events - Input Blurred")
