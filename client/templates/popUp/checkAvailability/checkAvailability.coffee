@@ -130,7 +130,7 @@ Template.checkAvailability.events
 
   "focus .form-control.fg-line": ->
     console.log("Check Avail - Events - Input Focused")
-    $@.closest('.fg-line').addClass('fg-toggled')
+    $(@).closest('.fg-line').addClass('fg-toggled')
 
   "blur .form-control.fg-line": (event, template) ->
     console.log("Check Avail - Events - Input Blurred")
