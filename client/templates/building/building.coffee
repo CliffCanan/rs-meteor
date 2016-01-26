@@ -90,8 +90,8 @@ Template.building.helpers
   buildingUnitsLimited: ->
     if Session.get("showAllBuildingUnits")
       unitsList = @buildingUnits()
-      console.log(unitsList)
-      console.log(unitsList.length)
+      #console.log(unitsList)
+      #console.log(unitsList.length)
       unitsCount = unitsList.length
       console.log('buildingUnitsLimited unitsCount: [' + unitsCount + ']')
       unitsList

@@ -199,7 +199,9 @@ template(name="building")
                     | Units
 
                   .building-unit-list-wrap
-                    ul.building-unit-list.list-unstyled
+                    - var unitsListClass = buildingUnits.count > 4 ? 'scroll ' : ''
+
+                    ul(class=unitsListClass)
 
                       each buildingUnitsLimited
 
