@@ -16,6 +16,7 @@ CheckAvailabilityRequests.allow
       bedrooms: String
       updatedAt: Date
       createdAt: Date
+      source: String
     )
     true
   update: share.securityRulesWrapper (userId, request, fieldNames, modifier, options) ->
