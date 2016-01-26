@@ -9,23 +9,25 @@
     <li><b>Move-In Date:</b> {{request.moveInDate}}</li>
     <li>
         <b># of Bedrooms:</b>&nbsp;
-        {{#if request.bedrooms}}{{request.bedrooms}}{{/if}}
-        {{#else}}<em>not provided</em>{{/else}}
+        {{#if request.bedrooms}}{{request.bedrooms}}
+        {{else}}<em>not provided</em>{{/if}}
     </li>
     <li>
         <b>Email:</b>&nbsp;
-        {{#if request.email}}{{request.email}}{{/if}}
-        {{#else}}<em>not provided</em>{{/else}}
+        {{#if request.email}}{{request.email}}
+        {{else}}<em>not provided</em>{{/if}}
     </li>
     <li>
         <b>Phone #:</b>&nbsp;
-        {{#if request.phoneNumber}}{{request.phoneNumber}}{{/if}}
-        {{#else}}<em>not provided</em>{{/else}}
+        {{#if request.phoneNumber}}{{request.phoneNumber}}
+        {{else}}<em>not provided</em>{{/if}}
     </li>
 </ul>
 
-{{#if request.question}}<p>{{request.name}} left a comment:</p>
-<blockquote>&quot;{{request.question}}&quot;</blockquote>{{/if}}
+{{#if request.question}}
+    <p>{{request.name}} left a comment:</p>
+    <blockquote>&quot;{{request.question}}&quot;</blockquote>
+{{/if}}
 <p>Keep up the great work!</p>
 
 <p style="color: #aaa;">P.S. Hit "reply" to send a message to the customer ;)</p>
