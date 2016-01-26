@@ -1,6 +1,6 @@
 <p>Hi Team!</p>
 
-<p>Someone just filled out a <b>Check Availability</b> request on RentScene.com</b>:</p>
+<p>Someone just filled out a <b>Check Availability</b> request on RentScene.com:</p>
 
 <ul>
     <li><b>Name:</b> {{request.name}}</li>
@@ -10,23 +10,23 @@
     <li>
         <b># of Bedrooms:</b>&nbsp;
         {{#if request.bedrooms}}{{request.bedrooms}}
-        {{else}}<em>not provided</em>{{/if}}
+        {{else}}&lt;em&gt;not provided&lt;/em&gt;{{/if}}
     </li>
     <li>
         <b>Email:</b>&nbsp;
         {{#if request.email}}{{request.email}}
-        {{else}}<em>not provided</em>{{/if}}
+        {{else}}&lt;em&gt;not provided&lt;/em&gt;{{/if}}
     </li>
     <li>
         <b>Phone #:</b>&nbsp;
         {{#if request.phoneNumber}}{{request.phoneNumber}}
-        {{else}}<em>not provided</em>{{/if}}
+        {{else}}&lt;em&gt;not provided&lt;/em&gt;{{/if}}
     </li>
 </ul>
 
 {{#if request.question}}
-    <p>{{request.name}} left a comment:</p>
-    <blockquote>&quot;{{request.question}}&quot;</blockquote>
+&lt;p&gt;{{request.name}} left a comment&lt;/p&gt;
+    &lt;blockquote&gt;&quot;{{request.question}}&quot;&lt;/blockquote&gt;
 {{/if}}
 <p>Keep up the great work!</p>
 
