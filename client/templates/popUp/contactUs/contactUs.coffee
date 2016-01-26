@@ -128,6 +128,11 @@ Template.contactUs.rendered = ->
             #-html: true
       )
   )
+
+$("#contactUsPopup").on "shown.bs.modal", ->
+  console.log("CONTACT US Popup Fired - 133")
+  #$("#contactUsPopup form").formValidation "resetForm", true
+
   
 
 

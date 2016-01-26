@@ -8,8 +8,7 @@ Template.checkAvailability.helpers
       return Session.get("currentUnit").title.trim()
 
   currentCity: ->
-    cityId = @query.cityId || @cityId
-    cities[cityId].long
+    cities[@cityId].long
 
 Template.checkAvailability.rendered = ->
 

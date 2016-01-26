@@ -125,6 +125,7 @@ Router.map ->
         Session.set("cityScroll", 0)
       @next()
     onAfterAction: ->
+      Session.set "currentPage", "city"
       SEO.set
         title: share.formatPageTitle "Rental Apartments in #{cities[@params.cityId].long}"
         meta:
@@ -150,6 +151,7 @@ Router.map ->
       Session.set("cityScroll", 0)
       @next()
     onAfterAction: ->
+      Session.set "currentPage", "city"
       SEO.set
         title: share.formatPageTitle "Rental Apartments in #{cities[@params.cityId].long}"
         meta:
@@ -180,7 +182,8 @@ Router.map ->
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       @next()
     onAfterAction: ->
-      console.log("check-183")
+      Session.set "currentPage", "building"
+
       if @data() and @data().building
         console.log("Routing -> building -> onAfterAction if@data() and @data().building REACHED")
         building = @data().building
@@ -193,6 +196,7 @@ Router.map ->
 
         if metaTags.title
           console.log("Routing -> building -> onAfterAction -> metaTags.Title EXISTS")
+          console.log(metaTags.title)
           SEO.set
             title: metaTags.title
             meta:

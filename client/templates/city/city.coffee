@@ -29,7 +29,8 @@ Template.city.onCreated ->
   if Router.current().route.getName() != "clientRecommendations" and not Meteor.user() and $(window).width() > 600
     unless Session.get "hasSeenContactUsPopup" == true
       @popupTimeoutHandle = Meteor.setTimeout ->
-        unless $('body').hasClass('modal-open')
+        console.log(Session.get("currentPage"))
+        unless $('body').hasClass('modal-open') || Session.get("currentPage") == "building"
           $('#contactUsPopup').modal('show')
       , 14000
 

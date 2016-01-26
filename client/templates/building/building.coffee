@@ -85,7 +85,10 @@ Template.building.helpers
 
   buildingUnitsLimited: ->
     if Session.get("showAllBuildingUnits")
-      @buildingUnits()
+      unitsList = @buildingUnits()
+      if ($(window).width() > 600 && unitsList.length > 4)
+        $('ul.building-unit-list').addClass('scroll')
+      unitsList
     else
       @buildingUnits(4)
 
