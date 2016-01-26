@@ -109,7 +109,7 @@ Template.checkAvailability.rendered = ->
   )
 
 
-Template.city.onCreated ->
+Template.checkAvailability.onCreated ->
   $("#checkAvailabilityPopup").on "hidden.bs.modal", ->
     console.log("Check Availability - Popup hidden - 112")
     $("#checkAvailabilityPopup form").formValidation "resetForm", true
