@@ -400,45 +400,44 @@ template(name="building")
                       span.building-admin-info-data {{adminNotes}}
 
 
+          .row
+            .map-container.clearfix.col-sm-12
+              #gmap
+              img.calcPop(src="/images/map-marker-filter.png", style="position: absolute;", data-toggle="popover", data-placement="top" )
 
-          .map-container.clearfix.col-sm-12
-            #gmap
-            img.calcPop(src="/images/map-marker-filter.png", style="position: absolute;", data-toggle="popover", data-placement="top" )
+          .row
+            .col-xs-12.col-sm-7.col-md-8.col-lg-9
+              h2.section-title
+                i.fa.fa-fw.fa-commenting.fa-flip-horizontal
+                |  Reviews
+                a.btn.btn-xs.btn-default.pull-right(href="#review-form-modal", data-toggle="modal")
+                  i.fa.fa-pencil-square-o.text-primary
+              +reviews(buildingReviews=buildingReviews)
+              +reviewForm(defaults=reviewFormDefaults)
 
-          .col-xs-12.col-sm-7.col-md-8.col-lg-9
-            h2.section-title
-              i.fa.fa-fw.fa-commenting.fa-flip-horizontal
-              |  Reviews
-              a.btn.btn-xs.btn-default.pull-right(href="#review-form-modal", data-toggle="modal")
-                i.fa.fa-pencil-square-o.text-primary
-            +reviews(buildingReviews=buildingReviews)
-            +reviewForm(defaults=reviewFormDefaults)
+            .col-sm-5.col-md-4.col-lg-3
+              h2.section-title
+                i.fa.fa-fw.fa-building
+                | Similar Properties
 
-          .col-sm-5.col-md-4.col-lg-3
-            h2.section-title
-              i.fa.fa-fw.fa-building
-              | Similar Properties
+              ul.main-city-list.list-unstyled.row.similar-properties
 
-            ul.main-city-list.list-unstyled.row.similar-properties
+                if Template.subscriptionsReady
 
-              if Template.subscriptionsReady
+                  each similarProperties .
 
-                each similarProperties .
+                    li.col-xs-12
+                      .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
 
-                  li.col-xs-12
-                    .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
+                        a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
+                          div(style="background-image: url('{{#if mainImage}}{{mainImage.url store='thumbs' auth=false}}{{else}}/images/placeholder.png{{/if}}')")
 
-                      a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
-                        div(style="background-image: url('{{#if mainImage}}{{mainImage.url store='thumbs' auth=false}}{{else}}/images/placeholder.png{{/if}}')")
-
-                      .main-city-item-wrap
-                        .row
-                          .col-md-9.col-lg-12
-                            p.main-city-item-link
-                              | {{title}}
-                          .col-md-3.col-lg-12
-                            p.similar-property-price
-                              | {{displayBuildingPrice ../queryBtype}}
+                        .main-city-item-wrap
+                          .row
+                            .col-md-9.col-lg-12
+                              p.main-city-item-link {{title}}
+                            .col-md-3.col-lg-12
+                              p.similar-property-price {{displayBuildingPrice ../queryBtype}}
 
         | {{ironRouterHack}}
 

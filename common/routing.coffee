@@ -174,18 +174,16 @@ Router.map ->
       _.extend {}, @params,
         building: building
     onBeforeAction: ->
-      console.log("params.cityId: " + @params.cityId)
+      #console.log("params.cityId: " + @params.cityId)
 
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
-        console.log("check-179")
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       @next()
     onAfterAction: ->
       Session.set "currentPage", "building"
 
       if @data() and @data().building
-        console.log("Routing -> building -> onAfterAction if@data() and @data().building REACHED")
         building = @data().building
         metaTags = building.metaTags()
 
@@ -195,14 +193,14 @@ Router.map ->
         #console.log(metaTags.title)
 
         if metaTags.title
-          console.log("Routing -> building -> onAfterAction -> metaTags.Title EXISTS")
+          #console.log("Routing -> building -> onAfterAction -> metaTags.Title EXISTS")
           console.log(metaTags.title)
           SEO.set
             title: metaTags.title
             meta:
               description: metaTags.description
         else
-          console.log("Routing -> building -> onAfterAction -> metaTags.Title DOES NOT EXIST")
+          #console.log("Routing -> building -> onAfterAction -> metaTags.Title DOES NOT EXIST")
       else
         console.log("Routing -> building -> onAfterAction if@data() and @data().building NOT REACHED")
         SEO.set

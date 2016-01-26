@@ -1,6 +1,8 @@
 positions = [10000, 5000, 0, -5000, -10000]
 
 unitsCount = 0
+console.log("Building Initial... unitsCount: (next line)")
+console.log(unitsCount)
 
 Template.building.onCreated ->
   building = Router.current().data().building
@@ -88,8 +90,10 @@ Template.building.helpers
   buildingUnitsLimited: ->
     if Session.get("showAllBuildingUnits")
       unitsList = @buildingUnits()
+      console.log(unitsList)
+      console.log(unitsList.length)
       unitsCount = unitsList.length
-      console.log('building Helper -> buildingUnitsLimited unitsCount: [' + unitsCount + ']')
+      console.log('buildingUnitsLimited unitsCount: [' + unitsCount + ']')
       unitsList
     else
       @buildingUnits(4)
@@ -233,7 +237,7 @@ Template.building.onRendered ->
     scaleControl: true
     rotateControl: false
     panControl: false
-    overviewMapControl: false
+    overviewMapControl: true
     mapTypeControl: true
     mapTypeId: google.maps.MapTypeId.ROADMAP
 
