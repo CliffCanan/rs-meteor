@@ -30,13 +30,14 @@ Template.city.onCreated ->
     unless Session.get "hasSeenContactUsPopup" == true
       @popupTimeoutHandle = Meteor.setTimeout ->
         unless $('body').hasClass('modal-open')
-          $('.contact-us').trigger('click')
+          $('#contactUsPopup').modal('show')
       , 14000
 
   $("#contactUsPopup").on "hide.bs.modal", (e) ->
     $("#contactUsPopup form").formValidation "resetForm", true
 
   $("#contactUsPopup").on "shown.bs.modal", (e) ->
+    console.log("City (40) - ContactUs popup ON.SHOWN")
     Session.set "hasSeenContactUsPopup", true
 
 
