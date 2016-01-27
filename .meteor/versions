@@ -75,6 +75,7 @@ iron:location@1.0.11
 iron:middleware-stack@1.0.11
 iron:router@1.0.12
 iron:url@1.0.11
+jackyqiu:meteor-jquery-nicescroll@3.6.0
 jquery@1.11.4
 kaptron:minimongoid@0.9.8
 kevohagan:sweetalert@1.0.0
@@ -104,6 +105,7 @@ meteorhacks:ssr@2.2.0
 meteorhacks:subs-manager@1.6.3
 minifiers@1.1.7
 minimongo@1.0.10
+mizzao:build-fetcher@0.2.0
 mobile-experience@1.0.1
 mobile-status-bar@1.0.6
 momentjs:moment@2.10.6
