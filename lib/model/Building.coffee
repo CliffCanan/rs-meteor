@@ -253,6 +253,9 @@ class Building
       options.limit = limit
     Buildings.find({parentId: @_id}, options)
 
+  buildingUnitsCount: ->
+    Buildings.find({parentId: @_id}).count()
+
   parent: ->
     Buildings.findOne(@parentId)  if @parentId
 

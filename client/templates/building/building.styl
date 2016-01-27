@@ -309,9 +309,20 @@
       .building-img-icon
         left 0
 
+.building-info-section
+  .building-features-list
+    margin 0 0 15px
+    li
+      padding-left 25px
+      i
+        position absolute
+        left 0
+        top 4px
+
 .building-unit-list-wrap > ul
   list-style none
   padding-left 0
+  overflow-x hidden !important
   @media screen and (min-width: 992px)
     max-height 630px
   &.scroll
@@ -376,7 +387,7 @@
         vertical-align middle
 
       .unit-baths img
-        margin-right 2px
+        margin-right 5px
         width 1.2em
 
   .building-unit-prop-list

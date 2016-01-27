@@ -20,14 +20,26 @@ template(name="review")
 
     h3(itemprop="name") #{title}
 
-    div.total-rating
-      i.fa.fa-star 
-      span(itemprop="reviewRating", itemscope, itemtype="http://schema.org/Rating")
-        meta(itemprop="worstRating" content="0")
-        span(itemprop="ratingValue") #{totalRating}
-        | /
-        span(itemprop="bestRating") 10
 
+    div(style="position:relative;")
+      .total-rating
+        i.fa.fa-star 
+        span(itemprop="reviewRating", itemscope, itemtype="http://schema.org/Rating")
+          meta(itemprop="worstRating" content="0")
+          span(itemprop="ratingValue") #{totalRating}
+          | /
+          span(itemprop="bestRating") 10
+
+      .author-date-box
+        div.author(property="author", typeof="http://schema.org/Person")
+          span(property="name") #{displayName}
+          //span.displayPersona #{displayPersona}
+
+          if canOperateWithBuilding
+            small
+              | (
+              a(href="mailto:#{email}", target="_blank") #{email}
+              | )
 
     if isPublished
       p.review-body-summary #{formattedBody}
@@ -42,16 +54,5 @@ template(name="review")
     if showMoreLink
       p.text-center
         a.review-view-more(href="#") View More...
-
-    .author-date-box
-      div.author(property="author", typeof="http://schema.org/Person")
-        span(property="name") #{displayName}
-        //span.displayPersona #{displayPersona}
-
-        if canOperateWithBuilding
-          small
-            | (
-            a(href="mailto:#{email}") #{email}
-            | )
 
       div.posted-date #{formatedCreatedAt}

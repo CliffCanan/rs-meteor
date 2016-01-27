@@ -88,13 +88,12 @@ Template.building.helpers
     Buildings.find(selector, {limit: 4})
 
   buildingUnitsLimited: ->
+    console.log("building.coffee -> Helpers -> buildingsUnitsLimited")
+    x = @buildingUnitsCount
+    console.log(x)
+
     if Session.get("showAllBuildingUnits")
-      unitsList = @buildingUnits()
-      #console.log(unitsList)
-      #console.log(unitsList.length)
-      unitsCount = unitsList.length
-      console.log('buildingUnitsLimited unitsCount: [' + unitsCount + ']')
-      unitsList
+      @buildingUnits()
     else
       @buildingUnits(4)
 
@@ -181,6 +180,11 @@ Template.building.helpers
 
 Template.building.onRendered ->
   instance = @
+
+  console.log("building.onRendered -> instance...")
+  console.log(@)
+  console.log(instance)
+  console.log(instance.buildingUnitsCount)
 
   $('main').addClass('container')
 
@@ -290,6 +294,20 @@ Template.building.onRendered ->
     animate: 2300
   ###
 
+
+  $(".building-unit-list-wrap>ul").niceScroll
+    bouncescroll: true
+    cursorborder: 0
+    cursorborderradius: "8px"
+    cursorcolor: "#404142"
+    cursorwidth: "9px"
+    zindex: 9999
+    mousescrollstep: 26
+    scrollspeed: 42
+    autohidemode: "cursor"
+    hidecursordelay: 500
+    horizrailenabled: false
+
   # Show Check Availability Popup after 12 seconds
   if !Meteor.user() and $(window).width() > 600 
     unless Session.get "hasSeenCheckAvailabilityPopup" == true || Session.get "hasSeenContactUsPopup" == true
@@ -299,7 +317,7 @@ Template.building.onRendered ->
       , 12000
 
   $("#checkAvailabilityPopup").on "shown.bs.modal", (e) ->
-    console.log("Check Avail Popup Fired - 295")
+    console.log("Check Avail Popup Fired - 295") 
     Session.set "hasSeenCheckAvailabilityPopup", true
 
   $("#checkAvailabilityPopup").on "hide.bs.modal", (e) ->
@@ -542,13 +560,13 @@ calcRoute = (from, to, context) ->
               travelIcon = 'car'
               travelText = 'drive'
             when 'walking'
-              travelIcon = 'walk'
+              travelIcon = 'male'
               travelText = 'walk'
             when 'bicycling'
-              travelIcon = 'bike'
-              travelText = 'bike'
+              travelIcon = 'bicycle'
+              travelText = 'bike ride'
 
-          context.travelInfoWindow.setContent('<img class="travel-icon" src="/images/' + travelIcon + '.png"> <span class="travel-duration">' + "#{leg.duration.text} #{travelText} home" + '</span><br/><span class="travel-distance">(' + leg.distance.text + ')</span>')
+          context.travelInfoWindow.setContent('<i class="fa fa-fw fa-' + travelIcon + '"><span class="travel-duration"><span>#{leg.duration.text}</span> #{travelText} home' + '</span><br/><span class="travel-distance">(' + leg.distance.text + ')</span>')
           context.travelInfoWindow.setPosition(leg.start_location)
           context.travelInfoWindow.open(map)
           $('.gm-style-iw').next('div').hide()
