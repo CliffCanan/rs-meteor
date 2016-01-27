@@ -20,7 +20,7 @@ Template.header.onRendered ->
       $('main').css('margin-top': 70)
 
   unless $("body").getNiceScroll().length > 0
-    console.log("Header -> firing nicescroll")
+    #console.log("Header -> firing nicescroll")
 
     $("body").niceScroll
       bouncescroll: true

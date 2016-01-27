@@ -88,14 +88,10 @@ Template.building.helpers
     Buildings.find(selector, {limit: 4})
 
   buildingUnitsLimited: ->
-    console.log("building.coffee -> Helpers -> buildingsUnitsLimited")
-    x = @buildingUnitsCount
-    console.log(x)
-
-    if Session.get("showAllBuildingUnits")
-      @buildingUnits()
-    else
-      @buildingUnits(4)
+    #if Session.get("showAllBuildingUnits")
+    @buildingUnits()
+    #else
+    #  @buildingUnits(4)
 
   displayBuildingPrice: (queryBtype) ->
     fieldName = "agroPrice" + (if queryBtype then queryBtype.charAt(0).toUpperCase() + queryBtype.slice(1) else "Total")
@@ -181,10 +177,8 @@ Template.building.helpers
 Template.building.onRendered ->
   instance = @
 
-  console.log("building.onRendered -> instance...")
-  console.log(@)
-  console.log(instance)
-  console.log(instance.buildingUnitsCount)
+  #console.log("building.onRendered -> instance...")
+  #console.log(instance)
 
   $('main').addClass('container')
 
@@ -328,6 +322,10 @@ Template.building.onRendered ->
 
 
 Template.building.onDestroyed ->
+  if $('main').hasClass('container')
+    console.log("building.onDestroyed -> main had .container, removing it")
+    $('main').removeClass('container')
+
   # Clear timeout when user exits the page so it doesn't trigger.
   Meteor.clearTimeout(@popupTimeoutHandle)
 
@@ -377,13 +375,6 @@ Template.building.events
 
   "click .building-unit-item-more": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", true)
-
-    console.log('building -> clicked View More -> unitsCount: [' + unitsCount + ']')
-
-    if unitsCount > 4
-      console.log('Adding class "scroll" to ul.building-unit-list')
-      $('ul.building-unit-list').addClass('scroll')
-
 
   "click .building-unit-item-less": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", false)

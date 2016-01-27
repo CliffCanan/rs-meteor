@@ -119,30 +119,27 @@ $("#checkAvailabilityPopup").on "hidden.bs.modal", ->
   console.log("Check Availability - Popup hidden - 112")
   $("#checkAvailabilityPopup form").formValidation "resetForm", true
 
-#console.log("Check Avail -> onCreated -> getting fg-line.js")
-#$.getScript '/misc/fg-line.js'
-
 
 Template.checkAvailability.events
   "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'moveInDate'
 
-  "focus .form-control.fg-line": (event, template) ->
-    console.log("Check Avail - Events - Input Focused")
+  "focus .form-control.fg-input": (event, template) ->
+    console.log("Check Avail -> Events - Input Focused")
     $(event.target).closest('.fg-line').addClass('fg-toggled');
 
-  "focus .form-control.fg-line": ->
-    console.log("Check Avail - Events - Input Focused")
-    $(@).closest('.fg-line').addClass('fg-toggled')
+  "focus .form-control.fg-input": ->
+    console.log("Check Avail -> Events 2 - Input Focused")
+    #$(@).closest('.fg-line').addClass('fg-toggled')
 
-  "blur .form-control.fg-line": (event, template) ->
-    console.log("Check Avail - Events - Input Blurred")
+  "blur .form-control.fg-input": (event, template) ->
+    console.log("Check Avail -> Events - Input Blurred")
 
     fgrp = $(event.target).closest('.form-group');
 
     val = $(event.target).val();
 
-    console.log("Check Avail - Events - Input Blurred: val() is: ")
+    console.log("Check Avail -> Events - Input Blurred: val() is: ")
     console.log(val);
 
     if fgrp.hasClass('fg-float')

@@ -175,8 +175,6 @@ Template.city.onRendered ->
   $.getScript '/js/imgLiquid-min.js', ->
     $('.main-city-item .item.video').imgLiquid();
 
-  $('main').removeClass('container')
-
   cityCircle = undefined
 
   @data.firstLoad = false

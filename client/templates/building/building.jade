@@ -55,7 +55,7 @@ template(name="building")
         .building-page.clearfix
           .row
 
-            .building-main-info.col-xs-12.col-lg-5.col-lg-4
+            .building-main-info.col-xs-12.col-md-5.col-lg-4
               if isEdit
                 input.building-main-info-title(type="text", name="title", value="{{title}}")
               else
@@ -73,7 +73,7 @@ template(name="building")
                   //-meta(itemprop="addressCountry", content="USA")
 
               if isEdit
-                .building-main-price-wrap
+                .building-main-price-wrap.col-xs-12.col-sm-4.col-md-12
                   .building-main-price-opt
                     span.building-main-price
                       input.text-right(type="text", name="priceFrom", value="{{priceFrom}}")
@@ -90,20 +90,20 @@ template(name="building")
               else
                 if agroIsUnit
                   with getUnitPrice
-                    .building-main-price-wrap.col-xs-12.col-sm-4.col-lg-12
+                    .building-main-price-wrap.col-xs-12.col-sm-4.col-md-12
                       .building-main-price-opt
                         span.building-main-price {{price}}
                         span.building-main-rooms {{type}}
                 else
                   with prices
-                    .building-main-price-wrap.col-xs-12.col-sm-4.col-lg-12
+                    .building-main-price-wrap.col-xs-12.col-sm-4.col-md-12
                       each .
                         .building-main-price-opt
                           span.building-main-price {{price}}
                           span.building-main-rooms {{type}}
 
               if isEdit
-                ul.col-xs-12.col-sm-8.col-lg-12.building-main-prop-list.list-unstyled.clearfix
+                ul.col-xs-12.col-sm-8.col-md-12.building-main-prop-list.list-unstyled.clearfix
                   li.building-main-prop
                     label
                       input.input-from-to.form-control(type="text", name="sqftFrom", value="{{sqftFrom}}")
@@ -215,11 +215,11 @@ template(name="building")
                                     i.fa.fa-star
 
                             .row
-                              .col-sm-6.unit-img-wrap
+                              .col-xs-12.col-sm-6.unit-img-wrap
                                 with mainImage
                                   img.pull-left(src="{{getThumbnail store='thumbs'}}")
 
-                              .col-sm-6
+                              .col-xs-12.col-sm-6
                                 .building-unit-info.clearfix
                                   h3.building-unit-info-title
                                     a(href="{{pathFor route='building' data=getRouteData}}") {{title}}
@@ -255,11 +255,11 @@ template(name="building")
                               //-.col-xs-6.p-l-0
                               //-  button.building-unit-btn.btn.btn-default.check-availability(type="button") Check Availability
 
-                  if condition buildingUnits.count "gt" 4
-                    if Session "showAllBuildingUnits"
-                      a.building-unit-item-less(href="#", title="less") Hide Units
-                    else
-                      a.building-unit-item-more(href="#", title="more") View All {{buildingUnits.count}} Units
+                  //-if condition buildingUnits.count "gt" 4
+                  //-  if Session "showAllBuildingUnits"
+                  //-    a.building-unit-item-less(href="#", title="less") Hide Units
+                  //-  else
+                  //-    a.building-unit-item-more(href="#", title="more") View All {{buildingUnits.count}} Units
 
 
             .col-xs-12.col-md-7.col-lg-8.building-info-wrap

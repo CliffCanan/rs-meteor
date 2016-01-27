@@ -1,3 +1,14 @@
+main.container
+  padding 0 20px
+  @media screen and (min-width: 768px)
+    padding 0 5px
+  @media screen and (min-width: 800px)
+    width 95%
+  @media screen and (min-width: 850px)
+    width 94%
+  @media screen and (min-width: 900px)
+    max-width 860px
+
 .breadcrumb
   padding 5px
   background #fff
@@ -7,6 +18,7 @@
     padding 7px 15px
     border 1px solid rgba(188,190,192,.4)
   @media screen and (min-width: 1200px)
+    margin-top 20px
     padding 9px 5px
     font-size 16px
   & > li
@@ -44,7 +56,6 @@
       box-sizing border-box
       @media screen and (max-width: 992px)
         margin-bottom 20px
-      @media screen and (min-width: 1200px)
         float right
 
       .building-main-info-title
@@ -324,11 +335,23 @@
   padding-left 0
   overflow-x hidden !important
   @media screen and (min-width: 992px)
-    max-height 630px
-  &.scroll
+    max-height 700px
+  @media screen and (min-width: 1200px)
+    max-height 600px
+
+  li.building-unit-item-wrap
+    @media screen and (min-width: 380px)
+      float left
+      width 50%
+      &:nth-child(2n)
+        padding-left 3%
+      &:nth-child(2n-1)
+        padding-right 3%
+
     @media screen and (min-width: 992px)
-      overflow-x hidden
-      overflow-y scroll
+      float none
+      padding 0 !important
+      width 100%
 
 .building-unit-item
   border 1px solid #eee

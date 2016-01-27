@@ -30,7 +30,7 @@ Template.index.rendered = ->
     #-walk: (index, slideSettings) ->
 
   unless $("body").getNiceScroll().length > 0
-    console.log("Index -> firing nicescroll")
+    #console.log("Index -> firing nicescroll")
 
     $("body").niceScroll
       bouncescroll: true
