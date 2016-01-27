@@ -119,10 +119,14 @@ Router.map ->
           Router.go("city", {cityId: @params.cityId}, {query: {address: address}})
         else
           Session.set("cityName", "")
+
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
         Session.set("cityScroll", 0)
+
+      Session.setDefault('hasAlrdyConverted', false);
+
       @next()
     onAfterAction: ->
       Session.set "currentPage", "city"
@@ -175,7 +179,9 @@ Router.map ->
         building: building
     onBeforeAction: ->
       #console.log("params.cityId: " + @params.cityId)
-
+      if @params.justatest
+        console.log("JustATest Var FOUND!!")
+        console.log(@params.justatest)
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})

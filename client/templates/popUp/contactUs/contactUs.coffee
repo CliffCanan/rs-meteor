@@ -8,6 +8,9 @@ Template.contactUs.helpers
 Template.contactUs.rendered = ->
   Session.set("serverError", false)
 
+  test = Session.get("hasAlrdyConverted")
+  console.log("ContactUs -> hasAlrdyConverted is:" + test)
+
   $('i[data-toggle="popover"]').popover()
 
   cityId = @.data?.cityId
