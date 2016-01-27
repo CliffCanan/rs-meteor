@@ -6,8 +6,12 @@ Template.featuredProps.onRendered = ->
 
 
 Template.featuredProps.events
-  "click .check-availability": grab encapsulate (event, template) ->
+  "click .featured-props-wrap .check-availability": grab encapsulate (event, template) ->
     console.log("Feature Props -> Check Availability Btn Clicked!")
-    #Session.set("currentUnit", @)
+    
     #analytics.track "Clicked Featured Unit Check Availability Btn ", {buildingId: @_id, buildingName: @title, label: @title} unless Meteor.user()
-    $('#checkAvailabilityPopup').modal('show')
+    #$('#checkAvailabilityPopup').modal('show')
+
+    analytics.track "Clicked Feature Property Check Availability" unless Meteor.user()
+    $('#contactUsPopup form').formValidation 'resetForm', true
+    $('#contactUsPopup').modal('show')

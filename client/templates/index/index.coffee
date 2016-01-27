@@ -63,10 +63,6 @@ Template.index.events
     analytics.track "Clicked Get Started Button" unless Meteor.user()
     $('#contactUsPopup').modal('show')
 
-  "click .featured-props-wrap .card .check-availability": grab encapsulate (event, template) ->
-    analytics.track "Clicked Feature Property Check Availability" unless Meteor.user()
-    $('#contactUsPopup form').formValidation 'resetForm', true
-    $('#contactUsPopup').modal('show')
 
 $("#contactUsPopup").on "shown.bs.modal", (e) ->
   Session.set "hasSeenContactUsPopup", true
