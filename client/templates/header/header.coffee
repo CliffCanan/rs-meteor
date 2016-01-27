@@ -20,11 +20,14 @@ Template.header.onRendered ->
       $('main').css('margin-top': 70)
 
   unless $("body").getNiceScroll().length > 0
+    console.log("Header -> firing nicescroll")
+
     $("body").niceScroll
       bouncescroll: true
       cursorborder: 0
+      cursorborderradius: "10px"
       cursorcolor: "#404142"
-      cursorwidth: "9px"
+      cursorwidth: "8px"
       zindex: 9999
       mousescrollstep: 28 # default is 40 (px)
       scrollspeed: 42 # default is 60

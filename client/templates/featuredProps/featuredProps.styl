@@ -27,10 +27,10 @@
 }
 // flip speed goes here
 .card {
-	 -webkit-transition: -webkit-transform .5s;
-   -moz-transition: -moz-transform .5s;
-     -o-transition: -o-transform .5s;
-        transition: transform .5s;
+	 -webkit-transition: -webkit-transform .55s;
+   -moz-transition: -moz-transform .55s;
+     -o-transition: -o-transform .55s;
+        transition: transform .55s;
 -webkit-transform-style: preserve-3d;
    -moz-transform-style: preserve-3d;
      -o-transform-style: preserve-3d;
@@ -76,7 +76,7 @@
 
   .footer
     border none
-    padding 0 !important
+    padding 5px 0 !important
 
     .btn-group
       border-top 1px solid #EEE
@@ -140,8 +140,8 @@
     background-color transparent
     box-shadow none
     padding 0 15px
-    @media screen and (min-width: 768px)
-      padding 0 20px
+    @media screen and (min-width: 992px)
+      padding 0 18px
 
     .main
       min-height 140px
@@ -157,9 +157,15 @@
     height 215px
     .fa-ul
       font-size 13px
+      margin-left 1.5em
       .fa-li
-        top 5px
         color #2A982C
+        top 5px
+        left -2em
+        width 1.5em
+
+  p
+    line-height 1.5
 
   .name
     font-size 22px
@@ -167,6 +173,9 @@
     margin 10px 0 0
     text-align center
     text-transform capitalize
+
+  h4
+    margin 9px 0 7px
 
   h5
     margin 6px 0
