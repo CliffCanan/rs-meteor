@@ -88,8 +88,11 @@ Template.checkAvailability.rendered = ->
           form.find(".submit-button").prop("disabled", false)
           form.find(".loading").hide()
 
-          unless Meteor.user()
-            console.log("Not a Meteor User - sending analytics info")
+          unless Meteor.user() or Session.get("hasAlrdyConverted") is true
+            Session.set("hasAlrdyConverted", true)
+
+            console.log("Not a Meteor User & Hasn't converted - sending analytics info")
+
             analytics.track "Submitted Check Availability form", {buildingId: building._id, buildingName: building.title, label: building.title}
             analytics.page title: "Submitted Check Availability Form", path: '/submit-availability-form'
 

@@ -102,7 +102,9 @@ Template.contactUs.rendered = ->
           form.data('formValidation').resetForm()
           $('#contactUsPopup').modal('hide')
 
-          unless Meteor.user()
+          unless Meteor.user() or Session.get("hasAlrdyConverted") is true
+            Session.set("hasAlrdyConverted", true)
+
             console.log("Not a Meteor User - sending analytics info")
             analytics.track "Submitted Contact Us form"
             analytics.page title: "Submitted Contact Us form", path: '/submit-contact-us-form'

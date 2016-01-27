@@ -90,13 +90,13 @@ template(name="building")
               else
                 if agroIsUnit
                   with getUnitPrice
-                    .building-main-price-wrap.col-xs-12.col-sm-4.col-lg-11
+                    .building-main-price-wrap.col-xs-12.col-sm-4.col-lg-12
                       .building-main-price-opt
                         span.building-main-price {{price}}
                         span.building-main-rooms {{type}}
                 else
                   with prices
-                    .building-main-price-wrap.col-xs-12.col-sm-4.col-lg-11
+                    .building-main-price-wrap.col-xs-12.col-sm-4.col-lg-12
                       each .
                         .building-main-price-opt
                           span.building-main-price {{price}}
