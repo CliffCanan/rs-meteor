@@ -414,6 +414,26 @@ Template.rentalApplication.events
   "click .revert-rental-application": (event, template) ->
     Meteor.call 'revertRentalApplication', @_id if confirm "Are you sure you want to revert to '#{@updateNote}'?"
 
+  "focus .form-control.fg-line": (event, template) ->
+    console.log("Check Avail - Events - Input Focused")
+    $(event.target).closest('.fg-line').addClass('fg-toggled');
+
+  "focus .form-control.fg-line": ->
+    console.log("Check Avail - Events - Input Focused")
+    $(@).closest('.fg-line').addClass('fg-toggled')
+
+  "blur .form-control.fg-line": (event, template) ->
+    console.log("Check Avail - Events - Input Blurred")
+
+    fgrp = $(event.target).closest('.form-group');
+
+    val = $(event.target).val();
+
+    console.log("Check Avail - Events - Input Blurred: val() is: ")
+    console.log(val);
+
+    if fgrp.hasClass('fg-float')
+      $(event.target).closest('.fg-line').removeClass('fg-toggled');
 
 $(window).scroll ->
   "use strict"

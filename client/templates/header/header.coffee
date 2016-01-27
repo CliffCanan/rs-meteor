@@ -19,6 +19,19 @@ Template.header.onRendered ->
     else
       $('main').css('margin-top': 70)
 
+  unless $("body").getNiceScroll().length > 0
+    $("body").niceScroll
+      bouncescroll: true
+      cursorborder: 0
+      cursorcolor: "#404142"
+      cursorwidth: "9px"
+      zindex: 9999
+      mousescrollstep: 28 # default is 40 (px)
+      scrollspeed: 42 # default is 60
+      autohidemode: "cursor"
+      hidecursordelay: 700
+      horizrailenabled: false
+
 Template.header.events
   "click .contact-us": grab encapsulate (event, template) ->
     analytics.track "Clicked Contact Us Header Btn" unless Meteor.user()
