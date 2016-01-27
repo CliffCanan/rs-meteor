@@ -19,19 +19,6 @@ Template.city.onCreated ->
   @buildingsCount = new ReactiveVar(0)
   Session.set('adminShowUnpublishedProperties', false)
 
-  $(".main-city-list-wrap").niceScroll
-    bouncescroll: true
-    cursorborder: 0
-    cursorcolor: "#6C6E70"
-    cursorwidth: "8px"
-    zindex: 9999
-    mousescrollstep: 25 # default is 40 (px)
-    scrollspeed: 40 # default is 60
-    autohidemode: "cursor"
-    hidecursordelay: 700
-    horizrailenabled: false
-
-
   unless $.fn.hoverIntent
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
 
@@ -167,6 +154,18 @@ Template.city.helpers
 
 Template.city.onRendered ->
   instance = @
+
+  $(".main-city-list-wrap").niceScroll
+    bouncescroll: true
+    cursorborder: 0
+    cursorcolor: "#6C6E70"
+    cursorwidth: "8px"
+    zindex: 9999
+    mousescrollstep: 25 # default is 40 (px)
+    scrollspeed: 40 # default is 60
+    autohidemode: "cursor"
+    hidecursordelay: 700
+    horizrailenabled: false
 
   $.getScript '/js/imgLiquid-min.js', ->
     $('.main-city-item .item.video').imgLiquid();

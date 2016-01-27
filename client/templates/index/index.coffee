@@ -25,6 +25,19 @@ Template.index.rendered = ->
     transitionDuration: 1750
     #-walk: (index, slideSettings) ->
 
+  $("body").niceScroll
+    bouncescroll: true
+    cursorborder: 0
+    cursorcolor: "#404142"
+    cursorwidth: "9px"
+    zindex: 9999
+    mousescrollstep: 28 # default is 40 (px)
+    scrollspeed: 42 # default is 60
+    autohidemode: "cursor"
+    hidecursordelay: 700
+    horizrailenabled: false
+
+
 
 Template.index.events
   "click .head-section-wrap": (event, template) ->
