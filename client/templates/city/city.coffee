@@ -152,19 +152,20 @@ Template.city.onRendered ->
   instance = @
 
   Meteor.setTimeout ->
-    console.log("Adding Nicescroll")
-    $(".main-city-list-wrap").niceScroll
-      bouncescroll: true
-      cursorborder: 0
-      cursorcolor: "#6C6E70"
-      cursorwidth: "8px"
-      zindex: 9999
-      mousescrollstep: 26 # default is 40 (px)
-      scrollspeed: 42 # default is 60
-      autohidemode: "cursor"
-      hidecursordelay: 700
-      horizrailenabled: false
-  , 400
+    #console.log("Adding Nicescroll")
+    unless $(".main-city-list-wrap").hasClass('hasNiceScroll')
+      $(".main-city-list-wrap").addClass('.hasNiceScroll').niceScroll
+        bouncescroll: true
+        cursorborder: 0
+        cursorcolor: "#6C6E70"
+        cursorwidth: "9px"
+        zindex: 9999
+        mousescrollstep: 26 # default is 40 (px)
+        scrollspeed: 42 # default is 60
+        autohidemode: "cursor"
+        hidecursordelay: 700
+        horizrailenabled: false
+    , 400
 
   
   $.getScript '/js/imgLiquid-min.js', ->

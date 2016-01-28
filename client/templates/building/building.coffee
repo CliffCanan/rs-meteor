@@ -432,15 +432,19 @@ Template.building.events
   "click .edit-building": (event, template) ->
     Session.set("editBuildingId", template.data.building._id)
 
-    $(".fg-input").each (index) ->
-      console.log index + ": " + $(this).val()
-      val = $(this).val()
-      $(this).closest(".fg-line").removeClass "fg-toggled"  if val.length is 0 and $(this).closest(".fg-line").hasClass("fg-toggled")
-
+    Meteor.setTimeout(() ->
+      $(".fg-input").each (index) ->
+        console.log index + ": " + $(this).val()
+        val = $(this).val()
+        $(this).closest(".fg-line").removeClass "fg-toggled"  if val.length is 0 and $(this).closest(".fg-line").hasClass("fg-toggled")
+    , 500
 
 
   "click .cancel-building": (event, template) ->
     Session.set("editBuildingId", null)
+
+  "click .save-building": (event, template) ->
+    $('.building-form').submit()
 
   "submit .building-form": (event, template) ->
     event.preventDefault()
