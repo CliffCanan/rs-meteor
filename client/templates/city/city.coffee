@@ -37,10 +37,6 @@ Template.city.onCreated ->
   $("#contactUsPopup").on "hide.bs.modal", (e) ->
     $("#contactUsPopup form").formValidation "resetForm", true
 
-  $("#contactUsPopup").on "shown.bs.modal", (e) ->
-    console.log("City (40) - ContactUs popup ON.SHOWN")
-    Session.set "hasSeenContactUsPopup", true
-
 
 Template.city.helpers
   firstLoad: ->
@@ -373,6 +369,9 @@ Template.city.events
       unless error
         Session.set("editBuildingId", result.buildingId)
         Router.go(result.url)
+
+  "click .neighborhoods-section .filter-list a": (event, template) ->
+    $('.neighborhood-select .dropdown').removeClass('open')
 
   "click .travelMode": (event, template) ->
     $item = $(event.currentTarget)

@@ -1,9 +1,5 @@
 positions = [10000, 5000, 0, -5000, -10000]
 
-unitsCount = 0
-console.log("Building Initial... unitsCount: (next line)")
-console.log(unitsCount)
-
 Template.building.onCreated ->
   building = Router.current().data().building
 
@@ -369,26 +365,30 @@ Template.building.events
   "click .building-unit-item-less": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", false)
 
-    if unitsCount > 4
-      console.log('Removing class "scroll" to ul.building-unit-list')
-      $('ul.building-unit-list').removeClass('scroll')
-
   "click .remove-image": grab encapsulate (event, template) ->
-    Session.set("imageToRemove", @)
-    $('#confirmRemoval').modal('show')
+    imageToRemove = @
+    console.log(imageToRemove)
 
-  "click .confirm-removal":  grab encapsulate (event, template) ->
-    imageToRemove = Session.get("imageToRemove")
-    if imageToRemove instanceof FS.File
-      query = {"EJSON$value.EJSON_id": imageToRemove._id }
-    else if imageToRemove.vimeoId?
-      query = {"_id": imageToRemove._id }
+    swal
+      title: "Delete Picture Confirmation"
+      text: "You are about to permanently delete that picture - this <strong>cannot be un-done</strong>.  Do you still want to delete this picture?"
+      type: "warning"
+      confirmButtonColor: "#4588fa"
+      confirmButtonText: "Delete"
+      closeOnConfirm: false
+      showCancelButton: true
+      cancelButtonText: "Cancel"
+      showLoaderOnConfirm: true
+      html: true
+      , (isConfirm) ->
+        if isConfirm
+          if imageToRemove instanceof FS.File
+            query = {"EJSON$value.EJSON_id": imageToRemove._id }
+          else if imageToRemove.vimeoId?
+            query = {"_id": imageToRemove._id }
 
-    if query
-      Buildings.update({ _id: template.data.building._id}, { $pull: { images: query }})
-
-    $('#confirmRemoval').modal('hide')
-    Session.set("imageToRemove", null)
+          if query
+            Buildings.update({ _id: template.data.building._id}, { $pull: { images: query }})
 
   "change .choose-image-input": grab encapsulate (event, template) ->
     buildingId = @_id
@@ -408,20 +408,36 @@ Template.building.events
     )
 
   "click .remove-building": grab encapsulate (event, template) ->
-    $("#confirmBuildingRemoval").modal("show")
-
-  "click .confirm-building-removal": grab encapsulate (event, template) ->
-    building = template.data.building
-    Buildings.remove(building._id)
-    parent = building.parent()
-    if parent
-      Router.go("building", parent.getRouteData())
-    else
-      Router.go("city", {cityId: building.cityId})
-    $("#confirmBuildingRemoval").modal("hide")
+    swal
+      title: "Delete Building Confirmation"
+      text: "You are about to permanently delete this building - this <strong>cannot be un-done</strong>.  Do you still want to delete this buildig?"
+      type: "warning"
+      confirmButtonColor: "#4588fa"
+      confirmButtonText: "Delete"
+      closeOnConfirm: false
+      showCancelButton: true
+      cancelButtonText: "Cancel"
+      showLoaderOnConfirm: true
+      html: true
+      , (isConfirm) ->
+        if isConfirm
+          building = template.data.building
+          Buildings.remove(building._id)
+          parent = building.parent()
+          if parent
+            Router.go("building", parent.getRouteData())
+          else
+            Router.go("city", {cityId: building.cityId})
 
   "click .edit-building": (event, template) ->
     Session.set("editBuildingId", template.data.building._id)
+
+    $(".fg-input").each (index) ->
+      console.log index + ": " + $(this).val()
+      val = $(this).val()
+      $(this).closest(".fg-line").removeClass "fg-toggled"  if val.length is 0 and $(this).closest(".fg-line").hasClass("fg-toggled")
+
+
 
   "click .cancel-building": (event, template) ->
     Session.set("editBuildingId", null)

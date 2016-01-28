@@ -304,7 +304,7 @@ template(name="building")
 
                     .form-group.fg-float
                       .fg-line
-                        input.form-control.fg-input#leademail(type="text", name="address", value="{{address}}")
+                        input.form-control.fg-input(type="text", name="address", value="{{address}}")
                       label.fg-label(for="address") Address
 
                     .form-group.fg-float
@@ -484,36 +484,3 @@ template(name="building")
                               p.similar-property-price {{displayBuildingPrice ../queryBtype}}
 
         | {{ironRouterHack}}
-
-        #confirmRemoval.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close(type='button', data-dismiss='modal', aria-label='Close')
-                  span(aria-hidden='true') &times;
-                h4#myModalLabel.modal-title Remove {{removeMediaType}}
-              .modal-body Are you sure?
-              .modal-footer
-                button.btn.btn-primary.confirm-removal(type='button') Yes
-                button.btn.btn-default(type='button', data-dismiss='modal') No
-
-        #confirmBuildingRemoval.modal.fade(tabindex="-1", role="dialog", aria-labelledby="confirmBuildingRemovalLabel", aria-hidden="true")
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close(type="button", data-dismiss="modal", aria-label="Close")
-                  span(aria-hidden="true") &times;
-                h4#confirmBuildingRemovalLabel.modal-title Sorry.
-              .modal-body Are you sure?
-              .modal-footer
-                button.btn.btn-primary.confirm-building-removal(type="button") Yes
-                button.btn.btn-default(type="button", data-dismiss="modal") No
-
-        #askingUserLogin.modal.fade(tabindex="-1", role="dialog", aria-labelledby="confirmBuildingRemovalLabel", aria-hidden="true")
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close(type="button", data-dismiss="modal", aria-label="Close")
-                  span(aria-hidden="true") &times;
-                h4#confirmBuildingRemovalLabel.modal-title Sorry!
-              .modal-body You have to login at first to leave a review.

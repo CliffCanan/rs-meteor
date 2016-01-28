@@ -9,16 +9,18 @@ template(name="buildingImagesEdit")
                 | Add
                 br
                 | video
+
         each images
-          li.col-lg-4.col-md-3.col-sm-3.col-xs-6.images-sortable-item(data-id="{{_id}}")
+          li.col-xs-6.col-sm-3.images-sortable-item(data-id="{{_id}}")
             .item.edit-item
               #element1.thumbnail-image
                 if isVideo
                   i.fa.fa-video-camera.fa-3x
                 img.building-img.img-thumbnail(src="{{getThumbnail store='thumbs'}}")
                 #element2.cover-image
-                  button.remove-image( type='button', aria-label='Remove' data-toggle="modal" data-target="#confirmRemoval")
+                  button.remove-image( type='button', aria-label='Remove')
                     span.fa.fa-trash(aria-hidden='true')
+
         li.col-lg-4.col-md-4.col-sm-6.col-xs-8
           .item.add-image-item.edit-item
             .form-group

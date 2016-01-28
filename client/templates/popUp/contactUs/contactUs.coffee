@@ -120,18 +120,20 @@ Template.contactUs.rendered = ->
               content_category: "ContactUs"
               value: 20.0
               currency: 'USD'
+          else
+            console.log("NOT Triggering Analytics because this is a Meteor User or User has already submitted")
 
           form.find(".submit-button").prop("disabled", false)
           form.find(".loading").hide()
 
           swal
             title: "Great Success!"
-            text: "Good news - our team is already on the hunt to find the perfect apartment for you. We'll be in touch within the next 24 hours with any follow-up questions, and then you'll get a customized list of apartments that we think you will love."
+            text: "Good news - our team is already on the hunt to find the perfect apartment for you.<span class='show m-t-10'>We'll follow-up within 24 hours, and then you'll get a customized list of the best apartments that match your criteria.</span>"
             type: "success"
             showCancelButton: false
             confirmButtonColor: "#4588fa"
-            confirmButtonText: "Great!"
-            #-html: true
+            confirmButtonText: "Awesome"
+            html: true
       )
   )
 
@@ -154,6 +156,12 @@ Template.contactUs.events
       template.$('#contactUsTourDate').attr('disabled', true)
     else
       template.$('#contactUsTourDate').attr('disabled', false)
+
+  "shown.bs.modal #contactUsPopup": grab encapsulate (event, template) ->
+    Session.set "hasSeenContactUsPopup", true
+    Meteor.setTimeout(() ->
+      $('input#contactUsName').focus()
+    , 300)
 
   "hidden.bs.modal #contactUsPopup": grab encapsulate (event, template) ->
     $("#contactUsPopup form").formValidation "resetForm", true
