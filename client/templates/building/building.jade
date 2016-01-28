@@ -106,7 +106,7 @@ template(name="building")
                           span.building-main-rooms {{type}}
 
               if isEdit
-                .col-xs-12.col-sm-8.col-md-12.p-0.list-unstyled.clearfix
+                .col-xs-12.col-sm-8.col-md-12.p-0.clearfix
 
                   .building-main-prop
                     label
@@ -117,15 +117,15 @@ template(name="building")
 
                   each complexFields true
 
-                    .form-group
+                    .form-group.m-b-10
                       b {{label}}:
                       each values
                         .radio
                           label
                             input(type="radio", name="{{name}}", value="{{value}}", checked="{{isChecked}}")
                             | {{text}}
-                      label Comment:
-                        input.input-comment.form-control(type="text", name="{{commentName}}", value="{{commentValue}}")
+                      label.show Comment:
+                      input.input-comment.form-control(type="text", name="{{commentName}}", value="{{commentValue}}")
 
                   .form-group.clearfix
                     label.col-xs-5.control-label(for="isFurnished") Is Furnished:
@@ -212,8 +212,9 @@ template(name="building")
                         span.building-main-prop-text
                           | Available: {{moment . 'MM/DD/YYYY'}}
 
-              button.btn.btn-lg.btn-block.btn-primary.building-main-info-btn.m-t-25.check-availability(type="button") Check Availability
-                i.fa.fa-fw.fa-share.m-l-10
+              unless isEdit
+                button.btn.btn-lg.btn-block.btn-primary.building-main-info-btn.m-t-25.check-availability(type="button") Check Availability
+                  i.fa.fa-fw.fa-share.m-l-10
 
               if canApply
                 a.btn.btn-success.building-main-info-btn.visible-lg-block(href="{{pathFor 'newRentalApplication' query=rentalQuery}}") Apply Now
@@ -342,7 +343,7 @@ template(name="building")
                     .form-group.fg-float
                       .fg-line
                         textarea.form-control.fg-input(name="description",rows="8") {{{description}}}
-                      label.fg-label(for="address") Neighborhood
+                      label.fg-label(for="description") Description
                     
 
               if isEdit

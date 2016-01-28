@@ -1,17 +1,28 @@
 template(name="buildingImagesEdit")
   .container-fluid
+
     .row
+
       ul.list-unstyled.images-sortable-list.clearfix
-        li.col-lg-4.col-md-4.col-sm-6.col-xs-8
+
+        li.col-xs-6.col-sm-4.col-md-3
           .item.add-image-item.edit-item
             span.file-input.add-video-btn(aria-hidden='true')
-              b
-                | Add
+              i.fa.fa-fw.fa-file-video-o
+              b.p-5 Add Video
+
+        li.col-xs-6.col-sm-4.col-md-3
+          .item.add-image-item.edit-item
+            .form-group
+              span.file-input.add-image-btn(aria-hidden='true')
+                i.fa.fa-fw.fa-file-image-o
+                b.p-5 Add Images
                 br
-                | video
+                i.fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
+                input.choose-image-input(type="file" multiple="true")
 
         each images
-          li.col-xs-6.col-sm-3.images-sortable-item(data-id="{{_id}}")
+          li.col-xs-6.col-sm-4.col-md-3.images-sortable-item(data-id="{{_id}}")
             .item.edit-item
               #element1.thumbnail-image
                 if isVideo
@@ -21,12 +32,4 @@ template(name="buildingImagesEdit")
                   button.remove-image( type='button', aria-label='Remove')
                     span.fa.fa-trash(aria-hidden='true')
 
-        li.col-lg-4.col-md-4.col-sm-6.col-xs-8
-          .item.add-image-item.edit-item
-            .form-group
-              span.file-input.add-image-btn(aria-hidden='true')
-                b Add images
-                br
-                i.fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
-                input.choose-image-input(type="file" multiple="true")
   +vimeo

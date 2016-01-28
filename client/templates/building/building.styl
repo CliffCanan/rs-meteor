@@ -141,9 +141,15 @@ main.container
           text-align left
           text-transform capitalize
 
-      .building-main-prop
-        .radio+.radio,.checkbox+.checkbox
-          margin-top-8px
+      .radio
+        + .radio, .checkbox + .checkbox
+          margin-top 8px
+        + label
+          color #777
+          display block
+          font-weight normal
+          margin-top -5px
+
 
       .building-main-prop-list
         padding 0
@@ -190,7 +196,7 @@ main.container
       @media screen and (min-width: 768px)
         margin-bottom 22px
       @media screen and (min-width: 992px)
-        margin-bottom 26px
+        margin-bottom 25px
       &.fg-float
         margin-left 0
 
@@ -488,16 +494,19 @@ main.container
   text-align center
   width 140px
   height 110px
-  font-size 20px
+  font-size 18px
   color #272b30
   display block
-  border-radius 4px
+  border-radius 6px
   margin-top 10px
   cursor pointer
   box-sizing border-box
+  padding-top 10px
+  i:first-child
+    font-size 25x
+    margin-top 10px
   b
-    padding 20px 20px 0
-    display inline-block
+    display block
 
 .add-image-btn input[type=file]
   position absolute

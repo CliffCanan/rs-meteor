@@ -1,32 +1,50 @@
-<p>Hi Team!</p>
+<p style="margin:0">Hi Team!</p>
 
-<p>Someone just filled out a <b>Check Availability</b> request on RentScene.com:</p>
+<h4>New Client Lead</h4>
 
-<ul>
-    <li><b>Name:</b> {{request.name}}</li>
-    <li>
-        <b>Building:</b>
-        <a href="http://128.199.88.135/{{request.link}}">{{request.buildingName}}</a>
-    </li>
-    <li><b>City:</b> <b>{{request.cityName}}</b></li>
-    <li><b>Move-In Date:</b> {{request.moveInDate}}</li>
-    <li>
-        <b># of Bedrooms:</b>&nbsp;
-        {{request.bedrooms}}
-    </li>
-    <li>
-        <b>Email:</b>&nbsp;
-        {{request.email}}
-    </li>
-    <li>
-        <b>Phone #:</b>&nbsp;
-        {{request.phoneNumber}}
-    </li>
-</ul>
+<p>Someone just filled out a <span style="font-style:italic;font-weight:bold">Check Availability</span> request on RentScene.com:</p>
 
-<p>Additional comments:</p>
-<blockquote>{{#if request.question}}&quot;{{request.question}}&quot;{{/if}}</blockquote>
+<table cellpadding="3" border="0" >
+    <tbody>
+        <tr>
+            <td><b>Name:</b></td>
+            <td>{{request.name}}</td>
+        </tr>
+        <tr>
+            <td><b>Email:</b></td>
+            <td>{{request.email}}</td>
+        </tr>
+        <tr>
+            <td><strong>Phone #:</strong></td>
+            <td>{{request.phoneNumber}}</td>
+        </tr>
+        <tr>
+            <td><strong>Building:</strong></td>
+            <td>
+                <a href="https:www.rentscene.com/{{request.link}}">{{request.buildingName}}</a>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>City:</strong></td>
+            <td>{{request.cityName}}</td>
+        </tr>
+        <tr>
+            <td><b>Move-In Date:</b></td>
+            <td>{{request.moveInDate}}</td>
+        </tr>
+        <tr>
+            <td><b># of Bedrooms:</b></td>
+            <td>{{request.bedrooms}}</td>
+        </tr>
+        <tr>
+            <td><strong>Additional Comments:</strong></td>
+            <td><em>{{#if request.question}}&quot;{{request.question}}&quot;{{/if}}</em></td>
+        </tr>
+    </tbody>
+</table>
 
-<p>Keep up the great work!</p>
+<br />
 
-<p style="color: #aaa;margin-top:20px">P.S. Hit "reply" to send an email directly to the client ;)</p>
+<p style="margin-top:30px">Keep up the great work!<br />- Rent Scene Robot</p>
+
+<p style="color: #999;margin-top:25px">P.S. Hit "reply" to send an email directly to the client ;)</p>

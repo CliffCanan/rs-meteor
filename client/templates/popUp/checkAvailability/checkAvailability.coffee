@@ -72,7 +72,10 @@ Template.checkAvailability.rendered = ->
       console.log(json)
 
       CheckAvailabilityRequests.insert(json, callback = (error, id) ->
-        console.log("CheckAvailability submission Callback reached")
+
+        form.find(".submit-button").prop("disabled", false)
+        form.find(".loading").hide()
+
         if error
           console.log(error)
           Session.set("serverError", true)
@@ -83,9 +86,6 @@ Template.checkAvailability.rendered = ->
 
           form.trigger('reset')
           form.data('formValidation').resetForm()
-
-          form.find(".submit-button").prop("disabled", false)
-          form.find(".loading").hide()
 
           unless Meteor.user() or Session.get("hasAlrdyConverted") is true
             Session.set("hasAlrdyConverted", true)
