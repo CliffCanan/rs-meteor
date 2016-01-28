@@ -67,6 +67,10 @@ main.container
       @media screen and (min-width: 992px)
         float right
 
+      .fg-float.buildingTitle .fg-toggled + .fg-label
+        top -18px
+        font-size 12.5px
+
       .building-main-info-title
         color #272b30
         font-family 'Montserrat', Helvetica, sans-serif
@@ -137,6 +141,10 @@ main.container
           text-align left
           text-transform capitalize
 
+      .building-main-prop
+        .radio+.radio,.checkbox+.checkbox
+          margin-top-8px
+
       .building-main-prop-list
         padding 0
         .building-main-prop
@@ -180,7 +188,9 @@ main.container
     .form-group
       margin-bottom 20px
       @media screen and (min-width: 768px)
-        margin-bottom 30px
+        margin-bottom 22px
+      @media screen and (min-width: 992px)
+        margin-bottom 26px
       &.fg-float
         margin-left 0
 
@@ -276,7 +286,8 @@ main.container
     display block
     margin-bottom 10px
     .building-admin-edit-text
-      width 120px
+      font-size 13px
+      margin-bottom 4px
       display block
     .building-admin-edit-check
       display inline-block

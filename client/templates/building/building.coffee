@@ -434,10 +434,11 @@ Template.building.events
 
     Meteor.setTimeout() ->
       $(".fg-input").each (index) ->
-        console.log index + ": " + $(this).val()
+        #console.log index + ": " + $(this).val()
         val = $(this).val()
-        $(this).closest(".fg-line").removeClass "fg-toggled"  if val.length is 0 and $(this).closest(".fg-line").hasClass("fg-toggled")
-    , 500
+        if val.length > 0
+          $(this).closest(".fg-line").addClass "fg-toggled"
+    , 300
 
 
   "click .cancel-building": (event, template) ->

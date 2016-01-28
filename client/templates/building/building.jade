@@ -57,7 +57,7 @@ template(name="building")
 
             .building-main-info.col-xs-12.col-md-5.col-lg-4
               if isEdit
-                .form-group.fg-float
+                .form-group.fg-float.buildingTitle
                   .fg-line
                     input.form-control.fg-input.building-main-info-title(type="text", name="title", value="{{title}}")
                   label.fg-label(for="title") Building Title
@@ -127,9 +127,9 @@ template(name="building")
                       label Comment:
                         input.input-comment.form-control(type="text", name="{{commentName}}", value="{{commentValue}}")
 
-                  .form-group
-                    label.col-xs-2.control-label(for="isFurnished") Is Furnished:
-                    .col-xs-10
+                  .form-group.clearfix
+                    label.col-xs-5.control-label(for="isFurnished") Is Furnished:
+                    .col-xs-7
                       select(name="isFurnished", value="true", checked="{{isFurnished}}")
                         option(value="", selected="{{condition isFurnished 'is' undefined}}")
                         option(value="true", selected="{{condition isFurnished 'is' true}}") Yes
@@ -138,17 +138,17 @@ template(name="building")
                   label Date Available
                   +datepicker(name="availableAt" value=getAvailableAtForDatepicker)
 
-                  .form-group
-                    label.col-xs-2.control-label(for="isNotAvailable") Is Not Available:
-                    .col-xs-10
+                  .form-group.clearfix
+                    label.col-xs-7.control-label(for="isNotAvailable") Is Not Available:
+                    .col-xs-5
                       input(type="checkbox", name="isNotAvailable", value="true", checked="{{isNotAvailable}}")
  
-                  .form-group
-                    label.col-xs-2.control-label(for="acceptOnlineApplication") Accept Online App:
-                    .col-xs-10
+                  .form-group.clearfix
+                    label.col-xs-7.control-label(for="acceptOnlineApplication") Accept Online App:
+                    .col-xs-5
                       input(type="checkbox", name="acceptOnlineApplication", value="true", checked="{{acceptOnlineApplication}}")
 
-                  .form-group
+                  .form-group.clearfix
                     label Bedrooms
                     .input-group.m-b-5
                       .input-group-addon From
@@ -296,7 +296,7 @@ template(name="building")
                   .col-xs-12.col-md-6
                     +buildingParentIdEdit
 
-                    label.building-admin-edit
+                    .form-group.building-admin-edit
                       span.building-admin-edit-text City:
                       select.form-control(name="cityId")
                         each cities
@@ -341,7 +341,7 @@ template(name="building")
                   .col-xs-12.col-md-6
                     .form-group.fg-float
                       .fg-line
-                        textarea.form-control(name="description",rows="8") {{{description}}}
+                        textarea.form-control.fg-input(name="description",rows="8") {{{description}}}
                       label.fg-label(for="address") Neighborhood
                     
 
