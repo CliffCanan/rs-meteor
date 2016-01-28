@@ -114,7 +114,6 @@ Template.checkAvailability.rendered = ->
       )
   )
 
-
 $("#checkAvailabilityPopup").on "hidden.bs.modal", ->
   console.log("Check Availability - Popup hidden - 112")
   $("#checkAvailabilityPopup form").formValidation "resetForm", true
@@ -124,15 +123,6 @@ Template.checkAvailability.events
   "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'moveInDate'
 
-  "blur .form-control.fg-input": (event, template) ->
-    console.log("Check Avail -> Events - Input Blurred")
-
-    fgrp = $(event.target).closest('.form-group');
-
-    val = $(event.target).val();
-
-    console.log("Check Avail -> Events - Input Blurred: val() is: ")
-    console.log(val);
-
-    if fgrp.hasClass('fg-float')
-      $(event.target).closest('.fg-line').removeClass('fg-toggled');
+  "shown.bs.modal #checkAvailabilityPopup": grab encapsulate (event, template) ->
+    console.log("Check Avail Popup Fired - 127")
+    template.$('#leadname').focus
