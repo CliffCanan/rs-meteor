@@ -311,8 +311,7 @@ Template.building.onRendered ->
       , 12000
 
   $("#checkAvailabilityPopup").on "shown.bs.modal", (e) ->
-    console.log("Check Avail Popup Fired - 295") 
-    Session.set "hasSeenCheckAvailabilityPopup", true
+    console.log("Check Avail Popup Fired - 295")
 
   $("#checkAvailabilityPopup").on "hide.bs.modal", (e) ->
     $("#checkAvailabilityPopup form").formValidation "resetForm", true

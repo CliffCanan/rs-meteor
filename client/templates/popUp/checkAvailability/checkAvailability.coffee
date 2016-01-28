@@ -125,4 +125,7 @@ Template.checkAvailability.events
 
   "shown.bs.modal #checkAvailabilityPopup": grab encapsulate (event, template) ->
     console.log("Check Avail Popup Fired - 127")
-    template.$('#leadname').focus
+    Session.set "hasSeenCheckAvailabilityPopup", true
+    Meteor.setTimeout(() ->
+      $('input#leadname').focus()
+    , 300)
