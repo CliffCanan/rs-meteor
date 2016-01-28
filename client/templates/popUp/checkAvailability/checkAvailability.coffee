@@ -124,14 +124,6 @@ Template.checkAvailability.events
   "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'moveInDate'
 
-  "focus .form-control.fg-input": (event, template) ->
-    console.log("Check Avail -> Events - Input Focused")
-    $(event.target).closest('.fg-line').addClass('fg-toggled');
-
-  "focus .form-control.fg-input": ->
-    console.log("Check Avail -> Events 2 - Input Focused")
-    #$(@).closest('.fg-line').addClass('fg-toggled')
-
   "blur .form-control.fg-input": (event, template) ->
     console.log("Check Avail -> Events - Input Blurred")
 

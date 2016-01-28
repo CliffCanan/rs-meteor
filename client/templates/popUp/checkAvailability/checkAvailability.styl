@@ -12,7 +12,9 @@
       font-size 18px
       color #272b30
       box-sizing border-box
-      padding 0 0 15px
+      padding 0 0 10px
+        @media screen and (min-width: 768px)
+          padding 0 0 14px
       .close i
         color #272b30
         @media screen and (min-width: 768px)
@@ -32,6 +34,9 @@
         font-size 14px
         color #272b30
         font-weight bold
+        &#msgGrp
+          font-weight normal
+          margin-top 20px
         .form-control
           &::-webkit-input-placeholder
             color #272b30

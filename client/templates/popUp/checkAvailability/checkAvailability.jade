@@ -9,7 +9,9 @@ template(name="checkAvailability")
             .modal-header
               button.close(type='button', data-dismiss='modal', aria-label='Close')
                 i.fa.fa-times(aria-hidden='true')
-              h4#myModalLabel.modal-title Check Availability
+              h4.modal-title.withIcon
+                i.fa.fa-calendar-check-o
+                | Check Availability
 
             .modal-body
               p.form-group
@@ -38,23 +40,15 @@ template(name="checkAvailability")
                   input.form-control.fg-input#leadphone(name="phoneNumber")
                 label.fg-label(for="leadphone") Phone #
 
-
-              //fieldset.form-group.availability-field
-              //  input.form-control(name="name" placeholder="Name")
-
-              //fieldset.form-group.availability-field
-              //  input.form-control(name="email" placeholder="Email address")
-
-              //fieldset.form-group.availability-field
-              //  input#phone-num.form-control(name="phoneNumber" placeholder="Phone Number")
-
-              fieldset.form-group.availability-field
+              fieldset.form-group.availability-field#msgGrp
                 textarea.form-control(name="question" placeholder="Is this unit still available?", rows="2")
 
               if condition agroIsUnit 'is' false
                 fieldset.row.form-inline.availability-field#bedrooms-wrapper
                   .col-xs-5
-                    label.availability-text(for="bedrooms") # of Bedrooms
+                    label.availability-text(for="bedrooms")
+                      span.hide-sm # of
+                      | Bedrooms
                   .col-xs-7
                     .form-group
                       .input-group
