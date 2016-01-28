@@ -21,43 +21,46 @@ template(name="building")
 
     .city-page-wrap.col-lg-12(itemscope, itemtype="http://schema.org/LocalBusiness")
 
-      form.building-form.content-wrapper.p-t-10
-
-        if canOperateWithBuilding
-          .control-buttons.btn-group
-            unless parentId
-              button.btn.btn-success.add-unit(type="button")
-                i.fa.fa-plus
-                | Add Unit
-            button.btn.btn-danger.remove-building(type="button")
-              i.fa.fa-trash
-              | Delete
-            button.btn.btn-primary.publish-building-toggle(type="button")
-              i.fa(class="{{#if isPublished}}fa-arrow-circle-o-up{{else}}fa-arrow-circle-o-down{{/if}}")
-              if isPublished
-                | Unpublish
-              else
-                | Publish
-            if isEdit
-              button.btn.btn-primary.save-building(type="submit")
-                i.fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
-                i.fa.fa-check
-                | Save
-              button.btn.btn-warning.cancel-building(type="button")
-                i.fa.fa-times
-                | Cancel
+      if canOperateWithBuilding
+        .control-buttons.btn-group
+          unless parentId
+            button.btn.btn-success.add-unit(type="button")
+              i.fa.fa-plus
+              | Add Unit
+          button.btn.btn-danger.remove-building(type="button")
+            i.fa.fa-trash
+            | Delete
+          button.btn.btn-primary.publish-building-toggle(type="button")
+            i.fa(class="{{#if isPublished}}fa-arrow-circle-o-up{{else}}fa-arrow-circle-o-down{{/if}}")
+            if isPublished
+              | Unpublish
             else
-              button.btn.btn-primary.edit-building(type="button")
-                i.fa.fa-pencil-square-o
-                | Edit
+              | Publish
+          if isEdit
+            button.btn.btn-primary.save-building(type="submit")
+              i.fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
+              i.fa.fa-check
+              | Save
+            button.btn.btn-warning.cancel-building(type="button")
+              i.fa.fa-times
+              | Cancel
+          else
+            button.btn.btn-primary.edit-building(type="button")
+              i.fa.fa-pencil-square-o
+              | Edit
 
+
+      form.building-form.content-wrapper.p-t-10
 
         .building-page.clearfix
           .row
 
             .building-main-info.col-xs-12.col-md-5.col-lg-4
               if isEdit
-                input.building-main-info-title(type="text", name="title", value="{{title}}")
+                .form-group.fg-float
+                  .fg-line
+                    input.form-control.fg-input.building-main-info-title(type="text", name="title", value="{{title}}")
+                  label.fg-label(for="title") Building Title
               else
                 h1.col-xs-12.col-sm-8.col-md-12.building-main-info-title(itemprop="name") {{getUnitTitle}}
 
@@ -103,65 +106,89 @@ template(name="building")
                           span.building-main-rooms {{type}}
 
               if isEdit
-                ul.col-xs-12.col-sm-8.col-md-12.building-main-prop-list.list-unstyled.clearfix
-                  li.building-main-prop
+                .col-xs-12.col-sm-8.col-md-12.p-0.list-unstyled.clearfix
+
+                  .building-main-prop
                     label
                       input.input-from-to.form-control(type="text", name="sqftFrom", value="{{sqftFrom}}")
                       | -
                       input.input-from-to.form-control(type="text", name="sqftTo", value="{{sqftTo}}")
                       | Square Ft
+
                   each complexFields true
-                    li.building-main-prop
+
+                    .form-group
                       b {{label}}:
-                      .label-radio-wrap
-                        each values
-                          label.label-radio
+                      each values
+                        .radio
+                          label
                             input(type="radio", name="{{name}}", value="{{value}}", checked="{{isChecked}}")
                             | {{text}}
                       label Comment:
                         input.input-comment.form-control(type="text", name="{{commentName}}", value="{{commentValue}}")
-                  li.building-main-prop
-                    label Is furnished:
+
+                  .form-group
+                    label.col-xs-2.control-label(for="isFurnished") Is Furnished:
+                    .col-xs-10
                       select(name="isFurnished", value="true", checked="{{isFurnished}}")
                         option(value="", selected="{{condition isFurnished 'is' undefined}}")
                         option(value="true", selected="{{condition isFurnished 'is' true}}") Yes
                         option(value="false", selected="{{condition isFurnished 'is' false}}") No
-                  li.building-main-prop
-                    label Available at:
-                      +datepicker(name="availableAt" value=getAvailableAtForDatepicker)
-                    label
+
+                  label Date Available
+                  +datepicker(name="availableAt" value=getAvailableAtForDatepicker)
+
+                  .form-group
+                    label.col-xs-2.control-label(for="isNotAvailable") Is Not Available:
+                    .col-xs-10
                       input(type="checkbox", name="isNotAvailable", value="true", checked="{{isNotAvailable}}")
-                      | Is Not Available
-                    label
+ 
+                  .form-group
+                    label.col-xs-2.control-label(for="acceptOnlineApplication") Accept Online App:
+                    .col-xs-10
                       input(type="checkbox", name="acceptOnlineApplication", value="true", checked="{{acceptOnlineApplication}}")
-                      | Accept Online App
-                  li.building-main-prop
-                    label
+
+                  .form-group
+                    label Bedrooms
+                    .input-group.m-b-5
+                      .input-group-addon From
                       input.input-from-to.form-control(type="text", name="bedroomsFrom", value="{{bedroomsFrom}}")
-                      | -
+                      .input-group-addon
+                        i.fa.fa-fw.fa-bed
+                    .input-group.m-b-5
+                      .input-group-addon To
                       input.input-from-to.form-control(type="text", name="bedroomsTo", value="{{bedroomsTo}}")
-                      | Bedrooms
-                  li.building-main-prop
-                    label
+                      .input-group-addon
+                        i.fa.fa-fw.fa-bed
+
+                  .form-group
+                    label Bathrooms
+                    .input-group.m-b-5
+                      .input-group-addon From
                       input.input-from-to.form-control(type="text", name="bathroomsFrom", value="{{bathroomsFrom}}")
-                      | -
+                      .input-group-addon
+                        img.bath-icon(src="/images/bath.svg")
+                    .input-group.m-b-5
+                      .input-group-addon To
                       input.input-from-to.form-control(type="text", name="bathroomsTo", value="{{bathroomsTo}}")
-                      | Bathrooms
+                      .input-group-addon
+                        img.bath-icon(src="/images/bath.svg")
+
               else
                 ul.col-xs-12.col-sm-8.col-lg-12.building-main-prop-list.list-unstyled.clearfix
                   with getSqft
-                    li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
+                    li.building-main-prop.col-xs-6.col-sm-4.col-lg-6
                       i.fa.fa-check.blue-icon
                       span.building-main-prop-text
                         | {{.}} sq ft
 
                   if isFurnished
-                    li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
+                    li.building-main-prop.col-xs-6.col-sm-4.col-lg-6
                       i.fa.fa-check.blue-icon
                       span.building-main-prop-text Furnished
 
                   each complexFields
-                    li.building-main-prop.col-xs-12.col-sm-4.col-lg-6(data-toggle="tooltip", data-placement="top", title="{{commentValue}}")
+                    li.building-main-prop.col-xs-6.col-sm-4.col-lg-6(data-toggle="tooltip", data-placement="top", title="{{commentValue}}")
                       i.fa(class="{{iconClass}}")
                       span.building-main-prop-text
                         | {{text}}
@@ -169,18 +196,18 @@ template(name="building")
                         i.fa.fa-question-circle
 
                   with getBathrooms
-                    li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
+                    li.building-main-prop.col-xs-6.col-sm-4.col-lg-6
                       i.fa.fa-check.blue-icon
                       span.building-main-prop-text
                         | {{.}}
 
                   if isNotAvailable
-                    li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
+                    li.building-main-prop.col-xs-6.col-sm-4.col-lg-6
                       i.fa.fa-times.grey-icon
                       span.building-main-prop-text Not Currently Available
                   else
                     with getAvailableAt
-                      li.building-main-prop.col-xs-12.col-sm-4.col-lg-6
+                      li.building-main-prop.col-xs-6.col-sm-4.col-lg-6
                         i.fa.fa-check.blue-icon
                         span.building-main-prop-text
                           | Available: {{moment . 'MM/DD/YYYY'}}
@@ -265,40 +292,58 @@ template(name="building")
             .col-xs-12.col-md-7.col-lg-8.building-info-wrap
 
               if isEdit
-                +buildingParentIdEdit
-                label.building-admin-edit
-                  span.building-admin-edit-text City:
-                  select.form-control(name="cityId")
-                    each cities
-                      option(value="{{key}}", selected="{{condition key 'is' ../cityId}}") {{value}}
+                .row
+                  .col-xs-12.col-md-6
+                    +buildingParentIdEdit
 
-                label.building-admin-edit
-                  span.building-admin-edit-text Address:
-                  input.form-control(type="text", name="address", value="{{address}}")
-                label.building-admin-edit
-                  span.building-admin-edit-text Postal code:
-                  input.form-control(type="text", name="postalCode", value="{{postalCode}}")
-                label.building-admin-edit
-                  span.building-admin-edit-text Neighborhood:
-                  input.form-control(type="text", name="neighborhood", value="{{neighborhood}}")
-                label.building-admin-edit
-                  input(type="checkbox", name="isOnMap", value="true", checked="{{isOnMap}}")
-                  span.building-admin-edit-text.building-admin-edit-check Is on map
-                label.building-admin-edit
-                  span.building-admin-edit-text Unit type:
-                  select.form-control(name="btype")
-                    each btypes
-                      option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
-                label.building-admin-edit.form-inline
-                  span.building-admin-edit-text Position:
-                  select.select-position-defs.form-control
-                    option(value="10000", selected="{{condition position 'is' 10000}}") Very High (10000)
-                    option(value="5000", selected="{{condition position 'is' 5000}}") High (5000)
-                    option(value="0", selected="{{condition position 'is' 0}}") Medium (0)
-                    option(value="-5000", selected="{{condition position 'is' -5000}}") Low (-5000)
-                    option(value="-10000", selected="{{condition position 'is' -10000}}") Very Low (-10000)
-                    option(value="manual", selected="{{isManualPosition}}") Manual
-                  input.form-control.text-right.input-building-postion(class="{{#unless isManualPosition}}hidden{{/unless}}" type="text", name="position", value="{{position}}")
+                    label.building-admin-edit
+                      span.building-admin-edit-text City:
+                      select.form-control(name="cityId")
+                        each cities
+                          option(value="{{key}}", selected="{{condition key 'is' ../cityId}}") {{value}}
+
+                    .form-group.fg-float
+                      .fg-line
+                        input.form-control.fg-input#leademail(type="text", name="address", value="{{address}}")
+                      label.fg-label(for="address") Address
+
+                    .form-group.fg-float
+                      .fg-line
+                        input.form-control.fg-input(type="text", name="postalCode", value="{{postalCode}}")
+                      label.fg-label(for="address") Postal (ZIP) Code
+
+                    .form-group.fg-float
+                      .fg-line
+                        input.form-control.fg-input(type="text", name="neighborhood", value="{{neighborhood}}")
+                      label.fg-label(for="address") Neighborhood
+
+                    label.building-admin-edit
+                      input(type="checkbox", name="isOnMap", value="true", checked="{{isOnMap}}")
+                      span.building-admin-edit-text.building-admin-edit-check Is on map
+
+                    label.building-admin-edit
+                      span.building-admin-edit-text Unit type:
+                      select.form-control(name="btype")
+                        each btypes
+                          option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
+
+                    label.building-admin-edit.form-inline
+                      span.building-admin-edit-text Position:
+                      select.select-position-defs.form-control
+                        option(value="10000", selected="{{condition position 'is' 10000}}") Very High (10000)
+                        option(value="5000", selected="{{condition position 'is' 5000}}") High (5000)
+                        option(value="0", selected="{{condition position 'is' 0}}") Medium (0)
+                        option(value="-5000", selected="{{condition position 'is' -5000}}") Low (-5000)
+                        option(value="-10000", selected="{{condition position 'is' -10000}}") Very Low (-10000)
+                        option(value="manual", selected="{{isManualPosition}}") Manual
+                      input.form-control.text-right.input-building-postion(class="{{#unless isManualPosition}}hidden{{/unless}}" type="text", name="position", value="{{position}}")
+
+                  .col-xs-12.col-md-6
+                    .form-group.fg-float
+                      .fg-line
+                        textarea.form-control(name="description",rows="8") {{{description}}}
+                      label.fg-label(for="address") Neighborhood
+                    
 
               if isEdit
                 +buildingImagesEdit
@@ -330,28 +375,25 @@ template(name="building")
               .building-main-info-desc-wrap
                 input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
 
-                .row
-                  .col-xs-12.col-sm-8
-                    .building-main-info-desc
-                      if isEdit
-                        textarea.form-control(name="description") {{{description}}}
-                      else
-                        | {{{getDescription}}}
+                unless isEdit
+                  .row
+                    .col-xs-12.col-sm-8
+                      .building-main-info-desc {{{getDescription}}}
 
-                  .col-xs-12.col-sm-4
-                    .walk-score-wrap
-                      div
-                        h2 {{address}}
-                        h3 Walker's Paradise
-                        .icon-wrap
-                          div
-                            a(href="#")
-                              img(src="//pp.walk.sc/badge/walk/{{address}}-{{cityName}}.svg", alt="Walk Score of {{address}} {{cityName}} {{postalCode}}")
-                              img(src="//pp.walk.sc/badge/transit/{{address}}-{{cityName}}.svg", alt="Transit Score of {{address}} {{cityName}} {{postalCode}}")
-                              img(src="//pp.walk.sc/badge/bike/{{address}}-{{cityName}}.svg", alt="Bike Score of {{address}} {{cityName}} {{postalCode}}")
-                       //- p
-                       //-   a(href="/neighborhoods/")
-                       //-     | Learn more about {{cityName}}
+                    .col-xs-12.col-sm-4
+                      .walk-score-wrap
+                        div
+                          h2 {{address}}
+                          h3 Walker's Paradise
+                          .icon-wrap
+                            div
+                              a(href="#")
+                                img(src="//pp.walk.sc/badge/walk/{{address}}-{{cityName}}.svg", alt="Walk Score of {{address}} {{cityName}} {{postalCode}}")
+                                img(src="//pp.walk.sc/badge/transit/{{address}}-{{cityName}}.svg", alt="Transit Score of {{address}} {{cityName}} {{postalCode}}")
+                                img(src="//pp.walk.sc/badge/bike/{{address}}-{{cityName}}.svg", alt="Bike Score of {{address}} {{cityName}} {{postalCode}}")
+                         //- p
+                         //-   a(href="/neighborhoods/")
+                         //-     | Learn more about {{cityName}}
 
 
               if isEdit

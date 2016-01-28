@@ -44,11 +44,15 @@ main.container
     a
       color #4588fa
 
+.control-buttons
+  @media screen and (min-width: 600px)
+    position absolute
+    top -55px
+    right 30px
+
 .content-wrapper
   height 100%
-  .control-buttons
-    margin-bottom 10px
-    float right
+
 
   .building-page
     max-width 1280px
@@ -138,12 +142,14 @@ main.container
         padding 0
         .building-main-prop
           color #272b30
-          font-size 15px
-          margin 5px 0
+          font-size 14.5px
+          margin 4px 0
           float none
           display inline-block
           vertical-align top
           padding-right 0
+          padding-left 0
+          width 50%
           @media screen and (min-width: 768px)
             font-size 16px
             text-indent -12px
@@ -172,6 +178,10 @@ main.container
         font-size 15px
         position relative
         top -1px
+
+    .fg-float.form-group
+      margin-left 0
+
 
 .building-main-info-desc-wrap
   .building-main-info-desc

@@ -3,6 +3,7 @@ template(name="buildingAdminFieldsEdit")
     label
       | Same as building:
       span.building-admin-same-id-select-placeholder
+
   with adminBuilding
     if mlsNo
       .building-admin-info
@@ -10,31 +11,39 @@ template(name="buildingAdminFieldsEdit")
           | MLS #:
         span.building-admin-info-data
           | {{mlsNo}}
-    .form-group
-      label.building-admin-form-text
-        | How to check availability:
-        input.admin-field.form-control(type="text", name="adminAvailability", value="{{adminAvailability}}", disabled="{{Session 'adminSameId'}}")
-    .form-group
-      label.building-admin-form-text
-        | Escorted:
-        input.admin-field.form-control(type="text", name="adminEscorted", value="{{adminEscorted}}", disabled="{{Session 'adminSameId'}}")
-    .form-group
-      label.building-admin-form-text
-        | Application fee:
-        input.admin-field.form-control(type="text", name="adminAppFee", value="{{adminAppFee}}", disabled="{{Session 'adminSameId'}}")
-    .form-group
-      label.building-admin-form-text
-        | Office hours:
-        textarea.admin-field.form-control(name="adminOfficeHours", disabled="{{Session 'adminSameId'}}", rows="5") {{adminAvailability}}
-    .form-group
-      label.building-admin-form-text
-        | Scheduling instructions:
-        textarea.admin-field.form-control(name="adminScheduling", disabled="{{Session 'adminSameId'}}", rows="5") {{adminScheduling}}
-    .form-group
-      label.building-admin-form-text
-        | Contact instructions:
-        textarea.admin-field.form-control(name="adminContact", disabled="{{Session 'adminSameId'}}", rows="5") {{adminContact}}
-    .form-group
-      label.building-admin-form-text
-        | Notes:
-        textarea.admin-field.form-control(name="adminNotes", disabled="{{Session 'adminSameId'}}", rows="5") {{adminNotes}}
+
+    .form-group.fg-float
+      .fg-line
+        input.admin-field.form-control.fg-input(type="text", name="adminAvailability", value="{{adminAvailability}}", disabled="{{Session 'adminSameId'}}")
+      label.fg-label(for="adminAvailability") How To Check Availability:
+
+    .form-group.fg-float
+      .fg-line
+        input.admin-field.form-control.fg-input(type="text", name="adminAppFee", value="{{adminAppFee}}", disabled="{{Session 'adminSameId'}}")
+      label.fg-label(for="adminAppFee") Application Fee:
+
+    .form-group.fg-float
+      .fg-line
+        input.admin-field.form-control.fg-input(type="text", name="adminEscorted", value="{{adminEscorted}}", disabled="{{Session 'adminSameId'}}")
+      label.fg-label(for="adminEscorted") Escorted:
+
+
+    .form-group.fg-float
+      .fg-line
+        textarea.admin-field.form-control.fg-input(type="text", name="adminOfficeHours", disabled="{{Session 'adminSameId'}}", rows="5") {{adminAvailability}}
+      label.fg-label(for="adminOfficeHours") Office Hours:
+
+    .form-group.fg-float
+      .fg-line
+        textarea.admin-field.form-control.fg-input(type="text", name="adminScheduling", rows="5", disabled="{{Session 'adminSameId'}}") {{adminScheduling}}
+      label.fg-label(for="adminScheduling") Scheduling Instructions:
+
+    .form-group.fg-float
+      .fg-line
+        textarea.admin-field.form-control.fg-input(type="text", name="adminContact", rows="5", disabled="{{Session 'adminSameId'}}") {{adminContact}}
+      label.fg-label(for="adminContact") Contact Instructions:
+
+    .form-group.fg-float
+      .fg-line
+        textarea.admin-field.form-control.fg-input(type="text", name="adminNotes", rows="5", disabled="{{Session 'adminSameId'}}") {{adminNotes}}
+      label.fg-label(for="adminNotes") Notes:
