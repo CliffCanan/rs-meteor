@@ -114,10 +114,6 @@ Template.checkAvailability.rendered = ->
       )
   )
 
-$("#checkAvailabilityPopup").on "hidden.bs.modal", ->
-  console.log("Check Availability - Popup hidden - 112")
-  $("#checkAvailabilityPopup form").formValidation "resetForm", true
-
 
 Template.checkAvailability.events
   "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
@@ -129,3 +125,9 @@ Template.checkAvailability.events
     Meteor.setTimeout(() ->
       $('input#leadname').focus()
     , 300)
+
+  "hidden.bs.modal #checkAvailabilityPopup": grab encapsulate (event, template) ->
+    $("#checkAvailabilityPopup form").formValidation "resetForm", true
+
+  "hidden.bs.modal #contactUsPopup": grab encapsulate (event, template) ->
+    $("#contactUsPopup form").formValidation "resetForm", true

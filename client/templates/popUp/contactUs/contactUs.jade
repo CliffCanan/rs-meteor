@@ -21,15 +21,37 @@ template(name="contactUs")
               span.hide-sm &nbsp;
               | We'll schedule tours, deal with landlords, and stay with you until you love your next apartment.
 
-            fieldset.row.form-group.contact-us-field
-              label.col-sm-5.col-md-4 Name
-              .col-sm-7.col-md-8
-                input.form-control(name="name" placeholder="Name")
+            .form-group.fg-float#contactUsNameGrp
+              span
+                i.fa.fa-user
+              .fg-line
+                input.form-control.fg-input#contactUsName(name="name")
+              label.fg-label(for="leadname") Name
 
-            fieldset.row.form-group.contact-us-field
-              label.col-sm-5.col-md-4 Email Address
-              .col-sm-7.col-md-8
-                input.form-control(name="email" placeholder="Email address")
+            .form-group.fg-float#contactUsEmailGrp
+              span
+                i.fa.fa-envelope
+              .fg-line
+                input.form-control.fg-input#contactUsEmail(name="email")
+              label.fg-label(for="leademail") Email
+
+            .form-group.fg-float#leadphoneGrp
+              span
+                i.fa.fa-mobile
+              .fg-line
+                input.form-control.fg-input#leadphone(name="phoneNumber")
+              label.fg-label(for="leadphone") Phone #
+
+
+            //-fieldset.row.form-group.contact-us-field
+            //-  label.col-sm-5.col-md-4 Name
+            //-  .col-sm-7.col-md-8
+            //-    input.form-control(name="name" placeholder="Name")
+
+            //-fieldset.row.form-group.contact-us-field
+            //-  label.col-sm-5.col-md-4 Email Address
+            //-  .col-sm-7.col-md-8
+            //-    input.form-control(name="email" placeholder="Email address")
 
             fieldset.row.contact-us-field
               .col-xs-6

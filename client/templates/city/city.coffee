@@ -163,15 +163,14 @@ Template.city.onRendered ->
       cursorcolor: "#6C6E70"
       cursorwidth: "8px"
       zindex: 9999
-      mousescrollstep: 25 # default is 40 (px)
-      scrollspeed: 40 # default is 60
+      mousescrollstep: 26 # default is 40 (px)
+      scrollspeed: 42 # default is 60
       autohidemode: "cursor"
       hidecursordelay: 700
       horizrailenabled: false
   , 400
 
   
-
   $.getScript '/js/imgLiquid-min.js', ->
     $('.main-city-item .item.video').imgLiquid();
 
@@ -392,6 +391,3 @@ setDefaultImagesForCalc = ->
   $("#walker-calc").find("img").attr("src", "/images/walk.png")
   $("#car-calc").find("img").attr("src", "/images/car.png")
   $("#bike-calc").find("img").attr("src", "/images/bike.png")    
-
-$("#contactUsPopup").on "hidden.bs.modal", ->
-  $("#contactUsPopup form").formValidation "resetForm", true

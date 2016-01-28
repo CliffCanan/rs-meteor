@@ -310,15 +310,6 @@ Template.building.onRendered ->
           $('.check-availability').trigger('click')
       , 12000
 
-  $("#checkAvailabilityPopup").on "shown.bs.modal", (e) ->
-    console.log("Check Avail Popup Fired - 295")
-
-  $("#checkAvailabilityPopup").on "hide.bs.modal", (e) ->
-    $("#checkAvailabilityPopup form").formValidation "resetForm", true
-
-  $("#contactUsPopup").on "hide.bs.modal", (e) ->
-    $("#contactUsPopup form").formValidation "resetForm", true
-
 
 Template.building.onDestroyed ->
   if $('main').hasClass('container')
