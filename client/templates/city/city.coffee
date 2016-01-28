@@ -165,7 +165,7 @@ Template.city.onRendered ->
         autohidemode: "cursor"
         hidecursordelay: 700
         horizrailenabled: false
-    , 400
+      , 400
 
   
   $.getScript '/js/imgLiquid-min.js', ->

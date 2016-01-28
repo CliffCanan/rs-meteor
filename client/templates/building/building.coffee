@@ -432,7 +432,7 @@ Template.building.events
   "click .edit-building": (event, template) ->
     Session.set("editBuildingId", template.data.building._id)
 
-    Meteor.setTimeout(() ->
+    Meteor.setTimeout() ->
       $(".fg-input").each (index) ->
         console.log index + ": " + $(this).val()
         val = $(this).val()
