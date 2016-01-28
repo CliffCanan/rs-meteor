@@ -19,7 +19,7 @@ Template.header.onRendered ->
     else
       $('main').css('margin-top': 70)
 
-  ###
+
   unless $("body").getNiceScroll().length > 0
     #console.log("Header -> firing nicescroll")
 
@@ -35,7 +35,6 @@ Template.header.onRendered ->
       autohidemode: "cursor"
       hidecursordelay: 700
       horizrailenabled: false
-  ###
 
 Template.header.events
   "click .contact-us": grab encapsulate (event, template) ->

@@ -151,6 +151,7 @@ Template.city.helpers
 Template.city.onRendered ->
   instance = @
 
+  ###
   Meteor.setTimeout ->
     #console.log("Adding Nicescroll")
     unless $(".city-page-wrap").hasClass('hasNiceScroll')
@@ -165,8 +166,8 @@ Template.city.onRendered ->
         autohidemode: "cursor"
         #hidecursordelay: 700
         horizrailenabled: false
-      , 1000
-
+  , 1000
+  ###
   
   $.getScript '/js/imgLiquid-min.js', ->
     $('.main-city-item .item.video').imgLiquid();

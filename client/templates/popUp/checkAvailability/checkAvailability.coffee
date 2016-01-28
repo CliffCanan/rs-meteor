@@ -12,8 +12,6 @@ Template.checkAvailability.helpers
 
 Template.checkAvailability.rendered = ->
 
-  $('#leadphone').mask('(999) 999-9999')
-
   form = @$("form")
 
   building = @.data.building
@@ -57,7 +55,6 @@ Template.checkAvailability.rendered = ->
   ).on("success.form.fv", grab encapsulate (event) ->
       form.find(".submit-button").prop("disabled", true)
       form.find(".loading").show()
-#      change to Id
 
       if Session.get("currentUnit")
         building = Session.get("currentUnit")
@@ -75,7 +72,9 @@ Template.checkAvailability.rendered = ->
       console.log(json)
 
       CheckAvailabilityRequests.insert(json, callback = (error, id) ->
+        console.log("CheckAvailability submission Callback reached")
         if error
+          console.log(error)
           Session.set("serverError", true)
         else
           Session.set("serverError", false)
@@ -122,6 +121,7 @@ Template.checkAvailability.events
   "shown.bs.modal #checkAvailabilityPopup": grab encapsulate (event, template) ->
     console.log("Check Avail Popup Fired - 127")
     Session.set "hasSeenCheckAvailabilityPopup", true
+    $('#leadphone').mask('(999) 999-9999')
     Meteor.setTimeout(() ->
       $('input#leadname').focus()
     , 300)

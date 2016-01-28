@@ -1,6 +1,6 @@
 CheckAvailabilityRequests.allow
   insert: share.securityRulesWrapper (userId, request) ->
-    checkLength(request, ["name", "email", "moveInDate", "city", "buildingId"])
+    checkLength(request, ["name", "email", "moveInDate", "cityName", "buildingId"])
     check(request,
       _id: Match.Id
       name: String
@@ -16,7 +16,6 @@ CheckAvailabilityRequests.allow
       bedrooms: String
       updatedAt: Date
       createdAt: Date
-      source: String
     )
     true
   update: share.securityRulesWrapper (userId, request, fieldNames, modifier, options) ->

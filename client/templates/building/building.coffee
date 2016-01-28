@@ -452,7 +452,7 @@ Template.building.events
   "click .edit-building": (event, template) ->
     Session.set("editBuildingId", template.data.building._id)
 
-    Meteor.setTimeout() ->
+    setTimeout() ->
       console.log("building.coffee -> Timeout block")
       $(".fg-input").each (index) ->
         console.log("Inside .fg-input EACH block")
