@@ -453,10 +453,12 @@ Template.building.events
     Session.set("editBuildingId", template.data.building._id)
 
     Meteor.setTimeout() ->
+      console.log("building.coffee -> Timeout block")
       $(".fg-input").each (index) ->
+        console.log("Inside .fg-input EACH block")
         val = $(this).val()
         if val.length > 0
-          console.log index + ": [" + $(this).val() + "]"
+          console.log(index + ": [" + val + "]")
           $(this).closest(".fg-line").addClass "fg-toggled"
     , 400
 

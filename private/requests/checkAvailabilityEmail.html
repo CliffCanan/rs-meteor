@@ -4,30 +4,29 @@
 
 <ul>
     <li><b>Name:</b> {{request.name}}</li>
-    <li><b>Building:</b> <a href="http://128.199.88.135/{{request.link}}"><i>{{request.buildingName}}</i></a></li>
+    <li>
+        <b>Building:</b>
+        <a href="http://128.199.88.135/{{request.link}}">{{request.buildingName}}</a>
+    </li>
     <li><b>City:</b> <b>{{request.cityName}}</b></li>
     <li><b>Move-In Date:</b> {{request.moveInDate}}</li>
     <li>
         <b># of Bedrooms:</b>&nbsp;
-        {{#if request.bedrooms}}{{request.bedrooms}}
-        {{else}}&lt;em&gt;not provided&lt;/em&gt;{{/if}}
+        {{request.bedrooms}}
     </li>
     <li>
         <b>Email:</b>&nbsp;
-        {{#if request.email}}{{request.email}}
-        {{else}}&lt;em&gt;not provided&lt;/em&gt;{{/if}}
+        {{request.email}}
     </li>
     <li>
         <b>Phone #:</b>&nbsp;
-        {{#if request.phoneNumber}}{{request.phoneNumber}}
-        {{else}}&lt;em&gt;not provided&lt;/em&gt;{{/if}}
+        {{request.phoneNumber}}
     </li>
 </ul>
 
-{{#if request.question}}
-&lt;p&gt;{{request.name}} left a comment&lt;/p&gt;
-    &lt;blockquote&gt;&quot;{{request.question}}&quot;&lt;/blockquote&gt;
-{{/if}}
+<p>Additional comments:</p>
+<blockquote>{{#if request.question}}&quot;{{request.question}}&quot;{{/if}}</blockquote>
+
 <p>Keep up the great work!</p>
 
-<p style="color: #aaa;">P.S. Hit "reply" to send a message to the customer ;)</p>
+<p style="color: #aaa;margin-top:20px">P.S. Hit "reply" to send an email directly to the client ;)</p>

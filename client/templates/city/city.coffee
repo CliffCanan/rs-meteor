@@ -153,8 +153,8 @@ Template.city.onRendered ->
 
   Meteor.setTimeout ->
     #console.log("Adding Nicescroll")
-    unless $(".main-city-list-wrap").hasClass('hasNiceScroll')
-      $(".main-city-list-wrap").addClass('hasNiceScroll').niceScroll
+    unless $(".city-page-wrap").hasClass('hasNiceScroll')
+      $(".city-page-wrap").addClass('hasNiceScroll').niceScroll
         bouncescroll: true
         cursorborder: 0
         cursorcolor: "#6C6E70"
