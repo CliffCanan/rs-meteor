@@ -116,10 +116,10 @@ Template.contactUs.rendered = ->
 
             #- (Added 12/14/15 by CC)
             fbq "track", "Lead",
-              content_name: cityNameForFB.replace(' ','_')
-              content_category: "ContactUs"
-              value: 20.0
-              currency: 'USD'
+              content_name: "contact-us"
+              content_category: "LeadGen"
+              value: 30.0
+              currency: "USD"
           else
             console.log("NOT Triggering Analytics because this is a Meteor User or User has already submitted")
 

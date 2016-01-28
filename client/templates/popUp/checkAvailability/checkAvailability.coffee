@@ -98,14 +98,14 @@ Template.checkAvailability.rendered = ->
 
             # Send FB conversion tracking to FB (Added 12/14/15 by CC)
             fbq "track", "Lead",
-              content_name: building.title.replace(' ','_')
-              content_category: "CheckAvailability"
-              value: 20.0
-              currency: 'USD'
+              content_name: "check-availability"
+              content_category: "LeadGen"
+              value: 25.0
+              currency: "USD"
 
           swal
             title: "Request Submitted!"
-            text: "We've received your info and we'll be in touch within the next 24 hours to let you know if this unit is still available."
+            text: "We've received your info and we'll be in touch within 24 hours to let you know if this unit is still available."
             type: "success"
             showCancelButton: false
             confirmButtonColor: "#4588fa"

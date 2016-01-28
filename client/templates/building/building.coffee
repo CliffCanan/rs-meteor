@@ -359,11 +359,15 @@ Template.building.events
     analytics.track "Clicked Check Availability Of Unit Btn" unless Meteor.user()
     $('#checkAvailabilityPopup').modal('show')
 
+  ###
+  # CC (Jan 2016): these 2 are not needed anymore - changed the way units are displayed within the building template,
+  #                now they are all loaded from the beginning, and any overlow is handled with a scrollbar
   "click .building-unit-item-more": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", true)
 
   "click .building-unit-item-less": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", false)
+  ###
 
   "click .remove-image": grab encapsulate (event, template) ->
     imageToRemove = @
@@ -389,6 +393,12 @@ Template.building.events
 
           if query
             Buildings.update({ _id: template.data.building._id}, { $pull: { images: query }})
+            swal
+              title: "Picture Deleted"
+              text: "That picture has been deleted successfully."
+              type: "success"
+              confirmButtonColor: "#4588fa"
+
 
   "change .choose-image-input": grab encapsulate (event, template) ->
     buildingId = @_id
@@ -410,7 +420,7 @@ Template.building.events
   "click .remove-building": grab encapsulate (event, template) ->
     swal
       title: "Delete Building Confirmation"
-      text: "You are about to permanently delete this building - this <strong>cannot be un-done</strong>.  Do you still want to delete this buildig?"
+      text: "You are about to permanently delete this building - this <strong>cannot be un-done</strong>.  Do you still want to delete this building?"
       type: "warning"
       confirmButtonColor: "#4588fa"
       confirmButtonText: "Delete"
@@ -424,21 +434,31 @@ Template.building.events
           building = template.data.building
           Buildings.remove(building._id)
           parent = building.parent()
+          type = "Building"
+
           if parent
+            type = "Unit"
             Router.go("building", parent.getRouteData())
           else
             Router.go("city", {cityId: building.cityId})
+
+          swal
+            title: type + " Deleted"
+            text: "That building has been deleted successfully."
+            type: "success"
+            confirmButtonColor: "#4588fa"
+
 
   "click .edit-building": (event, template) ->
     Session.set("editBuildingId", template.data.building._id)
 
     Meteor.setTimeout() ->
       $(".fg-input").each (index) ->
-        #console.log index + ": " + $(this).val()
         val = $(this).val()
         if val.length > 0
+          console.log index + ": [" + $(this).val() + "]"
           $(this).closest(".fg-line").addClass "fg-toggled"
-    , 300
+    , 400
 
 
   "click .cancel-building": (event, template) ->
