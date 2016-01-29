@@ -77,6 +77,7 @@ Meteor.publish "buildings", (cityId, query, page) ->
     agroPriceBedroom1To: 1
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
+    brokerageName: 1
 
   fields['source.source'] = 1
 

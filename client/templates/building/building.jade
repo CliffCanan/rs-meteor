@@ -252,28 +252,37 @@ template(name="building")
             if isEdit
               +buildingImagesEdit
             else
-              .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel", data-interval="false")
-                if canRecommend
-                  a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
-                    i.fa.fa-star
-                .carousel-inner(role="listbox")
-                  each getMedia
-                    .item
-                      if isImage
-                        img.building-img(src="{{getThumbnail store='thumbs'}}")
-                      else
-                        if isFirstSlide
-                          iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="100%", height="500" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+              if mainImage
+                .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel", data-interval="false")
+                  if canRecommend
+                    a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
+                      i.fa.fa-star
+                  .carousel-inner(role="listbox")
+                    each getMedia
+                      .item
+                        if isImage
+                          img.building-img(src="{{getThumbnail store='thumbs'}}")
                         else
-                          iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="100%", height="500" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen) 
-                a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
-                  i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
-                  span.sr-only
-                    | Previous
-                a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
-                  i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
-                  span.sr-only
-                    | Next
+                          if isFirstSlide
+                            iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="100%", height="500" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+                          else
+                            iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="100%", height="500" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen) 
+                  a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
+                    i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
+                    span.sr-only
+                      | Previous
+                  a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
+                    i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
+                    span.sr-only
+                      | Next
+              else
+                .building-img-coming-soon.text-center
+                  img(src="/images/coming-soon.jpg")
+              
+              .brokerage-info
+                if brokerageName
+                  span
+                    em Listing courtesy of #{brokerageName}
 
             .building-main-info-desc-wrap.hidden-lg
               unless isEdit
@@ -362,12 +371,7 @@ template(name="building")
                         i.fa.fa-fw.fa-check.blue-icon.m-r-5
                         span.building-features-text
                           | {{.}}
-            if brokerageName      
-              .brokerage-info
-                span
-                  em Listing courtesy of #{brokerageName}
-                         
-
+            
             if canOperateWithBuilding
               if isEdit
                 unless parentId
@@ -433,7 +437,7 @@ template(name="building")
                   li.col-lg-3
                     .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
                       a.main-city-img-link(href="{{pathFor route='building' buildingSlug=slug}}", title="Click to see {{title}}")
-                        img(style="width:100%;height:184px" src="{{#if mainImage}}{{mainImage.url store='thumbs' auth=false}}{{else}}/images/placeholder.png{{/if}}")
+                        img(style="width:100%;height:184px" src="{{#if mainImage}}{{mainImage.url store='thumbs' auth=false}}{{else}}/images/coming-soon.jpg{{/if}}")
                       .main-city-item-wrap
                         .row
                           .col-md-8

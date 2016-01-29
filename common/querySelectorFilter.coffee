@@ -42,5 +42,5 @@
   # Show managed (non-IDX) listing as default.
   selector['source.source'] = {$ne: 'IDX'}    
   if query.listingType
-    if query.listingType is 'private'
+    if query.listingType is 'broker'
       selector['source.source'] = 'IDX'

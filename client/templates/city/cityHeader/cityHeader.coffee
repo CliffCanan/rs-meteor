@@ -32,7 +32,7 @@ Template.cityHeader.helpers
   currentListingType: ->
     if @query.listingType
       if @query.listingType is 'managed' then return 'Managed Buildings'
-      if @query.listingType is 'private' then return 'Private Listings'
+      if @query.listingType is 'broker' then return 'Broker Listings'
     else
       'Managed Buildings'
   currentBedroomType: ->

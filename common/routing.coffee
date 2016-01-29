@@ -7,6 +7,7 @@ Router.configure
   loadingTemplate: "loading"
   yieldTemplates:
     "header": {to: "header"}
+    "footer": {to: "footer"}
 
 Router.plugin("dataNotFound", {notFoundTemplate: "notFound"})
 Router.onBeforeAction ->
