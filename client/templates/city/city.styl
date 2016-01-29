@@ -48,6 +48,29 @@
         img
           width 100%
 
+        .main-city-price
+          color #fff
+          padding 5px 0
+          display block
+          left 0
+          bottom 3%
+          background rgba(62,122,225,.9)
+          width 41.1%
+          text-align center
+          text-shadow 0 1px 0 rgba(0,0,0,.35)
+          box-shadow 1px 1px 10px -3px (0,0,0,.25)
+          border-radius 0 30px 30px 0
+          font-family "Montserrat","Raleway","Open Sans", Helvetica,sans-serif
+          font-size 17px
+          transition all .35 ease
+          max-height 35px
+
+        @media screen and (min-width: 768px)
+          &:hover .main-city-price
+            bottom 5%
+            box-shadow 1px 3px 14px -1px rgba(0,0,0,.35)
+
+
       .main-city-item-wrap
         padding 0 10px
         @media screen and (min-width: 768px)
@@ -68,6 +91,8 @@
             font-size 16px
             color #272b30
             text-decoration none
+            @media screen and (min-width: 768px)
+              font-size 17px
 
         .main-city-info
           clear both
@@ -76,15 +101,8 @@
           font-size 14px
           overflow hidden
           i
-            font-size 18px
+            font-size 16px
             padding 0 10px 0 0
-
-          .main-city-price
-            color #cc9900
-            padding 0 10px 0 0
-            display inline-block
-            vertical-align middle
-            font-size 14px
 
           .main-city-desc
             border-left 1px solid #c7c7c7

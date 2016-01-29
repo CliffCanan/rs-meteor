@@ -1,6 +1,6 @@
 emails =
-  atlanta: "atlanta@rentscene.com"
-  chicago: "chicago@rentscene.com"
+  atlanta: "team@rentscene.com"
+  chicago: "team@rentscene.com"
   boston: "team@rentscene.com"
   "los-angeles": "team@rentscene.com"
   philadelphia: "team@rentscene.com"
@@ -10,6 +10,8 @@ emails =
   test: "rentscenetest@gmail.com"
 
 CheckAvailabilityRequests.after.insert (userId, request) ->
+  # Sometimes the cityId isn't getting passed, throwing an error... so hard-coding Philadelphia as a temporary stop-gap.
+  request.cityId = "Philadelphia"  unless request.cityId
   transformedRequest = share.Transformations.CheckAvailabilityRequest(request)
   Email.send
     from: "bender-checkavail@rentscene.com"

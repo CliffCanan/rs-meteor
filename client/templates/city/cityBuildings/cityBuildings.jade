@@ -26,13 +26,15 @@ template(name="cityBuildings")
               a.right.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="next")
                 i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
                 span.sr-only Next
+
+            span.main-city-price {{displayBuildingPrice ../queryBtype}}
           
           .main-city-item-wrap
             h2.main-city-item-title
+              i.fa.m-r-10(class="{{#if agroIsUnit}}fa-bed{{else}}fa-building{{/if}}")
               a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}") {{processedTitle}}
             //span.main-city-info-btn.fa.fa-question-circle.pull-right
 
             .main-city-info.clearfix
-              i.fa(class="{{#if agroIsUnit}}fa-bed{{else}}fa-building{{/if}}")
-              span.main-city-price {{displayBuildingPrice ../queryBtype}}
+              i.fa.fa-bed
               span.main-city-desc {{bedroomTypes ../queryBtype}}
