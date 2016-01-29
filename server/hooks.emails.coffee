@@ -11,8 +11,11 @@ emails =
 
 CheckAvailabilityRequests.after.insert (userId, request) ->
   # Sometimes the cityId isn't getting passed, throwing an error... so hard-coding Philadelphia as a temporary stop-gap.
-  request.cityId = "Philadelphia"  unless request.cityId
+  request.cityId = "Philadelphia"  unless request.cityId is not "no city id found"
+  request.cityName = "Philadelphia"  unless request.cityId is not "no city name found"
+
   transformedRequest = share.Transformations.CheckAvailabilityRequest(request)
+
   Email.send
     from: "bender-checkavail@rentscene.com"
     to: emails[transformedRequest.cityId]

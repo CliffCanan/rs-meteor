@@ -454,7 +454,7 @@ Template.building.events
     Session.set("editBuildingId", template.data.building._id)
 
     Meteor.setTimeout ->
-      console.log("building.coffee -> Timeout block")
+      #console.log("building.coffee -> Timeout block")
       $(".fg-input").each (index) ->
         val = $(this).val()
         if val.length > 0

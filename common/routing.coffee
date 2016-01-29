@@ -142,9 +142,9 @@ Router.map ->
         Session.set("cityScroll", 0)
 
       Session.setDefault('hasAlrdyConverted', false);
-      Session.setDefault('utm_source', false);
-      Session.setDefault('utm_medium', false);
-      Session.setDefault('utm_campaign', false);
+      Session.setDefault('utm_source', 'no source found');
+      Session.setDefault('utm_medium', 'no medium found');
+      Session.setDefault('utm_campaign', 'no campaign found');
 
       console.log("City Page Fired!")
       console.log(@params)
@@ -153,9 +153,9 @@ Router.map ->
       medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
       campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
 
-      Session.set "utm_source", source  unless Session.get("utm_source") is "no source found"
-      Session.set "utm_medium", medium  unless Session.get("utm_medium") is "no medium found"
-      Session.set "utm_campaign", campaign  unless Session.get("utm_campaign") is "no campaign found"
+      Session.set "utm_source", source  unless source is "no source found"
+      Session.set "utm_medium", medium  unless medium is "no medium found"
+      Session.set "utm_campaign", campaign  unless campaign is "no campaign found"
 
       @next()
     onAfterAction: ->
@@ -187,17 +187,18 @@ Router.map ->
       #console.log("Neighborhood page fired!")
       #console.log(@params)
 
-      Session.setDefault('utm_source', false);
-      Session.setDefault('utm_medium', false);
-      Session.setDefault('utm_campaign', false);
+      Session.setDefault('hasAlrdyConverted', false);
+      Session.setDefault('utm_source', 'no source found');
+      Session.setDefault('utm_medium', 'no medium found');
+      Session.setDefault('utm_campaign', 'no campaign found');
 
       source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
       medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
       campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
 
-      Session.set "utm_source", source  unless Session.get("utm_source") is "no source found"
-      Session.set "utm_medium", medium  unless Session.get("utm_medium") is "no medium found"
-      Session.set "utm_campaign", campaign  unless Session.get("utm_campaign") is "no campaign found"
+      Session.set "utm_source", source  unless source is "no source found"
+      Session.set "utm_medium", medium  unless medium is "no medium found"
+      Session.set "utm_campaign", campaign  unless campaign is "no campaign found"
 
       @next()
     onAfterAction: ->
@@ -231,17 +232,18 @@ Router.map ->
       console.log("Unit page fired!")
       #console.log(@params)
 
-      Session.setDefault('utm_source', false);
-      Session.setDefault('utm_medium', false);
-      Session.setDefault('utm_campaign', false);
+      Session.setDefault('hasAlrdyConverted', false);
+      Session.setDefault('utm_source', 'no source found');
+      Session.setDefault('utm_medium', 'no medium found');
+      Session.setDefault('utm_campaign', 'no campaign found');
 
       source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
       medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
       campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
 
-      Session.set "utm_source", source  unless Session.get("utm_source") is "no source found"
-      Session.set "utm_medium", medium  unless Session.get("utm_medium") is "no medium found"
-      Session.set "utm_campaign", campaign  unless Session.get("utm_campaign") is "no campaign found"
+      Session.set "utm_source", source  unless source is "no source found"
+      Session.set "utm_medium", medium  unless medium is "no medium found"
+      Session.set "utm_campaign", campaign  unless campaign is "no campaign found"
 
       @next()
     onAfterAction: ->
