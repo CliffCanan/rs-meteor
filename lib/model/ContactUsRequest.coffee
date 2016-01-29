@@ -70,5 +70,3 @@ ContactUsRequests.before.update (userId, ContactUsRequest, fieldNames, modifier,
   modifier.$set = modifier.$set or {}
   ContactUsRequestPreSave.call(@, modifier.$set)
   true
-
-

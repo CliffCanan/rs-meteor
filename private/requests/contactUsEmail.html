@@ -1,17 +1,81 @@
-<p>Hi Team! <b>{{request.name}}</b> has just asked you to help find an apartment<b>{{#if request.city}} in request.city{{/if}}</b>.</p>
+<p style="margin:0">Hi Team!</p>
 
-<p>Required amount of bedrooms: {{request.bedrooms}} </p>
-{{#if request.maxMonthlyRent}}<p>Max monthly rate: {{request.maxMonthlyRent}}.</p>{{/if}}
-{{#if request.contactUsMoveInDate}}<p>Desirable move-in date: {{request.contactUsMoveInDate}}.</p>{{/if}}
-{{#if request.yes}}<p>Also, the customer would like a tour{{#if request.contactUsTourDate}} on {{request.contactUsTourDate}} {{else}}.{{/if}}</p>{{/if}}
-{{#if request.notSure}}<p>Also, the customer is unsure if a tour is needed{{#if request.contactUsTourDate}} on {{request.contactUsTourDate}} {{else}}.{{/if}}</p>{{/if}}
-{{#if request.no}}<p>No tour is needed.{{#if request.contactUsTourDate}} But the customer has chosen tour date: {{request.contactUsTourDate}}.{{/if}}</p>{{/if}}
-{{#if request.question}}<p>{{request.name}} has the following comment: </p>{{/if}}
-{{#if request.question}}<blockquote>&quot;{{request.question}}&quot;</blockquote>{{/if}}
-<p>Have a nice day!</p>
+<h4>New Client Lead</h4>
+
+<p>Someone just submitted a <span style="font-style:italic;font-weight:bold">Contact Us</span> request on RentScene.com:</p>
+
+<table cellpadding="3" border="0">
+    <tbody>
+        <tr>
+            <td><b>Name:</b></td>
+            <td>{{request.name}}</td>
+        </tr>
+        <tr>
+            <td><b>Email:</b></td>
+            <td>{{request.email}}</td>
+        </tr>
+        <tr>
+            <td><strong>Phone #:</strong></td>
+            <td>{{request.phoneNumber}}</td>
+        </tr>
+        <tr>
+            <td><strong>City:</strong></td>
+            <td><span style="text-transform:capitalize">{{request.cityId}}</span></td>
+        </tr>
+        <tr>
+            <td><b>Move-In Date:</b></td>
+            <td>{{#if request.contactUsMoveInDate}}{{request.contactUsMoveInDate}}{{/if}}</td>
+        </tr>
+        <tr>
+            <td><b># of Bedrooms:</b></td>
+            <td>{{request.bedrooms}}</td>
+        </tr>
+        <tr>
+            <td><b>Max Monthly Rent:</b></td>
+            <td>{{#if request.maxMonthlyRent request.maxMonthlyRent}}{{/if}}</td>
+        </tr>
+
+        <tr>
+            <td><b>Wants a Tour?</b></td>
+            <td>
+                {{#if request.yes}}<p>{{#if request.contactUsTourDate}} on {{request.contactUsTourDate}} {{/if}}</p>{{/if}}
+                {{#if request.notSure}}<p>Unsure {{#if request.contactUsTourDate}} on {{request.contactUsTourDate}} {{/if}}</p>{{/if}}
+                {{#if request.no}}<p>No tour needed{{#if request.contactUsTourDate}} - But the customer has chosen tour date: {{request.contactUsTourDate}}{{/if}}</p>{{/if}}
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Additional Comments:</strong></td>
+            <td><em>{{#if request.question}}&quot;{{request.question}}&quot;{{/if}}</em></td>
+        </tr>
+    </tbody>
+</table>
 
 {{#if request.agentName}}<p>{{request.name}} is already working with {{request.agentName}} and has a list.</p>{{/if}}
 
-<a href="http://128.199.88.135/userlist/{{request.userListId}}">Pick properties for {{request.name}}</a>
+<p style="font-weight:bold;">Source for this lead:</p>
 
-<p style="color: #aaa;margin-top:20px"> P.S. Hit "Reply" to an email directly to the client ;)</p>
+<table cellpadding="1" border="0" style="margin:20px 0;font-size:13px;color:#444">
+    <tbody>
+        <tr>
+            <td><b>Source:</b></td>
+            <td>{{request.source}}</td>
+        </tr>
+        <tr>
+            <td><b>Medium:</b></td>
+            <td>{{request.medium}}</td>
+        </tr>
+        <tr>
+            <td><b>Campaign:</b></td>
+            <td>{{request.campaign}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<p style="margin-top:30px">
+    Keep up the great work!<br />
+    <span style="display:block;margin-top:4px;">- Rent Scene Robot</span>
+</p>
+
+<p style="color:#999;margin-top:25px;font-style:italic;">P.S. Hit "reply" to send an email directly to the client ;-)</p>
+
+<a href="http://128.199.88.135/userlist/{{request.userListId}}">Pick properties for {{request.name}}</a>

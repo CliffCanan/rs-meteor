@@ -1,7 +1,7 @@
 ContactUsRequests.allow
   insert: share.securityRulesWrapper (userId, request) ->
     checkLength(request, ["name", "email", "bedrooms"])
-    cl request
+    #cl request
     check(request,
       _id: Match.Id
       name: String
@@ -22,6 +22,9 @@ ContactUsRequests.allow
       userListId: String
       agentName: String
       agentId: String
+      source: String
+      medium: String
+      campaign: String
       updatedAt: Date
       createdAt: Date
     )

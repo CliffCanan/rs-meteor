@@ -4,6 +4,7 @@ emails =
   boston: "team@rentscene.com"
   "los-angeles": "team@rentscene.com"
   philadelphia: "team@rentscene.com"
+  "Philadelphia": "team@rentscene.com"
   stamford: "team@rentscene.com"
   "washington-dc": "team@rentscene.com"
   "": "team@rentscene.com"
@@ -25,7 +26,12 @@ CheckAvailabilityRequests.after.insert (userId, request) ->
 
 
 ContactUsRequests.after.insert (userId, request) ->
+  # Sometimes the cityId isn't getting passed, throwing an error... so hard-coding Philadelphia as a temporary stop-gap.
+  request.cityId = "Philadelphia"  if !request.cityId || request.cityId is "no city id found"
+  request.cityName = "Philadelphia"  if !request.cityName || request.cityName is "no city name found"
+
   transformedRequest = share.Transformations.ContactUsRequest(request)
+
   Email.send
     from: "bender-contactus@rentscene.com"
     to: emails[transformedRequest.cityId]

@@ -12,6 +12,8 @@ Template.checkAvailability.helpers
 
 Template.checkAvailability.rendered = ->
 
+  Session.set("serverError", false)
+
   form = @$("form")
 
   building = @.data.building
@@ -54,7 +56,8 @@ Template.checkAvailability.rendered = ->
             message: 'We need a city to search!'
   ).on("success.form.fv", grab encapsulate (event) ->
       form.find(".submit-button").prop("disabled", true)
-      form.find(".loading").show()
+      form.find(".submit-button i").fadeOut(200)
+      form.find(".loading").fadeIn(300)
 
       if Session.get("currentUnit")
         building = Session.get("currentUnit")
@@ -93,7 +96,7 @@ Template.checkAvailability.rendered = ->
           unless Meteor.user() or Session.get("hasAlrdyConverted") is true
             Session.set("hasAlrdyConverted", true)
 
-            console.log("Not a Meteor User & Hasn't converted - sending analytics info")
+            console.log("CheckAvail Submit -> Not a Meteor User & Hasn't converted - sending analytics info")
 
             analytics.track "Submitted Check Availability form", {buildingId: building._id, buildingName: building.title, label: building.title}
             analytics.page title: "Submitted Check Availability Form", path: '/submit-availability-form'
@@ -104,6 +107,8 @@ Template.checkAvailability.rendered = ->
               content_category: "LeadGen"
               value: 25.0
               currency: "USD"
+          else
+            console.log("CheckAvail Submit -> NOT Triggering Analytics because this is a Meteor User or User has already submitted")
 
           swal
             title: "Request Submitted!"
