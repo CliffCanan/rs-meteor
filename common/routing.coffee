@@ -21,6 +21,17 @@ Router.map ->
   @route "/",
     name: "index"
     fastRender: true
+    onBeforeAction: ->
+      Session.setDefault('hasAlrdyConverted', false);
+
+      source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
+      medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
+      campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
+
+      Session.set "utm_source", source
+      Session.set "utm_medium", medium
+      Session.set "utm_campaign", campaign
+
     onAfterAction: ->
       SEO.set
         title: share.formatPageTitle "Rent Scene - Find Awesome Apartments and Condos", false
@@ -127,14 +138,23 @@ Router.map ->
 
       Session.setDefault('hasAlrdyConverted', false);
 
-      console.log("City-0) Neighborhood params.cityId: " + @params.cityId)
+      console.log("City Page Fired!")
       console.log(@params)
-      console.log(@params.justatest)
 
-      if @params.justatest
+      if @params.query.justatest
         console.log("City-1) Neighborhood JustATest Var FOUND!!")
-      if @params.query.hasOwnProperty 'address'
+      if @params.query.justatest 'justatest'
         console.log("City-2) Neighborhood JustATest Var FOUND!!")
+        Session.set "test-ing", @params.query.justatest  if @params.query.justatest
+        console.log Session.get("test-ing")
+
+      source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
+      medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
+      campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
+
+      Session.set "utm_source", source
+      Session.set "utm_medium", medium
+      Session.set "utm_campaign", campaign
 
       @next()
     onAfterAction: ->
@@ -163,12 +183,16 @@ Router.map ->
       Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       Session.set("cityScroll", 0)
 
-      console.log("0) Neighborhood params.cityId: " + @params.cityId)
+      console.log("Neighborhood page fired!")
       console.log(@params)
-      console.log(@params.justatest)
 
-      if @params.justatest
-        console.log("0) Neighborhood JustATest Var FOUND!!")
+      source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
+      medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
+      campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
+
+      Session.set "utm_source", source
+      Session.set "utm_medium", medium
+      Session.set "utm_campaign", campaign
 
       @next()
     onAfterAction: ->
@@ -195,16 +219,22 @@ Router.map ->
       _.extend {}, @params,
         building: building
     onBeforeAction: ->
-      console.log("1) Unit params.cityId: " + @params.cityId)
-      console.log(@params)
-      console.log(@params.justatest)
-
-      if @params.justatest
-        console.log("1) Unit JustATest Var FOUND!!")
-
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
+
+      console.log("Unit page fired!")
+      console.log(@params)
+
+      source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
+      medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
+      campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
+
+      Session.set "utm_source", source
+      Session.set "utm_medium", medium
+      Session.set "utm_campaign", campaign
+
+
       @next()
     onAfterAction: ->
       Session.set "currentPage", "building"

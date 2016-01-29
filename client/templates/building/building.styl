@@ -44,6 +44,11 @@ main.container
     a
       color #4588fa
 
+.building-page-wrap
+  padding 0
+  @media screen and (min-width: 992px)
+    padding 10 0
+
 .control-buttons
   @media screen and (min-width: 600px)
     position absolute
@@ -141,6 +146,9 @@ main.container
           text-align left
           text-transform capitalize
 
+      .form-group
+        margin-bottom 15px
+
       .radio
         + .radio, .checkbox + .checkbox
           margin-top -8px
@@ -150,6 +158,8 @@ main.container
           font-weight normal
           margin-top -5px
 
+      .control-label
+        padding-left 0
 
       .building-main-prop-list
         padding 0
@@ -392,14 +402,17 @@ main.container
   border-radius 4px
   box-shadow 0px 3px 12px -3px rgba(0,0,0,0.2)
   padding 5%
+  margin 0 0 15px
   @media screen and (min-width: 768px)
     padding 4%
-
-  margin 0 0 15px
-
+  @media screen and (min-width: 992px)
+    margin-bottom 20px
+  
   .unit-img-wrap + .col-sm-6
     @media screen and (min-width: 768px)
       padding-left 2px
+    @media screen and (min-width: 992px)
+      padding-left 15px
 
 
   a.recommend-toggle
@@ -435,15 +448,17 @@ main.container
       font-family 'Montserrat', 'Open Sans', Helvetica, sans-serif
       font-size 13px
       line-height 1.5
+      position relative
       & > div
         margin-bottom 5px
       i
         margin-right 5px
       .unit-price
         color #36B400
-        padding-left 6%
+        padding-left 5%
         display inline-block
-        vertical-align middle
+        position absolute
+        top 0
 
       .unit-type
         border-right 1px solid #c7c7c7

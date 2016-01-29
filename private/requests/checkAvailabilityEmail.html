@@ -4,7 +4,7 @@
 
 <p>Someone just filled out a <span style="font-style:italic;font-weight:bold">Check Availability</span> request on RentScene.com:</p>
 
-<table cellpadding="3" border="0" >
+<table cellpadding="3" border="0">
     <tbody>
         <tr>
             <td><b>Name:</b></td>
@@ -45,8 +45,26 @@
 
 <p>Source for this lead: &nbsp;{{request.source}}</p>
 
-<br />
+<table cellpadding="3" border="0" style="margin:20px auto;font-size:13px;color:#444">
+    <tbody>
+        <tr>
+            <td><b>Source:</b></td>
+            <td>{{request.source}}</td>
+        </tr>
+        <tr>
+            <td><b>Medium:</b></td>
+            <td>{{request.medium}}</td>
+        </tr>
+        <tr>
+            <td><b>Campaign:</b></td>
+            <td>{{request.campaign}}</td>
+        </tr>
+    </tbody>
+</table>
 
-<p style="margin-top:30px">Keep up the great work!<br />- Rent Scene Robot</p>
+<p style="margin-top:30px">
+    Keep up the great work!<br />
+    - Rent Scene Robot
+</p>
 
-<p style="color: #999;margin-top:25px">P.S. Hit "reply" to send an email directly to the client ;)</p>
+<p style="color:#999;margin-top:25px">P.S. Hit "reply" to send an email directly to the client ;)</p>

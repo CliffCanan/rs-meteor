@@ -15,6 +15,8 @@ CheckAvailabilityRequests.allow
       question: String
       bedrooms: String
       source: String
+      medium: String
+      campaign: String
       updatedAt: Date
       createdAt: Date
     )

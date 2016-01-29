@@ -19,7 +19,7 @@ template(name="building")
             span(itemprop="title") {{title}}
       li.active {{title}}
 
-    .city-page-wrap.col-lg-12(itemscope, itemtype="http://schema.org/LocalBusiness")
+    .building-page-wrap.col-lg-12(itemscope, itemtype="http://schema.org/LocalBusiness")
 
       if canOperateWithBuilding
         .control-buttons.btn-group
@@ -109,15 +109,18 @@ template(name="building")
                 .col-xs-12.col-sm-8.col-md-12.p-0.clearfix
 
                   .building-main-prop
-                    label
-                      input.input-from-to.form-control(type="text", name="sqftFrom", value="{{sqftFrom}}")
-                      | -
-                      input.input-from-to.form-control(type="text", name="sqftTo", value="{{sqftTo}}")
-                      | Square Ft
+                    label Square Feet
+                    .row
+                      .col-xs-5.col-md-4.p-r-10
+                        input.input-from-to.form-control(type="text", name="sqftFrom", value="{{sqftFrom}}")
+                      .col-xs-1.p-0
+                        | -
+                      .col-xs-5.col-md-4.p-l-10
+                        input.input-from-to.form-control(type="text", name="sqftTo", value="{{sqftTo}}")
 
                   each complexFields true
 
-                    .form-group.m-b-10
+                    .form-group
                       b {{label}}:
                       each values
                         .radio
@@ -220,11 +223,11 @@ template(name="building")
                 a.btn.btn-success.building-main-info-btn.visible-lg-block(href="{{pathFor 'newRentalApplication' query=rentalQuery}}") Apply Now
 
               if buildingUnits.count
-                section.building-info-section
+                .col-xs-12.building-info-section.p-0
 
                   h2.section-title
                     i.fa.fa-fw.fa-key
-                    | Units
+                    |  Units
 
                   .building-unit-list-wrap
 

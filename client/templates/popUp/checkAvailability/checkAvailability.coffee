@@ -61,13 +61,16 @@ Template.checkAvailability.rendered = ->
 
       json = form.serializeFormJSON()
       json.cityName = if building.cityName then building cityName else '<em>no City Name found</em>'
-      json.cityId = if building.cityId then building.cityId else 
+      json.cityId = if building.cityId then building.cityId else '<em>no City ID found</em>'
       json.buildingName = if building.title then building.title else '<em>no Building Name found</em>'
-      json.buildingId = if building._id then building._id else '<em>no Building ID found</em>
+      json.buildingId = if building._id then building._id else '<em>no Building ID found</em>'
       json.phoneNumber = if json.phoneNumber then json.phoneNumber else '<em>not provided</em>'
       if not json.bedrooms
         json.bedrooms = ""
       json.link = "city/"+building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
+      json.source = Session.get "utm_source"
+      json.medium = Session.get "utm_medium"
+      json.campaign = Session.get "utm_campaign"
 
       console.log(json)
 
