@@ -22,6 +22,8 @@ Router.map ->
     name: "index"
     fastRender: true
     onBeforeAction: ->
+      console.log("Index Fired")
+
       Session.setDefault('hasAlrdyConverted', false);
 
       source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
@@ -32,6 +34,7 @@ Router.map ->
       Session.set "utm_medium", medium
       Session.set "utm_campaign", campaign
 
+      @next()
     onAfterAction: ->
       SEO.set
         title: share.formatPageTitle "Rent Scene - Find Awesome Apartments and Condos", false
@@ -121,6 +124,8 @@ Router.map ->
       return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
+      console.log("/city/:cityID Fired")
+
       if @params.query.hasOwnProperty 'address'
         Session.set("cityName", @params.query.address)
       else
@@ -233,7 +238,6 @@ Router.map ->
       Session.set "utm_source", source
       Session.set "utm_medium", medium
       Session.set "utm_campaign", campaign
-
 
       @next()
     onAfterAction: ->
