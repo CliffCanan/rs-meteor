@@ -458,9 +458,8 @@ Template.building.events
       $(".fg-input").each (index) ->
         val = $(this).val()
         if val.length > 0
-          console.log(index + ": [" + val + "]")
           $(this).closest(".fg-line").addClass "fg-toggled"
-    , 300
+    , 250
 
 
   "click .cancel-building": (event, template) ->
