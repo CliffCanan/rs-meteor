@@ -127,6 +127,15 @@ Router.map ->
 
       Session.setDefault('hasAlrdyConverted', false);
 
+      console.log("City-0) Neighborhood params.cityId: " + @params.cityId)
+      console.log(@params)
+      console.log(@params.justatest)
+
+      if @params.justatest
+        console.log("City-1) Neighborhood JustATest Var FOUND!!")
+      if @params.query.hasOwnProperty 'address'
+        console.log("City-2) Neighborhood JustATest Var FOUND!!")
+
       @next()
     onAfterAction: ->
       Session.set "currentPage", "city"
@@ -153,6 +162,14 @@ Router.map ->
       Session.set("neighborhoodPageData", {page: 1})
       Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       Session.set("cityScroll", 0)
+
+      console.log("0) Neighborhood params.cityId: " + @params.cityId)
+      console.log(@params)
+      console.log(@params.justatest)
+
+      if @params.justatest
+        console.log("0) Neighborhood JustATest Var FOUND!!")
+
       @next()
     onAfterAction: ->
       Session.set "currentPage", "city"
@@ -178,16 +195,26 @@ Router.map ->
       _.extend {}, @params,
         building: building
     onBeforeAction: ->
-      #console.log("params.cityId: " + @params.cityId)
+      console.log("1) Unit params.cityId: " + @params.cityId)
+      console.log(@params)
+      console.log(@params.justatest)
+
       if @params.justatest
-        console.log("JustATest Var FOUND!!")
-        console.log(@params.justatest)
+        console.log("1) Unit JustATest Var FOUND!!")
+
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       @next()
     onAfterAction: ->
       Session.set "currentPage", "building"
+
+      console.log("2) params.cityId: " + @params.cityId)
+      console.log(@params.justatest)
+
+      if @params.justatest
+        console.log("2) JustATest Var FOUND!!")
+
 
       if @data() and @data().building
         building = @data().building

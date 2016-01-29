@@ -14,6 +14,7 @@ CheckAvailabilityRequests.allow
       link: String
       question: String
       bedrooms: String
+      source: String
       updatedAt: Date
       createdAt: Date
     )

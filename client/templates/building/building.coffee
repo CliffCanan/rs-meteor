@@ -108,13 +108,14 @@ Template.building.helpers
       if @agroIsUnit
         btypes[@btype]?.upper.replace("room", "")
       else
+        isMediumScreenSize = (if $(window).width() > 768 then true else false)
         types = []
         postfix = ""
         if @agroPriceStudioFrom
           types.push("Studio")
         if @agroPriceBedroom1From
           types.push(1)
-          postfix = " Bedroom"
+          postfix = (if isMediumScreenSize then " Bedroom" else " BR")
         for i in [2..5]
           if @["agroPriceBedroom" + i + "From"]
             types.push(i)
