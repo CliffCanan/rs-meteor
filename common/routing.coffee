@@ -146,13 +146,6 @@ Router.map ->
       console.log("City Page Fired!")
       console.log(@params)
 
-      if @params.query.justatest
-        console.log("City-1) Neighborhood JustATest Var FOUND!!")
-      if @params.query.justatest 'justatest'
-        console.log("City-2) Neighborhood JustATest Var FOUND!!")
-        Session.set "test-ing", @params.query.justatest  if @params.query.justatest
-        console.log Session.get("test-ing")
-
       source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
       medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
       campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
