@@ -60,11 +60,11 @@ Template.checkAvailability.rendered = ->
         building = Session.get("currentUnit")
 
       json = form.serializeFormJSON()
-      json.cityName = if building.cityName then building cityName else '<em>no City Name found</em>'
-      json.cityId = if building.cityId then building.cityId else '<em>no City ID found</em>'
-      json.buildingName = if building.title then building.title else '<em>no Building Name found</em>'
-      json.buildingId = if building._id then building._id else '<em>no Building ID found</em>'
-      json.phoneNumber = if json.phoneNumber then json.phoneNumber else '<em>not provided</em>'
+      #json.cityName = if building.cityName then building cityName else 'no City Name found'
+      json.cityId = if building.cityId then building.cityId else 'no City ID found'
+      json.buildingName = if building.title then building.title else 'no Building Name found'
+      json.buildingId = if building._id then building._id else 'no Building ID found'
+      json.phoneNumber = if json.phoneNumber then json.phoneNumber else 'not provided'
       if not json.bedrooms
         json.bedrooms = ""
       json.link = "city/"+building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
