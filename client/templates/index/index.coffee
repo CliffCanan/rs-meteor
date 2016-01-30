@@ -52,6 +52,11 @@ Template.index.events
 
   "click #expert-button": grab encapsulate (event, template) ->
     analytics.track "Clicked Talk With An Expert Button" unless Meteor.user()
+
+    # If no utm_source value is still the default of 'no source found' (as it would if coming from Google or FB),
+    # then set it here so we know the lead originated from the Home page.
+    Session.set "utm_source", "talk-to-an-expert-btn"  if Session.get "utm_source" is "no source found"
+
     $('#contactUsPopup').modal('show')
 
   "click #browse-button": (event, template) ->
@@ -62,6 +67,11 @@ Template.index.events
 
   "click #getStarted": grab encapsulate (event, template) ->
     analytics.track "Clicked Get Started Button" unless Meteor.user()
+
+    # If no utm_source value is still the default of 'no source found' (as it would if coming from Google or FB),
+    # then set it here so we know the lead originated from the Home page.
+    Session.set "utm_source", "get-started-btn"  if Session.get "utm_source" is "no source found"
+
     $('#contactUsPopup').modal('show')
 
 

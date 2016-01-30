@@ -22,7 +22,6 @@ Template.city.onCreated ->
   unless $.fn.hoverIntent
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
 
-  console.log('CITY -> onCreated -> About to get svg checkbox script')
   $.getScript '/misc/svgcheckbox/svgcheckbox.js'
 
   # Show Contact Us Popup after 14 seconds
@@ -33,9 +32,6 @@ Template.city.onCreated ->
         unless $('body').hasClass('modal-open') || Session.get("currentPage") == "building"
           $('#contactUsPopup').modal('show')
       , 14000
-
-  $("#contactUsPopup").on "hide.bs.modal", (e) ->
-    $("#contactUsPopup form").formValidation "resetForm", true
 
 
 Template.city.helpers

@@ -22,7 +22,7 @@ Router.map ->
     name: "index"
     fastRender: true
     onBeforeAction: ->
-      console.log("Index Fired")
+      #console.log("Index Fired")
 
       Session.setDefault('hasAlrdyConverted', false);
 
@@ -124,7 +124,7 @@ Router.map ->
       return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
-      console.log("/city/:cityID Fired")
+      #console.log("/city/:cityID Fired")
 
       if @params.query.hasOwnProperty 'address'
         Session.set("cityName", @params.query.address)
