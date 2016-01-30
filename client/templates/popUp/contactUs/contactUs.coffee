@@ -170,9 +170,15 @@ Template.contactUs.events
 
   "shown.bs.modal #contactUsPopup": grab encapsulate (event, template) ->
     Session.set "hasSeenContactUsPopup", true
+    $("#contactUsPopup #leadphone").mask "(999) 999-9999", placeholder: " "
+
     Meteor.setTimeout(() ->
       $('input#contactUsName').focus()
     , 300)
 
   "hidden.bs.modal #contactUsPopup": grab encapsulate (event, template) ->
     $("#contactUsPopup form").formValidation "resetForm", true
+
+    $("#contactUsPopup .fg-input").each (index) ->
+      $(this).val('')
+      $(this).closest(".fg-line").removeClass "fg-toggled"  if $(this).closest(".fg-line").hasClass "fg-toggled"

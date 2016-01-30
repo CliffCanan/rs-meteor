@@ -129,7 +129,8 @@ Template.checkAvailability.events
   "shown.bs.modal #checkAvailabilityPopup": grab encapsulate (event, template) ->
     console.log("Check Avail Popup Fired - 127")
     Session.set "hasSeenCheckAvailabilityPopup", true
-    $('#leadphone').mask('(999) 999-9999')
+    $("#checkAvailabilityPopup #leadphone").mask "(999) 999-9999", placeholder: " "
+
     Meteor.setTimeout(() ->
       $('input#leadname').focus()
     , 300)
@@ -137,5 +138,6 @@ Template.checkAvailability.events
   "hidden.bs.modal #checkAvailabilityPopup": grab encapsulate (event, template) ->
     $("#checkAvailabilityPopup form").formValidation "resetForm", true
 
-  "hidden.bs.modal #contactUsPopup": grab encapsulate (event, template) ->
-    $("#contactUsPopup form").formValidation "resetForm", true
+    $("#checkAvailabilityPopup .fg-input").each (index) ->
+      $(this).val('')
+      $(this).closest(".fg-line").removeClass "fg-toggled"  if $(this).closest(".fg-line").hasClass "fg-toggled"
