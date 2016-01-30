@@ -22,8 +22,6 @@ Template.city.onCreated ->
   unless $.fn.hoverIntent
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
 
-  $.getScript '/misc/svgcheckbox/svgcheckbox.js'
-
   # Show Contact Us Popup after 14 seconds
   if Router.current().route.getName() != "clientRecommendations" and not Meteor.user() and $(window).width() > 600
     unless Session.get "hasSeenContactUsPopup" == true

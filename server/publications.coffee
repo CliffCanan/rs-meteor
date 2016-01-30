@@ -54,9 +54,12 @@ Meteor.publish "buildings", (cityId, query, page) ->
 
   # Limit fields to only those needed to display on city listing. Other fields are for building page.
   fields =
+    address: 1
+    postalCode: 1
     cityId: 1
     title: 1
     images: 1
+    features: 1
     isPublished: 1
     position: 1
     parentId: 1
@@ -118,8 +121,8 @@ Meteor.publish "buildings", (cityId, query, page) ->
 Meteor.publish "buildingsSimilar", (buildingId) ->
   building = Buildings.findOne(buildingId)
 
-  from = building.agroPriceTotalTo - 200
-  to = building.agroPriceTotalTo + 200
+  from = building.agroPriceTotalTo - 250
+  to = building.agroPriceTotalTo + 250
   selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}
 
   # Limit fields to only those needed to display on similar properties block

@@ -90,6 +90,23 @@
       &.fa-mobile
         font-size 120%
 
+  .cities-wrapper
+    font-size 12px
+
+    .city-link-wrap
+      display inline
+      a
+        font-size inherit
+        font-weight normal
+        letter-spacing -.2px
+        opacity .7
+      &:not(:last-child):after
+        content "&#149;"
+        color #777
+        margin 0 5px
+        @media screen and (min-width: 768px)
+          margin 0 1%
+
   .copyright-wrap
     border-top 1px solid #444
     color rgba(108,110,112, 0.75)

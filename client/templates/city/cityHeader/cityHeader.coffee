@@ -4,7 +4,8 @@ Template.cityHeader.onCreated ->
 
 
 Template.cityHeader.onRendered ->
-  Meteor.typeahead.inject()
+  #Meteor.typeahead.inject()
+
   if Session.get "enteredAddress"
     $('#address').val(Session.get "enteredAddress")
 
@@ -179,11 +180,14 @@ Template.cityHeader.events
     data = template.data
     q = encodeURIComponent($(event.currentTarget).val())
     query = data.query
+
     if q
       query.q = q
     else
       delete query.q
+
     routeName = Router.current().route.getName()
+
     if routeName is "clientRecommendations"
       Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
     else

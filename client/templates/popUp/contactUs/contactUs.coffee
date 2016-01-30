@@ -15,8 +15,6 @@ Template.contactUs.rendered = ->
 
   form = @$("form")
 
-  console.log("typeof @$('form') is: [" + typeof form + "]")
-
   form.formValidation(
     framework: 'bootstrap'
     live: 'disabled'

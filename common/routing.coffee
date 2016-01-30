@@ -250,11 +250,6 @@ Router.map ->
       Session.set "currentPage", "building"
 
       console.log("2) params.cityId: " + @params.cityId)
-      console.log(@params.justatest)
-
-      if @params.justatest
-        console.log("2) JustATest Var FOUND!!")
-
 
       if @data() and @data().building
         building = @data().building
