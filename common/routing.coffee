@@ -146,8 +146,8 @@ Router.map ->
       Session.setDefault('utm_medium', 'no medium found');
       Session.setDefault('utm_campaign', 'no campaign found');
 
-      console.log("City Page Fired!")
-      console.log(@params)
+      #console.log("City Page Fired!")
+      #console.log(@params)
 
       source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
       medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
@@ -229,7 +229,7 @@ Router.map ->
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
 
-      console.log("Unit page fired!")
+      #console.log("Unit page fired!")
       #console.log(@params)
 
       Session.setDefault('hasAlrdyConverted', false);
@@ -249,7 +249,7 @@ Router.map ->
     onAfterAction: ->
       Session.set "currentPage", "building"
 
-      console.log("2) params.cityId: " + @params.cityId)
+      #console.log("2) params.cityId: " + @params.cityId)
 
       if @data() and @data().building
         building = @data().building
