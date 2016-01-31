@@ -17,8 +17,15 @@
       max-width 94%
     @media screen and (min-width: 1300px)
       max-width 90%
-  .main-section-title
-    padding 25px 15px 20px !important
+
+    .main-section-title
+      padding 25px 15px 20px !important
+
+    .featured-props-row
+      &:last-child
+        @media screen and (min-width: 768px) and (max-width: 992px)
+          display none
+          visibility hidden
 
 // Entire Container, Keeps Perspective
 .card-container
