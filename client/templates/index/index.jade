@@ -59,16 +59,16 @@ template(name="index")
     h2.main-section-title
       | Your Personal Search Assistant
 
-    ul.services-list.list-unstyled
+    .container.services-wrap
 
-      li.services-item
+      .col-xs-12.col-sm-4.services-item
         img(src="/images/personal.png", alt="Expert Advice")
         h3.main-section-sub-title Expert Advice
         p.main-section-desc Work with a local expert every step of your apartment search.
           a.show#getStarted(href="#") Get started
             i.fa.fa-caret-right.m-l-10
 
-      li.services-item
+      .col-xs-12.col-sm-4.services-item
         img(src="/images/photo-camera.png", alt="Tour Virtually")
         h3.main-section-sub-title
           | Tour Virtually
@@ -77,7 +77,7 @@ template(name="index")
           a.show(href="/city/philadelphia/") Search now
             i.fa.fa-caret-right.m-l-10
 
-      li.services-item
+      .col-xs-12.col-sm-4.services-item
         img(src="/images/key.png", alt="Apply Online")
         h3.main-section-sub-title Apply Online
         p.main-section-desc Submit one application and ditch the checkbook with secure online payments.
