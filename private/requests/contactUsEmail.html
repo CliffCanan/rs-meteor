@@ -32,15 +32,15 @@
         </tr>
         <tr>
             <td><b>Max Monthly Rent:</b></td>
-            <td>{{#if request.maxMonthlyRent}} {{request.maxMonthlyRent}} {{/if}}</td>
+            <td>${{#if request.maxMonthlyRent}} {{request.maxMonthlyRent}} {{/if}}</td>
         </tr>
 
         <tr>
             <td><b>Wants a Tour?</b></td>
             <td>
-                {{#if request.yes}}<p>{{#if request.contactUsTourDate}} on {{request.contactUsTourDate}} {{/if}}</p>{{/if}}
-                {{#if request.notSure}}<p>Unsure {{#if request.contactUsTourDate}} on {{request.contactUsTourDate}} {{/if}}</p>{{/if}}
-                {{#if request.no}}<p>No tour needed{{#if request.contactUsTourDate}} - But the customer has chosen tour date: {{request.contactUsTourDate}}{{/if}}</p>{{/if}}
+                {{#if request.yes}}<span>{{#if request.contactUsTourDate}} on {{request.contactUsTourDate}} {{/if}}</span>{{/if}}
+                {{#if request.notSure}}<span>Unsure {{#if request.contactUsTourDate}} on {{request.contactUsTourDate}} {{/if}}</span>{{/if}}
+                {{#if request.no}}<span>No tour needed{{#if request.contactUsTourDate}} - But the customer has chosen tour date: {{request.contactUsTourDate}}{{/if}}</span>{{/if}}
             </td>
         </tr>
         <tr>
