@@ -84,6 +84,7 @@ Meteor.publish "buildings", (cityId, query, page) ->
     agroPriceBedroom1To: 1
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
+    averageRating: 1
 
   if Security.canOperateWithBuilding(@userId)
     adminFields = {
