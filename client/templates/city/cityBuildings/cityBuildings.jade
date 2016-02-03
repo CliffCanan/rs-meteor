@@ -34,9 +34,10 @@ template(name="cityBuildings")
               i.fa.m-r-10(class="{{#if agroIsUnit}}fa-bed{{else}}fa-building{{/if}}")
               a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}") {{processedTitle}}
 
-            .pull-right.m-t-5
-              i.fa-fa-star
-              span.average-rating {{averageRating}}
+            if shouldShowRating
+              .pull-right.m-t-5
+                i.fa-fa-star
+                span.average-rating {{processedRating}}
 
             .main-city-info.clearfix
               i.fa.fa-bed

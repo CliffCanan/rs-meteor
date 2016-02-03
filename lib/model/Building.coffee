@@ -53,6 +53,9 @@ class Building
       return @getUnitTitle.call building if building
     return @title
 
+  processedRating: ->
+    return @averageRating
+
   getRouteData: ->
     data =
       cityId: @cityId

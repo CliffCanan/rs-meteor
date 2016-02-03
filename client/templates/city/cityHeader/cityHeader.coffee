@@ -141,17 +141,11 @@ Template.cityHeader.events
     $item = $(event.currentTarget)
 
     if $item.hasClass('is-down')
-      console.log('.collapse-toggle-wrap clicked - was down')
-
       $item.removeClass('is-down')
-      #$('.city-sub-header').slideUp()
       $('.collapse-toggle-wrap .fa').removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down')
       $('.collapse-toggle-wrap .btn').attr('data-original-title', 'Show options')
     else
-      console.log('.collapse-toggle-wrap clicked - was up')
-
       $item.addClass('is-down')
-      #$('.city-sub-header').slideDown()
       $('.collapse-toggle-wrap .fa').removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up')
       $('.collapse-toggle-wrap .btn').attr('data-original-title', 'Hide options')
 
