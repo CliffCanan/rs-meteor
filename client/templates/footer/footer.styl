@@ -8,7 +8,7 @@
   @media screen and (max-width: 767px)
     text-align center
 
-  @media screen and (min-width: 767px)
+  @media screen and (min-width: 768px)
     #logocolumn
       padding-right 0
 
@@ -98,10 +98,9 @@
         opacity .7
         display inline
       &:not(:last-child):after
-        content "\2022"
-        color #777
-        margin 0 5px
         @media screen and (min-width: 768px)
+          content "\2022"
+          color #777
           margin 0 1%
 
   .copyright-wrap

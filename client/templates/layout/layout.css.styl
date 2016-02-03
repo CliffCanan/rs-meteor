@@ -929,9 +929,13 @@ a.carousel-control .fa
 	color: #222;
 } 
 
-.ac-custom input[type="checkbox"]:checked + label::before,
-.ac-custom input[type="radio"]:checked + label::before {
-	opacity: 0.8;
+.ac-custom input[type="checkbox"]:checked + label::after,
+.ac-custom input[type="radio"]:checked + label::after {
+	content: "\f00c";
+    color: #4588fa;
+    font-family: "FontAwesome";
+	left: 4px;
+    position: absolute;
 }
 
 /* General SVG and path styles */

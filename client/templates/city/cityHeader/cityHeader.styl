@@ -5,7 +5,7 @@
   overflow hidden
   padding 0 20px
   box-sizing border-box
-  transition all .5s ease
+  transition all .4s ease
   z-index 101
   @media screen and (min-width: 992px)
     padding 0 25px
@@ -16,8 +16,6 @@
       right 0
       &.location-filter-section
         height 260px
-      &.features-section
-        height 310px
       .form-control
         height 42px
   .dropdown
@@ -224,52 +222,12 @@
       @media screen and (min-width: 768px)
         padding 10px 0
 
-      .css-checkbox-DELETE
-        position absolute
-        z-index -1000
-        left -1000px
-        overflow hidden
-        clip rect(0 0 0 0)
-        height 1px
-        width 1px
-        margin -1px
-        padding 0
-        border 0
-        & + label
-          &.css-label
-            padding-left 30px
-            height 25px
-            display inline-block
-            line-height 25px
-            background-repeat no-repeat
-            background-position 0 0
-            font-size 16px
-            vertical-align middle
-            cursor pointer
-        &:checked
-          & + label
-            &.css-label-DELETE
-              background-position 0 -25px
-      label
-        &.css-label-DELETE
-          background-image url(/images/checkbox.png)
-          -webkit-touch-callout none
-          -webkit-user-select none
-          -khtml-user-select none
-          -moz-user-select none
-          -ms-user-select none
-          user-select none
-
     .city-features-date
-      font-size 12px
+      font-size 13px
       display block
       margin 0 0 20px
       .input-group
         margin-top 5px
-        .form-control
-          width 80%
-          height 42px
-          margin-top 5px
 
     .clear-btn
       padding-top 8px
