@@ -1,4 +1,9 @@
 template(name="cityHeader")
+
+  .collapse-toggle-wrap.is-down
+    .btn.btn-link(data-toggle="tooltip", data-placement="auto", title="", data-original-title="Hide options")
+      i.fa.fa-chevron-circle-up
+
   .city-sub-header.clearfix
 
     .row
@@ -11,11 +16,11 @@ template(name="cityHeader")
       //-    each cities
       //-      li.city-sub-header-item(data-value="{{key}}") {{value}}
 
-      //.col-sm-2.neighborhood-select.city-sub-header-list-wrap.dropdown.city-filter.hide-md
-      //  i.fa.fa-map-signs
-      //  a.clear-neighborhood-filter(href="{{pathFor 'city' cityId=cityId}}")
-      //    i.fa.fa-times
-      //  input.form-control.typeahead(type="text", placeholder="Search neighborhood", autocomplete="false", data-source="neighborhoodSearch", data-selected="selectedNeighborhood", data-min-length="0", data-limit="9", data-template="neighborhoodSuggestion", value="{{currentNeighborhood}}")
+      //-.col-sm-2.neighborhood-select.city-sub-header-list-wrap.dropdown.city-filter.hide-md
+      //-  i.fa.fa-map-signs
+      //-  a.clear-neighborhood-filter(href="{{pathFor 'city' cityId=cityId}}")
+      //-    i.fa.fa-times
+      //-  input.form-control.typeahead(type="text", placeholder="Search neighborhood", autocomplete="false", data-source="neighborhoodSearch", data-selected="selectedNeighborhood", data-min-length="0", data-limit="9", data-template="neighborhoodSuggestion", value="{{currentNeighborhood}}")
 
       .col-sm-2.neighborhood-select.city-sub-header-list-wrap.hide-md
         .dropdown.city-filter.features-wrap

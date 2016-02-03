@@ -1,7 +1,7 @@
 template(name="city")
   +cityHeader
   unless clientRecommendationsList
-    .city-side-bar.right-bar.clearfix.col-lg-3
+    .city-side-bar.right-bar.clearfix.col-lg-3.hide-sm
       #gmap
 
   .city-page-wrap.col-lg-9
@@ -10,6 +10,7 @@ template(name="city")
       if showClientRecommendationsName
         h2.pull-left(style="margin: 0")
           | Recommendations for {{currentClientName}}
+
       if canOperateWithBuilding
         button.btn.btn-primary.button-building-insert.pull-left
           i.fa.fa-plus
