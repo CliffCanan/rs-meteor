@@ -37,9 +37,9 @@ Router.map ->
       @next()
     onAfterAction: ->
       SEO.set
-        title: share.formatPageTitle "Rent Scene - Find Awesome Apartments and Condos", false
+        title: share.formatPageTitle "Rent Scene | Apartment Hunting For Busy People", false
         meta:
-          description: "Rent Scene helps you find a great place to live. Search for apartments and condos in Philadelphia, Washington DC, Chicago, and other major cities."
+          description: "Rent Scene finds the best apartments that fit your lifestyle. Our dedicated local experts manage the entire search process for you, making sure you love your new home."
           keywords: "rent, rental, apartment, landlord, tenant, home, bedroom, bathroom, lease, condo, condominium, philadelphia, center city, chicago, washington dc, rittenhouse square, parking, gym, utilities, pets"
 
   @route "/check-availability",
@@ -50,6 +50,12 @@ Router.map ->
 
   @route "/login",
     name: "login"
+    onBeforeAction: ->
+      @next()
+    onAfterAction: ->
+      SEO.set
+        title: share.formatPageTitle "Rent Scene Admin Login"
+
 
   @route "/userlist/:userListId",
     name: "userlist"

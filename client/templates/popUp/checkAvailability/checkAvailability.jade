@@ -15,33 +15,9 @@ template(name="checkAvailability")
 
             .modal-body
               p.form-group
-                | Want to know more about
+                | Interested in 
                 span(class="text-primary") {{propertyName}}
                 span ?&nbsp;Tell us a little about your needs, and our {{cityName}} team will contact you soon.
-
-              .form-group.fg-float#leadnameGrp
-                span
-                  i.fa.fa-user
-                .fg-line
-                  input.form-control.fg-input#leadname(name="name")
-                label.fg-label(for="leadname") Name
-
-              .form-group.fg-float#leademailGrp
-                span
-                  i.fa.fa-envelope
-                .fg-line
-                  input.form-control.fg-input#leademail(name="email",type="text")
-                label.fg-label(for="leademail") Email
-
-              .form-group.fg-float#leadphoneGrp
-                span
-                  i.fa.fa-mobile
-                .fg-line
-                  input.form-control.fg-input#leadphone(name="phoneNumber",type="text")
-                label.fg-label(for="leadphone") Phone #
-
-              fieldset.form-group.availability-field#msgGrp
-                textarea.form-control(name="question" placeholder="Is this unit still available?", rows="2")
 
               if condition agroIsUnit 'is' false
                 fieldset.row.form-inline.availability-field#bedrooms-wrapper
@@ -69,6 +45,30 @@ template(name="checkAvailability")
                     | Move-In Date
                 .col-xs-7.form-group
                   +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="MM/DD/YYYY" class="moveInData-moveInDate-editor" name="moveInDate")
+
+              fieldset.form-group.availability-field#msgGrp
+                textarea.form-control(name="question" placeholder="Is this unit still available?", rows="2")
+
+              .form-group.fg-float#leadnameGrp
+                span
+                  i.fa.fa-user
+                .fg-line
+                  input.form-control.fg-input#leadname(name="name")
+                label.fg-label(for="leadname") Name
+
+              .form-group.fg-float#leademailGrp
+                span
+                  i.fa.fa-envelope
+                .fg-line
+                  input.form-control.fg-input#leademail(name="email",type="text")
+                label.fg-label(for="leademail") Email
+
+              .form-group.fg-float#leadphoneGrp
+                span
+                  i.fa.fa-mobile
+                .fg-line
+                  input.form-control.fg-input#leadphone(name="phoneNumber",type="text")
+                label.fg-label(for="leadphone") Phone #
 
             .modal-footer
               if serverError

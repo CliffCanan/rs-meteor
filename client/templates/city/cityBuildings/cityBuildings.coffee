@@ -63,7 +63,7 @@ Template.cityBuildings.helpers
     images
 
   shouldShowRating: ->
-    console.log(@processedRating)
+    #console.log(@processedRating)
     @processedRating != '0'
 
 convertTimeToMins = (time) ->

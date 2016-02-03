@@ -9,26 +9,19 @@ template(name="header")
           img.logo-text(src="/images/logo-text-white.png", alt="Rentscene")
 
       ul.navigation
-        li.navigation-item.hidden
+        li.navigation-item.hide-sm
           a.navigation-item-link(href="/city/philadelphia")
             i.fa.fa-search
             | Browse Apartments
 
         li.navigation-item.hide-sm
           a.navigation-item-link.contact-us(href="/")
-            i.fa.fa-paper-plane
-            | Get Started
+            span Get Started
 
         li.navigation-item
           a.navigation-item-link.active(href="tel://1-267-463-2428")
             i.fa.fa-mobile
             | (267) 463-2428
-
-        li.navigation-item.admin-login
-          if loggedInUser
-            +userMenu
-          else
-            +loginButtons
 
       if canManageClients
         +clientSearchBar

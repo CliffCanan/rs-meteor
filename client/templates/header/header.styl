@@ -64,17 +64,13 @@ header
         display inline-block
         line-height 30px
 
-        &.live-chat
-          display none
-
-          .home-page &
-            display inline-block
-
         .navigation-item-link
           font-family 'Montserrat', Helvetica, sans-serif
           font-size 14px
           color #fff
           padding 10px
+          text-decoration none
+          transition .16s color ease
           @media screen and (max-width: 500px)
             padding 8px
             .fa-paper-plane
@@ -83,12 +79,16 @@ header
               position relative
               top -1px
               right 1px
-          text-decoration none
-          transition .16s color ease
 
           &.active, &:hover
             color #ffcc33
             text-decoration none
+
+          &.contact-us > span
+            border 1px solid
+            border-radius 20px
+            padding 8px 25px
+            transition .16s all ease
 
           .fa
             margin-right 2px

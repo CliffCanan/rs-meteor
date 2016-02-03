@@ -19,8 +19,8 @@ Template.city.onCreated ->
   @buildingsCount = new ReactiveVar(0)
   Session.set('adminShowUnpublishedProperties', false)
 
-  unless $.fn.hoverIntent
-    $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
+  #unless $.fn.hoverIntent
+  #  $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js'
 
   # Show Contact Us Popup after 14 seconds
   if Router.current().route.getName() != "clientRecommendations" and not Meteor.user() and $(window).width() > 600
