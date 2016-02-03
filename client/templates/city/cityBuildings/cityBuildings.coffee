@@ -62,10 +62,6 @@ Template.cityBuildings.helpers
 
     images
 
-  shouldShowRating: ->
-    #console.log(@processedRating)
-    @processedRating != '0'
-
 convertTimeToMins = (time) ->
   if time.indexOf("days") == -1
     if time.indexOf("hours") == -1
