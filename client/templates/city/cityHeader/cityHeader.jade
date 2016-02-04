@@ -147,10 +147,5 @@ template(name="cityHeader")
         input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
         i.fa.fa-fw.fa-search
 
-      if canOperateWithBuilding
-        .filter-wrap.unpublished-property-toggle-wrapper
-          label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
-            input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
-
 template(name="neighborhoodSuggestion")
   span(class="#{id}") #{value}

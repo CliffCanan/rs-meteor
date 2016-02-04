@@ -4,4 +4,8 @@ Template.footer.helpers
 Template.footer.rendered = ->
 
 Template.footer.events
-#  "click .selector": (event, template) ->
+  "click .page-footer a": grab encapsulate (event, template) ->
+    element = $(event.target).attr("id")
+    console.log("[" + element + "] clicked")
+    analytics.track "Clicked " + element + " (Footer)" unless Meteor.user()
+    true

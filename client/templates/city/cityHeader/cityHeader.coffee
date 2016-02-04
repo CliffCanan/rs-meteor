@@ -208,12 +208,11 @@ Template.cityHeader.events
       routeParams = {}
       routeParams.cityId = data.cityId if data.cityId
       routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+
+      analytics.track "Searched by building name", {label: query.q} unless Meteor.user() || q.length < 5
+
       Router.go(routeName, routeParams, {query: query})
   , 300)
-
-  "click #show-unpublished-properties-toggle": (event, template) ->
-    currentValue = Session.get('adminShowUnpublishedProperties')
-    Session.set('adminShowUnpublishedProperties', !currentValue)
 
   "submit .form-building-filter": (event, template) ->
     event.preventDefault()

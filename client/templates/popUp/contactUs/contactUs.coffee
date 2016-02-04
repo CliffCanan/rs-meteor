@@ -159,10 +159,6 @@ Template.contactUs.events
     Session.set "hasSeenContactUsPopup", true
     $("#contactUsPopup #leadphone").mask "(999) 999-9999", placeholder: " "
 
-    #Meteor.setTimeout(() ->
-    #  $('input#contactUsName').focus()
-    #, 300)
-
   "change .tour-date": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'contactUsTourDate'
 
@@ -178,7 +174,7 @@ Template.contactUs.events
   "click #contactUsPopup .call-now": grab encapsulate (event, template) ->
     console.log("Contact Us Call Now btn clicked")
     analytics.track "Clicked Call Now Btn (Contact Us)" unless Meteor.user()
-
+    true
 
   "hidden.bs.modal #contactUsPopup": grab encapsulate (event, template) ->
     $("#contactUsPopup form").formValidation "resetForm", true
