@@ -1,24 +1,30 @@
 template(name="userMenu")
   a.navigation-item-link(href="/" type='button', data-toggle='dropdown', aria-expanded='true')
     | {{userName}}
+
   ul.dropdown-menu.dropdown-menu-right(role='menu', aria-labelledby='dropdownMenu1')
+
     if canRecommend
       li(role='presentation')
         a#delete-recommendation(href="#", role='menuitem', tabindex='-1')
           i.fa.fa-fw.fa-trash
           | Delete recommendation list and buildings
+
     li(role='presentation')
       a(href="/admin/usersPanel", role='menuitem', tabindex='-1')
         i.fa.fa-fw.fa-list
         | Manage users
+
     li(role='presentation')
       a.logout(href="#", role='menuitem', tabindex='-1')
         i.fa.fa-fw.fa-power-off
         | Logout
+
   a#manage-reviews-link.navigation-item-link(href="/admin/reviews")
     span.notification-wrapper
       i.fa.fa-comments
       span.badge.badge-notify #{pendingReviewsCount}
+
   a#manage-rental-applications-link.navigation-item-link(href="/admin/rental-applications")
     span.notification-wrapper
       i.fa.fa-inbox

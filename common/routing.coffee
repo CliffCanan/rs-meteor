@@ -37,7 +37,7 @@ Router.map ->
       @next()
     onAfterAction: ->
       SEO.set
-        title: share.formatPageTitle "Rent Scene | Apartment Hunting For Busy People", false
+        title: "Rent Scene | Apartment Hunting For Busy People"
         meta:
           description: "Rent Scene finds the best apartments that fit your lifestyle. Our dedicated local experts manage the entire search process for you, making sure you love your new home."
           keywords: "rent, rental, apartment, landlord, tenant, home, bedroom, bathroom, lease, condo, condominium, philadelphia, center city, chicago, washington dc, rittenhouse square, parking, gym, utilities, pets"
@@ -54,8 +54,7 @@ Router.map ->
       @next()
     onAfterAction: ->
       SEO.set
-        title: share.formatPageTitle "Rent Scene Admin Login"
-
+        title: "Rent Scene Admin Login"
 
   @route "/userlist/:userListId",
     name: "userlist"
@@ -111,7 +110,7 @@ Router.map ->
       @next()
     onAfterAction: ->
       SEO.set
-        title: share.formatPageTitle "Recommendations for #{@data().name}"
+        title: "Apartment Recommendations for #{@data().name}"
         meta: 
           robots: "noindex"
 
@@ -167,7 +166,7 @@ Router.map ->
     onAfterAction: ->
       Session.set "currentPage", "city"
       SEO.set
-        title: share.formatPageTitle "Rental Apartments in #{cities[@params.cityId].long}"
+        title: "Rental Apartments in #{cities[@params.cityId].long} | Rent Scene"
         meta:
           description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
 
@@ -210,7 +209,7 @@ Router.map ->
     onAfterAction: ->
       Session.set "currentPage", "city"
       SEO.set
-        title: share.formatPageTitle "Rental Apartments in #{cities[@params.cityId].long}"
+        title: "Rental Apartments in #{cities[@params.cityId].long} | Rent Scene"
         meta:
           description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
 
@@ -278,7 +277,7 @@ Router.map ->
       else
         console.log("Routing -> building -> onAfterAction if@data() and @data().building NOT REACHED")
         SEO.set
-          title: share.formatPageTitle "#{cities[@params.cityId].short} Apartment"
+          title: "#{cities[@params.cityId].short} Apartment | Rent Scene"
 
   @route "/apply",
     name: "newRentalApplication"
@@ -315,8 +314,6 @@ Router.map ->
   @route "/apply/:id/download", ->
     rentalApplication = RentalApplications.findOne(@params.id)
 
-    # Get PDF template file from the /private directory. It's HTML instead of Jade because of a bug in the jade / jade-compiler package
-    # We'll use Jade once this is addressed: https://github.com/mquandalle/meteor-jade/issues/168
     template = Assets.getText('rental-application-pdf.html')
 
     # Compile template using Server Side Render package
@@ -488,6 +485,7 @@ share.setPageTitle = (title, appendSiteName = true) ->
     title = "(D) " + title
   document.title = title
 
+# CC (2/4/15): This function isn't really necessary... so the ' | Rent Scene' is now directly included in the Title value for each route above.
 share.formatPageTitle = (title, appendSiteName = true) ->
   if appendSiteName
     title += " | Rent Scene"

@@ -154,6 +154,15 @@ $("#contactUsPopup").on "shown.bs.modal", ->
 
 
 Template.contactUs.events
+
+  "shown.bs.modal #contactUsPopup": grab encapsulate (event, template) ->
+    Session.set "hasSeenContactUsPopup", true
+    $("#contactUsPopup #leadphone").mask "(999) 999-9999", placeholder: " "
+
+    #Meteor.setTimeout(() ->
+    #  $('input#contactUsName').focus()
+    #, 300)
+
   "change .tour-date": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'contactUsTourDate'
 
@@ -166,16 +175,17 @@ Template.contactUs.events
     else
       template.$('#contactUsTourDate').attr('disabled', false)
 
-  "shown.bs.modal #contactUsPopup": grab encapsulate (event, template) ->
-    Session.set "hasSeenContactUsPopup", true
-    $("#contactUsPopup #leadphone").mask "(999) 999-9999", placeholder: " "
+  "click #contactUsPopup .call-now": grab encapsulate (event, template) ->
+    console.log("Contact Us Call Now btn clicked")
+    analytics.track "Clicked Call Now Btn (Contact Us)" unless Meteor.user()
 
-    Meteor.setTimeout(() ->
-      $('input#contactUsName').focus()
-    , 300)
 
   "hidden.bs.modal #contactUsPopup": grab encapsulate (event, template) ->
     $("#contactUsPopup form").formValidation "resetForm", true
+
+    $("#contactUsPopup .form-group").each (index) ->
+      $(this).removeClass "has-error"  if $(this).hasClass "has-error"
+      $(this).removeClass "has-success"  if $(this).hasClass "has-success"
 
     $("#contactUsPopup .fg-input").each (index) ->
       $(this).val('')

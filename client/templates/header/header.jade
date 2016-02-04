@@ -23,6 +23,10 @@ template(name="header")
             i.fa.fa-mobile
             | (267) 463-2428
 
+        li.navigation-item.admin-login
+          if loggedInUser
+            +userMenu
+
       if canManageClients
         +clientSearchBar
 

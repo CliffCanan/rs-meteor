@@ -94,7 +94,6 @@ template(name="contactUs")
             fieldset.form-group.contact-us-field.m-t-20
               textarea.form-control(name="question" placeholder="Question/Comments", rows="3")
 
-          .modal-footer
             if serverError
               .form-group
                 .alert.alert-danger(role="alert")
@@ -104,3 +103,7 @@ template(name="contactUs")
               .fa.fa-spin.fa-refresh.m-l-10.loading(style="display: none;")
               i.fa.fa-chevron-circle-right.m-l-10(aria-hidden='true')
 
+          .modal-footer
+            div Want to speak with us right now? Call:
+              a.call-now(href="tel://1-267-463-2428") (267) 463-2428
+              span.period .
