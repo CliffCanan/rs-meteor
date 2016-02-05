@@ -117,15 +117,11 @@ Template.rentalApplication.helpers
 
   getDatePickerDateMoveInDate: ->
     if @fields and @fields.moveInDate
-      console.log("Move In Date...")
-      console.log(@fields.dateOfBirth)
-      moment(@fields.moveInDate).format("mm/dd/yy")
+      moment(@fields.moveInDate).format("MM/DD/YY")
 
   getDatePickerDateDateOfBirth: ->
     if @fields and @fields.dateOfBirth
-      console.log("Date of Birth...")
-      console.log(@fields.dateOfBirth)
-      moment(@fields.dateOfBirth).format("mm/dd/yy")
+      moment(@fields.dateOfBirth).format("MM/DD/YY")
 
   dateOfBirthOptions: ->
     #yearRange: '-100:-17'
@@ -440,11 +436,3 @@ Template.rentalApplication.events
 
     if fgrp.hasClass('fg-float')
       $(event.target).closest('.fg-line').removeClass('fg-toggled');
-
-$(window).scroll ->
-  "use strict"
-  scroll = $(window).scrollTop()
-  if scroll > 2100 and scroll < 3750
-    $(".pmcshell").slideUp()
-  else
-    $(".pmcshell").slideDown()
