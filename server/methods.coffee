@@ -225,7 +225,8 @@ Meteor.methods
 
     ClientRecommendations.remove(clientId)
 
-  "getVimeoVideos": () ->
+  "getVimeoVideos": ->
+    @unblock()
     Vimeo = Meteor.npmRequire('vimeo').Vimeo
     vimeo = new Vimeo(Meteor.settings.vimeo.clientId, Meteor.settings.vimeo.clientSecret, Meteor.settings.vimeo.accessToken)
     getVideoParams = 
