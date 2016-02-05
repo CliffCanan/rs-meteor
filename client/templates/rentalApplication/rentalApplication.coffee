@@ -95,7 +95,7 @@ Template.rentalApplication.onRendered ->
         accept: (file, done) ->
           file.canUserView = true
           if Security.canOperateWithBuilding()
-            file.isUploadedByAdmin = true if Security.canOperateWithBuilding()
+            file.isUploadedByAdmin = true
             file.canUserView = false
 
           insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
@@ -231,7 +231,7 @@ Template.rentalApplication.events
         confirmButtonColor: "#4588fa"
         confirmButtonText: "Ok"
     else
-      template.$('#dogsTable tbody').append("<tr><td>" + rowNum + "</td><td><input class='form-control' type='text' name='dog" + rowNum + "Name' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Breed' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Weight' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Age' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Color' /></td><td><select class='form-control' name='dog" + rowNum + "Gender'><option value='Male'>Male</option><option value='Female'>Female</option></select></td><td><select class='form-control' name='dog" + rowNum + "Neutered'><option value='Yes'>Yes</option><option value='No'>No</option></select></td> </tr>");
+      template.$('#dogsTable tbody').append("<tr><td>" + rowNum + "</td><td><input class='form-control' type='text' name='dog" + rowNum + "Name' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Breed' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Weight' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Age' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Color' /></td><td><select class='form-control p-0' name='dog" + rowNum + "Gender'><option value='Male'>Male</option><option value='Female'>Female</option></select></td><td><select class='form-control' name='dog" + rowNum + "Neutered'><option value='Yes'>Yes</option><option value='No'>No</option></select></td> </tr>");
 
 
   "change #has-partner-roommate": (event, template) ->
@@ -299,8 +299,8 @@ Template.rentalApplication.events
 
   "click .delete-document": (event, template) ->
     swal
-      title: "Delete Application?"
-      text: "Are you sure you want to delete this application?"
+      title: "Delete Document?"
+      text: "Are you sure you want to delete this document? This is permanent and cannot be un-done."
       type: "warning"
       confirmButtonColor: "#4588fa"
       confirmButtonText: "Delete"
@@ -413,27 +413,5 @@ Template.rentalApplication.events
               swal("Saved!", "Please wait while the PDF is being downloaded.", "success")
               location.href = "#{Router.path('rentalApplication', {id: template.data._id})}/download"
 
-
   "click .revert-rental-application": (event, template) ->
     Meteor.call 'revertRentalApplication', @_id if confirm "Are you sure you want to revert to '#{@updateNote}'?"
-
-  "focus .form-control.fg-line": (event, template) ->
-    console.log("Check Avail - Events - Input Focused")
-    $(event.target).closest('.fg-line').addClass('fg-toggled');
-
-  "focus .form-control.fg-line": ->
-    console.log("Check Avail - Events - Input Focused")
-    $(@).closest('.fg-line').addClass('fg-toggled')
-
-  "blur .form-control.fg-line": (event, template) ->
-    console.log("Check Avail - Events - Input Blurred")
-
-    fgrp = $(event.target).closest('.form-group');
-
-    val = $(event.target).val();
-
-    console.log("Check Avail - Events - Input Blurred: val() is: ")
-    console.log(val);
-
-    if fgrp.hasClass('fg-float')
-      $(event.target).closest('.fg-line').removeClass('fg-toggled');

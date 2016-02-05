@@ -501,7 +501,7 @@ template(name="rentalApplication")
 
               .form-group
                 label.col-sm-4.col-md-3 How long at this position
-                .col-sm-3.col-md-2.p-r-10
+                .col-sm-3.p-r-10
                   input.form-control(type="text", name="positionDuration", value="#{fields.positionDuration}")
 
               .form-group
@@ -677,10 +677,10 @@ template(name="rentalApplication")
                 table#files-list.table
                   thead
                     tr
-                      th File name
-                      th Type
+                      th File Name
+                      th DocumentType
                       th Size
-                      th Uploaded on
+                      th Uploaded On
                       if canOperateWithBuilding
                         th Shared with user
                       th Actions
@@ -690,7 +690,7 @@ template(name="rentalApplication")
                         td #{name}
                         td
                           select.form-control.document-type(class="#{documentTypeClass}")
-                            option -- Select a document type --
+                            option - Select Document Type -
                             option(value="Identification", selected="{{isSelected 'Identification'}}") Identification
                             option(value="Proof of Income", selected="{{isSelected 'Proof of Income'}}") Proof of Income
                             option(value="Bank Statement (Optional)", selected="{{isSelected 'Bank Statement (Optional)'}}") Bank Statement (Optional)
@@ -701,14 +701,15 @@ template(name="rentalApplication")
                               i.fa.fa-spin.fa-spinner
                               i.fa.fa-check-circle.text-success
                         td #{size}
-                        td {{getFormatted uploadedAt}}
+                        td {{getFormatted dateCreated}}
+                        if canOperateWithBuilding
+                          td
+                            if isUploadedByAdmin
+                              input.shared-with-user(type="checkbox", checked=canUserView)
+                            else
+                              | Uploaded by Applicant
                         td
-                          if isUploadedByAdmin
-                            input.shared-with-user(type="checkbox", checked=canUserView)
-                          else
-                            | Uploaded by user
-                        td
-                          a(href="{{url}}", target="_blank")
+                          a.m-r-5(href="{{url}}", target="_blank")
                             i.fa.fa-eye
                           a.delete-document(href="#")
                             i.fa.fa-trash

@@ -191,20 +191,29 @@
       padding-right 8px
 
   select.document-type.other
-    width 70px
+    display inline-block
+    float left
+    width 40%
+    @media screen and (min-width: 992px)
+      width 25%
 
   .document-type-other-wrapper
-    display inline
+    display inline-block
+    float right
     position relative
+    width 58%
+    @media screen and (min-width: 992px)
+      width 72%
     input.document-type-other
       cursor auto
       padding-right 22px
     i
       display none
+      font-size 18px
       position absolute
-      right 5px
-      top 3px
-      z-index 999
+      right 8px
+      top 8px
+      z-index 9
 
   p.text-cond
     color #555

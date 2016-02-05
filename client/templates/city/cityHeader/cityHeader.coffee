@@ -1,6 +1,4 @@
 Template.cityHeader.onCreated ->
-  #console.log('cityHEAADER -> onCreated -> About to get svg checkbox script')
-  $.getScript '/misc/svgcheckbox/svgcheckbox.js'
 
 
 Template.cityHeader.onRendered ->

@@ -373,7 +373,7 @@ Router.map ->
     html = SSR.render('rentalApplicationPDF', rentalApplication)
 
     res = @response
-    res.setHeader('Content-disposition', "attachment; filename=Rentscene Rental Application - #{rentalApplication.fields.fullName}.pdf");
+    res.setHeader('Content-disposition', "attachment; filename=RentScene_RentalApplication_#{rentalApplication.fields.fullName}.pdf");
 
     fs = Npm.require('fs')
 
