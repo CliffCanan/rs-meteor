@@ -7,10 +7,11 @@
 
 #rental-application-wrapper input {
   border: 0;
-  border-bottom: 1px solid #888;
+  border-bottom: 1px solid #999;
   box-shadow: none;
   border-radius: 0;
   height: 24px;
+  font-size: 15px;
 }
 
 #rental-application-wrapper .form-group {
@@ -38,10 +39,9 @@
   width: 160px;
 }
 
-#rental-application-wrapper .input-small, #rental-application-wrapper .hasDatePicker {
+#rental-application-wrapper .input-small, #rental-application-wrapper .hasDatePicker-test {
   width: 110px;
 }
-
 
 #rental-application-wrapper .input-tiny {
   width: 80px;

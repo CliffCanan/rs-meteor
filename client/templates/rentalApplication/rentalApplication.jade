@@ -41,7 +41,8 @@ template(name="rentalApplication")
               .form-group
                 label.col-xs-4.col-sm-3 Move-In Date
                 .col-sm-4.col-md-3.col-lg-2.p-r-5
-                  +datepicker(name="moveInDate" value=getDatePickerDateMoveInDate)
+                  +datepicker(name="moveInDate", value=getDatePickerDateMoveInDate)
+
                 label.col-xs-4.col-sm-2.col-md-1.p-l-5.p-r-5.align-top Lease Length
                 .col-sm-4.col-md-3.col-lg-2
                   input.form-control(type="text", name="lenghtOfLease", value="#{fields.lenghtOfLease}")
@@ -62,6 +63,7 @@ template(name="rentalApplication")
                 label.col-sm-3 Applicant's Full Name
                 .col-sm-8.col-md-7.col-lg-5
                   input.form-control(type="text", name="fullName", value="#{fields.fullName}")
+
               .form-group
                 label.col-sm-3 Email
                 .col-sm-8.col-md-7.col-lg-5
@@ -69,6 +71,7 @@ template(name="rentalApplication")
                     span.input-group-addon
                       i.fa.fa-fw.fa-envelope
                     input.input-large.form-control(type="email", name="email", value="#{fields.email}")
+
               .form-group
                 label.col-sm-3 Phone #
                 .col-sm-8.col-md-7.col-lg-5
@@ -76,10 +79,12 @@ template(name="rentalApplication")
                     span.input-group-addon
                       i.fa.fa-fw.fa-mobile
                     input#phone-number.form-control(type="text", name="phoneNumber", value="#{fields.phoneNumber}")
+
               .form-group
                 label.col-sm-3 Date of Birth
                 .col-sm-3.col-md-2.p-r-10
-                  +datepicker(name="dateOfBirth" options=dateOfBirthOptions value=getDatePickerDateDateOfBirth)
+                  +datepicker(name="dateOfBirth" options=dateOfBirthOptions, value=getDatePickerDateDateOfBirth)
+
                 label.col-sm-2.col-lg-1.p-r-0.p-l-0.align-top SSN
                   small Social Security Number
                 .col-sm-3.col-md-2
@@ -92,6 +97,7 @@ template(name="rentalApplication")
                   select#is-student.form-control(name="isStudent", value="#{fields.isStudent}")
                     option(value="Yes") Yes
                     option(value="No", selected) No
+
               .student-wrapper(style="display: none")
                 .form-group
                   label.col-sm-2.col-sm-offset-1 Institution
@@ -114,6 +120,7 @@ template(name="rentalApplication")
                     option(value="No" selected) No
                     option(value="I have a partner") I have a partner
                     option(value="I have a roommate") I have a roommate(s)
+
               .partner-wrapper(style="display: none")
                 .form-group
                   label.col-sm-4.col-md-3 Partner's Name
@@ -353,7 +360,7 @@ template(name="rentalApplication")
                     input.input-medium.form-control(type="text", name="currentCity", value="#{fields.currentCity}")
                   label.col-sm-1.p-r-5 State
                   .col-sm-1
-                    input.input-small.form-control(type="text", name="currentState", value="#{fields.currentState}")
+                    input.input-small.form-control.letter-max-2(type="text", name="currentState", value="#{fields.currentState}")
                   label.col-sm-1 ZIP
                   .col-sm-1.p-l-0
                     input.input-small.form-control.p-l-5.p-r-5.num-max-5(type="text", name="currentZip", value="#{fields.currentZip}")
@@ -371,7 +378,7 @@ template(name="rentalApplication")
                 .form-group
                   label.col-sm-4.col-md-3 TOTAL Monthly Rent
                     small
-                      i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the TOTAL monthly rent for the unit, i.e. the sum of what each occupant paid.")
+                      i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the TOTAL monthly rent for the unit, i.e. the sum of what ALL occupants paid each month.")
                   .col-sm-3.col-md-2.p-r-10
                     .input-group
                       span.input-group-addon

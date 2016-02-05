@@ -45,20 +45,22 @@ Template.rentalApplication.onRendered ->
     else
       $('.access-wrapper').removeClass('hidden')
   
-  $('#rentAmnt').mask('9,999')
+  $('#rentAmnt').mask('9,999', {placeholder:" "})
   $('#partner-ssn').mask('999-99-9999')
   $('#social-security-number').mask('999-99-9999')
-  $('#phone-number').mask('(999) 999-9999')
-  $('#current-landlord-phone-number').mask('(999) 999-9999')
-  $('#previous-landlord-phone-number').mask('(999) 999-9999')
-  $('#first-reference-phone-number').mask('(999) 999-9999')
-  $('#second-reference-phone-number').mask('(999) 999-9999')
-  $('#first-emergency-contact-phone-number').mask('(999) 999-9999')
-  $('#second-emergency-contact-phone-number').mask('(999) 999-9999')
+  $('#phone-number').mask('(999) 999-9999' ,{placeholder:" "})
+  $('#current-landlord-phone-number').mask('(999) 999-9999', {placeholder:" "})
+  $('#previous-landlord-phone-number').mask('(999) 999-9999', {placeholder:" "})
+  $('#first-reference-phone-number').mask('(999) 999-9999', {placeholder:" "})
+  $('#second-reference-phone-number').mask('(999) 999-9999', {placeholder:" "})
+  $('#first-emergency-contact-phone-number').mask('(999) 999-9999', {placeholder:" "})
+  $('#second-emergency-contact-phone-number').mask('(999) 999-9999', {placeholder:" "})
 
-  $('input.num-max-2').mask('99')
-  $('input.num-max-4').mask('9999')
-  $('input.num-max-5').mask('99999')
+  $('input.num-max-2').mask('9?9', {placeholder:" "})
+  $('input.num-max-4').mask('99?99', {placeholder:" "})
+  $('input.num-max-5').mask('99999', {placeholder:" "})
+
+  $('input.letter-max-2').mask('aa', {placeholder:" "})
 
   $('[data-toggle="tooltip"]').tooltip()
 
@@ -115,15 +117,15 @@ Template.rentalApplication.helpers
 
   getDatePickerDateMoveInDate: ->
     if @fields and @fields.moveInDate
-      moment(@fields.moveInDate).format("m/d/yy")
+      moment(@fields.moveInDate).format("mm/dd/yy")
 
   getDatePickerDateDateOfBirth: ->
     if @fields and @fields.dateOfBirth
-      moment(@fields.dateOfBirth).format("m/d/yy")
+      moment(@fields.dateOfBirth).format("mm/dd/yy")
 
   dateOfBirthOptions: ->
     #yearRange: '-100:-17'
-    dateFormat: "m/d/yy"
+    dateFormat: "mm/dd/yy"
     minDate: '-100y'
     maxDate: '-17y'
 
