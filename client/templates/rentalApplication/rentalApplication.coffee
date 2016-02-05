@@ -117,10 +117,14 @@ Template.rentalApplication.helpers
 
   getDatePickerDateMoveInDate: ->
     if @fields and @fields.moveInDate
+      console.log("Move In Date...")
+      console.log(@fields.dateOfBirth)
       moment(@fields.moveInDate).format("mm/dd/yy")
 
   getDatePickerDateDateOfBirth: ->
     if @fields and @fields.dateOfBirth
+      console.log("Date of Birth...")
+      console.log(@fields.dateOfBirth)
       moment(@fields.dateOfBirth).format("mm/dd/yy")
 
   dateOfBirthOptions: ->
