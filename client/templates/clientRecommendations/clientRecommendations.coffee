@@ -8,7 +8,7 @@ Template.clientRecommendations.onRendered ->
       subscriptionQuery = _.omit(params.query, 'cityId')
 
       firstBuilding = Buildings.findOne(clientRecommendations.buildingIds[0]) if clientRecommendations.buildingIds
-      firstCityId = if firstBuilding then firstBuilding.cityId else 'atlanta'
+      firstCityId = if firstBuilding then firstBuilding.cityId else 'philadelphia'
       cityId = if params.query.cityId then params.query.cityId else firstCityId
 
       citySubs.subscribe("buildings", cityId, subscriptionQuery, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
