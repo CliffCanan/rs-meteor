@@ -7,6 +7,11 @@ template(name="city")
   .city-page-wrap.col-lg-9
 
     if canOperateWithBuilding
+      .pull-left
+        button.btn.btn-sm.btn-primary.button-building-insert
+          i.fa.fa-plus
+          | Add Listing
+
       .filter-wrap.unpublished-property-toggle-wrapper
         span Toggle Unpublished Properties:
         label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
@@ -16,11 +21,6 @@ template(name="city")
       if showClientRecommendationsName
         h2.pull-left(style="margin: 0")
           | Recommendations for {{currentClientName}}
-
-      if canOperateWithBuilding
-        button.btn.btn-primary.button-building-insert.pull-left
-          i.fa.fa-plus
-          | Add Listing
 
       if clientRecommendationsList
         +clientRecommendationsToggle

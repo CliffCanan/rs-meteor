@@ -41,7 +41,6 @@ Meteor.publish "buildings", (cityId, query, page) ->
     utm_medium: Match.Optional(String)
     utm_content: Match.Optional(String)
     utm_campaign: Match.Optional(String)
-    justatest: Match.Optional(String)
 
   page = parseInt(page)
   unless page > 0

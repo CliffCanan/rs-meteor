@@ -65,7 +65,7 @@ Template.building.helpers
     for review in allReviews
       totalRating += parseInt(review.totalRating, 10)
 
-    (totalRating / allReviews.length).toFixed(2)
+    (totalRating / allReviews.length).toFixed(1)
 
   rentalQuery: ->
     buildingId: @_id
@@ -299,13 +299,13 @@ Template.building.onRendered ->
     hidecursordelay: 500
     horizrailenabled: false
 
-  # Show Check Availability Popup after 12 seconds
+  # Show Check Availability Popup after 13 seconds
   if !Meteor.user() and $(window).width() > 600 
     unless Session.get "hasSeenCheckAvailabilityPopup" == true || Session.get "hasSeenContactUsPopup" == true
       @popupTimeoutHandle = Meteor.setTimeout ->
         unless $('body').hasClass('modal-open')
           $('.check-availability').trigger('click')
-      , 12000
+      , 13000
 
 
 Template.building.onDestroyed ->
