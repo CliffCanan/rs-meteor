@@ -53,7 +53,7 @@ template(name="rentalApplication")
                   .input-group
                     span.input-group-addon
                       i.fa.fa-fw.fa-usd
-                    input.form-control(type="text", id="rentAmnt" name="rent", value="#{fields.rent}")
+                    input.form-control.mask-money(type="text", id="rentAmnt" name="rent", value="#{fields.rent}")
                     span.input-group-addon .00
 
 
@@ -381,17 +381,19 @@ template(name="rentalApplication")
                       i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the TOTAL monthly rent for the unit, i.e. the sum of what ALL occupants paid each month.")
                   .col-sm-3.col-md-2.p-r-10
                     .input-group
-                      span.input-group-addon
+                      .input-group-addon
                         i.fa.fa-fw.fa-usd
-                      input.form-control(type="text", name="currentRent", value="#{fields.currentRent}")
+                      input.form-control.mask-money(type="text", name="currentRent", value="#{fields.currentRent}")
+                      .input-group-addon .00
                   label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.col-lg-2.p-l-0.p-r-5.align-top YOUR Monthly Rent
                     small
                       i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the total amount YOU paid each month.")
                   .col-sm-3.col-sm-pull-2.col-md-2.col-md-pull-0
                     .input-group
-                      span.input-group-addon
+                      .input-group-addon
                         i.fa.fa-fw.fa-usd
-                      input.form-control(type="text", name="currentRentResponsible", value="#{fields.currentRentResponsible}")  
+                      input.form-control.mask-money(type="text", name="currentRentResponsible", value="#{fields.currentRentResponsible}")
+                      .input-group-addon .00
 
                 .form-group
                   label.col-sm-4.col-md-3 Reason For Leaving
@@ -453,20 +455,23 @@ template(name="rentalApplication")
                     input#previous-landlord-phone-number.form-control(type="text", name="previousLandlordPhoneNumber", value="#{fields.previousLandlordPhoneNumber}")
 
                 .form-group
-                  label.col-sm-4.col-md-3 Total Monthly Rent
+                  label.col-sm-4.col-md-3 TOTAL Monthly Rent
                     small
-                      i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the TOTAL monthly rent for the unit, i.e. the sum of what each occupant paid.")
+                      i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the TOTAL monthly rent for the unit, i.e. the sum of what all occupants paid.")
                   .col-sm-3.col-md-2.p-r-10
                     .input-group
-                      .input-group-addon $
-                      input.input-tiny.form-control(type="text", name="previousRent", value="#{fields.previousRent}")
+                      .input-group-addon
+                        i.fa.fa-fw.fa-usd
+                      input.input-tiny.form-control.mask-money(type="text", name="previousRent", value="#{fields.previousRent}")
+                      .input-group-addon .00
                   label.col-sm-4.col-sm-offset-2.col-sm-pull-2.col-md-3.col-md-pull-0.col-md-offset-0.col-lg-2.p-l-0.p-r-5.align-top YOUR Monthly Rent
                     small
                       i.fa.fa-question-circle.text-primary(data-trigger="hover" data-toggle="tooltip" data-placement="auto" title="Enter the total amount YOU paid each month.")
                   .col-sm-3.col-sm-pull-2.col-md-2.col-md-pull-0
                     .input-group
-                      .input-group-addon $
-                      input.input-tiny.form-control(type="text", name="previousRentResponsible", value="#{fields.previousRentResponsible}")  
+                      .input-group-addon
+                        i.fa.fa-fw.fa-usd
+                      input.input-tiny.form-control.mask-money(type="text", name="previousRentResponsible", value="#{fields.previousRentResponsible}")  
 
                 .form-group
                   label.col-sm-4.col-md-3 Reason For Leaving
@@ -489,9 +494,10 @@ template(name="rentalApplication")
                 label.col-sm-1.p-l-0.p-r-10.align-top Monthly Salary
                 .col-sm-2.p-l-0
                   .input-group
-                    span.input-group-addon
+                    .input-group-addon
                       i.fa.fa-fw.fa-usd
-                    input.form-control(type="text", name="monthlySalary", value="#{fields.monthlySalary}")
+                    input.form-control.mask-money(type="text", name="monthlySalary", value="#{fields.monthlySalary}")
+                    .input-group-addon .00
 
               .form-group
                 label.col-sm-4.col-md-3 How long at this position

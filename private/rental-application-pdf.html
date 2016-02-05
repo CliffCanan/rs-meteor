@@ -34,14 +34,14 @@
                                 <label class="col-sm-3">Move-In Date</label>
                                 <input type="text" name="moveInDate" value="{{renderDate fields.moveInDate}}" class="col-sm-3 form-control" />
 
-                                <label class="col-sm-3">Lease Length</label>
+                                <label class="col-sm-2">Lease Length</label>
                                 <input type="text" name="lenghtOfLease" value="{{fields.lenghtOfLease}}" class="col-sm-3 form-control" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group">
-                                <label class="col-sm-4">Rent</label>
+                                <label class="col-sm-3">Rent</label>
                                 <input type="text" name="rent" value="${{formatMoney fields.rent}}" class="col-sm-3 form-control" />
                             </div>
                         </div>
@@ -74,12 +74,11 @@
                                 <label class="col-sm-3">Date of Birth</label>
                                 <input type="text" name="dateOfBirth" value="{{renderDate fields.dateOfBirth}}" class="col-sm-3 form-control" />
 
-                                <label class="col-sm-3">Social Security Number</label>
+                                <label class="col-sm-2">Social Security Number</label>
                                 <input type="text" name="socialSecurityNumber" value="{{fields.socialSecurityNumber}}" class="col-sm-3 form-control" />
                             </div>
                         </div>
 
-                        {{#if fields.isStudent}}
                         <h4>Student Information</h4>
 
                         <div class="row">
@@ -91,12 +90,14 @@
 
                         <br />
 
+                        {{#if fields.isStudent}}
+
                         <div class="row">
                             <div class="form-group">
                                 <label class="col-sm-3">Institution</label>
                                 <input type="text" name="institution" value="{{fields.institution}}" class="col-sm-3 form-control" />
 
-                                <label class="col-sm-3">Years Attended</label>
+                                <label class="col-sm-2">Years Attended</label>
                                 <input type="text" name="institutionDuration" value="{{fields.institutionDuration}}" class="col-sm-3 form-control" />
                             </div>
                         </div>
@@ -117,14 +118,10 @@
                         <div class="row">
                             <div class="form-group">
                                 <label class="col-sm-3">Name of Partner</label>
-                                <input type="text" name="nameOfPartner" value="{{fields.nameOfPartner}}" class="col-sm-9 form-control" />
-                            </div>
-                        </div>
+                                <input type="text" name="nameOfPartner" value="{{fields.nameOfPartner}}" class="col-sm-3 form-control" />
 
-                        <div class="row">
-                            <div class="form-group">
-                                <label class="col-sm-3">Partner SSN</label>
-                                <input type="text" name="partnerSSN" value="{{fields.partnerSSN}}" class="col-sm-9 form-control" />
+                                <label class="col-sm-2">Partner SSN</label>
+                                <input type="text" name="partnerSSN" value="{{fields.partnerSSN}}" class="col-sm-3 form-control" />
                             </div>
                         </div>
                         {{/if}}
@@ -191,13 +188,13 @@
                         <div class="row">
                             <div class="form-group">
                                 <label class="col-sm-3">How many people will live here?</label>
-                                <input type="text" name="familyMembersCount" value="{{fields.familyMembersCount}}" class="col-sm-2 form-control" />
+                                <input type="text" name="familyMembersCount" value="{{fields.familyMembersCount}}" class="col-sm-1 form-control" />
 
                                 <label class="col-sm-1">Adults</label>
-                                <input type="text" name="adultsCount" value="{{fields.adultsCount}}" class="col-sm-2 form-control" />
+                                <input type="text" name="adultsCount" value="{{fields.adultsCount}}" class="col-sm-1 form-control" />
 
                                 <label class="col-sm-1">Children</label>
-                                <input type="text" name="childrenCount" value="{{fields.childrenCount}}" class="col-sm-2 form-control" />
+                                <input type="text" name="childrenCount" value="{{fields.childrenCount}}" class="col-sm-1 form-control" />
                             </div>
                         </div>
                         {{/if}}
@@ -429,7 +426,7 @@
                                 <label class="col-sm-3">Current Landlord's Name</label>
                                 <input type="text" name="currentLandlordName" value="{{fields.currentLandlordName}}" class="col-sm-3 form-control" />
 
-                                <label class="col-sm-3">Landlord's Phone #</label>
+                                <label class="col-sm-2">Landlord's Phone #</label>
                                 <input type="text" name="currentLandlordPhoneNumber" value="{{fields.currentLandlordPhoneNumber}}" class="col-sm-3 form-control" />
                             </div>
                         </div>
@@ -441,7 +438,7 @@
                                 <label class="col-sm-3">TOTAL Monthly Rent</label>
                                 <input type="text" name="currentRent" value="${{formatMoney fields.currentRent}}" class="col-sm-3 form-control" />
 
-                                <label class="col-sm-3">YOUR Monthly Rent</label>
+                                <label class="col-sm-2">YOUR Monthly Rent</label>
                                 <input type="text" name="currentRentResponsible" value="${{formatMoney fields.currentRentResponsible}}" class="col-sm-3 form-control" />
                             </div>
                         </div>
@@ -455,7 +452,7 @@
                             </div>
                         </div>
 
-                        {{#if showPreviousAddress}}
+                        {{#if fields.previousAddress}}
                         <br />
 
                         <h4>Previous Address</h4>
@@ -497,7 +494,7 @@
                                 <label class="col-sm-3">Previous Landlord's Name</label>
                                 <input type="text" name="previousLandlordName" value="{{fields.previousLandlordName}}" class="col-sm-3 form-control" />
 
-                                <label class="col-sm-3">Landlord's Phone #</label>
+                                <label class="col-sm-2">Landlord's Phone #</label>
                                 <input type="text" name="previousLandlordPhoneNumber" value="{{fields.previousLandlordPhoneNumber}}" class="col-sm-3 form-control" />
                             </div>
                         </div>
@@ -509,7 +506,7 @@
                                 <label class="col-sm-3">TOTAL Monthly Rent</label>
                                 <input type="text" name="previousRent" value="${{formatMoney fields.previousRent}}" class="col-sm-3 form-control" />
 
-                                <label class="col-sm-3">YOUR Monthly Rent</label>
+                                <label class="col-sm-2">YOUR Monthly Rent</label>
                                 <input type="text" name="previousRentResponsible" value="${{formatMoney fields.previousRentResponsible}}" class="col-sm-3 form-control" />
                             </div>
                         </div>
@@ -532,16 +529,19 @@
                         <div class="row">
                             <div class="form-group">
                                 <label class="col-sm-3">Present Employer</label>
-                                <input type="text" name="presentEmployer" value="{{fields.presentEmployer}}" class="col-sm-9 form-control" />
+                                <input type="text" name="presentEmployer" value="{{fields.presentEmployer}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-2">Position</label>
+                                <input type="text" name="position" value="{{fields.position}}" class="col-sm-3 form-control" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group">
-                                <label class="col-sm-3">Position</label>
-                                <input type="text" name="position" value="{{fields.position}}" class="col-sm-3 form-control" />
+                                <label class="col-sm-3">How long at this position</label>
+                                <input type="text" name="monthlySalary" value="{{fields.positionDuration}}" class="col-sm-3 form-control" />
 
-                                <label class="col-sm-3">Monthly Salary</label>
+                                <label class="col-sm-2">Monthly Salary</label>
                                 <input type="text" name="monthlySalary" value="${{formatMoney fields.monthlySalary}}" class="col-sm-3 form-control" />
                             </div>
                         </div>
@@ -551,14 +551,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <label class="col-sm-3">Employer's Address</label>
-                                <input type="text" name="position" value="{{fields.employerAddress}}" class="col-sm-6 form-control" />
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group">
-                                <label class="col-sm-3">How long at this position</label>
-                                <input type="text" name="monthlySalary" value="{{fields.positionDuration}}" class="col-sm-5 form-control" />
+                                <input type="text" name="position" value="{{fields.employerAddress}}" class="col-sm-9 form-control" />
                             </div>
                         </div>
 
@@ -569,7 +562,7 @@
                                 <label class="col-sm-3">Contact Person</label>
                                 <input type="text" name="employmentVerificationPerson" value="{{fields.employmentVerificationPerson}}" class="col-sm-3 form-control" />
 
-                                <label class="col-sm-3">Phone # / Email</label>
+                                <label class="col-sm-2">Phone # / Email</label>
                                 <input type="text" name="employmentVerificationContact" value="{{fields.employmentVerificationContact}}" class="col-sm-3 form-control" />
                             </div>
                         </div>
@@ -598,7 +591,7 @@
                                 <label class="col-sm-3">Contact Person</label>
                                 <input type="text" name="otherEmploymentVerificationPerson" value="{{fields.otherEmploymentVerificationPerson}}" class="col-sm-3 form-control" />
 
-                                <label class="col-sm-3">Phone # / Email</label>
+                                <label class="col-sm-2">Phone # / Email</label>
                                 <input type="text" name="otherEmploymentVerificationContact" value="{{fields.otherEmploymentVerificationContact}}" class="col-sm-3 form-control" />
                             </div>
                         </div>

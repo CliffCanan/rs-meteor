@@ -61,6 +61,7 @@ Template.rentalApplication.onRendered ->
   $('input.num-max-5').mask('99999', {placeholder:" "})
 
   $('input.letter-max-2').mask('aa', {placeholder:" "})
+  $('input.mask-money').mask('999?99', {placeholder:" "})
 
   $('[data-toggle="tooltip"]').tooltip()
 

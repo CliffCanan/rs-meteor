@@ -42,17 +42,22 @@
     label:not(.align-top)
       margin-top 6px
 
-    .input-group-addon .fa
-      width 15px
-      &.fa-mobile
-        font-size 150%
+    .input-group-addon
+      padding 6px 8px
+      &:last-child
+        font-size 15px
+        padding 6px
+      .fa
+        width 15px
+        &.fa-mobile
+          font-size 150%
+        &:last
 
     input#rentAmnt
       padding 1px
       text-align center
       + .input-group-addon
         font-size 15px
-        padding 6px
 
     input#social-security-number
       letter-spacing 1px
