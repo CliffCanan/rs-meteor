@@ -288,38 +288,11 @@ template(name="rentalApplication")
                     textarea.form-control(type="text", name="dogAdditionalInfo", value="#{fields.dogAdditionalInfo}")
 
               #otherpet-wrapper
-                .form-group
+                .form-group.m-t-30
                   label.col-sm-2.p-l-5.align-top Pet Info
                     small Please describe your pet (size, weight, type, etc).
                   .col-xs-12.col-sm-9.col-md-8.col-lg-5
                     textarea.form-control(type="text", name="otherPetAdditionalInfo", value="#{fields.otherPetAdditionalInfo}")
-
-
-              .pets-wrapper.hidden
-                .form-group
-                  label.col-sm-3.col-sm-offset-1.col-md-2 Pet(s)'s name
-                  .col-sm-2
-                    input.form-control(type="text", name="petName", value="#{fields.petName}")
-                  label.col-sm-2.p-l-25 Breed(s)
-                  .col-sm-2.p-l-10
-                    input.form-control(type="text", name="petBreed", value="#{fields.petBreed}")
-                .form-group
-                  label.col-sm-3.col-sm-offset-1.col-md-2 Color(s)
-                  .col-sm-2
-                    input.form-control(type="text", name="petColor", value="#{fields.petColor}")
-                  label.col-sm-1 Age(s)
-                  .col-sm-1.p-l-0
-                    input.form-control(type="text", name="petAge", value="#{fields.petAge}")
-                  label.col-sm-1 Gender(s)
-                  .col-sm-1.p-l-0
-                    input.form-control(type="text", name="petGender", value="#{fields.petGender}")
-                .form-group
-                  label.col-sm-3.col-sm-offset-1.col-md-2 Weight(s)
-                  .col-sm-2
-                    input.form-control(type="text", name="petWeight", value="#{fields.petWeight}")
-                  label.col-sm-2 Spayed / Neutered?
-                  .col-sm-1
-                    input.form-control.checkbox(type="checkbox", name="petSpayedNeutered", value="true")
 
 
               h3 Prior Rental Information
@@ -501,7 +474,7 @@ template(name="rentalApplication")
 
               .form-group
                 label.col-sm-4.col-md-3 How long at this position
-                .col-sm-3.p-r-10
+                .col-sm-3
                   input.form-control(type="text", name="positionDuration", value="#{fields.positionDuration}")
 
               .form-group
@@ -511,7 +484,7 @@ template(name="rentalApplication")
 
               .form-group
                 label.col-sm-4.col-md-3 Contact Person
-                .col-sm-3.col-md-2.p-r-5
+                .col-sm-3.col-md-2.p-r-0
                   input.form-control(type="text", name="employmentVerificationPerson", value="#{fields.employmentVerificationPerson}")
                 label.col-sm-2 Phone or Email
                 .col-sm-2.p-l-5
@@ -678,11 +651,11 @@ template(name="rentalApplication")
                   thead
                     tr
                       th File Name
-                      th DocumentType
+                      th Document Type
                       th Size
                       th Uploaded On
                       if canOperateWithBuilding
-                        th Shared with user
+                        th Shared w/ User
                       th Actions
                   tbody
                     each documents
@@ -697,7 +670,7 @@ template(name="rentalApplication")
                             option(value="Other", selected="{{isSelected 'Other'}}") Other
                           if isOther
                             .document-type-other-wrapper
-                              input.form-control.document-type-other(type="text", placeholder="Please specify type", value="#{documentType}")
+                              input.form-control.document-type-other(type="text", placeholder="Enter Description", value="#{documentType}")
                               i.fa.fa-spin.fa-spinner
                               i.fa.fa-check-circle.text-success
                         td #{size}

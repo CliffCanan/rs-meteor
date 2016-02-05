@@ -1,13 +1,18 @@
 template(name="index")
   .home-page-bg
+
   section.head-section-wrap.clearfix
     .head-section
+
       h2.head-section-title
         | Wish Renting Was Easy?
+
       p.main-desc
         | It can be. &nbsp;Let's find the perfect apartment for you.
+
       .benefits-wrap
         i.fa.fa-plus
+
         .concierge-wrap
           h3 Full-Service
             br
@@ -19,6 +24,7 @@ template(name="index")
             li
               i.fa-li.fa.fa-check
               | One point of contact
+
         .technology-wrap
           h3 Anytime, Anywhere
             br
@@ -39,6 +45,7 @@ template(name="index")
                 i.fa.fa-user.m-r-5
                 | Talk To An Expert
                 i.fa.fa-angle-right.m-l-10
+
         .col-md-6
           .button-shadow
             a#browse-button(href="#")
@@ -46,6 +53,7 @@ template(name="index")
                 i.fa.fa-globe.m-r-5
                 | Browse Apartments
                 i.fa.fa-angle-right.m-l-10
+
           ul.city-list.list-unstyled
             each cities
               li.city-item
@@ -56,8 +64,7 @@ template(name="index")
 
 
   section.main-section.clearfix
-    h2.main-section-title
-      | Your Personal Search Assistant
+    h2.main-section-title Your Personal Search Assistant
 
     .container.services-wrap
 
@@ -138,6 +145,15 @@ template(name="index")
               cite.quote-author Kirsten S.
                 a.quote-author-link(href="/city/philadelphia") Philadelphia
           img(src="/images/testimonials/kirsten.png", alt="Kirsten S, Philadelphia")
+
+
+  section.main-section.cta#cta1.clearfix
+    h2.col-xs-12.col-md-6.col-md-offset-3.main-section-title.p-b-0 Grunt work is our specialty
+
+    h4.main-section-subtitle From dealing with landlords to scheduling tours and even something else, we do the hard work so you don't have to.
+
+    button.btn.btn-info(type="button") Find Me An Apartment!
+
 
   section.contact-us-section.clearfix
     .text-center

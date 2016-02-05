@@ -74,6 +74,14 @@ Template.index.events
 
     $('#contactUsPopup').modal('show')
 
+  "click #cta1 .btn": (event, template) ->
+    analytics.track "Clicked Call To Action (Homepage - cta1)" unless Meteor.user()
+
+    # If no utm_source value is still the default of 'no source found' (as it would if coming from Google or FB),
+    # then set it here so we know the lead originated from the Home page.
+    Session.set "utm_source", "homepage-cta-1"  if Session.get "utm_source" is "no source found"
+
+    $('#contactUsPopup').modal('show')
 
 $("#contactUsPopup").on "shown.bs.modal", (e) ->
   Session.set "hasSeenContactUsPopup", true
