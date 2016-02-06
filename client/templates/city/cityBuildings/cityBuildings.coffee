@@ -11,6 +11,8 @@ Template.cityBuildings.onRendered ->
   instance = Template.instance()
 
   _.defer ->
+    $('[data-toggle="tooltip"]').tooltip()
+
     $(".main-city-list").hoverIntent ->
       if not $(this).hasClass('images-subscribed')
         $carousel = $(this).find('.carousel')

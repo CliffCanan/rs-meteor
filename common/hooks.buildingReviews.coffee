@@ -6,7 +6,7 @@ BuildingReviews.after.update (userId, buildingReview, fieldNames, modifier, opti
 
 updateAverageRating = (buildingReview) ->
   buildingId = buildingReview.buildingId
-  allReviews = BuildingReviews.find({buildingId: buildingId, isPublished: true}, {sort: {createdAt: -1}}).fetch()
+  allReviews = BuildingReviews.find({buildingId: buildingId, isPublished: true}, {sort: {createdAt: -1}})
 
   totalRating = _.reduce allReviews.fetch(), (memo, review) ->
     singleReview = 0
