@@ -22,7 +22,6 @@ Router.map ->
     name: "index"
     fastRender: true
     onBeforeAction: ->
-      #console.log("Index Fired")
 
       Session.setDefault('hasAlrdyConverted', false);
 
@@ -129,7 +128,6 @@ Router.map ->
       return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
-      #console.log("/city/:cityID Fired")
 
       if @params.query.hasOwnProperty 'address'
         Session.set("cityName", @params.query.address)
@@ -150,9 +148,6 @@ Router.map ->
       Session.setDefault('utm_source', 'no source found');
       Session.setDefault('utm_medium', 'no medium found');
       Session.setDefault('utm_campaign', 'no campaign found');
-
-      #console.log("City Page Fired!")
-      #console.log(@params)
 
       source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
       medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
@@ -188,9 +183,6 @@ Router.map ->
       Session.set("neighborhoodPageData", {page: 1})
       Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       Session.set("cityScroll", 0)
-
-      #console.log("Neighborhood page fired!")
-      #console.log(@params)
 
       Session.setDefault('hasAlrdyConverted', false);
       Session.setDefault('utm_source', 'no source found');
@@ -234,9 +226,6 @@ Router.map ->
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
 
-      #console.log("Unit page fired!")
-      #console.log(@params)
-
       Session.setDefault('hasAlrdyConverted', false);
       Session.setDefault('utm_source', 'no source found');
       Session.setDefault('utm_medium', 'no medium found');
@@ -254,20 +243,15 @@ Router.map ->
     onAfterAction: ->
       Session.set "currentPage", "building"
 
-      #console.log("2) params.cityId: " + @params.cityId)
-
       if @data() and @data().building
         building = @data().building
         metaTags = building.metaTags()
 
-        #console.log("Routing -> building -> onAfterAction building.metaTags() are...")
-        #console.log(building.metaTags())
         #console.log(metaTags)
         #console.log(metaTags.title)
 
         if metaTags.title
           #console.log("Routing -> building -> onAfterAction -> metaTags.Title EXISTS")
-          console.log(metaTags.title)
           SEO.set
             title: metaTags.title
             meta:
