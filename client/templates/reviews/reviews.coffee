@@ -41,7 +41,7 @@ Template.reviews.helpers
       singleReview += parseInt(review.score, 10) for review in review.reviewItems
       console.log(singleReview)
 
-      singleReviewRaw = ((singlescore / 40) * 10).toFixed(2)
+      singleReviewRaw = ((singleReview / 40) * 10).toFixed(2)
       console.log(singleReviewRaw)
       console.log(typeof singleReviewRaw)
 
