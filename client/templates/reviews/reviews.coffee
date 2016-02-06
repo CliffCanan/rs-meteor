@@ -37,18 +37,15 @@ Template.reviews.helpers
       singlescore = 0
       singlescore += parseInt(review.totalRating, 10)
 
-      ### Now loop through each sub-score and add them to get a raw score out of (out of a max of 40 total points)
-      i = 0
+      # Now loop through each sub-score and add them to get a raw score out of (out of a max of 40 total points)
       console.log(review.reviewItems.length)
 
-      while i < review.reviewItems.length
-        singlescore += parseInt(review.reviewItems[i].score, 10)
+      singlescore += parseInt(item.score, 10) for review in review.reviewItems
 
       singlescore = ((singlescore / 40) * 10).toFixed(2)
-      ###
 
       totalRating += singlescore
-      #console.log(totalRating)
+      console.log(totalRating)
 
     (totalRating / allReviews.length).toFixed(1)
 
