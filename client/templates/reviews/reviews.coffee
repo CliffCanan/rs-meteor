@@ -37,7 +37,7 @@ Template.reviews.helpers
       singleReview = 0
       singleReview += parseInt(review.totalRating, 10)
 
-      # Now loop through each sub-score and add them to get a raw score out of (out of a max of 40 total points)
+      # Now loop through each sub-score and add them to get a raw score (out of a max of 40 total points)
       singleReview += parseInt(review.score, 10) for review in review.reviewItems
 
       singleReviewRaw = (singleReview / 40) * 10

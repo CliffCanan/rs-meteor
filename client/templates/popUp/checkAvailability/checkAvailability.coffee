@@ -16,7 +16,7 @@ Template.checkAvailability.rendered = ->
 
   form = @$("form")
 
-  building = @.data.building
+  building = @.data.building if @.data
 
   $('#leadname').focus()
 
@@ -63,10 +63,10 @@ Template.checkAvailability.rendered = ->
         building = Session.get("currentUnit")
 
       json = form.serializeFormJSON()
-      json.cityName = if building.cityName then building cityName else 'no city name found'
-      json.cityId = if building.cityId then building.cityId else 'no city id found'
-      json.buildingName = if building.title then building.title else 'no Building Name found'
-      json.buildingId = if building._id then building._id else 'no Building ID found'
+      json.cityName = if building and building.cityName then building.cityName else 'no city name found'
+      json.cityId = if building and building.cityId then building.cityId else 'no city id found'
+      json.buildingName = if building and building.title then building.title else 'no Building Name found'
+      json.buildingId = if building and building._id then building._id else 'no Building ID found'
       json.phoneNumber = if json.phoneNumber then json.phoneNumber else 'not provided'
       if not json.bedrooms
         json.bedrooms = ""

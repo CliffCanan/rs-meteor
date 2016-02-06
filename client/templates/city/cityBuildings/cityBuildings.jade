@@ -12,6 +12,15 @@ template(name="cityBuildings")
               i.fa.fa-star
 
           a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}")
+
+            .action-options
+              a.btn.check-avail-option(data-toggle="tooltip", title="Check Availability")
+                i.fa.fa-fw.fa-calendar
+              // a.btn(data-toggle="tooltip", title="View Pictures")
+              //  i.fa.fa-fw.fa-picture-o
+              a.btn(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="View More Details")
+                i.fa.fa-fw.fa-eye
+
             .building-img-wrap.carousel.slide(id="carousel-{{_id}}" data-interval="false")
               .carousel-inner(role="listbox")
                 each buildingImages
@@ -42,3 +51,5 @@ template(name="cityBuildings")
             .main-city-info.clearfix
               i.fa.fa-bed
               span.main-city-desc {{bedroomTypes ../queryBtype}}
+
+  +checkAvailability

@@ -94,3 +94,11 @@ Template.cityBuildings.events
       Meteor.call "unrecommendBuilding", clientId, buildingId
     else
       Meteor.call "recommendBuilding", clientId, buildingId
+
+  "click .check-avail-option": (event, template) ->
+    event.stopPropagation()
+
+    # Session.set("currentUnit", @)
+    console.log(@)
+    analytics.track "Clicked Check Availability Btn (Search)" unless Meteor.user()
+    $('#checkAvailabilityPopup').modal()
