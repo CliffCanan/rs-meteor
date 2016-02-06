@@ -326,19 +326,20 @@ blockquote
       font-size 34px
 
   .main-section-subtitle
+    clear both
     color #666
     font-size 20px
     font-weight normal
     line-height 1.35
     margin 0 auto 25px
-    max-width 550px
-    @media screen and (min-width: 992px)
-      margin-bottom 30px
+    max-width 600px
     @media screen and (min-width: 992px)
       font-size 21px
-      max-width 600px
     @media screen and (min-width: 1200px)
       font-size 22px
+    span
+      @media screen and (min-width: 460px)
+        display block
 
   &.cta
     .btn
@@ -354,9 +355,9 @@ blockquote
         font-size 2rem
 
   &#cta1
-    margin-bottom 15px
+    padding-bottom 50px
     @media screen and (min-width: 768px)
-      margin-bottom 30px
+      padding-bottom 80px
 
 .services-wrap
   margin-bottom 40px
@@ -385,7 +386,7 @@ blockquote
       margin-top 5px
 
 .contact-us-section
-  padding 10px 0 25px
+  padding 10px 0 45px
   > div
     margin-bottom 20px
   .fa-stack
