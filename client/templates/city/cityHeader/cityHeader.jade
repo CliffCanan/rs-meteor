@@ -29,9 +29,14 @@ template(name="cityHeader")
             span.hide-sm Neighborhoods
 
           form.neighborhoods-section.dropdown-menu.dropdown-menu-left(style="left:0")
-            h3.filter-title
-              i.fa.fa-fw.fa-map-signs.m-r-5
+            h4.filter-title.pull-left
+              i.fa.fa-crosshairs.m-r-5
               | Select A Neighborhood:
+
+            span.pull-right
+              a#clear-neighborhoods(href="/city/#{../cityId}/")
+                span.hide-sm View All
+                i.fa.fa-list-ul.m-l-5
 
             ul.filter-list.list-unstyled.clearfix
 

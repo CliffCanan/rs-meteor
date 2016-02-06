@@ -147,6 +147,9 @@ Template.cityHeader.events
       $('.collapse-toggle-wrap .fa').removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up')
       $('.collapse-toggle-wrap .btn').attr('data-original-title', 'Hide options')
 
+  "click #clear-neighborhoods": (event, template) ->
+    analytics.track "Clicked Clear-Neighborhoods Btn (City Header)" unless Meteor.user()
+
   "click .bedroom-type-select li": (event, template) ->
     data = template.data
     $li = $(event.currentTarget)
