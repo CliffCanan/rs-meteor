@@ -12,6 +12,8 @@ template(name="cityBuildings")
               i.fa.fa-star
 
           .ext-gallery.hidden(itemscope, itemtype="http://schema.org/ImageGallery")
+            .close-btn
+              i.fa.fa-close
 
             #carousel-wide.owl-carousel(itemprop="associatedMedia", itemscope, itemtype="http://schema.org/ImageObject")
 
@@ -25,8 +27,8 @@ template(name="cityBuildings")
             .action-options.hide-sm
               a.btn.check-avail-option(data-toggle="tooltip", data-placement="bottom", title="Check Availability")
                 i.fa.fa-fw.fa-calendar
-              // a.btn.view-pics-option(data-toggle="tooltip", title="View Pictures")
-              //  i.fa.fa-fw.fa-picture-o
+              a.btn.view-pics-option(data-toggle="tooltip", title="View Pictures")
+                i.fa.fa-fw.fa-picture-o
               a.btn(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", data-placement="bottom", title="View More Details")
                 i.fa.fa-fw.fa-eye
 
