@@ -140,9 +140,16 @@
   height 100%
   padding 0
   float none
+  transition all .5s ease
   @media screen and (min-width: 1200px)
     position absolute
     right 0
+    width 0
+
+  #forMap.is-out ~ &
+    @media screen and (min-width: 1200px)
+      width 24.9% !important
+
   #gmap
     height 100%
 
