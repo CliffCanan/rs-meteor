@@ -135,7 +135,7 @@ Template.cityHeader.events
       $(event.target).attr('placeholder', 'Search neighborhood')
   ###
 
-  "click .collapse-toggle-wrap": (event, template) ->
+  "click .collapse-toggle-wrap#forCityHeader": (event, template) ->
     $item = $(event.currentTarget)
 
     if $item.hasClass('is-down')

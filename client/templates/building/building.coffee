@@ -164,12 +164,6 @@ Template.building.helpers
   reviewFormDefaults: ->
     Session.get('reviewFormDefaults')
 
-  #averageRating: ->
-  #  buildings = Template.instance().data.buildingReviews.fetch()
-  #  totalRating = 0
-  #  for building in buildings
-  #    totalRating += parseInt(building.totalRating, 10)
-  #  (totalRating / buildings.length).toFixed(1)
 
 Template.building.onRendered ->
   instance = @
@@ -236,7 +230,7 @@ Template.building.onRendered ->
     mapTypeControl: true
     mapTypeId: google.maps.MapTypeId.ROADMAP
     maxZoom: 18
-    minZoom: 9
+    minZoom: 10
 
   @map = map
   @directionsDisplay.setMap(map)

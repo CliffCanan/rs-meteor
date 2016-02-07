@@ -19,14 +19,12 @@ Template.city.onCreated ->
   @buildingsCount = new ReactiveVar(0)
   Session.set('adminShowUnpublishedProperties', false)
 
-  # Show Contact Us Popup after 14 seconds
-  if Router.current().route.getName() != "clientRecommendations" and not Meteor.user() and $(window).width() > 600
-    unless Session.get "hasSeenContactUsPopup" == true
-      @popupTimeoutHandle = Meteor.setTimeout ->
-        console.log(Session.get("currentPage"))
-        unless $('body').hasClass('modal-open') || Session.get("currentPage") == "building"
+  # Show Contact Us Popup after 18 seconds
+  if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
+    @popupTimeoutHandle = Meteor.setTimeout ->
+      unless $(window).width() < 768 || Session.get("hasSeenContactUsPopup") == true || $('body').hasClass('modal-open') || Session.get("currentPage") == "building"
           $('#contactUsPopup').modal('show')
-      , 14000
+    , 18000
 
 
 Template.city.helpers
@@ -36,10 +34,8 @@ Template.city.helpers
 
   clientRecommendationsList: ->
     if Router.current().route.getName() is "clientRecommendations"
-      $(".city-page-wrap").removeClass("col-lg-9").addClass("col-lg-12")
       return true
-    else
-      $(".city-page-wrap").removeClass("col-lg-12").addClass("col-lg-12")
+
     false
 
   showClientRecommendationsName: ->
@@ -178,6 +174,9 @@ Template.city.onRendered ->
     overviewMapControl: false
     mapTypeControl: true
     mapTypeId: google.maps.MapTypeId.ROADMAP
+    maxZoom: 18
+    minZoom: 11
+
   @map = map
   markers = {}
   defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
@@ -382,6 +381,20 @@ Template.city.events
   "click #show-unpublished-properties-toggle": (event, template) ->
     currentValue = Session.get('adminShowUnpublishedProperties')
     Session.set('adminShowUnpublishedProperties', !currentValue)
+
+
+  "click .collapse-toggle-wrap#forMap": (event, template) ->
+    $item = $(event.currentTarget)
+
+    if $item.hasClass('is-out')
+      $item.removeClass('is-out')
+      $('.collapse-toggle-wrap .fa').removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-left')
+      $('.collapse-toggle-wrap .btn').attr('data-original-title', 'Show options')
+    else
+      $item.addClass('is-out')
+      $('.collapse-toggle-wrap .fa').removeClass('fa-chevron-circle-left').addClass('fa-chevron-circle-right')
+      $('.collapse-toggle-wrap .btn').attr('data-original-title', 'Hide options')
+
 
 setDefaultImagesForCalc = ->
   $("#walker-calc").find("img").attr("src", "/images/walk.png")

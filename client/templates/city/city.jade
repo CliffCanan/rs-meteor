@@ -3,40 +3,47 @@ template(name="city")
 
   +checkAvailability(building="none")
 
-  unless clientRecommendationsList
-    .city-side-bar.right-bar.clearfix.col-lg-3.hide-sm
-      #gmap
+  div(style="position:relative")
 
-  .city-page-wrap.col-lg-9
+    unless clientRecommendationsList
 
-    if canOperateWithBuilding
-      .pull-left
-        button.btn.btn-sm.btn-primary.button-building-insert
-          i.fa.fa-plus
-          | Add Listing
+      .collapse-toggle-wrap#forMap.is-out
+        button.btn.btn-link(type="button", data-toggle="tooltip", data-placement="auto", title="", data-original-title="Hide map")
+          i.fa.fa-chevron-circle-right
 
-      .filter-wrap.unpublished-property-toggle-wrapper
-        span Toggle Unpublished Properties:
-        label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
-          input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
+      .city-side-bar.right-bar.clearfix.col-lg-3.hide-sm
+        #gmap
 
-    .main-city-list-wrap.left-bar.clearfix.pull-left
-      if showClientRecommendationsName
-        h2.pull-left(style="margin: 0")
-          | Recommendations for {{currentClientName}}
+    .city-page-wrap
 
-      if clientRecommendationsList
-        +clientRecommendationsToggle
+      if canOperateWithBuilding
+        .pull-left
+          button.btn.btn-sm.btn-primary.button-building-insert
+            i.fa.fa-plus
+            | Add Listing
 
-      if firstLoad
-        +loadingSpinner
-      else
-        +cityBuildings(buildings=buildings queryBtype=query.btype)
+        .filter-wrap.unpublished-property-toggle-wrapper
+          span Toggle Unpublished Properties:
+          label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
+            input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
-        if loadingBuildings
+      .main-city-list-wrap.left-bar.clearfix.pull-left
+        if showClientRecommendationsName
+          h2.pull-left(style="margin: 0")
+            | Recommendations for {{currentClientName}}
+
+        if clientRecommendationsList
+          +clientRecommendationsToggle
+
+        if firstLoad
           +loadingSpinner
         else
-          if notAllLoaded
-            .load-more.loading-btn-wrap
-              .loading-btn.btn.btn-primary.btn-lg
-                | Load More
+          +cityBuildings(buildings=buildings queryBtype=query.btype)
+
+          if loadingBuildings
+            +loadingSpinner
+          else
+            if notAllLoaded
+              .load-more.loading-btn-wrap
+                .loading-btn.btn.btn-primary.btn-lg
+                  | Load More
