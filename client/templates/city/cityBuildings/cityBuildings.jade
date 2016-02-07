@@ -11,13 +11,13 @@ template(name="cityBuildings")
             a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}")
               i.fa.fa-star
 
-          .ext-gallery(itemscope, itemtype="http://schema.org/ImageGallery")
+          .ext-gallery.hidden(itemscope, itemtype="http://schema.org/ImageGallery")
 
             #carousel-wide.owl-carousel(itemprop="associatedMedia", itemscope, itemtype="http://schema.org/ImageObject")
 
               each buildingImages
                 .item
-                  img.lazyOwl(data-src="{{getThumbnail store='thumbs'}}", itemprop="image", alt="{{processedTitle}}")
+                  img(src="{{getThumbnail store='thumbs'}}", itemprop="thumbnail", alt="{{processedTitle}}")
 
 
 

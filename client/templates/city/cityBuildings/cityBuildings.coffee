@@ -10,6 +10,8 @@ Template.cityBuildings.onRendered ->
 
   instance = Template.instance()
 
+  $('[data-toggle="tooltip"]').tooltip()
+
   _.defer ->
     $('[data-toggle="tooltip"]').tooltip()
 
@@ -109,4 +111,17 @@ Template.cityBuildings.events
   "click .view-pics-option": (event, template) ->
     event.stopPropagation()
     console.log('Photo Icon clicked!')
+
+    parent = $(event.currentTarget).closest(".main-city-item")
+
+    console.log(parent)
+
+    gallery = $(parent + ' .ext-gallery')
+    console.log(gallery)
+
+    gallery.removeClass('hidden')
+
+    gallery.owlCarousel
+      items: 4
+
     false
