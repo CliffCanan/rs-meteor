@@ -112,16 +112,19 @@ Template.cityBuildings.events
     event.stopPropagation()
     console.log('Photo Icon clicked!')
 
-    parent = $(event.currentTarget).closest(".main-city-item")
+    parentEl = $(event.currentTarget).closest('.main-city-item')
+    console.log(parentEl)
 
-    console.log(parent)
+    gallery = parentEl.find('.ext-gallery')
+    initialImg = parentEl.find('.main-city-img-link')
 
-    gallery = $(parent + ' .ext-gallery')
     console.log(gallery)
+    console.log(initialImg)
 
-    gallery.removeClass('hidden')
+    gallery.removeClass('hidden')  if gallery.hasClass('hidden')
+    initialImg.addClass('hidden')
 
-    gallery.owlCarousel
+    gallery.find('.owl-carousel').owlCarousel
       items: 4
 
     false
