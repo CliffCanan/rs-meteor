@@ -102,5 +102,10 @@ Template.cityBuildings.events
 
     # Session.set("currentUnit", @)
     console.log(@)
-    analytics.track "Clicked Check Availability Btn (Search)" unless Meteor.user()
-    $('#checkAvailabilityPopup').modal()
+    # TEMPORARILY COMMENTING OUT analytics.track "Clicked Check Availability Btn (Search)" unless Meteor.user()
+    $('#contactUsPopup').modal('show')
+    false
+
+  "click .check-avail-option": (event, template) ->
+    event.stopPropagation()
+    console.log('Photo Icon clicked!')

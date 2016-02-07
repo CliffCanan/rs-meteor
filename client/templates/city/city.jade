@@ -1,5 +1,8 @@
 template(name="city")
   +cityHeader
+
+  +checkAvailability(building="none")
+
   unless clientRecommendationsList
     .city-side-bar.right-bar.clearfix.col-lg-3.hide-sm
       #gmap
@@ -37,5 +40,3 @@ template(name="city")
             .load-more.loading-btn-wrap
               .loading-btn.btn.btn-primary.btn-lg
                 | Load More
-
-  +checkAvailability

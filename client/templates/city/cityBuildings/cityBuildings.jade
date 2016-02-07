@@ -11,7 +11,19 @@ template(name="cityBuildings")
             a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}")
               i.fa.fa-star
 
-          a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}")
+          .ext-gallery
+
+            #carousel-wide.owl-carousel
+
+              each buildingImages
+                .item(class="{{mediaClass}}")
+                  if isVideo
+                    i.fa.fa-video-camera.fa-3x
+                  img.lazyOwl(src="{{getThumbnail store='thumbs'}}", itemprop="image", alt="{{processedTitle}}")
+
+
+
+          a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}")
 
             .action-options.hide-sm
               a.btn.check-avail-option(data-toggle="tooltip", data-placement="bottom", title="Check Availability")
@@ -41,7 +53,7 @@ template(name="cityBuildings")
           .main-city-item-wrap
             h2.main-city-item-title
               i.fa.m-r-10(class="{{#if agroIsUnit}}fa-bed{{else}}fa-building{{/if}}")
-              a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}") {{processedTitle}}
+              a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}") {{processedTitle}}
 
             if averageRating
               .pull-right.m-t-5
