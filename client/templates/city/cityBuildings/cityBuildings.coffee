@@ -106,6 +106,7 @@ Template.cityBuildings.events
     $('#contactUsPopup').modal('show')
     false
 
-  "click .check-avail-option": (event, template) ->
+  "click .view-pics-option": (event, template) ->
     event.stopPropagation()
     console.log('Photo Icon clicked!')
+    false

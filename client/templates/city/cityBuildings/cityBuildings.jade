@@ -11,35 +11,33 @@ template(name="cityBuildings")
             a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}")
               i.fa.fa-star
 
-          .ext-gallery
+          .ext-gallery(itemscope, itemtype="http://schema.org/ImageGallery")
 
-            #carousel-wide.owl-carousel
+            #carousel-wide.owl-carousel(itemprop="associatedMedia", itemscope, itemtype="http://schema.org/ImageObject")
 
               each buildingImages
-                .item(class="{{mediaClass}}")
-                  if isVideo
-                    i.fa.fa-video-camera.fa-3x
-                  img.lazyOwl(src="{{getThumbnail store='thumbs'}}", itemprop="image", alt="{{processedTitle}}")
+                .item
+                  img.lazyOwl(data-src="{{getThumbnail store='thumbs'}}", itemprop="image", alt="{{processedTitle}}")
 
 
 
-          a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}")
+          a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}")
 
             .action-options.hide-sm
               a.btn.check-avail-option(data-toggle="tooltip", data-placement="bottom", title="Check Availability")
                 i.fa.fa-fw.fa-calendar
-              // a.btn(data-toggle="tooltip", title="View Pictures")
+              // a.btn.view-pics-option(data-toggle="tooltip", title="View Pictures")
               //  i.fa.fa-fw.fa-picture-o
               a.btn(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", data-placement="bottom", title="View More Details")
                 i.fa.fa-fw.fa-eye
 
-            .building-img-wrap.carousel.slide(id="carousel-{{_id}}" data-interval="false")
+            .building-img-wrap.carousel.slide(id="carousel-{{_id}}", data-interval="false", itemscope, itemtype="http://schema.org/ImageGallery")
               .carousel-inner(role="listbox")
                 each buildingImages
-                  .item(class="{{mediaClass}}")
+                  .item(class="{{mediaClass}}", itemprop="associatedMedia", itemscope, itemtype="http://schema.org/ImageObject")
                     if isVideo
                       i.fa.fa-video-camera.fa-3x
-                    img.building-img(src="{{getThumbnail store='thumbs'}}", itemprop="image", alt="{{processedTitle}}")
+                    img.building-img(src="{{getThumbnail store='thumbs'}}", itemprop="thumbnail", alt="{{processedTitle}}")
 
               a.left.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="prev")
                 i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
