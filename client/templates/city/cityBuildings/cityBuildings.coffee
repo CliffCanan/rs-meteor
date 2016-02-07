@@ -87,7 +87,6 @@ getAvaiability = (request, directionsService, cb) ->
       mins = convertTimeToMins(point.duration.text)
       cb(mins)
   
-# Separate events for recommend toggle
 Template.cityBuildings.events
   "click .recommend-toggle": (event, template) ->
     clientId = Router.current().data().clientId
@@ -115,6 +114,11 @@ Template.cityBuildings.events
     event.stopPropagation()
     console.log('Photo Icon clicked!')
 
+    # First close any open galleries on the page
+    $('.ext-gallery').addClass('hidden')
+    $('.main-city-img-link').removeClass('hidden')
+
+    # Then find the parent '.main-city-item' for the clicked Building in order to show the correct gallery
     parentEl = $(event.currentTarget).closest('.main-city-item')
 
     gallery = parentEl.find('.ext-gallery')

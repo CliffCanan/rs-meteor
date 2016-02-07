@@ -29,7 +29,7 @@ template(name="cityBuildings")
                 i.fa.fa-fw.fa-calendar
               a.btn.view-pics-option(data-toggle="tooltip", title="View Pictures")
                 i.fa.fa-fw.fa-picture-o
-              a.btn(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", data-placement="bottom", title="View More Details")
+              a.btn.view-details-option(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", data-placement="bottom", title="View More Details")
                 i.fa.fa-fw.fa-eye
 
             .building-img-wrap.carousel.slide(id="carousel-{{_id}}", data-interval="false", itemscope, itemtype="http://schema.org/ImageGallery")

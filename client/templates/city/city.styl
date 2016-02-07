@@ -1,3 +1,8 @@
+#forMap
+  display none
+  @media screen and (min-width: 1200px)
+    display block
+
 .city-page-wrap
   background-color #fff
   padding 0
@@ -7,7 +12,7 @@
     padding-top 10px !important
 
   #forMap.is-out ~ &
-    @media screen and (max-width: 992px)
+    @media screen and (min-width: 1200px)
       width 75% !important
 
 .left-bar
@@ -29,13 +34,18 @@
   .main-city-list
     clear both
     text-align center
+    margin-left -10px
+    margin-right -10px
     margin-bottom 0
     li
-      max-width 450px
       display inline-block
       float none
+      max-width 450px
+      padding 0
       vertical-align top
       text-align left
+      @media screen and (min-width: 1200px)
+        padding 0 10px
 
     .main-city-item
       margin 0 0 2rem 0
