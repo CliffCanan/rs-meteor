@@ -113,13 +113,9 @@ Template.cityBuildings.events
     console.log('Photo Icon clicked!')
 
     parentEl = $(event.currentTarget).closest('.main-city-item')
-    console.log(parentEl)
 
     gallery = parentEl.find('.ext-gallery')
     initialImg = parentEl.find('.main-city-img-link')
-
-    console.log(gallery)
-    console.log(initialImg)
 
     gallery.removeClass('hidden')  if gallery.hasClass('hidden')
     initialImg.addClass('hidden')
@@ -131,16 +127,12 @@ Template.cityBuildings.events
 
   "click .ext-gallery .close-btn": (event, template) ->
     event.stopPropagation()
-    console.log('Close Btn clicked!')
+    #console.log('Close Btn clicked!')
 
     parentEl = $(event.currentTarget).closest('.main-city-item')
-    console.log(parentEl)
 
     gallery = $(event.currentTarget).closest('.ext-gallery')
     initialImg = parentEl.find('.main-city-img-link')
-
-    console.log(gallery)
-    console.log(initialImg)
 
     gallery.addClass('hidden')  unless gallery.hasClass('hidden')
     initialImg.removeClass('hidden') if initialImg.hasClass('hidden')
