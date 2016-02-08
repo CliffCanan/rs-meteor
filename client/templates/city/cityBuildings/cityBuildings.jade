@@ -5,7 +5,7 @@ template(name="cityBuildings")
     each buildings
 
       li.col-xs-12.col-sm-6.col-md-4
-        .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
+        .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}", itemscope, itemtype="http://schema.org/LocalBusiness")
         
           if shouldShowRecommendToggle
             a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}")
@@ -27,7 +27,7 @@ template(name="cityBuildings")
             .action-options.hide-sm
               a.btn.check-avail-option(data-toggle="tooltip", data-placement="bottom", title="Check Availability")
                 i.fa.fa-fw.fa-calendar
-              a.btn.view-pics-option(data-toggle="tooltip", title="View Pictures")
+              a.btn.view-pics-option(data-toggle="tooltip", data-placement="bottom", title="View Pictures")
                 i.fa.fa-fw.fa-picture-o
               a.btn.view-details-option(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", data-placement="bottom", title="View More Details")
                 i.fa.fa-fw.fa-eye
@@ -52,12 +52,14 @@ template(name="cityBuildings")
           .main-city-item-wrap
             h2.main-city-item-title
               i.fa.m-r-10(class="{{#if agroIsUnit}}fa-bed{{else}}fa-building{{/if}}")
-              a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}") {{processedTitle}}
+              a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}", itemprop="name") {{processedTitle}}
 
             if averageRating
-              .pull-right.m-t-5
+              .pull-right.m-t-5(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
+                meta(itemprop="worstRating" content="1")
+                meta(itemprop="bestRating" content="10")
                 i.fa.fa-star
-                span.average-rating {{averageRating}}
+                span.average-rating(itemprop="ratingValue") {{averageRating}}
 
             .main-city-info.clearfix
               i.fa.fa-bed

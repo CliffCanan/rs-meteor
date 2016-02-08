@@ -101,6 +101,10 @@ Template.cityBuildings.events
   "click .check-avail-option": (event, template) ->
     event.stopPropagation()
 
+    # First close any open galleries on the page
+    $('.ext-gallery:not(.hidden)').addClass('hidden')
+    $('.main-city-img-link.hidden').removeClass('hidden')
+
     Session.set("currentUnit", @)
     console.log(@)
 
@@ -112,7 +116,6 @@ Template.cityBuildings.events
 
   "click .view-pics-option": (event, template) ->
     event.stopPropagation()
-    console.log('Photo Icon clicked!')
 
     # First close any open galleries on the page
     $('.ext-gallery').addClass('hidden')
@@ -134,13 +137,13 @@ Template.cityBuildings.events
     if xPosition > 100
       correctionAmount = (0 - xPosition + 30).toString()
       correctionAmount += 'px'
-      console.log(correctionAmount)
 
       gallery.css('left',correctionAmount)
 
     # Finally instantiate the Owl Carousel
     gallery.find('.owl-carousel').owlCarousel
       items: 3
+      pagination: false
 
     false
 

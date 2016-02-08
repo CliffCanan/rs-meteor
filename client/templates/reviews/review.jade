@@ -24,8 +24,8 @@ template(name="review")
     div(style="position:relative;")
       .total-rating
         i.fa.fa-star 
-        span(itemprop="reviewRating", itemscope, itemtype="http://schema.org/Rating")
-          meta(itemprop="worstRating" content="0")
+        span(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
+          meta(itemprop="worstRating" content="1")
           span(itemprop="ratingValue") #{totalRating}
           | /
           span(itemprop="bestRating") 10

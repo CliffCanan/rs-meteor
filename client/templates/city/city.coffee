@@ -392,6 +392,10 @@ Template.city.events
       $('.collapse-toggle-wrap#forMap .btn span').text('Show Map')
       $('.collapse-toggle-wrap#forMap .btn').attr('data-original-title', 'Show map')
     else
+      # First close any open galleries on the page
+      $('.ext-gallery:not(.hidden)').addClass('hidden')
+      $('.main-city-img-link.hidden').removeClass('hidden')
+
       $item.addClass('is-out')
       $('.collapse-toggle-wrap#forMap .fa').removeClass('fa-chevron-circle-left').addClass('fa-chevron-circle-right')
       $('.collapse-toggle-wrap#forMap .btn span').text('Hide Map')
