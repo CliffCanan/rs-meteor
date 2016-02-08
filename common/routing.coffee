@@ -117,9 +117,6 @@ Router.map ->
     name: "city"
     fastRender: true
     subscriptions: ->
-#      citySubsciption = Meteor.subscribe("buildings", @params.cityId, @params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
-#      if Meteor.isClient
-#        window.citySubsciption = citySubsciption
       [
         citySubs.subscribe("buildings", @params.cityId, @params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
         Meteor.subscribe("city-buildings-count", @params.cityId, @params.query)

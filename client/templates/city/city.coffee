@@ -17,7 +17,7 @@ markers = {}
 Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
-  Session.set('adminShowUnpublishedProperties', false)
+  #Session.set('adminShowUnpublishedProperties', false)
 
   # Show Contact Us Popup after 18 seconds
   if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()

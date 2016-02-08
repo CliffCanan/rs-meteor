@@ -27,9 +27,12 @@ Template.building.helpers
 
     _.defer ->
       $('[data-toggle="tooltip"]').tooltip()
-      addthis?.init()
+
+      #addthis?.init()
+
       $carousel = $(".carousel")
       carousel = $carousel.data("bs.carousel")
+
       if carousel
         carousel.pause()
         carousel.destroy()

@@ -1,13 +1,15 @@
 Template.social.helpers
+  ###
   helper: ->
-#    inspect later
+    inspect later
     try
       addthis.layers.refresh()
     catch error
     return ""
+  ###
 
 Template.social.rendered = ->
-  addthis?.init()
+  #addthis?.init()
 
 Template.social.events
 #  "click .selector": (event, template) ->

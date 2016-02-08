@@ -3,7 +3,7 @@ template(name="city")
 
   +checkAvailability(building="none")
 
-  div(style="position:relative")
+  div.p-relative
 
     unless clientRecommendationsList
 
@@ -30,8 +30,7 @@ template(name="city")
 
       .main-city-list-wrap.left-bar.clearfix.pull-left
         if showClientRecommendationsName
-          h2.pull-left(style="margin: 0")
-            | Recommendations for {{currentClientName}}
+          h2.pull-left.m-0 Recommendations for {{currentClientName}}
 
         if clientRecommendationsList
           +clientRecommendationsToggle
