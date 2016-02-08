@@ -388,12 +388,14 @@ Template.city.events
 
     if $item.hasClass('is-out')
       $item.removeClass('is-out')
-      $('.collapse-toggle-wrap .fa').removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-left')
-      $('.collapse-toggle-wrap .btn').attr('data-original-title', 'Show map')
+      $('.collapse-toggle-wrap#forMap .fa').removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-left')
+      $('.collapse-toggle-wrap#forMap .btn span').text('Show Map')
+      $('.collapse-toggle-wrap#forMap .btn').attr('data-original-title', 'Show map')
     else
       $item.addClass('is-out')
-      $('.collapse-toggle-wrap .fa').removeClass('fa-chevron-circle-left').addClass('fa-chevron-circle-right')
-      $('.collapse-toggle-wrap .btn').attr('data-original-title', 'Hide map')
+      $('.collapse-toggle-wrap#forMap .fa').removeClass('fa-chevron-circle-left').addClass('fa-chevron-circle-right')
+      $('.collapse-toggle-wrap#forMap .btn span').text('Hide Map')
+      $('.collapse-toggle-wrap#forMap .btn').attr('data-original-title', 'Hide map')
 
 
 setDefaultImagesForCalc = ->

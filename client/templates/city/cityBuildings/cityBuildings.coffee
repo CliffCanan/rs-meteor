@@ -127,6 +127,18 @@ Template.cityBuildings.events
     gallery.removeClass('hidden')  if gallery.hasClass('hidden')
     initialImg.addClass('hidden')
 
+    # Now check which horizontal position the clicked building is (there are 3 buildings per row on lg screens...
+    # But since the gallery is absolutely positioned relative to the parent item, it will be too far right for
+    # positions 2 & 3, so need to correct for that here.
+    xPosition = parentEl.offset().left
+    if xPosition > 100
+      correctionAmount = (0 - xPosition + 30).toString()
+      correctionAmount += 'px'
+      console.log(correctionAmount)
+
+      gallery.css('left',correctionAmount)
+
+    # Finally instantiate the Owl Carousel
     gallery.find('.owl-carousel').owlCarousel
       items: 3
 

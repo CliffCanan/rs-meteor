@@ -8,8 +8,9 @@ template(name="city")
     unless clientRecommendationsList
 
       .collapse-toggle-wrap#forMap.is-out
-        button.btn.btn-link(type="button", data-toggle="tooltip", data-placement="auto", title="", data-original-title="Hide map")
-          i.fa.fa-chevron-circle-right
+        button.btn(type="button", data-toggle="tooltip", data-placement="auto", title="", data-original-title="Hide map")
+          span Hide Map
+          i.fa.fa-chevron-circle-right.m-l-5
 
       .city-side-bar.right-bar.clearfix.col-lg-3.hide-sm
         #gmap
