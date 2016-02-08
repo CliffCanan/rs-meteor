@@ -108,9 +108,7 @@ Template.cityBuildings.events
     Session.set("currentUnit", @)
     console.log(@)
 
-    $('#checkAvailabilityPopup .modal-body p > .text-primary').text(@.title) if @.title
-
-    analytics.track "Clicked Check Availability Btn (Search)" unless Meteor.user()
+    analytics.track "Clicked Check Availability Btn (Search)", {buildingId: @_id, buildingName: @title, label: @title} unless Meteor.user()
     $('#checkAvailabilityPopup').modal('show')
     false
 
