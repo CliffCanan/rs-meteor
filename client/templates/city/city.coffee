@@ -382,7 +382,6 @@ Template.city.events
     currentValue = Session.get('adminShowUnpublishedProperties')
     Session.set('adminShowUnpublishedProperties', !currentValue)
 
-
   "click .collapse-toggle-wrap#forMap": (event, template) ->
     $item = $(event.currentTarget)
 
@@ -401,6 +400,11 @@ Template.city.events
       $('.collapse-toggle-wrap#forMap .btn span').text('Hide Map')
       $('.collapse-toggle-wrap#forMap .btn').attr('data-original-title', 'Hide map')
 
+  "click .main-city-list-wrap": (event, template) ->
+    event.stopPropagation()
+    $('.ext-gallery:not(.hidden)').addClass('hidden')
+    $('.main-city-img-link.hidden').removeClass('hidden')
+    false
 
 setDefaultImagesForCalc = ->
   $("#walker-calc").find("img").attr("src", "/images/walk.png")

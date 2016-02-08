@@ -452,6 +452,12 @@ Router.map ->
       SEO.set
         title: 'Center City East | Rent Scene' 
 
+  @route "/faq",
+    name: "faq"
+    onAfterAction: ->
+      SEO.set
+        title: 'Frequently Asked Questions | FAQ Rent Scene' 
+
   @route "/(.*)",
     name: "notFound"
 

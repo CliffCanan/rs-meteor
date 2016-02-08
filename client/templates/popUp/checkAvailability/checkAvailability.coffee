@@ -18,8 +18,6 @@ Template.checkAvailability.rendered = ->
 
   building = @.data.building if @.data
 
-  $('#leadname').focus()
-
   form.formValidation(
     framework: 'bootstrap'
     live: 'disabled'

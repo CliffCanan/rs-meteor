@@ -57,16 +57,6 @@ Template.building.helpers
   getRatingValue: (rating) ->
     parseInt(rating, 10)/10
 
-  averageRatingAll: ->
-    console.log("building.coffee -> Helpers -> averageRating fired")
-    allReviews = BuildingReviews.find({buildingId: Template.instance().data.building._id, isPublished: true}, {sort: {createdAt: -1}})
-    totalRating = 0
-
-    for review in allReviews
-      totalRating += parseInt(review.totalRating, 10)
-
-    (totalRating / allReviews.length).toFixed(1)
-
   rentalQuery: ->
     buildingId: @_id
 
