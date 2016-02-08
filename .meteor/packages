@@ -25,7 +25,6 @@ cfs:ejson-file
 mrt:smart-publish
 manuelschoebel:wait-on-lib
 tmeasday:publish-counts
-sergeyt:typeahead
 ian:accounts-ui-bootstrap-3
 spiderable
 manuelschoebel:ms-seo
@@ -64,5 +63,7 @@ force-ssl
 kevohagan:sweetalert
 snamoah:bootstrap-wizard
 ryw:blog
+sergeyt:typeahead
+rendro:easy-pie-chart
 jackyqiu:meteor-jquery-nicescroll
 richsilv:owl-carousel
