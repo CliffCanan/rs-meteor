@@ -59,7 +59,6 @@ ejson
 spacebars
 check
 las:vegas
-force-ssl
 kevohagan:sweetalert
 snamoah:bootstrap-wizard
 ryw:blog
@@ -67,3 +66,4 @@ sergeyt:typeahead
 rendro:easy-pie-chart
 jackyqiu:meteor-jquery-nicescroll
 richsilv:owl-carousel
+wizonesolutions:canonical
