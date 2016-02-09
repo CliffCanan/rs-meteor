@@ -39,13 +39,13 @@ Router.map ->
         title: "Rent Scene | Apartment Hunting For Busy People"
         meta:
           description: "Rent Scene finds the best apartments that fit your lifestyle. Our dedicated local experts manage the entire search process for you, making sure you love your new home."
-          keywords: "rent, rental, apartment, landlord, tenant, home, bedroom, bathroom, lease, condo, condominium, philadelphia, center city, chicago, washington dc, rittenhouse square, parking, gym, utilities, pets"
+          keywords: "rent,rental,apartment,tenant,bedroom,bathroom,lease,luxury,condo,condominium,philadelphia,philly,center city,chicago,washington dc,rittenhouse square,parking,gym,utilities,pets,affordable"
 
   @route "/check-availability",
     name: "checkAvailability"
 
-  @route "/tour-signup",
-    name: "tourSignup"
+  #@route "/tour-signup",
+  #  name: "tourSignup"
 
   @route "/login",
     name: "login"
@@ -54,6 +54,8 @@ Router.map ->
     onAfterAction: ->
       SEO.set
         title: "Rent Scene Admin Login"
+        meta:
+          robots: "noindex"
 
   @route "/userlist/:userListId",
     name: "userlist"
@@ -95,7 +97,6 @@ Router.map ->
         firstCityId = if firstBuilding then firstBuilding.cityId else 'philadelphia'
         @params.cityId = if @params.query.cityId then @params.query.cityId else firstCityId
         []
-
     waitOn: ->
       Meteor.subscribe "singleClientRecommendation", @params.clientId
     data: ->  
@@ -158,9 +159,10 @@ Router.map ->
     onAfterAction: ->
       Session.set "currentPage", "city"
       SEO.set
-        title: "Rental Apartments in #{cities[@params.cityId].long} | Rent Scene"
+        title: "Rental Apartments in #{cities[@params.cityId].human} | Rent Scene"
         meta:
-          description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
+          description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of affordable luxury units."
+          keywords: "rent,rental,#{cities[@params.cityId].short},luxury,affordable,bedroom,laundry,garage,doorman,parking,amenities"
 
   @route "/city/:cityId/:neighborhoodSlug?",
     name: "neighborhood"
@@ -198,9 +200,9 @@ Router.map ->
     onAfterAction: ->
       Session.set "currentPage", "city"
       SEO.set
-        title: "Rental Apartments in #{cities[@params.cityId].long} | Rent Scene"
+        title: "Rent Apartments in #{cities[@params.cityId].human} | Rent Scene"
         meta:
-          description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
+          description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos and photos, schedule tours, and check out up-to-date pricing for thousands of #{cities[@params.cityId].short}'s best units."
 
   @route "/city/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
     name: "building"
@@ -256,7 +258,7 @@ Router.map ->
         else
           #console.log("Routing -> building -> onAfterAction -> metaTags.Title DOES NOT EXIST")
       else
-        console.log("Routing -> building -> onAfterAction if@data() and @data().building NOT REACHED")
+        console.log("Routing -> building -> onAfterAction #261")
         SEO.set
           title: "#{cities[@params.cityId].short} Apartment | Rent Scene"
 
@@ -291,6 +293,8 @@ Router.map ->
     onAfterAction: ->
       SEO.set
         title: 'Rental Application | Rent Scene'
+        meta:
+          robots: "noindex"
 
   @route "/apply/:id/download", ->
     rentalApplication = RentalApplications.findOne(@params.id)
@@ -401,6 +405,17 @@ Router.map ->
 
   , where: 'server'
 
+
+  @route "/admin",
+    name: "login"
+    onBeforeAction: ->
+      @next()
+    onAfterAction: ->
+      SEO.set
+        title: "Rent Scene Admin Login"
+        meta:
+          robots: "noindex"
+
   @route "admin/rental-applications",
     name: "adminRentalApplications"
     waitOn: ->
@@ -410,6 +425,8 @@ Router.map ->
     onAfterAction: ->
       SEO.set
         title: 'Admin: Manage Rental Applications | Rent Scene'
+        meta:
+          robots: "noindex"
 
   @route "/autologin/:token",
     name: "autologin"
@@ -426,11 +443,21 @@ Router.map ->
       return null  unless users = Meteor.users.find()
       _.extend @params,
         users: users
+    onAfterAction: ->
+      SEO.set
+        title: 'Admin: Manage Users | Rent Scene'
+        meta:
+          robots: "noindex"
 
   @route "/admin/reviews",
     name: "adminReviews"
     waitOn: ->
       Meteor.subscribe("pendingReviews")
+    onAfterAction: ->
+      SEO.set
+        title: 'Admin: Manage Apartment Reviews | Rent Scene'
+        meta:
+          robots: "noindex"
 
   @route "/featured-props",
     name: "featuredProps"
