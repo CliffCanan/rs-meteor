@@ -298,7 +298,7 @@ Template.building.onRendered ->
     if document.title is ""
       console.log("Title was not set, setting now")
       buildingTitle = (if @title then @title else @city)
-      document.title = buildingTitle " Rentals | Rent Scene"
+      document.title = buildingTitle + " Rentals | Rent Scene"
   , 1000
 
   # Show Check Availability Popup after 13 seconds

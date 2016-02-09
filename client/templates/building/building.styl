@@ -352,14 +352,21 @@ main.container
       max-height 500px
 
     .carousel-control
+      border-radius 12px
       height 100%
-      width 9%
+      opacity .4
+      transition opacity .24s ease
+      width 8%
+      &:hover
+        opacity .6
+
       .building-img-icon
         position absolute
         top 50%
         z-index 5
         display inline-block
         font-size 30px
+
     .right
       .building-img-icon
         right 0
