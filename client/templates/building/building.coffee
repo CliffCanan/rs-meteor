@@ -292,12 +292,11 @@ Template.building.onRendered ->
   Meteor.setTimeout ->
     # Bug with SEO package causes Building pages not to get a Title if you navigate directly to it.
     # Addressing temporarily by setting here (which doesn't help for SEO, so need a server side fix eventually.)
-    console.log("Building page timeout, title is...")
-    console.log(document.title)
 
     if document.title is ""
       console.log("Title was not set, setting now")
-      buildingTitle = (if @title then @title else @city)
+      console.log(building.title)
+      buildingTitle = (if building.title then building.title else building.city)
       document.title = buildingTitle + " Rentals | Rent Scene"
   , 1000
 
