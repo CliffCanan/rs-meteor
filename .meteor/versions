@@ -55,7 +55,6 @@ ejson@1.0.7
 email@1.0.8
 fastclick@1.0.7
 flawless:meteor-toastr@1.0.1
-force-ssl@1.0.6
 fortawesome:fontawesome@4.2.0_2
 froatsnook:sleep@1.1.0
 gadicohen:robots-txt@0.0.10
@@ -158,4 +157,5 @@ underscore@1.0.4
 url@1.0.5
 webapp@1.2.3
 webapp-hashing@1.0.5
+wizonesolutions:canonical@0.0.5
 zodiase:mdl@1.0.6_2
