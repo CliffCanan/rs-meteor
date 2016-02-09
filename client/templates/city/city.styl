@@ -100,6 +100,7 @@
           font-size 17px
           transition all .35s ease
           max-height 35px
+          z-index 1000
 
         @media screen and (min-width: 768px)
           &:hover .main-city-price
@@ -177,7 +178,12 @@
   display inline-block
 
 .button-building-insert
-  margin 5px 0 0 30px
+  margin 5px 0 0 10px
+  padding 4px 10px
+  position relative
+  top 4px
+  @media screen and (min-width: 992px)
+    margin-left 30px
 
 .unpublished-property-toggle-wrapper
   float right

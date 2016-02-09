@@ -13,6 +13,7 @@ Template.building.onCreated ->
   @subscribe("buildingReviews", buildingSimilarId)
   @subscribe("buildingsSimilar", buildingSimilarId)
 
+
 Template.building.helpers 
   ironRouterHack: ->
     Router.current() # reactivity
@@ -87,7 +88,7 @@ Template.building.helpers
     fieldNameFrom = fieldName + "From"
     fieldNameTo = fieldName + "To"
     if @[fieldNameFrom]
-      "$" + accounting.formatNumber(@[fieldNameFrom]) + (if @[fieldNameFrom] is @[fieldNameTo] then "" else "+")
+      "$" + accounting.formatNumber(@[fieldNameFrom]) + (if @[fieldNameFrom] is @[fieldNameTo] then "" else " +")
 
   bedroomTypes: (queryBtype) ->
     if queryBtype
@@ -288,8 +289,17 @@ Template.building.onRendered ->
     hidecursordelay: 500
     horizrailenabled: false
 
+  Meteor.setTimeout ->
+    # Bug with SEO package causes Building pages not to get a Title if you navigate directly to it.
+    # Addressing temporarily by setting here (which doesn't help for SEO, so need a server side fix eventually.)
+    if document.title = ""
+      console.log("Title was not set, setting now")
+      buildingTitle = (if @title then @title else @city)
+      document.title = buildingTitle " Rentals | Rent Scene"
+  , 1000
+
   # Show Check Availability Popup after 13 seconds
-  if !Meteor.user() and $(window).width() > 600 
+  if !Meteor.user() and $(window).width() > 768 
     unless Session.get "hasSeenCheckAvailabilityPopup" == true || Session.get "hasSeenContactUsPopup" == true
       @popupTimeoutHandle = Meteor.setTimeout ->
         unless $('body').hasClass('modal-open')
@@ -299,7 +309,7 @@ Template.building.onRendered ->
 
 Template.building.onDestroyed ->
   if $('main').hasClass('container')
-    console.log("building.onDestroyed -> main had .container, removing it")
+    #console.log("building.onDestroyed -> main had .container, removing it")
     $('main').removeClass('container')
 
   # Clear timeout when user exits the page so it doesn't trigger.
