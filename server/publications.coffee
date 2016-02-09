@@ -67,6 +67,7 @@ Meteor.publish "buildings", (cityId, query, page) ->
     latitude: 1
     longitude: 1
     slug: 1
+    neighborhood: 1
     neighborhoodSlug: 1
     fitnessCenter: 1
     security: 1
@@ -84,6 +85,8 @@ Meteor.publish "buildings", (cityId, query, page) ->
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
     averageRating: 1
+    bathroomsFrom: 1
+    bathroomsTo: 1
 
   if Security.canOperateWithBuilding(@userId)
     adminFields = {

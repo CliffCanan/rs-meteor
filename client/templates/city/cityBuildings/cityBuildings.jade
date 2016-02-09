@@ -25,12 +25,18 @@ template(name="cityBuildings")
           a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}")
 
             .action-options.hide-sm
-              a.btn.check-avail-option(data-toggle="tooltip", data-placement="bottom", title="Check Availability")
-                i.fa.fa-fw.fa-calendar
-              a.btn.view-pics-option(data-toggle="tooltip", data-placement="bottom", title="View Pictures")
-                i.fa.fa-fw.fa-picture-o
-              a.btn.view-details-option(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", data-placement="bottom", title="View More Details")
-                i.fa.fa-fw.fa-eye
+              .actions-sub-wrap
+                a.btn.check-avail-option(data-toggle="tooltip", data-placement="bottom", title="Check Availability")
+                  i.fa.fa-fw.fa-calendar
+                a.btn.view-pics-option(data-toggle="tooltip", data-placement="bottom", title="View Pictures")
+                  i.fa.fa-fw.fa-picture-o
+                a.btn.view-details-option(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", data-placement="bottom", title="View More Details")
+                  i.fa.fa-fw.fa-eye
+
+              if neighborhood
+                .neighborhood-txt
+                  i.fa.fa-map-marker.m-r-10
+                  span {{neighborhood}}
 
             .building-img-wrap.carousel.slide(id="carousel-{{_id}}", data-interval="false", itemscope, itemtype="http://schema.org/ImageGallery")
               .carousel-inner(role="listbox")

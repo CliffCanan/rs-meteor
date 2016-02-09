@@ -4,25 +4,49 @@
     .main-city-img-link
 
       .action-options
-        background rgba(0,0,0,.7)
-        height 36px
+        background rgba(0,0,0,.75)
+        border-radius 0 0 4px 4px
+        box-shadow none
+        height 100%
         width 100%
+        opacity 0
         position absolute
-        top -38px
+        top 0
+        transform scale(.82,.8)
         transition .35s all ease-out
         z-index 999
 
+        .actions-sub-wrap
+          border-bottom 1px solid rgba(210,210,210,.3)
+          padding 12px 0
+
         .btn
           color white
+          font-size 18px
           padding 8px
           width 32.3%
           &:not(.view-details-option)
-            border-right 1px solid rgba(210,210,210,.4)
+            border-right 1px solid rgba(210,210,210,.3)
 
-    &:hover
-      @media screen and (min-width: 992px)
-        .action-options
-          top 0px
+        .neighborhood-txt
+          color rgba(240,240,240,.8)
+          font-family "Montserrat", "Helvetica", "Open Sans", sans-serif
+          font-size 5px
+          font-weight normal
+          letter-spacing .4px
+          transition .35s all ease-out
+          padding 25px
+          text-align center
+          text-transform uppercase
+
+      &:hover
+        @media screen and (min-width: 992px)
+          .action-options
+            opacity 1
+            transform(1,1)
+            box-shadow 0 0 50px 5px rgba(10,20,40,.7) inset
+          .neighborhood-txt
+            font-size 20px
 
     .ext-gallery
       background #fff
@@ -30,7 +54,7 @@
       position absolute
       left -1px
       top -1px
-      z-index 101
+      z-index 1000
       @media screen and (min-width: 1200px)
         width 1155px
       @media screen and (min-width: 1250px)

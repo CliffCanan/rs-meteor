@@ -174,7 +174,7 @@ Template.city.onRendered ->
     overviewMapControl: false
     mapTypeControl: true
     mapTypeId: google.maps.MapTypeId.ROADMAP
-    maxZoom: 18
+    maxZoom: 17
     minZoom: 11
 
   @map = map
@@ -194,8 +194,6 @@ Template.city.onRendered ->
   @autorun ->
     if Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients()
       $('.main-city-list').css marginTop: 53
-    else
-      $('.main-city-list').css marginTop: 0
 
     citySubs.dep.depend()
     if citySubs.ready
@@ -205,6 +203,7 @@ Template.city.onRendered ->
       @template.__helpers[" buildings"].call(data).forEach (building) ->
         if building.latitude and building.longitude
           actualMarkerIds.push(building._id)
+
           if marker = markers[building._id]
             unless marker.map
               marker.setMap(map)
@@ -238,6 +237,7 @@ Template.city.onRendered ->
       for id, marker of markers
         unless id in actualMarkerIds
           marker.setMap(null)
+
     if cityCircle isnt undefined
       cityCircle.setMap(null)
 

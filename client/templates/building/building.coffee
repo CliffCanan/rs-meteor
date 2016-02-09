@@ -216,14 +216,14 @@ Template.building.onRendered ->
     zoom: 15
     center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
     streetViewControl: true
-    scaleControl: true
+    scaleControl: false
     rotateControl: false
     panControl: false
     overviewMapControl: true
     mapTypeControl: true
     mapTypeId: google.maps.MapTypeId.ROADMAP
-    maxZoom: 18
-    minZoom: 10
+    maxZoom: 17
+    minZoom: 11
 
   @map = map
   @directionsDisplay.setMap(map)
