@@ -23,7 +23,7 @@ Meteor.publish "buildings", (cityId, query, page) ->
   query.to = "" + query.to
   check(cityId, Match.InArray(cityIds))
   check(page, Number)
-  check query,
+  ### check query,
     btype: Match.Optional(Match.InArray(btypesIds))
     from: Match.Optional(String)
     to: Match.Optional(String)
@@ -40,7 +40,7 @@ Meteor.publish "buildings", (cityId, query, page) ->
     utm_source: Match.Optional(String)
     utm_medium: Match.Optional(String)
     utm_content: Match.Optional(String)
-    utm_campaign: Match.Optional(String)
+    utm_campaign: Match.Optional(String) ###
 
   page = parseInt(page)
   unless page > 0

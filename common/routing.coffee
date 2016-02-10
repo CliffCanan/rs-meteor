@@ -406,7 +406,7 @@ Router.map ->
   , where: 'server'
 
 
-  @route "/admin",
+  ###@route "/admin",
     name: "login"
     onBeforeAction: ->
       @next()
@@ -414,7 +414,7 @@ Router.map ->
       SEO.set
         title: "Rent Scene Admin Login"
         meta:
-          robots: "noindex"
+          robots: "noindex" ###
 
   @route "admin/rental-applications",
     name: "adminRentalApplications"
