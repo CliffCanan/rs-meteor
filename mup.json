@@ -23,5 +23,5 @@
     "MONGO_OPLOG_URL": "mongodb://dbAdmin:389hg8747hg7ad7873hd@candidate.19.mongolayer.com:10839,candidate.1.mongolayer.com:10385/local?authSource=rentscene",
     "CLUSTER_WORKERS_COUNT": "auto"
   },
-  "deployCheckWaitTime": 260
+  "deployCheckWaitTime": 300
 }
