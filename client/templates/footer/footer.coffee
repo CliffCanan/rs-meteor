@@ -1,5 +1,4 @@
 Template.footer.helpers
-#  helper: ->
 
 Template.footer.rendered = ->
 

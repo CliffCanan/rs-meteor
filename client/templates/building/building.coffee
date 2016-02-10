@@ -301,12 +301,12 @@ Template.building.onRendered ->
   , 1000
 
   # Show Check Availability Popup after 13 seconds
-  if !Meteor.user() and $(window).width() > 768 
-    unless Session.get "hasSeenCheckAvailabilityPopup" == true || Session.get "hasSeenContactUsPopup" == true
-      @popupTimeoutHandle = Meteor.setTimeout ->
+  if !Meteor.user() and $(window).width() > 768
+    @popupTimeoutHandle = Meteor.setTimeout ->
+      unless Session.get "hasSeenCheckAvailabilityPopup" == true || Session.get "hasSeenContactUsPopup" == true
         unless $('body').hasClass('modal-open')
           $('.check-availability').trigger('click')
-      , 13000
+    , 13000
 
 
 Template.building.onDestroyed ->
