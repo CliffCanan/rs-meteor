@@ -28,6 +28,23 @@ template(name="city")
           label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
             input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
+      #mobile-cta.clearfix
+        h3 Too busy to search yourself?
+
+        button.close-btn(type="button")
+          i.fa.fa-times
+
+        p.sub-head We'll do it for you - call or text now!
+
+        a.btn.btn-lg.btn-block.btn-primary.m-t-15(href="tel://1-267-463-2428")
+          i.fa.fa-fw.fa-mobile-m-r-5
+          | (267) 463-2428
+
+        if isBizHours
+          p Guaranteed Response in 10 mins or less!
+            span.show When calling between 8am-8pm EST
+
+
       .main-city-list-wrap.left-bar.clearfix.pull-left
         if showClientRecommendationsName
           h2.pull-left.m-0 Recommendations for {{currentClientName}}

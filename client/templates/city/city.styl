@@ -30,6 +30,67 @@
     @media screen and (min-width: 1200px)
       width 75% !important
 
+  #mobile-cta
+    border 1px solid #e5e5e5
+    border-radius 8px
+    padding 5px 15px 10px
+    text-align center
+    margin 12px auto 20px
+    max-width 94%
+    position relative
+    @media screen and (min-width: 600px)
+      display none
+      visibility none
+
+    h3,h4,p
+      margin-left -10px
+      margin-right -10px
+    h3
+      line-height 1.4
+    p
+      font-size 17px
+      font-weight 600
+      &.sub-head
+        text-transform capitalize
+    .btn
+      border none
+      letter-spacing .3px
+      padding 12px
+      margin 0 auto
+      max-width 300px
+      + p
+        font-size 15px
+        font-weight 400
+        margin-top 12px
+        font-style italic
+        @media screen and (min-width: 350px)
+          font-size 16px
+        span
+          color #666
+          font-size 14px
+          font-weight 300
+
+    .close-btn
+      background none
+      border none
+      color #ddd
+      font-size 16px
+      outline none
+      position absolute
+      top -16px
+      right -15px
+      i
+        background rgba(251,251,251,1)
+        border 1px solid
+        border-radius 50%
+        height 36px
+        width 36px
+        margin 0
+        padding 8px
+      &:active i,&:focus i
+        background #aaa
+
+
 .left-bar
   overflow auto
 

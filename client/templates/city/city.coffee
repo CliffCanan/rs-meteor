@@ -135,6 +135,16 @@ Template.city.helpers
 
     buildings
 
+  isBizHours: ->
+    currentTime = new Date()
+    hours = currentTime.getHours()
+
+    console.log(hours)
+
+    if (hours > 8 and hours < 20) then true else false
+
+
+
 Template.city.onRendered ->
   instance = @
 
@@ -404,6 +414,16 @@ Template.city.events
 #    event.stopPropagation()
 #    $('.ext-gallery:not(.hidden)').addClass('hidden')
 #    $('.main-city-img-link.hidden').removeClass('hidden')
+
+  "click #mobile-cta .btn": (event, template) ->
+    analytics.track "Clicked Mobile CTA Btn (City Page)" unless Meteor.user()
+    true
+
+  "click #mobile-cta .close-btn": (event, template) ->
+    $(this).fadeOut(150)
+    $('#mobile-cta').slideUp(300)
+    analytics.track "Clicked CLOSE Mobile CTA Btn (City Page)" unless Meteor.user()
+
 
 setDefaultImagesForCalc = ->
   $("#walker-calc").find("img").attr("src", "/images/walk.png")
