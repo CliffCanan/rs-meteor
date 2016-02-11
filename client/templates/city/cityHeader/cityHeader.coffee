@@ -135,17 +135,18 @@ Template.cityHeader.events
       $(event.target).attr('placeholder', 'Search neighborhood')
   ###
 
-  "click .collapse-toggle-wrap#forCityHeader": (event, template) ->
-    $item = $(event.currentTarget)
+  "click .toggle-city-header .btn": (event, template) ->
 
-    if $item.hasClass('is-down')
-      $item.removeClass('is-down')
-      $('.collapse-toggle-wrap .fa').removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down')
-      $('.collapse-toggle-wrap .btn').attr('data-original-title', 'Show options')
+    $cityHeader = $('.city-sub-header')
+
+    if $cityHeader.hasClass('is-down')
+      $cityHeader.removeClass('is-down')
+      $('.toggle-city-header.icon .fa').removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down')
+      $('.toggle-city-header.icon .btn').attr('data-original-title', 'Show options')
     else
-      $item.addClass('is-down')
-      $('.collapse-toggle-wrap .fa').removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up')
-      $('.collapse-toggle-wrap .btn').attr('data-original-title', 'Hide options')
+      $cityHeader.addClass('is-down')
+      $('.toggle-city-header.icon .fa').removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up')
+      $('.toggle-city-header.icon .btn').attr('data-original-title', 'Hide options')
 
   "click #clear-neighborhoods": (event, template) ->
     analytics.track "Clicked Clear-Neighborhoods Btn (City Header)" unless Meteor.user()
