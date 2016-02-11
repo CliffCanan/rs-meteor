@@ -52,12 +52,6 @@
     @media screen and (min-width: 900px)
       right 10px
 
-    .is-down &
-      @media screen and (max-width: 767px)
-        display none
-      @media screen and (min-width: 768px)
-        top 96px
-
     .btn
       height auto
       font-size 25px
@@ -73,6 +67,12 @@
       height initial
       font-size 16px
       width 100%
+
+.is-down ~ toggle-city-header.icon
+  @media screen and (max-width: 767px)
+    display none
+  @media screen and (min-width: 768px)
+    top 96px
 
 .city-sub-header-list-wrap
   margin-top 10px
@@ -140,8 +140,7 @@
   @media screen and (max-width: 768px)
     height 56px
   @media screen and (min-width: 768px)
-    padding 0 15px 2px
-    top -6px
+    padding 2px 15px 2px
     width 31%
   @media screen and (min-width: 992px)
     width 23%
@@ -206,17 +205,16 @@
 #location-filter-wrapper
   margin 10px auto
   @media screen and (min-width: 768px)
-    margin 0
     padding 0 15px
-  @media screen and (min-width: 992px)
-    > .dropdown
-      float none
+  > .dropdown
+    @media screen and (min-width: 992px)
       padding 0 2px
-      .dropdown-toggle
-        width 100%
 
 
 .dropdown
+  .dropdown-toggle
+    width 100%
+    float none
 
   .neighborhoods-section
     .filter-title
@@ -240,6 +238,7 @@
     font-family 'Montserrat', Helvetica, sans-serif
     font-size 14px
     color #272b30
+
   .btn.dropdown-toggle.city-sub-header-title
     .caret
       position absolute
@@ -291,6 +290,10 @@
       padding-top 8px
       cursor pointer
 
+  &.features-section
+    left auto
+    right 0
+
   .neighborhoods-section
     padding-bottom 10px
     ul
@@ -299,8 +302,7 @@
       padding-bottom 5px
 
   .location-filter-section
-    padding 12px
-    left -50px
+    padding 10px 15px 15px
     @media screen and (min-width: 768px)
       left 0
       padding 22px
@@ -354,7 +356,6 @@
 .building-title-search-wrapper
   margin 10px auto
   @media screen and (min-width: 768px)
-    margin 0
     padding 0 0 0 5px
   @media screen and (min-width: 992px)
     max-width 13%

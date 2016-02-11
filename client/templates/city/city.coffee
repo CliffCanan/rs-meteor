@@ -139,9 +139,7 @@ Template.city.helpers
     currentTime = new Date()
     hours = currentTime.getHours()
 
-    console.log(hours)
-
-    if (hours > 8 and hours < 20) then true else false
+    if (hours > 7 and hours < 20) then true else false
 
 
 
