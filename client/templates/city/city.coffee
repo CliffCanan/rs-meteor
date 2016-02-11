@@ -138,10 +138,7 @@ Template.city.helpers
   isBizHours: ->
     currentTime = new Date()
     hours = currentTime.getHours()
-
     if (hours > 7 and hours < 20) then true else false
-
-
 
 Template.city.onRendered ->
   instance = @

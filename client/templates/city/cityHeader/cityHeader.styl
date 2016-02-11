@@ -46,6 +46,8 @@
   &.icon
     position absolute
     right 3px
+    top 68px
+    transition all .4s ease
     z-index 102
     @media screen and (min-width: 820px)
       right 6px
@@ -68,11 +70,11 @@
       font-size 16px
       width 100%
 
-.is-down ~ toggle-city-header.icon
+.is-down ~ .toggle-city-header.icon
   @media screen and (max-width: 767px)
     display none
   @media screen and (min-width: 768px)
-    top 96px
+    top 96px !important
 
 .city-sub-header-list-wrap
   margin-top 10px
@@ -290,7 +292,7 @@
       padding-top 8px
       cursor pointer
 
-  &.features-section
+  .features-section
     left auto
     right 0
 

@@ -2,9 +2,11 @@
   display none
   position absolute
   z-index 102
+  transition all .4s ease
   @media screen and (min-width: 1200px)
     display block
-    right 1%
+    right 2.5%
+  &.is-out
     top 10px
 
   .btn
@@ -53,12 +55,12 @@
       margin-right -10px
     h3
       line-height 1.4
+      text-transform capitalize
     p
       font-size 17px
       font-weight 600
       margin-bottom 18px
-      &.sub-head
-        text-transform capitalize
+
     .btn
       border none
       letter-spacing .3px
