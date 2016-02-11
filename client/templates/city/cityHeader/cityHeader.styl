@@ -1,78 +1,104 @@
 .city-sub-header
   background-color #ebebeb
+  border-bottom 1px solid #bbb
   box-shadow 0 3px 10px -2px rgba(0,0,0,.3)
   height 0
   overflow hidden
   padding 0 20px
   box-sizing border-box
-  transition all .4s ease
+  transition all .45s ease-out
   z-index 101
   @media screen and (min-width: 992px)
     padding 0 25px
 
-  @media screen and (min-width: 768px)
-    .dropdown.open > .dropdown-menu
-      left auto
-      right 0
-      &.location-filter-section
-        height 260px
-      .form-control
-        height 42px
   .dropdown
-    float left
+    @media screen and (min-width: 768px)
+      margin 0 -8px
+    &.open > .dropdown-menu
+      @media screen and (min-width: 768px)
+        left auto
+        right 0
+        &.location-filter-section
+          height 260px
+        .form-control
+          height 42px
     .dropdown-menu
       z-index 1003
   .btn
     height 42px
 
-.is-down + .city-sub-header
-  height 140px
-  padding 18px 20px
-  overflow visible
-  @media screen and (min-width: 768px)
-    height 72px
-    padding 15px 25px
-  @media screen and (min-width: 992px)
-    height 78px
-    box-shadow 0 3px 10px -2px rgba(0,0,0,.3)
-    padding 18px 25px
-  @media screen and (min-width: 1200px)
-    padding 18px 30px
-
-
-.collapse-toggle-wrap
-  position absolute
-  right 0
-  z-index 102
   &.is-down
-    top 172px
+    height 280px
+    padding 15px 20px
+    overflow visible
     @media screen and (min-width: 768px)
-      top 92px
-  @media screen and (min-width: 1250px)
-    right 5px
-  .btn
-    height auto
-    font-size 30px
-    padding 0
+      height 85px
+      padding 12px 25px
+    @media screen and (min-width: 992px)
+      height 90px
+      box-shadow 0 3px 10px -2px rgba(0,0,0,.3)
+      padding 13px 25px
+    @media screen and (min-width: 1200px)
+      padding 14px 30px
+
+
+.toggle-city-header
+  &.icon
+    position absolute
+    right 3px
+    z-index 102
+    @media screen and (min-width: 820px)
+      right 6px
+    @media screen and (min-width: 900px)
+      right 10px
+
+    .is-down &
+      @media screen and (max-width: 767px)
+        display none
+      @media screen and (min-width: 768px)
+        top 96px
+
+    .btn
+      height auto
+      font-size 25px
+      padding 0
+      .fa
+        margin 0
+
+  &#done-btn
+    margin 10px auto
+    @media screen and (min-width: 768px)
+      display none
+    .btn
+      height initial
+      font-size 16px
+      width 100%
 
 .city-sub-header-list-wrap
+  margin-top 10px
+
   .button-text
     display inline-block
     text-transform uppercase
-  &.col-sm-2,
+
+  &.col-sm-2
     padding 0 15px 10px
     @media screen and (min-width: 1200px)
       padding 0 6px
+
   &.bedroom-type-select
+    margin 10px auto
+    min-width 122px
     @media screen and (min-width: 1200px)
       padding 0 10px
+
+    .city-sub-header-list
+      padding 0 9%
+
   &.city-select
     .button-text
       width 142px
-  &.bedroom-type-select
-    min-width 122px
-    .city-sub-header-list
-      padding 0 9%
+
   .city-sub-header-title
     width 100%
     font-family 'Montserrat', Helvetica, sans-serif
@@ -107,14 +133,15 @@
   display inline-block
   font-size 0
   float left
-  padding 10px 12px 2px 2px
+  padding 5px 12px 2px 2px
   vertical-align top
-  width 47%
   position relative
+  margin 10px auto
   @media screen and (max-width: 768px)
-    height 54px
+    height 56px
   @media screen and (min-width: 768px)
-    padding 3px 15px 2px
+    padding 0 15px 2px
+    top -6px
     width 31%
   @media screen and (min-width: 992px)
     width 23%
@@ -129,6 +156,7 @@
     @media screen and (min-width: 768px)
       bottom -18px
       font-size 13.5px
+
   .city-subheader-price-val
     display none
     font-size 13px
@@ -139,26 +167,33 @@
     @media screen and (min-width: 768px)
       display inline-block
     + b
+      left 15px
       @media screen and (min-width: 768px)
         left 60px
+
   .price-slider + b
-    right 5px
+    right 20px
     @media screen and (min-width: 768px)
       right 15px
 
   .slider.slider-horizontal
     margin 0
-    left 7%
+    left 6%
     width 90%
+    @media screen and (min-width: 400px)
+      left 4.5%
+      width 92.5%
     @media screen and (min-width: 768px)
       width 70%
+
     .slider-track
-      height 6px
+      height 8px
+
       .slider-handle
         background #4588fa
-        width 15px
-        height 15px
         opacity 1
+        top -1px
+
       .slider-selection
         box-shadow none
         background #8f9092
@@ -169,7 +204,9 @@
 
 #features-container,
 #location-filter-wrapper
+  margin 10px auto
   @media screen and (min-width: 768px)
+    margin 0
     padding 0 15px
   @media screen and (min-width: 992px)
     > .dropdown
@@ -315,7 +352,9 @@
   float left
 
 .building-title-search-wrapper
+  margin 10px auto
   @media screen and (min-width: 768px)
+    margin 0
     padding 0 0 0 5px
   @media screen and (min-width: 992px)
     max-width 13%
@@ -356,6 +395,6 @@ body.admin-logged-in
   .building-title-search
     width 200px
 
-@media screen and (max-width: 992px)
+@media screen and (max-width: 991px)
   .hide-md
     display none

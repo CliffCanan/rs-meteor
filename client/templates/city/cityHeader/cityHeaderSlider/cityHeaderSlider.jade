@@ -1,8 +1,8 @@
 template(name="cityHeaderSlider")
   with sliderData
-    .city-subheader-price
-      span.city-subheader-price-val
-        | Price
+
+    .city-subheader-price.col-xs-12
+      span.city-subheader-price-val Price
       b &#36;<span class="slider-price-from"></span>
       input.price-slider.span2(type="text", data-slider-min="{{min}}", data-slider-max="{{max}}", data-slider-step="5", data-slider-value="[{{value.min}},{{value.max}}]", data-slider-tooltip_split="true")
       b &#36;<span class="slider-price-to"></span>
