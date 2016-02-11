@@ -1,9 +1,5 @@
 template(name="cityHeader")
 
-  .toggle-city-header.icon
-    .btn.btn-link(data-toggle="tooltip", data-placement="auto", title="", data-original-title="Hide options")
-      i.fa.fa-chevron-circle-up
-
   .city-sub-header.is-down.clearfix
 
     .row
@@ -156,6 +152,10 @@ template(name="cityHeader")
       button.btn.btn-primary(type="button")
         | Done
         i.fa.fa-fw.fa-chevron-circle-up.m-l-10
+
+  .toggle-city-header.icon
+    .btn.btn-link(data-toggle="tooltip", data-placement="auto", title="", data-original-title="Hide options")
+      i.fa.fa-chevron-circle-up
 
 template(name="neighborhoodSuggestion")
   span(class="#{id}") #{value}
