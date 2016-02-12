@@ -18,7 +18,7 @@ ContactUsRequests.allow
       #yes: Boolean
       #no: Boolean
       #notSure: Boolean
-      #question: String
+      question: String
       userListId: String
       agentName: String
       agentId: String

@@ -43,11 +43,11 @@
                 {{#if request.no}}<span>No tour needed{{#if request.contactUsTourDate}} - But the customer has chosen tour date: {{request.contactUsTourDate}}{{/if}}</span>{{/if}}
             </td>
         </tr>
-        <tr>
+     --><tr>
             <td><strong>Additional Comments:</strong></td>
             <td><em>{{#if request.question}}&quot;{{request.question}}&quot;{{/if}}</em></td>
         </tr>
- --></tbody>
+    </tbody>
 </table>
 
 {{#if request.agentName}}<p>{{request.name}} is already working with {{request.agentName}} and has a list.</p>{{/if}}

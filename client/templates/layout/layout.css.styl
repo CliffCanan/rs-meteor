@@ -134,11 +134,16 @@ a.carousel-control .fa
       height 38px
 
   .form-group
+    margin-bottom 20px
+    @media screen and (min-width: 768px)
+      margin-bottom
+      
     @media screen and (max-width: 767px)
-      margin-bottom 9px
     > label:not(.fg-label)
       padding-top 6px
 
+    .fa-envelope
+      font-size 86%
 
 .sweet-alert
   border-radius 25px
@@ -424,8 +429,11 @@ a.carousel-control .fa
     -webkit-transition .4s margin ease
     transition .4s margin ease
     margin-left 35px
+    margin-bottom 20px
     @media screen and (min-width: 768px)
-      margin-bottom 20px
+      margin-bottom 35px
+    @media screen and (min-width: 992px)
+      margin-bottom 45px
 
     > span
       font-size 18px
