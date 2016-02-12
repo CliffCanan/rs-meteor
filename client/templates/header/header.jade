@@ -18,13 +18,14 @@ template(name="header")
           a.navigation-item-link.contact-us(href="/")
             span Get Started
 
-        li.navigation-item
-          a.navigation-item-link.active(href="tel://1-267-463-2428")
-            i.fa.fa-mobile
-            | (267) 463-2428
+        unless loggedInUser
+          li.navigation-item
+            a.navigation-item-link.active(href="tel://1-267-463-2428")
+              i.fa.fa-mobile
+              | (267) 463-2428
 
-        li.navigation-item.admin-login
-          if loggedInUser
+        if loggedInUser
+          li.navigation-item.admin-login
             +userMenu
 
       if canManageClients
