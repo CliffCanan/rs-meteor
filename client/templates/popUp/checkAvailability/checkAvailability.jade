@@ -17,37 +17,37 @@ template(name="checkAvailability")
               p.form-group
                 | Interested in 
                 span(class="text-primary") {{propertyName}}
-                span ?&nbsp;Tell us a little about your needs, and our {{cityName}} team will contact you soon.
+                span ?&nbsp;We'll confirm this unit's availability and get back to you within 30 minutes.
 
-              unless condition agroIsUnit 'is' true
-                fieldset.row.form-inline.availability-field#bedrooms-wrapper
-                  .col-xs-5
-                    label.availability-text(for="bedrooms")
-                      span.hide-sm # of
-                      | Bedrooms
-                  .col-xs-7
-                    .form-group
-                      .input-group
-                        .input-group-addon
-                          i.fa.fa-fw.fa-bed
-                        select.form-control(name="bedrooms")
-                          option(value="") -  Select  -
-                          option(value="studio") Studio
-                          option(value="1") 1
-                          option(value="2") 2
-                          option(value="3") 3
-                          option(value="4") 4
-                          option(value="5") 5+
+              //-unless condition agroIsUnit 'is' true
+              //-  fieldset.row.form-inline.availability-field#bedrooms-wrapper
+              //-    .col-xs-5
+              //-      label.availability-text(for="bedrooms")
+              //-        span.hide-sm # of
+              //-        | Bedrooms
+              //-    .col-xs-7
+              //-      .form-group
+              //-        .input-group
+              //-          .input-group-addon
+              //-            i.fa.fa-fw.fa-bed
+              //-          select.form-control(name="bedrooms")
+              //-            option(value="") -  Select  -
+              //-            option(value="studio") Studio
+              //-            option(value="1") 1
+              //-            option(value="2") 2
+              //-            option(value="3") 3
+              //-            option(value="4") 4
+              //-            option(value="5") 5+
 
-              fieldset.row.form-inline.availability-field
-                .col-xs-5
-                  label.availability-text(for="datetimeForm")
-                    | Move-In Date
-                .col-xs-7.form-group
-                  +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="MM/DD/YYYY" class="moveInData-moveInDate-editor" name="moveInDate")
+              //-fieldset.row.form-inline.availability-field
+              //-  .col-xs-5
+              //-    label.availability-text(for="datetimeForm")
+              //-      | Move-In Date
+              //-  .col-xs-7.form-group
+              //-    +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="MM/DD/YYYY" class="moveInData-moveInDate-editor" name="moveInDate")
 
-              fieldset.form-group.availability-field#msgGrp
-                textarea.form-control(name="question" placeholder="Is this unit still available?", rows="2")
+              //-fieldset.form-group.availability-field#msgGrp
+              //-  textarea.form-control(name="question" placeholder="Is this unit still available?", rows="2")
 
               .form-group.fg-float#leadnameGrp
                 span
@@ -70,12 +70,17 @@ template(name="checkAvailability")
                   input.form-control.fg-input#leadphone(name="phoneNumber",type="text")
                 label.fg-label(for="leadphone") Phone #
 
-            .modal-footer
               if serverError
                 .form-group
                   .alert.alert-danger(role="alert")
                     strong Sorry! Server error occurred! We are already working hard to get it fixed ASAP :-)
+
               button.btn.btn-primary.btn-lg.btn-block.submit-button(type="submit")
                 | Let's Go
                 .fa.fa-spin.fa-refresh.m-l-10.loading(style="display: none;")
                 i.fa.fa-chevron-circle-right.m-l-10(aria-hidden='true')
+
+            .modal-footer
+              div Want to speak with us right now? Call:
+                a.call-now(href="tel://1-267-463-2428") (267) 463-2428
+                span.period .

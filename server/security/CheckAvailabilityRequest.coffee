@@ -6,14 +6,14 @@ CheckAvailabilityRequests.allow
       name: String
       email: String
       phoneNumber: String
-      moveInDate: String
+      #moveInDate: String
       cityName: String
       cityId: String
       buildingName: String
       buildingId: String
       link: String
-      question: String
-      bedrooms: String
+      #question: String
+      #bedrooms: String
       source: String
       medium: String
       campaign: String

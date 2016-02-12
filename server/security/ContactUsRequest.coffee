@@ -7,18 +7,18 @@ ContactUsRequests.allow
       name: String
       email: String
       phoneNumber: String
-      bedrooms: String
-      maxMonthlyRent: String
-      contactUsMoveInDate: String
-      contactUsTourDate: String
-      tourOption: String
+      #bedrooms: String
+      #maxMonthlyRent: String
+      #contactUsMoveInDate: String
+      #contactUsTourDate: String
+      #tourOption: String
       city: String
       cityName: String
       cityId: String
-      yes: Boolean
-      no: Boolean
-      notSure: Boolean
-      question: String
+      #yes: Boolean
+      #no: Boolean
+      #notSure: Boolean
+      #question: String
       userListId: String
       agentName: String
       agentId: String

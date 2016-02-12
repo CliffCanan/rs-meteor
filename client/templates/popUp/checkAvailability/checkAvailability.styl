@@ -1,13 +1,14 @@
 .modal-dialog
   max-width 500px
+
   .availability-form
-    padding 15px
+    padding 15px 15px 0
     @media screen and (min-width: 768px)
-      padding 5%
+      padding 5% 5% 0
     @media screen and (min-width: 992px)
-      padding 6%
+      padding 6% 5% 0
     @media screen and (min-width: 1200px)
-      padding 20px 30px
+      padding 20px 40px 0
 
     .modal-header
       border 0 none
@@ -16,6 +17,7 @@
       color #272b30
       box-sizing border-box
       padding 0 0 10px
+
       @media screen and (min-width: 768px)
         padding 0 0 14px
       .close i
@@ -28,8 +30,10 @@
     .modal-body
       box-sizing border-box
       padding 0
+
       p > .text-primary
         margin-right -3px
+
       .availability-field
         &#bedrooms-wrapper
           .form-group
@@ -39,17 +43,21 @@
         font-size 14px
         color #272b30
         font-weight bold
+
         &#msgGrp
           font-weight normal
           margin-top 20px
+
         .form-control
           &::-webkit-input-placeholder
             color #272b30
+
         .form-group
           .form-control
             color #272b30
             &::-webkit-input-placeholder
               color #272b30
+
         .availability-text
           padding 0 20px 0 0
           &.required:after
@@ -62,8 +70,18 @@
             width 42px
 
     .modal-footer
-      border 0 none
-      padding 0
-      .form-group
-        .btn
-          background-color #4588fa
+      font-size 16px
+      margin-top 15px
+      margin-left -15px
+      margin-right -15px
+      text-align center
+      @media screen and (min-width: 768px)
+        margin-top 20px
+        margin-left -6%
+        margin-right -6%
+      @media screen and (min-width: 1200px)
+        margin-left -40px
+        margin-right -40px
+
+      .period
+        margin-left -3px

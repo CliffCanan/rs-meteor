@@ -36,22 +36,22 @@ Template.checkAvailability.rendered = ->
             message: 'Please enter your email address.'
           emailAddress:
             message: 'Please enter a valid email address!'
-      bedrooms:
-        validators:
-          notEmpty:
-            message: 'Please select your target number of bedrooms'
-      moveInDate:
-        validators:
-          notEmpty:
-            message: 'Please enter your target move-in date.'
-          date:
-            format: "MM/DD/YYYY"
-            min: moment().subtract(1, "d").toDate()
-            message: 'Please enter future date in MM/DD/YYYY format'
-      city:
-        validators:
-          notEmpty:
-            message: 'We need a city to search!'
+#      bedrooms:
+#        validators:
+#          notEmpty:
+#            message: 'Please select your target number of bedrooms'
+#      moveInDate:
+#        validators:
+#          notEmpty:
+#            message: 'Please enter your target move-in date.'
+#          date:
+#            format: "MM/DD/YYYY"
+#            min: moment().subtract(1, "d").toDate()
+#            message: 'Please enter future date in MM/DD/YYYY format'
+#      city:
+#        validators:
+#          notEmpty:
+#            message: 'We need a city to search!'
   ).on("success.form.fv", grab encapsulate (event) ->
       form.find(".submit-button").prop("disabled", true)
       form.find(".submit-button i").fadeOut(200)
@@ -66,8 +66,8 @@ Template.checkAvailability.rendered = ->
       json.buildingName = if building and building.title then building.title else 'no Building Name found'
       json.buildingId = if building and building._id then building._id else 'no Building ID found'
       json.phoneNumber = if json.phoneNumber then json.phoneNumber else 'not provided'
-      if not json.bedrooms
-        json.bedrooms = ""
+#      if not json.bedrooms
+#        json.bedrooms = ""
       json.link = "city/"+building.cityId+"/"+building.neighborhoodSlug+"/"+building.slug
       json.source = Session.get "utm_source"
       json.medium = Session.get "utm_medium"
@@ -125,7 +125,6 @@ Template.checkAvailability.events
     template.$('form').formValidation 'revalidateField', 'moveInDate'
 
   "shown.bs.modal #checkAvailabilityPopup": grab encapsulate (event, template) ->
-    console.log("Check Avail Popup Fired - 127")
     Session.set "hasSeenCheckAvailabilityPopup", true
     $("#checkAvailabilityPopup #leadphone").mask "(999) 999-9999", placeholder: " "
 
