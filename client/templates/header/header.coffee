@@ -39,7 +39,6 @@ Template.header.onRendered ->
 Template.header.events
   "click .contact-us": grab encapsulate (event, template) ->
     analytics.track "Clicked Contact Us Header Btn" unless Meteor.user()
-    Session.set "hasSeenContactUsPopup", true
     $('#contactUsPopup form').formValidation 'resetForm', true
     $('#contactUsPopup').modal('show')
 

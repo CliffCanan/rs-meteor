@@ -83,8 +83,6 @@ Template.index.events
 
     $('#contactUsPopup').modal('show')
 
-$("#contactUsPopup").on "shown.bs.modal", (e) ->
-  Session.set "hasSeenContactUsPopup", true
 
 $(window).scroll ->
   "use strict"

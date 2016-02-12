@@ -300,13 +300,13 @@ Template.building.onRendered ->
       document.title = buildingTitle + " Rentals | Rent Scene"
   , 1000
 
-  # Show Check Availability Popup after 13 seconds
+  # Show Check Availability Popup after 14 seconds
   if !Meteor.user() and $(window).width() > 768
     @popupTimeoutHandle = Meteor.setTimeout ->
       unless Session.get "hasSeenCheckAvailabilityPopup" == true || Session.get "hasSeenContactUsPopup" == true
         unless $('body').hasClass('modal-open')
           $('.check-availability').trigger('click')
-    , 13000
+    , 14000
 
 
 Template.building.onDestroyed ->

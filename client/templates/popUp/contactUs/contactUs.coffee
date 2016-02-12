@@ -149,14 +149,17 @@ $("#contactUsPopup").on "shown.bs.modal", ->
   console.log("CONTACT US Popup Fired - 133")
   #$("#contactUsPopup form").formValidation "resetForm", true
 
-  
-
 
 Template.contactUs.events
 
   "shown.bs.modal #contactUsPopup": grab encapsulate (event, template) ->
     Session.set "hasSeenContactUsPopup", true
+
     $("#contactUsPopup #leadphone").mask "(999) 999-9999", placeholder: " "
+
+    Meteor.setTimeout(() ->
+      $('input#contactUsName').focus()
+    , 300)
 
   "change .tour-date": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'contactUsTourDate'
