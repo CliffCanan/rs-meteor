@@ -29,6 +29,10 @@ Router.map ->
       medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
       campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
 
+      if source is "no source found"
+        # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
+        source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
+
       Session.set "utm_source", source
       Session.set "utm_medium", medium
       Session.set "utm_campaign", campaign
@@ -151,6 +155,10 @@ Router.map ->
       medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
       campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
 
+      if source is "no source found"
+        # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
+        source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
+
       Session.set "utm_source", source  unless source is "no source found"
       Session.set "utm_medium", medium  unless medium is "no medium found"
       Session.set "utm_campaign", campaign  unless campaign is "no campaign found"
@@ -191,6 +199,10 @@ Router.map ->
       source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
       medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
       campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
+
+      if source is "no source found"
+        # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
+        source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
 
       Session.set "utm_source", source  unless source is "no source found"
       Session.set "utm_medium", medium  unless medium is "no medium found"
@@ -233,6 +245,10 @@ Router.map ->
       source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
       medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
       campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
+
+      if source is "no source found"
+        # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
+        source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
 
       Session.set "utm_source", source  unless source is "no source found"
       Session.set "utm_medium", medium  unless medium is "no medium found"
@@ -406,15 +422,13 @@ Router.map ->
   , where: 'server'
 
 
-  ###@route "/admin",
+  @route "/admin",
     name: "login"
-    onBeforeAction: ->
-      @next()
     onAfterAction: ->
       SEO.set
         title: "Rent Scene Admin Login"
         meta:
-          robots: "noindex" ###
+          robots: "noindex"
 
   @route "admin/rental-applications",
     name: "adminRentalApplications"
