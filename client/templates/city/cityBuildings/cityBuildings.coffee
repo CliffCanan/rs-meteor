@@ -156,3 +156,16 @@ Template.cityBuildings.events
 
     gallery.addClass('hidden')  unless gallery.hasClass('hidden')
     initialImg.removeClass('hidden') if initialImg.hasClass('hidden')
+
+  "swiperight .building-img-wrap.carousel": (event, template) ->
+    console.log('Swipe right on carousel item detected')
+
+    $arrowToTrigger = $(event.currentTarget).find('.carousel-control.left')
+    $arrowToTrigger.trigger('click')
+
+  "swipeleft .building-img-wrap.carousel": (event, template) ->
+    console.log('Swipe left on carousel item detected')
+    console.log(event.currentTarget)
+
+    $arrowToTrigger = $(event.currentTarget).find('.carousel-control.right')
+    $arrowToTrigger.trigger('click')
