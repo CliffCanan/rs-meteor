@@ -423,10 +423,12 @@ Router.map ->
 
 
   @route "/admin",
-    name: "login"
+    name: "admin"
+    onBeforeAction: ->
+      Router.go("login")
     onAfterAction: ->
       SEO.set
-        title: "Rent Scene Admin Login"
+        title: "Rent Scene Admin"
         meta:
           robots: "noindex"
 
