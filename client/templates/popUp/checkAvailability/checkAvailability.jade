@@ -17,7 +17,12 @@ template(name="checkAvailability")
               p.form-group.m-b-25
                 | Interested in 
                 span(class="text-primary") {{propertyName}}
-                span ?&nbsp;We'll confirm this unit's availability and get back to you within 30 minutes.
+                span ?&nbsp;We'll confirm this
+                  if agroIsUnit
+                    | unit's
+                  else
+                    | building's
+                  | availability and get back to you within 60 minutes.
 
               //-unless condition agroIsUnit 'is' true
               //-  fieldset.row.form-inline.availability-field#bedrooms-wrapper
