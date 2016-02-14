@@ -30,10 +30,10 @@ main.container
     @media screen and (max-width: 600px)
       font-size 13px
       letter-spacing -.3px
-    &:first-child,&:last-child
+    &:first-child,&:first-child + li:before,&:last-child
       @media screen and (max-width: 767px)
         display none
-        visibility none
+        visibility hidden
     &.active
       color #272b30
       font-weight bold
@@ -88,7 +88,6 @@ main.container
         float left
         line-height 1.2
         margin 0 20px 5px 0
-        max-width 88%
         padding 0 2.5% 0 0
         &.trunc
           max-width 86%
@@ -99,15 +98,24 @@ main.container
           padding 0
 
       .avgRating
-        font-size 16px
-        line-height 28px
+        background-color #5cb85c
+        background-image linear-gradient(to bottom, #5cb85c 0%, #419641 100%)
+        border-radius 4px
+        color #fff
+        font-size 14px
+        line-height 24px
+        padding 1px 5px
         position absolute
         top 0
         right 10px
-        @media screen and (min-width: 768px)
-          font-size 18px
         @media screen and (min-width: 992px)
+          font-size 15px
+          line-height 28px
+          padding 1px 7px
           right 15px
+        i
+          color #f0e60a
+          text-shadow 0 0 0 rgba(0,0,0,0.5)
 
       .rating-pie-wrap
         position absolute
@@ -184,8 +192,8 @@ main.container
 
       .building-main-prop-list
         padding 0
-          @media screen and (min-width: 768px) and (max-width: 991px)
-            padding 10px 0 10px 10px
+        @media screen and (min-width: 768px) and (max-width: 991px)
+          padding 10px 0 10px 10px
 
         .building-main-prop
           color #272b30
@@ -235,7 +243,7 @@ main.container
       .units-section
         @media screen and (max-width: 991px)
           display none
-          visibility none
+          visibility hidden
 
     .walk-score-wrap *
       cursor default
@@ -480,7 +488,6 @@ main.container
     img
       max-width 100%
       max-height 180px
-    @media screen and (min-width: 992px)
 
   .building-unit-info
     overflow hidden
