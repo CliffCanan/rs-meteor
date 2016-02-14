@@ -62,7 +62,15 @@ template(name="building")
                     input.form-control.fg-input.building-main-info-title(type="text", name="title", value="{{title}}")
                   label.fg-label(for="title") Building Title
               else
-                h1.col-xs-12.col-sm-8.col-md-12.building-main-info-title(itemprop="name") {{getUnitTitle}}
+                h1.col-xs-12.col-sm-8.col-md-12.building-main-info-title(itemprop="name", class="{{#if averageRating}}trunc{{/if}}")
+                  | {{getUnitTitle}}
+
+                if averageRating
+                  .avgRating(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
+                    meta(itemprop="worstRating" content="1")
+                    meta(itemprop="bestRating" content="10")
+                    i.fa.fa-star.m-r-5
+                    span(itemprop="ratingValue") {{averageRating}}
 
                 //-.rating-pie-wrap(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
                 //-  .rating-pie-chart(data-percent="{{averageRatingAll}}")
@@ -76,18 +84,18 @@ template(name="building")
                   //-meta(itemprop="addressCountry", content="USA")
 
               if isEdit
-                .building-main-price-wrap.col-xs-12.col-sm-4.col-md-12
+                .building-main-price-wrap.col-xs-12.col-sm-5.col-md-12
                   .building-main-price-opt
                     span.building-main-price
                       input.text-right(type="text", name="priceFrom", value="{{priceFrom}}")
-                      | -
+                      | &nbsp;-&nbsp;
                       input.text-right(type="text", name="priceTo", value="{{priceTo}}")
                     span.building-main-rooms Unit
                   each btypesFields .
                     .building-main-price-opt
                       span.building-main-price
                         input.text-right(type="text", name="{{nameFrom}}", value="{{valueFrom}}")
-                        | -
+                        | &nbsp;-&nbsp;
                         input.text-right(type="text", name="{{nameTo}}", value="{{valueTo}}")
                       span.building-main-rooms {{type}}
               else
@@ -178,7 +186,7 @@ template(name="building")
                         img.bath-icon(src="/images/bath.svg")
 
               else
-                ul.col-xs-12.col-sm-8.col-md-12.building-main-prop-list.list-unstyled.clearfix
+                ul.col-xs-12.col-sm-7.col-md-12.building-main-prop-list.list-unstyled.clearfix
                   with getSqft
                     li.building-main-prop.col-xs-6.col-sm-4.col-lg-6
                       i.fa.fa-check.blue-icon
@@ -223,7 +231,7 @@ template(name="building")
                 a.btn.btn-success.building-main-info-btn.visible-lg-block(href="{{pathFor 'newRentalApplication' query=rentalQuery}}") Apply Now
 
               if buildingUnits.count
-                .col-xs-12.building-info-section.p-0
+                .col-xs-12.units-section.p-0
 
                   h2.section-title
                     i.fa.fa-fw.fa-key
@@ -266,8 +274,8 @@ template(name="building")
                                           img.bath-icon(src="/images/bath.svg")
                                           | {{.}}
 
-                                .building-unit-btn-wrap
-                                  a.building-unit-btn.btn.btn-default.center-block(type="button", href="{{pathFor route='building' data=getRouteData}}") Full Listing
+                                //-.building-unit-btn-wrap
+                                //-  a.building-unit-btn.btn.btn-default.center-block(type="button", href="{{pathFor route='building' data=getRouteData}}") Full Listing
 
 
                                 ul.building-unit-prop-list.list-unstyled

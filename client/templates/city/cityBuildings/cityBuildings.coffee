@@ -138,6 +138,8 @@ Template.cityBuildings.events
 
       gallery.css('left',correctionAmount)
 
+    analytics.track "Clicked View Pictures (Search)", {buildingId: @_id, buildingName: @title, label: @title} unless Meteor.user()
+
     # Finally instantiate the Owl Carousel
     gallery.find('.owl-carousel').owlCarousel
       items: 3
@@ -147,10 +149,8 @@ Template.cityBuildings.events
 
   "click .ext-gallery .close-btn": (event, template) ->
     event.stopPropagation()
-    #console.log('Close Btn clicked!')
 
     parentEl = $(event.currentTarget).closest('.main-city-item')
-
     gallery = $(event.currentTarget).closest('.ext-gallery')
     initialImg = parentEl.find('.main-city-img-link')
 
