@@ -196,7 +196,8 @@
       height 8px
 
       .slider-handle
-        background #4588fa
+        background-color #4588fa
+        background-image linear-gradient(to bottom, #4588fa,#1f70f9 100%)
         opacity 1
         top -1px
 
@@ -276,8 +277,7 @@
       font-weight bold
       letter-spacing .25px
       line-height 1.35
-      padding 0 0 5px
-      margin 0
+      margin 0 0 10px
 
     .filter-list
       margin 0 -15px
@@ -295,6 +295,9 @@
   .features-section
     left auto
     right 0
+    @media screen and (min-width: 768px)
+      left 0 !important
+      right auto !important
 
   .neighborhoods-section
     padding-bottom 10px
