@@ -15,6 +15,9 @@ Template.cityHeader.onRendered ->
     $('#address').focus()
   )
 
+  if $(window).width() < 390
+    $('.building-title-search-wrapper input').attr('placeholder','Buildings')
+
 #  Tracker.autorun ->
 #    if Router.current() and Router.current().route.getName() is 'city'
 #      Meteor.setTimeout ->
@@ -152,7 +155,6 @@ Template.cityHeader.events
     analytics.track "Clicked Clear-Neighborhoods Btn (City Header)" unless Meteor.user()
 
   "change .bedroom-type-select select": (event, template) ->
-    if $(event.target).val() is 'Yes'
 
     data = template.data
     #$li = $(event.currentTarget)

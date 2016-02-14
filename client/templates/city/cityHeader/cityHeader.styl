@@ -135,8 +135,6 @@
     text-transform uppercase
     top 30px
     width 100%
-    .bedroom-type-select &
-      height 42px
 
     .city-sub-header-item
       padding 10px 0
@@ -146,6 +144,9 @@
       cursor pointer
       &:hover
         color #4588fa
+
+  &.bedroom-type-select select
+    height 42px
 
 .city-subheader-price
   display inline-block
@@ -390,9 +391,6 @@
     font-weight bold
     height 42px
     padding-left 32px
-    &::-webkit-input-placeholder,&::-moz-placeholder,:-ms-input-placeholder,::placeholder
-      @media screen and (max-width: 390px)
-        max-width 50px
 
   i
     position absolute
