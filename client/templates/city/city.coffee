@@ -26,7 +26,6 @@ Template.city.onCreated ->
           $('#contactUsPopup').modal('show')
     , 18000
 
-
 Template.city.helpers
   firstLoad: ->
     citySubs.dep.depend()
@@ -139,6 +138,9 @@ Template.city.helpers
     currentTime = new Date()
     hours = currentTime.getHours()
     if (hours > 7 and hours < 20) then true else false
+
+  showIDXDisclaimer: ->
+    Router.current().params.query.listingType is 'broker'
 
 Template.city.onRendered ->
   instance = @

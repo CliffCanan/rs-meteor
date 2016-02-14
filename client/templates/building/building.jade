@@ -374,12 +374,16 @@ template(name="building")
                     i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
                     span.sr-only Next
 
-
               .building-main-info-desc-wrap
+
                 input#mainDescMoreLarge.building-main-info-desc-more(type="checkbox")
 
                 unless isEdit
                   .row
+                    if brokerageName
+                      .brokerage-info
+                        span
+                          em Listing courtesy of #{brokerageName}
                     .col-xs-12.col-sm-8
                       .building-main-info-desc {{{getDescription}}}
 
@@ -485,5 +489,9 @@ template(name="building")
                               p.main-city-item-link {{title}}
                             .col-md-3.col-lg-12
                               p.similar-property-price {{displayBuildingPrice ../queryBtype}}
+
+            if showIDXDisclaimer
+              .col-xs-12.col-sm-7.col-md-8.col-lg-9
+                +idxDisclaimer
 
         | {{ironRouterHack}}

@@ -158,6 +158,9 @@ Template.building.helpers
   reviewFormDefaults: ->
     Session.get('reviewFormDefaults')
 
+  showIDXDisclaimer: ->
+    @source and @source.source is 'IDX'
+
 
 Template.building.onRendered ->
   instance = @

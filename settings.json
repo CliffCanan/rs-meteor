@@ -27,5 +27,12 @@
       "Google Analytics": {"trackingId": "UA-37790473-1"},
       "Mixpanel": {"token": "283e4e17cb04be1a047e27cb6c429d4a", "people": true}
     }
+  },
+  "private": {
+    "TrendIDX": {
+      "loginUrl": "http://trend.trendrets.com:6103/platinum/login",
+      "username": "TRNRNTSCNE",
+      "password": "L7NiBL"
+    }
   }
 }
