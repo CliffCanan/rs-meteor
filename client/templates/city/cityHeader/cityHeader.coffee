@@ -15,13 +15,13 @@ Template.cityHeader.onRendered ->
     $('#address').focus()
   )
 
-  Tracker.autorun ->
-    if Router.current() and Router.current().route.getName() is 'city'
-      Meteor.setTimeout ->
-        $('.neighborhood-select .typeahead').typeahead('val', 'reset')
-        $('.neighborhood-select .typeahead').typeahead('val', '')
-
-  $('.neighborhood-select .fa-times').show() if Router.current() and Router.current().route.getName() is 'neighborhood'
+#  Tracker.autorun ->
+#    if Router.current() and Router.current().route.getName() is 'city'
+#      Meteor.setTimeout ->
+#        $('.neighborhood-select .typeahead').typeahead('val', 'reset')
+#        $('.neighborhood-select .typeahead').typeahead('val', '')
+#
+#  $('.neighborhood-select .fa-times').show() if Router.current() and Router.current().route.getName() is 'neighborhood'
 
 
 Template.cityHeader.helpers
@@ -151,14 +151,18 @@ Template.cityHeader.events
   "click #clear-neighborhoods": (event, template) ->
     analytics.track "Clicked Clear-Neighborhoods Btn (City Header)" unless Meteor.user()
 
-  "click .bedroom-type-select li": (event, template) ->
-    data = template.data
-    $li = $(event.currentTarget)
-    $li.closest(".dropdown").removeClass("open")
+  "change .bedroom-type-select select": (event, template) ->
+    if $(event.target).val() is 'Yes'
 
+    data = template.data
+    #$li = $(event.currentTarget)
+    #$li.closest(".dropdown").removeClass("open")
+
+    $option = $(event.target).val()
     query = data.query
 
-    if btype = $li.attr("data-value")
+    #if btype = $li.attr("data-value")
+    if btype = $option
       analytics.track "Filtered Listings By Bedroom Type", {label: btype} unless Meteor.user()
       query.btype = btype
     else

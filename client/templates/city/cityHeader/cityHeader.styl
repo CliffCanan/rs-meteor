@@ -6,7 +6,7 @@
   overflow hidden
   padding 0 20px
   box-sizing border-box
-  transition all .45s ease-out
+  transition all .45s ease-in-out
   z-index 101
   @media screen and (min-width: 992px)
     padding 0 25px
@@ -30,8 +30,16 @@
   .btn
     height 42px
 
+  .neighborhood-select
+    @media screen and (max-width: 767px)
+      margin-top 0
+    .dropdown-toggle
+      > span
+        @media screen and (min-width: 768px) and (max-width: 1020px)
+          display none
+
   &.is-down
-    height 280px
+    height 324px
     padding 15px 20px
     overflow visible
     @media screen and (min-width: 768px)
@@ -65,11 +73,11 @@
         margin 0
 
   &#done-btn
-    margin 10px auto
+    margin 6px auto
     @media screen and (min-width: 768px)
       display none
     .btn
-      height initial
+      height 40px
       font-size 16px
       width 100%
 
@@ -117,15 +125,19 @@
 
   .city-sub-header-list
     box-sizing border-box
+    border 1px solid #ccc
+    border-top 0
+    border-radius 5px
+    color #272b30
+    font-family 'Montserrat', Helvetica, sans-serif
     min-width 100px
     padding 0 20px
-    top 30px
-    border 1px solid #cfcfcf
-    border-top 0
-    border-radius 2px 2px 5px 5px
-    width 99%
     text-transform uppercase
-    padding-top 10px
+    top 30px
+    width 100%
+    .bedroom-type-select &
+      height 42px
+
     .city-sub-header-item
       padding 10px 0
       font-family 'Montserrat', Helvetica, sans-serif
@@ -135,17 +147,16 @@
       &:hover
         color #4588fa
 
-
 .city-subheader-price
   display inline-block
   font-size 0
   float left
-  padding 5px 12px 2px 2px
+  padding 5px 15px 0px 5px
   vertical-align top
   position relative
-  margin 10px auto
+  margin 8px auto 4px
   @media screen and (max-width: 768px)
-    height 56px
+    height 55px
   @media screen and (min-width: 768px)
     padding 2px 15px 2px
     width 31%
@@ -242,7 +253,7 @@
       @media screen and (min-width: 992px)
         padding 2px 10px 0 0
 
-  .features-btn
+  .dropdown-toggle
     font-family 'Montserrat', Helvetica, sans-serif
     font-size 14px
     color #272b30
@@ -280,9 +291,10 @@
       margin 0 0 10px
 
     .filter-list
-      margin 0 -15px
+      margin 0 -10px
       padding 5px 0
       @media screen and (min-width: 768px)
+        margin 0 -15px
         padding 0
 
     .city-features-date
@@ -304,7 +316,8 @@
     ul
       padding-bottom 0
     li
-      padding-bottom 5px
+      padding-bottom 6px
+      padding-right 5px
 
   .location-filter-section
     padding 10px 15px 15px
@@ -377,6 +390,10 @@
     font-weight bold
     height 42px
     padding-left 32px
+    &::-webkit-input-placeholder,&::-moz-placeholder,:-ms-input-placeholder,::placeholder
+      @media screen and (max-width: 390px)
+        max-width 50px
+
   i
     position absolute
     top 14px
