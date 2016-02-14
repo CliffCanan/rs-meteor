@@ -20,7 +20,7 @@
         left auto
         right 0
         &.location-filter-section
-          height 260px
+          height 255px 
         .form-control
           height 42px
 
@@ -278,7 +278,6 @@
       line-height 1.35
       padding 0 0 5px
       margin 0
-      text-transform capitalize
 
     .filter-list
       margin 0 -15px
@@ -292,10 +291,6 @@
       margin 0 0 20px
       .input-group
         margin-top 5px
-
-    .clear-btn
-      padding-top 8px
-      cursor pointer
 
   .features-section
     left auto
@@ -350,7 +345,11 @@
   */
   
 .travelMode
-  top 5px
+  font-size 18px
+  top 3px
+  @media screen and (min-width: 768px)
+    font-size 20px
+    top 2px
   img
     cursor pointer
 
@@ -386,15 +385,20 @@
 
 
 .selectArrivalTime 
-  padding-bottom 10px
+  margin-bottom 10px
   @media screen and (min-width: 768px)
-    padding-bottom 15px
+    margin-top 14px
+    margin-bottom 14px
+    .dropdown
+      margin 0 !important
   
 .form-building-address-filter-reset 
   cursor pointer
+  height initial
+  position relative
+  top 10px
   @media screen and (max-width: 768px)
-    position relative
-    top 10px
+    top 3px
     left 25px
 
 @media screen and (max-width: 1030px)
