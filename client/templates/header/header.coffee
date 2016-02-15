@@ -14,10 +14,10 @@ Template.header.helpers
 
 Template.header.onRendered ->
   @autorun ->
-    if share.canRecommend()
-      $('main').css('margin-top': 122)
-    else
-      $('main').css('margin-top': 70)
+    height = $('header').height() - 1
+    height += 52 if share.canRecommend()
+
+    $('main').css('margin-top': height)
 
 
   unless $("body").getNiceScroll().length > 0

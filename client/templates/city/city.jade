@@ -28,6 +28,38 @@ template(name="city")
           label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
             input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
+      .filter-options
+        if neighborhood
+          span.filter-tag {{neighborhood}}
+
+        if brTypeExist
+          span.filter-tag {{brType}}
+
+        if pets
+          span.filter-tag Pets
+
+        if parking
+          span.filter-tag Parking
+
+        if doorman
+          span.filter-tag Doorman
+
+        if fitnessCenter
+          span.filter-tag Fitness Center
+
+        if utilities
+          span.filter-tag Utilities
+
+        if available
+          span.filter-tag Available {{available}}
+
+        if fromPrice
+          span.filter-tag From ${{fromPrice}}
+
+        if toPrice
+          span.filter-tag To ${{toPrice}}
+
+
       #mobile-cta.clearfix
         h3 Too busy to search yourself?
 

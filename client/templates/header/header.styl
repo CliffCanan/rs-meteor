@@ -1,12 +1,15 @@
 header
   background #272b30
   box-shadow 0 0px 14px 0px rgba(0,0,0,.4)
-  height 70px
+  height 58px
   width 100%
   position fixed
   top 0
   left 0
+  transition all .4s ease
   z-index 1000
+    @media screen and (min-width: 992px)
+      height 70px
 
   .home-page &
     background #4588fa // rgba(39, 43, 48, .1)
@@ -14,9 +17,9 @@ header
 
   .header-wrap
     width 100%
-    padding 20px 10px 0
+    padding 12px 10px 0
     @media screen and (min-width: 768px)
-      padding 20px 15px
+      padding 12px 15px
     @media screen and (min-width: 992px)
       padding 20px 25px
     @media screen and (min-width: 1200px)
@@ -55,7 +58,7 @@ header
       list-style none
       @media screen and (max-width: 500px)
         position absolute
-        top 22px
+        top 14px
         right 0
         .fa-paper-plane
           display

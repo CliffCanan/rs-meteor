@@ -101,20 +101,20 @@ template(name="building")
               else
                 if agroIsUnit
                   with getUnitPrice
-                    .building-main-price-wrap.col-xs-12.col-sm-4.col-md-12
+                    .building-main-price-wrap.col-xs-12.col-sm-5.col-md-12
                       .building-main-price-opt
                         span.building-main-price {{price}}
                         span.building-main-rooms {{type}}
                 else
                   with prices
-                    .building-main-price-wrap.col-xs-12.col-sm-4.col-md-12
+                    .building-main-price-wrap.col-xs-12.col-sm-5.col-md-12
                       each .
                         .building-main-price-opt
                           span.building-main-price {{price}}
                           span.building-main-rooms {{type}}
 
               if isEdit
-                .col-xs-12.col-sm-8.col-md-12.p-0.clearfix
+                .col-xs-12.col-sm-7.col-md-12.p-0.clearfix
 
                   .building-main-prop
                     label Square Feet

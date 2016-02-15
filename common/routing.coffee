@@ -133,6 +133,7 @@ Router.map ->
       return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
+      Session.set("currentNeighborhood", undefined)
 
       if @params.query.hasOwnProperty 'address'
         Session.set("cityName", @params.query.address)
@@ -149,6 +150,32 @@ Router.map ->
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
         Session.set("cityScroll", 0)
 
+      brTypeExist = if @params.query.hasOwnProperty 'btype' then true else false
+      brType = if brTypeExist then @params.query.btype else undefined
+      pets = if @params.query.hasOwnProperty 'pets' then true else false
+      parking = if @params.query.hasOwnProperty 'parking' then true else false
+      doorman = if @params.query.hasOwnProperty 'security' then true else false
+      fitnessCenter = if @params.query.hasOwnProperty 'fitnessCenter' then true else false
+      utilities = if @params.query.hasOwnProperty 'utilities' then true else false
+      available = if @params.query.hasOwnProperty 'available' then true else false
+
+      fromPrice = if @params.query.hasOwnProperty 'from' then @params.query.from else undefined
+      toPrice = if @params.query.hasOwnProperty 'to' then @params.query.to else undefined
+
+      Session.set("filterOptions"
+        brTypeExist: brTypeExist
+        brType: brType
+        pets: pets
+        parking: parking
+        doorman: doorman
+        fitnessCenter: fitnessCenter
+        utilities: utilities
+        available: available
+        fromPrice: fromPrice
+        toPrice: toPrice
+      )
+
+
       Session.setDefault('hasAlrdyConverted', false);
       Session.setDefault('utm_source', 'no source found');
       Session.setDefault('utm_medium', 'no medium found');
@@ -160,9 +187,9 @@ Router.map ->
 
       if source is "no source found"
         # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
-        source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
+        source = if @params.query.gclid then "AdWords Campaign" else "no source found"
 
-      if @params.query.fb and @params.query.fb = true
+      if @params.query.fb and @params.query.fb is true
         source = "Facebook Ad"
 
       Session.set "utm_source", source  unless source is "no source found"
@@ -193,9 +220,38 @@ Router.map ->
       return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
+      currentHood = if @params.neighborhoodSlug then @params.neighborhoodSlug else undefined
+      Session.set("currentNeighborhood", currentHood)
+
       Session.set("neighborhoodPageData", {page: 1})
       Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       Session.set("cityScroll", 0)
+
+      brTypeExist = if @params.query.hasOwnProperty 'btype' then true else false
+      brType = if brTypeExist then @params.query.btype else undefined
+      pets = if @params.query.hasOwnProperty 'pets' then true else false
+      parking = if @params.query.hasOwnProperty 'parking' then true else false
+      doorman = if @params.query.hasOwnProperty 'security' then true else false
+      fitnessCenter = if @params.query.hasOwnProperty 'fitnessCenter' then true else false
+      utilities = if @params.query.hasOwnProperty 'utilities' then true else false
+      available = if @params.query.hasOwnProperty 'available' then @params.query.available else undefined
+
+      fromPrice = if @params.query.hasOwnProperty 'from' then @params.query.from else undefined
+      toPrice = if @params.query.hasOwnProperty 'to' then @params.query.to else undefined
+
+      Session.set("filterOptions"
+        brTypeExist: brTypeExist
+        brType: brType
+        pets: pets
+        parking: parking
+        doorman: doorman
+        fitnessCenter: fitnessCenter
+        utilities: utilities
+        available: available
+        fromPrice: fromPrice
+        toPrice: toPrice
+      )
+
 
       Session.setDefault('hasAlrdyConverted', false);
       Session.setDefault('utm_source', 'no source found');

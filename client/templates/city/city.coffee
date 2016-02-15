@@ -19,13 +19,17 @@ Template.city.onCreated ->
   @buildingsCount = new ReactiveVar(0)
   #Session.set('adminShowUnpublishedProperties', false)
 
-  # Show Contact Us Popup after 18 seconds
+  # Show Contact Us Popup after 18s (tablet/desktop) or 10s (mobile)
   if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
-    @popupTimeoutHandle = Meteor.setTimeout ->
-      unless $(window).width() < 768 || Session.get("hasSeenContactUsPopup") == true || $('body').hasClass('modal-open') || Session.get("currentPage") == "building"
-          $('#contactUsPopup').modal('show')
-    , 18000
 
+    delay = if $(window).width() < 768 then 10000 else 18000
+
+    @popupTimeoutHandle = Meteor.setTimeout ->
+      unless Session.get("hasSeenContactUsPopup") == true || $('body').hasClass('modal-open') || Session.get("currentPage") == "building"
+        $('#contactUsPopup').modal('show')
+    , delay
+
+filterOptions = Session.get("filterOptions")
 
 Template.city.helpers
   firstLoad: ->
@@ -134,6 +138,42 @@ Template.city.helpers
     Template.instance().buildingsCount.set(buildings.count())
 
     buildings
+
+  neighborhood: ->
+    if Session.get "currentNeighborhood" isnt undefined then Session.get "currentNeighborhood" else undefined
+
+
+
+  brTypeExist: ->
+    filterOptions.brTypeExist
+
+  brType: ->
+    filterOptions.brType
+
+  pets: ->
+    filterOptions.pets
+
+  parking: ->
+    filterOptions.parking
+
+  doorman: ->
+    filterOptions.doorman
+
+  fitnessCenter: ->
+    filterOptions.fitnessCenter
+
+  utilities: ->
+    filterOptions.utilities
+
+  available: ->
+    filterOptions.available
+
+  fromPrice: ->
+    filterOptions.fromPrice
+
+  toPrice: ->
+    filterOptions.toPrice
+
 
   isBizHours: ->
     currentTime = new Date()
