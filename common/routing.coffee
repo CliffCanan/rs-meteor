@@ -33,6 +33,9 @@ Router.map ->
         # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
         source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
 
+      if @params.query.fb and @params.query.fb = true
+        source = "Facebook Ad"
+
       Session.set "utm_source", source
       Session.set "utm_medium", medium
       Session.set "utm_campaign", campaign
@@ -159,6 +162,9 @@ Router.map ->
         # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
         source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
 
+      if @params.query.fb and @params.query.fb = true
+        source = "Facebook Ad"
+
       Session.set "utm_source", source  unless source is "no source found"
       Session.set "utm_medium", medium  unless medium is "no medium found"
       Session.set "utm_campaign", campaign  unless campaign is "no campaign found"
@@ -203,6 +209,9 @@ Router.map ->
       if source is "no source found"
         # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
         source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
+
+      if @params.query.fb and @params.query.fb = true
+        source = "Facebook Ad"
 
       Session.set "utm_source", source  unless source is "no source found"
       Session.set "utm_medium", medium  unless medium is "no medium found"
@@ -249,6 +258,9 @@ Router.map ->
       if source is "no source found"
         # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
         source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
+
+      if @params.query.fb and @params.query.fb = true
+        source = "Facebook Ad"
 
       Session.set "utm_source", source  unless source is "no source found"
       Session.set "utm_medium", medium  unless medium is "no medium found"

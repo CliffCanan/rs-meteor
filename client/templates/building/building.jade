@@ -22,7 +22,7 @@ template(name="building")
     .building-page-wrap.col-lg-12(itemscope, itemtype="http://schema.org/LocalBusiness")
 
       if canOperateWithBuilding
-        .control-buttons.btn-group
+        .control-buttons.btn-group.hide-sm
           unless parentId
             button.btn.btn-success.add-unit(type="button")
               i.fa.fa-plus
