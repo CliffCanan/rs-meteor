@@ -31,37 +31,45 @@ template(name="city")
       if hasAnyFilters
         .filter-options.pull-left.clearfix
           if hasNeighborhood
-            span.filter-tag {{neighborhood}}
+            i.fa.fa-check
+            label.label.label-primary.filter-tag {{neighborhood}}
 
           if brTypeExist
-            span.filter-tag {{brType}}
+            i.fa.fa-check
+            label.label.label-primary.filter-tag {{brType}}
 
           if pets
-            span.filter-tag Pets
+            i.fa.fa-check
+            label.label.label-primary.filter-tag Pets
 
           if parking
-            span.filter-tag Parking
+            i.fa.fa-check
+            label.label.label-primary.filter-tag Parking
 
           if doorman
-            span.filter-tag Doorman
+            i.fa.fa-check
+            label.label.label-primary.filter-tag Doorman
 
           if fitnessCenter
-            span.filter-tag Fitness Center
+            i.fa.fa-check
+            label.label.label-primary.filter-tag Fitness Center
 
           if laundry
-            span.filter-tag In-unit laundry
+            i.fa.fa-check
+            label.label.label-primary.filter-tag In-unit laundry
 
           if utilities
-            span.filter-tag Utilities
+            i.fa.fa-check
+            label.label.label-primary.filter-tag Utilities
 
           //-if available
-          //-  span.filter-tag Available {{available}}
+          //-  label.label.label-primary.filter-tag Available {{available}}
 
           //-if fromPrice
-          //-  span.filter-tag From ${{fromPrice}}
+          //-  label.label.label-primary.filter-tag From ${{fromPrice}}
 
           //-if toPrice
-          //-  span.filter-tag To ${{toPrice}}
+          //-  label.label.label-primary.filter-tag To ${{toPrice}}
 
 
       #mobile-cta.clearfix
