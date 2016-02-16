@@ -30,7 +30,7 @@ template(name="city")
 
       if hasAnyFilters
         .filter-options
-          if neighborhood
+          if hasNeighborhood
             span.filter-tag {{neighborhood}}
 
           if brTypeExist

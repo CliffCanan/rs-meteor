@@ -138,15 +138,23 @@ Template.city.helpers
 
 
   hasAnyFilters: ->
-    if Session.get "currentNeighborhood" isnt undefined then return true
+    if Session.get "currentNeighborhood"
+      return true
 
     query = Router.current().params.query
     for prop of query
       return true  if query.hasOwnProperty(prop)
     false
 
+  hasNeighborhood: ->
+    if Session.get "currentNeighborhood"
+      return true
+
   neighborhood: ->
-    if Session.get "currentNeighborhood" isnt undefined then Session.get "currentNeighborhood" else undefined
+    if Session.get "currentNeighborhood" isnt undefined
+      Session.get "currentNeighborhood"
+    else
+      ""
 
   brTypeExist: ->
     query = Router.current().params.query
