@@ -42,7 +42,7 @@ template(name="cityHeader")
 
       .col-xs-6.col-sm-1.bedroom-type-select.city-sub-header-list-wrap.dropdown.city-filter
         select.city-sub-header-list
-          option.city-sub-header-item(value="") Any
+          option.city-sub-header-item(value="") # BR's
           each btypes
             option.city-sub-header-item(value="{{key}}") {{value}}
 
@@ -92,7 +92,7 @@ template(name="cityHeader")
             label.city-features-date Available From
               +datepicker(name="available" value=query.available)
             button.btn.btn-primary.apply-changes-btn(type="submit") Apply Changes
-            span.clear-btn.form-building-features-filter-reset Clear Filter
+            button.btn.btn-default.m-l-10.clear-btn.form-building-features-filter-reset(type="button") Clear Filter
 
       +cityHeaderSlider
 
@@ -147,7 +147,7 @@ template(name="cityHeader")
                 button.btn.btn-block.btn-primary.apply-changes-btn(type="submit") Apply
                   span.hide-md Changes
               .col-sm-6
-                span.btn.btn-link.clear-btn.form-building-address-filter-reset Clear Filter
+                button.btn.btn-default.clear-btn.form-building-address-filter-reset(type="button") Clear Filter
 
       .col-xs-6.col-sm-2.building-title-search-wrapper
         input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")

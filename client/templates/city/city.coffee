@@ -151,10 +151,8 @@ Template.city.helpers
       return true
 
   neighborhood: ->
-    if Session.get "currentNeighborhood" isnt undefined
+    if Session.get "currentNeighborhood"
       Session.get "currentNeighborhood"
-    else
-      ""
 
   brTypeExist: ->
     query = Router.current().params.query
@@ -162,7 +160,18 @@ Template.city.helpers
 
   brType: ->
     query = Router.current().params.query
-    query.btype
+    if query.btype is 'bedroom1'
+      return '1BR'
+    else if query.btype is 'bedroom2'
+      return '2BR'
+    else if query.btype is 'bedroom3'
+      return '3BR'
+    else if query.btype is 'bedroom4'
+      return '4BR'
+    else if query.btype is 'studio'
+      return 'Studio'
+    else
+      return query.btype
 
   pets: ->
     query = Router.current().params.query

@@ -96,7 +96,7 @@ Template.cityHeader.helpers
     neighborhoodSlug = suggestion.id
     data = Template.instance().data
 
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip() if $(window).width() > 1030
 
     if neighborhoodSlug is 'all'
       Router.go("city", {cityId: Router.current().data().cityId}, {query: data.query})
@@ -281,6 +281,7 @@ Template.cityHeader.events
       Router.go(routeName, routeParams, {query: query})
 
   "click .form-building-address-filter-reset": (event, template) ->
+    analytics.track "Clicked Clear Distance Search (CityHdr)" unless Meteor.user()
     Session.set("travelMode", "walking")
     Session.set("selectedTime", "")
     $form = $(event.currentTarget).closest("form")
@@ -288,6 +289,7 @@ Template.cityHeader.events
     $form.trigger("submit")
 
   "click .form-building-features-filter-reset": (event, template) ->
+    analytics.track "Clicked Clear Features (CityHdr)" unless Meteor.user()
     $form = $(event.currentTarget).closest("form")
     $form.get(0).reset()
     $form.trigger("submit")

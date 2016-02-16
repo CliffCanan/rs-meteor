@@ -67,9 +67,6 @@
   bedroom4:
     lower: "4 bedrooms"
     upper: "4 Bedrooms"
-  bedroom5:
-    lower: "5 bedrooms"
-    upper: "5 Bedrooms"
 
 
 @btypesArray =
