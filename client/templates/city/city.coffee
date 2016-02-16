@@ -18,10 +18,10 @@ Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
 
-  # Show Contact Us Popup after 18s (tablet/desktop) or 10s (mobile)
+  # Show Contact Us Popup after 18s (tablet/desktop) or 12s (mobile)
   if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
 
-    delay = if $(window).width() < 768 then 10000 else 18000
+    delay = if $(window).width() < 768 then 12000 else 18000
 
     @popupTimeoutHandle = Meteor.setTimeout ->
       unless Session.get("hasSeenContactUsPopup") == true || $('body').hasClass('modal-open') || Session.get("currentPage") == "building"
@@ -196,19 +196,29 @@ Template.city.helpers
   utilities: ->
     query = Router.current().params.query
     query.hasOwnProperty('utilities')
+
+  hasFromPrice: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('from')
+
+  fromPrice: ->
+    query = Router.current().params.query
+    query.from
+
+  hasToPrice: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('to')
+
+  toPrice: ->
+    query = Router.current().params.query
+    query.to
+
   ###
   available: ->
     i = Template.instance().filterOptions.get()
     i.available
-
-  fromPrice: ->
-    i = Template.instance().filterOptions.get()
-    i.fromPrice
-
-  toPrice: ->
-    i = Template.instance().filterOptions.get()
-    i.toPrice
   ###
+
 
   isBizHours: ->
     currentTime = new Date()

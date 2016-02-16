@@ -36,22 +36,30 @@
   perspective 800px
   margin-bottom 30px
 
-// Flip the pane when hovered
-.card-container:not(.manual-flip):hover .card,
-.card-container.hover.manual-flip .card {
-	-webkit-transform: rotateY( 180deg );
--moz-transform: rotateY( 180deg );
- -o-transform: rotateY( 180deg );
-    transform: rotateY( 180deg );
-}
+  // Flip the pane when hovered on desktop
+  &:hover .card
+    @media screen and (min-width: 1030px)
+      -webkit-transform: rotateY(180deg)
+      -moz-transform: rotateY(180deg)
+      -o-transform: rotateY(180deg)
+      transform: rotateY(180deg)
 
-.card-container.static:hover .card, 
-.card-container.static.hover .card {
-	-webkit-transform: none;
--moz-transform: none;
- -o-transform: none;
-    transform: none;
-}
+  // For mobile, use JS to add .manual-flip on click
+  &.manual-flip .card
+    -webkit-transform: rotateY(180deg)
+    -moz-transform: rotateY(180deg)
+    -o-transform: rotateY(180deg)
+    transform: rotateY(180deg)
+
+
+  &.static:hover .card, 
+  &.static.hover .card
+    -webkit-transform: none
+    -moz-transform: none
+    -o-transform: none
+    transform: none
+
+
 // flip speed goes here
 .card {
 	 -webkit-transition: -webkit-transform .55s;

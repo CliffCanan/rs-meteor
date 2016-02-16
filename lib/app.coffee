@@ -56,16 +56,16 @@
     lower: "Studio"
     upper: "Studio"
   bedroom1:
-    lower: "1 bedroom"
+    lower: "1 BR"
     upper: "1 Bedroom"
   bedroom2:
-    lower: "2 bedrooms"
+    lower: "2 BR"
     upper: "2 Bedrooms"
   bedroom3:
-    lower: "3 bedrooms"
+    lower: "3 BR"
     upper: "3 Bedrooms"
   bedroom4:
-    lower: "4 bedrooms"
+    lower: "4 BR"
     upper: "4 Bedrooms"
 
 
