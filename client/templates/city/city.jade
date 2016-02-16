@@ -29,7 +29,7 @@ template(name="city")
             input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
       if hasAnyFilters
-        .filter-options
+        .filter-options.pull-left.clearfix
           if hasNeighborhood
             span.filter-tag {{neighborhood}}
 

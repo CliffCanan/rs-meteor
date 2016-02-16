@@ -42,13 +42,16 @@ template(name="cityBuildings")
               .carousel-inner(role="listbox")
                 each buildingImages
                   .item(class="{{mediaClass}}", itemprop="associatedMedia", itemscope, itemtype="http://schema.org/ImageObject")
+
                     if isVideo
                       i.fa.fa-video-camera.fa-3x
+
                     img.building-img(src="{{getThumbnail store='thumbs'}}", itemprop="thumbnail", alt="{{processedTitle}}")
 
               a.left.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="prev")
                 i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
                 span.sr-only Previous
+
               a.right.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="next")
                 i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
                 span.sr-only Next
