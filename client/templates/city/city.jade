@@ -31,36 +31,44 @@ template(name="city")
       if hasAnyFilters
         .filter-options.pull-left.clearfix
           if hasNeighborhood
-            i.fa.fa-check
-            label.label.label-primary.filter-tag {{neighborhood}}
+            label.label.label-primary.filter-tag
+              i.fa.fa-check
+              | {{neighborhood}}
 
           if brTypeExist
-            i.fa.fa-check
-            label.label.label-primary.filter-tag {{brType}}
+            label.label.label-primary.filter-tag
+              i.fa.fa-check
+              | {{brType}}
 
           if pets
-            i.fa.fa-check
-            label.label.label-primary.filter-tag Pets
+            label.label.label-primary.filter-tag
+              i.fa.fa-check
+              | Pets
 
           if parking
-            i.fa.fa-check
-            label.label.label-primary.filter-tag Parking
+            label.label.label-primary.filter-tag
+              i.fa.fa-check
+              | Parking
 
           if doorman
-            i.fa.fa-check
-            label.label.label-primary.filter-tag Doorman
+            label.label.label-primary.filter-tag
+              i.fa.fa-check
+              | Doorman
 
           if fitnessCenter
-            i.fa.fa-check
-            label.label.label-primary.filter-tag Fitness Center
+            label.label.label-primary.filter-tag
+              i.fa.fa-check
+              | Fitness Center
 
           if laundry
-            i.fa.fa-check
-            label.label.label-primary.filter-tag In-unit laundry
+            label.label.label-primary.filter-tag
+              i.fa.fa-check
+              | In-unit laundry
 
           if utilities
-            i.fa.fa-check
-            label.label.label-primary.filter-tag Utilities
+            label.label.label-primary.filter-tag
+              i.fa.fa-check
+              | Utilities
 
           //-if available
           //-  label.label.label-primary.filter-tag Available {{available}}
