@@ -15,9 +15,9 @@ $(window).on("resize", setHeights)
 markers = {}
 
 Template.city.onCreated ->
+  @filterOptions = new ReactiveVar(Session.get("filterOptions"))
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
-  #Session.set('adminShowUnpublishedProperties', false)
 
   # Show Contact Us Popup after 18s (tablet/desktop) or 10s (mobile)
   if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
@@ -28,8 +28,6 @@ Template.city.onCreated ->
       unless Session.get("hasSeenContactUsPopup") == true || $('body').hasClass('modal-open') || Session.get("currentPage") == "building"
         $('#contactUsPopup').modal('show')
     , delay
-
-filterOptions = Session.get("filterOptions")
 
 Template.city.helpers
   firstLoad: ->
@@ -145,41 +143,54 @@ Template.city.helpers
 
 
   brTypeExist: ->
-    filterOptions.brTypeExist
+    i = Template.instance().filterOptions.get()
+    console.log("City Helper -> brTypeExist")
+    console.log(i)
+    i.brTypeExist
 
   brType: ->
-    filterOptions.brType
+    i = Template.instance().filterOptions.get()
+    i.brType
 
   pets: ->
-    filterOptions.pets
+    i = Template.instance().filterOptions.get()
+    i.pets
 
   parking: ->
-    filterOptions.parking
+    i = Template.instance().filterOptions.get()
+    i.parking
 
   doorman: ->
-    filterOptions.doorman
+    i = Template.instance().filterOptions.get()
+    i.doorman
 
   fitnessCenter: ->
-    filterOptions.fitnessCenter
+    i = Template.instance().filterOptions.get()
+    i.fitnessCenter
 
   utilities: ->
-    filterOptions.utilities
-
+    i = Template.instance().filterOptions.get()
+    i.utilities
+  ###
   available: ->
-    filterOptions.available
+    i = Template.instance().filterOptions.get()
+    i.available
 
   fromPrice: ->
-    filterOptions.fromPrice
+    i = Template.instance().filterOptions.get()
+    i.fromPrice
 
   toPrice: ->
-    filterOptions.toPrice
-
+    i = Template.instance().filterOptions.get()
+    i.toPrice
+  ###
 
   isBizHours: ->
     currentTime = new Date()
     day = currentTime.getDay()
     hour = currentTime.getHours()
     if (day > 0 and day < 6 and hour > 7 and hour < 20) then true else false
+
 
 Template.city.onRendered ->
   instance = @

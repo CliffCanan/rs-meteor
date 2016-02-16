@@ -160,6 +160,7 @@
 
     .cover-img
       display block
+      background-repeat no-repeat
       background-size cover
       height 100%
 
@@ -248,8 +249,10 @@
     line-height 1.6
     @media screen and (min-width: 768px)
       font-size 18px
-      line-height 1.4
+      line-height 1.45
       margin 8px 0
+    @media screen and (min-width: 1200px)
+      font-size 17px
 
   .price
     background-color #5cb85c
@@ -267,7 +270,7 @@
       font-weight bold
       line-height 1
       padding 5px 2px
-      margin 5px auto 10px
+      margin-top 5px
       max-width 135px
 
   .footer 
