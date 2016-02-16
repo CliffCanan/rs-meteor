@@ -66,6 +66,10 @@ Template.cityBuildings.helpers
 
     images
 
+  isMobile: ->
+    if $(window).width() < 1030
+
+
 convertTimeToMins = (time) ->
   if time.indexOf("days") == -1
     if time.indexOf("hours") == -1

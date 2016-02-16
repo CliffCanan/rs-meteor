@@ -23,20 +23,20 @@ template(name="cityBuildings")
 
 
           a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}")
+            if isMobile
+              .action-options.hide-sm
+                .actions-sub-wrap
+                  a.btn.view-pics-option(data-toggle="tooltip", data-placement="bottom", title="View Pictures")
+                    i.fa.fa-fw.fa-picture-o
+                  a.btn.check-avail-option(data-toggle="tooltip", data-placement="bottom", title="Check Availability")
+                    i.fa.fa-fw.fa-calendar
+                  a.btn.view-details-option(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", data-placement="bottom", title="View More Details")
+                    i.fa.fa-fw.fa-eye
 
-            .action-options.hide-sm
-              .actions-sub-wrap
-                a.btn.view-pics-option(data-toggle="tooltip", data-placement="bottom", title="View Pictures")
-                  i.fa.fa-fw.fa-picture-o
-                a.btn.check-avail-option(data-toggle="tooltip", data-placement="bottom", title="Check Availability")
-                  i.fa.fa-fw.fa-calendar
-                a.btn.view-details-option(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", data-placement="bottom", title="View More Details")
-                  i.fa.fa-fw.fa-eye
-
-              if neighborhood
-                .neighborhood-txt
-                  i.fa.fa-map-marker
-                  span {{neighborhood}}
+                if neighborhood
+                  .neighborhood-txt
+                    i.fa.fa-map-marker
+                    span {{neighborhood}}
 
             .building-img-wrap.carousel.slide(id="carousel-{{_id}}", data-interval="false", itemscope, itemtype="http://schema.org/ImageGallery")
               .carousel-inner(role="listbox")

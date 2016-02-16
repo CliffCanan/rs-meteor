@@ -18,10 +18,10 @@ Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
 
-  # Show Contact Us Popup after 18s (tablet/desktop) or 12s (mobile)
+  # Show Contact Us Popup after 20s (tablet/desktop) or 15s (mobile)
   if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
 
-    delay = if $(window).width() < 768 then 12000 else 18000
+    delay = if $(window).width() < 768 then 15000 else 20000
 
     @popupTimeoutHandle = Meteor.setTimeout ->
       unless Session.get("hasSeenContactUsPopup") == true || $('body').hasClass('modal-open') || Session.get("currentPage") == "building"
