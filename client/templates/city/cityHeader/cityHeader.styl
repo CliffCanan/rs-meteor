@@ -2,10 +2,11 @@
   background-color #ebebeb
   border-bottom 1px solid #bbb
   box-shadow 0 3px 10px -2px rgba(0,0,0,.3)
+  box-sizing border-box
   height 0
   overflow hidden
   padding 0 20px
-  box-sizing border-box
+  position relative
   transition all .45s ease-in-out
   z-index 101
   @media screen and (min-width: 992px)
@@ -56,14 +57,14 @@
 .toggle-city-header
   &.icon
     position absolute
-    right 3px
-    top 75px
+    right 4px
+    top 60px
     transition all .4s ease
     z-index 102
     @media screen and (min-width: 820px)
-      right 6px
+      right 8px
     @media screen and (min-width: 900px)
-      right 7px
+      right 10px
 
     .btn
       height auto
@@ -85,7 +86,7 @@
   @media screen and (max-width: 767px)
     display none
   @media screen and (min-width: 768px)
-    top 96px !important
+    top 80px !important
   @media screen and (min-width: 900px)
     right 10px
 
@@ -104,8 +105,9 @@
   &.bedroom-type-select
     margin 10px auto
     min-width 122px
+    padding-left 13px
     @media screen and (min-width: 1200px)
-      padding 0 10px
+      padding 0 5px 0 15px
 
     .city-sub-header-list
       padding 0 9%
@@ -126,7 +128,6 @@
   .city-sub-header-list
     box-sizing border-box
     border 1px solid #ccc
-    border-top 0
     border-radius 5px
     color #272b30
     font-family 'Montserrat', Helvetica, sans-serif
@@ -156,7 +157,7 @@
   vertical-align top
   position relative
   margin 8px auto 4px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 767px)
     height 55px
   @media screen and (min-width: 768px)
     padding 2px 15px 2px
@@ -172,7 +173,7 @@
     position absolute
     bottom 6px
     @media screen and (min-width: 768px)
-      bottom -18px
+      bottom -20px
       font-size 13.5px
 
   .city-subheader-price-val
@@ -187,12 +188,12 @@
     + b
       left 15px
       @media screen and (min-width: 768px)
-        left 60px
+        left 55px
 
   .price-slider + b
     right 20px
     @media screen and (min-width: 768px)
-      right 15px
+      right 12px
 
   .slider.slider-horizontal
     margin 0
@@ -377,10 +378,12 @@
   float left
 
 .building-title-search-wrapper
+  display none
   margin 10px auto
   @media screen and (min-width: 768px)
     padding 0 0 0 5px
   @media screen and (min-width: 992px)
+    display block
     max-width 13%
     padding 0 10px 0 5px
   @media screen and (min-width: 1200px)

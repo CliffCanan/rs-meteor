@@ -28,36 +28,40 @@ template(name="city")
           label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
             input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
-      .filter-options
-        if neighborhood
-          span.filter-tag {{neighborhood}}
+      if hasAnyFilters
+        .filter-options
+          if neighborhood
+            span.filter-tag {{neighborhood}}
 
-        if brTypeExist
-          span.filter-tag {{brType}}
+          if brTypeExist
+            span.filter-tag {{brType}}
 
-        if pets
-          span.filter-tag Pets
+          if pets
+            span.filter-tag Pets
 
-        if parking
-          span.filter-tag Parking
+          if parking
+            span.filter-tag Parking
 
-        if doorman
-          span.filter-tag Doorman
+          if doorman
+            span.filter-tag Doorman
 
-        if fitnessCenter
-          span.filter-tag Fitness Center
+          if fitnessCenter
+            span.filter-tag Fitness Center
 
-        if utilities
-          span.filter-tag Utilities
+          if laundry
+            span.filter-tag In-unit laundry
 
-        //-if available
-        //-  span.filter-tag Available {{available}}
+          if utilities
+            span.filter-tag Utilities
 
-        //-if fromPrice
-        //-  span.filter-tag From ${{fromPrice}}
+          //-if available
+          //-  span.filter-tag Available {{available}}
 
-        //-if toPrice
-        //-  span.filter-tag To ${{toPrice}}
+          //-if fromPrice
+          //-  span.filter-tag From ${{fromPrice}}
+
+          //-if toPrice
+          //-  span.filter-tag To ${{toPrice}}
 
 
       #mobile-cta.clearfix

@@ -15,7 +15,6 @@ $(window).on("resize", setHeights)
 markers = {}
 
 Template.city.onCreated ->
-  @filterOptions = new ReactiveVar(Session.get("filterOptions"))
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
 
@@ -137,40 +136,49 @@ Template.city.helpers
 
     buildings
 
+
+  hasAnyFilters: ->
+    if Session.get "currentNeighborhood" isnt undefined then return true
+
+    query = Router.current().params.query
+    for prop of query
+      return true  if query.hasOwnProperty(prop)
+    false
+
   neighborhood: ->
     if Session.get "currentNeighborhood" isnt undefined then Session.get "currentNeighborhood" else undefined
 
-
-
   brTypeExist: ->
-    i = Template.instance().filterOptions.get()
-    console.log("City Helper -> brTypeExist")
-    console.log(i)
-    i.brTypeExist
+    query = Router.current().params.query
+    query.hasOwnProperty('btype')
 
   brType: ->
-    i = Template.instance().filterOptions.get()
-    i.brType
+    query = Router.current().params.query
+    query.btype
 
   pets: ->
-    i = Template.instance().filterOptions.get()
-    i.pets
+    query = Router.current().params.query
+    query.hasOwnProperty('pets')
 
   parking: ->
-    i = Template.instance().filterOptions.get()
-    i.parking
+    query = Router.current().params.query
+    query.hasOwnProperty('parking')
 
   doorman: ->
-    i = Template.instance().filterOptions.get()
-    i.doorman
+    query = Router.current().params.query
+    query.hasOwnProperty('security')
 
   fitnessCenter: ->
-    i = Template.instance().filterOptions.get()
-    i.fitnessCenter
+    query = Router.current().params.query
+    query.hasOwnProperty('fitnessCenter')
+
+  laundry: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('laundry')
 
   utilities: ->
-    i = Template.instance().filterOptions.get()
-    i.utilities
+    query = Router.current().params.query
+    query.hasOwnProperty('utilities')
   ###
   available: ->
     i = Template.instance().filterOptions.get()
