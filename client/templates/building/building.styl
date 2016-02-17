@@ -430,6 +430,7 @@ main.container
     .slick-prev:before,.slick-next:before
       font-size 25px
       color #4588fa
+      transition all .3s ease
 
     .slick-prev
       left 0px
@@ -459,6 +460,10 @@ main.container
     margin 0 0 15px
     li
       padding-left 25px
+      margin 3px 0
+      @media screen and (min-width: 768px)
+        font-size 16px
+        margin 5px 0
       i
         position absolute
         left 0

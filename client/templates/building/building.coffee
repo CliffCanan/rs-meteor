@@ -49,10 +49,10 @@ Template.building.helpers
       ###
 
       $('#sliderAptImgs').slick
-        mobileFirst: true
+        #mobileFirst: true
         variableWidth: true
         easing: "ease"
-        speed: 450
+        speed: 500
 
       ###if $.fn.imgLiquid
         $('#sliderAptImgs .item').imgLiquid
