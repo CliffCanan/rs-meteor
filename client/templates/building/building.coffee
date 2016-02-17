@@ -19,17 +19,15 @@ Template.building.helpers
     Router.current() # reactivity
     editBuildingId = Session.get("editBuildingId")
 
-    unless $.fn.imgLiquid
+    ###unless $.fn.imgLiquid
       $.getScript '/js/imgLiquid-min.js', ->
         $('#sliderAptImgs').imgLiquid
           fill: false
           verticalAlign: '50%'
-        $('#sliderAptImgs .item').css('visibility', 'visible')
+        $('#sliderAptImgs .item').css('visibility', 'visible')###
 
     _.defer ->
       $('[data-toggle="tooltip"]').tooltip()
-
-      #addthis?.init()
 
       ###
       $carousel = $(".carousel")
@@ -48,17 +46,19 @@ Template.building.helpers
         $carousel.hide()
       ###
 
-      $('#sliderAptImgs').slick
-        #mobileFirst: true
-        variableWidth: true
-        easing: "ease"
-        speed: 600
+      Meteor.setTimeout ->
+        $('#sliderAptImgs').slick
+          mobileFirst: true
+          variableWidth: true
+          easing: "ease"
+          speed: 600
 
-      ###if $.fn.imgLiquid
-        $('#sliderAptImgs .item').imgLiquid
-          fill: false
-          verticalAlign: '50%'###
-      $('#sliderAptImgs .item').css('visibility', 'visible')
+        ###if $.fn.imgLiquid
+          $('#sliderAptImgs .item').imgLiquid
+            fill: false
+            verticalAlign: '50%'###
+        $('#sliderAptImgs .item').css('visibility', 'visible')
+      , 200
 
     return ""
 
