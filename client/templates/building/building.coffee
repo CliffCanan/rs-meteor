@@ -54,11 +54,11 @@ Template.building.helpers
         easing: "ease"
         speed: 450
 
-      if $.fn.imgLiquid
+      ###if $.fn.imgLiquid
         $('#sliderAptImgs .item').imgLiquid
           fill: false
           verticalAlign: '50%'
-        $('#sliderAptImgs .item').css('visibility', 'visible')
+        $('#sliderAptImgs .item').css('visibility', 'visible')###
 
     return ""
 

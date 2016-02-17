@@ -23,7 +23,7 @@ template(name="cityBuildings")
 
 
           a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}")
-            if isMobile
+            unless isMobile
               .action-options.hide-sm
                 .actions-sub-wrap
                   a.btn.view-pics-option(data-toggle="tooltip", data-placement="bottom", title="View Pictures")
