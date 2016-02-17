@@ -21,10 +21,10 @@ Template.building.helpers
 
     unless $.fn.imgLiquid
       $.getScript '/js/imgLiquid-min.js', ->
-        $('#carousel-example-generic .item').imgLiquid
+        $('#sliderAptImgs').imgLiquid
           fill: false
           verticalAlign: '50%'
-        $('#carousel-example-generic .item').css('visibility', 'visible')
+        $('#sliderAptImgs .item').css('visibility', 'visible')
 
     _.defer ->
       $('[data-toggle="tooltip"]').tooltip()
@@ -52,13 +52,13 @@ Template.building.helpers
         #mobileFirst: true
         variableWidth: true
         easing: "ease"
-        speed: 500
+        speed: 600
 
       ###if $.fn.imgLiquid
         $('#sliderAptImgs .item').imgLiquid
           fill: false
-          verticalAlign: '50%'
-        $('#sliderAptImgs .item').css('visibility', 'visible')###
+          verticalAlign: '50%'###
+      $('#sliderAptImgs .item').css('visibility', 'visible')
 
     return ""
 
