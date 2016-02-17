@@ -52,6 +52,7 @@ Template.building.helpers
         mobileFirst: true
         variableWidth: true
         easing: "ease"
+        speed: 450
 
       if $.fn.imgLiquid
         $('#sliderAptImgs .item').imgLiquid

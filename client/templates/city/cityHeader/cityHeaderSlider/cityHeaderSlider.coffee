@@ -1,6 +1,6 @@
 updateSliderDisplayValues = (from, to) ->
   from = from || 500
-  to = to || 5000
+  to = to || 4000
   $(".slider-price-from").text(accounting.formatNumber(from))
   $(".slider-price-to").text(accounting.formatNumber(to))
 
@@ -25,7 +25,7 @@ Template.cityHeaderSlider.rendered = ->
     query = data.query
 
     minValue = if query.from then parseInt(query.from) else 500
-    maxValue = if query.to then parseInt(query.to) else 5000
+    maxValue = if query.to then parseInt(query.to) else 4000
     updateSliderDisplayValues(minValue, maxValue)
 
     $slider.slider({tooltip: "hide"})
