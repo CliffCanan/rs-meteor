@@ -264,9 +264,11 @@ main.container
     background-color #F4F4F8
     border-radius 5px
     border-top 4px solid #4588fa
+    font-sizez 15px
     margin 25px 0 15px 
     padding 15px 5% 10px
     @media screen and (min-width: 992px)
+      font-size 16px
       margin-top 30px
 
     p
@@ -356,22 +358,23 @@ main.container
       display inline-block
 
   .building-img-wrap
-    height 220px
+    height 250px
+    margin-bottom 5px
     @media screen and (min-width: 350px)
-      height 240px
-    @media screen and (min-width: 400px)
       height 280px
+    @media screen and (min-width: 400px)
+      height 300px
     @media screen and (min-width: 450px)
-      height 320px
+      height 345px
     @media screen and (min-width: 600px)
-      height 340px
+      height 360px
     @media screen and (min-width: 768px)
       height 410px
     @media screen and (min-width: 992px)
       max-width 700px
-      height 480px
+      height 400px
     @media screen and (min-width: 1200px)
-      height 462px
+      height 408px
 
     /*.carousel-inner
       height 100%
@@ -409,15 +412,15 @@ main.container
       margin 0 10px
       overflow hidden
       visibility hidden
-      height 220px
+      height 250px
       @media screen and (min-width: 350px)
-        height 240px
-      @media screen and (min-width: 400px)
         height 280px
+      @media screen and (min-width: 400px)
+        height 300px
       @media screen and (min-width: 450px)
-        height 320px
+        height 345px
       @media screen and (min-width: 600px)
-        height 340px
+        height 360px
       @media screen and (min-width: 768px)
         height 410px
       @media screen and (min-width: 992px)
@@ -432,9 +435,13 @@ main.container
       margin 0 auto
 
     .slick-prev:before,.slick-next:before
+      box-shadow 0 1px 5px (0,0,0,.5)
       font-size 25px
-      color #4588fa
+      color #fff
       transition all .3s ease
+      @media screen and (min-width: 768px)
+        box-shadow 0 1px 1px (0,0,0,.15)
+        color #4588fa
 
     .slick-prev
       left 0px

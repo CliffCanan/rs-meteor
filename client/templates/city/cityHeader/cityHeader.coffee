@@ -33,10 +33,13 @@ Template.cityHeader.helpers
     cityId = @query.cityId || @cityId
     cities[cityId].long
 
-  currentNeighborhood: ->
-    if neighborhoodsListRaw?
-      neighborhoodSlug = @query.neighborhoodSlug || @neighborhoodSlug
-      neighborhoodsListRaw[neighborhoodSlug] || ''
+  #currentNeighborhood: ->
+  #  if neighborhoodsListRaw?
+  #    neighborhoodSlug = @query.neighborhoodSlug || @neighborhoodSlug
+  #    neighborhoodsListRaw[neighborhoodSlug] || ''
+
+  neighborhood: ->
+    if Session.get "currentNeighborhood" then Session.get "currentNeighborhood" else "Neighborhoods"
 
   neighborhoods: ->
     cityId = @query.cityId || @cityId
