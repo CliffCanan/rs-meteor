@@ -20,3 +20,7 @@ Template.featuredProps.events
     analytics.track "Clicked Feature Property Check Availability" unless Meteor.user()
     $('#contactUsPopup form').formValidation 'resetForm', true
     $('#contactUsPopup').modal('show')
+
+  "click .featured-props-wrap .check-availability": (event, template) ->
+    analytics.track "Clicked View Featured Prop (Home)" unless Meteor.user()
+    true

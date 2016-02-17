@@ -53,10 +53,10 @@ Template.building.helpers
           easing: "ease"
           speed: 600
 
-        ###if $.fn.imgLiquid
+        if $.fn.imgLiquid
           $('#sliderAptImgs .item').imgLiquid
-            fill: false
-            verticalAlign: '50%'###
+            #fill: false
+            verticalAlign: '50%'
         $('#sliderAptImgs .item').css('visibility', 'visible')
       , 200
 
@@ -313,7 +313,7 @@ Template.building.onRendered ->
   # Show Check Availability Popup after 14 seconds
   if !Meteor.user() and $(window).width() > 768
     @popupTimeoutHandle = Meteor.setTimeout ->
-      unless Session.get "hasSeenCheckAvailabilityPopup" == true || Session.get "hasSeenContactUsPopup" == true
+      unless Session.get("hasSeenCheckAvailabilityPopup") is true || Session.get("hasSeenContactUsPopup") is true
         unless $('body').hasClass('modal-open')
           $('.check-availability').trigger('click')
     , 14000

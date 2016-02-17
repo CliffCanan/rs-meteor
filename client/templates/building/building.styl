@@ -356,7 +356,6 @@ main.container
       display inline-block
 
   .building-img-wrap
-    max-width 700px
     height 220px
     @media screen and (min-width: 350px)
       height 240px
@@ -369,6 +368,7 @@ main.container
     @media screen and (min-width: 768px)
       height 410px
     @media screen and (min-width: 992px)
+      max-width 700px
       height 480px
     @media screen and (min-width: 1200px)
       height 462px
@@ -404,29 +404,32 @@ main.container
         left 0*/
 
 
-    .building-img
-      margin 0 auto
-      max-height 220px
-      @media screen and (min-width: 350px)
-        max-height 240px
-      @media screen and (min-width: 400px)
-        max-height 280px
-      @media screen and (min-width: 450px)
-        max-height 320px
-      @media screen and (min-width: 600px)
-        max-height 340px
-      @media screen and (min-width: 768px)
-        max-height 410px
-      @media screen and (min-width: 992px)
-        max-height 480px
-      @media screen and (min-width: 1200px)
-        max-height 462px
-
     .item
       border-radius 10px
       margin 0 10px
       overflow hidden
       visibility hidden
+      height 220px
+      @media screen and (min-width: 350px)
+        height 240px
+      @media screen and (min-width: 400px)
+        height 280px
+      @media screen and (min-width: 450px)
+        height 320px
+      @media screen and (min-width: 600px)
+        height 340px
+      @media screen and (min-width: 768px)
+        height 410px
+      @media screen and (min-width: 992px)
+        height 400px
+        width 510px
+      @media screen and (min-width: 1200px)
+        height 408px
+        width 620px
+
+
+    .building-img
+      margin 0 auto
 
     .slick-prev:before,.slick-next:before
       font-size 25px

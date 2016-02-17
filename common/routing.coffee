@@ -42,6 +42,7 @@ Router.map ->
 
       @next()
     onAfterAction: ->
+      Session.set "currentPage", "home"
       SEO.set
         title: "Rent Scene | Apartment Hunting For Busy People"
         meta:
@@ -223,7 +224,7 @@ Router.map ->
 
       @next()
     onAfterAction: ->
-      Session.set "currentPage", "city"
+      Session.set "currentPage", "neighborhood"
       SEO.set
         title: "Rent Apartments in #{cities[@params.cityId].human} | Rent Scene"
         meta:
