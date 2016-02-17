@@ -217,7 +217,7 @@ Template.cityHeader.events
       routeParams.cityId = data.cityId if data.cityId
       routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
 
-      analytics.track "Searched by building name", {label: query.q} unless Meteor.user() || q.length < 5
+      analytics.track "Searched by building name", {label: query.q} unless Meteor.user() || q.length < 4
 
       Router.go(routeName, routeParams, {query: query})
   , 300)

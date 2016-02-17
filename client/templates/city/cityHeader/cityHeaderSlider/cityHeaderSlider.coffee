@@ -8,7 +8,7 @@ Template.cityHeaderSlider.helpers
   sliderData: ->
     selector = {cityId: @cityId}
     min = 500
-    max = 5000
+    max = 4000
     minValue = if @query.from then parseInt(@query.from) else min
     maxValue = if @query.to then parseInt(@query.to) else max
     min: min
@@ -34,6 +34,8 @@ Template.cityHeaderSlider.rendered = ->
       max = $slider.data("slider-max")
       value = event.value
 
+      data = Router.current().data()
+
       if (parseInt(query.from) or min) isnt value[0]
         if min is value[0]
           delete query.from
@@ -45,7 +47,11 @@ Template.cityHeaderSlider.rendered = ->
         else
           query.to = value[1]
 
+
+      analytics.track "Searched by PRICE", {label: value[0], max: value[1]} unless Meteor.user()
+
       routeName = Router.current().route.getName()
+
       if routeName is "clientRecommendations"
         Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
       else

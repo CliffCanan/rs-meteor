@@ -31,24 +31,33 @@ Template.building.helpers
 
       #addthis?.init()
 
+      ###
       $carousel = $(".carousel")
       carousel = $carousel.data("bs.carousel")
 
       if carousel
         carousel.pause()
         carousel.destroy()
+
       $firstItem = $carousel.find(".item:first")
+
       if $firstItem.length
         $firstItem.addClass("active")
         $carousel.show().carousel()
       else
         $carousel.hide()
+      ###
+
+      $('#sliderAptImgs').slick
+        mobileFirst: true
+        variableWidth: true
+        easing: "ease"
 
       if $.fn.imgLiquid
-        $('#carousel-example-generic .item').imgLiquid
+        $('#sliderAptImgs .item').imgLiquid
           fill: false
           verticalAlign: '50%'
-        $('#carousel-example-generic .item').css('visibility', 'visible')
+        $('#sliderAptImgs .item').css('visibility', 'visible')
 
     return ""
 
@@ -72,8 +81,8 @@ Template.building.helpers
 
   similarProperties: (building) ->
     building = Buildings.findOne(building.parentId) if building.agroIsUnit and building.parentId
-    from = building.agroPriceTotalTo - 200
-    to = building.agroPriceTotalTo + 200
+    from = building.agroPriceTotalTo - 300
+    to = building.agroPriceTotalTo + 300
     selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}  
     Buildings.find(selector, {limit: 4})
 
@@ -520,7 +529,7 @@ Template.building.helpers
       ClientRecommendations.find({_id: clientId, 'unitIds.unitId': @._id}).count()
 
 Template.building.events
-  "click .building-img-wrap .recommend-toggle": (event, template) ->
+  "click .building-info-wrap .recommend-toggle": (event, template) ->
     clientObject = Session.get "recommendationsClientObject"
     if clientObject
       clientId = clientObject.clientId

@@ -83,10 +83,14 @@ template(name="city")
                     | Utilities
 
                 if hasFromPrice
-                  label.label.label-primary.filter-tag Min ${{fromPrice}}
+                  label.label.label-primary.filter-tag
+                    i.fa.fa-check
+                    | Min ${{fromPrice}}
 
                 if hasToPrice
-                  label.label.label-primary.filter-tag Max ${{toPrice}}
+                  label.label.label-primary.filter-tag
+                    i.fa.fa-check
+                    | Max ${{toPrice}}
 
                 //-if available
                 //-  label.label.label-primary.filter-tag Available {{available}}

@@ -358,29 +358,45 @@ template(name="building")
 
               if isEdit
                 +buildingImagesEdit
+
               else
-                .building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel", data-interval="false")
-                  if canRecommend
-                    a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
-                      i.fa.fa-star
 
-                  .carousel-inner(role="listbox")
-                    each getMedia
-                      .item
-                        if isImage
-                          img.building-img(src="{{getThumbnail store='thumbs'}}")
+                if canRecommend
+                  a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
+                    i.fa.fa-star
+
+
+                .building-img-wrap#sliderAptImgs
+                  each getMedia
+                    .item
+                      if isImage
+                        img.building-img(src="{{getThumbnail store='thumbs'}}")
+                      else
+                        if isFirstSlide
+                          iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
                         else
-                          if isFirstSlide
-                            iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
-                          else
-                            iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen) 
+                          iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen) 
 
-                  a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
-                    i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
-                    span.sr-only Previous
-                  a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
-                    i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
-                    span.sr-only Next
+
+                //-.building-img-wrap.carousel.slide#carousel-example-generic(data-ride="carousel", data-interval="false")
+
+                //-  .carousel-inner(role="listbox")
+                //-    each getMedia
+                //-      .item
+                //-        if isImage
+                //-          img.building-img(src="{{getThumbnail store='thumbs'}}")
+                //-        else
+                //-          if isFirstSlide
+                //-            iframe(src="//player.vimeo.com/video/{{vimeoId}}?autoplay=1", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+                //-          else
+                //-            iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="100%", height="400" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen) 
+
+                //-  a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
+                //-    i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
+                //-    span.sr-only Previous
+                //-  a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
+                //-    i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
+                //-    span.sr-only Next
 
 
               .building-main-info-desc-wrap

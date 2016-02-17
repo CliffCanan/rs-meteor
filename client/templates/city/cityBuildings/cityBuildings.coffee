@@ -27,14 +27,14 @@ Template.cityBuildings.onRendered ->
 Template.cityBuildings.helpers
 
   checkAvailable: (id) ->
-  	if  Session.get("addressgeo")
-  		filtered = Session.get 'filtered'
-  		if filtered.indexOf(id) == -1
-  			return false
-  		else 
-  			return true
-  	else
-  		return true
+    if  Session.get("addressgeo")
+      filtered = Session.get 'filtered'
+      if filtered.indexOf(id) == -1
+        return false
+      else
+        return true
+    else
+      return true
 
   shouldShowRecommendToggle: ->
     Router.current().route.getName() is "clientRecommendations" and Security.canManageClients()
@@ -68,6 +68,7 @@ Template.cityBuildings.helpers
 
   isMobile: ->
     if $(window).width() < 1030
+      return true
 
 
 convertTimeToMins = (time) ->
