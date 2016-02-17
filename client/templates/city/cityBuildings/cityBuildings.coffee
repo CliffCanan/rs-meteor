@@ -70,7 +70,6 @@ Template.cityBuildings.helpers
     if $(window).width() < 1030
       return true
 
-
 convertTimeToMins = (time) ->
   if time.indexOf("days") == -1
     if time.indexOf("hours") == -1
