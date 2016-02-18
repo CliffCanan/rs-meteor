@@ -21,6 +21,6 @@ Template.featuredProps.events
     $('#contactUsPopup form').formValidation 'resetForm', true
     $('#contactUsPopup').modal('show')
 
-  "click .featured-props-wrap .check-availability": (event, template) ->
+  "click .featured-props-wrap .viewprop": (event, template) ->
     analytics.track "Clicked View Featured Prop (Home)" unless Meteor.user()
     true
