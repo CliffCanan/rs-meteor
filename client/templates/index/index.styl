@@ -252,22 +252,23 @@
     border-radius 50%
 
 article
-  margin 0 0 20px
-  min-height 280px
+  margin 0 0 22px
+  @media screen and (min-width: 768px)
+    min-height 230px
 
 blockquote
-  border 1px solid #c7c7c7
-  border-radius 5px
+  border 1px solid #D7D7D7
+  border-radius 10px
   background #fff
-  min-height 220px
   @media screen and (min-width: 768px)
-    min-height 200px
+    min-height 194px
     box-shadow 0 3px 10px -4px rgba(0,0,0,.22)
   @media screen and (min-width: 992px)
-    min-height 180px
+    min-height 170px
   @media screen and (min-width: 1200px)
-    min-height 260px
-    box-shadow 0 4px 12px -5px rgba(0,0,0,0.3)
+    border-radius 15px
+    min-height 246px
+    box-shadow 0 4px 12px -4px rgba(0,0,0,0.25)
   padding 20px
   box-sizing border-box
   margin 0 0 15px
@@ -287,11 +288,11 @@ blockquote
   padding 0
   margin 0
   font-family 'Open Sans', 'Raleway', Arial, sans-serif
-  font-size 14px
+  font-size 15px
   line-height 1.5
   font-weight 500
   @media screen and (min-width: 992px)
-    font-size 15px
+    font-size 16px
 
 .quote-footer
   font-size 100%

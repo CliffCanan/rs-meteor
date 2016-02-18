@@ -6,9 +6,9 @@ Template.featuredProps.onRendered = ->
 
 
 Template.featuredProps.events
-  "click .card-container": (event, template) ->
+  "click .card-container *": (event, template) ->
     if $(window).width() < 1030 and not $(event.currentTarget).hasClass('check-availability')
-      $cardToFlip = $(event.target)
+      $cardToFlip = $(event.currentTarget).closest('.card-container')
       if $cardToFlip.hasClass('manual-flip') then $cardToFlip.removeClass('manual-flip') else $cardToFlip.addClass('manual-flip')
 
   "click .featured-props-wrap .check-availability": (event, template) ->
