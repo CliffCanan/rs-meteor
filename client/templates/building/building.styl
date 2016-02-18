@@ -342,6 +342,11 @@ main.container
           opacity 0.7
 
 .building-info-wrap
+  padding 0 5px
+  @media screen and (min-width: 360px)
+    padding 0 10px
+  @media screen and (min-width: 600px)
+    padding 0 15px
   @media screen and (min-width: 1200px)
     float left
   select
@@ -358,14 +363,14 @@ main.container
       display inline-block
 
   .building-img-wrap
-    height 315px
+    height 355px
     margin-bottom 5px
     @media screen and (min-width: 350px)
-      height 325px
-    @media screen and (min-width: 400px)
       height 360px
+    @media screen and (min-width: 400px)
+      height 380px
     @media screen and (min-width: 600px)
-      height 390px
+      height 395px
     @media screen and (min-width: 768px)
       height 410px
       margin-bottom 15px
@@ -412,13 +417,13 @@ main.container
       margin 0 10px
       overflow hidden
       visibility hidden
-      height 310px
+      height 350px
       @media screen and (min-width: 350px)
-        height 320px
+        height 360px
       @media screen and (min-width: 400px)
-        height 355px
+        height 375px
       @media screen and (min-width: 600px)
-        height 380px
+        height 390px
       @media screen and (min-width: 768px)
         height 410px
       @media screen and (min-width: 992px)
@@ -827,6 +832,10 @@ h3.section-title
   padding 10px 20px
 
 .similar-properties
+  > li:last-child
+    @media screen and (min-width: 768px) and (max-width: 991px)
+      display none
+
   .main-city-item
     .main-city-img-link > div
       background-size cover
