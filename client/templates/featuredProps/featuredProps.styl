@@ -36,22 +36,30 @@
   perspective 800px
   margin-bottom 30px
 
-// Flip the pane when hovered
-.card-container:not(.manual-flip):hover .card,
-.card-container.hover.manual-flip .card {
-	-webkit-transform: rotateY( 180deg );
--moz-transform: rotateY( 180deg );
- -o-transform: rotateY( 180deg );
-    transform: rotateY( 180deg );
-}
+  // Flip the pane when hovered on desktop
+  &:hover .card
+    @media screen and (min-width: 1030px)
+      -webkit-transform: rotateY(180deg)
+      -moz-transform: rotateY(180deg)
+      -o-transform: rotateY(180deg)
+      transform: rotateY(180deg)
 
-.card-container.static:hover .card, 
-.card-container.static.hover .card {
-	-webkit-transform: none;
--moz-transform: none;
- -o-transform: none;
-    transform: none;
-}
+  // For mobile, use JS to add .manual-flip on click
+  &.manual-flip .card
+    -webkit-transform: rotateY(180deg)
+    -moz-transform: rotateY(180deg)
+    -o-transform: rotateY(180deg)
+    transform: rotateY(180deg)
+
+
+  &.static:hover .card, 
+  &.static.hover .card
+    -webkit-transform: none
+    -moz-transform: none
+    -o-transform: none
+    transform: none
+
+
 // flip speed goes here
 .card {
 	 -webkit-transition: -webkit-transform .55s;
@@ -158,8 +166,11 @@
       @media screen and (min-width: 768px) and (max-width: 991px)
         padding 5px 15px 5px 0
 
-    img
-      width 100%
+    .cover-img
+      display block
+      background-repeat no-repeat
+      background-size cover
+      height 100%
 
   .content
     background-color transparent
@@ -185,7 +196,7 @@
   .back .content .main
     height 320px
     .fa-ul
-      font-size 18px
+      font-size 15px
       line-height 1.75
       margin-left 1.5em
       .fa-li
@@ -193,14 +204,19 @@
         top 5px
         left -2em
         width 1.5em
+      @media screen and (min-width: 350px)
+        font-size 16.5px
       @media screen and (min-width: 768px)
         font-size 16px
       @media screen and (min-width: 1200px)
         font-size 15px
 
   p
-    font-size 17px
-    line-height 1.5
+    font-size 16px
+    line-height 1.45
+    @media screen and (min-width: 350px)
+      font-size 17px
+      line-height 1.5
     @media screen and (min-width: 768px)
       font-size 16px
     @media screen and (min-width: 1200px)
@@ -218,9 +234,9 @@
       border-radius 30px
       box-shadow 0 5px 10px -3px rgba(0,0,0,.4)
       color #fff
-      padding 6px 4px
+      padding 5px 4px
       position absolute
-      top 150px
+      top 155px
       left 14%
       width 72%
     @media screen and (min-width: 992px)
@@ -241,26 +257,28 @@
     line-height 1.6
     @media screen and (min-width: 768px)
       font-size 18px
-      line-height 1.4
+      line-height 1.45
       margin 8px 0
+    @media screen and (min-width: 1200px)
+      font-size 17px
 
   .price
     background-color #5cb85c
     border-radius 15px
     color #fff
-    font-size 18px
+    font-size 17px
     font-weight 400
     text-align center
     text-shadow 0 -1px 0 rgba(0,0,0,.2)
-    margin 12px auto 8px
-    padding 4px
-    width 70%
+    margin 8px auto 15px
+    padding 2px
+    width 61.8%
     @media screen and (min-width: 992px)
       font-size 16px
       font-weight bold
       line-height 1
       padding 5px 2px
-      margin 5px auto 10px
+      margin-top 5px
       max-width 135px
 
   .footer 
@@ -281,7 +299,9 @@
           font-size 15.5px
 
   .header
-    padding 15px 0 0
+    padding 10px 0 0
+    @media screen and (min-width: 992px)
+      padding 15px 0 0
 
   .neighborhood
     border-bottom 1px solid #EEE

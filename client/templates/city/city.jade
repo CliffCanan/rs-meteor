@@ -18,39 +18,100 @@ template(name="city")
     .city-page-wrap
 
       if canOperateWithBuilding
-        .pull-left
+        .pull-left.hide-sm
           button.btn.btn-sm.btn-primary.button-building-insert
             i.fa.fa-plus
             | Add Listing
 
-        .filter-wrap.unpublished-property-toggle-wrapper
+        .filter-wrap.unpublished-property-toggle-wrapper.hide-sm
           span Toggle Unpublished Properties:
           label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
             input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
-      #mobile-cta.clearfix
-        h3 Too busy to search yourself?
-
-        button.close-btn(type="button")
-          i.fa.fa-times
-
-        p.sub-head We'll do it for you - call or text now!
-
-        a.btn.btn-lg.btn-block.btn-primary.m-t-15(href="tel://1-267-463-2428")
-          i.fa.fa-fw.fa-mobile.m-r-5
-          | (267) 463-2428
-
-        if isBizHours
-          p Guaranteed Response in 10 mins or less!
-            span.show When calling between 8am-8pm EST
-
 
       .main-city-list-wrap.left-bar.clearfix.pull-left
+
         if showClientRecommendationsName
           h2.pull-left.m-0 Recommendations for {{currentClientName}}
 
         if clientRecommendationsList
           +clientRecommendationsToggle
+
+
+        if hasAnyFilters
+          .row.filterRow
+            .col-xs-12
+              .filter-options.pull-left.clearfix
+                if hasNeighborhood
+                  label.label.label-primary.filter-tag
+                    i.fa.fa-check
+                    | {{neighborhood}}
+
+                if brTypeExist
+                  label.label.label-primary.filter-tag
+                    i.fa.fa-check
+                    | {{brType}}
+
+                if pets
+                  label.label.label-primary.filter-tag
+                    i.fa.fa-check
+                    | Pets
+
+                if parking
+                  label.label.label-primary.filter-tag
+                    i.fa.fa-check
+                    | Parking
+
+                if doorman
+                  label.label.label-primary.filter-tag
+                    i.fa.fa-check
+                    | Doorman
+
+                if fitnessCenter
+                  label.label.label-primary.filter-tag
+                    i.fa.fa-check
+                    | Fitness Center
+
+                if laundry
+                  label.label.label-primary.filter-tag
+                    i.fa.fa-check
+                    | In-unit laundry
+
+                if utilities
+                  label.label.label-primary.filter-tag
+                    i.fa.fa-check
+                    | Utilities
+
+                if hasFromPrice
+                  label.label.label-primary.filter-tag
+                    i.fa.fa-check
+                    | Min ${{fromPrice}}
+
+                if hasToPrice
+                  label.label.label-primary.filter-tag
+                    i.fa.fa-check
+                    | Max ${{toPrice}}
+
+                //-if available
+                //-  label.label.label-primary.filter-tag Available {{available}}
+
+
+        #mobile-cta.clearfix
+          h3 Too busy to search yourself?
+
+          button.close-btn(type="button")
+            i.fa.fa-times
+
+          p.sub-head We'll do it for you - call or text now!
+
+          a.btn.btn-lg.btn-block.btn-primary.m-t-15(href="tel://1-267-463-2428")
+            i.fa.fa-fw.fa-mobile.m-r-5
+            | (267) 463-2428
+
+          if isBizHours
+            p Guaranteed Response in 30 mins or less!
+              span.show When calling between 8am-8pm EST
+
 
         if firstLoad
           +loadingSpinner
@@ -61,9 +122,8 @@ template(name="city")
             +loadingSpinner
           else
             if notAllLoaded
-              .load-more.loading-btn-wrap
-                .loading-btn.btn.btn-primary.btn-lg
-                  | Load More
-
+              .load-more.loading-btn-wrap.m-b-20
+                .loading-btn.btn.btn-primary Load More...
+                
         if showIDXDisclaimer
-          +idxDisclaimer
+          +idxDisclaimer      

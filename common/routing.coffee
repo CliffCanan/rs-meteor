@@ -33,12 +33,16 @@ Router.map ->
         # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
         source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
 
+      if @params.query.fb and @params.query.fb = true
+        source = "Facebook Ad"
+
       Session.set "utm_source", source
       Session.set "utm_medium", medium
       Session.set "utm_campaign", campaign
 
       @next()
     onAfterAction: ->
+      Session.set "currentPage", "home"
       SEO.set
         title: "Rent Scene | Apartment Hunting For Busy People"
         meta:
@@ -130,6 +134,7 @@ Router.map ->
       return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
+      Session.set("currentNeighborhood", undefined)
 
       if @params.query.hasOwnProperty 'address'
         Session.set("cityName", @params.query.address)
@@ -157,7 +162,10 @@ Router.map ->
 
       if source is "no source found"
         # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
-        source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
+        source = if @params.query.gclid then "AdWords Campaign" else "no source found"
+
+      if @params.query.fb and @params.query.fb is true
+        source = "Facebook Ad"
 
       Session.set "utm_source", source  unless source is "no source found"
       Session.set "utm_medium", medium  unless medium is "no medium found"
@@ -187,6 +195,9 @@ Router.map ->
       return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
+      currentHood = if @params.neighborhoodSlug then @params.neighborhoodSlug else undefined
+      Session.set("currentNeighborhood", currentHood)
+
       Session.set("neighborhoodPageData", {page: 1})
       Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       Session.set("cityScroll", 0)
@@ -204,13 +215,16 @@ Router.map ->
         # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
         source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
 
+      if @params.query.fb and @params.query.fb = true
+        source = "Facebook Ad"
+
       Session.set "utm_source", source  unless source is "no source found"
       Session.set "utm_medium", medium  unless medium is "no medium found"
       Session.set "utm_campaign", campaign  unless campaign is "no campaign found"
 
       @next()
     onAfterAction: ->
-      Session.set "currentPage", "city"
+      Session.set "currentPage", "neighborhood"
       SEO.set
         title: "Rent Apartments in #{cities[@params.cityId].human} | Rent Scene"
         meta:
@@ -249,6 +263,9 @@ Router.map ->
       if source is "no source found"
         # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
         source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
+
+      if @params.query.fb and @params.query.fb = true
+        source = "Facebook Ad"
 
       Session.set "utm_source", source  unless source is "no source found"
       Session.set "utm_medium", medium  unless medium is "no medium found"

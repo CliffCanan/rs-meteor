@@ -15,7 +15,7 @@ main.container
     max-width 1180px
 
 .breadcrumb
-  padding 5px
+  padding 5px 0 0 0
   background #fff
   margin 1px 0
   @media screen and (min-width: 768px)
@@ -24,12 +24,16 @@ main.container
     border 1px solid rgba(188,190,192,.4)
   @media screen and (min-width: 1200px)
     margin-top 20px
-    padding 9px 5px
+    padding 9px 15px
     font-size 16px
   & > li
     @media screen and (max-width: 600px)
-      font-size 12.5px
+      font-size 13.5px
       letter-spacing -.3px
+    &:first-child,&:first-child + li:before,&:last-child
+      @media screen and (max-width: 767px)
+        display none
+        visibility hidden
     &.active
       color #272b30
       font-weight bold
@@ -85,11 +89,33 @@ main.container
         line-height 1.2
         margin 0 20px 5px 0
         padding 0 2.5% 0 0
+        &.trunc
+          max-width 86%
         @media screen and (min-width: 1200px)
           font-size 28px
           width 100%
           float none
           padding 0
+
+      .avgRating
+        background-color #5cb85c
+        background-image linear-gradient(to bottom, #5cb85c 0%, #419641 100%)
+        border-radius 4px
+        color #fff
+        font-size 14px
+        line-height 24px
+        padding 1px 5px
+        position absolute
+        top 0
+        right 10px
+        @media screen and (min-width: 992px)
+          font-size 15px
+          line-height 28px
+          padding 1px 7px
+          right 15px
+        i
+          color #f0e60a
+          text-shadow 0 0 0 rgba(0,0,0,0.5)
 
       .rating-pie-wrap
         position absolute
@@ -166,6 +192,9 @@ main.container
 
       .building-main-prop-list
         padding 0
+        @media screen and (min-width: 768px) and (max-width: 991px)
+          padding 10px 0 10px 10px
+
         .building-main-prop
           color #272b30
           font-size 14.5px
@@ -179,14 +208,21 @@ main.container
             font-size 16px
             text-indent -12px
             padding-left 7%
+
           .building-main-prop-text
             @media screen and (min-width: 768px)
               padding 0 5px
             @media screen and (min-width: 992px)
               margin-right 5px
+
           .fa-question-circle
+            display none
             font-size 14px
-            margin-left 4%
+            margin-left 4px
+            @media screen and (min-width: 350px)
+              display inline-block
+            @media screen and (min-width: 768px)
+              margin-left 6px
 
           .label-radio
             margin-left 5px
@@ -203,6 +239,11 @@ main.container
         font-size 15px
         position relative
         top -1px
+
+      .units-section
+        @media screen and (max-width: 991px)
+          display none
+          visibility hidden
 
     .walk-score-wrap *
       cursor default
@@ -223,9 +264,11 @@ main.container
     background-color #F4F4F8
     border-radius 5px
     border-top 4px solid #4588fa
+    font-size 15px
     margin 25px 0 15px 
     padding 15px 5% 10px
     @media screen and (min-width: 992px)
+      font-size 16px
       margin-top 30px
 
     p
@@ -299,6 +342,11 @@ main.container
           opacity 0.7
 
 .building-info-wrap
+  padding 0 5px
+  @media screen and (min-width: 360px)
+    padding 0 10px
+  @media screen and (min-width: 600px)
+    padding 0 15px
   @media screen and (min-width: 1200px)
     float left
   select
@@ -315,44 +363,30 @@ main.container
       display inline-block
 
   .building-img-wrap
-    max-width 800px
-    height 220px
+    height 355px
+    margin-bottom 5px
     @media screen and (min-width: 350px)
-      height 240px
+      height 360px
     @media screen and (min-width: 400px)
-      height 280px
-    @media screen and (min-width: 450px)
-      height 320px
+      height 380px
     @media screen and (min-width: 600px)
-      height 340px
+      height 395px
     @media screen and (min-width: 768px)
       height 410px
+      margin-bottom 15px
     @media screen and (min-width: 992px)
-      height 480px
+      height 400px
+      margin-bottom 20px
+      max-width 700px
     @media screen and (min-width: 1200px)
-      height 462px
+      height 408px
 
-    .carousel-inner
+    /*.carousel-inner
       height 100%
 
     .item
       height 100%
       visibility hidden
-
-    a.recommend-toggle
-      color #FFF
-      font-size 25px
-      position absolute
-      right 10px
-      top 5px
-      z-index 999
-      &:hover
-        color #FDF8B5
-      &.active
-        color #FFEC00
-    .building-img
-      margin 0 auto
-      max-height 500px
 
     .carousel-control
       border-radius 12px
@@ -375,7 +409,65 @@ main.container
         right 0
     .left
       .building-img-icon
-        left 0
+        left 0*/
+
+
+    .item
+      border-radius 10px
+      margin 0 10px
+      overflow hidden
+      visibility hidden
+      height 350px
+      @media screen and (min-width: 350px)
+        height 360px
+      @media screen and (min-width: 400px)
+        height 375px
+      @media screen and (min-width: 600px)
+        height 390px
+      @media screen and (min-width: 768px)
+        height 410px
+      @media screen and (min-width: 992px)
+        height 400px
+        width 510px
+      @media screen and (min-width: 1200px)
+        height 408px
+        width 620px
+
+
+    .building-img
+      margin 0 auto
+
+    .slick-prev:before,.slick-next:before
+      text-shadow 0 1px 5px rgba(0,0,0,.5)
+      font-size 25px
+      color #fff
+      transition all .3s ease
+      @media screen and (min-width: 768px)
+        text-shadow 0 1px 1px rgba(0,0,0,.15)
+        color #4588fa
+
+    .slick-prev
+      left 0px
+      @media screen and (min-width: 768px)
+        left -30px
+
+    .slick-next
+      right 5px
+      @media screen and (min-width: 768px)
+        right -25px
+
+    a.recommend-toggle
+      color #FFF
+      font-size 25px
+      position absolute
+      right 10px
+      top 5px
+      z-index 999
+      &:hover
+        color #FDF8B5
+      &.active
+        color #FFEC00
+
 
 
   .brokerage-info
@@ -400,7 +492,14 @@ main.container
   .building-features-list
     margin 0 0 15px
     li
+      font-size 15px
       padding-left 25px
+      padding-right 0
+      margin 5px 0
+      @media screen and (min-width: 768px)
+        font-size 16px
+        margin 5px 0
+        padding-right 5px
       i
         position absolute
         left 0
@@ -433,10 +532,12 @@ main.container
   border 1px solid #eee
   border-radius 4px
   box-shadow 0px 3px 12px -3px rgba(0,0,0,0.2)
-  padding 5%
-  margin 0 0 15px
+  padding 15px 5% 6px
+  margin 0 auto 15px
+  max-width 85%
   @media screen and (min-width: 768px)
-    padding 4%
+    max-width 100%
+    padding 4% 4% 5px
   @media screen and (min-width: 992px)
     margin-bottom 20px
   
@@ -445,7 +546,6 @@ main.container
       padding-left 2px
     @media screen and (min-width: 992px)
       padding-left 15px
-
 
   a.recommend-toggle
     color #FFF
@@ -458,22 +558,24 @@ main.container
       color #FDF8B5
     &.active
       color #FFEC00
+
   .unit-img-wrap
     @media screen and (min-width: 992px)
       padding-right 0
     img
       max-width 100%
-      max-height 120px
+      max-height 180px
 
   .building-unit-info
     overflow hidden
+
     .building-unit-info-title
       font-family 'Montserrat', Helvetica, sans-serif
       display inline-block
-      margin 0
+      margin 10px 0 0
       padding 0
+      font-size 16px
       a
-        font-size 15px
         color #272b30
         &:hover
           cursor default
@@ -481,13 +583,12 @@ main.container
 
     .building-unit-info-price
       font-family 'Montserrat', 'Open Sans', Helvetica, sans-serif
-      font-size 13px
+      font-size 15px
       line-height 1.5
       position relative
-      & > div
-        margin-bottom 5px
       i
         margin-right 5px
+
       .unit-price
         color #36B400
         padding-left 5%
@@ -750,6 +851,10 @@ h3.section-title
   padding 10px 20px
 
 .similar-properties
+  > li:last-child
+    @media screen and (min-width: 768px) and (max-width: 991px)
+      display none
+
   .main-city-item
     .main-city-img-link > div
       background-size cover

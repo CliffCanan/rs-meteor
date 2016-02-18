@@ -15,13 +15,17 @@ Template.cityHeader.onRendered ->
     $('#address').focus()
   )
 
-  Tracker.autorun ->
-    if Router.current() and Router.current().route.getName() is 'city'
-      Meteor.setTimeout ->
-        $('.neighborhood-select .typeahead').typeahead('val', 'reset')
-        $('.neighborhood-select .typeahead').typeahead('val', '')
+  # For smaller screens, the original placeholder 'Search Buildings' doesn't fit within the input, so shortening to just 'Buildings'
+  if $(window).width() < 390
+    $('.building-title-search-wrapper input').attr('placeholder','Buildings')
 
-  $('.neighborhood-select .fa-times').show() if Router.current() and Router.current().route.getName() is 'neighborhood'
+#  Tracker.autorun ->
+#    if Router.current() and Router.current().route.getName() is 'city'
+#      Meteor.setTimeout ->
+#        $('.neighborhood-select .typeahead').typeahead('val', 'reset')
+#        $('.neighborhood-select .typeahead').typeahead('val', '')
+#
+#  $('.neighborhood-select .fa-times').show() if Router.current() and Router.current().route.getName() is 'neighborhood'
 
 
 Template.cityHeader.helpers
@@ -29,10 +33,13 @@ Template.cityHeader.helpers
     cityId = @query.cityId || @cityId
     cities[cityId].long
 
-  currentNeighborhood: ->
-    if neighborhoodsListRaw?
-      neighborhoodSlug = @query.neighborhoodSlug || @neighborhoodSlug
-      neighborhoodsListRaw[neighborhoodSlug] || ''
+  #currentNeighborhood: ->
+  #  if neighborhoodsListRaw?
+  #    neighborhoodSlug = @query.neighborhoodSlug || @neighborhoodSlug
+  #    neighborhoodsListRaw[neighborhoodSlug] || ''
+
+  neighborhood: ->
+    if Session.get "currentNeighborhood" then Session.get "currentNeighborhood" else "Neighborhoods"
 
   neighborhoods: ->
     cityId = @query.cityId || @cityId
@@ -69,7 +76,7 @@ Template.cityHeader.helpers
     neighborhoodsObject = []
     if neighborhoods
       if not query or query is 'All'
-        # Get Top 8 neighborhoods by number of properties in each neighborhood. The neighborhood array is 
+        # Get Top 8 neighborhoods by number of properties in each neighborhood. The neighborhood array is
         # conveniently sorted by most properties first.
         for neighborhood in (_.first(neighborhoods, 8))
           neighborhoodsObject.push
@@ -98,7 +105,7 @@ Template.cityHeader.helpers
     neighborhoodSlug = suggestion.id
     data = Template.instance().data
 
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip() if $(window).width() > 1030
 
     if neighborhoodSlug is 'all'
       Router.go("city", {cityId: Router.current().data().cityId}, {query: data.query})
@@ -171,14 +178,17 @@ Template.cityHeader.events
     routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
     Router.go('city', routeParams, {query: query})
 
-  "click .bedroom-type-select li": (event, template) ->
-    data = template.data
-    $li = $(event.currentTarget)
-    $li.closest(".dropdown").removeClass("open")
+  "change .bedroom-type-select select": (event, template) ->
 
+    data = template.data
+    #$li = $(event.currentTarget)
+    #$li.closest(".dropdown").removeClass("open")
+
+    $option = $(event.target).val()
     query = data.query
 
-    if btype = $li.attr("data-value")
+    #if btype = $li.attr("data-value")
+    if btype = $option
       analytics.track "Filtered Listings By Bedroom Type", {label: btype} unless Meteor.user()
       query.btype = btype
     else
@@ -231,7 +241,7 @@ Template.cityHeader.events
       routeParams.cityId = data.cityId if data.cityId
       routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
 
-      analytics.track "Searched by building name", {label: query.q} unless Meteor.user() || q.length < 5
+      analytics.track "Searched by building name", {label: query.q} unless Meteor.user() || q.length < 4
 
       Router.go(routeName, routeParams, {query: query})
   , 300)
@@ -251,8 +261,8 @@ Template.cityHeader.events
       delete query["address"]
 
     $form = $(event.currentTarget)
-    $form.closest(".dropdown").removeClass("open")    
-    
+    $form.closest(".dropdown").removeClass("open")
+
     routeName = Router.current().route.getName()
     routeParams = {}
     routeParams.cityId = data.cityId if data.cityId
@@ -295,6 +305,7 @@ Template.cityHeader.events
       Router.go(routeName, routeParams, {query: query})
 
   "click .form-building-address-filter-reset": (event, template) ->
+    analytics.track "Clicked Clear Distance Search (CityHdr)" unless Meteor.user()
     Session.set("travelMode", "walking")
     Session.set("selectedTime", "")
     $form = $(event.currentTarget).closest("form")
@@ -302,6 +313,7 @@ Template.cityHeader.events
     $form.trigger("submit")
 
   "click .form-building-features-filter-reset": (event, template) ->
+    analytics.track "Clicked Clear Features (CityHdr)" unless Meteor.user()
     $form = $(event.currentTarget).closest("form")
     $form.get(0).reset()
     $form.trigger("submit")

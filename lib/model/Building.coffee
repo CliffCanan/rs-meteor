@@ -24,7 +24,7 @@ formatPriceDisplay = (from, to) ->
     price += "$" + accounting.formatNumber(from)
     if to
       if to isnt from
-        price += "-" + accounting.formatNumber(to)
+        price += " - $" + accounting.formatNumber(to)
     else
       price += "+"
   price

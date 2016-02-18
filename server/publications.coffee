@@ -128,8 +128,8 @@ Meteor.publish "buildings", (cityId, query, page) ->
 Meteor.publish "buildingsSimilar", (buildingId) ->
   building = Buildings.findOne(buildingId)
 
-  from = building.agroPriceTotalTo - 250
-  to = building.agroPriceTotalTo + 250
+  from = building.agroPriceTotalTo - 300
+  to = building.agroPriceTotalTo + 300
   selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}
 
   # Limit fields to only those needed to display on similar properties block

@@ -19,36 +19,46 @@ Template.building.helpers
     Router.current() # reactivity
     editBuildingId = Session.get("editBuildingId")
 
-    unless $.fn.imgLiquid
+    ###unless $.fn.imgLiquid
       $.getScript '/js/imgLiquid-min.js', ->
-        $('#carousel-example-generic .item').imgLiquid
+        $('#sliderAptImgs').imgLiquid
           fill: false
           verticalAlign: '50%'
-        $('#carousel-example-generic .item').css('visibility', 'visible')
+        $('#sliderAptImgs .item').css('visibility', 'visible')###
 
     _.defer ->
       $('[data-toggle="tooltip"]').tooltip()
 
-      #addthis?.init()
-
+      ###
       $carousel = $(".carousel")
       carousel = $carousel.data("bs.carousel")
 
       if carousel
         carousel.pause()
         carousel.destroy()
+
       $firstItem = $carousel.find(".item:first")
+
       if $firstItem.length
         $firstItem.addClass("active")
         $carousel.show().carousel()
       else
         $carousel.hide()
+      ###
 
-      if $.fn.imgLiquid
-        $('#carousel-example-generic .item').imgLiquid
-          fill: false
-          verticalAlign: '50%'
-        $('#carousel-example-generic .item').css('visibility', 'visible')
+      Meteor.setTimeout ->
+        $('#sliderAptImgs').slick
+          mobileFirst: true
+          variableWidth: true
+          easing: "ease"
+          speed: 600
+
+        if $.fn.imgLiquid
+          $('#sliderAptImgs .item').imgLiquid
+            #fill: false
+            verticalAlign: '50%'
+        $('#sliderAptImgs .item').css('visibility', 'visible')
+      , 200
 
     return ""
 
@@ -72,8 +82,8 @@ Template.building.helpers
 
   similarProperties: (building) ->
     building = Buildings.findOne(building.parentId) if building.agroIsUnit and building.parentId
-    from = building.agroPriceTotalTo - 200
-    to = building.agroPriceTotalTo + 200
+    from = building.agroPriceTotalTo - 300
+    to = building.agroPriceTotalTo + 300
     selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}  
     Buildings.find(selector, {limit: 4})
 
@@ -306,7 +316,7 @@ Template.building.onRendered ->
   # Show Check Availability Popup after 14 seconds
   if !Meteor.user() and $(window).width() > 768
     @popupTimeoutHandle = Meteor.setTimeout ->
-      unless Session.get "hasSeenCheckAvailabilityPopup" == true || Session.get "hasSeenContactUsPopup" == true
+      unless Session.get("hasSeenCheckAvailabilityPopup") is true || Session.get("hasSeenContactUsPopup") is true
         unless $('body').hasClass('modal-open')
           $('.check-availability').trigger('click')
     , 14000
@@ -523,7 +533,7 @@ Template.building.helpers
       ClientRecommendations.find({_id: clientId, 'unitIds.unitId': @._id}).count()
 
 Template.building.events
-  "click .building-img-wrap .recommend-toggle": (event, template) ->
+  "click .building-info-wrap .recommend-toggle": (event, template) ->
     clientObject = Session.get "recommendationsClientObject"
     if clientObject
       clientId = clientObject.clientId

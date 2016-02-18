@@ -34,6 +34,7 @@ template(name="review")
         div.author(property="author", typeof="http://schema.org/Person")
           span(property="name") #{displayName}
           //span.displayPersona #{displayPersona}
+          div.posted-date #{formatedCreatedAt}
 
           if canOperateWithBuilding
             small
@@ -54,5 +55,3 @@ template(name="review")
     if showMoreLink
       p.text-center
         a.review-view-more(href="#") View More...
-
-      div.posted-date #{formatedCreatedAt}

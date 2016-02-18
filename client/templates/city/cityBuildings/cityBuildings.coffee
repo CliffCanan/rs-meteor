@@ -27,14 +27,14 @@ Template.cityBuildings.onRendered ->
 Template.cityBuildings.helpers
 
   checkAvailable: (id) ->
-  	if  Session.get("addressgeo")
-  		filtered = Session.get 'filtered'
-  		if filtered.indexOf(id) == -1
-  			return false
-  		else 
-  			return true
-  	else
-  		return true
+    if  Session.get("addressgeo")
+      filtered = Session.get 'filtered'
+      if filtered.indexOf(id) == -1
+        return false
+      else
+        return true
+    else
+      return true
 
   shouldShowRecommendToggle: ->
     Router.current().route.getName() is "clientRecommendations" and Security.canManageClients()
@@ -65,6 +65,10 @@ Template.cityBuildings.helpers
       item
 
     images
+
+  isMobile: ->
+    if $(window).width() < 1030
+      return true
 
 convertTimeToMins = (time) ->
   if time.indexOf("days") == -1
@@ -138,6 +142,8 @@ Template.cityBuildings.events
 
       gallery.css('left',correctionAmount)
 
+    analytics.track "Clicked View Pictures (Search)", {buildingId: @_id, buildingName: @title, label: @title} unless Meteor.user()
+
     # Finally instantiate the Owl Carousel
     gallery.find('.owl-carousel').owlCarousel
       items: 3
@@ -147,10 +153,8 @@ Template.cityBuildings.events
 
   "click .ext-gallery .close-btn": (event, template) ->
     event.stopPropagation()
-    #console.log('Close Btn clicked!')
 
     parentEl = $(event.currentTarget).closest('.main-city-item')
-
     gallery = $(event.currentTarget).closest('.ext-gallery')
     initialImg = parentEl.find('.main-city-img-link')
 

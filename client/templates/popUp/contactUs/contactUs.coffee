@@ -161,6 +161,7 @@ Template.contactUs.events
       $('input#contactUsName').focus()
     , 300)
 
+  ###
   "change .tour-date": grab encapsulate (event, template) ->
     template.$('form').formValidation 'revalidateField', 'contactUsTourDate'
 
@@ -172,10 +173,11 @@ Template.contactUs.events
       template.$('#contactUsTourDate').attr('disabled', true)
     else
       template.$('#contactUsTourDate').attr('disabled', false)
+  ###
 
-  "click #contactUsPopup .call-now": grab encapsulate (event, template) ->
+  "click #contactUsPopup .call-now": (event, template) ->
     console.log("Contact Us Call Now btn clicked")
-    analytics.track "Clicked Call Now Btn (Contact Us)" unless Meteor.user()
+    analytics.track "Clicked CALL NOW Btn (Contact Us)" unless Meteor.user()
     true
 
   "hidden.bs.modal #contactUsPopup": grab encapsulate (event, template) ->

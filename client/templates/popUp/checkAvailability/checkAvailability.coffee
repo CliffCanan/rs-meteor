@@ -121,8 +121,8 @@ Template.checkAvailability.rendered = ->
 
 
 Template.checkAvailability.events
-  "change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
-    template.$('form').formValidation 'revalidateField', 'moveInDate'
+  #"change .moveInData-moveInDate-editor": grab encapsulate (event, template) ->
+  #  template.$('form').formValidation 'revalidateField', 'moveInDate'
 
   "shown.bs.modal #checkAvailabilityPopup": grab encapsulate (event, template) ->
     Session.set "hasSeenCheckAvailabilityPopup", true
@@ -131,6 +131,11 @@ Template.checkAvailability.events
     Meteor.setTimeout(() ->
       $('input#leadname').focus()
     , 300)
+
+  "click #checkAvailabilityPopup .call-now": (event, template) ->
+    console.log("Contact Us Call Now btn clicked")
+    analytics.track "Clicked CALL NOW Btn (Check Avail)" unless Meteor.user()
+    true
 
   "hidden.bs.modal #checkAvailabilityPopup": grab encapsulate (event, template) ->
     $("#checkAvailabilityPopup form").formValidation "resetForm", true
