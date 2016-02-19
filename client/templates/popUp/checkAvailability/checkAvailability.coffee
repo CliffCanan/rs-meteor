@@ -66,8 +66,10 @@ Template.checkAvailability.rendered = ->
 
       if json.phoneNumber
         num = json.phoneNumber.replace("(","").replace(")","").replace("-","").replace(" ","").trim()
-        num = num.substring(0, 2) + "-" + num.substring(3);
-        num = num.substring(0, 6) + "-" + num.substring(7);
+        console.log(num)
+        num = num.substring(0, 3) + "-" + num.substring(3);
+        num = num.substring(0, 7) + "-" + num.substring(7);
+        console.log(num)
 
       json.cityName = if building and building.cityName then building.cityName else 'no city name found'
       json.cityId = if building and building.cityId then building.cityId else 'no city id found'

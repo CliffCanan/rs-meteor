@@ -87,8 +87,8 @@ Template.contactUs.rendered = ->
 
       if json.phoneNumber
         num = json.phoneNumber.replace("(","").replace(")","").replace("-","").replace(" ","").trim()
-        num = num.substring(0, 2) + "-" + num.substring(3);
-        num = num.substring(0, 6) + "-" + num.substring(7);
+        num = num.substring(0, 3) + "-" + num.substring(3);
+        num = num.substring(0, 7) + "-" + num.substring(7);
 
 #      json.yes = json.tourOption is "yes"
 #      json.no = json.tourOption is "no"
