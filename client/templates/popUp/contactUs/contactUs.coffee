@@ -83,18 +83,19 @@ Template.contactUs.rendered = ->
 
       num = "no phone provided"
 
+      json = form.serializeFormJSON()
+
       if json.phoneNumber
         num = json.phoneNumber.replace("(","").replace(")","").replace("-","").replace(" ","").trim()
         num = num.substring(0, 2) + "-" + str.substring(3);
         num = num.substring(0, 6) + "-" + str.substring(7);
 
-      json = form.serializeFormJSON()
 #      json.yes = json.tourOption is "yes"
 #      json.no = json.tourOption is "no"
 #      json.notSure = json.tourOption is "notSure"
+#      json.contactUsTourDate = if json.contactUsTourDate then json.contactUsTourDate else ''
       json.cityId = if cityId then cityId else 'no city id found'
       json.cityName = if cityId then cities[cityId].short else 'no city name found'
-#      json.contactUsTourDate = if json.contactUsTourDate then json.contactUsTourDate else ''
       json.phoneNumber = num
       json.source = Session.get "utm_source"
       json.medium = Session.get "utm_medium"
