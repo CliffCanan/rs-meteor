@@ -46,20 +46,6 @@ Template.building.helpers
         $carousel.hide()
       ###
 
-      Meteor.setTimeout ->
-        $('#sliderAptImgs').slick
-          mobileFirst: true
-          variableWidth: true
-          easing: "ease"
-          speed: 600
-
-        if $.fn.imgLiquid
-          $('#sliderAptImgs .item').imgLiquid
-            #fill: false
-            verticalAlign: '50%'
-        $('#sliderAptImgs .item').css('visibility', 'visible')
-      , 200
-
     return ""
 
   getRating: (rating) ->
@@ -275,16 +261,26 @@ Template.building.onRendered ->
         if instance.travelMarkers
           instance.travelMarkers.start.setPosition(latLng)
 
-  ###
-  $(".rating-pie-chart").easyPieChart
-    size: 32
-    barColor: "#3fabe1"
-    trackColor: "#f2f2f2"
-    scaleColor: "#dfe0e0"
-    lineCap: "round"
-    animate: 2300
-  ###
+  Meteor.setTimeout ->
+    $('#sliderAptImgs').slick
+      mobileFirst: true
+      variableWidth: true
+      easing: "ease"
+      speed: 600
 
+    if $.fn.imgLiquid
+      $.getScript '/js/imgLiquid-min.js', ->
+        $('#sliderAptImgs .item').imgLiquid
+          #fill: false
+          verticalAlign: '50%'
+    else
+      $('#sliderAptImgs .item').imgLiquid
+        #fill: false
+        verticalAlign: '50%'
+
+    $('#sliderAptImgs .item').css('visibility', 'visible')
+
+  , 200
 
   $(".building-unit-list-wrap>ul").niceScroll
     bouncescroll: true
