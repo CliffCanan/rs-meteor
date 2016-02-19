@@ -269,16 +269,18 @@ Template.building.onRendered ->
       speed: 600
 
     if $.fn.imgLiquid
+      console.log('Slider init #1 if')
+      $('#sliderAptImgs .item').imgLiquid
+        #fill: false
+        verticalAlign: '50%'
+      $('#sliderAptImgs .item').css('visibility', 'visible')
+    else
+      console.log('Slider init #2 else')
       $.getScript '/js/imgLiquid-min.js', ->
         $('#sliderAptImgs .item').imgLiquid
           #fill: false
           verticalAlign: '50%'
-    else
-      $('#sliderAptImgs .item').imgLiquid
-        #fill: false
-        verticalAlign: '50%'
-
-    $('#sliderAptImgs .item').css('visibility', 'visible')
+        $('#sliderAptImgs .item').css('visibility', 'visible')
 
   , 200
 
