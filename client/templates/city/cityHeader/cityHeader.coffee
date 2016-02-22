@@ -49,7 +49,12 @@ Template.cityHeader.helpers
   neighborhoods: ->
     cityId = @query.cityId || @cityId
     share.neighborhoodsInCity cityId
-
+  currentListingType: ->
+    if @query.listingType
+      if @query.listingType is 'managed' then return 'Managed Buildings'
+      if @query.listingType is 'broker' then return 'Broker Listings'
+    else
+      'Managed Buildings'
   currentBedroomType: ->
     btypes[@query.btype]?.lower ? "Any"
 
@@ -76,7 +81,7 @@ Template.cityHeader.helpers
     neighborhoodsObject = []
     if neighborhoods
       if not query or query is 'All'
-        # Get Top 8 neighborhoods by number of properties in each neighborhood. The neighborhood array is 
+        # Get Top 8 neighborhoods by number of properties in each neighborhood. The neighborhood array is
         # conveniently sorted by most properties first.
         for neighborhood in (_.first(neighborhoods, 8))
           neighborhoodsObject.push
@@ -163,6 +168,21 @@ Template.cityHeader.events
   "click #clear-neighborhoods": (event, template) ->
     analytics.track "Clicked Clear-Neighborhoods Btn (City Header)" unless Meteor.user()
 
+  "click .listing-type-select li": (event, template) ->
+    data = template.data
+    $li = $(event.currentTarget)
+    $li.closest(".dropdown").removeClass("open")
+    query = data.query
+    if listingType = $li.attr("data-value")
+      query.listingType = listingType
+    else
+      delete query.listingType
+
+    routeParams = {}
+    routeParams.cityId = data.cityId if data.cityId
+    routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+    Router.go('city', routeParams, {query: query})
+
   "change .bedroom-type-select select": (event, template) ->
 
     data = template.data
@@ -246,8 +266,8 @@ Template.cityHeader.events
       delete query["address"]
 
     $form = $(event.currentTarget)
-    $form.closest(".dropdown").removeClass("open")    
-    
+    $form.closest(".dropdown").removeClass("open")
+
     routeName = Router.current().route.getName()
     routeParams = {}
     routeParams.cityId = data.cityId if data.cityId

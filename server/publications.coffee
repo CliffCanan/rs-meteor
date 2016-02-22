@@ -40,7 +40,8 @@ Meteor.publish "buildings", (cityId, query, page) ->
     utm_source: Match.Optional(String)
     utm_medium: Match.Optional(String)
     utm_content: Match.Optional(String)
-    utm_campaign: Match.Optional(String) ###
+    utm_campaign: Match.Optional(String)
+    listingType: Match.Optional(String) ###
 
   page = parseInt(page)
   unless page > 0
@@ -87,6 +88,9 @@ Meteor.publish "buildings", (cityId, query, page) ->
     averageRating: 1
     bathroomsFrom: 1
     bathroomsTo: 1
+    brokerageName: 1
+
+  fields['source.source'] = 1
 
   if Security.canOperateWithBuilding(@userId)
     adminFields = {

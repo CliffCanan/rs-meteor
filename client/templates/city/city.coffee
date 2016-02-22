@@ -89,9 +89,9 @@ Template.city.helpers
               result = results[i]
               city = result.formatted_address
 
-              if city.trim().toUpperCase().indexOf(currentCity.toUpperCase()) != -1 
+              if city.trim().toUpperCase().indexOf(currentCity.toUpperCase()) != -1
                 location = results[i].geometry.location
-                Session.set("cityGeoLocation", [location.lat(), location.lng()]) 
+                Session.set("cityGeoLocation", [location.lat(), location.lng()])
               i++
 
             if location == undefined
@@ -109,7 +109,7 @@ Template.city.helpers
             else
               # analytics.track "Filtered Listings By Location" # This might be duplicative, already tracking when Location Filter form is submitted, while this is on re-loading the page.
               Session.set("cityGeoLocation", [location.lat(), location.lng()])
-            
+
         if Session.get "cityGeoLocation"
           buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: Session.get("cityBuildingsLimit")})
           address = Session.get "cityGeoLocation"
@@ -231,6 +231,9 @@ Template.city.helpers
     if (day > 0 and day < 6 and hour > 7 and hour < 20) then true else false
 
 
+  showIDXDisclaimer: ->
+    Router.current().params.query.listingType is 'broker'
+
 Template.city.onRendered ->
   instance = @
 
@@ -251,7 +254,7 @@ Template.city.onRendered ->
         horizrailenabled: false
   , 1000
   ###
-  
+
   $.getScript '/js/imgLiquid-min.js', ->
     $('.main-city-item .item.video').imgLiquid();
 
@@ -277,7 +280,7 @@ Template.city.onRendered ->
   markers = {}
   defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
   activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
-  filterIcon = new google.maps.MarkerImage("/images/map-marker-active2.png", null, null, null, new google.maps.Size(50, 60))  
+  filterIcon = new google.maps.MarkerImage("/images/map-marker-active2.png", null, null, null, new google.maps.Size(50, 60))
 
   infoWindowId = null
   infowindow = new google.maps.InfoWindow()
@@ -294,7 +297,7 @@ Template.city.onRendered ->
     citySubs.dep.depend()
     if citySubs.ready
       data = Router.current().data()
-      
+
       actualMarkerIds = []
       @template.__helpers[" buildings"].call(data).forEach (building) ->
         if building.latitude and building.longitude
@@ -321,14 +324,14 @@ Template.city.onRendered ->
                 infowindow.setContent(html)
                 infowindow.open(map, marker)
                 infoWindowId = marker._id
-                marker.setIcon(activeIcon)                
+                marker.setIcon(activeIcon)
 
             google.maps.event.addListener marker, "mouseover", do (marker) ->->
               marker.setIcon(activeIcon)
 
             google.maps.event.addListener marker, "mouseout", do (marker) ->->
               if marker._id isnt infoWindowId
-                marker.setIcon(defaultIcon)             
+                marker.setIcon(defaultIcon)
 
       for id, marker of markers
         unless id in actualMarkerIds
@@ -366,7 +369,7 @@ Template.city.onRendered ->
       # Center map to entered address
       map.setCenter new google.maps.LatLng(address[0], address[1])
 
-      populationOptions = 
+      populationOptions =
         strokeColor: '#FF0000'
         strokeOpacity: 0.8
         strokeWeight: 2
@@ -383,7 +386,7 @@ Template.city.onRendered ->
         # Zoom map to fit all markers
         bounds = new google.maps.LatLngBounds();
         for i, marker of markers
-          bounds.extend markers[i].getPosition() 
+          bounds.extend markers[i].getPosition()
         map.fitBounds(bounds);
       else
         currentCityData = cities[data.cityId]
@@ -394,7 +397,7 @@ Template.city.onRendered ->
       # Center map to fit all properties
       bounds = new google.maps.LatLngBounds()
       for i, marker of markers
-        bounds.extend markers[i].getPosition()     
+        bounds.extend markers[i].getPosition()
       map.fitBounds(bounds)
 
 
@@ -514,4 +517,4 @@ Template.city.events
 setDefaultImagesForCalc = ->
   $("#walker-calc").find("img").attr("src", "/images/walk.png")
   $("#car-calc").find("img").attr("src", "/images/car.png")
-  $("#bike-calc").find("img").attr("src", "/images/bike.png")    
+  $("#bike-calc").find("img").attr("src", "/images/bike.png")

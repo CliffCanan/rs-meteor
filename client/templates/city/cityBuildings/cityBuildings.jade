@@ -73,6 +73,11 @@ template(name="cityBuildings")
             .main-city-info.clearfix
               i.fa.fa-bed
               span.main-city-desc {{bedroomTypes ../queryBtype}}
+              
+            if brokerageName
+              .brokerage-info
+                span
+                  em Listing courtesy of #{brokerageName}
 
           .mobile-check-avail-wrap
             button.btn.btn-primary.btn-block.check-avail-option(type="button")
