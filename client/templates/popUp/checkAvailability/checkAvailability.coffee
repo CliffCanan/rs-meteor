@@ -138,9 +138,10 @@ Template.checkAvailability.events
     Session.set "hasSeenCheckAvailabilityPopup", true
     $("#checkAvailabilityPopup #leadphone").mask "(999) 999-9999", placeholder: " "
 
-    Meteor.setTimeout(() ->
-      $('input#leadname').focus()
-    , 300)
+    if $(window).width() > 992
+      Meteor.setTimeout(() ->
+        $('input#leadname').focus()
+      , 250)
 
   "click #checkAvailabilityPopup .call-now": (event, template) ->
     console.log("Contact Us Call Now btn clicked")

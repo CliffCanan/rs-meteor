@@ -51,7 +51,7 @@ Template.cityHeader.helpers
     share.neighborhoodsInCity cityId
 
   currentListingType: ->
-    toReturn is 'Managed'
+    toReturn = 'Managed'
 
     if @query.listingType
       if @query.listingType is 'managed'

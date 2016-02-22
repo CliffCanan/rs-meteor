@@ -165,9 +165,10 @@ Template.contactUs.events
 
     $("#contactUsPopup #leadphone").mask "(999) 999-9999", placeholder: " "
 
-    Meteor.setTimeout(() ->
-      $('input#contactUsName').focus()
-    , 300)
+    if $(window).width() > 992
+      Meteor.setTimeout(() ->
+        $('input#contactUsName').focus()
+      , 250)
 
   ###
   "change .tour-date": grab encapsulate (event, template) ->
