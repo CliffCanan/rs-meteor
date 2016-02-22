@@ -39,7 +39,12 @@ Template.cityHeader.helpers
   #    neighborhoodsListRaw[neighborhoodSlug] || ''
 
   neighborhood: ->
-    if Session.get "currentNeighborhood" then Session.get "currentNeighborhood" else "Neighborhoods"
+    if Session.get "currentNeighborhood"
+      n = Session.get "currentNeighborhood"
+      n = n.replace("-"," ")
+      return n
+    else
+      return "Neighborhoods"
 
   neighborhoods: ->
     cityId = @query.cityId || @cityId

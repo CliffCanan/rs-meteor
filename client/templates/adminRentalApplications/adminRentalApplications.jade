@@ -31,7 +31,7 @@ template(name="adminRentalApplications")
                   td
                     a(href="{{pathFor 'rentalApplication' id=_id}}")
                       i.fa.fa-eye
-                    a.delete-application(href="#")
+                    button.btn.btn-link.delete-application(type="button")
                       i.fa.fa-trash
         else
           h3 No rental applications found.

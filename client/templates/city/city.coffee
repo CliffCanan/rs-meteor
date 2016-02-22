@@ -151,7 +151,12 @@ Template.city.helpers
       return true
 
   neighborhood: ->
-    if Session.get "currentNeighborhood" then Session.get "currentNeighborhood" else "Neighborhoods"
+    if Session.get "currentNeighborhood"
+      n = Session.get "currentNeighborhood"
+      n = n.replace("-"," ")
+      return n
+    else
+      return "Neighborhoods"
 
   brTypeExist: ->
     query = Router.current().params.query
