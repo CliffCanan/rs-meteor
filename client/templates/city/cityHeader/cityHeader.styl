@@ -40,6 +40,10 @@
         @media screen and (min-width: 768px) and (max-width: 1020px)
           display none
 
+  .listing-type-select
+    @media screen and (min-width: 768px) and (max-width: 1020px)
+      display none
+
   &.is-down
     height 324px
     padding 15px 20px
@@ -96,7 +100,6 @@
 
   .button-text
     display inline-block
-    text-transform uppercase
 
   &.col-sm-2
     padding 0 15px 10px
@@ -272,8 +275,11 @@
   .btn.dropdown-toggle.city-sub-header-title
     .caret
       position absolute
-      top 19px
-      right 18%
+      top 20px
+      right 17px
+      @media screen and (min-width: 992px)
+        top 28px
+        right 12px
 
 .open
   .dropdown-menu
@@ -385,34 +391,6 @@
   font-size 0
   vertical-align top
   float left
-
-.building-title-search-wrapper
-  margin 10px auto
-  @media screen and (min-width: 768px)
-    display none
-    padding 0 0 0 5px
-  @media screen and (min-width: 992px)
-    display block
-    max-width 13%
-    padding 0 10px 0 5px
-  @media screen and (min-width: 1200px)
-    max-width 15%
-  input
-    font-size 14px
-    color #272b30
-    font-weight bold
-    height 42px
-    padding-left 32px
-
-  i
-    position absolute
-    top 14px
-    left 25px
-    font-size 90%
-    opacity 0.6
-    @media screen and (min-width: 768px)
-      left 13px
-
 
 .selectArrivalTime 
   margin-bottom 10px

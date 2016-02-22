@@ -49,12 +49,18 @@ Template.cityHeader.helpers
   neighborhoods: ->
     cityId = @query.cityId || @cityId
     share.neighborhoodsInCity cityId
+
   currentListingType: ->
+    toReturn = 'Managed'
+
     if @query.listingType
-      if @query.listingType is 'managed' then return 'Managed Buildings'
-      if @query.listingType is 'broker' then return 'Broker Listings'
-    else
-      'Managed Buildings'
+      if @query.listingType is 'managed'
+        if $(window).width() > 600 then toReturn += ' Buildings'
+      if @query.listingType is 'broker'
+        if $(window).width() > 600 then toReturn is 'Broker Listings' else toReturn is 'Broker'
+
+    toReturn
+
   currentBedroomType: ->
     btypes[@query.btype]?.lower ? "Any"
 
@@ -225,31 +231,6 @@ Template.cityHeader.events
     $item = $(event.currentTarget)
     $item.closest(".dropdown").removeClass("open")
     Session.set("selectedTime", $item.attr("id"))
-
-  "keyup .building-title-search": _.debounce((event, template) ->
-    event.preventDefault()
-    data = template.data
-    q = encodeURIComponent($(event.currentTarget).val())
-    query = data.query
-
-    if q
-      query.q = q
-    else
-      delete query.q
-
-    routeName = Router.current().route.getName()
-
-    if routeName is "clientRecommendations"
-      Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
-    else
-      routeParams = {}
-      routeParams.cityId = data.cityId if data.cityId
-      routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
-
-      analytics.track "Searched by building name", {label: query.q} unless Meteor.user() || q.length < 4
-
-      Router.go(routeName, routeParams, {query: query})
-  , 300)
 
   "submit .form-building-filter": (event, template) ->
     event.preventDefault()

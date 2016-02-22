@@ -40,15 +40,6 @@
       width 75% !important
 
   .filter-options
-    margin 0 15px
-    max-width 94%
-    @media screen and (min-width: 768px)
-      margin 0px 7px 0
-    @media screen and (min-width: 768px) and (max-width: 1199px)
-      margin-top 5px
-    @media screen and (min-width: 1200px)
-      margin-top -5px
-
     i
       margin-right 8px
       font-size 80%
@@ -162,7 +153,7 @@
   .filterRow
     margin 0 -10px 20px
     @media screen and (min-width: 768px)
-      margin 0 -15px 20px
+      margin 0 -5px 20px
 
   .filter-options ~ &
     @media screen and (min-width: 992px)
@@ -305,22 +296,14 @@
   display inline-block
 
 .button-building-insert
-  margin 5px 0 0 10px
-  padding 4px 10px
-  position relative
-  top 4px
-  @media screen and (min-width: 992px)
-    margin-left 30px
+  padding 4px 11px
 
 .unpublished-property-toggle-wrapper
-  float right
-  position relative
-  right 50px
-  padding 10px 5px 0 0
+  padding 5px 0 0 0
 
   > span
     position relative
-    top 3px
+    top -3px
     margin-right 10px
 
   span
@@ -334,3 +317,30 @@
 
   .mdl-switch
     width initial
+
+.building-title-search-wrapper
+  margin-right 15px
+  max-width 70%
+  position relative
+  @media screen and (min-width: 768px)
+  margin-right 2%
+    padding 0 0 0 5px
+  @media screen and (min-width: 992px)
+    max-width 31%
+    padding 0 10px 0 5px
+  input
+    font-size 14px
+    color #272b30
+    font-weight bold
+    height 38px
+    padding-left 32px
+
+  i
+    color #aaa
+    position absolute
+    top 12px
+    left 25px
+    font-size 90%
+    opacity 0.9
+    @media screen and (min-width: 768px)
+      left 13px

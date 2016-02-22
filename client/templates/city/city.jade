@@ -17,18 +17,6 @@ template(name="city")
 
     .city-page-wrap
 
-      if canOperateWithBuilding
-        .pull-left.hide-sm
-          button.btn.btn-sm.btn-primary.button-building-insert
-            i.fa.fa-plus
-            | Add Listing
-
-        .filter-wrap.unpublished-property-toggle-wrapper.hide-sm
-          span Toggle Unpublished Properties:
-          label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
-            input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
-
-
       .main-city-list-wrap.left-bar.clearfix.pull-left
 
         if showClientRecommendationsName
@@ -37,63 +25,85 @@ template(name="city")
         if clientRecommendationsList
           +clientRecommendationsToggle
 
+        .row.m-t-5.m-b-10
+          .col-xs-6.col-lg-5
 
-        if hasAnyFilters
-          .row.filterRow
-            .col-xs-12
-              .filter-options.pull-left.clearfix
-                if hasNeighborhood
-                  label.label.label-primary.filter-tag
-                    i.fa.fa-check
-                    | {{neighborhood}}
+            if hasAnyFilters
+              .row.filterRow
+                .col-xs-12
+                  .filter-options.pull-left.clearfix
+                    if hasNeighborhood
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | {{neighborhood}}
 
-                if brTypeExist
-                  label.label.label-primary.filter-tag
-                    i.fa.fa-check
-                    | {{brType}}
+                    if brTypeExist
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | {{brType}}
 
-                if pets
-                  label.label.label-primary.filter-tag
-                    i.fa.fa-check
-                    | Pets
+                    if pets
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Pets
 
-                if parking
-                  label.label.label-primary.filter-tag
-                    i.fa.fa-check
-                    | Parking
+                    if parking
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Parking
 
-                if doorman
-                  label.label.label-primary.filter-tag
-                    i.fa.fa-check
-                    | Doorman
+                    if doorman
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Doorman
 
-                if fitnessCenter
-                  label.label.label-primary.filter-tag
-                    i.fa.fa-check
-                    | Fitness Center
+                    if fitnessCenter
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Fitness Center
 
-                if laundry
-                  label.label.label-primary.filter-tag
-                    i.fa.fa-check
-                    | In-unit laundry
+                    if laundry
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | In-unit laundry
 
-                if utilities
-                  label.label.label-primary.filter-tag
-                    i.fa.fa-check
-                    | Utilities
+                    if utilities
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Utilities
 
-                if hasFromPrice
-                  label.label.label-primary.filter-tag
-                    i.fa.fa-check
-                    | Min ${{fromPrice}}
+                    if hasFromPrice
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Min ${{fromPrice}}
 
-                if hasToPrice
-                  label.label.label-primary.filter-tag
-                    i.fa.fa-check
-                    | Max ${{toPrice}}
+                    if hasToPrice
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Max ${{toPrice}}
 
-                //-if available
-                //-  label.label.label-primary.filter-tag Available {{available}}
+                    //-if available
+                    //-  label.label.label-primary.filter-tag Available {{available}}
+
+
+          .col-xs-6.col-lg-5
+            .row
+
+              if canOperateWithBuilding
+                .col-xs-3.hide-md
+                  button.btn.btn-sm.btn-primary.button-building-insert
+                    i.fa.fa-plus
+                    | Add Listing
+
+                .col-xs-5.filter-wrap.unpublished-property-toggle-wrapper.hide-md
+                  span Toggle Unpublished Properties:
+                  label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
+                    input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
+
+
+              .pull-right.building-title-search-wrapper
+                input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
+                i.fa.fa-fw.fa-search
 
 
         #mobile-cta.clearfix

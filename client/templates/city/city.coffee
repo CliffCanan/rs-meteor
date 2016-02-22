@@ -514,6 +514,31 @@ Template.city.events
     analytics.track "Clicked CLOSE Mobile CTA Btn (City Page)" unless Meteor.user()
 
 
+  "keyup .building-title-search": _.debounce((event, template) ->
+    event.preventDefault()
+    data = template.data
+    q = encodeURIComponent($(event.currentTarget).val())
+    query = data.query
+
+    if q
+      query.q = q
+    else
+      delete query.q
+
+    routeName = Router.current().route.getName()
+
+    if routeName is "clientRecommendations"
+      Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
+    else
+      routeParams = {}
+      routeParams.cityId = data.cityId if data.cityId
+      routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+
+      analytics.track "Searched by building name", {label: query.q} unless Meteor.user() || q.length < 4
+
+      Router.go(routeName, routeParams, {query: query})
+  , 300)
+
 setDefaultImagesForCalc = ->
   $("#walker-calc").find("img").attr("src", "/images/walk.png")
   $("#car-calc").find("img").attr("src", "/images/car.png")

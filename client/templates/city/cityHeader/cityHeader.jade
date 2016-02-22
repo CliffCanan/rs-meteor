@@ -17,14 +17,6 @@ template(name="cityHeader")
       //-  a.clear-neighborhood-filter(href="{{pathFor 'city' cityId=cityId}}")
       //-    i.fa.fa-times
       //-  input.form-control.typeahead(type="text", placeholder="Search neighborhood", autocomplete="false", data-source="neighborhoodSearch", data-selected="selectedNeighborhood", data-min-length="0", data-limit="9", data-template="neighborhoodSuggestion", value="{{currentNeighborhood}}")
-      .col-xs-12.col-sm-2.listing-type-select.city-sub-header-list-wrap.dropdown.city-filter
-        button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
-          i.fa.fa-building
-          span.button-text {{currentListingType}}
-          span.caret
-        ul.city-sub-header-list.dropdown-menu.list-unstyled
-          li.city-sub-header-item(data-value="managed") Managed Buildings
-          li.city-sub-header-item(data-value="broker") Broker Listings (IDX Only)
 
       .col-xs-12.col-sm-2.neighborhood-select.city-sub-header-list-wrap
         .dropdown.city-filter.features-wrap
@@ -53,15 +45,6 @@ template(name="cityHeader")
           option.city-sub-header-item(value="") # BR's
           each btypes
             option.city-sub-header-item(value="{{key}}") {{value}}
-
-        //-button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
-        //-  i.fa.fa-bed
-        //-  span.button-text.hide-md {{currentBedroomType}}
-        //-  span.caret
-        //-ul.city-sub-header-list.dropdown-menu.list-unstyled
-        //-  li.city-sub-header-item(data-value="") Any
-        //-  each btypes
-        //-    li.city-sub-header-item(data-value="{{key}}") {{value}}
 
       .col-xs-6.col-sm-2#features-container
         .dropdown.city-filter.features-wrap
@@ -157,9 +140,15 @@ template(name="cityHeader")
               .col-sm-6
                 button.btn.btn-default.clear-btn.form-building-address-filter-reset(type="button") Clear Filter
 
-      .col-xs-6.col-sm-2.building-title-search-wrapper
-        input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
-        i.fa.fa-fw.fa-search
+
+      .col-xs-6.col-sm-2.listing-type-select.city-sub-header-list-wrap.dropdown
+        button.city-sub-header-title.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
+          i.fa.fa-building
+          | {{currentListingType}}
+          span.caret
+        ul.city-sub-header-list.dropdown-menu.list-unstyled
+          li.city-sub-header-item(data-value="managed") Managed Buildings
+          li.city-sub-header-item(data-value="broker") Broker Listings (IDX Only)
 
     .toggle-city-header#done-btn
       button.btn.btn-primary(type="button")
