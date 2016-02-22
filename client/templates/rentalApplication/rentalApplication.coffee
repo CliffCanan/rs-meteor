@@ -212,7 +212,7 @@ Template.rentalApplication.events
     if rowNum > 5
       swal
         title: ""
-        text: "Oh my, that's a lot of cats. Since most buildings don't allow that many feline roommates, it might be best if we spoke with you to discuss your situation. Please email team@rentscene.com or call (267) 463-2426. Thanks!"
+        text: "Oh my, that's a lot of cats. Since most buildings don't allow that many feline roommates, it might be best if we spoke with you to discuss your situation. Please email team@rentscene.com or call (215) 995-5890. Thanks!"
         type: "warning"
         showCancelButton: false
         confirmButtonColor: "#4588fa"
@@ -225,7 +225,7 @@ Template.rentalApplication.events
     if rowNum > 5
       swal
         title: ""
-        text: "Wow, that's a lot of dogs. Since most buildings don't allow that many canine companions, it might be best if we spoke with you to discuss your situation. Please email team@rentscene.com or call (267) 463-2426. Thanks!"
+        text: "Wow, that's a lot of dogs. Since most buildings don't allow that many canine companions, it might be best if we spoke with you to discuss your situation. Please email team@rentscene.com or call (215) 995-5890. Thanks!"
         type: "warning"
         showCancelButton: false
         confirmButtonColor: "#4588fa"
