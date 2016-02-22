@@ -51,13 +51,14 @@ Template.cityHeader.helpers
     share.neighborhoodsInCity cityId
 
   currentListingType: ->
-    toReturn = 'Managed'
+    toReturn is 'Managed'
 
     if @query.listingType
       if @query.listingType is 'managed'
-        if $(window).width() > 600 then toReturn += ' Buildings'
-      if @query.listingType is 'broker'
-        if $(window).width() > 600 then toReturn is 'Broker Listings' else toReturn is 'Broker'
+        toReturn += ' Buildings' if $(window).width() > 600
+
+      else if @query.listingType is 'broker'
+        if $(window).width() > 600 then return 'Broker Listings' else return 'Broker'
 
     toReturn
 

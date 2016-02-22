@@ -139,6 +139,7 @@
 
 .main-city-list-wrap
   background #fff
+  box-sizing border-box
   height 100%
   width 100%
   padding 25px 10px 10px
@@ -148,7 +149,6 @@
     padding 30px 25px 0 15px
   @media screen and (min-width: 1200px)
     padding 34px 30px 0
-  box-sizing border-box
 
   .filterRow
     margin 0 -10px 20px
@@ -323,11 +323,12 @@
   max-width 70%
   position relative
   @media screen and (min-width: 768px)
-  margin-right 2%
+    margin-right 2%
     padding 0 0 0 5px
   @media screen and (min-width: 992px)
-    max-width 31%
     padding 0 10px 0 5px
+  @media screen and (min-width: 1020px)
+    max-width 39%
   input
     font-size 14px
     color #272b30
@@ -339,7 +340,7 @@
     color #aaa
     position absolute
     top 12px
-    left 25px
+    left 10px
     font-size 90%
     opacity 0.9
     @media screen and (min-width: 768px)
