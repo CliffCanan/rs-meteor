@@ -239,11 +239,13 @@ Meteor.methods
             extension = photo.mime.split('/')[1]
             fileName = "#{property._id}_#{photo.objectId}.#{extension}"
             newFile.name(fileName)
+            Meteor.sleep 2000
             file = Promise.await BuildingImages.insert newFile
             Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+            Meteor.sleep 2000
             console.log "Saving #{fileName} - #{i} / #{photos.length} photos."
             i++
-            Meteor.sleep 4000
+            Meteor.sleep 2000
             photoFuture.return('done')
           else
             photoFuture.return status: 400, message: photo.error.message, buildingId: property._id, mlsNo: property.source.mlsNo
