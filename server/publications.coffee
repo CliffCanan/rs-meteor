@@ -85,6 +85,14 @@ Meteor.publish "buildings", (cityId, query, page) ->
     agroPriceBedroom1To: 1
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
+    agroPriceBedroom3From: 1
+    agroPriceBedroom3To: 1
+    agroPriceBedroom4From: 1
+    agroPriceBedroom4To: 1
+    agroPriceBedroom5From: 1
+    agroPriceBedroom5To: 1
+    agroPriceBedroom6From: 1
+    agroPriceBedroom6To: 1
     averageRating: 1
     bathroomsFrom: 1
     bathroomsTo: 1
