@@ -521,9 +521,9 @@ template(name="rentalApplication")
                     .panel-heading
                       h5.panel-title
                         | Have you or anyone included in this application ever...
-                        button#no-to-all-criminal-history.btn.btn-default.btn-xs-pull-right(type="button") No to All
+                        button#no-to-all-criminal-history.btn.btn-default.btn-xs(type="button") No to All
 
-                    .panel-body
+                    .panel-body.p-0
                       .criminal-history-input-wrapper.p-t-20
                         .form-group
                           label.col-xs-3.col-sm-2.align-top Filed For Bankruptcy?
@@ -679,7 +679,7 @@ template(name="rentalApplication")
                               i.fa.fa-spin.fa-spinner
                               i.fa.fa-check-circle.text-success
                         td #{size}
-                        td {{getFormatted dateCreated}}
+                        td {{getFormatted uploadedAt}}
                         if canOperateWithBuilding
                           td
                             if isUploadedByAdmin
