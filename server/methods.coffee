@@ -195,7 +195,7 @@ Meteor.methods
     if building
       buildingId = building._id
 
-      if options.force is true
+      if options and options.force is true
         if building.images
           _.each building.images (buildingImage) ->
             BuildingImages.remove(buildingImage._id);
