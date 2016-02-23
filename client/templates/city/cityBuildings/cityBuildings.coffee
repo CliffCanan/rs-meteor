@@ -16,11 +16,12 @@ Template.cityBuildings.onRendered ->
     $('[data-toggle="tooltip"]').tooltip()
 
     $(".main-city-list").hoverIntent ->
-      if not $(this).hasClass('images-subscribed')
-        $carousel = $(this).find('.carousel')
-        building = Blaze.getData(this)
-        instance.subscribe "buildingImages", building._id
-        $(this).addClass('images-subscribed')
+      if $(window).width() < 1100
+        if not $(this).hasClass('images-subscribed')
+          $carousel = $(this).find('.carousel')
+          building = Blaze.getData(this)
+          instance.subscribe "buildingImages", building._id
+          $(this).addClass('images-subscribed')
     , '.main-city-img-link'
 
 

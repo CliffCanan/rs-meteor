@@ -516,60 +516,65 @@ template(name="rentalApplication")
               h3 Criminal History
 
               .form-group
-                .col-xs-12.col-sm-10.col-md-9.p-r-5
-                  .well Have you or anyone who is included in this application ever...
-                    a#no-to-all-criminal-history.m-l-10(href="#") No to all
+                .col-xs-12.col-sm-11.p-r-5
+                  .panel.panel-primary.m-b-15
+                    .panel-heading
+                      h5.panel-title
+                        | Have you or anyone included in this application ever...
+                        button#no-to-all-criminal-history.btn.btn-default.btn-xs-pull-right(type="button") No to All
 
-              .criminal-history-input-wrapper
-                .form-group
-                  label.col-xs-3.col-sm-2.align-top Filed For Bankruptcy?
-                  .col-xs-3.col-sm-1
-                    select#has-filed-for-bankruptcy.form-control(name="hasFiledForBankruptcy", value="#{fields.hasFiledForBankruptcy}")
-                      option(hidden, selected, value="")
-                      option(value="Yes") Yes
-                      option(value="No") No
-                  label.col-xs-3.col-sm-2 Been Evicted?
-                  .col-xs-3.col-sm-1
-                    select#has-been-evicted.form-control(name="hasBeenEvicted", value="#{fields.hasBeenEvicted}")
-                      option(hidden, selected, value="")
-                      option(value="Yes") Yes
-                      option(value="No") No
-                  label.col-xs-3.col-sm-2.align-top Refused to pay rent?
-                  .col-xs-3.col-sm-1
-                    select#has-refused-to-pay-rent.form-control(name="hasRefusedToPayRent", value="#{fields.hasRefusedToPayRent}")
-                      option(hidden, selected, value="")
-                      option(value="Yes") Yes
-                      option(value="No") No
-                  label.col-xs-3.col-sm-2.align-top Violated or broken any lease agreement?
-                  .col-xs-3.col-sm-1
-                    select#has-violated-or-broken-any-lease-agreement.form-control(name="hasViolatedOrBrokenAnyLeaseAgreement", value="#{fields.hasViolatedOrBrokenAnyLeaseAgreement}")
-                      option(hidden, selected, value="")
-                      option(value="Yes") Yes
-                      option(value="No") No
-                  label.col-xs-3.col-sm-2 Criminal History?
-                  .col-xs-3.col-sm-1
-                    select#has-a-criminal-history.form-control(name="hasACriminalHistory", value="#{fields.hasACriminalHistory}")
-                      option(hidden, selected, value="")
-                      option(value="Yes") Yes
-                      option(value="No") No
-                  label.col-xs-3.col-sm-2 Pending case?
-                  .col-xs-3.col-sm-1
-                    select#has-pending-case.form-control(name="hasPendingCase", value="#{fields.hasPendingCase}")
-                      option(hidden, selected, value="")
-                      option(value="Yes") Yes
-                      option(value="No") No
-                  label.col-xs-3.col-sm-2.align-top Registered Sex Offender?
-                  .col-xs-3.col-sm-1
-                    select#is-registered-sex-offender.form-control(name="isRegisteredSexOffender", value="#{fields.isRegisteredSexOffender}")
-                      option(hidden, selected, value="")
-                      option(value="Yes") Yes
-                      option(value="No") No
+                    .panel-body
+                      .criminal-history-input-wrapper.p-t-20
+                        .form-group
+                          label.col-xs-3.col-sm-2.align-top Filed For Bankruptcy?
+                          .col-xs-3.col-sm-1
+                            select#has-filed-for-bankruptcy.form-control(name="hasFiledForBankruptcy", value="#{fields.hasFiledForBankruptcy}")
+                              option(hidden, selected, value="")
+                              option(value="Yes") Yes
+                              option(value="No") No
+                          label.col-xs-3.col-sm-2 Been Evicted?
+                          .col-xs-3.col-sm-1
+                            select#has-been-evicted.form-control(name="hasBeenEvicted", value="#{fields.hasBeenEvicted}")
+                              option(hidden, selected, value="")
+                              option(value="Yes") Yes
+                              option(value="No") No
+                          label.col-xs-3.col-sm-2.align-top Refused to pay rent?
+                          .col-xs-3.col-sm-1
+                            select#has-refused-to-pay-rent.form-control(name="hasRefusedToPayRent", value="#{fields.hasRefusedToPayRent}")
+                              option(hidden, selected, value="")
+                              option(value="Yes") Yes
+                              option(value="No") No
+                          label.col-xs-3.col-sm-2.align-top Violated or broken any lease agreement?
+                          .col-xs-3.col-sm-1
+                            select#has-violated-or-broken-any-lease-agreement.form-control(name="hasViolatedOrBrokenAnyLeaseAgreement", value="#{fields.hasViolatedOrBrokenAnyLeaseAgreement}")
+                              option(hidden, selected, value="")
+                              option(value="Yes") Yes
+                              option(value="No") No
+                          label.col-xs-3.col-sm-2 Criminal History?
+                          .col-xs-3.col-sm-1
+                            select#has-a-criminal-history.form-control(name="hasACriminalHistory", value="#{fields.hasACriminalHistory}")
+                              option(hidden, selected, value="")
+                              option(value="Yes") Yes
+                              option(value="No") No
+                          label.col-xs-3.col-sm-2 Pending case?
+                          .col-xs-3.col-sm-1
+                            select#has-pending-case.form-control(name="hasPendingCase", value="#{fields.hasPendingCase}")
+                              option(hidden, selected, value="")
+                              option(value="Yes") Yes
+                              option(value="No") No
+                          label.col-xs-3.col-sm-2.align-top Registered Sex Offender?
+                          .col-xs-3.col-sm-1
+                            select#is-registered-sex-offender.form-control(name="isRegisteredSexOffender", value="#{fields.isRegisteredSexOffender}")
+                              option(hidden, selected, value="")
+                              option(value="Yes") Yes
+                              option(value="No") No
 
-              .criminal-history-explanation-wrapper(style="display: none")
-                .form-group
-                  label.col-sm-4.col-md-3 Please explain in detail (stating place, offense, date, etc.)
-                  .col-sm-6.col-md-7
-                    textarea.form-control(type="text", name="criminalHistoryExplanation", value="#{fields.criminalHistoryExplanation}")
+                      .criminal-history-explanation-wrapper(style="display: none")
+                        .form-group
+                          label.col-sm-4 Please provide details here
+                            small (place, offense, date, etc.)
+                          .col-sm-8
+                            textarea.form-control(type="text", name="criminalHistoryExplanation", value="#{fields.criminalHistoryExplanation}", rows="3")
 
 
               h3 Personal References

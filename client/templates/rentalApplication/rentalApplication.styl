@@ -84,7 +84,26 @@
       font-weight normal
       line-height 14px
       position relative
-      top -2px
+      top -1px
+
+  .panel
+    text-align left
+    margin-top 10px
+    .panel-heading
+      @media screen and (min-width: 768px)
+        padding 12px 16px
+      button
+        position absolute
+        right 12px
+        top 8px
+        @media screen and (min-width: 768px)
+          right 15px
+          top 10px
+
+    .criminal-history-input-wrapper
+      padding 20px 0 10px
+      @media screen and (min-width: 1200px)
+        padding 25px 0 15px
 
   .section-spacer
     background rgba(0,10,20,.1)
