@@ -243,7 +243,7 @@ Meteor.methods
             Buildings.update(_id: buildingId, {$addToSet: {images: file}})
             console.log "Saving #{fileName} - #{i} / #{photos.length} photos."
             i++
-            Meteor.sleep 2000
+            Meteor.sleep 4000
             photoFuture.return('done')
           else
             photoFuture.return status: 400, message: photo.error.message, buildingId: property._id, mlsNo: property.source.mlsNo
