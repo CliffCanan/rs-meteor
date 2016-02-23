@@ -223,6 +223,7 @@ Meteor.methods
       version:'RETS/1.7.2'
       userAgent: "MRIS Conduit/2.0"
 
+    @unblock()
     console.log "Getting photos for building with ListingKey: #{property.source.listingKey}"
     RETS.getAutoLogoutClient clientSettings, Meteor.bindEnvironment (client) ->
       return client.objects.getPhotos("Property", "Photo", property.source.listingKey)
