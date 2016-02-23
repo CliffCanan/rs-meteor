@@ -229,30 +229,33 @@ Meteor.methods
       .then Meteor.bindEnvironment (photos) ->
         i = 1
         console.log "Received #{photos.length} objects."
-        Promise.all(photos.map (photo) ->
-          return new Promise (resolvePhoto) ->
-            if photo.buffer
-              newFile = new FS.File()
-              Promise.await newFile.attachData photo.buffer, type: photo.mime
-              extension = photo.mime.split('/')[1]
-              fileName = "#{property._id}_#{photo.objectId}.#{extension}"
-              newFile.name(fileName)
-              file = Promise.await BuildingImages.insert newFile
-              Buildings.update(_id: buildingId, {$addToSet: {images: file}})
-              console.log "Saving #{fileName} - #{i} / #{photos.length} photos."
-              i++
-              Meteor.sleep 1000
-              resolvePhoto()
-            else
-              fut.return status: 400, message: photo.error.message, buildingId: property._id, mlsNo: property.source.mlsNo
-        ).then ->
-          console.log "All photos processed for #{property._id}"
-          fut.return status: 200, message: 'done', buildingId: property._id, mlsNo: property.source.mlsNo
+        _.each photos, (photo) ->
+          photoFuture = new Future()
+
+          if photo.buffer
+            newFile = new FS.File()
+            Promise.await newFile.attachData photo.buffer, type: photo.mime
+            extension = photo.mime.split('/')[1]
+            fileName = "#{property._id}_#{photo.objectId}.#{extension}"
+            newFile.name(fileName)
+            file = Promise.await BuildingImages.insert newFile
+            Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+            console.log "Saving #{fileName} - #{i} / #{photos.length} photos."
+            i++
+            Meteor.sleep 2000
+            photoFuture.return('done')
+          else
+            photoFuture.return status: 400, message: photo.error.message, buildingId: property._id, mlsNo: property.source.mlsNo
+
+          photoFuture.wait()
+
+        console.log "All photos processed for #{property._id}"
+        fut.return status: 200, message: 'done', buildingId: property._id, mlsNo: property.source.mlsNo
 
       .catch Meteor.bindEnvironment (error) ->
         console.log error
         fut.return status: 400, message: error.message, buildingId: property._id, mlsNo: property.source.mlsNo
-    
+
     .catch Meteor.bindEnvironment (error) ->
       console.log error
       fut.return status: 400, message: error.message, buildingId: property._id, mlsNo: property.source.mlsNo
