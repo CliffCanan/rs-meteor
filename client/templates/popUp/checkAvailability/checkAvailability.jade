@@ -52,8 +52,8 @@ template(name="checkAvailability")
 
               fieldset.row.form-inline.availability-field
                 .col-xs-5.text-right
-                  i.fa.fa-info-circle(data-toggle="popover", data-trigger="hover click", data-placement="auto", title="Expected Move-In Date", data-content="Apartments tend to come and go quickly, so availability depends on when you expect to move. If you're not sure yet, an estimate is ok!")
                   label.availability-text(for="datetimeForm")
+                    i.fa.fa-info-circle(data-toggle="popover", data-trigger="hover click", data-placement="auto", title="Expected Move-In Date", data-content="Apartments tend to come and go quickly, so availability depends on when you expect to move. If you're not sure yet, an estimate is ok!")
                     | Move-In Date
                 .col-xs-7.col-sm-6.col-md-5
                   +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="MM/DD/YYYY" class="moveInData-moveInDate-editor" name="moveInDate")

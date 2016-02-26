@@ -211,9 +211,9 @@ class Building
       if queryBtype is "studio"
         "Studio"
       else if queryBtype is "bedroom1"
-        "1 Bedroom"
+        "1 BR"
       else
-        btypesIds.indexOf(queryBtype) + " Bedrooms"
+        btypesIds.indexOf(queryBtype) + " BR"
     else
       if @agroIsUnit
         btypes[@btype]?.upper.replace("room", "")
@@ -222,14 +222,17 @@ class Building
         postfix = ""
         if @agroPriceStudioFrom
           types.push("Studio")
-        if @agroPriceBedroom1From
-          types.push(1)
-          postfix = " Bedroom"
-        for i in [2..5]
+
+#        if @agroPriceBedroom1From
+#          types.push(1)
+#          postfix = " Bedroom"
+
+        for i in [1..5]
           if @["agroPriceBedroom" + i + "From"]
             types.push(i)
-            postfix = " Bedrooms"
-        types.join(", ") + postfix
+#            postfix = " Bedrooms"
+
+        types.join(", ") + "BR"
 
   bedroomTypesArray: ->
     types = []

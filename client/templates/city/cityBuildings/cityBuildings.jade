@@ -64,7 +64,7 @@ template(name="cityBuildings")
               a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}", itemprop="name") {{processedTitle}}
 
             if averageRating
-              .pull-right.m-t-5(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
+              .ratingWrap.m-t-5(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
                 meta(itemprop="worstRating" content="1")
                 meta(itemprop="bestRating" content="10")
                 i.fa.fa-star
