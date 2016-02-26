@@ -139,11 +139,11 @@ class Building
   getBathrooms: ->
     if @bathroomsFrom
       value = @bathroomsFrom
-      unless @bathroomsFrom is @bathroomsTo
+      if @bathroomsTo and @bathroomsFrom is not @bathroomsTo
         value += " - " + @bathroomsTo
-      value += " Bath"
-      if @bathroomsTo > 1
-        value += "s"
+      value += " BA"
+#      if @bathroomsTo > 1
+#        value += "s"
       value
 #    else if @agroIsUnit or @prices().length > 1
 #      "Bathrooms: Varies"
@@ -254,17 +254,6 @@ class Building
     fieldNameTo = fieldName + "To"
     if @[fieldNameFrom]
       "$" + accounting.formatNumber(@[fieldNameFrom]) + (if @[fieldNameFrom] is @[fieldNameTo] then "" else "+")
-
-  displayBathrooms: ->
-    if @bathroomsFrom
-      formattedBrm = @bathroomsFrom.toString()
-
-      if @bathroomsTo and @bathroomsTo is not @bathroomsFrom
-        formattedBrm += "-" + @bathroomsTo.toString() + " Bathrooms"
-      else
-        formattedBrm += " Bathroom"
-
-      return formattedBrm
 
   buildingUnits: (limit) ->
     options = {sort: {createdAt: -1, _id: 1}}

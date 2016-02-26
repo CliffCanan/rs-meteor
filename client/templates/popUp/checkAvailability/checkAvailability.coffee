@@ -10,6 +10,22 @@ Template.checkAvailability.helpers
   currentCity: ->
     cities[@cityId].long
 
+  isBizHours: ->
+    currentDate = new Date()
+    day = currentDate.getUTCDay()
+    # Get EST time
+    hour = currentTime.getUTCHours() - 5
+
+    # If UTC time is < 5:00am, then EST will be a day behind still
+    if hour < 0
+      hour += 24
+      day -= 1
+    # If converting hours from UTC to EST pushes the Day below 0 (i.e. it's b/t 12:00-5:00am UTC on a Sunday), need to correct the day value
+    day += 7 if day < 0
+
+    if (day > 0 and day < 6 and hour > 7 and hour < 20) then true else false
+
+
 Template.checkAvailability.rendered = ->
 
   Session.set("serverError", false)
@@ -40,14 +56,14 @@ Template.checkAvailability.rendered = ->
 #        validators:
 #          notEmpty:
 #            message: 'Please select your target number of bedrooms'
-#      moveInDate:
-#        validators:
-#          notEmpty:
-#            message: 'Please enter your target move-in date.'
-#          date:
-#            format: "MM/DD/YYYY"
-#            min: moment().subtract(1, "d").toDate()
-#            message: 'Please enter future date in MM/DD/YYYY format'
+      moveInDate:
+        validators:
+          notEmpty:
+            message: 'Please enter your target move-in date.'
+          date:
+            format: "MM/DD/YYYY"
+            min: moment().subtract(1, "d").toDate()
+            message: 'Please select a date in the future!'
 #      city:
 #        validators:
 #          notEmpty:
@@ -136,6 +152,8 @@ Template.checkAvailability.events
 
   "shown.bs.modal #checkAvailabilityPopup": grab encapsulate (event, template) ->
     Session.set "hasSeenCheckAvailabilityPopup", true
+
+    $('[data-toggle="popover"]').popover()
     $("#checkAvailabilityPopup #leadphone").mask "(999) 999-9999", placeholder: " "
 
     if $(window).width() > 992

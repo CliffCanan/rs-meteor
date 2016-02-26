@@ -22,7 +22,13 @@ template(name="checkAvailability")
                     | unit's
                   else
                     | building's
-                  | availability and get back to you within 60 minutes.
+                  | availability and
+                  span.hide-sm one of our Apartment Hunters will
+                  | get back to you
+                  if isBizHours
+                    | within 60 minutes.
+                  else
+                    | ASAP.
 
               //-unless condition agroIsUnit 'is' true
               //-  fieldset.row.form-inline.availability-field#bedrooms-wrapper
@@ -45,7 +51,8 @@ template(name="checkAvailability")
               //-            option(value="5") 5+
 
               fieldset.row.form-inline.availability-field
-                .col-xs-5
+                .col-xs-5.text-right
+                  i.fa.fa-info-circle(data-toggle="popover", data-trigger="hover click", data-placement="auto", title="Expected Move-In Date", data-content="Apartments tend to come and go quickly, so availability depends on when you expect to move. If you're not sure yet, an estimate is ok!")
                   label.availability-text(for="datetimeForm")
                     | Move-In Date
                 .col-xs-7.col-sm-6.col-md-5

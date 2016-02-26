@@ -25,8 +25,27 @@ template(name="city")
         if clientRecommendationsList
           +clientRecommendationsToggle
 
-        .row.m-t-5.m-b-10
-          .col-xs-6(class="{{#if canOperateWithBuilding}}col-lg-5{{else}}col-lg-8{{/if}}")
+        .row
+          .col-xs-12.col-sm-6.col-sm-push-6(class="{{#if canOperateWithBuilding}}col-lg-7 col-lg-push-5{{else}}col-lg-4 col-sm-push-8{{/if}}")
+            .row
+
+              if canOperateWithBuilding
+                .col-xs-3.hide-md
+                  button.btn.btn-sm.btn-primary.button-building-insert
+                    i.fa.fa-plus
+                    | Add Listing
+
+                .col-xs-5.filter-wrap.unpublished-property-toggle-wrapper.hide-md
+                  span Toggle Unpublished Properties:
+                  label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
+                    input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
+
+
+              .building-title-search-wrapper(style="{{#unless canOperateWithBuilding}}max-width:100%;{{/unless}}")
+                input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
+                i.fa.fa-fw.fa-search
+
+          .col-xs-12.col-sm-6.col-sm-pull-6(class="{{#if canOperateWithBuilding}}col-lg-5 col-lg-pull-7{{else}}col-lg-8 col-lg-pull-4{{/if}}")
 
             if hasAnyFilters
               .row.filterRow
@@ -84,26 +103,6 @@ template(name="city")
 
                     //-if available
                     //-  label.label.label-primary.filter-tag Available {{available}}
-
-
-          .col-xs-6(class="{{#if canOperateWithBuilding}}col-lg-7{{else}}col-lg-4{{/if}}")
-            .row
-
-              if canOperateWithBuilding
-                .col-xs-3.hide-md
-                  button.btn.btn-sm.btn-primary.button-building-insert
-                    i.fa.fa-plus
-                    | Add Listing
-
-                .col-xs-5.filter-wrap.unpublished-property-toggle-wrapper.hide-md
-                  span Toggle Unpublished Properties:
-                  label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
-                    input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
-
-
-              .pull-right.building-title-search-wrapper(style="{{#unless canOperateWithBuilding}}max-width:100%;{{/unless}}")
-                input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
-                i.fa.fa-fw.fa-search
 
 
         #mobile-cta.clearfix
