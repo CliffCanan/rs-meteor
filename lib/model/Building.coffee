@@ -249,7 +249,7 @@ class Building
       if unit
         return formatPriceDisplay unit.priceFrom, unit.priceTo if unit.priceFrom
 
-    fieldName = "agroPrice" + (if queryBtype then queryBtype.charAt(0).toUpperCase() + queryBtype.slice(1) else "Total")
+    fieldName = "agroPrice" + (if queryBtype then "B" + queryBtype.slice(1) else "Total")
     fieldNameFrom = fieldName + "From"
     fieldNameTo = fieldName + "To"
     if @[fieldNameFrom]
