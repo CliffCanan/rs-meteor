@@ -92,13 +92,18 @@
       font-size 16px
       width 100%
 
-.is-down ~ .toggle-city-header.icon
-  @media screen and (max-width: 767px)
-    display none
-  @media screen and (min-width: 768px)
-    top 80px !important
-  @media screen and (min-width: 992px)
-    top 95px !important
+.is-down
+  ~ .toggle-city-header.icon
+    @media screen and (max-width: 767px)
+      display none
+    @media screen and (min-width: 768px)
+      top 80px !important
+    @media screen and (min-width: 992px)
+      top 95px !important
+
+  + .p-relative .city-page-wrap
+    @media screen and (max-width: 767px)
+      padding-top 10px !important
 
 .city-sub-header-list-wrap
   margin-top 10px

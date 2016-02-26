@@ -10,10 +10,10 @@ Template.cityBuildings.onRendered ->
 
   instance = Template.instance()
 
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip() if $(window).width() > 1030
 
   _.defer ->
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip() if $(window).width() > 1030
 
     $(".main-city-list").hoverIntent ->
       if $(window).width() < 1100
