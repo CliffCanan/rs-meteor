@@ -259,7 +259,7 @@ class Building
     if @bathroomsFrom
       formattedBrm = @bathroomsFrom.toString()
 
-      if @bathroomsTo
+      if @bathroomsTo and @bathroomsTo is not @bathroomsFrom
         formattedBrm += "-" + @bathroomsTo.toString() + " Bathrooms"
       else
         formattedBrm += " Bathroom"
