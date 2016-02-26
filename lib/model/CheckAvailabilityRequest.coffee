@@ -26,5 +26,3 @@ CheckAvailabilityRequests.before.update (userId, CheckAvailabilityRequest, field
   modifier.$set = modifier.$set or {}
   CheckAvailabilityRequestPreSave.call(@, modifier.$set)
   true
-
-
