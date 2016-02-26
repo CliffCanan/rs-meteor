@@ -120,7 +120,7 @@ Template.checkAvailability.rendered = ->
 
           swal
             title: "Request Submitted!"
-            text: "We've received your info and we'll be in touch within 24 hours to let you know if this unit is still available."
+            text: "We've received your request and we'll get right back to you about this unit's availability."
             type: "success"
             showCancelButton: false
             confirmButtonColor: "#4588fa"

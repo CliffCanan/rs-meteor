@@ -21,7 +21,8 @@ template(name="contactUs")
               span.free &nbsp;100% free
               | for renters.
 
-            //-fieldset.row.contact-us-field
+            fieldset.row.contact-us-field
+
             //-  .col-xs-6
             //-    .form-group
             //-      .input-group
@@ -35,12 +36,12 @@ template(name="contactUs")
             //-          option(value="3") 3 Bedroom
             //-          option(value="4") 4 Bedroom
 
-            //-  .col-xs-6
-            //-    .form-group#maxRent
-            //-      .input-group
-            //-        .input-group-addon
-            //-          i.fa.fa-usd
-            //-        input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
+              .col-xs-6
+                .form-group#maxRent
+                  .input-group
+                    .input-group-addon
+                      i.fa.fa-usd
+                    input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
 
             //-fieldset.row.form-group.contact-us-field#tour-question-wrapper
             //-  label.col-xs-5.p-t-0
@@ -67,8 +68,9 @@ template(name="contactUs")
             //-fieldset.row.contact-us-field
             //-  .form-group.col-xs-6
             //-    +datepicker(id="contactUsTourDate" placeholder="Tour Date" class="tour-date" name="contactUsTourDate")
-            //-  .form-group.col-xs-6
-            //-    +datepicker(id="contactUsMoveInDate" placeholder="Move-In Date" class="move-in-data" name="contactUsMoveInDate")
+
+              .form-group.col-xs-6
+                +datepicker(id="contactUsMoveInDate" placeholder="Move-In Date" class="move-in-data" name="contactUsMoveInDate")
 
             .form-group.fg-float#contactUsNameGrp
               span

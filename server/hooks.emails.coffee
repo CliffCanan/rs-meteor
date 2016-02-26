@@ -21,7 +21,7 @@ CheckAvailabilityRequests.after.insert (userId, request) ->
     from: "bender-checkavail@rentscene.com"
     to: emails[transformedRequest.cityId]
     replyTo: transformedRequest.name + ' <' + transformedRequest.email + '>'
-    subject: "Check Availability Request from " + transformedRequest.name + " in " + request.cityName
+    subject: "New Lead: Check Availability Request from " + transformedRequest.name + " in " + request.cityName
     html: Spacebars.toHTML({request: transformedRequest, settings: Meteor.settings}, Assets.getText("requests/checkAvailabilityEmail.html"))
 
 
@@ -36,5 +36,5 @@ ContactUsRequests.after.insert (userId, request) ->
     from: "bender-contactus@rentscene.com"
     to: emails[transformedRequest.cityId]
     replyTo: transformedRequest.name + ' <' + transformedRequest.email + '>'
-    subject: 'Contact Us Message from ' + transformedRequest.name + ' in ' + transformedRequest.cityName
+    subject: 'New Lead: Contact Us request from ' + transformedRequest.name + ' in ' + transformedRequest.cityName
     html: Spacebars.toHTML({request: transformedRequest, settings: Meteor.settings}, Assets.getText("requests/contactUsEmail.html"))

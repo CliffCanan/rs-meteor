@@ -8,8 +8,8 @@ ContactUsRequests.allow
       email: String
       phoneNumber: String
       #bedrooms: String
-      #maxMonthlyRent: String
-      #contactUsMoveInDate: String
+      maxMonthlyRent: String
+      contactUsMoveInDate: String
       #contactUsTourDate: String
       #tourOption: String
       city: String

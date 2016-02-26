@@ -6,7 +6,7 @@ CheckAvailabilityRequests.allow
       name: String
       email: String
       phoneNumber: String
-      #moveInDate: String
+      moveInDate: String
       cityName: String
       cityId: String
       buildingName: String

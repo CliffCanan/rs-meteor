@@ -27,11 +27,11 @@
         <tr>
             <td><strong>City:</strong></td>
             <td><span style="text-transform:capitalize">{{request.cityId}}</span></td>
-        </tr><!--
+        </tr>
         <tr>
             <td><b>Move-In Date:</b></td>
-            <td>{{request.moveInDate}}</td>
-        </tr>
+            <td>{{#if request.moveInDate}} {{request.moveInDate}} {{/if}}</td>
+        </tr><!--
         <tr>
             <td><b># of Bedrooms:</b></td>
             <td>{{request.bedrooms}}</td>

@@ -39,16 +39,16 @@ Template.contactUs.rendered = ->
 #        validators:
 #          notEmpty:
 #            message: 'Please select your target number of bedrooms'
-#      maxMonthlyRent:
-#        validators:
-#          notEmpty:
-#            message: 'Please enter the MOST you\'re willing to pay per month.'
-#          greaterThan:
-#            value: 1000
-#            message: "Most of our units begin at $1,000/mo, unfortunately."
-#          lessThan:
-#            value: 5000
-#            message: "Most of our units are below $5,000/mo, unfortunately."
+      maxMonthlyRent:
+        validators:
+          notEmpty:
+            message: 'Please enter the MOST you\'re willing to pay per month.'
+          greaterThan:
+            value: 800
+            message: "Most of our units begin at $800/mo, unfortunately."
+          lessThan:
+            value: 5000
+            message: "Most of our units are below $5,000/mo, unfortunately."
 #      tourOption:
 #        validators:
 #          notEmpty:
@@ -116,7 +116,7 @@ Template.contactUs.rendered = ->
         else
           Session.set("serverError", false)
 
-          console.log("Contact Us Form Submitted Successfully!")
+          #console.log("Contact Us Form Submitted Successfully!")
 
           $('#contactUsPopup').modal('hide')
 
@@ -144,7 +144,7 @@ Template.contactUs.rendered = ->
 
           swal
             title: "Great Success!"
-            text: "Good news - our team is already on the hunt to find the perfect apartment for you.<span class='show m-t-10'>We'll follow-up within 24 hours, and then you'll get a customized list of the best apartments that match your criteria.</span>"
+            text: "Good news - our team is already on the hunt to find the perfect apartment for you.<span class='show m-t-10'>We'll get right back to you and show you the best apartments for your budget and lifestyle.</span>"
             type: "success"
             showCancelButton: false
             confirmButtonColor: "#4588fa"
