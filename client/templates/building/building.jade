@@ -116,15 +116,43 @@ template(name="building")
               if isEdit
                 .col-xs-12.col-sm-7.col-md-12.p-0.clearfix
 
-                  .building-main-prop
+                  .form-group
                     label Square Feet
                     .row
-                      .col-xs-5.col-md-4.p-r-10
+                      .col-xs-5.col-md-4.p-r-5
                         input.input-from-to.form-control(type="text", name="sqftFrom", value="{{sqftFrom}}")
-                      .col-xs-1.p-0
+                      .col-xs-1.p-0.text-center
                         | -
-                      .col-xs-5.col-md-4.p-l-10
+                      .col-xs-5.col-md-4.p-l-5
                         input.input-from-to.form-control(type="text", name="sqftTo", value="{{sqftTo}}")
+
+
+                  .form-group.clearfix
+                    label Bedrooms
+                      i.fa.fa-fw.fa-bed
+                    .row
+                      .col-xs-6
+                        .input-group.m-b-5
+                          .input-group-addon From
+                          input.input-from-to.form-control(type="text", name="bedroomsFrom", value="{{bedroomsFrom}}")
+                      .col-xs-6
+                        .input-group.m-b-5
+                          .input-group-addon To
+                          input.input-from-to.form-control(type="text", name="bedroomsTo", value="{{bedroomsTo}}")
+
+                  .form-group.m-b-25
+                    label Bathrooms
+                      img.bath-icon(src="/images/bath.svg")
+                    .row
+                      .col-xs-6
+                        .input-group.m-b-5
+                          .input-group-addon From
+                          input.input-from-to.form-control(type="text", name="bathroomsFrom", value="{{bathroomsFrom}}")
+                      .col-xs-6
+                        .input-group.m-b-5
+                          .input-group-addon To
+                          input.input-from-to.form-control(type="text", name="bathroomsTo", value="{{bathroomsTo}}")
+
 
                   each complexFields true
 
@@ -158,32 +186,6 @@ template(name="building")
                     label.col-xs-7.control-label(for="acceptOnlineApplication") Accept Online App:
                     .col-xs-5
                       input(type="checkbox", name="acceptOnlineApplication", value="true", checked="{{acceptOnlineApplication}}")
-
-                  .form-group.clearfix
-                    label Bedrooms
-                    .input-group.m-b-5
-                      .input-group-addon From
-                      input.input-from-to.form-control(type="text", name="bedroomsFrom", value="{{bedroomsFrom}}")
-                      .input-group-addon
-                        i.fa.fa-fw.fa-bed
-                    .input-group.m-b-5
-                      .input-group-addon To
-                      input.input-from-to.form-control(type="text", name="bedroomsTo", value="{{bedroomsTo}}")
-                      .input-group-addon
-                        i.fa.fa-fw.fa-bed
-
-                  .form-group
-                    label Bathrooms
-                    .input-group.m-b-5
-                      .input-group-addon From
-                      input.input-from-to.form-control(type="text", name="bathroomsFrom", value="{{bathroomsFrom}}")
-                      .input-group-addon
-                        img.bath-icon(src="/images/bath.svg")
-                    .input-group.m-b-5
-                      .input-group-addon To
-                      input.input-from-to.form-control(type="text", name="bathroomsTo", value="{{bathroomsTo}}")
-                      .input-group-addon
-                        img.bath-icon(src="/images/bath.svg")
 
               else
                 ul.col-xs-12.col-sm-7.col-md-12.building-main-prop-list.list-unstyled.clearfix

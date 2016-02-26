@@ -51,16 +51,12 @@ Template.cityHeader.helpers
     share.neighborhoodsInCity cityId
 
   currentListingType: ->
-    toReturn = 'Managed'
 
-    if @query.listingType
-      if @query.listingType is 'managed'
-        toReturn += ' Buildings' if $(window).width() > 600
+    if @query.listingType and @query.listingType is 'broker'
+      if $(window).width() > 767 then return 'Expanded Listings' else return 'Expanded'
 
-      else if @query.listingType is 'broker'
-        if $(window).width() > 600 then return 'Broker Listings' else return 'Broker'
-
-    toReturn
+    else
+      if $(window).width() > 767 then return 'Featured' else return 'Featured'
 
   currentBedroomType: ->
     btypes[@query.btype]?.lower ? "Any"
@@ -179,16 +175,24 @@ Template.cityHeader.events
     data = template.data
     $li = $(event.currentTarget)
     $li.closest(".dropdown").removeClass("open")
+
     query = data.query
+
     if listingType = $li.attr("data-value")
       query.listingType = listingType
+      analytics.track "Clicked LISTING TYPE Btn (City Header)", {label: listingType} unless Meteor.user()
     else
       delete query.listingType
 
-    routeParams = {}
-    routeParams.cityId = data.cityId if data.cityId
-    routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
-    Router.go('city', routeParams, {query: query})
+    routeName = Router.current().route.getName()
+    if routeName is "clientRecommendations"
+      Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
+    else
+      routeParams = {}
+      routeParams.cityId = data.cityId if data.cityId
+      routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+      Router.go(routeName, routeParams, {query: query})
+
 
   "change .bedroom-type-select select": (event, template) ->
 

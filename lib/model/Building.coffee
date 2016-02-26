@@ -200,6 +200,7 @@ class Building
         fields.push(field)
 
     fields
+
   bedroomTypes: (queryBtype) ->
     if Session.get "showRecommendations"
       unit = getCurrentClientUnit(@_id)
@@ -253,6 +254,17 @@ class Building
     fieldNameTo = fieldName + "To"
     if @[fieldNameFrom]
       "$" + accounting.formatNumber(@[fieldNameFrom]) + (if @[fieldNameFrom] is @[fieldNameTo] then "" else "+")
+
+  displayBathrooms: ->
+    if @bathroomsFrom
+      formattedBrm = @bathroomsFrom.toString()
+
+      if @bathroomsTo
+        formattedBrm += "-" + @bathroomsTo.toString() + " Bathrooms"
+      else
+        formattedBrm += " Bathroom"
+
+      return formattedBrm
 
   buildingUnits: (limit) ->
     options = {sort: {createdAt: -1, _id: 1}}

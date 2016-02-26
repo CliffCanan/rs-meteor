@@ -35,6 +35,10 @@
     @media screen and (max-width: 767px)
       margin-top 0
     .dropdown-toggle
+      white-space nowrap
+      overflow hidden
+      padding 6px
+      text-overflow ellipsis
       > span
         text-transform capitalize
         @media screen and (min-width: 768px) and (max-width: 1020px)
@@ -104,8 +108,6 @@
 
   &.col-sm-2
     padding 0 15px 10px
-    @media screen and (min-width: 1200px)
-      padding 0 6px
 
   &.bedroom-type-select
     margin 10px auto
@@ -278,8 +280,6 @@
       position absolute
       top 20px
       right 22px
-      @media screen and (min-width: 992px)
-        right 13px
 
 .open
   .dropdown-menu

@@ -26,7 +26,7 @@ template(name="city")
           +clientRecommendationsToggle
 
         .row.m-t-5.m-b-10
-          .col-xs-6.col-lg-5
+          .col-xs-6(class="{{#if canOperateWithBuilding}}col-lg-5{{else}}col-lg-8{{/if}}")
 
             if hasAnyFilters
               .row.filterRow
@@ -86,7 +86,7 @@ template(name="city")
                     //-  label.label.label-primary.filter-tag Available {{available}}
 
 
-          .col-xs-6.col-lg-7
+          .col-xs-6(class="{{#if canOperateWithBuilding}}col-lg-7{{else}}col-lg-4{{/if}}")
             .row
 
               if canOperateWithBuilding
@@ -101,7 +101,7 @@ template(name="city")
                     input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
 
-              .pull-right.building-title-search-wrapper
+              .pull-right.building-title-search-wrapper(style="{{#unless canOperateWithBuilding}}max-width:100%;{{/if}}")
                 input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
                 i.fa.fa-fw.fa-search
 

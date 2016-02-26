@@ -73,7 +73,15 @@ template(name="cityBuildings")
             .main-city-info.clearfix
               i.fa.fa-bed
               span.main-city-desc {{bedroomTypes ../queryBtype}}
-              
+
+            if displayBathrooms
+              .main-city-info.clearfix
+                span.baths-icon
+                  img.bath-icon(src="/images/bath.svg")
+                span.main-city-desc {{displayBathrooms}}
+
+
+
             if brokerageName
               .brokerage-info
                 span

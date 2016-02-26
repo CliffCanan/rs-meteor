@@ -645,13 +645,17 @@ template(name="rentalApplication")
 
               .form-group
                 .col-xs-12.col-sm-11
-                  .well Please attach your ID (license or passport) and 2 recent pay stubs.
+                  .well Please attach your
+                    strong ID (license or passport)
+                    |and
+                    strong 2 recent pay stubs.
                     div.m-t-10.hide-non-student
                       strong Students
                       | should include school acceptance letter and proof of ability to afford apartment (bank statements, loan documents, award letters, etc.)
 
               form(action="/file-upload").dropzone.dropzone-user
                 .dz-message To upload your additional documents, drop files here (or click)
+
                 table#files-list.table
                   thead
                     tr
