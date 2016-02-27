@@ -178,5 +178,5 @@ share.neighborhoodsInCity = (cityId) ->
     if results
       filteredResults = _.reject(results.neighborhoods, (n) ->
         n is not ""
-
+      )
       filteredResults

@@ -232,7 +232,7 @@ class Building
             types.push(i)
 #            postfix = " Bedrooms"
 
-        types.join(", ") + "BR"
+        types.join(", ") + " BR"
 
   bedroomTypesArray: ->
     types = []
