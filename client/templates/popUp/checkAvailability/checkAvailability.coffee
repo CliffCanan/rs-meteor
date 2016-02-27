@@ -23,7 +23,7 @@ Template.checkAvailability.helpers
     # If converting hours from UTC to EST pushes the Day below 0 (i.e. it's b/t 12:00-5:00am UTC on a Sunday), need to correct the day value
     day += 7 if day < 0
 
-    if (day > 0 and day < 6 and hour > 7 and hour < 20) then true else false
+    if (day is not 6 and hour > 7 and hour < 20) then true else false
 
 
 Template.checkAvailability.rendered = ->

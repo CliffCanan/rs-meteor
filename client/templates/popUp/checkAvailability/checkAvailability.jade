@@ -50,7 +50,7 @@ template(name="checkAvailability")
               //-            option(value="4") 4
               //-            option(value="5") 5+
 
-              fieldset.row.form-inline.availability-field
+              fieldset.row.form-inline.availability-field#moveinWrap
                 .col-xs-5.text-right
                   label.availability-text(for="datetimeForm")
                     i.fa.fa-info-circle(data-toggle="popover", data-trigger="hover click", data-placement="auto", title="Expected Move-In Date", data-content="Apartments tend to come and go quickly, so availability depends on when you expect to move. If you're not sure yet, an estimate is ok!")
@@ -93,6 +93,8 @@ template(name="checkAvailability")
                 i.fa.fa-chevron-circle-right.m-l-10(aria-hidden='true')
 
             .modal-footer
-              div Want to speak with us right now? &nbsp;Call
+              div Want to speak with us right now?
+                br
+                | Call
                 a.call-now(href="tel://1-215-995-5890") (215) 995-5890
                 span.period .

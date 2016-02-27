@@ -176,4 +176,7 @@ share.neighborhoodsInCity = (cityId) ->
   if context.neighborhoodsList? and context.neighborhoodsList
     results = _.findWhere(context.neighborhoodsList, {cityId: cityId})
     if results
-      results.neighborhoods
+      filteredResults = _.reject(results.neighborhoods, (n) ->
+        n is not ""
+
+      filteredResults

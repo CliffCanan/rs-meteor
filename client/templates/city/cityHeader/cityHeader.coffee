@@ -15,10 +15,6 @@ Template.cityHeader.onRendered ->
     $('#address').focus()
   )
 
-  # For smaller screens, the original placeholder 'Search Buildings' doesn't fit within the input, so shortening to just 'Buildings'
-  if $(window).width() < 390
-    $('.building-title-search-wrapper input').attr('placeholder','Buildings')
-
 #  Tracker.autorun ->
 #    if Router.current() and Router.current().route.getName() is 'city'
 #      Meteor.setTimeout ->
