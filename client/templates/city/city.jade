@@ -25,9 +25,9 @@ template(name="city")
         if clientRecommendationsList
           +clientRecommendationsToggle
 
-        .row
+        .row#filterSearchWrap
           .col-xs-12.col-sm-6.col-sm-push-6(class="{{#if canOperateWithBuilding}}col-lg-7 col-lg-push-5{{else}}col-lg-4 col-sm-push-8{{/if}}")
-            .row.m-0
+            .row
 
               if canOperateWithBuilding
                 .col-xs-3.hide-md

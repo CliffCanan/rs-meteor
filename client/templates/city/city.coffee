@@ -234,6 +234,10 @@ Template.city.helpers
   showIDXDisclaimer: ->
     Router.current().params.query.listingType is 'broker'
 
+  isMobileSize: ->
+    $(window).width() > 767
+
+
 Template.city.onRendered ->
   instance = @
 
@@ -263,30 +267,33 @@ Template.city.onRendered ->
   @data.firstLoad = false
   setHeights()
   cityData = cities[@data.cityId]
-  map = new google.maps.Map document.getElementById("gmap"),
-    zoom: 14
-    center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
-    streetViewControl: false
-    scaleControl: false
-    rotateControl: false
-    panControl: false
-    overviewMapControl: false
-    mapTypeControl: true
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-    maxZoom: 17
-    minZoom: 11
 
-  @map = map
-  markers = {}
-  defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
-  activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
-  filterIcon = new google.maps.MarkerImage("/images/map-marker-active2.png", null, null, null, new google.maps.Size(50, 60))
+  if $(window).width() > 767
+    map = new google.maps.Map document.getElementById("gmap"),
+      zoom: 14
+      center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
+      streetViewControl: false
+      scaleControl: false
+      rotateControl: false
+      panControl: false
+      overviewMapControl: false
+      mapTypeControl: true
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+      maxZoom: 17
+      minZoom: 11
 
-  infoWindowId = null
-  infowindow = new google.maps.InfoWindow()
-  google.maps.event.addListener infowindow, "closeclick", ->
-    if infoWindowId != null
-      markers[infoWindowId].setIcon(defaultIcon)
+    @map = map
+    markers = {}
+    defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
+    activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
+    filterIcon = new google.maps.MarkerImage("/images/map-marker-active2.png", null, null, null, new google.maps.Size(50, 60))
+
+    infoWindowId = null
+    infowindow = new google.maps.InfoWindow()
+
+    google.maps.event.addListener infowindow, "closeclick", ->
+      if infoWindowId != null
+        markers[infoWindowId].setIcon(defaultIcon)
 
   # Quick CSS hack to add proper margins for non staff in recommendation list since toggle buttons are float.
   # Staff has the 'Add Listing button' which is not floated and adds a nice margin
@@ -295,7 +302,8 @@ Template.city.onRendered ->
       $('.main-city-list').css marginTop: 53
 
     citySubs.dep.depend()
-    if citySubs.ready
+
+    if $(window).width() > 767 and citySubs.ready
       data = Router.current().data()
 
       actualMarkerIds = []
