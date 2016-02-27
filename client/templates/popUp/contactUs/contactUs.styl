@@ -55,6 +55,9 @@
         label.outside
           position relative
           top 8px
+          span
+            @media screen and (max-width: 390px)
+              display none
 
         &#tour-question-wrapper
           .form-control-feedback
@@ -83,12 +86,14 @@
             &::-webkit-input-placeholder
               color #272b30
           &#maxRent .form-control-feedback
-            right 0
+            right 35px
+            top 10px
 
         .input-group
           .form-control
             font-size 14px
             height 35px
+            text-align center
             @media screen and (min-width: 768px)
               font-size 15px
               height 38px

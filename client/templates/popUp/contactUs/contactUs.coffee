@@ -164,7 +164,7 @@ Template.contactUs.events
     Session.set "hasSeenContactUsPopup", true
 
     $("#contactUsPopup #leadphone").mask "(999) 999-9999", placeholder: " "
-    $("input[name=\"maxMonthlyRent\"]").mask('999?9', {placeholder:" "})
+    #$("input[name=\"maxMonthlyRent\"]").mask('999?9', {placeholder:" "})
 
     if $(window).width() > 992
       Meteor.setTimeout(() ->
