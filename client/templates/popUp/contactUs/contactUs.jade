@@ -34,12 +34,12 @@ template(name="contactUs")
                   .input-group
                     .input-group-addon
                       i.fa.fa-usd
-                    input.form-control(name="maxMonthlyRent", placeholder="0", type="number", maxlength="4")
+                    input.form-control(name="maxMonthlyRent", placeholder="0", type="number", maxlength="4", pattern="[0-9]*")
                     .input-group-addon
                       | .00
 
             fieldset.row.contact-us-field
-              .col-xs-5.text-right.p-r-5
+              .col-xs-5.text-right.p-r-5.p-l-5
                 label.outside(for="datetimeForm")
                   i.fa.fa-info-circle.hide-sm(data-toggle="popover", data-trigger="hover click", data-placement="auto", title="Expected Move-In Date", data-content="Apartments tend to come and go quickly, so availability depends on when you expect to move. If you're not sure yet, an estimate is ok!")
                   | Move-In Date

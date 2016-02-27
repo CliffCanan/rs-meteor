@@ -70,12 +70,12 @@ template(name="cityBuildings")
                 i.fa.fa-star
                 span.average-rating(itemprop="ratingValue") {{averageRating}}
 
-            .main-city-info.clearfix
+            .main-city-info.clearfix#numBrs
               i.fa.fa-bed
               span.main-city-desc {{bedroomTypes ../queryBtype}}
 
             if getBathrooms
-              .main-city-info.clearfix
+              .main-city-info.clearfix#numBaths
                 span.baths-icon
                   img(src="/images/bath.svg")
                 span.main-city-desc {{getBathrooms}}
