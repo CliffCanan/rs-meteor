@@ -39,8 +39,11 @@
       box-sizing border-box
       padding 0
 
-      p .free
-        font-weight bold
+      p
+        @media screen and (max-width: 400px)
+          margin-bottom 10px !important
+        .free
+          font-weight bold
 
       .contact-us-field
         font-family 'Montserrat', Helvetica, sans-serif
@@ -48,6 +51,10 @@
           @media screen and (max-width: 768px)
             font-size 14px
         color #272b30
+
+        label.outside
+          position relative
+          top 8px
 
         &#tour-question-wrapper
           .form-control-feedback
@@ -77,6 +84,14 @@
               color #272b30
           &#maxRent .form-control-feedback
             right 0
+
+        .input-group
+          .form-control
+            font-size 14px
+            height 35px
+            @media screen and (min-width: 768px)
+              font-size 15px
+              height 38px
 
         .radio-inline
           margin-left -2px

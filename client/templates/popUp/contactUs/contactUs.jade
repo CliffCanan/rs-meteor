@@ -22,16 +22,30 @@ template(name="contactUs")
               | for renters.
 
             fieldset.row.contact-us-field
+              .col-xs-5.text-right.p-r-5
+                label.outside(for="datetimeForm")
+                  //-i.fa.fa-info-circle(data-toggle="popover", data-trigger="hover click", data-placement="auto", title="Expected Move-In Date", data-content="Apartments tend to come and go quickly, so availability depends on when you expect to move. If you're not sure yet, an estimate is ok!")
+                  | Max
+                  span Monthly
+                  | Rent
 
-              .col-xs-6
+              .col-xs-7.col-sm-6.col-md-5
                 .form-group#maxRent
                   .input-group
                     .input-group-addon
                       i.fa.fa-usd
-                    input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
+                    input.form-control(name="maxMonthlyRent" placeholder="0")
+                    .input-group-addon
+                      | .00
 
-              .form-group.col-xs-6
-                +datepicker(id="contactUsMoveInDate" placeholder="Move-In Date" class="move-in-data" name="contactUsMoveInDate")
+            fieldset.row.contact-us-field
+              .col-xs-5.text-right.p-r-5
+                label.outside(for="datetimeForm")
+                  i.fa.fa-info-circle.hide-sm(data-toggle="popover", data-trigger="hover click", data-placement="auto", title="Expected Move-In Date", data-content="Apartments tend to come and go quickly, so availability depends on when you expect to move. If you're not sure yet, an estimate is ok!")
+                  | Move-In Date
+
+              .col-xs-7.col-sm-6.col-md-5
+                +datepicker(id="contactUsMoveInDate" placeholder="Pick Date" class="move-in-data" name="contactUsMoveInDate")
 
             //-  .col-xs-6
             //-    .form-group

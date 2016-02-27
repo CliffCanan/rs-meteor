@@ -42,7 +42,7 @@ Template.contactUs.rendered = ->
       maxMonthlyRent:
         validators:
           notEmpty:
-            message: 'Please enter the MOST you\'re willing to pay per month.'
+            message: "Please enter the MAX budget you're willing to pay per month."
           greaterThan:
             value: 800
             message: "Most of our units begin at $800/mo, unfortunately."
@@ -164,6 +164,7 @@ Template.contactUs.events
     Session.set "hasSeenContactUsPopup", true
 
     $("#contactUsPopup #leadphone").mask "(999) 999-9999", placeholder: " "
+    $("input[name=\"maxMonthlyRent\"]").mask('999?9', {placeholder:" "})
 
     if $(window).width() > 992
       Meteor.setTimeout(() ->
