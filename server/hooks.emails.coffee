@@ -21,7 +21,7 @@ CheckAvailabilityRequests.after.insert (userId, request) ->
     from: "bender-checkavail@rentscene.com"
     to: emails[transformedRequest.cityId]
     replyTo: transformedRequest.name + ' <' + transformedRequest.email + '>'
-    subject: "New Lead: Check Availability Request from " + transformedRequest.name + " in " + request.cityName
+    subject: 'Apartment Inquiry on Rent Scene - Your perfect rental is waiting!'
     html: Spacebars.toHTML({request: transformedRequest, settings: Meteor.settings}, Assets.getText("requests/checkAvailabilityEmail.html"))
 
 
@@ -32,9 +32,13 @@ ContactUsRequests.after.insert (userId, request) ->
 
   transformedRequest = share.Transformations.ContactUsRequest(request)
 
+  firstName = transformedRequest.name.split(" ")[0].toLowerCase()
+  firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1)
+  cityNickname = if request.cityName is "Philadelphia" then "Philly" else request.cityName
+
   Email.send
     from: "bender-contactus@rentscene.com"
     to: emails[transformedRequest.cityId]
     replyTo: transformedRequest.name + ' <' + transformedRequest.email + '>'
-    subject: 'New Lead: Contact Us request from ' + transformedRequest.name + ' in ' + transformedRequest.cityName
+    subject: firstName + ', Let\'s find your perfect ' + cityNickname + ' apartment!'
     html: Spacebars.toHTML({request: transformedRequest, settings: Meteor.settings}, Assets.getText("requests/contactUsEmail.html"))
