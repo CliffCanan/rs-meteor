@@ -33,14 +33,8 @@ Template.city.helpers
     citySubs.dep.depend()
     !citySubs.ready and @firstLoad
 
-  clientRecommendationsList: ->
-    if Router.current().route.getName() is "clientRecommendations"
-      return true
-
-    false
-
   showClientRecommendationsName: ->
-    Template.city.__helpers[" clientRecommendationsList"].call(@) and not Security.canManageClients()
+    Template.city.__helpers[" clientRecommendationsList"].call(@) # and not Security.canManageClients()
 
   loadingBuildings: ->
     citySubs.dep.depend()

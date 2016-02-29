@@ -19,11 +19,12 @@ template(name="city")
 
       .main-city-list-wrap.left-bar.clearfix.pull-left
 
-        if showClientRecommendationsName
-          h2.pull-left.m-0 Recommendations for {{currentClientName}}
-
         if clientRecommendationsList
-          +clientRecommendationsToggle
+          if showClientRecommendationsName
+            h3.pull-left.m-0 Recommendations for {{currentClientName}}
+
+          unless canRecommend
+            +clientRecommendationsToggle
 
         .row#filterSearchWrap
           .col-xs-12.col-sm-6.col-sm-push-6(class="{{#if canOperateWithBuilding}}col-lg-7 col-lg-push-5{{else}}col-lg-4 col-sm-push-8{{/if}}")
@@ -40,10 +41,10 @@ template(name="city")
                   label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
                     input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
-
-              .building-title-search-wrapper(style="{{#unless canOperateWithBuilding}}max-width:100%;{{/unless}}")
-                input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
-                i.fa.fa-fw.fa-search
+              unless clientRecommendationsList
+                .building-title-search-wrapper(style="{{#unless canOperateWithBuilding}}max-width:100%;{{/unless}}")
+                  input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
+                  i.fa.fa-fw.fa-search
 
           .col-xs-12.col-sm-6.col-sm-pull-6(class="{{#if canOperateWithBuilding}}col-lg-5 col-lg-pull-7{{else}}col-lg-8 col-lg-pull-4{{/if}}")
 

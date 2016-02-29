@@ -14,7 +14,7 @@ Template.checkAvailability.helpers
     currentDate = new Date()
     day = currentDate.getUTCDay()
     # Get EST time
-    hour = currentTime.getUTCHours() - 5
+    hour = currentDate.getUTCHours() - 5
 
     # If UTC time is < 5:00am, then EST will be a day behind still
     if hour < 0

@@ -126,3 +126,8 @@ Template.registerHelper "currentClientName", ->
   if Session.get("recommendationsClientObject")
     clientObject = Session.get("recommendationsClientObject")
     clientObject.name
+
+Template.registerHelper "clientRecommendationsList", ->
+  if Router.current().route.getName() is "clientRecommendations"
+    return true
+  false

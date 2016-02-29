@@ -73,6 +73,7 @@ Template.clientRecommendationsToggle.onRendered ->
       return
 
   $('#import-status').tooltip()
+
   instance = @
   Tracker.autorun ->
     importCompletedCount = Buildings.find({_id: {$in: Router.current().data().buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}).count()

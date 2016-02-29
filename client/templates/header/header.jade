@@ -33,9 +33,12 @@ template(name="header")
 
     if canRecommend
         #recommending-client-banner.alert.alert-success
-          | Currently recommending properties for {{recommendationsClientName}}.
+          | Currently recommending properties for
+          strong
+            | {{recommendationsClientName}}
+          span(style="position:relative;left:-3px) .
           a#view-recommendations(href="#")
-            | View List
+            | &nbsp;View List So Far
           | or 
           a#exit-recommendation(href="#")
             | Done Recommending

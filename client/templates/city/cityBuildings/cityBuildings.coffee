@@ -94,6 +94,8 @@ getAvaiability = (request, directionsService, cb) ->
   
 Template.cityBuildings.events
   "click .recommend-toggle": (event, template) ->
+    event.stopPropagation()
+
     clientId = Router.current().data().clientId
     buildingId = @._id
     buildingIds = Router.current().data().buildingIds || []
@@ -102,6 +104,8 @@ Template.cityBuildings.events
       Meteor.call "unrecommendBuilding", clientId, buildingId
     else
       Meteor.call "recommendBuilding", clientId, buildingId
+
+    false
 
   "click .check-avail-option": (event, template) ->
     event.stopPropagation()
@@ -163,14 +167,9 @@ Template.cityBuildings.events
     initialImg.removeClass('hidden') if initialImg.hasClass('hidden')
 
   "swiperight .building-img-wrap.carousel": (event, template) ->
-    console.log('Swipe right on carousel item detected')
-
     $arrowToTrigger = $(event.currentTarget).find('.carousel-control.left')
     $arrowToTrigger.trigger('click')
 
   "swipeleft .building-img-wrap.carousel": (event, template) ->
-    console.log('Swipe left on carousel item detected')
-    console.log(event.currentTarget)
-
     $arrowToTrigger = $(event.currentTarget).find('.carousel-control.right')
     $arrowToTrigger.trigger('click')

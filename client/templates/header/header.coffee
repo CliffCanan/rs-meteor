@@ -1,6 +1,7 @@
 Template.header.helpers
   loggedInUser: ->
     Meteor.user()
+
   canManageClients: ->
     canManage = Security.canManageClients()
     if canManage
@@ -8,6 +9,7 @@ Template.header.helpers
     else
       $('body').removeClass('admin-logged-in') 
     canManage
+
   recommendationsClientName: ->
     clientObject = Session.get("recommendationsClientObject")
     clientObject.name
