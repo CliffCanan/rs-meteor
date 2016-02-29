@@ -33,9 +33,6 @@ Template.city.helpers
     citySubs.dep.depend()
     !citySubs.ready and @firstLoad
 
-  showClientRecommendationsName: ->
-    Template.city.__helpers[" clientRecommendationsList"].call(@) # and not Security.canManageClients()
-
   loadingBuildings: ->
     citySubs.dep.depend()
     ready = citySubs.ready
@@ -293,7 +290,7 @@ Template.city.onRendered ->
   # Staff has the 'Add Listing button' which is not floated and adds a nice margin
   @autorun ->
     if Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients()
-      $('.main-city-list').css marginTop: 53
+      $('.main-city-list').css marginTop: 52
 
     citySubs.dep.depend()
 
