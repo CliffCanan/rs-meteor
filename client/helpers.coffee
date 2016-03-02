@@ -17,7 +17,7 @@ Template.registerHelper "currentUserId", ->
   Meteor.userId()
 
 Template.registerHelper "getFormatted", (date) ->
-  date.getMonth() + "/" + date.getDate() + "/" +date.getFullYear()
+  moment(date).format('D/M/YYYY')
 
 Template.registerHelper "getReadableShortDate", (date) ->
   moment(date).format('D MMM YY')
