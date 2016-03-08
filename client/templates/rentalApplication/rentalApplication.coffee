@@ -7,41 +7,8 @@ Template.rentalApplication.onRendered ->
     unless @data.accessToken and Session.equals('rentalApplicationAccessToken', @data.accessToken)
       appId = @data._id
 
-      swal
-        title: "Password Required"
-        text: "Please enter the password for this application to continue:"
-        type: "input"
-        inputPlaceholder: "Enter password here"
-        inputType: "password"
-        confirmButtonColor: "#4588fa"
-        confirmButtonText: "Continue"
-        closeOnConfirm: false
-        allowEscapeKey: false
-        allowOutsideClick: false
-        animation: "slide-from-top"
-        , (inputValue) ->
-          return false  if inputValue is false
+      showPwAlert()
 
-          if inputValue is ""
-            swal.showInputError "Please enter the password you entered when you first created this application."
-            return false
-            
-          params =
-            id: appId
-            password: inputValue
-
-          Meteor.call 'processRentalApplicationPassword', params, (err, result) ->
-           if result.success
-             swal.close()
-             Session.set('rentalApplicationAccessToken', result.accessToken)
-             instance.$('.access-wrapper').removeClass('hidden')
-             return true
-           else
-             swal
-               title: "Oh No!"
-               text: result.message
-               type: "error"
-               confirmButtonColor: "#4588fa"
     else
       $('.access-wrapper').removeClass('hidden')
   
@@ -233,7 +200,6 @@ Template.rentalApplication.events
     else
       template.$('#dogsTable tbody').append("<tr><td>" + rowNum + "</td><td><input class='form-control' type='text' name='dog" + rowNum + "Name' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Breed' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Weight' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Age' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Color' /></td><td><select class='form-control p-0' name='dog" + rowNum + "Gender'><option value='Male'>Male</option><option value='Female'>Female</option></select></td><td><select class='form-control' name='dog" + rowNum + "Neutered'><option value='Yes'>Yes</option><option value='No'>No</option></select></td> </tr>");
 
-
   "change #has-partner-roommate": (event, template) ->
     template.$('.partner-wrapper').hide()
     template.$('.roommate-wrapper').hide()
@@ -415,3 +381,43 @@ Template.rentalApplication.events
 
   "click .revert-rental-application": (event, template) ->
     Meteor.call 'revertRentalApplication', @_id if confirm "Are you sure you want to revert to '#{@updateNote}'?"
+
+showPwAlert = ->
+  swal
+    title: "Password Required"
+    text: "Please enter the password for this application to continue:"
+    type: "input"
+    inputPlaceholder: "Enter password here"
+    inputType: "password"
+    confirmButtonColor: "#4588fa"
+    confirmButtonText: "Continue"
+    closeOnConfirm: false
+    allowEscapeKey: false
+    allowOutsideClick: false
+    animation: "slide-from-top"
+    , (inputValue) ->
+      return false  if inputValue is false
+
+      if inputValue is ""
+        swal.showInputError "Please enter the password you entered when you first created this application."
+        return false
+
+      params =
+        id: appId
+        password: inputValue
+
+      Meteor.call 'processRentalApplicationPassword', params, (err, result) ->
+       if result.success
+         swal.close()
+         Session.set('rentalApplicationAccessToken', result.accessToken)
+         instance.$('.access-wrapper').removeClass('hidden')
+         return true
+       else
+         bodyText = if result.message is "Incorrect password" then "That password was incorrect - click OK to try again!" else result.message
+         swal
+           title: "Oh No!"
+           text: bodyText
+           type: "error"
+           confirmButtonColor: "#4588fa"
+           , ->
+             showPwAlert()

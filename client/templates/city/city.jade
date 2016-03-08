@@ -20,7 +20,7 @@ template(name="city")
       .main-city-list-wrap.left-bar.clearfix.pull-left
 
         if clientRecommendationsList
-          h3.pull-left.m-0 Recommendations for {{currentClientName}}
+          h4.pull-left.m-t-0 Recommendations for {{currentClientName}}
 
           unless canRecommend
             +clientRecommendationsToggle
