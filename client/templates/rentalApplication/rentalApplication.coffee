@@ -1,4 +1,5 @@
 saveOtherDocumentType = ''
+appId = ''
 
 Template.rentalApplication.onRendered ->
   instance = @
