@@ -359,8 +359,8 @@ Meteor.smartPublish "rentalApplication", (id, accessToken) ->
     access = true
     accessAllDocuments = true
   else
-    rentalApplication = RentalApplications.findOne(id, {fields: {accessToken: 1}})
-    access = true if rentalApplication.accessToken is accessToken
+    rentalApplication = RentalApplications.findOne(id, {fields: {accessToken: 1, hasPassword: 1}})
+    access = true if rentalApplication.accessToken is accessToken or not rentalApplication.hasPassword
 
   if access
     @addDependency "rentalApplications", "documents", (rentalApplication) ->
