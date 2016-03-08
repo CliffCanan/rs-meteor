@@ -56,14 +56,14 @@ Template.checkAvailability.rendered = ->
 #        validators:
 #          notEmpty:
 #            message: 'Please select your target number of bedrooms'
-      moveInDate:
-        validators:
-          notEmpty:
-            message: 'Please enter your target move-in date.'
-          date:
-            format: "MM/DD/YYYY"
-            min: moment().subtract(1, "d").toDate()
-            message: 'Please select a date in the future!'
+#      moveInDate:
+#        validators:
+#          notEmpty:
+#            message: 'Please enter your target move-in date.'
+#          date:
+#            format: "MM/DD/YYYY"
+#            min: moment().subtract(1, "d").toDate()
+#            message: 'Please select a date in the future!'
 #      city:
 #        validators:
 #          notEmpty:
