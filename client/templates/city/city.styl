@@ -41,12 +41,20 @@
 
   .filter-options
     margin 10px 0
-    i
+    i:first-child
       margin-right 8px
       font-size 80%
       position relative
       left -1px
       top -1px
+    i:last-child
+      margin 0 0 0 10px
+      font-size 92%
+      cursor pointer
+      opacity .7
+      transition opacity .2
+      :hover
+        opacity .96
 
     .filter-tag
       border-radius 4px

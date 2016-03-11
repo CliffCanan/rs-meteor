@@ -286,8 +286,6 @@ Template.city.onRendered ->
       if infoWindowId != null
         markers[infoWindowId].setIcon(defaultIcon)
 
-  # Quick CSS hack to add proper margins for non staff in recommendation list since toggle buttons are float.
-  # Staff has the 'Add Listing button' which is not floated and adds a nice margin
   @autorun ->
     if Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients()
       $('.main-city-list').css marginTop: 52
@@ -512,6 +510,25 @@ Template.city.events
     $('#mobile-cta').slideUp(300)
     analytics.track "Clicked CLOSE Mobile CTA Btn (City Page)" unless Meteor.user()
 
+  "click .filter-options .fa-times-circle": (event, template) ->
+    data = template.data
+    query = data.query
+
+    filterId = $(event.currentTarget).closest('.filter-tag').attr("data-tag")
+
+    for (prop in query)
+      if prop is filterId
+        delete query.prop
+
+    routeName = Router.current().route.getName()
+
+    if routeName is "clientRecommendations"
+      Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
+    else
+      routeParams = {}
+      routeParams.cityId = data.cityId if data.cityId
+      routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+      Router.go(routeName, routeParams, {query: query})
 
   "keyup .building-title-search": _.debounce((event, template) ->
     event.preventDefault()
