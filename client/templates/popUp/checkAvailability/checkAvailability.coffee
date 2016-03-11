@@ -25,6 +25,8 @@ Template.checkAvailability.helpers
 
     if (day is not 6 and hour > 7 and hour < 20) then true else false
 
+  isMobile: ->
+    $(window).width() < 768
 
 Template.checkAvailability.rendered = ->
 

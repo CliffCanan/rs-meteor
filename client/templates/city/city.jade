@@ -41,10 +41,9 @@ template(name="city")
                     input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
               unless clientRecommendationsList
-                if canManageClients
-                  .building-title-search-wrapper(style="{{#unless canOperateWithBuilding}}max-width:100%;{{/unless}}")
-                    input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
-                    i.fa.fa-fw.fa-search
+                .building-title-search-wrapper(style="{{#unless canOperateWithBuilding}}max-width:100%;{{/unless}}")
+                  input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
+                  i.fa.fa-fw.fa-search
 
           .col-xs-12.col-sm-6.col-sm-pull-6(class="{{#if canOperateWithBuilding}}col-lg-5 col-lg-pull-7{{else}}col-lg-8 col-lg-pull-4{{/if}}")
 

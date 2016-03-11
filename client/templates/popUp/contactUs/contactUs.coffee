@@ -1,9 +1,13 @@
 Template.contactUs.helpers
   serverError: ->
     Session.get("serverError")
+
   cityName: ->
     if @cityId
       "to " + cities[@cityId].short
+
+  isMobile: ->
+    $(window).width() < 768
 
 Template.contactUs.rendered = ->
 

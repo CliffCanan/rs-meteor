@@ -61,6 +61,9 @@ Template.reviews.events
     Session.set('reviewFormDefaults', null)
 
   'click .review-view-more': (event, template) ->
+    event.preventDefault()
+    event.stopPropagation()
+
     $target = $(event.target)
     $review = $target.parents('.review')
 
