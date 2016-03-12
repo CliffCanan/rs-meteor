@@ -58,7 +58,7 @@ template(name="city")
                         i.fa.fa-times-circle
 
                     if brTypeExist
-                      label.label.label-primary.filter-tag(data-tag="brType")
+                      label.label.label-primary.filter-tag(data-tag="btype")
                         i.fa.fa-check
                         | {{brType}}
                         i.fa.fa-times-circle
@@ -100,13 +100,13 @@ template(name="city")
                         i.fa.fa-times-circle
 
                     if hasFromPrice
-                      label.label.label-primary.filter-tag(data-tag="fromPrice")
+                      label.label.label-primary.filter-tag(data-tag="from")
                         i.fa.fa-check
                         | Min ${{fromPrice}}
                         i.fa.fa-times-circle
 
                     if hasToPrice
-                      label.label.label-primary.filter-tag(data-tag="toPrice")
+                      label.label.label-primary.filter-tag(data-tag="to")
                         i.fa.fa-check
                         | Max ${{toPrice}}
                         i.fa.fa-times-circle

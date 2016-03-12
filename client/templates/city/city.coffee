@@ -512,7 +512,6 @@ Template.city.events
 
   "click .filter-options .fa-times-circle": (event, template) ->
     data = template.data
-    console.log(data)
     query = data.query
 
     filterId = $(event.currentTarget).closest(".filter-tag").attr("data-tag")
@@ -520,7 +519,6 @@ Template.city.events
     unless filterId is "neighborhood"
       for prop of query
         if query.hasOwnProperty(prop) and prop is filterId
-          console.log("Filter Match Found - Deleting: " + prop)
           delete query[prop]
 
     routeName = Router.current().route.getName()
@@ -531,7 +529,6 @@ Template.city.events
       routeParams = {}
       routeParams.cityId = data.cityId if data.cityId
       if data.neighborhoodSlug and filterId != "neighborhood"
-        console.log(data.neighborhoodSlug)
         routeParams.neighborhoodSlug = data.neighborhoodSlug
       Router.go(routeName, routeParams, {query: query})
 
