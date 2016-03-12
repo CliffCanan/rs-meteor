@@ -514,17 +514,16 @@ Template.city.events
     data = template.data
     console.log(data)
     query = data.query
-    console.log(query)
 
     filterId = $(event.currentTarget).closest(".filter-tag").attr("data-tag")
-    console.log(filterId)
 
-    for prop in query
-      if prop is filterId
-        console.log("Filter Match Found - Deleting: " + prop)
-        delete query.prop
-      else
-        console.log(prop)
+    unless filterId is "neighborhood"
+      for prop of query
+        if prop is filterId
+          console.log("Filter Match Found - Deleting: " + prop)
+          delete query.prop
+        else
+          console.log(prop)
 
     routeName = Router.current().route.getName()
 
@@ -533,7 +532,7 @@ Template.city.events
     else
       routeParams = {}
       routeParams.cityId = data.cityId if data.cityId
-      routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+      routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug and filterId is not "neighborhood"
       Router.go(routeName, routeParams, {query: query})
 
   "keyup .building-title-search": _.debounce((event, template) ->
