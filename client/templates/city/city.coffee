@@ -521,9 +521,7 @@ Template.city.events
       for prop of query
         if prop is filterId
           console.log("Filter Match Found - Deleting: " + prop)
-          delete query.prop
-        else
-          console.log(prop)
+          delete prop
 
     routeName = Router.current().route.getName()
 
