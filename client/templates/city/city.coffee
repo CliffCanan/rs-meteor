@@ -512,13 +512,19 @@ Template.city.events
 
   "click .filter-options .fa-times-circle": (event, template) ->
     data = template.data
+    console.log(data)
     query = data.query
+    console.log(query)
 
-    filterId = $(event.currentTarget).closest('.filter-tag').attr("data-tag")
+    filterId = $(event.currentTarget).closest(".filter-tag").attr("data-tag")
+    console.log(filterId)
 
-    for (prop in query)
+    for prop in query
       if prop is filterId
+        console.log("Filter Match Found - Deleting: " + prop)
         delete query.prop
+      else
+        console.log(prop)
 
     routeName = Router.current().route.getName()
 
