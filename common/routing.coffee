@@ -383,7 +383,9 @@ Router.map ->
         if @documents
           for document in @documents
             loadedDocument = document.getFileRecord()
-            result.push(loadedDocument) if loadedDocument instanceof FS.File and loadedDocument.isImage()
+            if loadedDocument instanceof FS.File and loadedDocument.isImage()
+              console.log("Document found, checkpoint reached!")
+              result.push(loadedDocument)
 
         result
 
