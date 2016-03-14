@@ -376,6 +376,9 @@ Router.map ->
       # Base URL seems to be required so images can be loaded via absolute paths
       "baseUrl": ->
         # Return root URL with trailing slash removed
+        # CLIFF (3/13/16): this wasn't actually removing a trailing slash, it was removing the 'm'
+        # from the BaseURL of '...rentscene.com', which caused the image to not be displayed in the generated .PDF.
+        # Leaving this comment in case the issue comes up again and the trailing slash re-appears.
         process.env.ROOT_URL #.slice(0, -1)
 
       "documents": ->
