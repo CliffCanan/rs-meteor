@@ -376,7 +376,7 @@ Router.map ->
       # Base URL seems to be required so images can be loaded via absolute paths
       "baseUrl": ->
         # Return root URL with trailing slash removed
-        process.env.ROOT_URL.slice(0, -1)
+        process.env.ROOT_URL #.slice(0, -1)
 
       "documents": ->
         result = []
