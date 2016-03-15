@@ -9,33 +9,36 @@ template(name="header")
           img.logo-text(src="/images/logo-text-white.png", alt="Rentscene")
 
       ul.navigation
-        li.navigation-item.hidden
-          a.navigation-item-link(href="/")
+        li.navigation-item.hide-sm
+          a.navigation-item-link(href="/city/philadelphia")
             i.fa.fa-search
-            | Search apartments
-        li.navigation-item
+            | Browse Apartments
+
+        li.navigation-item.hide-sm
           a.navigation-item-link.contact-us(href="/")
-            i.fa.fa-paper-plane
-            | Contact Us
-        li.navigation-item.live-chat.hidden
-          a.navigation-item-link.active(href="/")
-            i.fa.fa-headphones
-            | Live Chat
-        //-  should be at the end of the page
-        li.navigation-item.admin-login
-          if loggedInUser
+            span Get Started
+
+        unless loggedInUser
+          li.navigation-item
+            a.navigation-item-link.active(href="tel://1-215-995-5890")
+              i.fa.fa-mobile
+              | (215) 995-5890
+
+        if loggedInUser
+          li.navigation-item.admin-login
             +userMenu
-          else
-            +loginButtons
 
       if canManageClients
         +clientSearchBar(formClass="navbar-form navbar-right")
 
     if canRecommend
         #recommending-client-banner.alert.alert-success
-          | Currently recommending properties for {{recommendationsClientName}}.
+          | Currently recommending properties for
+          strong
+            | {{recommendationsClientName}}
+          span(style="position:relative;left:-2px") .
           a#view-recommendations(href="#")
-            | View list
+            | &nbsp;View List So Far
           | or 
           a#exit-recommendation(href="#")
-            | Done recommending
+            | Done Recommending

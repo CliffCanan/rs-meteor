@@ -2,19 +2,66 @@ saveOtherDocumentType = ''
 
 Template.rentalApplication.onRendered ->
   instance = @
+
+  unless Security.canOperateWithBuilding() or not @data.hasPassword
+    unless @data.accessToken and Session.equals('rentalApplicationAccessToken', @data.accessToken)
+      appId = @data._id
+
+      swal
+        title: "Password Required"
+        text: "Please enter the password for this application to continue:"
+        type: "input"
+        inputPlaceholder: "Enter password here"
+        inputType: "password"
+        confirmButtonColor: "#4588fa"
+        confirmButtonText: "Continue"
+        closeOnConfirm: false
+        allowEscapeKey: false
+        allowOutsideClick: false
+        animation: "slide-from-top"
+        , (inputValue) ->
+          return false  if inputValue is false
+
+          if inputValue is ""
+            swal.showInputError "Please enter the password you entered when you first created this application."
+            return false
+            
+          params =
+            id: appId
+            password: inputValue
+
+          Meteor.call 'processRentalApplicationPassword', params, (err, result) ->
+           if result.success
+             swal.close()
+             Session.set('rentalApplicationAccessToken', result.accessToken)
+             instance.$('.access-wrapper').removeClass('hidden')
+             return true
+           else
+             swal
+               title: "Oh No!"
+               text: result.message
+               type: "error"
+               confirmButtonColor: "#4588fa"
+    else
+      $('.access-wrapper').removeClass('hidden')
+  
+  $('#rentAmnt').mask('9,999', {placeholder:" "})
   $('#partner-ssn').mask('999-99-9999')
   $('#social-security-number').mask('999-99-9999')
-  $('#phone-number').mask('(999) 999-9999')
-  $('#current-landlord-phone-number').mask('(999) 999-9999')
-  $('#previous-landlord-phone-number').mask('(999) 999-9999')
-  $('#first-reference-phone-number').mask('(999) 999-9999')
-  $('#second-reference-phone-number').mask('(999) 999-9999')
-  $('#first-emergency-contact-phone-number').mask('(999) 999-9999')
-  $('#second-emergency-contact-phone-number').mask('(999) 999-9999')
+  $('#phone-number').mask('(999) 999-9999' ,{placeholder:" "})
+  $('#current-landlord-phone-number').mask('(999) 999-9999', {placeholder:" "})
+  $('#previous-landlord-phone-number').mask('(999) 999-9999', {placeholder:" "})
+  $('#first-reference-phone-number').mask('(999) 999-9999', {placeholder:" "})
+  $('#second-reference-phone-number').mask('(999) 999-9999', {placeholder:" "})
+  $('#first-emergency-contact-phone-number').mask('(999) 999-9999', {placeholder:" "})
+  $('#second-emergency-contact-phone-number').mask('(999) 999-9999', {placeholder:" "})
 
-  $('input.num-max-2').mask('99')
-  $('input.num-max-4').mask('9999')
-  $('input.num-max-5').mask('99999')
+  $('input.num-max-2').mask('9?9', {placeholder:" "})
+  $('input.num-max-4').mask('99?99', {placeholder:" "})
+  $('input.num-max-5').mask('99999', {placeholder:" "})
+
+  $('input.letter-max-2').mask('aa', {placeholder:" "})
+  $('input.mask-money').mask('999?99', {placeholder:" "})
 
   $('[data-toggle="tooltip"]').tooltip()
 
@@ -48,7 +95,7 @@ Template.rentalApplication.onRendered ->
         accept: (file, done) ->
           file.canUserView = true
           if Security.canOperateWithBuilding()
-            file.isUploadedByAdmin = true if Security.canOperateWithBuilding()
+            file.isUploadedByAdmin = true
             file.canUserView = false
 
           insertedDocument = RentalApplicationDocuments.insert file, (err, result) ->
@@ -68,15 +115,21 @@ Template.rentalApplication.helpers
   canAccess: ->
     return true if Security.canOperateWithBuilding() or not @hasPassword
     @accessToken and Session.equals('rentalApplicationAccessToken', @accessToken)
+
   getDatePickerDateMoveInDate: ->
     if @fields and @fields.moveInDate
-      moment(@fields.moveInDate).format("MM/DD/YYYY")
+      moment(@fields.moveInDate).format("MM/DD/YY")
+
   getDatePickerDateDateOfBirth: ->
     if @fields and @fields.dateOfBirth
-      moment(@fields.dateOfBirth).format("MM/DD/YYYY")
+      moment(@fields.dateOfBirth).format("MM/DD/YY")
+
   dateOfBirthOptions: ->
-    yearRange: '-100:-17'
+    #yearRange: '-100:-17'
+    dateFormat: "mm/dd/yy"
+    minDate: '-100y'
     maxDate: '-17y'
+
   documents: ->
     data = Template.instance().data
     rentalApplication = RentalApplications.findOne(data._id)
@@ -106,10 +159,12 @@ Template.rentalApplication.helpers
   rentalApplicationRevisionsCount: ->
     data = Template.instance().data
     RentalApplicationRevisions.find({parentId: data._id}).count()
+
   documentTypeClass: ->
     classes = [@documentType]
     classes.push 'other' if @isOther is true
     classes.join ' '
+
   isSelected: (value) ->
     return 'selected' if @isOther is true and value is 'Other'
     return 'selected' if @documentType is value
@@ -131,7 +186,7 @@ Template.rentalApplication.events
         template.$('#cats-table-wrapper').slideUp()
       else if $(event.target).attr('id') is 'dogBox'
         template.$('#dogs-table-wrapper').slideUp()
-      else if $(event.target).attr('id') is 'dogBox'
+      else if $(event.target).attr('id') is 'otherBox'
         template.$('#otherpet-wrapper').slideUp()
 
     else
@@ -155,16 +210,28 @@ Template.rentalApplication.events
   "click #addCat": (event, template) ->
     rowNum = $("#catsTable tbody tr").length + 1
     if rowNum > 5
-      alert "Oh my, that's a lot of cats. Since most buildings don't allow that many feline roommates, it might be best if we spoke with you to discuss your situation. Please email team@rentscene.com or call (267) 463-2426. Thanks!"
+      swal
+        title: ""
+        text: "Oh my, that's a lot of cats. Since most buildings don't allow that many feline roommates, it might be best if we spoke with you to discuss your situation. Please email team@rentscene.com or call (215) 995-5890. Thanks!"
+        type: "warning"
+        showCancelButton: false
+        confirmButtonColor: "#4588fa"
+        confirmButtonText: "Ok"
     else
       template.$('#catsTable tbody').append("<tr><td>" + rowNum + "</td><td><input class='form-control' type='text' name='cat" + rowNum + "Name' /></td><td><input class='form-control' type='text' name='cat" + rowNum + "Weight' /></td><td><input class='form-control' type='text' name='cat" + rowNum + "Age' /></td><td><input class='form-control' type='text' name='cat" + rowNum + "Color' /></td><td><select class='form-control' name='cat" + rowNum + "Neutered'><option value='Yes'>Yes</option><option value='No'>No</option></select></td> </tr>");
 
   "click #addDog": (event, template) ->
     rowNum = $("#dogsTable tbody tr").length + 1
     if rowNum > 5
-      alert "Wow, that's a lot of dogs. Since most buildings don't allow that many canine companions, it might be best if we spoke with you to discuss your situation. Please email team@rentscene.com or call (267) 463-2426. Thanks!"
+      swal
+        title: ""
+        text: "Wow, that's a lot of dogs. Since most buildings don't allow that many canine companions, it might be best if we spoke with you to discuss your situation. Please email team@rentscene.com or call (215) 995-5890. Thanks!"
+        type: "warning"
+        showCancelButton: false
+        confirmButtonColor: "#4588fa"
+        confirmButtonText: "Ok"
     else
-      template.$('#dogsTable tbody').append("<tr><td>" + rowNum + "</td><td><input class='form-control' type='text' name='dog" + rowNum + "Name' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Breed' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Weight' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Age' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Color' /></td><td><select class='form-control' name='dog" + rowNum + "Gender'><option value='Male'>Male</option><option value='Female'>Female</option></select></td><td><select class='form-control' name='dog" + rowNum + "Neutered'><option value='Yes'>Yes</option><option value='No'>No</option></select></td> </tr>");
+      template.$('#dogsTable tbody').append("<tr><td>" + rowNum + "</td><td><input class='form-control' type='text' name='dog" + rowNum + "Name' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Breed' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Weight' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Age' /></td><td><input class='form-control' type='text' name='dog" + rowNum + "Color' /></td><td><select class='form-control p-0' name='dog" + rowNum + "Gender'><option value='Male'>Male</option><option value='Female'>Female</option></select></td><td><select class='form-control' name='dog" + rowNum + "Neutered'><option value='Yes'>Yes</option><option value='No'>No</option></select></td> </tr>");
 
 
   "change #has-partner-roommate": (event, template) ->
@@ -231,12 +298,26 @@ Template.rentalApplication.events
     , 1500
 
   "click .delete-document": (event, template) ->
-    if confirm 'Are you sure you want to delete this document?'
-      RentalApplications.update(template.data._id, { $pull: { documents: {"EJSON$value.EJSON_id": @_id } }})
-      RentalApplicationDocuments.remove(@_id)
+    swal
+      title: "Delete Document?"
+      text: "Are you sure you want to delete this document? This is permanent and cannot be un-done."
+      type: "warning"
+      confirmButtonColor: "#4588fa"
+      confirmButtonText: "Delete"
+      animation: "slide-from-top"
+      , (confirm) ->
+        if confirm
+          RentalApplications.update(template.data._id, { $pull: { documents: {"EJSON$value.EJSON_id": @_id } }})
+          RentalApplicationDocuments.remove(@_id)
 
   "submit #rental-application-access-form": (event, template) ->
+    # CLIFF (1/12/16): CAN PROBABLY DELETE THIS SECTION, THIS CAN NOW BE HANDLED FROM THE SWEET ALERT CALLBACK FUNCTION
     event.preventDefault()
+
+    console.log("Events -> Submit Rental Application Access Form -> @_id is (next line):")
+    console.log(@_id)
+    console.log(@)
+
     params =
       id: @_id
       password: template.$(event.target).find('#password').val()
@@ -246,64 +327,91 @@ Template.rentalApplication.events
       else
         alert result.message
 
+
   "submit #rental-application-form": (event, template) ->
     event.preventDefault()
-    analytics.track "Submitted Rental Application form"
-    analytics.page title: "Submitted Rental Application form", path: '/submit-rental-application-form'
+
+    #analytics.track "Submitted Rental Application form"
+    #analytics.page title: "Submitted Rental Application form", path: '/submit-rental-application-form'
+
     if @hasPassword
-      template.$("#rental-application-save-revision").modal('toggle')
+      swal
+        title: "Enter a Note"
+        text: "Please describe what was changed in your application so we can process it accordingly."
+        type: "input"
+        inputPlaceholder: "Enter note here"
+        confirmButtonColor: "#4588fa"
+        confirmButtonText: "Confirm Changes"
+        closeOnConfirm: false
+        animation: "slide-from-top"
+        , (inputValue) ->
+          return false  if inputValue is false
+
+          if inputValue is ""
+            swal.showInputError "Please enter a note so we can process your application accordingly."
+            return false
+
+          fields =
+            isNewRevision: true
+            updateNote: $('#updateNote').val()
+            fields: $('#rental-application-form').serializeFormJSON()
+
+          dateFields = ['moveInDate', 'dateOfBirth']
+
+          for fieldName in dateFields
+            fields.fields[fieldName] = new Date(fields.fields[fieldName])
+
+          $jSignature = template.$('#signature')
+          if $jSignature.jSignature('isModified')
+            fields.signature = 
+              base30: $jSignature.jSignature('getData', 'base30')
+              svgbase64: $jSignature.jSignature('getData', 'svgbase64')
+
+          RentalApplications.update template.data._id,
+            $set: fields
+            , (err, result) ->
+              swal("Saved!", "Please wait while the PDF is being downloaded.", "success")
+              location.href = "#{Router.path('rentalApplication', {id: template.data._id})}/download"
+
     else
-      template.$("#rental-application-password").modal('toggle')
+      swal
+        title: "Enter a Password"
+        text: "Please enter a password for your appplication to keep it protected. You will be prompted to enter it again the next time you visit the form."
+        type: "input"
+        inputType: "password"
+        inputPlaceholder: "Write something"
+        confirmButtonColor: "#4588fa"
+        confirmButtonText: "Create Password"
+        closeOnConfirm: false
+        showLoaderOnConfirm: true
+        animation: "slide-from-top"
+        , (inputValue) ->
+          return false  if inputValue is false
 
-  "submit #rental-application-password-form": (event, template) ->
-    event.preventDefault()
-    accessToken = Random.secret()
+          if inputValue is ""
+            swal.showInputError "Please enter a password to submit the application!"
+            return false
 
-    Session.set('rentalApplicationAccessToken', accessToken)
+          accessToken = Random.secret()
+          Session.set('rentalApplicationAccessToken', accessToken)
 
-    fields =
-      password: template.$('#rental-application-password-form').find('#password').val()
-      hasPassword: true
-      fields: $('#rental-application-form').serializeFormJSON()
-      accessToken: accessToken
+          fields =
+            password: inputValue
+            hasPassword: true
+            fields: $('#rental-application-form').serializeFormJSON()
+            accessToken: accessToken
 
-    $jSignature = template.$('#signature')
-    if $jSignature.jSignature('isModified')
-      fields.signature = 
-        base30: $jSignature.jSignature('getData', 'base30')
-        svgbase64: $jSignature.jSignature('getData', 'svgbase64')
+          $jSignature = template.$('#signature')
+          if $jSignature.jSignature('isModified')
+            fields.signature = 
+              base30: $jSignature.jSignature('getData', 'base30')
+              svgbase64: $jSignature.jSignature('getData', 'svgbase64')
 
-    RentalApplications.update template.data._id,
-      $set: fields
-      , (err, result) ->
-        $('body').removeClass('modal-open')
-        location.href = "#{Router.path('rentalApplication', {id: template.data._id})}/download"
-
-  "submit #rental-application-save-revision-form": (event, template) ->
-    event.preventDefault()
-
-    fields =
-      isNewRevision: true
-      updateNote: $('#updateNote').val()
-      fields: $('#rental-application-form').serializeFormJSON()
-
-    dateFields = ['moveInDate', 'dateOfBirth']
-
-    for fieldName in dateFields
-      fields.fields[fieldName] = new Date(fields.fields[fieldName])
-
-    $jSignature = template.$('#signature')
-    if $jSignature.jSignature('isModified')
-      fields.signature = 
-        base30: $jSignature.jSignature('getData', 'base30')
-        svgbase64: $jSignature.jSignature('getData', 'svgbase64')
-
-    RentalApplications.update template.data._id,
-      $set: fields
-      , (err, result) ->
-        location.href = "#{Router.path('rentalApplication', {id: template.data._id})}/download"
-        template.$("#rental-application-save-revision").modal('toggle')
+          RentalApplications.update template.data._id,
+            $set: fields
+            , (err, result) ->
+              swal("Saved!", "Please wait while the PDF is being downloaded.", "success")
+              location.href = "#{Router.path('rentalApplication', {id: template.data._id})}/download"
 
   "click .revert-rental-application": (event, template) ->
     Meteor.call 'revertRentalApplication', @_id if confirm "Are you sure you want to revert to '#{@updateNote}'?"
-

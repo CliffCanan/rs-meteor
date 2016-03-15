@@ -23,13 +23,21 @@ $(window).on("resize", setHeights)
     $(".right-bar").outerHeight(windowHeight * 0.6)
     $(".left-bar").css("height", "auto")
 
-markers = {}
-
 Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
   @viewType = new ReactiveVar('thumbnails')
   Session.set('adminShowUnpublishedProperties', false)
+
+  # Show Contact Us Popup after 20s (tablet/desktop) or 15s (mobile)
+  if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
+
+    delay = if $(window).width() < 768 then 15000 else 20000
+
+    @popupTimeoutHandle = Meteor.setTimeout ->
+      unless Session.get("hasSeenContactUsPopup") == true || $('body').hasClass('modal-open') || Session.get("currentPage") == "building"
+        $('#contactUsPopup').modal('show')
+    , delay
 
 Template.city.helpers
   showMap: ->
@@ -37,6 +45,7 @@ Template.city.helpers
   firstLoad: ->
     citySubs.dep.depend()
     !citySubs.ready and @firstLoad
+
   isClientRecommendationsList: ->
     if Router.current().route.getName() is "clientRecommendations"
       $(".city-page-wrap").removeClass("col-lg-9").addClass("col-lg-12")
@@ -47,6 +56,7 @@ Template.city.helpers
     false
   showClientRecommendationsName: ->
     Template.city.__helpers[" isClientRecommendationsList"].call(@) and not Security.canManageClients()
+
   loadingBuildings: ->
     citySubs.dep.depend()
     ready = citySubs.ready
@@ -54,6 +64,7 @@ Template.city.helpers
       cityPageData = Session.get("neighborhoodPageData") or Session.get("cityPageData")
       Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage) if cityPageData
     !ready
+
   notAllLoaded: ->
     return false if Session.get "showRecommendations"
     Template.instance().buildingsCount.get() < Counts.get("city-buildings-count")
@@ -66,6 +77,7 @@ Template.city.helpers
 
     query = Router.current().params.query
     controller = Router.current()
+
     if Session.get "showRecommendations"
       if Router.current().route.getName() is "clientRecommendations"
         buildingIds = Router.current().data().buildingIds or []
@@ -103,20 +115,27 @@ Template.city.helpers
               result = results[i]
               city = result.formatted_address
 
-              if city.trim().toUpperCase().indexOf(currentCity.toUpperCase()) != -1 
+              if city.trim().toUpperCase().indexOf(currentCity.toUpperCase()) != -1
                 location = results[i].geometry.location
-                Session.set("cityGeoLocation", [location.lat(), location.lng()]) 
+                Session.set("cityGeoLocation", [location.lat(), location.lng()])
               i++
 
             if location == undefined
-              #$(".form-building-filter")[0].reset();
               $(".form-building-filter").get(0).reset()
               $(".form-building-filter").trigger("submit")
               Session.set "cityGeoLocation", ""
-              $('#messageAlert').modal('show')
+
+              swal
+                title: "No Listings Near That Address"
+                text: "We're always adding more listings in more areas but haven't gotten to that one yet. Please try another address, or email <a href='mailto:team@rentscene.com' target='_blank'>team@rentscene.com</a> to let us know we should prioritize this area."
+                type: "warning"
+                confirmButtonColor: "#4588fa"
+                confirmButtonText: "Ok"
+                html: true
             else
+              # analytics.track "Filtered Listings By Location" # This might be duplicative, already tracking when Location Filter form is submitted, while this is on re-loading the page.
               Session.set("cityGeoLocation", [location.lat(), location.lng()])
-            
+
         if Session.get "cityGeoLocation"
           buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit})
           address = Session.get "cityGeoLocation"
@@ -162,7 +181,7 @@ Template.city.helpers
           if children.count()
             parent.children = children.fetch()
             parent.hasChildren = true
-          
+
           processedParents.push parent
 
         buildings = processedParents
@@ -177,8 +196,128 @@ Template.city.helpers
   showThumbnails: ->
     Template.instance().viewType.get() is 'thumbnails'
 
+  hasAnyFilters: ->
+    if Session.get "currentNeighborhood"
+      return true
+
+    query = Router.current().params.query
+    for prop of query
+      return true  if query.hasOwnProperty(prop)
+    false
+
+  hasNeighborhood: ->
+    if Session.get "currentNeighborhood"
+      return true
+
+  neighborhood: ->
+    if Session.get "currentNeighborhood"
+      n = Session.get "currentNeighborhood"
+      n = n.replace("-"," ")
+      return n
+    else
+      return "Neighborhoods"
+
+  brTypeExist: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('btype')
+
+  brType: ->
+    query = Router.current().params.query
+    if query.btype is 'bedroom1'
+      return '1BR'
+    else if query.btype is 'bedroom2'
+      return '2BR'
+    else if query.btype is 'bedroom3'
+      return '3BR'
+    else if query.btype is 'bedroom4'
+      return '4BR'
+    else if query.btype is 'studio'
+      return 'Studio'
+    else
+      return query.btype
+
+  pets: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('pets')
+
+  parking: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('parking')
+
+  doorman: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('security')
+
+  fitnessCenter: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('fitnessCenter')
+
+  laundry: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('laundry')
+
+  utilities: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('utilities')
+
+  hasFromPrice: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('from')
+
+  fromPrice: ->
+    query = Router.current().params.query
+    query.from
+
+  hasToPrice: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('to')
+
+  toPrice: ->
+    query = Router.current().params.query
+    query.to
+
+  ###
+  available: ->
+    i = Template.instance().filterOptions.get()
+    i.available
+  ###
+
+
+  isBizHours: ->
+    currentTime = new Date()
+    day = currentTime.getDay()
+    hour = currentTime.getHours()
+    if (day > 0 and day < 6 and hour > 7 and hour < 20) then true else false
+
+
+  showIDXDisclaimer: ->
+    Router.current().params.query.listingType is 'broker'
+
+  isMobileSize: ->
+    $(window).width() > 767
+
+markers = {}
+
 Template.city.onRendered ->
   instance = @
+
+  ###
+  Meteor.setTimeout ->
+    #console.log("Adding Nicescroll")
+    unless $(".city-page-wrap").hasClass('hasNiceScroll')
+      $(".city-page-wrap").addClass('hasNiceScroll').niceScroll
+        bouncescroll: true
+        cursorborder: 0
+        cursorcolor: "#6C6E70"
+        #cursorwidth: "9px"
+        zindex: 9999
+        mousescrollstep: 26 # default is 40 (px)
+        scrollspeed: 42 # default is 60
+        autohidemode: "cursor"
+        #hidecursordelay: 700
+        horizrailenabled: false
+  , 1000
+  ###
 
   $.getScript '/js/imgLiquid-min.js', ->
     $('.main-city-item .item.video').imgLiquid();
@@ -188,157 +327,171 @@ Template.city.onRendered ->
   @data.firstLoad = false
   setHeights()
   cityData = cities[@data.cityId]
-  map = new google.maps.Map document.getElementById("gmap"),
-    zoom: 14
-    center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
-    streetViewControl: false
-    scaleControl: false
-    rotateControl: false
-    panControl: false
-    overviewMapControl: false
-    mapTypeControl: false
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  @map = map
-  markers = {}
-  defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
-  activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
-  filterIcon = new google.maps.MarkerImage("/images/map-marker-active2.png", null, null, null, new google.maps.Size(50, 60))  
 
-  infoWindowId = null
-  infowindow = new google.maps.InfoWindow()
-  google.maps.event.addListener infowindow, "closeclick", ->
-    if infoWindowId != null
-      markers[infoWindowId].setIcon(defaultIcon)
+  @autorun ->
+    viewType = Template.instance().viewType.get()
+    $item = $('#forMap')
+    if viewType is 'quickView'
+      $item.removeClass('is-out')
+      $item.find('.fa').removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-left')
+      $item.find('.btn span').text('Show Map')
+      $item.find('.btn').attr('data-original-title', 'Show map')
+
+      $('.page-footer').hide()
+      $('.city-side-bar').hide()
+    else
+      $('.ext-gallery:not(.hidden)').addClass('hidden')
+      $('.main-city-img-link.hidden').removeClass('hidden')
+
+      $item.addClass('is-out')
+      $item.find('.fa').removeClass('fa-chevron-circle-left').addClass('fa-chevron-circle-right')
+      $item.find('.btn span').text('Hide Map')
+      $item.find('.btn').attr('data-original-title', 'Hide map')
+
+      $('.page-footer').show()
+      $('.city-side-bar').show()
+
+
+  if Template.instance().viewType.get() is 'thumbnails' and $(window).width() > 767
+    map = new google.maps.Map document.getElementById("gmap"),
+      zoom: 14
+      center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
+      streetViewControl: false
+      scaleControl: false
+      rotateControl: false
+      panControl: false
+      overviewMapControl: false
+      mapTypeControl: true
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+      maxZoom: 17
+      minZoom: 11
+
+    @map = map
+    markers = {}
+    defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
+    activeIcon = new google.maps.MarkerImage("/images/map-marker-active.png", null, null, null, new google.maps.Size(50, 60))
+    filterIcon = new google.maps.MarkerImage("/images/map-marker-active2.png", null, null, null, new google.maps.Size(50, 60))
+
+    infoWindowId = null
+    infowindow = new google.maps.InfoWindow()
+
+    google.maps.event.addListener infowindow, "closeclick", ->
+      if infoWindowId != null
+        markers[infoWindowId].setIcon(defaultIcon)
 
   # Quick CSS hack to add proper margins for non staff in recommendation list since toggle buttons are float.
   # Staff has the 'Add Listing button' which is not floated and adds a nice margin
   @autorun ->
     if Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients()
-      $('.main-city-list').css marginTop: 53
-    else
-      $('.main-city-list').css marginTop: 0
+      $('.main-city-list').css marginTop: 52
 
     citySubs.dep.depend()
-    if citySubs.ready
-      data = Router.current().data()
-      
-      actualMarkerIds = []
-      @template.__helpers[" buildings"].call(data).forEach (building) ->
-        if building.latitude and building.longitude
-          actualMarkerIds.push(building._id)
-          if marker = markers[building._id]
-            unless marker.map
-              marker.setMap(map)
-          else
-            marker = new google.maps.Marker
-              _id: building._id
-              title: building.title
-              position: new google.maps.LatLng(building.latitude, building.longitude)
-              map: map
-              icon: defaultIcon
 
-            markers[building._id] = marker
-            google.maps.event.addListener marker, "click", do (marker, building) ->->
-              if infoWindowId isnt marker._id
-                if infoWindowId
-                  markers[infoWindowId].setIcon(defaultIcon)
+    if Template.instance().viewType.get() is 'thumbnails'
+      if $(window).width() > 767 and citySubs.ready
+        data = Router.current().data()
 
-                html = Blaze.toHTMLWithData(Template.buildingMarker, building)
-                infowindow.setContent(html)
-                infowindow.open(map, marker)
-                infoWindowId = marker._id
-                marker.setIcon(activeIcon)                
+        actualMarkerIds = []
+        @template.__helpers[" buildings"].call(data).forEach (building) ->
+          if building.latitude and building.longitude
+            actualMarkerIds.push(building._id)
 
-            google.maps.event.addListener marker, "mouseover", do (marker) ->->
-              marker.setIcon(activeIcon)
+            if marker = markers[building._id]
+              unless marker.map
+                marker.setMap(map)
+            else
+              marker = new google.maps.Marker
+                _id: building._id
+                title: building.title
+                position: new google.maps.LatLng(building.latitude, building.longitude)
+                map: map
+                icon: defaultIcon
 
-            google.maps.event.addListener marker, "mouseout", do (marker) ->->
-              if marker._id isnt infoWindowId
-                marker.setIcon(defaultIcon)             
+              markers[building._id] = marker
+              google.maps.event.addListener marker, "click", do (marker, building) ->->
+                if infoWindowId isnt marker._id
+                  if infoWindowId
+                    markers[infoWindowId].setIcon(defaultIcon)
 
-      for id, marker of markers
-        unless id in actualMarkerIds
-          marker.setMap(null)
-    if cityCircle isnt undefined
-      cityCircle.setMap(null)
+                  html = Blaze.toHTMLWithData(Template.buildingMarker, building)
+                  infowindow.setContent(html)
+                  infowindow.open(map, marker)
+                  infoWindowId = marker._id
+                  marker.setIcon(activeIcon)
 
-    if Session.get "cityGeoLocation"
-      if markers["filterItem"]
-        markers["filterItem"].setMap(null)
+              google.maps.event.addListener marker, "mouseover", do (marker) ->->
+                marker.setIcon(activeIcon)
 
-      address = Session.get "cityGeoLocation"
-      query = Router.current().params.query
-      marker = new google.maps.Marker
-        _id: "filterItem"
-        title: query.address
-        position: new google.maps.LatLng(address[0], address[1])
-        map: map
-        icon: filterIcon
+              google.maps.event.addListener marker, "mouseout", do (marker) ->->
+                if marker._id isnt infoWindowId
+                  marker.setIcon(defaultIcon)
 
-      markers["filterItem"] = marker
+        for id, marker of markers
+          unless id in actualMarkerIds
+            marker.setMap(null)
 
-      selectedTime = parseFloat(if Session.get('selectedTime') then Session.get('selectedTime') else 10)
+      if cityCircle isnt undefined
+        cityCircle.setMap(null)
 
-      travelMode = Session.get('travelMode') or 'walking'
+      if Session.get "cityGeoLocation"
+        if markers["filterItem"]
+          markers["filterItem"].setMap(null)
 
-      if travelMode == "walking"
-        maxDistance = selectedTime * (5 / 60)
-      else if travelMode == "driving"
-        maxDistance = selectedTime * (40 / 60)
-      else if travelMode == "bicycling"
-        maxDistance = selectedTime * (15 / 60)
+        address = Session.get "cityGeoLocation"
+        query = Router.current().params.query
+        marker = new google.maps.Marker
+          _id: "filterItem"
+          title: query.address
+          position: new google.maps.LatLng(address[0], address[1])
+          map: map
+          icon: filterIcon
 
-      # Center map to entered address
-      map.setCenter new google.maps.LatLng(address[0], address[1])
+        markers["filterItem"] = marker
 
-      populationOptions = 
-        strokeColor: '#FF0000'
-        strokeOpacity: 0.8
-        strokeWeight: 2
-        fillColor: '#FF0000'
-        fillOpacity: 0.35
-        map: map
-        center: new google.maps.LatLng(address[0], address[1])
-        radius: maxDistance * 1000
+        selectedTime = parseFloat(if Session.get('selectedTime') then Session.get('selectedTime') else 10)
 
-      cityCircle = new (google.maps.Circle)(populationOptions)
+        travelMode = Session.get('travelMode') or 'walking'
 
-    if Router.current().route.getName() is "clientRecommendations"
-      if Session.get "showRecommendations"
-        # Zoom map to fit all markers
-        bounds = new google.maps.LatLngBounds();
+        if travelMode == "walking"
+          maxDistance = selectedTime * (5 / 60)
+        else if travelMode == "driving"
+          maxDistance = selectedTime * (40 / 60)
+        else if travelMode == "bicycling"
+          maxDistance = selectedTime * (15 / 60)
+
+        # Center map to entered address
+        map.setCenter new google.maps.LatLng(address[0], address[1])
+
+        populationOptions =
+          strokeColor: '#FF0000'
+          strokeOpacity: 0.8
+          strokeWeight: 2
+          fillColor: '#FF0000'
+          fillOpacity: 0.35
+          map: map
+          center: new google.maps.LatLng(address[0], address[1])
+          radius: maxDistance * 1000
+
+        cityCircle = new (google.maps.Circle)(populationOptions)
+
+      if Router.current().route.getName() is "clientRecommendations"
+        if Session.get "showRecommendations"
+          # Zoom map to fit all markers
+          bounds = new google.maps.LatLngBounds();
+          for i, marker of markers
+            bounds.extend markers[i].getPosition()
+          map.fitBounds(bounds);
+        else
+          currentCityData = cities[data.cityId]
+          map.setZoom(14)
+          map.setCenter new google.maps.LatLng(currentCityData.latitude, currentCityData.longitude)
+
+      else if Router.current().route.getName() is "neighborhood"
+        # Center map to fit all properties
+        bounds = new google.maps.LatLngBounds()
         for i, marker of markers
-          bounds.extend markers[i].getPosition() 
-        map.fitBounds(bounds);
-      else
-        currentCityData = cities[data.cityId]
-        map.setZoom(14)
-        map.setCenter new google.maps.LatLng(currentCityData.latitude, currentCityData.longitude)
-
-    else if Router.current().route.getName() is "neighborhood"
-      # Center map to fit all properties
-      bounds = new google.maps.LatLngBounds()
-      for i, marker of markers
-        bounds.extend markers[i].getPosition()     
-      map.fitBounds(bounds)
-
-  # Show Contact Us Popup after 14 seconds
-  if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
-    @popupTimeoutHandle = Meteor.setTimeout ->
-      unless $('body').hasClass('modal-open')
-        $('.contact-us').trigger('click')
-    , 14000
-
-  Meteor.setTimeout ->
-    if typeof($('.HB-Bar')) != 'undefined'
-      #console.log("Hiding .HB-Bar - End of Template.city.onRendered");
-      $('.HB-Bar').addClass('hidden')
-      $('#hellobar-pusher').addClass('hidden')
-  , 200
-
-
-  $("#contactUsPopup").on "hide.bs.modal", (e) ->
-    $("#contactUsPopup form").formValidation "resetForm", true
+          bounds.extend markers[i].getPosition()
+        map.fitBounds(bounds)
 
 
 incrementPageNumber = ->
@@ -405,6 +558,9 @@ Template.city.events
         Session.set("editBuildingId", result.buildingId)
         Router.go(result.url)
 
+  "click .neighborhoods-section .filter-list a": (event, template) ->
+    $('.neighborhood-select .dropdown').removeClass('open')
+
   "click .travelMode": (event, template) ->
     $item = $(event.currentTarget)
     setDefaultImagesForCalc()
@@ -418,10 +574,69 @@ Template.city.events
       $item.find('img').attr("src", "/images/bike-active.png")
       Session.set "distanceMode", "bike"
 
+  "click #show-unpublished-properties-toggle": (event, template) ->
+    currentValue = Session.get('adminShowUnpublishedProperties')
+    Session.set('adminShowUnpublishedProperties', !currentValue)
+
+  "click .collapse-toggle-wrap#forMap": (event, template) ->
+    $item = $(event.currentTarget)
+
+    if $item.hasClass('is-out')
+      $item.removeClass('is-out')
+      $('.collapse-toggle-wrap#forMap .fa').removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-left')
+      $('.collapse-toggle-wrap#forMap .btn span').text('Show Map')
+      $('.collapse-toggle-wrap#forMap .btn').attr('data-original-title', 'Show map')
+    else
+      # First close any open galleries on the page
+      $('.ext-gallery:not(.hidden)').addClass('hidden')
+      $('.main-city-img-link.hidden').removeClass('hidden')
+
+      $item.addClass('is-out')
+      $('.collapse-toggle-wrap#forMap .fa').removeClass('fa-chevron-circle-left').addClass('fa-chevron-circle-right')
+      $('.collapse-toggle-wrap#forMap .btn span').text('Hide Map')
+      $('.collapse-toggle-wrap#forMap .btn').attr('data-original-title', 'Hide map')
+
+#  "click .main-city-list-wrap": (event, template) ->
+#    event.stopPropagation()
+#    $('.ext-gallery:not(.hidden)').addClass('hidden')
+#    $('.main-city-img-link.hidden').removeClass('hidden')
+
+  "click #mobile-cta .btn": (event, template) ->
+    analytics.track "Clicked Mobile CTA Btn (City Page)" unless Meteor.user()
+    true
+
+  "click #mobile-cta .close-btn": (event, template) ->
+    $(this).fadeOut(150)
+    $('#mobile-cta').slideUp(300)
+    analytics.track "Clicked CLOSE Mobile CTA Btn (City Page)" unless Meteor.user()
+
+
+  "keyup .building-title-search": _.debounce((event, template) ->
+    event.preventDefault()
+    data = template.data
+    q = encodeURIComponent($(event.currentTarget).val())
+    query = data.query
+
+    if q
+      query.q = q
+    else
+      delete query.q
+
+    routeName = Router.current().route.getName()
+
+    if routeName is "clientRecommendations"
+      Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
+    else
+      routeParams = {}
+      routeParams.cityId = data.cityId if data.cityId
+      routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+
+      analytics.track "Searched by building name", {label: query.q} unless Meteor.user() || q.length < 4
+
+      Router.go(routeName, routeParams, {query: query})
+  , 300)
+
 setDefaultImagesForCalc = ->
   $("#walker-calc").find("img").attr("src", "/images/walk.png")
   $("#car-calc").find("img").attr("src", "/images/car.png")
-  $("#bike-calc").find("img").attr("src", "/images/bike.png")    
-
-$("#contactUsPopup").on "hidden.bs.modal", ->
-  $("#contactUsPopup form").formValidation "resetForm", true
+  $("#bike-calc").find("img").attr("src", "/images/bike.png")

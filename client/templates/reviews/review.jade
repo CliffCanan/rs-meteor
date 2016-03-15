@@ -1,35 +1,9 @@
 template(name="review")
-  div.review(property="review", typeof="Review")
+  div.review(itemprop="review", itemscope, itemtype="http://schema.org/Review")
+
     if showBuildingLink
       div.building
         a(href="{{pathFor route='building' data=building.processedRouteData}}") #{building.title}
-    div.author(property="author", typeof="http://schema.org/Person")
-      span(property="name") #{displayName}
-      if canOperateWithBuilding
-        br
-        span
-          | (
-          a(href="mailto:#{email}") #{email}
-          | )
-    div.posted-date #{formatedCreatedAt}
-    div.total-rating(property="reviewRating", typeof="http://schema.org/Rating")
-      i.fa.fa-star
-      span(property="ratingValue") #{totalRating}
-      | /
-      span(property="bestRating") 10
-    h3(property="name") #{title}
-    if isPublished
-      p.review-body-summary #{formattedBody}
-      p.review-body-full(property="reviewBody") #{body}
-    else
-      p.review-body(property="reviewBody") #{body}
-    .review-breakdown.row
-      each reviewItems
-        div.review-item-rating.col-lg-6
-          +reviewBar
-    if showMoreLink
-      p.mb0
-        a.review-view-more(href="#") View more
 
     if canOperateWithBuilding
       .admin-actions
@@ -43,3 +17,41 @@ template(name="review")
             i.fa.fa-eye-slash
         a.btn.btn-danger.remove-review(href="#")
           i.fa.fa-trash
+
+    h3(itemprop="name") #{title}
+
+
+    div(style="position:relative;")
+      .total-rating
+        i.fa.fa-star 
+        span(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
+          meta(itemprop="worstRating" content="1")
+          span(itemprop="ratingValue") #{totalRating}
+          | /
+          span(itemprop="bestRating") 10
+
+      .author-date-box
+        div.author(property="author", typeof="http://schema.org/Person")
+          span(property="name") #{displayName}
+          //span.displayPersona #{displayPersona}
+          div.posted-date #{formatedCreatedAt}
+
+          if canOperateWithBuilding
+            small
+              | (
+              a(href="mailto:#{email}", target="_blank") #{email}
+              | )
+
+    if isPublished
+      p.review-body-summary #{formattedBody}
+      p.review-body-full(property="reviewBody") #{body}
+    else
+      p.review-body(property="reviewBody") #{body}
+    .review-breakdown.row
+      each reviewItems
+        div.review-item-rating.col-lg-6
+          +reviewBar
+
+    if showMoreLink
+      p.text-center
+        a.review-view-more(href="#") View More...

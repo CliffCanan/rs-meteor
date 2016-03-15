@@ -1,483 +1,786 @@
 
 <html>
-  <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="http://localhost/pdf.css"/>
-  </head>
-  <body>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="http://localhost/pdf.css" />
+</head>
+
+<body>
+
     <div class="container">
-      <div id="rental-application-wrapper">
-        <div class="row">
-          <div class="col-lg-12">
-            <h1>Rental Application.</h1>
-          </div>
-          <div class="col-lg-12">
-            <form id="rental-application-form" class="form-inline">
-              <h3>Rent Details</h3>
-              <div class="form-group">
-                <label>Which apartment are you applying to</label>
-                <input type="text" name="apartmentName" value="{{fields.apartmentName}}" class="input-large form-control"/>
-              </div><br/>
-              <div class="form-group">
-                <label>Move in date</label>
-                <input type="text" name="moveInDate" value="{{renderDate fields.moveInDate}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Lenght of lease</label>
-                <input type="text" name="lenghtOfLease" value="{{fields.lenghtOfLease}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Rent</label>
-                <input type="text" name="rent" value="${{formatMoney fields.rent}}" class="input-tiny form-control"/>
-              </div>
-              <h3>Personal Information</h3>
-              <div class="form-group">
-                <label>Applicant's full name</label>
-                <input type="text" name="fullName" value="{{fields.fullName}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Date of birth</label>
-                <input type="text" name="dateOfBirth" value="{{renderDate fields.dateOfBirth}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Social security number</label>
-                <input type="text" name="socialSecurityNumber" value="{{fields.socialSecurityNumber}}" class="input-medium form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Email</label>
-                <input type="text" name="email" value="{{fields.email}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Phone number</label>
-                <input type="text" name="phoneNumber" value="{{fields.phoneNumber}}" class="input-medium form-control"/>
-              </div>
 
-              {{#if isStudent}}
-              <div class="form-group">
-                <label>Are you a student?</label>
-                <input type="text" name="isStudent" value="{{fields.isStudent}}" class="input-tiny form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Institution</label>
-                <input type="text" name="institution" value="{{fields.institution}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Years there?</label>
-                <input type="text" name="institutionDuration" value="{{fields.institutionDuration}}" class="input-tiny form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Anticipated graduation year?</label>
-                <input type="text" name="anticipatedGraduationYear" value="{{fields.anticipatedGraduationYear}}" class="input-tiny form-control"/>
-              </div>
-              {{/if}}
+        <div id="rental-application-wrapper">
 
-              {{#if checkEquals fields.hasPartnerRoommate 'I have a partner'}}
-              <br/>
-              <div class="form-group">
-                <label>Name of partner</label>
-                <input type="text" name="nameOfPartner" value="{{fields.nameOfPartner}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Partner SSN</label>
-                <input type="text" name="partnerSSN" value="{{fields.partnerSSN}}" class="input-large form-control"/>
-              </div>
-              {{/if}}
+            <div class="row">
 
-              {{#if checkEquals fields.hasPartnerRoommate 'I have a roommate'}}
-              <br/>
-              <div class="form-group">
-                <label>Name of Roommate 1</label>
-                <input type="text" name="nameOfRoommate1" value="{{fields.nameOfRoommate1}}" class="input-large form-control"/>
-              </div>
-              {{#if fields.nameOfRoommate2}}
-              <div class="form-group">
-                <label>Name of Roommate 2</label>
-                <input type="text" name="nameOfRoommate2" value="{{fields.nameOfRoommate2}}" class="input-large form-control"/>
-              </div>
-              {{/if}}
-              {{#if fields.nameOfRoommate3}}
-              <div class="form-group">
-                <label>Name of Roommate 3</label>
-                <input type="text" name="nameOfRoommate3" value="{{fields.nameOfRoommate3}}" class="input-large form-control"/>
-              </div>
-              {{/if}}
-              {{#if fields.nameOfRoommate4}}
-              <div class="form-group">
-                <label>Name of Roommate 4</label>
-                <input type="text" name="nameOfRoommate4" value="{{fields.nameOfRoommate4}}" class="input-large form-control"/>
-              </div>
-              {{/if}}
-              {{/if}}
+                <div class="col-lg-12">
+                    <h1>Rental Application</h1>
+                </div>
 
-              <br/>
-              <br/>
-              <div class="form-group">
-                <label>How many people are in your family</label>
-                <input type="text" name="familyMembersCount" value="{{fields.familyMembersCount}}" class="input-tiny form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Adults</label>
-                <input type="text" name="adultsCount" value="{{fields.adultsCount}}" class="input-tiny form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Children</label>
-                <input type="text" name="childrenCount" value="{{fields.childrenCount}}" class="input-tiny form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Names/relationship of individuals occupying the unit </label>
-                <input type="text" name="individualsInUnit" value="{{fields.individualsInUnit}}" class="input-large form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Do you have any pets?</label>
-                <input type="text" name="hasPets" value="{{fields.hasPets}}" class="input-tiny form-control"/>
-              </div>
-              <br/>
-              {{#if checkEquals fields.hasPets 'Yes'}}
-              <div class="form-group">
-                <label>Pet(s)'s name</label>
-                <input type="text" name="petName" value="{{fields.petName}}" class="input-medium form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Breed(s)</label>
-                <input type="text" name="petBreed" value="{{fields.petBreed}}" class="input-xlarge form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Color(s)</label>
-                <input type="text" name="petColor" value="{{fields.petColor}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Age(s)</label>
-                <input type="text" name="petAge" value="{{fields.petAge}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Gender(s)</label>
-                <input type="text" name="petGender" value="{{fields.petGender}}" class="input-small form-control"/>
-              </div>
+                <div class="col-lg-12">
+                    <form id="rental-application-form" class="form-inline">
 
-              <br/>
+                        <h3>Rent Details</h3>
 
-              <div class="form-group">
-                <label>Weight(s)</label>
-                <input type="text" name="petWeight" value="{{fields.petWeight}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Spayed / Neutered?</label>
-                <input type="text" name="petSpayedNeutered" value="{{fields.petSpayedNeutered}}" class="input-small form-control"/>
-              </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Which apartment are you applying to</label>
+                                <input type="text" name="apartmentName" value="{{fields.apartmentName}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
 
-              <br/>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Move-In Date</label>
+                                <input type="text" name="moveInDate" value="{{renderDate fields.moveInDate}}" class="col-sm-3 form-control" />
 
-              <div class="form-group">
-                <label>Additional info</label>
-                <input type="text" name="petAdditionalInfo" value="{{fields.petAdditionalInfo}}" class="input-xxlarge form-control"/>
-              </div>
+                                <label class="col-sm-2">Lease Length</label>
+                                <input type="text" name="lenghtOfLease" value="{{fields.lenghtOfLease}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
 
-              {{/if}}
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Rent</label>
+                                <input type="text" name="rent" value="${{formatMoney fields.rent}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
 
-              <br/>
-              <h3>Prior Rental Information</h3>
-              <h4>Current address</h4>
-              <div class="form-group">
-                <label>How long at this address</label>
-                <input type="text" name="currentAddressDuration" value="{{fields.currentAddressDuration}}" class="input-small form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Current address</label>
-                <input type="text" name="currentAddress" value="{{fields.currentAddress}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>City</label>
-                <input type="text" name="currentCity" value="{{fields.currentCity}}" class="input-medium form-control"/>
-              </div>
-              <div class="form-group">
-                <label>State</label>
-                <input type="text" name="currentState" value="{{fields.currentState}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Zip</label>
-                <input type="text" name="currentZip" value="{{fields.currentZip}}" class="input-small form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Rent / Own</label>
-                <input type="text" name="currentAddressOwnership" value="{{fields.currentAddressOwnership}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Current landlord's name</label>
-                <input type="text" name="currentLandlordName" value="{{fields.currentLandlordName}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Landlord's phone #</label>
-                <input type="text" name="currentLandlordPhoneNumber" value="{{fields.currentLandlordPhoneNumber}}" class="input-medium form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Total monthly rent</label>
-                <input type="text" name="currentRent" value="${{formatMoney fields.currentRent}}" class="input-tiny form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Total monthly rent that you were individually responsible for</label>
-                <input type="text" name="currentRentResponsible" value="${{formatMoney fields.currentRentResponsible}}" class="input-small form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Reason for leaving</label>
-                <input type="text" name="currentReasonForLeaving" value="{{fields.currentReasonForLeaving}}" class="input-large form-control"/>
-              </div>
-              {{#if showPreviousAddress}}
-              <br/>
-              <h4>Previous address</h4>
-              <div class="form-group">
-                <label>How long at this address</label>
-                <input type="text" name="previousAddressDuration" value="{{fields.previousAddressDuration}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Previous address</label>
-                <input type="text" name="previousAddress" value="{{fields.previousAddress}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>City</label>
-                <input type="text" name="previousCity" value="{{fields.previousCity}}" class="input-medium form-control"/>
-              </div>
-              <div class="form-group">
-                <label>State</label>
-                <input type="text" name="previousState" value="{{fields.previousState}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Zip</label>
-                <input type="text" name="previousZip" value="{{fields.previousZip}}" class="input-small form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Rent / Own</label>
-                <input type="text" name="previousAddressOwnership" value="{{fields.previousAddressOwnership}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Previous landlord's name</label>
-                <input type="text" name="previousLandlordName" value="{{fields.previousLandlordName}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Landlord's phone #</label>
-                <input type="text" name="previousLandlordPhoneNumber" value="{{fields.previousLandlordPhoneNumber}}" class="input-medium form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Total monthly rent</label>
-                <input type="text" name="previousRent" value="${{formatMoney fields.previousRent}}" class="input-tiny form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Total monthly rent that you were individually responsible for</label>
-                <input type="text" name="previousRentResponsible" value="${{formatMoney fields.previousRentResponsible}}" class="input-small form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Reason for leaving</label>
-                <input type="text" name="currentReasonForLeaving" value="{{fields.currentReasonForLeaving}}" class="input-large form-control"/>
-              </div>
-              {{/if}}
-              <br/>
+                        <h3>Personal Information</h3>
 
-              <h3>Current Employment Information</h3>
-              <div class="form-group">
-                <label>Present employer</label>
-                <input type="text" name="presentEmployer" value="{{fields.presentEmployer}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Position</label>
-                <input type="text" name="position" value="{{fields.position}}" class="input-medium form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Monthly salary</label>
-                <input type="text" name="monthlySalary" value="${{formatMoney fields.monthlySalary}}" class="input-tiny form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Employer's address</label>
-                <input type="text" name="position" value="{{fields.employerAddress}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>How long at this position</label>
-                <input type="text" name="monthlySalary" value="{{fields.positionDuration}}" class="input-small form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Contact person to verify employment</label>
-                <input type="text" name="employmentVerificationPerson" value="{{fields.employmentVerificationPerson}}" class="input-large form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>(Phone # / Email)</label>
-                <input type="text" name="employmentVerificationContact" value="{{fields.employmentVerificationContact}}" class="input-large form-control"/>
-              </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Applicant's Full Name</label>
+                                <input type="text" name="fullName" value="{{fields.fullName}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
 
-              <br/>
-              <br/>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Email</label>
+                                <input type="text" name="email" value="{{fields.email}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
 
-              <div class="form-group">
-                <label>Other income / source (if applicable)</label>
-                <input type="text" name="otherEmployment" value="{{fields.otherEmployment}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Other employer's address</label>
-                <input type="text" name="otherEmployerAddress" value="{{fields.otherEmployerAddress}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Contact person to verify employment</label>
-                <input type="text" name="otherEmploymentVerificationPerson" value="{{fields.otherEmploymentVerificationPerson}}" class="input-large form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>(Phone # / Email)</label>
-                <input type="text" name="otherEmploymentVerificationContact" value="{{fields.otherEmploymentVerificationContact}}" class="input-large form-control"/>
-              </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Phone Number</label>
+                                <input type="text" name="phoneNumber" value="{{fields.phoneNumber}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
 
-              <div class="break"></div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Date of Birth</label>
+                                <input type="text" name="dateOfBirth" value="{{renderDate fields.dateOfBirth}}" class="col-sm-3 form-control" />
 
-              <h3>Criminal History</h3>
-              <div class="form-group">
-                <label>Have you, or anyone who is included in this application ever:</label>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Filed for bankruptcy?</label>
-                <input type="text" name="hasFiledForBankruptcy" value="{{fields.hasFiledForBankruptcy}}" class="input-tiny form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Been evicted?</label>
-                <input type="text" name="hasBeenEvicted" value="{{fields.hasBeenEvicted}}" class="input-tiny form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Refused to pay rent?</label>
-                <input type="text" name="hasRefusedToPayRent" value="{{fields.hasRefusedToPayRent}}" class="input-tiny form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Violated or broken any lease agreement?</label>
-                <input type="text" name="hasViolatedOrBrokenAnyLeaseAgreement" value="{{fields.hasViolatedOrBrokenAnyLeaseAgreement}}" class="input-tiny form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Has a criminal history?</label>
-                <input type="text" name="hasACriminalHistory" value="{{fields.hasACriminalHistory}}" class="input-tiny form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Pending case?</label>
-                <input type="text" name="hasPendingCase" value="{{fields.hasPendingCase}}" class="input-tiny form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Registered sex offender?</label>
-                <input type="text" name="isRegisteredSexOffender" value="{{fields.isRegisteredSexOffender}}" class="input-tiny form-control"/>
-              </div>
+                                <label class="col-sm-2">Social Security Number</label>
+                                <input type="text" name="socialSecurityNumber" value="{{fields.socialSecurityNumber}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
 
-              {{#if showCriminalHistoryExplanation}}
-              <br/>
-              <div class="form-group">
-                <label>Please explain in detail (stating place, offense, date, etc.)</label>
-                <input type="text" name="criminalHistoryExplanation" value="{{fields.criminalHistoryExplanation}}" class="input-xxlarge form-control"/>
-              </div>
-              {{/if}}
+                        <h4>Student Information</h4>
 
-              <h3>Personal References</h3>
-              <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="firstReferenceName" value="{{fields.firstReferenceName}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Years known</label>
-                <input type="text" name="firstReferenceYearsKnown" value="{{fields.firstReferenceYearsKnown}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Relationship</label>
-                <input type="text" name="firstReferenceRelationship" value="{{fields.firstReferenceRelationship}}" class="input-medium form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Phone #</label>
-                <input type="text" name="firstReferencePhoneNumber" value="{{fields.firstReferencePhoneNumber}}" class="input-medium form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="secondReferenceName" value="{{fields.secondReferenceName}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Years known</label>
-                <input type="text" name="secondReferenceYearsKnown" value="{{fields.secondReferenceYearsKnown}}" class="input-small form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Relationship</label>
-                <input type="text" name="secondReferenceRelationship" value="{{fields.secondReferenceRelationship}}" class="input-medium form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Phone #</label>
-                <input type="text" name="secondReferencePhoneNumber" value="{{fields.secondReferencePhoneNumber}}" class="input-medium form-control"/>
-              </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Are You A Student?</label>
+                                <input type="text" name="isStudent" value="{{fields.isStudent}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
 
-              <h3>Emergency Contact</h3>
-              <p>
-                In the event of an emergency, please contact the following person(s):
-              </p>
-              <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="firstEmergencyContactName" value="{{fields.firstEmergencyContactName}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Phone #</label>
-                <input type="text" name="firstEmergencyContactPhoneNumber" value="{{fields.firstEmergencyContactPhoneNumber}}" class="input-mediun form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Address</label>
-                <input type="text" name="firstEmergencyContactAddress" value="{{fields.firstEmergencyContactAddress}}" class="input-large form-control"/>
-              </div>
-              <br/>
-              <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="secondEmergencyContactName" value="{{fields.secondEmergencyContactName}}" class="input-large form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Phone #</label>
-                <input type="text" name="secondEmergencyContactPhoneNumber" value="{{fields.secondEmergencyContactPhoneNumber}}" class="input-medium form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Address</label>
-                <input type="text" name="secondEmergencyContactAddress" value="{{fields.secondEmergencyContactAddress}}" class="input-large form-control"/>
-              </div>
+                        <br />
 
-              <br/>
-              <br/>
+                        {{#if fields.isStudent}}
 
-              <p style="text-align: center"><strong>Deposit Disclaimer</strong></p>
-              <p>
-                I have submitted a non-refundable Application Deposit in which is equal to one (1) month's rent. This application deposit is made in consideration of Rent Scene LLC / an authorized representative rather directly / indirectly taking the prospective leased premises off the rental market, and preparing the premises for my occupancy on or before the proposed move in date. Accordingly, if I do not take occupancy of the apartment after signing this application, I understand that I forfeit my Application Deposit. If Rent Scene LLC / an authorized representative rather directly / indirectly denies my application, the application deposit will be refunded. Please be aware that if information necessary for the completion of the approval process is not provided, Rent Scene LLC / its affiliates reserve the right to deny the application. I also agree that at the signing of this application, my move-in date, if approved by management, is final and I will be responsible for rent beginning on the specified date. I understand that upon signing the written lease agreement, my Application Deposit will be applied towards my Security Deposit and/or First Month's Rent. I understand it is my sole responsibility to carry rental insurance for all of my personal property. I understand that with the exception of cleaning and painting, the apartment will be rented as is. All agreements to make any changes to the apartment, or do additional repairs/upgrades, or to credit my account for any reason must be placed in writing and signed by myself and an authorized representative from the apartment for which I am applying to. Verbal agreements will not be honored.
-              </p>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Institution</label>
+                                <input type="text" name="institution" value="{{fields.institution}}" class="col-sm-3 form-control" />
 
-              <h3>Applicant's Consent</h3>
-              <p>
-                I hereby authorize Rent Scene LLC, its affiliates or a third party delegated by Rent Scene LLC, to obtain a consumer report, and other information it deems necessary, for the purpose of evaluating my application. I understand that such information may include, but is not limited to, credit history, civil and criminal information, records of arrest, rental history, employment/salary details, vehicle records, licensing records, and/or any other necessary information. I understand that subsequent consumer reports may be obtained and utilized under this authorization in connection with an update, renewal, extension or collection with respect or in connection with the rental lease of a residence, which this application was made. I hereby expressly release Rent Scene LCC, its affiliates and any procurer or furnisher of information, from any liability whatsoever in the use, procurement, or furnishing of such information, and understand that my application information may be provided to various local, state, and/or federal government agencies including without limitation, various law enforcement agencies.
-              </p>
-              <p>
-                By signing below, I agree that I have read and understand the information contained in the Deposit Disclaimer and Consumer Notice and am bound by the terms there-in.
-              </p>
-              {{#if signatureData}}
-              <img src="data:image/svg+xml;base64,{{signatureData}}"/>
-              {{/if}}
-            </form>
-          </div>
+                                <label class="col-sm-2">Years Attended</label>
+                                <input type="text" name="institutionDuration" value="{{fields.institutionDuration}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Anticipated Graduation Year?</label>
+                                <input type="text" name="anticipatedGraduationYear" value="{{fields.anticipatedGraduationYear}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+                        {{/if}}
+
+                        {{#if checkEquals fields.hasPartnerRoommate 'I have a partner'}}
+                        <br />
+
+                        <h4>Partner Information</h4>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Name of Partner</label>
+                                <input type="text" name="nameOfPartner" value="{{fields.nameOfPartner}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-2">Partner SSN</label>
+                                <input type="text" name="partnerSSN" value="{{fields.partnerSSN}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+                        {{/if}}
+
+                        {{#if checkEquals fields.hasPartnerRoommate 'I have a roommate'}}
+                        <br />
+
+                        <h4>Roommate Information</h4>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Roommates</label>
+                                <div class="col-sm-9">
+                                    <table class="table table-striped numbered">
+                                        <thead>
+                                            <tr>
+                                                <td>#</td>
+                                                <td>Roommate Name</td>
+                                                <td>Relationship</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>{{fields.nameOfRoommate1}}</td>
+                                                <td>{{fields.relationshipOfRoommate1}}</td>
+                                            </tr>
+                                            {{#if fields.nameOfRoommate2}}
+                                            <tr>
+                                                <td>2</td>
+                                                <td>{{fields.nameOfRoommate2}}</td>
+                                                <td>{{fields.relationshipOfRoommate2}}</td>
+                                            </tr>
+                                            {{/if}}
+
+                                            {{#if fields.nameOfRoommate3}}
+                                            <tr>
+                                                <td>3</td>
+                                                <td>{{fields.nameOfRoommate3}}</td>
+                                                <td>{{fields.relationshipOfRoommate3}}</td>
+                                            </tr>
+                                            {{/if}}
+
+                                            {{#if fields.nameOfRoommate4}}
+                                            <tr>
+                                                <td>4</td>
+                                                <td>{{fields.nameOfRoommate4}}</td>
+                                                <td>{{fields.relationshipOfRoommate4}}</td>
+                                            </tr>
+                                            {{/if}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+
+                        <br />
+                        <br />
+
+                        {{#if fields.familyMembersCount}}
+                        <h4>Family Information</h4>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">How many people will live here?</label>
+                                <input type="text" name="familyMembersCount" value="{{fields.familyMembersCount}}" class="col-sm-1 form-control" />
+
+                                <label class="col-sm-1">Adults</label>
+                                <input type="text" name="adultsCount" value="{{fields.adultsCount}}" class="col-sm-1 form-control" />
+
+                                <label class="col-sm-1">Children</label>
+                                <input type="text" name="childrenCount" value="{{fields.childrenCount}}" class="col-sm-1 form-control" />
+                            </div>
+                        </div>
+                        {{/if}}
+
+                        <br />
+
+                        {{#if fields.individualsInUnit}}
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Names/relationship of individuals occupying the unit </label>
+                                <input type="text" name="individualsInUnit" value="{{fields.individualsInUnit}}" class="col-sm-6 form-control" />
+                            </div>
+                        </div>
+                        {{/if}}
+
+                        <br />
+
+                        <h4>Pets</h4>
+
+                        {{#if fields.dog1Name}}
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Any Dogs?</label>
+                                <input type="text" name="hasDogs" value="Yes" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <br />                        
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Dogs</label>
+
+                                <div class="col-sm-9">
+                                    <table class="table table-striped numbered">
+                                        <thead>
+                                            <tr>
+                                                <td>#</td>
+                                                <td>Dog Name</td>
+                                                <td>Breed</td>
+                                                <td>Weight</td>
+                                                <td>Age</td>
+                                                <td>Color</td>
+                                                <td>Gender</td>
+                                                <td>Spayed/Neutered?</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>{{fields.dog1Name}}</td>
+                                                <td>{{fields.dog1Breed}}</td>
+                                                <td>{{fields.dog1Weight}}</td>
+                                                <td>{{fields.dog1Age}}</td>
+                                                <td>{{fields.dog1Color}}</td>
+                                                <td>{{fields.dog1Gender}}</td>
+                                                <td>{{fields.dog1Neutered}}</td>
+                                            </tr>
+                                            {{#if fields.dog2Name}}
+                                            <tr>
+                                                <td>2</td>
+                                                <td>{{fields.dog2Name}}</td>
+                                                <td>{{fields.dog2Breed}}</td>
+                                                <td>{{fields.dog2Weight}}</td>
+                                                <td>{{fields.dog2Age}}</td>
+                                                <td>{{fields.dog2Color}}</td>
+                                                <td>{{fields.dog2Gender}}</td>
+                                                <td>{{fields.dog2Neutered}}</td>
+                                            </tr>
+                                            {{/if}}
+                                            {{#if fields.dog3Name}}
+                                            <tr>
+                                                <td>3</td>
+                                                <td>{{fields.dog3Name}}</td>
+                                                <td>{{fields.dog3Breed}}</td>
+                                                <td>{{fields.dog3Weight}}</td>
+                                                <td>{{fields.dog3Age}}</td>
+                                                <td>{{fields.dog3Color}}</td>
+                                                <td>{{fields.dog3Gender}}</td>
+                                                <td>{{fields.dog3Neutered}}</td>
+                                            </tr>
+                                            {{/if}}
+                                            {{#if fields.dog4Name}}
+                                            <tr>
+                                                <td>4</td>
+                                                <td>{{fields.dog4Name}}</td>
+                                                <td>{{fields.dog4Breed}}</td>
+                                                <td>{{fields.dog4Weight}}</td>
+                                                <td>{{fields.dog4Age}}</td>
+                                                <td>{{fields.dog4Color}}</td>
+                                                <td>{{fields.dog4Gender}}</td>
+                                                <td>{{fields.dog4Neutered}}</td>
+                                            </tr>
+                                            {{/if}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Additional Info</label>
+                                <input type="text" name="dogAdditionalInfo" value="{{fields.dogAdditionalInfo}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        {{/if}}
+
+                        <br />
+
+                        {{#if fields.cat1Name}}
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Any Cats?</label>
+                                <input type="text" name="hasCats" value="Yes" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Cats</label>
+
+                                <div class="col-sm-9">
+                                    <table class="table table-striped numbered">
+                                        <thead>
+                                            <tr>
+                                                <td>#</td>
+                                                <td>Cat Name</td>
+                                                <td>Weight</td>
+                                                <td>Age</td>
+                                                <td>Color</td>
+                                                <td>Spayed/Neutered?</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>{{fields.cat1Name}}</td>
+                                                <td>{{fields.cat1Weight}}</td>
+                                                <td>{{fields.cat1Age}}</td>
+                                                <td>{{fields.cat1Color}}</td>
+                                                <td>{{fields.cat1Neutered}}</td>
+                                            </tr>
+                                            {{#if fields.cat2Name}}
+                                            <tr>
+                                                <td>2</td>
+                                                <td>{{fields.cat2Name}}</td>
+                                                <td>{{fields.cat2Weight}}</td>
+                                                <td>{{fields.cat2Age}}</td>
+                                                <td>{{fields.cat2Color}}</td>
+                                                <td>{{fields.cat2Neutered}}</td>
+                                            </tr>
+                                            {{/if}}
+                                            {{#if fields.cat3Name}}
+                                            <tr>
+                                                <td>3</td>
+                                                <td>{{fields.cat3Name}}</td>
+                                                <td>{{fields.cat3Weight}}</td>
+                                                <td>{{fields.cat3Age}}</td>
+                                                <td>{{fields.cat3Color}}</td>
+                                                <td>{{fields.cat3Neutered}}</td>
+                                            </tr>
+                                            {{/if}}
+                                            {{#if fields.cat4Name}}
+                                            <tr>
+                                                <td>4</td>
+                                                <td>{{fields.cat4Name}}</td>
+                                                <td>{{fields.cat4Weight}}</td>
+                                                <td>{{fields.cat4Age}}</td>
+                                                <td>{{fields.cat4Color}}</td>
+                                                <td>{{fields.cat4Neutered}}</td>
+                                            </tr>
+                                            {{/if}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Additional Info</label>
+                                <input type="text" name="catAdditionalInfo" value="{{fields.catAdditionalInfo}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        {{/if}}
+
+                        <h3>Prior Rental Information</h3>
+
+                        <h4>Current Address</h4>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">How long at this address</label>
+                                <input type="text" name="currentAddressDuration" value="{{fields.currentAddressDuration}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-2">Rent / Own</label>
+                                <input type="text" name="currentAddressOwnership" value="{{fields.currentAddressOwnership}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Current Address</label>
+                                <input type="text" name="currentAddress" value="{{fields.currentAddress}}" class="col-sm-6 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">City</label>
+                                <input type="text" name="currentCity" value="{{fields.currentCity}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-1">State</label>
+                                <input type="text" name="currentState" value="{{fields.currentState}}" class="col-sm-1 form-control" />
+
+                                <label class="col-sm-1">ZIP</label>
+                                <input type="text" name="currentZip" value="{{fields.currentZip}}" class="col-sm-1 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Current Landlord's Name</label>
+                                <input type="text" name="currentLandlordName" value="{{fields.currentLandlordName}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-2">Landlord's Phone #</label>
+                                <input type="text" name="currentLandlordPhoneNumber" value="{{fields.currentLandlordPhoneNumber}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">TOTAL Monthly Rent</label>
+                                <input type="text" name="currentRent" value="${{formatMoney fields.currentRent}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-2">YOUR Monthly Rent</label>
+                                <input type="text" name="currentRentResponsible" value="${{formatMoney fields.currentRentResponsible}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Reason For Leaving</label>
+                                <input type="text" name="currentReasonForLeaving" value="{{fields.currentReasonForLeaving}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        {{#if fields.previousAddress}}
+                        <br />
+
+                        <h4>Previous Address</h4>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">How long at this address</label>
+                                <input type="text" name="previousAddressDuration" value="{{fields.previousAddressDuration}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-3">Rent / Own</label>
+                                <input type="text" name="previousAddressOwnership" value="{{fields.previousAddressOwnership}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Previous Address</label>
+                                <input type="text" name="previousAddress" value="{{fields.previousAddress}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">City</label>
+                                <input type="text" name="previousCity" value="{{fields.previousCity}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-1">State</label>
+                                <input type="text" name="previousState" value="{{fields.previousState}}" class="col-sm-1 form-control" />
+
+                                <label class="col-sm-1">ZIP</label>
+                                <input type="text" name="previousZip" value="{{fields.previousZip}}" class="col-sm-1 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Previous Landlord's Name</label>
+                                <input type="text" name="previousLandlordName" value="{{fields.previousLandlordName}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-2">Landlord's Phone #</label>
+                                <input type="text" name="previousLandlordPhoneNumber" value="{{fields.previousLandlordPhoneNumber}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">TOTAL Monthly Rent</label>
+                                <input type="text" name="previousRent" value="${{formatMoney fields.previousRent}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-2">YOUR Monthly Rent</label>
+                                <input type="text" name="previousRentResponsible" value="${{formatMoney fields.previousRentResponsible}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Reason For Leaving</label>
+                                <input type="text" name="currentReasonForLeaving" value="{{fields.currentReasonForLeaving}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        {{/if}}
+
+                        <br />
+
+                        <h3>Employment Information</h3>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Present Employer</label>
+                                <input type="text" name="presentEmployer" value="{{fields.presentEmployer}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-2">Position</label>
+                                <input type="text" name="position" value="{{fields.position}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">How long at this position</label>
+                                <input type="text" name="monthlySalary" value="{{fields.positionDuration}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-2">Monthly Salary</label>
+                                <input type="text" name="monthlySalary" value="${{formatMoney fields.monthlySalary}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Employer's Address</label>
+                                <input type="text" name="position" value="{{fields.employerAddress}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Contact Person</label>
+                                <input type="text" name="employmentVerificationPerson" value="{{fields.employmentVerificationPerson}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-2">Phone # / Email</label>
+                                <input type="text" name="employmentVerificationContact" value="{{fields.employmentVerificationContact}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+
+                        <h4>Other Income</h4>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Other Income Source<br /><small>(if applicable)</small></label>
+                                <input type="text" name="otherEmployment" value="{{fields.otherEmployment}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Other Employer's Address</label>
+                                <input type="text" name="otherEmployerAddress" value="{{fields.otherEmployerAddress}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Contact Person</label>
+                                <input type="text" name="otherEmploymentVerificationPerson" value="{{fields.otherEmploymentVerificationPerson}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-2">Phone # / Email</label>
+                                <input type="text" name="otherEmploymentVerificationContact" value="{{fields.otherEmploymentVerificationContact}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="break"></div>
+
+                        <h3>Criminal History</h3>
+
+                        <p class="col-sm-12 well">Have you or anyone included in this application ever:</p>
+
+                        <div class="row">
+                            <div class="form-group">
+
+                                <label class="col-sm-2">Filed for Bankruptcy?</label>
+                                <input type="text" name="hasFiledForBankruptcy" value="{{fields.hasFiledForBankruptcy}}" class="col-sm-1 form-control" />
+
+                                <label class="col-sm-2">Been Evicted?</label>
+                                <input type="text" name="hasBeenEvicted" value="{{fields.hasBeenEvicted}}" class="col-sm-1 form-control" />
+
+                                <label class="col-sm-2">Refused to Pay Rent?</label>
+                                <input type="text" name="hasRefusedToPayRent" value="{{fields.hasRefusedToPayRent}}" class="col-sm-1 form-control" />
+
+                                <label class="col-sm-2">Violated or Broken Any Lease Agreement?</label>
+                                <input type="text" name="hasViolatedOrBrokenAnyLeaseAgreement" value="{{fields.hasViolatedOrBrokenAnyLeaseAgreement}}" class="col-sm-1 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-2">Been Convicted Of A Crime</label>
+                                <input type="text" name="hasACriminalHistory" value="{{fields.hasACriminalHistory}}" class="col-sm-1 form-control" />
+
+                                <label class="col-sm-2">Pending Case?</label>
+                                <input type="text" name="hasPendingCase" value="{{fields.hasPendingCase}}" class="col-sm-1 form-control" />
+
+                                <label class="col-sm-2">Registered Sex Offender?</label>
+                                <input type="text" name="isRegisteredSexOffender" value="{{fields.isRegisteredSexOffender}}" class="col-sm-1 form-control" />
+                            </div>
+                        </div>
+
+                        {{#if showCriminalHistoryExplanation}}
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Please explain in detail (Place, offense, date, etc.)</label>
+                                <input type="text" name="criminalHistoryExplanation" value="{{fields.criminalHistoryExplanation}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        {{/if}}
+
+                        <h3>Personal References</h3>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Name</label>
+                                <input type="text" name="firstReferenceName" value="{{fields.firstReferenceName}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Relationship</label>
+                                <input type="text" name="firstReferenceRelationship" value="{{fields.firstReferenceRelationship}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-3">Years Known</label>
+                                <input type="text" name="firstReferenceYearsKnown" value="{{fields.firstReferenceYearsKnown}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Phone #</label>
+                                <input type="text" name="firstReferencePhoneNumber" value="{{fields.firstReferencePhoneNumber}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Name</label>
+                                <input type="text" name="secondReferenceName" value="{{fields.secondReferenceName}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Relationship</label>
+                                <input type="text" name="secondReferenceRelationship" value="{{fields.secondReferenceRelationship}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-3">Years Known</label>
+                                <input type="text" name="secondReferenceYearsKnown" value="{{fields.secondReferenceYearsKnown}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Phone #</label>
+                                <input type="text" name="secondReferencePhoneNumber" value="{{fields.secondReferencePhoneNumber}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        <h3>Emergency Contact</h3>
+
+                        <p class="col-sm-12 well">In the event of an emergency, please contact the following person(s):</p>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Name</label>
+                                <input type="text" name="firstEmergencyContactName" value="{{fields.firstEmergencyContactName}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Phone #</label>
+                                <input type="text" name="firstEmergencyContactPhoneNumber" value="{{fields.firstEmergencyContactPhoneNumber}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-3">Address</label>
+                                <input type="text" name="firstEmergencyContactAddress" value="{{fields.firstEmergencyContactAddress}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Name</label>
+                                <input type="text" name="secondEmergencyContactName" value="{{fields.secondEmergencyContactName}}" class="col-sm-9 form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-3">Phone #</label>
+                                <input type="text" name="secondEmergencyContactPhoneNumber" value="{{fields.secondEmergencyContactPhoneNumber}}" class="col-sm-3 form-control" />
+
+                                <label class="col-sm-3">Address</label>
+                                <input type="text" name="secondEmergencyContactAddress" value="{{fields.secondEmergencyContactAddress}}" class="col-sm-3 form-control" />
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+
+                        <p><strong>Deposit Disclaimer</strong></p>
+
+                        <p>I have submitted a non-refundable Application Deposit in which is equal to one (1) month's rent. This application deposit is made in consideration of Rent Scene LLC / an authorized representative rather directly / indirectly taking the prospective leased premises off the rental market, and preparing the premises for my occupancy on or before the proposed move in date. Accordingly, if I do not take occupancy of the apartment after signing this application, I understand that I forfeit my Application Deposit. If Rent Scene LLC / an authorized representative rather directly / indirectly denies my application, the application deposit will be refunded. Please be aware that if information necessary for the completion of the approval process is not provided, Rent Scene LLC / its affiliates reserve the right to deny the application. I also agree that at the signing of this application, my move-in date, if approved by management, is final and I will be responsible for rent beginning on the specified date. I understand that upon signing the written lease agreement, my Application Deposit will be applied towards my Security Deposit and/or First Month's Rent. I understand it is my sole responsibility to carry rental insurance for all of my personal property. I understand that with the exception of cleaning and painting, the apartment will be rented as is. All agreements to make any changes to the apartment, or do additional repairs/upgrades, or to credit my account for any reason must be placed in writing and signed by myself and an authorized representative from the apartment for which I am applying to. Verbal agreements will not be honored.</p>
+
+                        <br />
+
+                        <h3>Applicant's Consent</h3>
+
+                        <p>I hereby authorize Rent Scene LLC, its affiliates or a third party delegated by Rent Scene LLC, to obtain a consumer report, and other information it deems necessary, for the purpose of evaluating my application. I understand that such information may include, but is not limited to, credit history, civil and criminal information, records of arrest, rental history, employment/salary details, vehicle records, licensing records, and/or any other necessary information. I understand that subsequent consumer reports may be obtained and utilized under this authorization in connection with an update, renewal, extension or collection with respect or in connection with the rental lease of a residence, which this application was made. I hereby expressly release Rent Scene LCC, its affiliates and any procurer or furnisher of information, from any liability whatsoever in the use, procurement, or furnishing of such information, and understand that my application information may be provided to various local, state, and/or federal government agencies including without limitation, various law enforcement agencies.</p>
+                        <p>By signing below, I agree that I have read and understand the information contained in the Deposit Disclaimer and Consumer Notice and am bound by the terms there-in.</p>
+
+                        {{#if signatureData}}
+                        <img src="data:image/svg+xml;base64,{{signatureData}}" />
+                        {{/if}}
+
+                    </form>
+                </div>
+
+            </div>
+
         </div>
-      </div>
+
     </div>
+
     {{#each documents}}
     <div class="break"></div>
     <div class="container">
-      <div class="col-lg-12">
-        <h1>{{documentType}}</h1>
-        {{#if isImage}}
-        <img class="document" src="{{baseUrl}}{{url}}" />
-        {{/if}}
-      </div>
+        <div class="col-lg-12">
+            <h1>{{documentType}}</h1>
+            {{#if isImage}}
+            <img class="document" src="{{baseUrl}}{{url}}" />
+            {{/if}}
+        </div>
     </div>
     {{/each}}
-  </body>
+
+</body>
 </html>

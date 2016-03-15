@@ -1,18 +1,18 @@
-#login-screen .dropdown-menu {
-  display: block;
-  position: relative;
-  height: 245px;
-  margin-left: auto;
-  margin-right: auto;
-  float: none;
-}
+#login-screen
+  .dropdown-menu
+    box-shadow none
+    display block
+    position relative
+    height 260px
+    margin 20px auto 30px
+    float none
+    text-transform capitalize
+    z-index 0
+    @media screen and (min-width: 992px)
+      height 200px
 
-#login-screen #login-dropdown-list {
-  display: block;
-}
+  #login-dropdown-list
+    display block
 
-/* Hides the toggle that you click on */
-
-#login-screen a.dropdown-toggle {
-  display: none;
-}
+  a.dropdown-toggle
+    display none

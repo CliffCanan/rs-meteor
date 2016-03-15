@@ -10,12 +10,12 @@
   width 100%
   padding 10px
   @media screen and (min-width: 768px)
-    padding 15px
+    padding 12px 15px 0
   @media screen and (min-width: 992px)
-    padding 18px 25px
+    padding 15px 25px 0
   @media screen and (min-width: 1200px)
-    padding 18px 30px
-  box-sizing border-box
+    padding 15px 30px 0
+
   .main-city-list
     text-align center
     li
@@ -24,16 +24,15 @@
       float none
       vertical-align top
       text-align left
+
     .main-city-item
-      margin 0 0 2rem 0
-      padding 15px
-      padding-bottom 0
+      padding 0
       box-sizing border-box
-      border 1px solid #eeeeee
+      border 1px solid #eee
       border-radius 3px
       position relative
       .item
-        height 193px
+        height 200px
       .fa-video-camera
         color #FFF
         left 42%
@@ -57,10 +56,10 @@
             opacity 1
         img
           width 100%
+        .building-img-coming-soon img
+          width 250px
       .main-city-item-wrap
-        padding 15px 0
         .main-city-info-btn
-          color #4588fa
           padding 10px 0 0
           cursor pointer
         .main-city-item-title
@@ -76,39 +75,20 @@
             color #272b30
             text-decoration none
 
-        .main-city-info
-          clear both
-          font-family 'Montserrat', Helvetica, sans-serif
-          height 36px
-          font-size 14px
-          overflow hidden
-          i
-            font-size 18px
-            padding 0 10px 0 0
+        .main-city-price
+          padding 0 10px 0 0
+          display inline-block
+          vertical-align middle
+          font-size 15px
 
-          .main-city-price
-            color #cc9900
-            padding 0 10px 0 0
-            display inline-block
-            vertical-align middle
-            font-size 14px
-          .main-city-desc
-            border-left 1px solid #c7c7c7
-            color #272b30
-            padding 0 0 0 10px
-            font-size 14px
-    a.recommend-toggle
-      color #FFF
-      font-size 25px
-      position absolute
-      right 20px
-      top 20px
-      z-index 999
-      &:hover
-        color #FDF8B5
-      &.active
-        color #FFEC00
-
+  a.recommend-toggle
+    box-shadow 0px 1px 5px -1px rgba(0,0,0,.35)
+    position absolute
+    right 20px
+    top 160px
+    z-index 2000
+    @media screen and (min-width: 992px)
+      box-shadow 0px 2px 8px -1px rgba(0,0,0,.3)
 
 .city-side-bar
   height 100%
@@ -123,9 +103,4 @@
   text-align center
 
 .loading-btn
-  background-color #4588fa
-  font-weight bold
   display inline-block
-
-.button-building-insert
-  margin-bottom 18px

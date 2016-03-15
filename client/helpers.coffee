@@ -17,7 +17,7 @@ Template.registerHelper "currentUserId", ->
   Meteor.userId()
 
 Template.registerHelper "getFormatted", (date) ->
-  date.getMonth() + "/" + date.getDate() + "/" +date.getFullYear()
+  moment(date).format('D/M/YYYY')
 
 Template.registerHelper "getReadableShortDate", (date) ->
   moment(date).format('D MMM YY')
@@ -30,6 +30,9 @@ Template.registerHelper "getReadableShortDateTime", (date) ->
 
 Template.registerHelper "getReadableLongDateTime", (date) ->
   moment(date).format('h:mma, Do MMMM YYYY')
+
+Template.registerHelper "getReadableLongDateTimeAlt", (date) ->
+  moment(date).format('MMM D, YYYY  |  h:mma')
 
 Template.registerHelper "getUser", (userId) ->
   user = Meteor.users.findOne(userId)
@@ -123,3 +126,8 @@ Template.registerHelper "currentClientName", ->
   if Session.get("recommendationsClientObject")
     clientObject = Session.get("recommendationsClientObject")
     clientObject.name
+
+Template.registerHelper "clientRecommendationsList", ->
+  if Router.current().route.getName() is "clientRecommendations"
+    return true
+  false

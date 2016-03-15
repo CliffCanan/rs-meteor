@@ -1,7 +1,117 @@
 .page-footer
-  padding 3px 15px
-  @media screen and (min-width: 600px)
-    background #ececec
-  .copyright
+  background #33383D
+  border-top 1px solid rgba(0,0,0,0.05)
+  width 100%
+  height auto
+  padding 35px 0 8px
+  text-shadow 0 1px 0 rgba(15,17,18,0.35)
+  @media screen and (max-width: 767px)
+    text-align center
+  @media screen and (min-width: 768px)
+    padding 45px 10px 10px
+
+  @media screen and (min-width: 768px)
+    #logocolumn
+      padding-right 0
+
+  .contact-info
+    color rgba(255,255,255,.4)
+    font-size 12.5px
+    line-height 1.5
+    @media screen and (min-width: 768px)
+      margin-left 20px
+      line-height 1.6
+    div
+      padding 0 0 1em
+      margin 0 auto 10px
+      &:first-child
+        border-bottom 1px solid rgba(108,110,112,.4)
+        max-width 200px
+      a
+        color inherit
+        font-weight inherit
+        line-height inherit
+        margin 0
+
+
+  .hide-text
+    display block
+    font-size 0
+    line-height 0
+    color transparent
+    margin 0
+    text-shadow none
+
+  .spin-wrapper
+    animation-delay 4s
+
+  .logo
+    height 30px
+    width 30px
+
+  .logo-text
+    margin-left 8px
+    max-height 35px
+    position relative
+    top -2px
+
+  .slogan
+    color #fff
+    font-family "Montserrat", "Open Sans", "Roboto", "Raleway", Arial, sans-serif
+    font-size 12.5px
+    letter-spacing .25px
+    padding-left 39px
+    margin-top -6px
+
+  h5
+    color #fff
+    font-family "Montserrat", "Open Sans", "Roboto", "Helvetica", Arial, sans-serif
+    font-size 15px
+    letter-spacing .5px
+
+  a
+    color #aaa
+    display block
+    font-weight bold
+    line-height 1.5
+    margin 10px 0
+    transition .2s all ease
+    &:hover,&:active
+      color #ccc
+      text-decoration none
+    > i
+      margin 0 6px 0 0
+      width 18px
+      &.fa-envelope
+        font-size 90%
+        position relative
+        top -1px
+      &.fa-mobile
+        font-size 120%
+
+  .cities-wrapper
     font-size 12px
-    color rgba(108,110,112,.8)
+
+    .city-link-wrap
+      display inline
+      a
+        font-size inherit
+        font-weight normal
+        line-height 2
+        opacity .7
+        display inline
+        @media screen and (min-width: 768px)
+          letter-spacing -.2px
+          line-height 1.2
+      &:not(:last-child):after
+        @media screen and (min-width: 768px)
+          content "\2022"
+          color #777
+          margin 0 1%
+
+  .copyright-wrap
+    color rgba(108,110,112, 0.75)
+    font-size 11px
+    padding-top 10px
+    text-align center
+    text-shadow 0 1px 0px rgba(0,0,0,.25)

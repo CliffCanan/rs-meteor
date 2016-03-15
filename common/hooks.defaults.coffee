@@ -1,13 +1,13 @@
 Buildings.before.insert (userId, building) ->
   _.defaults building,
-    title: "Building name or unit number"
-    neighborhood: "center-city"
+    title: ""
+    neighborhood: ""
     cityId: cityIds[0]
     btype: btypesIds[1]
     isOnMap: true
     isPublished: false
     propertyType: 0
-    position: 10000
+    position: 0
     features: []
     images: []
 

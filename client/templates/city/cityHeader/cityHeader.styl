@@ -1,44 +1,135 @@
 .city-sub-header
   background-color #ebebeb
+  border-bottom 1px solid #bbb
   box-shadow 0 3px 10px -2px rgba(0,0,0,.3)
-  padding 10px 20px
-  z-index 101
-  @media screen and (min-width: 768px)
-    padding 15px 25px
-    .dropdown.open > .dropdown-menu
-      left auto
-      right 0
-      .form-control
-        height 42px
-  @media screen and (min-width: 992px)
-    box-shadow 0 3px 14px -2px rgba(0,0,0,.35)
-    padding 18px 25px
-  @media screen and (min-width: 1200px)
-    padding 18px 30px
   box-sizing border-box
+  height 0
+  overflow hidden
+  padding 0 20px
+  position relative
+  transition all .45s ease-in-out
+  z-index 1020
+  @media screen and (min-width: 992px)
+    padding 0 25px
+
   .dropdown
-    float left
+    @media screen and (min-width: 768px)
+      margin 0 -8px
+
+    &.open > .dropdown-menu
+      @media screen and (min-width: 768px)
+        left auto
+        right 0
+        &.location-filter-section
+          height 255px 
+        .form-control
+          height 42px
+
+    .dropdown-menu
+      z-index 1003
+
   .btn
     height 42px
 
+  .neighborhood-select
+    @media screen and (max-width: 767px)
+      margin-top 0
+    .dropdown-toggle
+      white-space nowrap
+      overflow hidden
+      padding 6px
+      text-overflow ellipsis
+      > span
+        text-transform capitalize
+        @media screen and (min-width: 768px) and (max-width: 1020px)
+          display none
+
+  .listing-type-select
+    margin-top 10px
+    @media screen and (min-width: 768px) and (max-width: 1020px)
+      display none
+
+  &.is-down
+    height 324px
+    padding 15px 20px
+    overflow visible
+    @media screen and (min-width: 768px)
+      height 85px
+      padding 12px 25px
+    @media screen and (min-width: 992px)
+      height 90px
+      box-shadow 0 3px 10px -2px rgba(0,0,0,.3)
+      padding 13px 25px
+    @media screen and (min-width: 1200px)
+      padding 14px 30px
+
+
+.toggle-city-header
+  &.icon
+    position absolute
+    right 4px
+    top 60px
+    transition all .4s ease
+    z-index 102
+    @media screen and (min-width: 820px)
+      right 8px
+    @media screen and (min-width: 900px)
+      right 6px
+
+    .btn
+      height auto
+      font-size 25px
+      padding 0
+      .fa
+        margin 0
+
+  &#done-btn
+    margin 6px auto
+    @media screen and (min-width: 768px)
+      display none
+    .btn
+      height 40px
+      font-size 16px
+      width 100%
+
+.is-down
+  ~ .toggle-city-header.icon
+    @media screen and (max-width: 767px)
+      display none
+    @media screen and (min-width: 768px)
+      top 80px !important
+    @media screen and (min-width: 992px)
+      top 95px !important
+
+  ~ .p-relative .city-page-wrap
+    @media screen and (max-width: 767px)
+      padding-top 10px !important
+
 .city-sub-header-list-wrap
+  margin-top 10px
+
   .button-text
     display inline-block
-    text-transform uppercase
-  &.col-sm-2,
+
+  &.col-sm-2
     padding 0 15px 10px
-    @media screen and (min-width: 1200px)
-      padding 0 6px
+
   &.bedroom-type-select
+    margin 10px auto
+    min-width 122px
+    padding-left 13px
     @media screen and (min-width: 1200px)
-      padding 0 10px
+      padding 0 5px 0 15px
+
+    .city-sub-header-list
+      padding 0 9%
+      @media screen and (min-width: 1200px)
+        padding 0 8px
+
   &.city-select
     .button-text
       width 142px
-  &.bedroom-type-select
-    min-width 122px
-    .city-sub-header-list
-      padding 0 9%
+
   .city-sub-header-title
     width 100%
     font-family 'Montserrat', Helvetica, sans-serif
@@ -50,16 +141,16 @@
 
   .city-sub-header-list
     box-sizing border-box
+    border 1px solid #ccc
+    border-radius 5px
+    color #272b30
+    font-family 'Montserrat', Helvetica, sans-serif
     min-width 100px
     padding 0 20px
-    box-shadow 0 1px 0 rgba(0,0,0,0.3)
-    top 30px
-    border 1px solid #cfcfcf
-    border-top 0
-    border-radius 2px 2px 5px 5px
-    width 99%
     text-transform uppercase
-    padding-top 10px
+    top 30px
+    width 100%
+
     .city-sub-header-item
       padding 10px 0
       font-family 'Montserrat', Helvetica, sans-serif
@@ -68,73 +159,27 @@
       cursor pointer
       &:hover
         color #4588fa
-        
-.neighborhood-select
-  i
-    font-size 14px
-    position absolute
-    top 14px
-    z-index 999
-    &.fa-map-signs
-      left 24px
-    &.fa-times
-      color #CCC
-      display none
-      right 20px
-  a.clear-neighborhood-filter + span
-    width 100%
-  .city-sub-header-list
-    width auto
-  .typeahead
-    padding-left 29px
-    padding-right 12px
+
+  &.bedroom-type-select select
     height 42px
-  .tt-hint
-    color #999
-  
-  .tt-menu
-    width 280px
-    margin 12px 0
-    padding 8px 0
-    background-color #fff
-    border 1px solid #ccc
-    border 1px solid rgba(0, 0, 0, 0.2)
-    border-radius 8px
-    box-shadow 0 5px 10px rgba(0,0,0,.2)
-
-  .tt-suggestion
-    padding 3px 20px
-    font-size 14px
-    line-height 20px
-    &:hover
-      cursor pointer
-      color #fff
-      background-color #0097cf
-    .all
-      font-style italic
-
-  .tt-suggestion.tt-cursor
-    color #fff
-    background-color #0097cf
-
-  .tt-suggestion p
-    margin 0
 
 .city-subheader-price
   display inline-block
   font-size 0
   float left
-  padding 10px 12px 2px 2px
+  padding 5px 15px 0px 5px
   vertical-align top
-  width 47%
   position relative
-  @media screen and (max-width: 768px)
-    height 54px
+  margin 8px auto 4px
+  @media screen and (max-width: 767px)
+    height 55px
   @media screen and (min-width: 768px)
-    padding 3px 15px 2px
-    width 30%
+    padding 2px 15px 2px
+    width 31%
   @media screen and (min-width: 992px)
-    width 25%
+    width 23%
+  @media screen and (min-width: 1040px)
+    width 24%
   b
     font-family 'Montserrat', Helvetica, sans-serif
     font-size 13px
@@ -142,8 +187,11 @@
     position absolute
     bottom 6px
     @media screen and (min-width: 768px)
-      bottom -18px
+      bottom -20px
       font-size 13.5px
+    @media screen and (min-width: 992px)
+      bottom -16px
+
   .city-subheader-price-val
     display none
     font-size 13px
@@ -154,26 +202,38 @@
     @media screen and (min-width: 768px)
       display inline-block
     + b
+      left 15px
       @media screen and (min-width: 768px)
-        left 50px
+        left 55px
+
   .price-slider + b
-    right 5px
+    right 20px
     @media screen and (min-width: 768px)
-      right 15px
+      right 12px
 
   .slider.slider-horizontal
     margin 0
-    left 7%
+    left 6%
     width 90%
+    @media screen and (min-width: 400px)
+      left 4.5%
+      width 92.5%
     @media screen and (min-width: 768px)
       width 70%
+    @media screen and (min-width: 992px)
+      height 25px
+    @media screen and (min-width: 1200px)
+      height 30px
+
     .slider-track
-      height 6px
+      height 8px
+
       .slider-handle
         background-color #4588fa
-        width 15px
-        height 15px
+        background-image linear-gradient(to bottom, #4588fa,#1f70f9 100%)
         opacity 1
+        top -1px
+
       .slider-selection
         box-shadow none
         background #8f9092
@@ -184,123 +244,111 @@
 
 #features-container,
 #location-filter-wrapper
+  margin 10px auto
   @media screen and (min-width: 768px)
     padding 0 15px
-  @media screen and (min-width: 992px)
-    > .dropdown
-      float none
+  > .dropdown
+    @media screen and (min-width: 992px)
       padding 0 2px
-      .dropdown-toggle
-        width 100%
 
 
 .dropdown
-  .features-btn
+  .dropdown-toggle
+    width 100%
+    float none
+
+  .neighborhoods-section
+    .filter-title
+      @media screen and (min-width: 992px)
+        padding-bottom 10px !important
+      i
+        font-size 130%
+        position relative
+        top 1px
+
+    #clear-neighborhoods
+      color #888
+      display inline-block
+      font-size 14.5px
+      font-weight 300
+      padding 2px 0
+      @media screen and (min-width: 992px)
+        padding 2px 10px 0 0
+
+  .dropdown-toggle
     font-family 'Montserrat', Helvetica, sans-serif
     font-size 14px
     color #272b30
+
   .btn.dropdown-toggle.city-sub-header-title
     .caret
       position absolute
-      top 19px
-      right 18%
+      top 20px
+      right 22px
 
 .open
+  .dropdown-menu
+    border-top 1px solid #DCDCDC
   & > .dropdown-toggle
     &.btn-default
       background #fff
       border-color #ccc
       color #272b30
 
-  .features-section, .location-list
+  .features-section, .location-filter-section, .neighborhoods-section
     width 290px
-    box-sizing border-box
     padding 10px 
-    box-shadow 0 1px 0 rgba(0, 0, 0, 0.3)
     top 38px
     border 1px solid #cfcfcf
     border-top 0
-    border-radius 0 3px 3px 3px
     @media screen and (min-width: 768px)
       padding 20px 
       width 410px
+
     .filter-title
-      font-size 14px
-      padding 0 0 10px
-      margin 0
-      line-height 20px
+      font-size 15px
+      font-weight bold
+      letter-spacing .25px
+      line-height 1.35
+      margin 0 0 10px
+
     .filter-list
+      margin 0 -10px
       padding 5px 0
       @media screen and (min-width: 768px)
-        padding 15px 0
-      .css-checkbox
-        position absolute
-        z-index -1000
-        left -1000px
-        overflow hidden
-        clip rect(0 0 0 0)
-        height 1px
-        width 1px
-        margin -1px
+        margin 0 -15px
         padding 0
-        border 0
-        & + label
-          &.css-label
-            padding-left 30px
-            height 25px
-            display inline-block
-            line-height 25px
-            background-repeat no-repeat
-            background-position 0 0
-            font-size 16px
-            vertical-align middle
-            cursor pointer
-        &:checked
-          & + label
-            &.css-label
-              background-position 0 -25px
-      label
-        &.css-label
-          background-image url(/images/checkbox.png)
-          -webkit-touch-callout none
-          -webkit-user-select none
-          -khtml-user-select none
-          -moz-user-select none
-          -ms-user-select none
-          user-select none
 
     .city-features-date
-      font-size 12px
+      font-size 13px
       display block
       margin 0 0 20px
-      .form-control
-        width 80%
-        height 42px
+      .input-group
+        margin-top 5px
 
-    .clear-btn
-      padding 0 25px
-      cursor pointer
-  .filter-section
-    width 290px
-    box-sizing border-box
-    padding 12px
-    box-shadow 0 1px 0 rgba(0, 0, 0, 0.3)
-    top 38px
-    border 1px solid #cfcfcf
-    border-top 0
-    border-radius 0 3px 3px 3px
-    left -50px
+  .features-section
+    left auto
+    right 0
+    @media screen and (min-width: 768px)
+      left 0 !important
+      right auto !important
+
+  .neighborhoods-section
+    padding-bottom 10px
+    ul
+      padding-bottom 0
+    li
+      padding-bottom 6px
+      padding-right 5px
+
+  .location-filter-section
+    padding 10px 15px 15px
     @media screen and (min-width: 768px)
       left 0
-      padding 22px 
+      padding 22px
       width 340px
-    .filter-title
-      font-size 14px
-      padding 0 0 10px
-      margin 0
-      line-height 20px    
-  .location-list
-    width 380px
+
+  /*.location-list
     .filter-field
       margin 10px 0 25px
       .form-control
@@ -329,48 +377,17 @@
       transition border-color ease-in-out .15s,box-shadow ease-in-out .15s
       text-align left
 
-    .filter-arrive-item
-      font-size 12px
-      padding 6px 12px
-      cursor pointer
-
-    .city-motion-list
-      padding 5px 0
-      .city-motion-item
-        float left
-        background-repeat no-repeat
-        background-position center center
-        padding 0 18px
-        cursor pointer
-      .city-motion-walk
-        width 8px
-        height 20px
-        display inline-block
-        background-image url(/images/walk.png)
-        &:hover
-          background-image url(/images/walk-active.png)
-      .city-motion-car
-        width 18px
-        height 20px
-        display inline-block
-        background-image url(/images/car.png)
-        &:hover
-          background-image url(/images/car-active.png)
-      .city-motion-bike
-        width 20px
-        height 20px
-        display inline-block
-        background-image url(/images/bike.png)
-        &:hover
-          background-image url(/images/bike-active.png)
-
     .button-wrap
       padding  20px 0 0
       clear both
+  */
   
 .travelMode
-  @media screen and (max-width: 768px)
-    top 8px
+  font-size 18px
+  top 3px
+  @media screen and (min-width: 768px)
+    font-size 20px
+    top 2px
   img
     cursor pointer
 
@@ -380,62 +397,14 @@
   vertical-align top
   float left
 
-.building-title-search-wrapper
-  @media screen and (min-width: 768px)
-    padding 0 0 0 5px
-  @media screen and (min-width: 992px)
-    max-width 13%
-    padding 0 10px 0 5px
-  @media screen and (min-width: 1200px)
-    max-width 15%
-  input
-    font-size 14px
-    color #272b30
-    font-weight bold
-    height 42px
-    padding-left 32px
-  i
-    position absolute
-    top 14px
-    left 25px
-    font-size 90%
-    opacity 0.6
-    @media screen and (min-width: 768px)
-      left 13px
-
-
 .selectArrivalTime 
-  padding-bottom 10px
-  
-.form-building-address-filter-reset 
-  cursor pointer
-  @media screen and (max-width: 768px)
-    position relative
-    top 10px
-    left 25px
-    
-body.admin-logged-in
-  .building-title-search-wrapper
-    display block
-  .building-title-search
-    width 200px
-  .unpublished-property-toggle-wrapper
-    margin-left 10px
-    label
-      margin-top 5px
-    span
-      font-size 13px
-      &.mdl-switch__label
-       left 15px 
-    .mdl-switch.is-checked .mdl-switch__track
-      background rgba(0,0,0, 0.26)
-    .mdl-switch.is-checked .mdl-switch__thumb
-      background-color #149bdf
+  margin-bottom 10px
+  @media screen and (min-width: 768px)
+    margin-top 14px
+    margin-bottom 14px
+    .dropdown
+      margin 0 !important
 
-@media screen and (max-width: 768px)
-  .hide-sm
-    display none
-
-@media screen and (max-width: 992px)
+@media screen and (max-width: 1030px)
   .hide-md
     display none

@@ -3,7 +3,7 @@ Template.buildingImagesEdit.rendered = ->
   $images = @$(".images-sortable-list")
   $images.sortable
     items: "> .images-sortable-item"
-    placeholder: "images-sortable-placeholder col-lg-4 col-md-3 col-sm-3 col-xs-6"
+    placeholder: "images-sortable-placeholder col-md-3 col-sm-4 col-xs-6"
     tolerance: "pointer"
     stop: (event, ui) ->
       order = $images.sortable("toArray", {attribute: "data-id"})

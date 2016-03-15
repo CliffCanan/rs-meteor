@@ -8,14 +8,21 @@ class BuildingReview
         if index is 0
           return item
         return "#{item.charAt(0)}."
+
       parsedName = parsedComponents.join(' ')
+
       if @renterPersona isnt 'Other'
-        "#{parsedName}, #{@renterPersona}"
+        "#{parsedName}"
       else
         parsedName
     else
-      if @renterPersona isnt 'Other'
-        @renterPersona
+      "Anonymous"
+
+#  displayPersona: ->
+#    if @renterPersona and @renterPersona isnt 'Other'
+#      "#{parsedName}, #{@renterPersona}"
+#    else
+#      ""
 
 share.Transformations.BuildingReview = _.partial(share.transform, BuildingReview)
 

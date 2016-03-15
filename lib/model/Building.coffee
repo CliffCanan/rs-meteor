@@ -24,7 +24,7 @@ formatPriceDisplay = (from, to) ->
     price += "$" + accounting.formatNumber(from)
     if to
       if to isnt from
-        price += "-" + accounting.formatNumber(to)
+        price += " - $" + accounting.formatNumber(to)
     else
       price += "+"
   price
@@ -46,11 +46,13 @@ class Building
     _.extend(@, doc)
   cityName: ->
     cities[@cityId].short
+
   processedTitle: ->
     if Session.get "showRecommendations"
       building = getCurrentClientUnit(@_id)
       return @getUnitTitle.call building if building
     return @title
+
   getRouteData: ->
     data =
       cityId: @cityId
@@ -60,19 +62,23 @@ class Building
       data.buildingSlug = parent.slug
       data.unitSlug = @slug
     data
+
   processedRouteData: ->
     if Session.get "showRecommendations"
       building = getCurrentClientUnit(@_id)
       return @getRouteData.call building if building
     return @getRouteData()
+
   mainImage: ->
     file = @getImages()?[0]
     file  if file?.url
+
   getImages: ->
     if @images?.length
       @images
     else
       @parent()?.images
+
   getMedia: ->
     if @images?.length
       @images.map (item, index) ->
@@ -80,10 +86,13 @@ class Building
         item
     else
       @parent()?.images
+
   getVideo: ->
     @vimeoId
+
   getDescription: ->
     @description ? @parent()?.description
+
   getSqft: ->
     if @sqftFrom
       sqft = @sqftFrom
@@ -93,18 +102,30 @@ class Building
       else
         sqft += "+"
       sqft
+
   getFeatures: ->
-    if @features?.length then @features else @parent()?.features
+    # Filter out 'Tenant Pays..' features to comply with TrendMLS requirements
+    if @source and @source.source is 'IDX'
+      if @features
+        _.reject @features, (feature) ->
+          (feature.indexOf 'Tenant Pays') > -1
+      else
+        []
+    else
+      if @features?.length then @features else @parent()?.features
   getAvailableAt: ->
     if @agroIsUnit and @availableAt > new Date()
       @availableAt
+
   getAvailableAtForDatepicker: ->
     moment(@availableAt).format("MM/DD/YYYY")
+
   canApply: ->
     if @agroIsUnit and @availableAt and @acceptOnlineApplication
       if moment().diff(moment(@availableAt), 'months') < 4
         return true
     false
+
   getBedrooms: ->
     if @bedroomsFrom
       value = @bedroomsFrom
@@ -114,14 +135,15 @@ class Building
       if @bedroomsTo > 1
         value += "s"
       value
+
   getBathrooms: ->
     if @bathroomsFrom
       value = @bathroomsFrom
-      unless @bathroomsFrom is @bathroomsTo
+      if @bathroomsTo and @bathroomsFrom is not @bathroomsTo
         value += " - " + @bathroomsTo
-      value += " Bath"
-      if @bathroomsTo > 1
-        value += "s"
+      value += " BA"
+#      if @bathroomsTo > 1
+#        value += "s"
       value
 #    else if @agroIsUnit or @prices().length > 1
 #      "Bathrooms: Varies"
@@ -133,10 +155,12 @@ class Building
     if parent
       title = parent.title + " " + title
     title
+
   getUnitPrice: ->
     if @priceFrom
       price: formatPriceDisplay(@priceFrom, @priceTo)
       type: btypes[@btype]?.lower
+
   complexFields: (edit = false) ->
     fields = []
     for fieldName in ["laundry", "security", "fitnessCenter", "pets", "parking", "utilities"]
@@ -176,6 +200,7 @@ class Building
         fields.push(field)
 
     fields
+
   bedroomTypes: (queryBtype) ->
     if Session.get "showRecommendations"
       unit = getCurrentClientUnit(@_id)
@@ -186,9 +211,9 @@ class Building
       if queryBtype is "studio"
         "Studio"
       else if queryBtype is "bedroom1"
-        "1 Bedroom"
+        "1 BR"
       else
-        btypesIds.indexOf(queryBtype) + " Bedrooms"
+        btypesIds.indexOf(queryBtype) + " BR"
     else
       if @agroIsUnit
         btypes[@btype]?.upper.replace("room", "")
@@ -197,14 +222,18 @@ class Building
         postfix = ""
         if @agroPriceStudioFrom
           types.push("Studio")
-        if @agroPriceBedroom1From
-          types.push(1)
-          postfix = " Bedroom"
-        for i in [2..5]
+
+#        if @agroPriceBedroom1From
+#          types.push(1)
+#          postfix = " Bedroom"
+
+        for i in [1..5]
           if @["agroPriceBedroom" + i + "From"]
             types.push(i)
-            postfix = " Bedrooms"
-        types.join(", ") + postfix
+#            postfix = " Bedrooms"
+
+        types.join(", ") + " BR"
+
   bedroomTypesArray: ->
     types = []
     postfix = ""
@@ -216,6 +245,7 @@ class Building
       if @["agroPriceBedroom" + i + "From"]
         types.push("#{i} Bedroom")
     types
+
   displayBuildingPrice: (queryBtype) ->
     if Session.get "showRecommendations"
       unit = getCurrentClientUnit(@_id)
@@ -227,13 +257,19 @@ class Building
     fieldNameTo = fieldName + "To"
     if @[fieldNameFrom]
       "$" + accounting.formatNumber(@[fieldNameFrom]) + (if @[fieldNameFrom] is @[fieldNameTo] then "" else "+")
+
   buildingUnits: (limit) ->
     options = {sort: {createdAt: -1, _id: 1}}
     if limit
       options.limit = limit
     Buildings.find({parentId: @_id}, options)
+
+  buildingUnitsCount: ->
+    Buildings.find({parentId: @_id}).count()
+
   parent: ->
     Buildings.findOne(@parentId)  if @parentId
+
   prices: ->
     prices = []
     for key, value of btypes
@@ -245,6 +281,7 @@ class Building
           price: formatPriceDisplay(@[fieldNameFrom], @[fieldNameTo])
           type: value.lower
     prices
+
   metaTags: ->
     bedrooms = @bedroomTypesArray()
     city = cities[@cityId].human
@@ -255,6 +292,7 @@ class Building
         prefix = "#{bedrooms[0]} - "
       else
         suffix = ' Rentals'
+
     title = "#{prefix}#{@title}#{suffix}, #{city}"
 
     features = []

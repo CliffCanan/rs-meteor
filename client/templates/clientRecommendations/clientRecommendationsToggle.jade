@@ -1,8 +1,22 @@
 template(name="clientRecommendationsToggle")
-  .btn-group.pull-right(data-toggle="buttons")
+
+  if isTemplateSubscriptionsReady
+    if canManageClients
+      .pull-right
+        if isImportPending
+          i#import-status.fa.fa-2x.fa-exclamation-circle.text-warning(data-toggle="tooltip", data-placement="auto" title="#{importCompletedCount}/#{totalPropertiesCount} properties", data-original-title="#{importCompletedCount}/#{totalPropertiesCount} properties")
+        else
+          i#import-status.fa.fa-2x.fa-check-circle.text-success(data-toggle="tooltip", data-placement="auto" title="#{completedImportText}", data-original-title="#{completedImportText}")
+    else
+      if isImportPending
+        .pull-right
+          i#import-status.fa.fa-2x.fa-exclamation-circle.text-warning(data-toggle="tooltip", data-placement="auto" title="FYI - we are in the process of adding recommendations - check back soon to see more!")
+
+  .btn-group.pull-right.m-b-10(data-toggle="buttons")
     label#all-listings-toggle.btn.btn-primary.active
       input(type="radio", name="view-toggle")
       | All Listings
+
     label#my-recommendations-toggle.btn.btn-primary
       input(type="radio", name="view-toggle")
       | My Recommendations

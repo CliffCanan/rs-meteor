@@ -11,6 +11,7 @@ Template.datepicker.rendered = ->
 
   if @data.options
     options = _.extend(options, @data.options)
+
   $input.datepicker options
 
 Template.datepicker.events

@@ -1,47 +1,155 @@
 template(name="city")
   +cityHeader
-  if showMap
-    .city-side-bar.right-bar.clearfix.col-lg-3
-      #gmap
+  +checkAvailability(building="none")
 
-  .city-page-wrap.col-lg-9
+  div.p-relative
 
-    .main-city-list-wrap.left-bar.clearfix.pull-left
-      if showClientRecommendationsName
-        h2.pull-left(style="margin: 0")
-          | Recommendations for {{currentClientName}}
-      if canOperateWithBuilding
-        button.btn.btn-primary.button-building-insert.pull-left
-          i.fa.fa-plus
-          | Add Listing
+    unless clientRecommendationsList
 
-      .view-list-wrapper.dropdown.pull-left
-        button.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
-          span.button-text.hide-md {{currentViewType}}
-          span.caret
-        ul.dropdown-menu.list-unstyled
-          li.city-sub-header-item(data-value="thumbnails") Thumbnails
-          li.city-sub-header-item(data-value="quickView") Quick view
+      .collapse-toggle-wrap#forMap.is-out
+        button.btn(type="button", data-toggle="tooltip", data-placement="auto", title="", data-original-title="Hide map")
+          span Hide Map
+          i.fa.fa-chevron-circle-right.m-l-5
 
-      if isClientRecommendationsList
-        +clientRecommendationsToggle
+      .city-side-bar.right-bar.clearfix.col-lg-3.hide-sm
+        #gmap
 
-      if firstLoad
-        +loadingSpinner
-      else
-        if buildings
-          if showThumbnails
-            +cityBuildings(buildings=buildings queryBtype=query.btype)
+    .city-page-wrap
 
-            if notAllLoaded
-              .load-more.loading-btn-wrap
-                .loading-btn.btn.btn-primary.btn-lg
-                  | Load More
+      .main-city-list-wrap.left-bar.clearfix.pull-left
 
-          else
-            +cityQuickView(buildings=buildings queryBtype=query.btype)
+        if clientRecommendationsList
+          h3.pull-left.m-0 Recommendations for {{currentClientName}}
 
-          if loadingBuildings
-            +loadingSpinner
+          unless canRecommend
+            +clientRecommendationsToggle
+
+        .row#filterSearchWrap
+          .col-xs-12.col-sm-12.col-md-push-3(class="{{#if canOperateWithBuilding}}col-lg-12{{else}}col-lg-4 col-sm-push-8{{/if}}")
+            .row
+
+              if canOperateWithBuilding
+                .col-xs-2.hide-md
+                  button.btn.btn-sm.btn-primary.button-building-insert
+                    i.fa.fa-plus
+                    | Add Listing
+
+                .col-xs-2.col-md-2.filter-wrap.unpublished-property-toggle-wrapper.hide-md
+                  span Toggle Unpublished Properties:
+                  label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
+                    input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
+
+              unless clientRecommendationsList
+                if canManageClients
+                  .col-md-3.col-xs-12
+                    .building-title-search-wrapper(style="{{#unless canOperateWithBuilding}}max-width:100%;{{/unless}}")
+                      input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
+                      i.fa.fa-fw.fa-search
+                  
+                  .col-xs-2.hide-md
+                    .view-list-wrapper.dropdown.pull-left
+                      button.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
+                        span.button-text.hide-md {{currentViewType}}
+                        span.caret
+                      ul.dropdown-menu.list-unstyled
+                        li.city-sub-header-item(data-value="thumbnails") Thumbnails
+                        li.city-sub-header-item(data-value="quickView") Quick view
+
+          .col-xs-12.col-sm-6.col-sm-pull-6(class="{{#if canOperateWithBuilding}}col-lg-5 col-lg-pull-7{{else}}col-lg-8 col-lg-pull-4{{/if}}")
+
+            if hasAnyFilters
+              .row.filterRow
+                .col-xs-12
+                  .filter-options.pull-left.clearfix
+                    if hasNeighborhood
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | {{neighborhood}}
+
+                    if brTypeExist
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | {{brType}}
+
+                    if pets
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Pets
+
+                    if parking
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Parking
+
+                    if doorman
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Doorman
+
+                    if fitnessCenter
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Fitness Center
+
+                    if laundry
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | In-unit laundry
+
+                    if utilities
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Utilities
+
+                    if hasFromPrice
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Min ${{fromPrice}}
+
+                    if hasToPrice
+                      label.label.label-primary.filter-tag
+                        i.fa.fa-check
+                        | Max ${{toPrice}}
+
+                    //-if available
+                    //-  label.label.label-primary.filter-tag Available {{available}}
+
+
+        #mobile-cta.clearfix
+          h3 Too busy to search yourself?
+
+          button.close-btn(type="button")
+            i.fa.fa-times
+
+          p.sub-head We'll do it for you - call or text now!
+
+          a.btn.btn-lg.btn-block.btn-primary.m-t-15(href="tel://1-215-995-5890")
+            i.fa.fa-fw.fa-mobile.m-r-5
+            | (215) 995-5890
+
+          if isBizHours
+            p Guaranteed Response in 30 mins or less!
+              span.show When calling between 8am-8pm EST
+
+
+        if firstLoad
+          +loadingSpinner
         else
-          h3 No buildings matching this criteria.
+          if buildings
+            if showThumbnails
+              +cityBuildings(buildings=buildings queryBtype=query.btype)
+              
+              if notAllLoaded
+                .load-more.loading-btn-wrap.m-b-20
+                  .loading-btn.btn.btn-primary Load More...
+                  
+            else
+              +cityQuickView(buildings=buildings queryBtype=query.btype)
+
+            if loadingBuildings
+              +loadingSpinner
+              
+            if showIDXDisclaimer
+              +idxDisclaimer    
+          else
+            h3 No buildings matching this criteria.

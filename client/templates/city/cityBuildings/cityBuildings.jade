@@ -1,37 +1,97 @@
 template(name="cityBuildings")
+
   ul.main-city-list.list-unstyled.row
+
     each buildings
+
       li.col-xs-12.col-sm-6.col-md-4
-        .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
+        .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}", itemscope, itemtype="http://schema.org/LocalBusiness")
         
           if shouldShowRecommendToggle
-            a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}")
-              i.fa.fa-star
+            a.btn.btn-sm.btn-default.recommend-toggle(href="", class="{{#if isRecommended}}active{{/if}}")
+              if isRecommended
+                | Recommended
+                i.fa.fa-check.text-primary
+              else
+                | Recommend
+                i.fa.fa-star.text-success
 
-          a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}")
-            .building-img-wrap.carousel.slide(id="carousel-{{_id}}" data-interval="false")
+          .ext-gallery.hidden(itemscope, itemtype="http://schema.org/ImageGallery")
+            .close-btn
+              i.fa.fa-close
+
+            #carousel-wide.owl-carousel(itemprop="associatedMedia", itemscope, itemtype="http://schema.org/ImageObject")
+
+              each buildingImages
+                .item
+                  img(src="{{getThumbnail store='thumbs'}}", itemprop="thumbnail", alt="{{processedTitle}}")
+
+
+          a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}")
+            unless isMobile
+              .action-options.hide-sm
+                .actions-sub-wrap
+                  a.btn.view-pics-option(data-toggle="tooltip", data-placement="bottom", title="View Pictures")
+                    i.fa.fa-fw.fa-picture-o
+                  a.btn.check-avail-option(data-toggle="tooltip", data-placement="bottom", title="Check Availability")
+                    i.fa.fa-fw.fa-calendar
+                  a.btn.view-details-option(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", data-placement="bottom", title="View More Details")
+                    i.fa.fa-fw.fa-eye
+
+                if neighborhood
+                  .neighborhood-txt
+                    i.fa.fa-map-marker
+                    span {{neighborhood}}
+
+            .building-img-wrap.carousel.slide(id="carousel-{{_id}}", data-interval="false", itemscope, itemtype="http://schema.org/ImageGallery")
               .carousel-inner(role="listbox")
                 each buildingImages
-                  .item(class="{{mediaClass}}")
+                  .item(class="{{mediaClass}}", itemprop="associatedMedia", itemscope, itemtype="http://schema.org/ImageObject")
+
                     if isVideo
                       i.fa.fa-video-camera.fa-3x
-                    img.building-img(src="{{getThumbnail store='thumbs'}}")
+
+                    img.building-img(src="{{getThumbnail store='thumbs'}}", itemprop="thumbnail", alt="{{processedTitle}}")
+
               a.left.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="prev")
                 i.fa.fa-fw.fa-chevron-left.building-img-icon(aria-hidden="true")
-                span.sr-only
-                  | Previous
+                span.sr-only Previous
+
               a.right.carousel-control(href="#carousel-{{_id}}", role="button", data-slide="next")
                 i.fa.fa-fw.fa-chevron-right.building-img-icon(aria-hidden="true")
-                span.sr-only
-                  | Next
+                span.sr-only Next
+
+            span.main-city-price {{displayBuildingPrice ../queryBtype}}
           
           .main-city-item-wrap
             h2.main-city-item-title
-              a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", title="Click to see {{processedTitle}}") {{processedTitle}}
-            //span.main-city-info-btn.fa.fa-question-circle.pull-right
-            .main-city-info.clearfix
-              i.fa(class="{{#if agroIsUnit}}fa-key{{else}}fa-building{{/if}}")
-              span.main-city-price
-                | {{displayBuildingPrice ../queryBtype}}
-              span.main-city-desc
-                | {{bedroomTypes ../queryBtype}}
+              i.fa.m-r-10(class="{{#if agroIsUnit}}fa-bed{{else}}fa-building{{/if}}")
+              a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}", itemprop="name") {{processedTitle}}
+
+            if averageRating
+              .ratingWrap.m-t-5(itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
+                meta(itemprop="worstRating" content="1")
+                meta(itemprop="bestRating" content="10")
+                i.fa.fa-star
+                span.average-rating(itemprop="ratingValue") {{averageRating}}
+
+            .main-city-info.clearfix#numBrs
+              i.fa.fa-bed
+              span.main-city-desc {{bedroomTypes ../queryBtype}}
+
+            if getBathrooms
+              .main-city-info.clearfix#numBaths
+                span.baths-icon
+                  img(src="/images/bath.svg")
+                span.main-city-desc {{getBathrooms}}
+
+
+            if brokerageName
+              .brokerage-info
+                span
+                  em Listing courtesy of #{brokerageName}
+
+          .mobile-check-avail-wrap
+            button.btn.btn-primary.btn-block.check-avail-option(type="button")
+              | Check Availability
+              i.fa.fa-fw.fa-hand-o-up.m-l-10

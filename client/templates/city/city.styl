@@ -1,40 +1,200 @@
+#forMap
+  display none
+  position absolute
+  top 0
+  z-index 90
+  transition all .4s ease
+  @media screen and (min-width: 1200px)
+    display block
+    right 2.5%
+  &.is-out
+    top 10px
+
+  .btn
+    background #F2F2F2
+    border-top 0
+    border-radius 0 0 5px 5px
+    box-shadow 0 4px 8px -3px rgba(0,0,0,.2)
+    color #555
+    font-size 11px
+    font-weight 600
+    height 28px
+    line-height 26px
+    padding 1px 8px
+    width 94px
+    text-transform uppercase
+    i
+      margin 0
+
+
 .city-page-wrap
+  background-color #fff
   padding 0
+  transition all .5s ease
+  width 100%
+  @media screen and (max-width: 767px)
+    padding-top 25px !important
+
+  #forMap.is-out ~ &
+    @media screen and (min-width: 1200px)
+      width 75% !important
+
+  .filter-options
+    margin 10px 0
+    i
+      margin-right 8px
+      font-size 80%
+      position relative
+      left -1px
+      top -1px
+
+    .filter-tag
+      border-radius 4px
+      display inline-block
+      font-size 12px
+      margin 0 6px 4px 0
+      padding 4px 16px
+      text-transform capitalize
+      @media screen and (min-width: 768px)
+        font-size 12px
+        padding 5px 16px
+        margin 0 12px 0 0
+      &:not(:last-child)
+        margin-bottom 3px
+        @media screen and (min-width: 768px)
+          margin-bottom 5px
+
+
+  #mobile-cta
+    border 1px solid #e5e5e5
+    border-radius 8px
+    padding 5px 15px 15px
+    text-align center
+    margin 25px auto 20px
+    position relative
+    max-width 98%
+    @media screen and (min-width: 365px)
+      max-width 94%
+    @media screen and (min-width: 600px)
+      display none
+      visibility hidden
+
+    h3,h4,p
+      margin-left -12px
+      margin-right -12px
+    h3
+      font-size 20.5px
+      letter-spacing -.2px
+      line-height 1.4
+      text-transform capitalize
+      @media screen and (min-width: 350px)
+        font-size 23px
+    p
+      font-size 16.5px
+      font-weight 600
+      letter-spacing -.1px
+      margin-bottom 18px
+      @media screen and (min-width: 350px)
+        font-size 17px
+        letter-spacing 0
+
+    .btn
+      border none
+      letter-spacing .3px
+      padding 12px
+      margin 0 auto
+      max-width 300px
+      + p
+        font-size 15px
+        font-weight 400
+        margin-top 20px
+        margin-bottom 0
+        font-style italic
+        @media screen and (min-width: 350px)
+          font-size 16px
+        span
+          color #666
+          font-size 13.5px
+          font-weight 300
+
+    .close-btn
+      background none
+      border none
+      color #d3d3d3
+      font-size 16px
+      outline none
+      padding 0
+      position absolute
+      top -18px
+      left -10px
+      i
+        background rgba(251,251,251,1)
+        border 1px solid
+        border-radius 50%
+        height 36px
+        width 36px
+        margin 0
+        padding 8px
+      &:active i,&:focus i
+        background #aaa
+
 
 .left-bar
   overflow auto
 
 .main-city-list-wrap
   background #fff
+  box-sizing border-box
   height 100%
   width 100%
-  padding 10px
+  padding 25px 10px 10px
   @media screen and (min-width: 768px)
-    padding 15px 15px 0
+    padding 28px 15px 0 15px
   @media screen and (min-width: 992px)
-    padding 18px 25px 0
+    padding 30px 25px 0 15px
   @media screen and (min-width: 1200px)
-    padding 18px 30px 0
-  box-sizing border-box
+    padding 34px 30px 0
+
+  #filterSearchWrap
+    @media screen and (max-width: 767px)
+      margin 0 -10px
+
+  .filterRow
+    @media screen and (min-width: 768px)
+      margin 0 -5px 20px
+
+  .filter-options ~ &
+    @media screen and (min-width: 992px)
+      padding-top 20px !important
+
   .main-city-list
     clear both
     text-align center
+    margin-left -10px
+    margin-right -10px
     margin-bottom 0
     li
-      max-width 450px
       display inline-block
       float none
+      max-width 450px
+      padding 0
       vertical-align top
       text-align left
+      @media screen and (min-width: 768px)
+        padding 0 10px
+
     .main-city-item
-      margin 0 0 2rem 0
-      padding 2%
+      margin 0 6px 30px
+      padding 0
       padding-bottom 0
       box-sizing border-box
-      border 1px solid #eeeeee
+      border 1px solid #eee
       border-radius 3px
-      @media screen and (min-width: 768px)
-        padding 15px
+      @media screen and (min-width: 360px)
+        box-shadow 0 4px 14px -4px rgba(0,0,0,.2)
+      @media screen and (min-width: 1200px)
+        margin-bottom 25px !important
+
       .main-city-img-link
         position relative
         display block
@@ -45,48 +205,87 @@
             opacity 1
         img
           width 100%
-      .main-city-item-wrap
-        padding 0
+
+        .main-city-price
+          color #fff
+          padding 5px 0
+          display block
+          position absolute
+          left 0
+          bottom 4%
+          background rgba(92,184,92,.85)
+          width 41.1%
+          text-align center
+          text-shadow 0 1px 0 rgba(0,0,0,.35)
+          box-shadow 1px 1px 10px -3px rgba(0,0,0,.25)
+          border-radius 0 30px 30px 0
+          font-family "Montserrat","Raleway","Open Sans", Helvetica,sans-serif
+          font-size 17px
+          transition all .35s ease
+          max-height 35px
+          z-index 999
+
         @media screen and (min-width: 768px)
-          padding 15px 0
+          &:hover .main-city-price
+            bottom 6.5%
+            box-shadow 1px 3px 14px -1px rgba(0,0,0,.35)
+
+
+      .brokerage-info
+        color #999
+        font-size 75%
+        line-height 1.25em
+        margin-top 8px
+
+      .main-city-item-wrap
+        padding 5px 15px
+        @media screen and (min-width: 768px)
+          padding 5px 15px
+
         .main-city-info-btn
           color #4588fa
           padding 10px 0 0
           cursor pointer
+
         .main-city-item-title
           padding 0
-          margin 10px 0
+          margin 9px 0
           float left
           height 18px
           overflow hidden
           font-size 16px
+          width 100%
+
           .main-city-item-link
             font-family 'Montserrat', Helvetica, sans-serif
             font-size 16px
             color #272b30
             text-decoration none
+            @media screen and (min-width: 768px)
+              font-size 17px
+
+        .fa-star
+          color rgb(240,230,10)
+          text-shadow 0 0 0 rgba(0,0,0,.5)
 
         .main-city-info
-          clear both
-          font-family 'Montserrat', Helvetica, sans-serif
-          height 36px
-          font-size 14px
-          overflow hidden
+          display inline-block
+          margin 1px 0 4px
+          &#numBrs
+            width 60%
+          &#numBaths
+            width 38%
+          @media screen and (min-width: 768px)
+            margin 2px 0 6px
           i
-            font-size 18px
-            padding 0 10px 0 0
+            font-size 17px
+            padding 0 12px 0 0
 
-          .main-city-price
-            color #cc9900
-            padding 0 10px 0 0
-            display inline-block
-            vertical-align middle
-            font-size 14px
           .main-city-desc
             border-left 1px solid #c7c7c7
             color #272b30
             padding 0 0 0 10px
-            font-size 14px
+            font-size 15px
             display inline-block
             position absolute
 
@@ -106,8 +305,16 @@
   height 100%
   padding 0
   float none
+  transition all .5s ease
   @media screen and (min-width: 1200px)
-    float right
+    position absolute
+    right 0
+    width 0
+
+  #forMap.is-out ~ &
+    @media screen and (min-width: 1200px)
+      width 24.9% !important
+
   #gmap
     height 100%
 
@@ -115,9 +322,59 @@
   text-align center
 
 .loading-btn
-  background-color #4588fa
-  font-weight bold
   display inline-block
 
 .button-building-insert
-  margin-bottom 18px
+  padding 4px 11px
+
+.unpublished-property-toggle-wrapper
+  padding 5px 0 0 0
+
+  > span
+    line-height 1.2
+    display inline-block
+    position relative
+    top -4px
+    margin-right 10px
+    max-width 85%
+
+  span
+    font-size 13px
+    &.mdl-switch__label
+     left 15px
+  .mdl-switch.is-checked .mdl-switch__track
+    background rgba(0,0,0, 0.26)
+  .mdl-switch.is-checked .mdl-switch__thumb
+    background-color #149bdf
+
+  .mdl-switch
+    width initial
+
+.building-title-search-wrapper
+  margin-bottom 10px
+  margin-right 15px
+  position relative
+  width 100%
+  @media screen and (min-width: 768px)
+    // float right
+    margin-bottom 15px
+    margin-right 2%
+    padding 0 0 0 5px
+  @media screen and (min-width: 1020px)
+    // max-width 39%
+  input
+    font-size 15px
+    color #272b30
+    font-weight bold
+    height 38px
+    padding-left 32px
+
+  i
+    color #aaa
+    position absolute
+    top 12px
+    left 10px
+    font-size 90%
+    opacity 0.9
+    @media screen and (min-width: 768px)
+      left 13px

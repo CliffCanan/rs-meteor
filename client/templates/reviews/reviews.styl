@@ -3,9 +3,13 @@
   position relative
   li
     background-color #FFF
-  li:nth-child(odd)
-    padding-right 5px
-  li:nth-child(even)
-    padding-left 5px
+    margin-bottom 15px
+    @media screen and (min-width: 992px)
+      margin-bottom 20px
+
 .average-rating
+  font-size 15.5px
   margin-bottom 10px
+
+  .reviewsCount,.avgRating
+    font-weight bold

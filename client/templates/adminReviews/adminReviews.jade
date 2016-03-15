@@ -2,10 +2,12 @@ template(name="adminReviews")
   .container
     .row
       .col-lg-12
-        h1 Manage reviews
-    .row
+        h1 Manage Reviews
+
+    .row.m-t-10
       ul.list-unstyled.row.reviews
         each buildingReviews
-          li.col-lg-3
+          li.col-lg-4
             +review
+
   +reviewForm(defaults=reviewFormDefaults)

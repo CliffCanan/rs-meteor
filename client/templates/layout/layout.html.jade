@@ -2,12 +2,7 @@ template(name="layout")
   .page-wrapper(class="{{#if isHomePage}}home-page{{/if}}")
     //-+connection
     +yield(region="header")
-    main
+    main.clearfix
       +yield
     +yield(region="footer")
   #fb-root
-//js API script'a
-  2 init:
-  while script loading : onLoad or snth like that
-  in template social: init on this template
-  is addThis present on the page (to be sure, that script init succeded )

@@ -8,6 +8,7 @@ Router.configure
   loadingTemplate: "loading"
   yieldTemplates:
     "header": {to: "header"}
+    "footer": {to: "footer"}
 
 Router.plugin("dataNotFound", {notFoundTemplate: "notFound"})
 Router.onBeforeAction ->
@@ -20,18 +21,51 @@ Router.onBeforeAction ->
 Router.map ->
   @route "/",
     name: "index"
+    fastRender: true
+    onBeforeAction: ->
+
+      Session.setDefault('hasAlrdyConverted', false);
+
+      source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
+      medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
+      campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
+
+      if source is "no source found"
+        # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
+        source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
+
+      if @params.query.fb and @params.query.fb = true
+        source = "Facebook Ad"
+
+      Session.set "utm_source", source
+      Session.set "utm_medium", medium
+      Session.set "utm_campaign", campaign
+
+      @next()
     onAfterAction: ->
+      Session.set "currentPage", "home"
       SEO.set
-        title: share.formatPageTitle "Rent Scene - Find Awesome Apartments and Condos", false
+        title: "Rent Scene | Apartment Hunting For Busy People"
         meta:
-          description: "Rent Scene helps you find a great place to live. Search for apartments and condos in Philadelphia, Washington DC, Chicago, and other major cities."
-          keywords: "rent, rental, apartment, landlord, tenant, home, bedroom, bathroom, lease, condo, condominium, philadelphia, center city, chicago, washington dc, rittenhouse square, parking, gym, utilities, pets"
+          description: "Rent Scene finds the best apartments that fit your lifestyle. Our dedicated local experts manage the entire search process for you, making sure you love your new home."
+          keywords: "rent,rental,apartment,tenant,bedroom,bathroom,lease,luxury,condo,condominium,philadelphia,philly,center city,chicago,washington dc,rittenhouse square,parking,gym,utilities,pets,affordable"
+
   @route "/check-availability",
     name: "checkAvailability"
-  @route "/tour-signup",
-    name: "tourSignup"
+
+  #@route "/tour-signup",
+  #  name: "tourSignup"
+
   @route "/login",
     name: "login"
+    onBeforeAction: ->
+      @next()
+    onAfterAction: ->
+      SEO.set
+        title: "Rent Scene Admin Login"
+        meta:
+          robots: "noindex"
+
   @route "/userlist/:userListId",
     name: "userlist"
     fastRender: true
@@ -44,6 +78,7 @@ Router.map ->
       )
     onBeforeAction: ->
       @next()
+
   @route "/propertylist/:slug",
     name: "propertylist"
     fastRender: true
@@ -59,6 +94,7 @@ Router.map ->
       )
     onBeforeAction: ->
       @next()
+
   @route "recommendations/:clientId",
     name: "clientRecommendations"
     fastRender: true
@@ -70,7 +106,6 @@ Router.map ->
         firstCityId = if firstBuilding then firstBuilding.cityId else 'philadelphia'
         @params.cityId = if @params.query.cityId then @params.query.cityId else firstCityId
         []
-
     waitOn: ->
       Meteor.subscribe "singleClientRecommendation", @params.clientId
     data: ->  
@@ -84,16 +119,14 @@ Router.map ->
       @next()
     onAfterAction: ->
       SEO.set
-        title: share.formatPageTitle "Recommendations for #{@data().name}"
+        title: "Apartment Recommendations for #{@data().name}"
         meta: 
           robots: "noindex"
-  @route "/city/:cityId",
+
+  @route "/city/:cityId?",
     name: "city"
     fastRender: true
     subscriptions: ->
-#      citySubsciption = Meteor.subscribe("buildings", @params.cityId, @params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
-#      if Meteor.isClient
-#        window.citySubsciption = citySubsciption
       [
         citySubs.subscribe("buildings", @params.cityId, @params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
         Meteor.subscribe("city-buildings-count", @params.cityId, @params.query)
@@ -102,6 +135,8 @@ Router.map ->
       return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
+      Session.set("currentNeighborhood", undefined)
+
       if @params.query.hasOwnProperty 'address'
         Session.set("cityName", @params.query.address)
       else
@@ -111,17 +146,42 @@ Router.map ->
           Router.go("city", {cityId: @params.cityId}, {query: {address: address}})
         else
           Session.set("cityName", "")
+
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
         Session.set("cityScroll", 0)
+
+      Session.setDefault('hasAlrdyConverted', false);
+      Session.setDefault('utm_source', 'no source found');
+      Session.setDefault('utm_medium', 'no medium found');
+      Session.setDefault('utm_campaign', 'no campaign found');
+
+      source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
+      medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
+      campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
+
+      if source is "no source found"
+        # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
+        source = if @params.query.gclid then "AdWords Campaign" else "no source found"
+
+      if @params.query.fb and @params.query.fb is true
+        source = "Facebook Ad"
+
+      Session.set "utm_source", source  unless source is "no source found"
+      Session.set "utm_medium", medium  unless medium is "no medium found"
+      Session.set "utm_campaign", campaign  unless campaign is "no campaign found"
+
       @next()
     onAfterAction: ->
+      Session.set "currentPage", "city"
       SEO.set
-        title: share.formatPageTitle "Rental Apartments and Condos in #{cities[@params.cityId].long}"
+        title: "Rental Apartments in #{cities[@params.cityId].human} | Rent Scene"
         meta:
-          description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
-  @route "/city/:cityId/:neighborhoodSlug",
+          description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of affordable luxury units."
+          keywords: "rent,rental,#{cities[@params.cityId].short},luxury,affordable,bedroom,laundry,garage,doorman,parking,amenities"
+
+  @route "/city/:cityId/:neighborhoodSlug?",
     name: "neighborhood"
     fastRender: true
     subscriptions: ->
@@ -136,15 +196,41 @@ Router.map ->
       return null unless @params.cityId in cityIds
       @params
     onBeforeAction: ->
+      currentHood = if @params.neighborhoodSlug then @params.neighborhoodSlug else undefined
+      Session.set("currentNeighborhood", currentHood)
+
       Session.set("neighborhoodPageData", {page: 1})
       Session.set("cityPageData", {cityId: @params.cityId, page: 1})
       Session.set("cityScroll", 0)
+
+      Session.setDefault('hasAlrdyConverted', false);
+      Session.setDefault('utm_source', 'no source found');
+      Session.setDefault('utm_medium', 'no medium found');
+      Session.setDefault('utm_campaign', 'no campaign found');
+
+      source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
+      medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
+      campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
+
+      if source is "no source found"
+        # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
+        source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
+
+      if @params.query.fb and @params.query.fb = true
+        source = "Facebook Ad"
+
+      Session.set "utm_source", source  unless source is "no source found"
+      Session.set "utm_medium", medium  unless medium is "no medium found"
+      Session.set "utm_campaign", campaign  unless campaign is "no campaign found"
+
       @next()
     onAfterAction: ->
+      Session.set "currentPage", "neighborhood"
       SEO.set
-        title: share.formatPageTitle "Rental Apartments and Condos in #{cities[@params.cityId].long}"
+        title: "Rent Apartments in #{cities[@params.cityId].human} | Rent Scene"
         meta:
-          description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos, photos, floor plans, and up-to-date pricing for thousands of units."
+          description: "Find a great apartment in #{cities[@params.cityId].short} with Rent Scene. View videos and photos, schedule tours, and check out up-to-date pricing for thousands of #{cities[@params.cityId].short}'s best units."
+
   @route "/city/:cityId/:neighborhoodSlug/:buildingSlug/:unitSlug?",
     name: "building"
     fastRender: true
@@ -157,10 +243,6 @@ Router.map ->
         buildingSubs.subscribe("buildingAdminSame", @params.cityId, @params.unitSlug or @params.buildingSlug)
       ]
     data: ->
-      # console.log("cityId: " + @params.cityId)
-      # console.log("neighborhoodSlug: " + @params.neighborhoodSlug)
-      # console.log("unitSlug: " + @params.unitSlug)
-      # console.log("buildingSlug: " + @params.buildingSlug)
       building = Buildings.findOne({cityId: String(@params.cityId), slug: String(@params.unitSlug or @params.buildingSlug)})
       return null unless building
       _.extend {}, @params,
@@ -169,16 +251,50 @@ Router.map ->
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId
         Session.set("cityPageData", {cityId: @params.cityId, page: 1})
+
+      Session.setDefault('hasAlrdyConverted', false);
+      Session.setDefault('utm_source', 'no source found');
+      Session.setDefault('utm_medium', 'no medium found');
+      Session.setDefault('utm_campaign', 'no campaign found');
+
+      source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
+      medium = (if @params.query.utm_medium then @params.query.utm_medium else "no medium found")
+      campaign = (if @params.query.utm_campaign then @params.query.utm_campaign else "no campaign found")
+
+      if source is "no source found"
+        # 'gclid' is appended by Google AdWords to auto-map the user in AdWords and Analytics
+        source = (if @params.query.gclid then "AdWords Campaign" else "no source found")
+
+      if @params.query.fb and @params.query.fb = true
+        source = "Facebook Ad"
+
+      Session.set "utm_source", source  unless source is "no source found"
+      Session.set "utm_medium", medium  unless medium is "no medium found"
+      Session.set "utm_campaign", campaign  unless campaign is "no campaign found"
+
       @next()
     onAfterAction: ->
+      Session.set "currentPage", "building"
+
       if @data() and @data().building
         building = @data().building
         metaTags = building.metaTags()
+
+        #console.log(metaTags)
+        #console.log(metaTags.title)
+
         if metaTags.title
+          #console.log("Routing -> building -> onAfterAction -> metaTags.Title EXISTS")
           SEO.set
             title: metaTags.title
             meta:
               description: metaTags.description
+        else
+          #console.log("Routing -> building -> onAfterAction -> metaTags.Title DOES NOT EXIST")
+      else
+        console.log("Routing -> building -> onAfterAction #261")
+        SEO.set
+          title: "#{cities[@params.cityId].short} Apartment | Rent Scene"
 
   @route "/apply",
     name: "newRentalApplication"
@@ -197,6 +313,9 @@ Router.map ->
 
       insertedId = RentalApplications.insert newRentalApplication
       Router.go('rentalApplication', {id: insertedId}, {replaceState: true})
+    onAfterAction: ->
+      SEO.set
+        title: 'Rental Application | Rent Scene'
   
   @route "/apply/:id",
     name: "rentalApplication"
@@ -205,12 +324,15 @@ Router.map ->
       Meteor.subscribe('rentalApplication', @params.id, accessToken)
     data: ->
       RentalApplications.findOne(@params.id)
+    onAfterAction: ->
+      SEO.set
+        title: 'Rental Application | Rent Scene'
+        meta:
+          robots: "noindex"
 
   @route "/apply/:id/download", ->
     rentalApplication = RentalApplications.findOne(@params.id)
 
-    # Get PDF template file from the /private directory. It's HTML instead of Jade because of a bug in the jade / jade-compiler package
-    # We'll use Jade once this is addressed: https://github.com/mquandalle/meteor-jade/issues/168
     template = Assets.getText('rental-application-pdf.html')
 
     # Compile template using Server Side Render package
@@ -270,7 +392,7 @@ Router.map ->
     html = SSR.render('rentalApplicationPDF', rentalApplication)
 
     res = @response
-    res.setHeader('Content-disposition', "attachment; filename=Rentscene Rental Application - #{rentalApplication.fields.fullName}.pdf");
+    res.setHeader('Content-disposition', "attachment; filename=RentScene_RentalApplication_#{rentalApplication.fields.fullName}.pdf");
 
     fs = Npm.require('fs')
 
@@ -317,6 +439,17 @@ Router.map ->
 
   , where: 'server'
 
+
+  @route "/admin",
+    name: "admin"
+    onBeforeAction: ->
+      Router.go("login")
+    onAfterAction: ->
+      SEO.set
+        title: "Rent Scene Admin"
+        meta:
+          robots: "noindex"
+
   @route "admin/rental-applications",
     name: "adminRentalApplications"
     waitOn: ->
@@ -326,6 +459,8 @@ Router.map ->
     onAfterAction: ->
       SEO.set
         title: 'Admin: Manage Rental Applications | Rent Scene'
+        meta:
+          robots: "noindex"
 
   @route "/quick-view",
     name: "quickView"
@@ -336,6 +471,7 @@ Router.map ->
       Meteor.loginWithToken(@params.token)
       share.autologinDetected = true
       Router.go("index")
+
   @route "/admin/userspanel",
     name: "usersPanel"
     subscriptions: ->
@@ -344,11 +480,44 @@ Router.map ->
       return null  unless users = Meteor.users.find()
       _.extend @params,
         users: users
+    onAfterAction: ->
+      SEO.set
+        title: 'Admin: Manage Users | Rent Scene'
+        meta:
+          robots: "noindex"
+
   @route "/admin/reviews",
     name: "adminReviews"
     waitOn: ->
       Meteor.subscribe("pendingReviews")
-      
+    onAfterAction: ->
+      SEO.set
+        title: 'Admin: Manage Apartment Reviews | Rent Scene'
+        meta:
+          robots: "noindex"
+
+  @route "/featured-props",
+    name: "featuredProps"
+    #data: ->
+      #building = Buildings.findOne({cityId: "philadelphia", slug: "2040-market-st"})
+      #return null unless building
+      #_.extend {}, @params,
+      #  building: building
+    onAfterAction: ->
+      SEO.set
+        title: 'Featured Listings | Rent Scene'    
+
+  @route "/neighborhoods",
+    name: "neighborhoods"
+    onAfterAction: ->
+      SEO.set
+        title: 'Center City East | Rent Scene' 
+
+  @route "/faq",
+    name: "faq"
+    onAfterAction: ->
+      SEO.set
+        title: 'Frequently Asked Questions | FAQ Rent Scene' 
 
   @route "/(.*)",
     name: "notFound"
@@ -367,6 +536,7 @@ share.setPageTitle = (title, appendSiteName = true) ->
     title = "(D) " + title
   document.title = title
 
+# CC (2/4/15): This function isn't really necessary... so the ' | Rent Scene' is now directly included in the Title value for each route above.
 share.formatPageTitle = (title, appendSiteName = true) ->
   if appendSiteName
     title += " | Rent Scene"

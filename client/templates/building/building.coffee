@@ -1,40 +1,50 @@
 positions = [10000, 5000, 0, -5000, -10000]
 
 Template.building.onCreated ->
-  @subscribe("buildingsSimilar", Router.current().data().building._id)
+  building = Router.current().data().building
 
-Template.building.helpers
+  if building.parentId
+    buildingSimilarId = building.parentId
+    # Subscribe to the parent building that only returns the few fields required to search for similar buildings.
+    @subscribe("buildingForSimilar", buildingSimilarId)
+  else
+    buildingSimilarId = building._id
+
+  @subscribe("buildingReviews", buildingSimilarId)
+  @subscribe("buildingsSimilar", buildingSimilarId)
+
+
+Template.building.helpers 
   ironRouterHack: ->
     Router.current() # reactivity
     editBuildingId = Session.get("editBuildingId")
 
-    unless $.fn.imgLiquid
+    ###unless $.fn.imgLiquid
       $.getScript '/js/imgLiquid-min.js', ->
-        $('#carousel-example-generic .item').imgLiquid
+        $('#sliderAptImgs').imgLiquid
           fill: false
           verticalAlign: '50%'
-        $('#carousel-example-generic .item').css('visibility', 'visible')
+        $('#sliderAptImgs .item').css('visibility', 'visible')###
 
     _.defer ->
       $('[data-toggle="tooltip"]').tooltip()
-      addthis?.init()
+
+      ###
       $carousel = $(".carousel")
       carousel = $carousel.data("bs.carousel")
+
       if carousel
         carousel.pause()
         carousel.destroy()
+
       $firstItem = $carousel.find(".item:first")
+
       if $firstItem.length
         $firstItem.addClass("active")
         $carousel.show().carousel()
       else
         $carousel.hide()
-
-      if $.fn.imgLiquid
-        $('#carousel-example-generic .item').imgLiquid
-          fill: false
-          verticalAlign: '50%'
-        $('#carousel-example-generic .item').css('visibility', 'visible')
+      ###
 
     return ""
 
@@ -45,7 +55,7 @@ Template.building.helpers
       rating
 
   getRatingValue: (rating) ->
-    rating/10
+    parseInt(rating, 10)/10
 
   rentalQuery: ->
     buildingId: @_id
@@ -57,22 +67,25 @@ Template.building.helpers
     @position not in positions
 
   similarProperties: (building) ->
-    from = building.agroPriceTotalTo - 200
-    to = building.agroPriceTotalTo + 200
+    building = Buildings.findOne(building.parentId) if building.agroIsUnit and building.parentId
+    from = building.agroPriceTotalTo - 300
+    to = building.agroPriceTotalTo + 300
     selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}  
     Buildings.find(selector, {limit: 4})
 
   buildingUnitsLimited: ->
-    if Session.get("showAllBuildingUnits")
-      @buildingUnits()
-    else
-      @buildingUnits(4)
+    #if Session.get("showAllBuildingUnits")
+    @buildingUnits()
+    #else
+    #  @buildingUnits(4)
+
   displayBuildingPrice: (queryBtype) ->
     fieldName = "agroPrice" + (if queryBtype then queryBtype.charAt(0).toUpperCase() + queryBtype.slice(1) else "Total")
     fieldNameFrom = fieldName + "From"
     fieldNameTo = fieldName + "To"
     if @[fieldNameFrom]
-      "$" + accounting.formatNumber(@[fieldNameFrom]) + (if @[fieldNameFrom] is @[fieldNameTo] then "" else "+")
+      "$" + accounting.formatNumber(@[fieldNameFrom]) + (if @[fieldNameFrom] is @[fieldNameTo] then "" else " +")
+
   bedroomTypes: (queryBtype) ->
     if queryBtype
       if queryBtype is "studio"
@@ -85,13 +98,14 @@ Template.building.helpers
       if @agroIsUnit
         btypes[@btype]?.upper.replace("room", "")
       else
+        isMediumScreenSize = (if $(window).width() > 768 then true else false)
         types = []
         postfix = ""
         if @agroPriceStudioFrom
           types.push("Studio")
         if @agroPriceBedroom1From
           types.push(1)
-          postfix = " Bedroom"
+          postfix = (if isMediumScreenSize then " Bedroom" else " BR")
         for i in [2..5]
           if @["agroPriceBedroom" + i + "From"]
             types.push(i)
@@ -131,13 +145,27 @@ Template.building.helpers
       return 'video' if media.vimeoId?
 
   buildingReviews: ->
-    BuildingReviews.find({buildingId: Template.instance().data.building._id, isPublished: true}, {sort: {createdAt: -1}})
+    if @agroIsUnit and @parentId
+      buildingId = @parentId
+    else
+      buildingId = @_id
+    BuildingReviews.find({buildingId: buildingId, isPublished: true}, {sort: {createdAt: -1}})
 
   reviewFormDefaults: ->
     Session.get('reviewFormDefaults')
 
+  showIDXDisclaimer: ->
+    @source and @source.source is 'IDX'
+
+
 Template.building.onRendered ->
   instance = @
+
+  #console.log("building.onRendered -> instance...")
+  #console.log(instance)
+
+  $('main').addClass('container')
+
   $('[data-toggle="popover"]').popover
     html: true
     title: 'Commute Calculator <a class="close" data-dismiss="popover" href="#">&times;</a>'
@@ -185,15 +213,18 @@ Template.building.onRendered ->
   map = ""
 
   map = new google.maps.Map document.getElementById("gmap"),
-    zoom: 16
+    zoom: 15
     center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
-    streetViewControl: false
+    streetViewControl: true
     scaleControl: false
     rotateControl: false
     panControl: false
-    overviewMapControl: false
-    mapTypeControl: false
+    overviewMapControl: true
+    mapTypeControl: true
     mapTypeId: google.maps.MapTypeId.ROADMAP
+    maxZoom: 17
+    minZoom: 11
+
   @map = map
   @directionsDisplay.setMap(map)
   @directionsDisplay.setOptions suppressMarkers: true
@@ -233,30 +264,67 @@ Template.building.onRendered ->
         if instance.travelMarkers
           instance.travelMarkers.start.setPosition(latLng)
 
-
-  # Show Check Availability Popup after 11 seconds
-  if !Meteor.user()
-    @popupTimeoutHandle = Meteor.setTimeout ->
-      unless $('body').hasClass('modal-open')
-        $('.check-availability').trigger('click')
-    , 11000
-
   Meteor.setTimeout ->
-    if typeof($('.HB-Bar')) != 'undefined'
-      #console.log("Hiding .HB-Bar - End of Template.building.onRendered");
-      $('.HB-Bar').addClass('hidden')
-      $('#hellobar-pusher').addClass('hidden')
+    $('#sliderAptImgs').slick
+      mobileFirst: true
+      variableWidth: true
+      easing: "ease"
+      speed: 600
+
+    if $.fn.imgLiquid
+      console.log('Slider init #1 if')
+      $('#sliderAptImgs .item').imgLiquid
+        #fill: false
+        verticalAlign: '50%'
+      $('#sliderAptImgs .item').css('visibility', 'visible')
+    else
+      console.log('Slider init #2 else')
+      $.getScript '/js/imgLiquid-min.js', ->
+        $('#sliderAptImgs .item').imgLiquid
+          #fill: false
+          verticalAlign: '50%'
+        $('#sliderAptImgs .item').css('visibility', 'visible')
+
   , 200
 
+  $(".building-unit-list-wrap>ul").niceScroll
+    bouncescroll: true
+    cursorborder: 0
+    cursorborderradius: "8px"
+    cursorcolor: "#404142"
+    cursorwidth: "9px"
+    zindex: 9999
+    mousescrollstep: 26
+    scrollspeed: 42
+    autohidemode: "cursor"
+    hidecursordelay: 500
+    horizrailenabled: false
 
-  $("#checkAvailabilityPopup").on "hide.bs.modal", (e) ->
-    $("#checkAvailabilityPopup form").formValidation "resetForm", true
+  Meteor.setTimeout ->
+    # Bug with SEO package causes Building pages not to get a Title if you navigate directly to it.
+    # Addressing temporarily by setting here (which doesn't help for SEO, so need a server side fix eventually.)
 
-  $("#contactUsPopup").on "hide.bs.modal", (e) ->
-    $("#contactUsPopup form").formValidation "resetForm", true
+    if document.title is ""
+      console.log("Title was not set, setting now")
+      console.log(building.title)
+      buildingTitle = (if building.title then building.title else building.city)
+      document.title = buildingTitle + " Rentals | Rent Scene"
+  , 1000
+
+  # Show Check Availability Popup after 14 seconds
+  if !Meteor.user() and $(window).width() > 768
+    @popupTimeoutHandle = Meteor.setTimeout ->
+      unless Session.get("hasSeenCheckAvailabilityPopup") is true || Session.get("hasSeenContactUsPopup") is true
+        unless $('body').hasClass('modal-open')
+          $('.check-availability').trigger('click')
+    , 14000
 
 
 Template.building.onDestroyed ->
+  if $('main').hasClass('container')
+    #console.log("building.onDestroyed -> main had .container, removing it")
+    $('main').removeClass('container')
+
   # Clear timeout when user exits the page so it doesn't trigger.
   Meteor.clearTimeout(@popupTimeoutHandle)
 
@@ -296,35 +364,54 @@ Template.building.events
 
   "click .check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
-    analytics.track "Clicked Check Availability button", {buildingId: @_id, buildingName: @title, label: @title}
+    analytics.track "Clicked Check Availability Btn (Building)", {buildingId: @_id, buildingName: @title, label: @title} unless Meteor.user()
     $('#checkAvailabilityPopup').modal('show')
 
   "click .unit-check-availability": grab encapsulate (event, template) ->
     Session.set("currentUnit", @)
+    analytics.track "Clicked Check Availability Of Unit Btn" unless Meteor.user()
     $('#checkAvailabilityPopup').modal('show')
 
+  ###
+  # CC (Jan 2016): these 2 are not needed anymore - changed the way units are displayed within the building template,
+  #                now they are all loaded from the beginning, and any overlow is handled with a scrollbar
   "click .building-unit-item-more": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", true)
 
   "click .building-unit-item-less": grab encapsulate (event, template) ->
     Session.set("showAllBuildingUnits", false)
+  ###
 
   "click .remove-image": grab encapsulate (event, template) ->
-    Session.set("imageToRemove", @)
-    $('#confirmRemoval').modal('show')
+    imageToRemove = @
+    console.log(imageToRemove)
 
-  "click .confirm-removal":  grab encapsulate (event, template) ->
-    imageToRemove = Session.get("imageToRemove")
-    if imageToRemove instanceof FS.File
-      query = {"EJSON$value.EJSON_id": imageToRemove._id }
-    else if imageToRemove.vimeoId?
-      query = {"_id": imageToRemove._id }
+    swal
+      title: "Delete Picture Confirmation"
+      text: "You are about to permanently delete that picture - this <strong>cannot be un-done</strong>.  Do you still want to delete this picture?"
+      type: "warning"
+      confirmButtonColor: "#4588fa"
+      confirmButtonText: "Delete"
+      closeOnConfirm: false
+      showCancelButton: true
+      cancelButtonText: "Cancel"
+      showLoaderOnConfirm: true
+      html: true
+      , (isConfirm) ->
+        if isConfirm
+          if imageToRemove instanceof FS.File
+            query = {"EJSON$value.EJSON_id": imageToRemove._id }
+          else if imageToRemove.vimeoId?
+            query = {"_id": imageToRemove._id }
 
-    if query
-      Buildings.update({ _id: template.data.building._id}, { $pull: { images: query }})
+          if query
+            Buildings.update({ _id: template.data.building._id}, { $pull: { images: query }})
+            swal
+              title: "Picture Deleted"
+              text: "That picture has been deleted successfully."
+              type: "success"
+              confirmButtonColor: "#4588fa"
 
-    $('#confirmRemoval').modal('hide')
-    Session.set("imageToRemove", null)
 
   "change .choose-image-input": grab encapsulate (event, template) ->
     buildingId = @_id
@@ -344,23 +431,54 @@ Template.building.events
     )
 
   "click .remove-building": grab encapsulate (event, template) ->
-    $("#confirmBuildingRemoval").modal("show")
+    swal
+      title: "Delete Building Confirmation"
+      text: "You are about to permanently delete this building - this <strong>cannot be un-done</strong>.  Do you still want to delete this building?"
+      type: "warning"
+      confirmButtonColor: "#4588fa"
+      confirmButtonText: "Delete"
+      closeOnConfirm: false
+      showCancelButton: true
+      cancelButtonText: "Cancel"
+      showLoaderOnConfirm: true
+      html: true
+      , (isConfirm) ->
+        if isConfirm
+          building = template.data.building
+          Buildings.remove(building._id)
+          parent = building.parent()
+          type = "Building"
 
-  "click .confirm-building-removal": grab encapsulate (event, template) ->
-    building = template.data.building
-    Buildings.remove(building._id)
-    parent = building.parent()
-    if parent
-      Router.go("building", parent.getRouteData())
-    else
-      Router.go("city", {cityId: building.cityId})
-    $("#confirmBuildingRemoval").modal("hide")
+          if parent
+            type = "Unit"
+            Router.go("building", parent.getRouteData())
+          else
+            Router.go("city", {cityId: building.cityId})
+
+          swal
+            title: type + " Deleted"
+            text: "That building has been deleted successfully."
+            type: "success"
+            confirmButtonColor: "#4588fa"
+
 
   "click .edit-building": (event, template) ->
     Session.set("editBuildingId", template.data.building._id)
 
+    Meteor.setTimeout ->
+      #console.log("building.coffee -> Timeout block")
+      $(".fg-input").each (index) ->
+        val = $(this).val()
+        if val.length > 0
+          $(this).closest(".fg-line").addClass "fg-toggled"
+    , 250
+
+
   "click .cancel-building": (event, template) ->
     Session.set("editBuildingId", null)
+
+  "click .save-building": (event, template) ->
+    $('.building-form').submit()
 
   "submit .building-form": (event, template) ->
     event.preventDefault()
@@ -413,7 +531,7 @@ Template.building.helpers
       ClientRecommendations.find({_id: clientId, 'unitIds.unitId': @._id}).count()
 
 Template.building.events
-  "click .building-img-wrap .recommend-toggle": (event, template) ->
+  "click .building-info-wrap .recommend-toggle": (event, template) ->
     clientObject = Session.get "recommendationsClientObject"
     if clientObject
       clientId = clientObject.clientId
@@ -477,13 +595,13 @@ calcRoute = (from, to, context) ->
               travelIcon = 'car'
               travelText = 'drive'
             when 'walking'
-              travelIcon = 'walk'
+              travelIcon = 'male'
               travelText = 'walk'
             when 'bicycling'
-              travelIcon = 'bike'
-              travelText = 'bike'
+              travelIcon = 'bicycle'
+              travelText = 'bike ride'
 
-          context.travelInfoWindow.setContent('<img class="travel-icon" src="/images/' + travelIcon + '.png"> <span class="travel-duration">' + "#{leg.duration.text} #{travelText} home" + '</span><br/><span class="travel-distance">(' + leg.distance.text + ')</span>')
+          context.travelInfoWindow.setContent('<i class="fa fa-fw fa-' + travelIcon + '"><span class="travel-duration"><span>#{leg.duration.text}</span> #{travelText} home' + '</span><br/><span class="travel-distance">(' + leg.distance.text + ')</span>')
           context.travelInfoWindow.setPosition(leg.start_location)
           context.travelInfoWindow.open(map)
           $('.gm-style-iw').next('div').hide()

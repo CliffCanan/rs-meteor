@@ -23,7 +23,7 @@ Meteor.publish "buildings", (cityId, query, page) ->
   query.to = "" + query.to
   check(cityId, Match.InArray(cityIds))
   check(page, Number)
-  check query,
+  ### check query,
     btype: Match.Optional(Match.InArray(btypesIds))
     from: Match.Optional(String)
     to: Match.Optional(String)
@@ -37,6 +37,11 @@ Meteor.publish "buildings", (cityId, query, page) ->
     available: Match.Optional(String)
     neighborhoodSlug: Match.Optional(String)
     address: Match.Optional(String)
+    utm_source: Match.Optional(String)
+    utm_medium: Match.Optional(String)
+    utm_content: Match.Optional(String)
+    utm_campaign: Match.Optional(String)
+    listingType: Match.Optional(String) ###
 
   page = parseInt(page)
   unless page > 0
@@ -49,9 +54,12 @@ Meteor.publish "buildings", (cityId, query, page) ->
 
   # Limit fields to only those needed to display on city listing. Other fields are for building page.
   fields =
+    address: 1
+    postalCode: 1
     cityId: 1
     title: 1
     images: 1
+    features: 1
     isPublished: 1
     position: 1
     parentId: 1
@@ -60,6 +68,7 @@ Meteor.publish "buildings", (cityId, query, page) ->
     latitude: 1
     longitude: 1
     slug: 1
+    neighborhood: 1
     neighborhoodSlug: 1
     fitnessCenter: 1
     security: 1
@@ -76,6 +85,20 @@ Meteor.publish "buildings", (cityId, query, page) ->
     agroPriceBedroom1To: 1
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
+    agroPriceBedroom3From: 1
+    agroPriceBedroom3To: 1
+    agroPriceBedroom4From: 1
+    agroPriceBedroom4To: 1
+    agroPriceBedroom5From: 1
+    agroPriceBedroom5To: 1
+    agroPriceBedroom6From: 1
+    agroPriceBedroom6To: 1
+    averageRating: 1
+    bathroomsFrom: 1
+    bathroomsTo: 1
+    brokerageName: 1
+
+  fields['source.source'] = 1
 
   if Security.canOperateWithBuilding(@userId)
     adminFields = {
@@ -115,7 +138,7 @@ Meteor.publish "buildingsQuickView", (cityId, query, page) ->
   query.to = "" + query.to
   check(cityId, Match.InArray(cityIds))
   check(page, Number)
-  check query,
+  ###check query,
     btype: Match.Optional(Match.InArray(btypesIds))
     from: Match.Optional(String)
     to: Match.Optional(String)
@@ -129,6 +152,7 @@ Meteor.publish "buildingsQuickView", (cityId, query, page) ->
     available: Match.Optional(String)
     neighborhoodSlug: Match.Optional(String)
     address: Match.Optional(String)
+    listingType: Match.Optional(String)###
 
   page = parseInt(page)
   unless page > 0
@@ -215,8 +239,8 @@ Meteor.publish "buildingsQuickView", (cityId, query, page) ->
 Meteor.publish "buildingsSimilar", (buildingId) ->
   building = Buildings.findOne(buildingId)
 
-  from = building.agroPriceTotalTo - 200
-  to = building.agroPriceTotalTo + 200
+  from = building.agroPriceTotalTo - 300
+  to = building.agroPriceTotalTo + 300
   selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}
 
   # Limit fields to only those needed to display on similar properties block
@@ -293,12 +317,10 @@ Meteor.smartPublish "building", (cityId, slug) ->
       file._id
     [BuildingImages.find({_id: {$in: imageIds}})]
 
-  @addDependency "buildings", "reviews", (building) ->
-    BuildingReviews.find({buildingId: building._id, isPublished: true, isRemoved: null})
-
   selector = {cityId: String(cityId), slug: String(slug)}
   # addIsPublishFilter(@userId, selector)
   buildings = Buildings.find(selector)
+
   # console.log("buildings: ", buildings.fetch())
   buildings
 
@@ -321,6 +343,18 @@ Meteor.smartPublish "buildingParent", (cityId, slug) ->
   selector = {_id: childBuilding._id}
   addIsPublishFilter(@userId, selector)
   [Buildings.find(selector)]
+
+Meteor.publish "buildingReviews", (buildingId) ->
+  BuildingReviews.find({buildingId: buildingId, isPublished: true, isRemoved: null})
+
+Meteor.publish "buildingForSimilar", (buildingId) ->
+  fields =
+    cityId: 1
+    bathroomsTo: 1
+    agroPriceTotalTo: 1
+    agroPriceTotalTo: 1
+
+  Buildings.find(buildingId, {fields: fields})
 
 Meteor.smartPublish "buildingUnits", (cityId, slug) ->
   check(cityId, Match.InArray(cityIds))
@@ -470,8 +504,8 @@ Meteor.smartPublish "rentalApplication", (id, accessToken) ->
     access = true
     accessAllDocuments = true
   else
-    rentalApplication = RentalApplications.findOne(id, {fields: {accessToken: 1}})
-    access = true if rentalApplication.accessToken is accessToken
+    rentalApplication = RentalApplications.findOne(id, {fields: {accessToken: 1, hasPassword: 1}})
+    access = true if rentalApplication.accessToken is accessToken or not rentalApplication.hasPassword
 
   if access
     @addDependency "rentalApplications", "documents", (rentalApplication) ->

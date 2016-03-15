@@ -1,7 +1,5 @@
 template(name="checkAvailability")
-  +messageSent
-  //-button.btn.btn-primary.check-availability Check Availability
-  //-.addthis_sharing_toolbox
+
   with building
     #checkAvailabilityPopup.modal.fade(tabindex='-1', role='dialog',data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
       .modal-dialog
@@ -11,54 +9,92 @@ template(name="checkAvailability")
             .modal-header
               button.close(type='button', data-dismiss='modal', aria-label='Close')
                 i.fa.fa-times(aria-hidden='true')
-              h4#myModalLabel.modal-title Check Availability
+              h4.modal-title.withIcon
+                i.fa.fa-calendar-check-o
+                | Check Availability
 
             .modal-body
-              p.form-group
-                | We will gladly help you check availability of 
+              p.form-group.m-b-25
+                | Interested in 
                 span(class="text-primary") {{propertyName}}
-                | . &nbsp;Tell us a little about your needs, and our {{currentCity}} rep will contact you soon.
+                span ?&nbsp;We'll confirm this
+                  if agroIsUnit
+                    | unit's
+                  else
+                    | building's
+                  | availability and
+                  span.hide-sm one of our Apartment Hunters will
+                  | get back to you
+                  if isBizHours
+                    | within 60 minutes.
+                  else
+                    | ASAP.
 
-              fieldset.form-group.availability-field
-                input.form-control(name="name" placeholder="Name")
+              //-unless condition agroIsUnit 'is' true
+              //-  fieldset.row.form-inline.availability-field#bedrooms-wrapper
+              //-    .col-xs-5
+              //-      label.availability-text(for="bedrooms")
+              //-        span.hide-sm # of
+              //-        | Bedrooms
+              //-    .col-xs-7
+              //-      .form-group
+              //-        .input-group
+              //-          .input-group-addon
+              //-            i.fa.fa-fw.fa-bed
+              //-          select.form-control(name="bedrooms")
+              //-            option(value="") -  Select  -
+              //-            option(value="studio") Studio
+              //-            option(value="1") 1
+              //-            option(value="2") 2
+              //-            option(value="3") 3
+              //-            option(value="4") 4
+              //-            option(value="5") 5+
 
-              fieldset.form-group.availability-field
-                input.form-control(name="email" placeholder="Email address")
-
-              fieldset.form-group.availability-field
-                textarea.form-control(name="question" placeholder="Is this unit still available?", rows="4")
-
-              if condition agroIsUnit 'is' false
-                fieldset.row.form-inline.availability-field#bedrooms-wrapper
-                  .col-xs-5
-                    label.availability-text(for="bedrooms") # of Bedrooms
-                  .col-xs-7
-                    .form-group
-                      .input-group
-                        .input-group-addon
-                          i.fa.fa-fw.fa-bed
-                        select.form-control(name="bedrooms")
-                          option(value="") -  Select  -
-                          option(value="studio") Studio
-                          option(value="1") 1
-                          option(value="2") 2
-                          option(value="3") 3
-                          option(value="4") 4
-                          option(value="5") 5+
-
-              fieldset.row.form-inline.availability-field
-                .col-xs-5
+              fieldset.row.form-inline.availability-field#moveinWrap
+                .col-xs-5.text-right
                   label.availability-text(for="datetimeForm")
+                    i.fa.fa-info-circle(data-toggle="popover", data-trigger="hover click", data-placement="auto", title="Expected Move-In Date", data-content="Apartments tend to come and go quickly, so availability depends on when you expect to move. If you're not sure yet, an estimate is ok!")
                     | Move-In Date
-                .col-xs-7.form-group
+                .col-xs-7.col-sm-6.col-md-5
                   +datepicker(id="datetimeForm" family="moveInData" field="moveInDate" placeholder="MM/DD/YYYY" class="moveInData-moveInDate-editor" name="moveInDate")
 
-            .modal-footer
+              //-fieldset.form-group.availability-field#msgGrp
+              //-  textarea.form-control(name="question" placeholder="Is this unit still available?", rows="2")
+
+              .form-group.fg-float#leadnameGrp
+                span
+                  i.fa.fa-user
+                .fg-line
+                  input.form-control.fg-input#leadname(name="name")
+                label.fg-label(for="leadname") Name
+
+              .form-group.fg-float#leademailGrp
+                span
+                  i.fa.fa-envelope
+                .fg-line
+                  input.form-control.fg-input#leademail(name="email",type="text")
+                label.fg-label(for="leademail") Email
+
+              .form-group.fg-float#leadphoneGrp
+                span
+                  i.fa.fa-mobile
+                .fg-line
+                  input.form-control.fg-input#leadphone(name="phoneNumber",type="text")
+                label.fg-label(for="leadphone") Phone #
+
               if serverError
                 .form-group
                   .alert.alert-danger(role="alert")
                     strong Sorry! Server error occurred! We are already working hard to get it fixed ASAP :-)
+
               button.btn.btn-primary.btn-lg.btn-block.submit-button(type="submit")
                 | Let's Go
                 .fa.fa-spin.fa-refresh.m-l-10.loading(style="display: none;")
                 i.fa.fa-chevron-circle-right.m-l-10(aria-hidden='true')
+
+            .modal-footer
+              div Want to speak with us right now?
+                br
+                | Call
+                a.call-now(href="tel://1-215-995-5890") (215) 995-5890
+                span.period .

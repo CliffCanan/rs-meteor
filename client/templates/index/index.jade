@@ -1,13 +1,21 @@
 template(name="index")
   .home-page-bg
+
   section.head-section-wrap.clearfix
     .head-section
+
       h2.head-section-title
-        | Wish Renting Was Easy?
+        span.hide-sm Apartment Hunting
+        span.hide-mdlg Renting
+        span For Busy People
+
       p.main-desc
-        | It can be. &nbsp;Let's find the perfect apartment for you.
+        | We'll manage the entire process, from searching to signing.
+        span.hide-sm Get started in seconds.
+
       .benefits-wrap
         i.fa.fa-plus
+
         .concierge-wrap
           h3 Full-Service
             br
@@ -19,6 +27,7 @@ template(name="index")
             li
               i.fa-li.fa.fa-check
               | One point of contact
+
         .technology-wrap
           h3 Anytime, Anywhere
             br
@@ -39,6 +48,7 @@ template(name="index")
                 i.fa.fa-user.m-r-5
                 | Talk To An Expert
                 i.fa.fa-angle-right.m-l-10
+
         .col-md-6
           .button-shadow
             a#browse-button(href="#")
@@ -46,39 +56,42 @@ template(name="index")
                 i.fa.fa-globe.m-r-5
                 | Browse Apartments
                 i.fa.fa-angle-right.m-l-10
+
           ul.city-list.list-unstyled
             each cities
               li.city-item
                 a.city-item-link(href="{{pathFor route='city' data=getCityData}}") {{value}}
 
 
+  +featuredProps
+
+
   section.main-section.clearfix
-    h2.main-section-title
-      | Your Personal Search Assistant
-    ul.services-list.list-unstyled
-      li.services-item
+    h2.main-section-title Your Personal Search Assistant
+
+    .container.services-wrap
+
+      .col-xs-12.col-sm-4.services-item
         img(src="/images/personal.png", alt="Expert Advice")
-        h3.main-section-sub-title
-          | Expert Advice
-        p.main-section-desc
-          | Work with a local expert every step of your apartment search.
+        h3.main-section-sub-title Expert Advice
+        p.main-section-desc Work with a local expert every step of your apartment search.
           a.show#getStarted(href="#") Get started
             i.fa.fa-caret-right.m-l-10
-      li.services-item
+
+      .col-xs-12.col-sm-4.services-item
         img(src="/images/photo-camera.png", alt="Tour Virtually")
         h3.main-section-sub-title
           | Tour Virtually
         p.main-section-desc
           | Can't make it in person? Request videos to rent confidently from anywhere.
-          a.show(href="http://www.rentscene.com/city/philadelphia/") Search now
+          a.show(href="/city/philadelphia/") Search now
             i.fa.fa-caret-right.m-l-10
-      li.services-item
+
+      .col-xs-12.col-sm-4.services-item
         img(src="/images/key.png", alt="Apply Online")
-        h3.main-section-sub-title
-          | Apply Online
-        p.main-section-desc
-          | Submit one application and ditch the checkbook with secure online payments.
-          a.show(href="https://www.nooch.com/rentscene", target="_blank") Learn more
+        h3.main-section-sub-title Apply Online
+        p.main-section-desc Submit one application and ditch the checkbook with secure online payments.
+          a.show(href="https://www.nooch.com/rentscene?price=alt&utm_source=rent-scene-homepg&utm_medium=body-content&utm_content=learn-more-btn&utm_campaign=static", target="_blank") Learn more
             i.fa.fa-caret-right.m-l-10
 
 
@@ -88,76 +101,75 @@ template(name="index")
         article
           blockquote
             p.quote-desc
-              | "I have been astounded with the quality of customer service that the Rent Scene has provided.
-              | They responded to my emails immediately (even late in the evening and on weekends),
-              | and provided a customized list of apartments that fit my needs.
-              | That type of customer service just doesn't exist anymore!"
+              | "Rent Scene's customer service was simply awesome.
+              | They responded to my emails immediately (even late night and on weekends),
+              | and found me a list of apartments that had my perfect fit!"
             footer.quote-footer
-              cite.quote-author
-                | David S
-                a.quote-author-link(href="/") Philadelphia
+              cite.quote-author David S.
+                a.quote-author-link(href="/city/philadelphia") Philadelphia
           img(src="/images/testimonials/david.png", alt="David S, Philadelphia")
 
       .testimonials-section.col-lg-3.col-md-6.col-sm-6.col-xs-12
         article
           blockquote
             p.quote-desc
-              | "These guys are awesome! I recently moved to Philly from Northern NJ,
-              | and they were super responsive via email, phone and text.
-              | I also loved that their tour guides were actually knowledgeable about the properties they took me to,
-              | and were mindful of my price range."
+              | "These guys are awesome! They were super responsive and
+              | I loved that their tour guides were actually very knowledgeable
+              | about the properties they took me to. Great experience!"
             footer.quote-footer
-              cite.quote-author
-                | Chloe M
-                a.quote-author-link(href="/") Philadelphia
+              cite.quote-author Chloe M.
+                a.quote-author-link(href="/city/philadelphia") Philadelphia
           img(src="/images/testimonials/chloe.png", alt="Chloe M, Philadelphia")
 
       .testimonials-section.col-lg-3.col-md-6.col-sm-6.col-xs-12
         article
           blockquote
             p.quote-desc
-              | "It was an absolute pleasure working with the Rent Scene Team.
-              | They helped me find my dream Philadelphia apartment
-              | (Penthouse with a great balcony in my dream part of the city - I can't wait to move in)
-              | and made the whole process easy and stress-free."
+              | "Rent Scene found my dream Philadelphia apartment
+              | and made the whole process easy and stress-free.
+              | It was an absolute pleasure working with the Rent Scene Team!"
             footer.quote-footer
-              cite.quote-author
-                | Ruth T
-                a.quote-author-link(href="/") Philadelphia
+              cite.quote-author Ruth T.
+                a.quote-author-link(href="/city/philadelphia") Philadelphia
           img(src="/images/testimonials/ruth.png", alt="Ruth T, Philadelphia")
 
       .testimonials-section.col-lg-3.col-md-6.col-sm-6.col-xs-12
         article
           blockquote
             p.quote-desc
-              | “Rent Scene worked tirelessly to find the perfect apartment for me,
-              | even taking photos and videos when I could not visit.
-              | I appreciated that they truly listened to what was important for me in a new home.
-              | I highly recommend utilizing their services!”
+              | “Rent Scene's team was amazing - they even went out and took
+              | custom photos and videos of apartments that I couldn't visit.
+              | I highly recommend using Rent Scene!”
             footer.quote-footer
-              cite.quote-author
-                | Kirsten S
-                a.quote-author-link(href="/") Philadelphia
+              cite.quote-author Kirsten S.
+                a.quote-author-link(href="/city/philadelphia") Philadelphia
           img(src="/images/testimonials/kirsten.png", alt="Kirsten S, Philadelphia")
 
-  section.contact-us-section.col-xs-12.clearfix
+
+  section.main-section.cta#cta1.clearfix
+    h2.col-xs-12.col-md-6.col-md-offset-3.main-section-title.p-b-0 Grunt work is our specialty.
+
+    h4.main-section-subtitle From scheduling tours to playing phone tag with
+      span six different landlords, we've got you covered.
+
+    button.btn.btn-info(type="button") Find Me An Apartment!
+
+
+  section.main-section.contact-us-section.clearfix
     .text-center
-      h2.main-section-title.m-t-10.p-b-15
-        | Find A Great Apartment Now
+
+      h2.main-section-title.m-t-10.p-b-15 Find A Great Apartment Now
+
       a.col-xs-6.btn.btn-link.p-0(href="http://www.rentscene.com/city/philadelphia/")
         span.fa-stack.fa-lg
           i.fa.fa-circle.fa-stack-2x
           i.fa.fa-search.fa-stack-1x(style="font-size: 75%")
-        span.caption.m-t-10
-          | Search Myself
+        span.caption.m-t-10 Search Myself
 
-      a.col-xs-6.btn.btn-link.p-0(href="tel://1-267-463-2428")
+      a.col-xs-6.btn.btn-link.p-0(href="tel://1-215-995-5890")
         span.fa-stack.fa-lg
           i.fa.fa-circle.fa-stack-2x
           i.fa.fa-mobile.fa-stack-1x
-        span.caption.p.m-t-10
-          | Call Us Now
+        span.caption.p.m-t-10 Call Us Now
 
   +contactUs
-
-  +footer

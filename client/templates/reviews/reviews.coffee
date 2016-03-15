@@ -30,12 +30,21 @@ Template.reviews.onRendered ->
 
 Template.reviews.helpers
   averageRating: ->
-    buildings = Template.instance().data.buildingReviews.fetch()
+    allReviews = Template.instance().data.buildingReviews.fetch()
     totalRating = 0
-    for building in buildings
-      totalRating += parseInt(building.totalRating, 10)
 
-    (totalRating / buildings.length).toFixed(1)
+    for review in allReviews
+      singleReview = 0
+      singleReview += parseInt(review.totalRating, 10)
+
+      # Now loop through each sub-score and add them to get a raw score (out of a max of 40 total points)
+      singleReview += parseInt(review.score, 10) for review in review.reviewItems
+
+      singleReviewRaw = (singleReview / 40) * 10
+
+      totalRating += singleReviewRaw
+
+    (totalRating / allReviews.length).toFixed(1)
 
   reviewsCount: ->
     Template.instance().data.buildingReviews.count()
@@ -53,21 +62,19 @@ Template.reviews.events
 
   'click .review-view-more': (event, template) ->
     $target = $(event.target)
-    $review = $target.parents('li')
-    $('.review-breakdown').hide()
-    $('.reviews li').css(zIndex: 10)
+    $review = $target.parents('.review')
 
-    if $target.html() is 'View more'
-      $target.parent().siblings('.review-breakdown').show()
-      $target.parent().siblings('.review-body-summary').hide()
-      $target.parent().siblings('.review-body-full').show()
-      $('.review-view-more').html('View more')
-      $('footer').css('opacity', 0.3)
+    if $target.html() is 'View More...'
       $review.css
-        zIndex: 20
-      $target.html('View less')
+        height: 'auto'
+      $target.parent().siblings('.review-body-summary').hide()
+      $target.parent().siblings('.review-body-full').slideDown(300)
+      $target.parent().siblings('.review-breakdown').slideDown(300)
+      $target.html('View Less')
     else
-      $('.review-body-summary').show()
-      $('.review-body-full').hide()
-      $('footer').css('opacity', 1)
-      $target.html('View more')
+      $review.css
+        height: '195px'
+      $target.parent().siblings('.review-breakdown').slideUp(300)
+      $target.parent().siblings('.review-body-full').slideUp(300)
+      $target.parent().siblings('.review-body-summary').show()
+      $target.html('View More...')

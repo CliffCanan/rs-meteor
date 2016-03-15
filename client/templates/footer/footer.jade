@@ -1,3 +1,84 @@
 template(name="footer")
-  footer.page-footer.text-center
-    span.copyright &copy; 2015 Rent Scene LLC. All Rights Reserved.
+  footer.page-footer(itemtype="http://schema.org/WPFooter")
+
+    .container
+      .row
+        .col-xs-12(itemscope, itemtype="http://schema.org/LocalBusiness")
+          .row
+
+            .col-xs-12.col-sm-4.text-center#logocolumn
+              .row
+                .col-xs-12
+                  a#rentscene-logo.hide-text(href="/") Rent Scene
+                    img#rentscene-logo-icon.logo.animated.spin-wrapper(src="/images/logo-icon-white.png", itemprop="image", alt="Rentscene Icon")
+                    img#rentscene-logo-text.logo-text(src="/images/logo-text-white.png", itemprop="image", alt="Rentscene")
+                  p.slogan Guiding You Home.
+
+                .col-xs-12
+                  .contact-info
+                    .address(itemprop="address", itemscope, itemtype="http://schema.org/PostalAddress")
+                      span.show(itemprop="streetAddress")
+                        | 1500 John F. Kennedy Blvd. #1510
+                      span.show
+                        span(itemprop="addressLocality") Philadelphia
+                        |,
+                        span(itemprop="addressRegion") PA 
+                        span(itemprop="postalCode") 19013
+                    .phone-email
+                      span.show
+                        i.fa.fa-fw.fa-mobile.hidden
+                        a#phone-col1(href="tel://1-215-995-5890", itemprop="telephone") (215) 995-5890
+                        a#email-col1.show(href="mailto:team@rentscene.com", target="_blank", itemprop="email") team@rentscene.com
+
+            .col-xs-12.col-sm-8
+              .row
+                .col-xs-12.col-sm-4
+                  h5 Company
+                  a#about-rentscene(href="https://www.crunchbase.com/organization/the-rent-scene", target="_blank", itemprop="url") About Rent Scene
+                  a#faq(href="/faq", itemprop="url") FAQ
+                  //- a(href="/", itemprop="url") Blog
+                  //- a(href="/", itemprop="url") Privacy Policy
+
+                .col-xs-12.col-sm-4
+                  h5 Social
+                  a#twitter-link(href="https://twitter.com/RentScene", itemprop="url", target="_blank", title="Follow Rent Scene on Twitter")
+                    i.fa.fa-fw.fa-twitter
+                    | Twitter
+                  a#facebook-link(href="https://www.facebook.com/RentScene/", itemprop="url", target="_blank", title="Like Rent Scene on Facebook")
+                    i.fa.fa-fw.fa-facebook
+                    | Facebook
+                  a#googleplus-link(href="https://plus.google.com/+RentScenePhiladelphia/about", itemprop="url", target="_blank", rel="publisher", title="Follow Rent Scene on Google+")
+                    i.fa.fa-fw.fa-google-plus
+                    | Google+
+                  a#linkedin-link(href="https://www.linkedin.com/company/5276179", itemprop="url", target="_blank", title="Follow Rent Scene on LinkedIn")
+                    i.fa.fa-fw.fa-linkedin
+                    | LinkedIn
+
+                .col-xs-12.col-sm-4
+                  h5 Help
+                  //- a(href="/", itemprop="url", target="_blank") Support Center
+                  a#help-email(href="mailto:team@rentscene.com", target="_blank")
+                    i.fa.fa-fw.fa-envelope
+                    | Email Support
+                  a#help-phone(href="tel://1-215-995-5890")
+                    i.fa.fa-fw.fa-mobile
+                    | Phone Support
+
+      .row
+        .col-xs-12.text-center.cities-wrapper
+          .city-link-wrap
+            a#washingtondc.btn.btn-link(href="/city/washington-dc", title="View Apartments For Rent In Washington DC")
+              | Washington DC Apartments
+          .city-link-wrap
+            a#philadelphia.btn.btn-link(href="/city/philadelphia", title="View Apartments For Rent In Philadelphia PA")
+              | Philadelphia PA Apartments
+          .city-link-wrap
+            a#chicago.btn.btn-link(href="/city/chicago", title="View Apartments For Rent In Chicago, IL")
+              | Chicago IL Apartments
+          .city-link-wrap
+            a#stamford.btn.btn-link(href="/city/stamford", title="View Apartments For Rent In Stamford CT")
+              | Stamford CT Apartments
+
+      .row
+        .col-xs-12.col-sm-8.col-sm-offset-2.copyright-wrap.clearfix
+          span.copyright &copy; 2016 Rent Scene LLC. All Rights Reserved.

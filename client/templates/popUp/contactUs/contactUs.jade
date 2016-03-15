@@ -1,28 +1,5 @@
 template(name="contactUs")
-  //- script(type='text/javascript').
-  //-   goog_snippet_vars = function() {
-  //-     var w = window;
-  //-     w.google_conversion_id = 971362509;
-  //-     w.google_conversion_label = "U6-FCPq4gGMQzaGXzwM";
-  //-     w.google_remarketing_only = false;
-  //-   }
-  //-   //- DO NOT CHANGE THE CODE BELOW.
-  //-   goog_report_conversion = function(url) {
-  //-     goog_snippet_vars();
-  //-     window.google_conversion_format = "3";
-  //-     window.google_is_call = true;
-  //-     var opt = new Object();
-  //-     opt.onload_callback = function() {
-  //-     if (typeof(url) != 'undefined') {
-  //-       window.location = url;
-  //-     }
-  //-   }
-  //-   var conv_handler = window['google_trackConversion'];
-  //-   if (typeof(conv_handler) == 'function') {
-  //-     conv_handler(opt);
-  //-   }
 
-  +messageSent
   #contactUsPopup.modal.fade(tabindex='-1', role='dialog', data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
@@ -30,89 +7,120 @@ template(name="contactUs")
           .modal-header
             button.close(type='button', data-dismiss='modal', aria-label='Close')
               i.fa.fa-times(aria-hidden='true')
-            h4.modal-title
-              i.fa.fa-street-view.text-primary.m-r-5
-              | Searching Alone Sucks - Use A Local Expert
+            h4.modal-title.withIcon
+              i.fa.fa-street-view
+              span.hide-xs You Should
+              | Love Where You Live
 
           .modal-body
             p.form-group
-              | You should
-              strong love
-              | where you live.
-              span.hide-sm &nbsp;
-              | Take advantage of unbiased advice and put our team of experts to work.
-              span.hide-sm &nbsp;
-              | We'll schedule tours, deal with landlords, and stay with you until you love your next apartment.
-
-            fieldset.row.form-group.contact-us-field
-              label.col-sm-5.col-md-4 Name
-              .col-sm-7.col-md-8
-                input.form-control(name="name" placeholder="Name")
-
-            fieldset.row.form-group.contact-us-field
-              label.col-sm-5.col-md-4 Email Address
-              .col-sm-7.col-md-8
-                input.form-control(name="email" placeholder="Email address")
+              | Put our team of experts to work. We find the best apartments,
+              span.hide-sm make sure they're still available,
+              span.hide-mdlg confirm availability,
+              | schedule tours, and deal with each landlord for you.
+              span.free &nbsp;100% free
+              | for renters.
 
             fieldset.row.contact-us-field
-              .col-xs-6
-                .form-group
-                  .input-group
-                    .input-group-addon
-                      i.fa.fa-bed
-                    select.form-control(name="bedrooms")
-                      option(value="") # of Bedrooms
-                      option(value="studio") Studio
-                      option(value="1") 1 Bedroom
-                      option(value="2") 2 Bedroom
-                      option(value="3") 3 Bedroom
-                      option(value="4") 4 Bedroom
+              .col-xs-5.text-right.p-r-5
+                label.outside(for="datetimeForm")
+                  //-i.fa.fa-info-circle(data-toggle="popover", data-trigger="hover click", data-placement="auto", title="Expected Move-In Date", data-content="Apartments tend to come and go quickly, so availability depends on when you expect to move. If you're not sure yet, an estimate is ok!")
+                  | Max
+                  span Monthly
+                  | Rent
 
-              .col-xs-6
+              .col-xs-7.col-sm-6.col-md-5
                 .form-group#maxRent
                   .input-group
                     .input-group-addon
                       i.fa.fa-usd
-                    input.form-control(name="maxMonthlyRent" placeholder="Max monthly rent")
-
-            fieldset.row.form-group.contact-us-field#tour-question-wrapper
-              label.col-xs-5
-                | I want to tour 
-                span.specific this unit 
-                span.generic units 
-                | in person.
-                i.fa.fa-question-circle.text-primary.m-l-5(data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Can't tour in person? No problem - ask us about video tours so you can rent from a distance with confidence!" data-original-title="Not local?" title="")
-
-              .col-xs-7
-                span.radio-inline
-                  input#inlineRadio1.css-checkbox(type='radio', name='tourOption', value='yes')
-                  label.css-label(for="inlineRadio1")
-                    | Yes
-                span.radio-inline
-                  input#inlineRadio2.css-checkbox(type='radio', name='tourOption', value='no')
-                  label.css-label(for="inlineRadio2")
-                    | No
-                span.radio-inline
-                  input#inlineRadio3.css-checkbox(type='radio', name='tourOption', value='notSure')
-                  label.css-label(for="inlineRadio3")
-                    | Not Sure
+                    input.form-control(name="maxMonthlyRent", placeholder="0", type="number", maxlength="4", pattern="[0-9]*")
+                    .input-group-addon
+                      | .00
 
             fieldset.row.contact-us-field
-              .form-group.col-xs-6
-                +datepicker(id="contactUsTourDate" placeholder="Tour Date" class="tour-date" name="contactUsTourDate")
-              .form-group.col-xs-6
-                +datepicker(id="contactUsMoveInDate" placeholder="Move-In Date" class="move-in-data" name="contactUsMoveInDate")
+              .col-xs-5.text-right.p-r-5.p-l-5
+                label.outside(for="datetimeForm")
+                  i.fa.fa-info-circle.hide-sm(data-toggle="popover", data-trigger="hover click", data-placement="auto", title="Expected Move-In Date", data-content="Apartments tend to come and go quickly, so availability depends on when you expect to move. If you're not sure yet, an estimate is ok!")
+                  | Move-In Date
+
+              .col-xs-7.col-sm-6.col-md-5
+                +datepicker(id="contactUsMoveInDate" placeholder="Pick Date" class="move-in-data" name="contactUsMoveInDate")
+
+            //-  .col-xs-6
+            //-    .form-group
+            //-      .input-group
+            //-        .input-group-addon
+            //-          i.fa.fa-bed
+            //-        select.form-control(name="bedrooms")
+            //-          option(value="") # of Bedrooms
+            //-          option(value="studio") Studio
+            //-          option(value="1") 1 Bedroom
+            //-          option(value="2") 2 Bedroom
+            //-          option(value="3") 3 Bedroom
+            //-          option(value="4") 4 Bedroom
+
+            //-fieldset.row.form-group.contact-us-field#tour-question-wrapper
+            //-  label.col-xs-5.p-t-0
+            //-    | I want to tour
+            //-    span.specific this unit
+            //-    span.generic units
+            //-    | in person.
+            //-    i.fa.fa-question-circle.text-primary.m-l-5(data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="No problem - ask us about video tours so you can rent from a distance with confidence!" data-original-title="Not local?" title="")
+
+            //-  .col-xs-7
+            //-    span.radio-inline
+            //-      input#inlineRadio1.css-checkbox(type='radio', name='tourOption', value='yes')
+            //-      label.css-label(for="inlineRadio1")
+            //-        | Yes
+            //-    span.radio-inline
+            //-      input#inlineRadio2.css-checkbox(type='radio', name='tourOption', value='no')
+            //-      label.css-label(for="inlineRadio2")
+            //-        | No
+            //-    span.radio-inline
+            //-      input#inlineRadio3.css-checkbox(type='radio', name='tourOption', value='notSure')
+            //-      label.css-label(for="inlineRadio3")
+            //-        | Not Sure
+
+            //-fieldset.row.contact-us-field
+            //-  .form-group.col-xs-6
+            //-    +datepicker(id="contactUsTourDate" placeholder="Tour Date" class="tour-date" name="contactUsTourDate")
+
+            .form-group.fg-float#contactUsNameGrp
+              span
+                i.fa.fa-user
+              .fg-line
+                input.form-control.fg-input#contactUsName(name="name")
+              label.fg-label(for="leadname") Name
+
+            .form-group.fg-float#contactUsEmailGrp
+              span
+                i.fa.fa-envelope
+              .fg-line
+                input.form-control.fg-input#contactUsEmail(name="email")
+              label.fg-label(for="leademail") Email
+
+            .form-group.fg-float#leadphoneGrp
+              span
+                i.fa.fa-mobile
+              .fg-line
+                input.form-control.fg-input#leadphone(name="phoneNumber")
+              label.fg-label(for="leadphone") Phone #
 
             fieldset.form-group.contact-us-field.m-t-20
               textarea.form-control(name="question" placeholder="Question/Comments", rows="3")
 
-          .modal-footer
             if serverError
               .form-group
                 .alert.alert-danger(role="alert")
                   strong Sorry! Server error occured! We are already working hard to get it fixed ASAP! :-)
+
             button.btn.btn-primary.btn-lg.btn-block.submit-button(type="submit")
               | Let's Go
               .fa.fa-spin.fa-refresh.m-l-10.loading(style="display: none;")
               i.fa.fa-chevron-circle-right.m-l-10(aria-hidden='true')
 
+          .modal-footer
+            div Want to speak with us right now? &nbsp;Call
+              a.call-now(href="tel://1-215-995-5890") (215) 995-5890
+              span.period .

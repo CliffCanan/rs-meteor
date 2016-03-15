@@ -1,21 +1,25 @@
 header
   background #272b30
-  height 70px
+  box-shadow 0 0px 14px 0px rgba(0,0,0,.4)
+  height 58px
   width 100%
   position fixed
   top 0
   left 0
-  z-index 1000
+  transition all .4s ease
+  z-index 1030
+  @media screen and (min-width: 992px)
+    height 70px
 
   .home-page &
-    background rgba(39, 43, 48, .1)
-    transition .35s all ease-in-out
-	
+    background #4588fa // rgba(39, 43, 48, .1)
+    transition 0.3s background ease-in-out, 0.2s top ease-in-out !important
+
   .header-wrap
     width 100%
-    padding 20px 10px
+    padding 12px 10px 0
     @media screen and (min-width: 768px)
-      padding 20px 15px
+      padding 12px 15px
     @media screen and (min-width: 992px)
       padding 20px 25px
     @media screen and (min-width: 1200px)
@@ -23,7 +27,7 @@ header
     box-sizing border-box
 
     .logo-wrap
-      width 135px
+      width 150px
       height 30px
       display inline-block
       padding 0
@@ -54,7 +58,7 @@ header
       list-style none
       @media screen and (max-width: 500px)
         position absolute
-        top 22px
+        top 14px
         right 0
         .fa-paper-plane
           display
@@ -63,17 +67,13 @@ header
         display inline-block
         line-height 30px
 
-        &.live-chat
-          display none
-
-          .home-page &
-            display inline-block
-
         .navigation-item-link
           font-family 'Montserrat', Helvetica, sans-serif
           font-size 14px
           color #fff
           padding 10px
+          text-decoration none
+          transition .16s color ease
           @media screen and (max-width: 500px)
             padding 8px
             .fa-paper-plane
@@ -82,17 +82,25 @@ header
               position relative
               top -1px
               right 1px
-          text-decoration none
-          transition .16s color ease
 
           &.active, &:hover
             color #ffcc33
             text-decoration none
 
+          &.contact-us > span
+            border 1px solid
+            border-radius 20px
+            padding 8px 25px
+            transition .16s all ease
+
           .fa
             margin-right 2px
             @media screen and (min-width: 768px)
               margin-right 6px
+
+  #recommending-client-banner
+    position relative
+    top -1px
 
 .home-page
   header.navbar-dark

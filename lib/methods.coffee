@@ -138,7 +138,7 @@ Meteor.methods
     reviewObject.isPublished = false
 
     if reviewObject.isAnonymousReview
-      reviewObject.isAnonymousReview = true 
+      reviewObject.isAnonymousReview = true
       reviewObject.name = null
     else
       reviewObject.isAnonymousReview = false
@@ -166,7 +166,7 @@ Meteor.methods
 
   "updateReview": (reviewObject) ->
     if reviewObject.isAnonymousReview
-      reviewObject.isAnonymousReview = true 
+      reviewObject.isAnonymousReview = true
       reviewObject.name = null
     else
       reviewObject.isAnonymousReview = false
@@ -273,7 +273,7 @@ if Meteor.isServer
       console.log "====== importImage ======"
       console.log "importImage > buildingId: " + buildingId
       # console.log "importImage > base64image: ", base64image
-       
+
       BuildingImages.insert uri, (err, file) ->
         Buildings.update(_id: buildingId, {$addToSet: {images: file}})
         console.log "image file: ", file
@@ -345,10 +345,93 @@ if Meteor.isServer
       else
         return false
 
+    "importPropertyFromIDX": (property, options) ->
+      return {message: "error", reason: "no permissions", 0} unless Security.canOperateWithBuilding()
+
+      if not cities[property.cityId]
+        return status: 400, message: "City #{property.cityId} not in our list", buildingId: property._id, mlsNo: property.source.mlsNo
+
+      # Check if property exists
+      building = Buildings.findOne({'source.mlsNo': property.source.mlsNo}, {fields: {_id: 1}})
+
+      if building
+        buildingId = building._id
+
+        if options and options.force is true
+          if building.images
+            _.each building.images (buildingImage) ->
+              BuildingImages.remove(buildingImage._id);
+          Buildings.remove(buildingId);
+        else
+          message = "Found existing building with id #{buildingId}"
+          console.log message
+          return status: 204, message: message, buildingId: buildingId, mlsNo: property.source.mlsNo
+
+      Future = Npm.require('fibers/future')
+      fut = new Future()
+
+      try
+        buildingId = Promise.await Buildings.insert property
+        message = "Inserted new building with id #{buildingId}"
+        console.log message
+      catch error
+        console.log error.message
+
+      RETS = Meteor.npmRequire('rets-client');
+      clientSettings =
+        loginUrl: Meteor.settings.private.TrendIDX.loginUrl,
+        username: Meteor.settings.private.TrendIDX.username,
+        password: Meteor.settings.private.TrendIDX.password,
+        version:'RETS/1.7.2'
+        userAgent: "MRIS Conduit/2.0"
+
+      @unblock()
+      console.log "Getting photos for building with ListingKey: #{property.source.listingKey}"
+      RETS.getAutoLogoutClient clientSettings, Meteor.bindEnvironment (client) ->
+        return client.objects.getPhotos("Property", "Photo", property.source.listingKey)
+        .then Meteor.bindEnvironment (photos) ->
+          i = 1
+          console.log "Received #{photos.length} objects."
+          _.each photos, (photo) ->
+            photoFuture = new Future()
+
+            if photo.buffer
+              newFile = new FS.File()
+              Promise.await newFile.attachData photo.buffer, type: photo.mime
+              extension = photo.mime.split('/')[1]
+              fileName = "#{property._id}_#{photo.objectId}.#{extension}"
+              newFile.name(fileName)
+              Meteor.sleep 2000
+              file = Promise.await BuildingImages.insert newFile
+              Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+              Meteor.sleep 2000
+              console.log "Saving #{fileName} - #{i} / #{photos.length} photos."
+              i++
+              Meteor.sleep 2000
+              photoFuture.return('done')
+            else
+              photoFuture.return status: 400, message: photo.error.message, buildingId: property._id, mlsNo: property.source.mlsNo
+
+            photoFuture.wait()
+
+          console.log "All photos processed for #{property._id}"
+          fut.return status: 200, message: 'done', buildingId: property._id, mlsNo: property.source.mlsNo
+
+        .catch Meteor.bindEnvironment (error) ->
+          console.log error
+          fut.return status: 400, message: error.message, buildingId: property._id, mlsNo: property.source.mlsNo
+
+      .catch Meteor.bindEnvironment (error) ->
+        console.log error
+        fut.return status: 400, message: error.message, buildingId: property._id, mlsNo: property.source.mlsNo
+
+      fut.wait()
+
   "getVimeoVideos": () ->
+    @unblock()
     Vimeo = Meteor.npmRequire('vimeo').Vimeo
     vimeo = new Vimeo(Meteor.settings.vimeo.clientId, Meteor.settings.vimeo.clientSecret, Meteor.settings.vimeo.accessToken)
-    getVideoParams = 
+    getVideoParams =
       method: 'GET'
       path: '/me/videos'
 

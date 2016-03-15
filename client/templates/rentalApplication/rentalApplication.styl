@@ -14,6 +14,21 @@
   .application-dates
     margin-top 25px
 
+  .pmcshell
+    display none
+    max-width 24%
+    position fixed
+    right 5%
+    top 185px
+    visibility hidden
+    z-index 9
+    @media screen and (min-width: 992px)
+      display block
+      visibility visible
+    img
+      width 100%
+      height auto
+
   table
     td
       vertical-align middle
@@ -24,13 +39,35 @@
     margin-bottom 15px
     width 100%
     text-align right
-    label:not(.align-top)
-      margin-top 4px
+    transition .4s all ease
+    @media screen and (min-width: 992px)
+      margin-bottom 20px
+    label
+      margin-bottom 0
+      &:not(.align-top)
+        margin-top 6px
+
+    .input-group-addon
+      padding 6px 8px
+      &:last-child
+        font-size 15px
+        padding 6px
+      .fa
+        width 15px
+        &.fa-mobile
+          font-size 150%
+
+    input#rentAmnt
+      padding 1px
+      text-align center
+      + .input-group-addon
+        font-size 15px
 
     input#social-security-number
       letter-spacing 1px
+      padding 6px
       @media screen and (min-width: 1200px)
-        letter-spacing 2px
+        letter-spacing 1.5px
 
     .form-control
       @media screen and (min-width: 768px)
@@ -39,12 +76,39 @@
       @media screen and (min-width: 1200px)
         font-size 16px
         height 38px
+      &.hasDatepicker
+        padding 5px
+
     label > small
       display block
       font-weight normal
       line-height 14px
       position relative
-      top -2px
+      top -1px
+
+  .panel
+    text-align left
+    margin-top 10px
+    .panel-heading
+      position relative
+      @media screen and (min-width: 768px)
+        padding 12px 16px
+      button
+        position absolute
+        right 12px
+        top 8px
+        @media screen and (min-width: 768px)
+          right 15px
+          top 10px
+
+    .panel-heading
+      .label
+        padding 0 5px
+
+    .criminal-history-input-wrapper
+      padding 20px 0 10px
+      @media screen and (min-width: 1200px)
+        padding 25px 0 15px
 
   .section-spacer
     background rgba(0,10,20,.1)
@@ -142,11 +206,11 @@
     table
       margin-top 15px
       margin-bottom 25px
-      @media screen and (min-width: 1200px)
-        margin-bottom 32px
+      select
+        padding 2px
+        @media screen and (min-width: 768px)
+          min-width 68px
 
-  .pets-wrapper
-    display none
 
   .criminal-history-input-wrapper
     .form-group .col-sm-1
@@ -156,23 +220,32 @@
       padding-right 8px
 
   select.document-type.other
-    width 70px
+    display inline-block
+    float left
+    width 40%
+    @media screen and (min-width: 992px)
+      width 25%
 
   .document-type-other-wrapper
-    display inline
+    display inline-block
+    float right
     position relative
+    width 58%
+    @media screen and (min-width: 992px)
+      width 72%
     input.document-type-other
       cursor auto
       padding-right 22px
     i
       display none
+      font-size 18px
       position absolute
-      right 5px
-      top 3px
-      z-index 999
+      right 8px
+      top 8px
+      z-index 9
 
   p.text-cond
-    color #666
+    color #555
     font-size 13.5px
     line-height 1.5
 
@@ -180,14 +253,14 @@
     font-size 18px
     font-weight 600
     line-height 1.5
-    margin 20px 0
+    margin 20px 0 30px
     max-width 700px
     a
       font-weight 600
     
   #signature
     border 5px solid #CCC
-    margin-bottom 20px
+    margin-bottom 30px
     width 400px
 
   .dropzone
@@ -209,3 +282,6 @@
     
   #rental-application-show-revisions .modal-content
     width 500px
+    
+#rental-application-access-wrapper
+  height 422px

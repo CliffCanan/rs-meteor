@@ -1,5 +1,5 @@
 body
-  font-family 'Raleway', Helvetica, sans-serif
+  font-family 'Raleway', 'Open Sans', Helvetica, sans-serif
   font-size 14.5px
   background #fff
   color #333
@@ -15,6 +15,14 @@ body
         margin-top 40px !important
         @media screen and (min-width: 1200px)
           margin-top 45px !important
+
+  &.admin-logged-in
+    #sumome-modal-mask, .sumome-scrollbox-popup
+      display none !important
+      visibility hidden !important
+
+h1
+  letter-spacing .2px
 
 main
   margin 70px 0 0
@@ -36,16 +44,45 @@ a
     margin-left 6px
 	margin-right 6px
 
+i.fa-envelope
+  font-size 90%
+
+i.fa-mobile
+  font-size 115%
+
 button > .fa
   margin-right 6px
 
-.btn .fa
-  margin-right 4px
+.btn
+  transition .16s all ease
+  .fa
+    margin-right 4px
 
-.btn.dropdown-toggle .caret
-  float right
-  position relative
-  top 8px
+  &.dropdown-toggle .caret
+    float right
+    position relative
+    top 8px
+
+  &.btn-lg
+    border-radius 4px
+
+.text-primary
+  color #4588fa
+
+.btn-primary
+  background-color #4588fa !important
+  text-shadow 0 -1px 0px rgba(0,0,0,.15)
+  @media screen and (min-width: 768px)
+    text-shadow 0 -1px 0px rgba(0,0,0,0.2)
+  &:hover,&:active
+    background-color #1f70f9 !important
+
+
+.input-group-addon > img.bath-icon
+  width 20px
+
+.is-not-published
+  background-color rgba(200, 200, 200, 0.75)
 
 a.carousel-control .fa
   margin-left 0
@@ -74,25 +111,81 @@ a.carousel-control .fa
     @media screen and (min-width: 768px)
       font-size: 16px !important
 
-.modal-body,
-.modal-body p
-  line-height 1.45
+.sweet-alert.visible
+  @media screen and (max-width: 768px)
+    margin-top 220px !important
+
 
 .modal-content
   margin-bottom 30px
 
+  .modal-title > i
+    margin-right 6px
+    opacity .9
+
 .modal-body
+  line-height 1.45
   p
     font-size 15.5px
+    line-height 1.45
+    @media screen and (min-width: 768px)
+      font-size 17px
+
   .form-control:not(textarea)
     @media screen and (min-width: 768px)
       height 36px
     @media screen and (min-width: 992px)
       height 38px
 
+  .form-group
+    margin-bottom 20px
+    @media screen and (min-width: 992px)
+      margin-bottom 25px
+      
+    > label:not(.fg-label)
+      padding-top 6px
 
-@media screen and (max-width: 768px)
-  .modal-title
+    .fa-envelope
+      font-size 86%
+
+  i[data-toggle="popover"]
+    color #666
+    font-size 90%
+    margin-right 6px
+    @media screen and (min-width: 768px)
+      margin-right 8px
+
+.sweet-alert
+  border-radius 25px
+  border-radius 0 2px 14px -1px rgba(0,0,0,.3)
+  @media screen and (min-width: 992px)
+    border-radius 0 4px 20px -2px rgba(0,0,0,.35)
+  h2
+    font-family "Montserrat", "Roboto", "Open Sans", Arial, sans-serif
+    font-size 28px
+    line-height 1.45
+    margin 22px 0 16px
+  p
+    color #333
+    font-weight normal
+    line-height 1.45
+    @media screen and (min-width: 768px)
+      font-size 17px
+  button.confirm
+    background #4caeff !important
+
+
+@media screen and (min-width: 768px)
+  .hide-mdlg
+    display none
+    visibility hidden
+
+@media screen and (max-width: 767px)
+  .hide-sm
+    display none !important
+    visibility hidden
+
+  .modal-title.withIcon
     text-indent -13px
     padding-left 25px
   .modal-body .row .col-xs-6
@@ -111,6 +204,14 @@ a.carousel-control .fa
       padding 5px 6px
     .form-control
       font-size 12.5px
+
+  .dropdown-menu
+    height 0px
+    overflow hidden
+    transition all .5s ease
+    .open > &
+      height auto
+
 
 
 .mb0
@@ -266,6 +367,252 @@ a.carousel-control .fa
 .sumome-scrollbox-content
   padding 0px !important
 
+
+/**  FG-LINE (For styling inputs)  **/
+.fg-line
+  position relative
+  vertical-align top
+
+  &:not(.form-group)
+    display inline-block
+    width 100%
+
+  .form-control
+    resize none
+
+    &:not(:disabled)
+      color #000
+
+    &:disabled
+      color #9d9d9d
+      background transparent
+
+  &:not(.disabled):after,&:not(.readonly):after
+    position absolute
+    z-index 3
+    bottom 0
+    left 0
+    height 2px
+    width 0
+    content ""
+    -webkit-transition all
+    -o-transition all
+    transition all
+    -webkit-transition-duration 300ms
+    transition-duration 300ms
+
+  &:not([class*=has-]):after
+    background #0fa1ea
+
+  &.input-toggled:after,&.fg-toggled:after
+    width 100%
+
+  &.readonly .form-control 
+    color #9d9d9d
+    background transparent
+
+  &.has-success:after
+    background #4caf50
+
+  &.has-warning:after 
+    background #ffc107
+
+  &.has-error:after
+    background #f44336
+
+/* Validation Stats for inner fg-line*/
+
+.has-success .fg-line:after
+  background #4caf50
+
+.has-warning .fg-line:after
+  background #ffc107
+
+.has-error .fg-line:after
+  background #f44336
+
+.fg-float
+  margin-top 2px
+  position relative
+
+  &.form-group
+    -webkit-transition .4s margin ease
+    transition .4s margin ease
+    margin-left 35px
+    margin-bottom 20px
+    @media screen and (min-width: 768px)
+      margin-bottom 24px
+    @media screen and (min-width: 1200px)
+      margin-bottom 26px
+
+    > span
+      font-size 18px
+      position absolute
+      left -35px
+      text-align center
+      top 5px
+      width 24px
+      .fa-mobile, .fa-user
+        position relative
+        top 2px
+
+  .form-control
+    -webkit-appearance none
+    -moz-appearance none
+    appearance none
+    background transparent
+    border 0
+    border-bottom 1px solid #e0e0e0
+    border-radius 0
+    box-shadow none
+    font-size 17px
+    margin-bottom 0 !important
+    padding 1px 3px 0
+    position relative
+    z-index 1
+	&:focus
+      box-shadow none
+    &.auto-size
+      padding-top 6px
+
+    &::-moz-placeholder
+      color #fff
+      opacity 1
+
+    &:-ms-input-placeholder
+      color #fff
+
+    &::-webkit-input-placeholder
+      color #ffffff
+
+  .fg-label
+    -webkit-transition all
+    -o-transition all
+    transition all
+    -webkit-transition-duration 200ms
+    transition-duration 200ms
+    font-size 17px
+    position absolute
+    top 7px
+    font-weight 400
+    color #959595
+    pointer-events none
+    z-index 0
+    left 0
+    white-space nowrap
+
+  .fg-toggled + .fg-label
+    top -9px
+    font-size 10.5px
+    @media screen and (min-width: 768px)
+      top -11px
+      font-size 11px
+
+
+.has-success .help-block,
+.has-success .control-label,
+.has-success .radio,
+.has-success .checkbox,
+.has-success .radio-inline,
+.has-success .checkbox-inline,
+.has-success.radio label,
+.has-success.checkbox label,
+.has-success.radio-inline label,
+.has-success.checkbox-inline label {
+    color: #4caf50;
+}
+
+.has-success
+  .form-control
+    border-color #4caf50
+    -webkit-box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
+    box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
+
+    &:focus
+      border-color #4caf50
+      -webkit-box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #fcfefc
+      box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #fcfefc
+
+  .input-group-addon
+    color #4caf50
+    border-color #b5dfb7
+    background-color #fff
+
+  .form-control-feedback
+    color #4caf50
+
+.has-warning .help-block,
+.has-warning .control-label,
+.has-warning .radio,
+.has-warning .checkbox,
+.has-warning .radio-inline,
+.has-warning .checkbox-inline,
+.has-warning.radio label,
+.has-warning.checkbox label,
+.has-warning.radio-inline label,
+.has-warning.checkbox-inline label {
+    color: #ff9800;
+}
+
+.has-warning 
+  .form-control
+    border-color #ffd699
+    -webkit-box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
+    box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
+
+    &:focus
+      border-color #ffc166
+      -webkit-box-shadow none
+      box-shadow inset none
+
+  .input-group-addon
+    color #ff9800
+    border-color #ffd699
+    background-color #fff
+
+  .form-control-feedback
+    color #ff9800
+
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label {
+    color: #dd1e00;
+}
+
+.has-error
+  .form-control
+    border-color #fccbc7
+    -webkit-box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
+    box-shadow inset 0 1px 1px rgba(0, 0, 0, 0.075)
+
+    &:focus
+      border-color #f99d97
+      -webkit-box-shadow none
+      box-shadow inset none
+
+  .input-group-addon
+    color #f44336
+    border-color #fccbc7
+    background-color #fff
+
+  .form-control-feedback
+    color #f44336
+
+.has-success,.has-warning,.has-error
+  .form-control
+    box-shadow none
+
+
+
+
+/**  ANIMATIONS  **/
 .animated
   -webkit-animation-duration 1s
   animation-duration 1s
@@ -396,28 +743,26 @@ a.carousel-control .fa
 }
 
 
-.spin-wrapper {
-    -webkit-animation: logo-spin 10s ease-in-out alternate infinite;
-    -moz-animation: logo-spin 10s ease-in-out alternate infinite;
-    animation: logo-spin 10s ease-in-out alternate infinite;
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    -ms-transform-style: preserve-3d;
-    -o-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    -webkit-backface-visibility: visible;
-    backface-visibility: visible;
-}
+.spin-wrapper
+  @media screen and (min-width: 768px)
+    -webkit-animation logo-spin 10s ease-in-out alternate infinite
+    -moz-animation logo-spin 10s ease-in-out alternate infinite
+    animation logo-spin 10s ease-in-out alternate infinite
+    -webkit-transform-style preserve-3d
+    -moz-transform-style preserve-3d
+    -ms-transform-style preserve-3d
+    -o-transform-style preserve-3d
+    transform-style preserve-3d
+    -webkit-backface-visibility visible
+    backface-visibility visible
 
-    .spin-wrapper:hover {
-        -webkit-animation-play-state: paused;
-        -moz-animation-play-state: paused;
-        animation-play-state: paused;
-    }
+  &:hover
+    -webkit-animation-play-state paused
+    -moz-animation-play-state paused
+    animation-play-state paused
 
-.paused-animations-ie .spin-wrapper {
-    animation-play-state: paused;
-}
+.paused-animations-ie .spin-wrapper
+    animation-play-state paused
 
 @-webkit-keyframes logo-spin {
     88% {
@@ -471,10 +816,10 @@ a.carousel-control .fa
   -ms-animation-name wiggle
   -moz-animation-name wiggle
   -webkit-animation-name wiggle
-  animation-duration 11s
-  -ms-animation-duration 11s
-  -moz-animation-duration 11s
-  -webkit-animation-duration 11s
+  animation-duration 12s
+  -ms-animation-duration 12s
+  -moz-animation-duration 12s
+  -webkit-animation-duration 12s
   animation-timing-function linear
   -ms-animation-timing-function linear
   -moz-animation-timing-function linear
@@ -522,4 +867,192 @@ a.carousel-control .fa
   8%{-webkit-transform:translateX(-2px) rotate(-1deg);transform:translateX(-2px) rotate(-1deg);}
   9%{-webkit-transform:translateX(1px) rotate(0);transform:translateX(1px) rotate(0);}
   10%{-webkit-transform:translateX(-1px) rotate(0);transform:translateX(-1px) rotate(0);}
+}
+
+
+
+
+/** SVG CHECKBOX CSS **/
+.ac-custom {
+	padding: 0 3em;
+	max-width: 900px;
+	margin: 0 auto;
+}
+
+.ac-custom h2 {
+	font-size: 3em;
+	font-weight: 300;
+	padding: 0 0 0.5em;
+	margin: 0 0 30px;
+}
+
+.ac-custom ul,
+.ac-custom ol {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto;
+	max-width: 800px;
+}
+
+.ac-custom li {
+	margin: 0 auto;
+    padding: 2px 15px;
+	position: relative;
+}
+
+.ac-custom ul label {
+	display: inline-block;
+	position: relative;
+	font-size: 15.5px;
+	padding: 0 0 0 40px;
+	vertical-align: top;
+	color: rgba(0,0,0,0.5);
+	cursor: pointer;
+	-webkit-transition: color 0.25s;
+	transition: color 0.25s;
+}
+
+.ac-custom input[type="checkbox"],
+.ac-custom input[type="radio"],
+.ac-custom ul label::before {
+	width: 24px;
+	height: 24px;
+	top: -2px;
+	left: 0;
+	position: absolute;
+	cursor: pointer;
+}
+
+.ac-custom input[type="checkbox"],
+.ac-custom input[type="radio"] {
+	opacity: 0;
+	-webkit-appearance: none;
+	display: inline-block;
+	vertical-align: middle;
+	z-index: 100;
+}
+
+.ac-custom ul label::before {
+	content: '';
+	border: 2px solid #4588fa;
+	-webkit-transition: opacity 0.25s;
+	transition: opacity 0.25s;
+}
+
+.ac-radio ul label::before {
+	border-radius: 50%;
+}
+
+.ac-custom input[type="checkbox"]:checked + label,
+.ac-custom input[type="radio"]:checked + label {
+	color: #222;
+} 
+
+.ac-custom input[type="checkbox"]:checked + label::after,
+.ac-custom input[type="radio"]:checked + label::after {
+	content: "\f00c";
+    color: #4588fa;
+    font-family: "FontAwesome";
+	left: 4px;
+    position: absolute;
+}
+
+/* General SVG and path styles */
+
+.ac-custom svg {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: 50%;
+	margin-top: -20px;
+	left: 5px;
+	pointer-events: none;
+}
+
+.ac-custom svg path {
+	stroke: #fdfcd3;
+	stroke-width: 13px;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	fill: none;
+}
+
+/* Specific input, SVG and path styles */
+
+/* Circle */
+.ac-circle input[type="checkbox"],
+.ac-circle input[type="radio"],
+.ac-circle label::before {
+	width: 30px;
+	height: 30px;
+	margin-top: -15px;
+	left: 10px;
+	position: absolute;
+}
+
+.ac-circle label::before {
+	background-color: #fff;
+	border: none;
+}
+
+.ac-circle svg {
+	width: 70px;
+	height: 70px;
+	margin-top: -35px;
+	left: -10px;
+}
+
+.ac-circle svg path {
+	stroke-width: 5px;
+} 
+
+/* Box Fill */
+.ac-boxfill svg path {
+	stroke-width: 8px;
+} 
+
+/* Swirl */
+.ac-swirl svg path {
+	stroke-width: 8px;
+}
+
+/* List */
+.ac-list ol {
+	list-style: decimal;
+	list-style-position: inside;
+}
+
+.ac-list ol li {
+	font-size: 2em;
+	padding: 1em 1em 0 2em;
+	text-indent: -40px;
+}
+
+.ac-list ol li label {
+	font-size: 1em;
+	text-indent: 0;
+	padding-left: 30px;
+}
+
+.ac-list label::before {
+	display: none;
+}
+
+.ac-list svg {
+	width: 100%;
+	height: 80px;
+	left: 0;
+	top: 1.2em;
+	margin-top: 0px;
+}
+
+.ac-list svg path {
+	stroke-width: 4px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 50em) {
+	section {
+		font-size: 80%;
+	}
 }
