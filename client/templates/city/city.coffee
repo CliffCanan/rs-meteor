@@ -26,6 +26,7 @@ $(window).on("resize", setHeights)
 Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
+  @quickViewBuildingsReady = new ReactiveVar(null)
   @viewType = new ReactiveVar('thumbnails')
   Session.set('adminShowUnpublishedProperties', false)
 
@@ -39,12 +40,21 @@ Template.city.onCreated ->
         $('#contactUsPopup').modal('show')
     , delay
 
+  @autorun =>
+    if @viewType.get() is 'quickView'
+      data = Router.current().data()
+      params = Router.current().params
+      params.query.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+
+      handle = quickViewSubs.subscribe "buildingsQuickView", params.cityId, params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1
+      @quickViewBuildingsReady.set handle.ready()
+
 Template.city.helpers
   showMap: ->
     Router.current().route.getName() isnt "clientRecommendations"
   firstLoad: ->
     citySubs.dep.depend()
-    !citySubs.ready and @firstLoad
+    !citySubs.ready() and @firstLoad
 
   isClientRecommendationsList: ->
     if Router.current().route.getName() is "clientRecommendations"
@@ -57,9 +67,9 @@ Template.city.helpers
   showClientRecommendationsName: ->
     Template.city.__helpers[" isClientRecommendationsList"].call(@) and not Security.canManageClients()
 
-  loadingBuildings: ->
+  loadingThumbnailBuildings: ->
     citySubs.dep.depend()
-    ready = citySubs.ready
+    ready = citySubs.ready()
     if ready
       cityPageData = Session.get("neighborhoodPageData") or Session.get("cityPageData")
       Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage) if cityPageData
@@ -71,6 +81,10 @@ Template.city.helpers
   # TODO: filter by price depend on btype
 
   buildings: ->
+    quickViewBuildingsReady = Template.instance().quickViewBuildingsReady.get()
+    if quickViewBuildingsReady isnt null and quickViewBuildingsReady is false
+      return []
+
     filtered = []
     buildings = []
     reactive = false
@@ -296,6 +310,9 @@ Template.city.helpers
   isMobileSize: ->
     $(window).width() > 767
 
+  quickViewBuildingsReady: ->
+    Template.instance().quickViewBuildingsReady.get()
+
 markers = {}
 
 Template.city.onRendered ->
@@ -388,7 +405,7 @@ Template.city.onRendered ->
     citySubs.dep.depend()
 
     if Template.instance().viewType.get() is 'thumbnails'
-      if $(window).width() > 767 and citySubs.ready
+      if $(window).width() > 767 and citySubs.ready()
         data = Router.current().data()
 
         actualMarkerIds = []
@@ -548,7 +565,7 @@ Template.city.events
     $container = $(".main-city-list", $el)
     scrollTop = $el.scrollTop()
     Session.set("cityScroll", scrollTop)
-    if citySubs.ready and scrollTop >= $container.outerHeight() - $el.outerHeight()
+    if citySubs.ready() and scrollTop >= $container.outerHeight() - $el.outerHeight()
       if template.view.template.__helpers[" notAllLoaded"].call(template.data)
         incrementPageNumber()
 

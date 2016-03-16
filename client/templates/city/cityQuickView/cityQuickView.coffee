@@ -14,13 +14,6 @@ Template.cityQuickView.onCreated ->
     $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.25.0/js/jquery.tablesorter.widgets.min.js', ->
       self.tablesorterReady.set(true)
 
-  @autorun =>
-    data = Router.current().data()
-    params = Router.current().params
-    params.query.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
-
-    handle = quickViewSubs.subscribe "buildingsQuickView", params.cityId, params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1
-    @buildingsReady.set handle.ready()
 
 updateScroll = ->
   if citySubs.ready
@@ -32,11 +25,11 @@ updateScroll = ->
 Template.cityQuickView.onRendered ->
   # We have to force the quick view table to redraw or it won't show up.
   $('.main-city-list-wrap').css('height', '100%')
-  
+
   instance = @
 
   @autorun =>
-    if Template.instance().buildingsReady.get() and Template.instance().tablesorterReady.get()
+    if Template.instance().tablesorterReady.get()
       Tracker.afterFlush ->
         $table = $('#quick-view-table').tablesorter
           theme: "bootstrap"

@@ -135,21 +135,25 @@ template(name="city")
         if firstLoad
           +loadingSpinner
         else
-          if buildings
-            if showThumbnails
-              +cityBuildings(buildings=buildings queryBtype=query.btype)
-              
-              if notAllLoaded
-                .load-more.loading-btn-wrap.m-b-20
-                  .loading-btn.btn.btn-primary Load More...
-                  
-            else
-              +cityQuickView(buildings=buildings queryBtype=query.btype)
-
-            if loadingBuildings
-              +loadingSpinner
-              
-            if showIDXDisclaimer
-              +idxDisclaimer    
+          if showThumbnails
+            +cityBuildings(buildings=buildings queryBtype=query.btype)
+            
+            if notAllLoaded
+              .load-more.loading-btn-wrap.m-b-20
+                .loading-btn.btn.btn-primary Load More...
+                
           else
-            h3 No buildings matching this criteria.
+            if quickViewBuildingsReady
+              if buildings
+                +cityQuickView(buildings=buildings queryBtype=query.btype)
+              else
+                h3 No buildings matching this criteria.
+            else
+              +loadingSpinner
+            
+
+          if loadingBuildings
+            +loadingSpinner
+            
+          if showIDXDisclaimer
+            +idxDisclaimer    
