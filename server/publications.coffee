@@ -202,6 +202,7 @@ Meteor.publish "buildingsQuickView", (cityId, query, page) ->
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
     availableAt: 1
+    source: 1
 
   if Security.canOperateWithBuilding(@userId)
     adminFields = {
