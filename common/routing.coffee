@@ -522,6 +522,8 @@ Router.map ->
 
   @route "/discovery",
     name: "discovery"
+    onBeforeAction: ->
+      Session.set "shouldHideFooter", true
     onAfterAction: ->
       SEO.set
         title: 'Apartment Discovery Form | Rent Scene'

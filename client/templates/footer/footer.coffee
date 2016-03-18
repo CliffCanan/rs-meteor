@@ -1,4 +1,7 @@
 Template.footer.helpers
+  shouldHideFooter: ->
+    if Session.get "shouldHideFooter"
+      return true
 
 Template.footer.rendered = ->
 
