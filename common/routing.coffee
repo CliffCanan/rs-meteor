@@ -520,6 +520,14 @@ Router.map ->
       SEO.set
         title: 'Frequently Asked Questions | FAQ Rent Scene' 
 
+  @route "/discovery",
+    name: "discovery"
+    onAfterAction: ->
+      SEO.set
+        title: 'Apartment Discovery Form | Rent Scene'
+        meta:
+          robots: "noindex"
+
   @route "/(.*)",
     name: "notFound"
 
