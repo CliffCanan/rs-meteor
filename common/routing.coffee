@@ -524,6 +524,15 @@ Router.map ->
     name: "discovery"
     onBeforeAction: ->
       Session.set "shouldHideFooter", true
+
+      fname = if @params.query.fname then @params.query.fname else "there"
+      lname = if @params.query.lname then @params.query.lname else ""
+      email = if @params.query.email then @params.query.email else "default@nooch.com"
+
+      Session.set "disc_fname", fname
+      Session.set "disc_lname", lname
+      Session.set "disc_email", email
+
       @next()
     onAfterAction: ->
       SEO.set

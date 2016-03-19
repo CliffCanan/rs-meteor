@@ -7,5 +7,13 @@ Template.discovery.onDestroyed ->
   Session.set "shouldHideFooter", false
 
 Template.discovery.helpers
+  fname: ->
+    Session.get "disc_fname"
+
+  lname: ->
+    Session.get "disc_lname"
+
+  email: ->
+    Session.get "disc_email"
 
 Template.discovery.events
