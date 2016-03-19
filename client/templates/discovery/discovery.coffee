@@ -17,6 +17,7 @@ Template.discovery.helpers
     Session.get "disc_email"
 
   hasemail: ->
-    if Session.get("disc_email").length > 3 then return "1" else return "0"
+    # Check to make sure the email Session value isn't the default (set in routing.coffee)
+    if Session.get("disc_email") is "typeform-response@nooch.com" then return "0" else return "1"
 
 Template.discovery.events
