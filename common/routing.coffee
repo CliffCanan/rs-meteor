@@ -526,7 +526,7 @@ Router.map ->
       Session.set "shouldHideFooter", true
 
       fname = if @params.query.fname then @params.query.fname else "there"
-      lname = if @params.query.lname then @params.query.lname else ""
+      lname = if @params.query.lname then @params.query.lname else "No Last Name"
       email = if @params.query.email then @params.query.email else "default@nooch.com"
 
       Session.set "disc_fname", fname

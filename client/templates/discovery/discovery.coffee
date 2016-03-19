@@ -16,4 +16,7 @@ Template.discovery.helpers
   email: ->
     Session.get "disc_email"
 
+  hasemail: ->
+    if Session.get("disc_email").length > 3 then return "1" else return "0"
+
 Template.discovery.events
