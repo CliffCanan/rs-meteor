@@ -18,6 +18,6 @@ Template.discovery.helpers
 
   hasemail: ->
     # Check to make sure the email Session value isn't the default (set in routing.coffee)
-    if Session.get("disc_email") is "typeform-response@nooch.com" then return "0" else return "1"
+    if Session.get("disc_email") is "form-default@nooch.com" then return "0" else return "1"
 
 Template.discovery.events
