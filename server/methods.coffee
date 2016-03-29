@@ -266,6 +266,10 @@ Meteor.methods
 
     fut.wait()
 
+  unpublishPropertiesFromIDX: (listingKeys) ->
+    console.log("Unpublishing #{listingKeys.length} from IDX")
+    Properties.update({'source.listingKey': {$in: listingKeys}}, {$set: {isPublished: false, 'source.isNotAvailableInIDX': true}})
+
   "createClient": (clientName) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
     [firstName, lastName] = clientName.split ' '
