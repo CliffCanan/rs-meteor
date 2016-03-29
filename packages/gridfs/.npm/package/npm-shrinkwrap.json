@@ -1,0 +1,51 @@
+{
+  "dependencies": {
+    "gridfs-stream": {
+      "version": "0.5.3"
+    },
+    "mongodb": {
+      "version": "1.4.35",
+      "dependencies": {
+        "bson": {
+          "version": "0.2.22",
+          "dependencies": {
+            "nan": {
+              "version": "1.8.4"
+            }
+          }
+        },
+        "kerberos": {
+          "version": "0.0.9",
+          "dependencies": {
+            "nan": {
+              "version": "1.6.2"
+            }
+          }
+        },
+        "readable-stream": {
+          "version": "2.0.6",
+          "dependencies": {
+            "core-util-is": {
+              "version": "1.0.2"
+            },
+            "inherits": {
+              "version": "2.0.1"
+            },
+            "isarray": {
+              "version": "1.0.0"
+            },
+            "process-nextick-args": {
+              "version": "1.0.6"
+            },
+            "string_decoder": {
+              "version": "0.10.31"
+            },
+            "util-deprecate": {
+              "version": "1.0.2"
+            }
+          }
+        }
+      }
+    }
+  }
+}
