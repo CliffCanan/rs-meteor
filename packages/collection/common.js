@@ -126,7 +126,14 @@ FS.Collection = function(name, options) {
   FS._collections[name] = this;
 
   // Set up observers
-  Meteor.isServer && FS.FileWorker && FS.FileWorker.observe(this);
+  if (Meteor.isServer) {
+    if (FS.enableObserve) {
+      console.log(name, "FS.enableObserve is true so observing temp files");
+      FS.FileWorker && FS.FileWorker.observe(this);
+    } else {
+      console.log(name, "FS.enableObserve is false so not observing temp files");
+    }
+  }
 
   // Emit "removed" event on collection
   self.files.find().observe({
