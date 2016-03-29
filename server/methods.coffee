@@ -195,15 +195,16 @@ Meteor.methods
     if building
       buildingId = building._id
 
-      if options and options.force is true
+      if options and options.forceUpdate is true
         if building.images
           _.each building.images (buildingImage) ->
-            BuildingImages.remove(buildingImage._id);
-        Buildings.remove(buildingId);
+            BuildingImages.remove(buildingImage._id)
+        Buildings.remove(buildingId)
+        property._id = buildingId
       else
         message = "Found existing building with id #{buildingId}"
         console.log message
-        return status: 204, message: message, buildingId: buildingId, mlsNo: property.source.mlsNo 
+        return status: 204, message: message, buildingId: buildingId, mlsNo: property.source.mlsNo
 
     Future = Npm.require('fibers/future')
     fut = new Future()
