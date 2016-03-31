@@ -6,8 +6,6 @@ process.env.MAIL_URL = 'smtp://postmaster@mg.rentscene.com:e7956fe9df88fab5ee4fb
 Meteor.startup ->
   Buildings._ensureIndex({slug: 1}, {unique: true, background: true})
 
-  FS.debug = true
-
   # if Meteor.settings.public.isDebug
 #    Meteor.setInterval(share.loadFixtures, 300)
 #    mysqlImport()
