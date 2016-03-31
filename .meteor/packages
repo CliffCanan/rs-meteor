@@ -31,7 +31,6 @@ manuelschoebel:ms-seo
 gadicohen:sitemaps
 meteorhacks:aggregate
 reactive-var
-#cfs:gridfs
 froatsnook:sleep
 dbarrett:dropzonejs
 steeve:jsignature
@@ -69,3 +68,5 @@ richsilv:owl-carousel
 wizonesolutions:canonical
 promise
 udondan:slick
+underscorestring:underscore.string
+jrudio:bluebird

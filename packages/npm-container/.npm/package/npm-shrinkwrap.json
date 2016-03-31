@@ -3,6 +3,15 @@
     "base64-arraybuffer": {
       "version": "0.1.2"
     },
+    "bluebird": {
+      "version": "3.3.4"
+    },
+    "bluebird-retry": {
+      "version": "0.6.0"
+    },
+    "bson": {
+      "version": "0.4.22"
+    },
     "js2coffee": {
       "version": "2.0.3",
       "dependencies": {

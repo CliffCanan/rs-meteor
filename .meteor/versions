@@ -78,6 +78,7 @@ iron:router@1.0.12
 iron:url@1.0.11
 jackyqiu:meteor-jquery-nicescroll@3.6.0
 jquery@1.11.4
+jrudio:bluebird@3.3.1_1
 kaptron:minimongoid@0.9.8
 kevohagan:sweetalert@1.0.0
 las:vegas@2.1.3
@@ -158,6 +159,7 @@ tracker@1.0.9
 udondan:slick@1.3.11_1
 ui@1.0.8
 underscore@1.0.4
+underscorestring:underscore.string@3.3.4
 url@1.0.5
 webapp@1.2.3
 webapp-hashing@1.0.5

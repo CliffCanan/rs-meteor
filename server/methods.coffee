@@ -466,3 +466,6 @@ Meteor.methods
     processedRentalApplication.updateNote = "Revert to '#{previousRentalApplication.updateNote}'"
     RentalApplications.update parentId, $set: processedRentalApplication
 
+  syncMLS: ->
+    importer = new MLSImporter()
+    importer.sync Meteor.settings.trendrets.query
