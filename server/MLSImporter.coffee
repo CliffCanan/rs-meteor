@@ -36,8 +36,8 @@ class @MLSImporter
 
 	_syncProperties: (query, client, retry, number) ->
 		client.search.query("Property", "RNT", query,
-			limit: 3
-			offset: 1
+#			limit: 1
+#			offset: 1
 			restrictedIndicator: 'HIDDEN'
 		)
 		.then Meteor.bindEnvironment (searchData) =>

@@ -1,5 +1,6 @@
 @NeighborhoodTranslations = {
-	"Rittenhouse Square": "Rittenhouse Square222"
-	"Rittenhouse Sq.": "Rittenhouse Square222"
+	"Wash Sq.": "Washington Square"
+	"Washington S": "Washington Square"
+	"W Square": "Washington Square"
 	"Center City": "Central City"
 }
