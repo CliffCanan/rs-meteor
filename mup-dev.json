@@ -19,7 +19,7 @@
   "env": {
     "PORT": 80,
     "ROOT_URL": "https://45.55.81.21",
-    "MONGO_URL": "mongodb://rentscene-dev:rentscene-dev123@45.55.81.21/rentscene",
+    "MONGO_URL": "mongodb://rentscene-dev:rentscene-dev123@45.55.81.21/rentscene-dev",
 //    "MONGO_OPLOG_URL": "mongodb://dbAdmin:389hg8747hg7ad7873hd@candidate.19.mongolayer.com:10839,candidate.1.mongolayer.com:10385/local?authSource=rentscene",
     "CLUSTER_WORKERS_COUNT": 3
   },
