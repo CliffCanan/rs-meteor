@@ -18,7 +18,7 @@ Meteor.publish "allUsers", ->
     return []
   Meteor.users.find()
 
-Meteor.publish "buildings", (cityId, query, page) ->
+Meteor.publishComposite "buildings", (cityId, query, page) ->
   query.from = "" + query.from
   query.to = "" + query.to
   check(cityId, Match.InArray(cityIds))
@@ -114,24 +114,10 @@ Meteor.publish "buildings", (cityId, query, page) ->
     }
     fields = _.extend fields, adminFields
 
-  buildingsCursor = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
-  buildings = buildingsCursor.fetch()
-
-  cursors = []
-
-  cursors.push buildingsCursor
-
-  if buildings
-    imageIds = []
-    buildings.forEach (building) ->
-      _id = building.images?[0]?._id
-      imageIds.push _id
-
-    if imageIds.length
-      images = BuildingImages.find {_id: $in: imageIds}, {fields: 'copies.thumbs': 1}
-      cursors.push images
-
-  cursors
+  find: -> Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
+  children: [
+    find: (building) -> BuildingImages.find {_id: building.images?[0]?._id}, {fields: 'copies.thumbs': 1}
+  ]
 
 Meteor.publish "buildingsSimilar", (buildingId) ->
   building = Buildings.findOne(buildingId)
