@@ -71,3 +71,4 @@ udondan:slick
 underscorestring:underscore.string
 jrudio:bluebird
 reywood:publish-composite
+percolate:synced-cron

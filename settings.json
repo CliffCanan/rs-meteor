@@ -13,7 +13,8 @@
     "loginUrl": "http://trend.trendrets.com:6103/platinum/login",
     "username": "TRNRNTSCNE",
     "password": "L7NiBL",
-    "query": "(County=|PHILADELPHIA-PA),(PostalCode=19103)"
+    "query": "(County=|PHILADELPHIA-PA),(PostalCode=19103)",
+    "syncTime": "at 4:00 am"
   },
   "public": {
     "version": "__VERSION__",
