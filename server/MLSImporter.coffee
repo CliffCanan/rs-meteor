@@ -1,9 +1,13 @@
 RETS = Meteor.npmRequire('rets-client')
-retry = Meteor.npmRequire('bluebird-retry')
+promiseRetry = Meteor.npmRequire('promise-retry')
 
 class @MLSImporter
-	constructor: (settings) ->
+	constructor: (settings, options) ->
 		@settings = settings or Meteor.settings.trendrets
+		@options = _.defaults {}, options,
+			retries: 30
+			factor: 1
+			randomize: true
 
 		check @settings, Match.ObjectIncluding
 			loginUrl: String
@@ -16,9 +20,12 @@ class @MLSImporter
 
 	sync: (query) ->
 		console.log "MLSImporter:sync:start"
-		retry(Meteor.bindEnvironment(@_sync.bind(@, query)), {max_tries: 10})
+		promiseRetry Meteor.bindEnvironment(@_sync.bind(@, query)),
+			retries: @options.retries
+			factor: @options.factor
+			randomize: @options.randomize
 
-	_sync: (query) ->
+	_sync: (query, retry, number) ->
 		RETS.getAutoLogoutClient @settings, Meteor.bindEnvironment (client) =>
 			client.search.query("Property", "RNT", query,
 				limit: 1
@@ -38,13 +45,20 @@ class @MLSImporter
 					@getPhotos client, buildingId, property.source.listingKey)
 				P.all promises
 			.catch (error) ->
-				throw new Error(error)
+				console.log "An error occurred during MLS request (client.search.query). Retry #{number}"
+				retry()
+		.catch (error) ->
+			console.log "An error occurred during MLS request (getAutoLogoutClient). Retry #{number}"
+			retry()
 
 	getPhotos: (client, buildingId, listingKey) ->
 		console.log "MLSImporter:sync:photos:start", listingKey
-		retry(Meteor.bindEnvironment(@_getPhotos.bind(@, client, buildingId, listingKey)), {max_tries: 10})
+		promiseRetry Meteor.bindEnvironment(@_getPhotos.bind(@, client, buildingId, listingKey)),
+			retries: @options.retries
+			factor: @options.factor
+			randomize: @options.randomize
 
-	_getPhotos: (client, buildingId, listingKey) ->
+	_getPhotos: (client, buildingId, listingKey, retry, number) ->
 		client.objects.getPhotos("Property", "Photo", listingKey)
 		.then Meteor.bindEnvironment (photos) =>
 			console.log "MLSImporter:sync:photos:count", photos.length
@@ -54,7 +68,8 @@ class @MLSImporter
 				@_savePhoto buildingId, photo
 				console.log "MLSImporter:sync:photos:processed", counter++
 		.catch (error) ->
-			throw new Error(error)
+			console.log "An error occurred during MLS request. Retry #{number}"
+			retry()
 
 	_savePhoto: (buildingId, photo) ->
 		buildingImage = new FS.File()
