@@ -57,6 +57,7 @@ class @MLSImporter
 					console.log "MLSImporter:sync:insert", buildingId
 				@syncPhotos client, buildingId, property.source.listingKey)
 			P.all promises
+			.then Meteor.bindEnvironment(@unpublishInactiveProperties.bind(@, searchData.results))
 		.catch (error) ->
 			console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
 			retry()
@@ -94,3 +95,8 @@ class @MLSImporter
 		buildingImage.name(fileName)
 		buildingImageId = BuildingImages.insert buildingImage
 		Buildings.update(_id: buildingId, {$addToSet: {images: buildingImageId}})
+
+	unpublishInactiveProperties: (results) ->
+		existedNumbers = _.pluck results, "ListingID"
+		affected = Buildings.update({mlsNo: {$nin: existedNumbers}}, {$set: {isPublished: false}}, {multi: true})
+		console.log "MLSImporter:sync:property:inactive", affected
