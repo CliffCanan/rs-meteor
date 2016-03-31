@@ -28,7 +28,7 @@ class @MLSImporter
 		RETS.getAutoLogoutClient @settings, Meteor.bindEnvironment (client) =>
 			@syncProperties(query, client)
 		.catch (error) ->
-			console.log "An error occurred during MLS request (getAutoLogoutClient). Retry #{number}", error
+			#console.log "An error occurred during MLS request (getAutoLogoutClient). Retry #{number}", error
 			retry()
 
 	syncProperties: (query, client) ->
@@ -59,7 +59,7 @@ class @MLSImporter
 			P.all promises
 			.then Meteor.bindEnvironment(@unpublishInactiveProperties.bind(@, searchData.results))
 		.catch (error) ->
-			console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
+			#console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
 			retry()
 
 	syncPhotos: (client, buildingId, listingKey) ->
@@ -69,15 +69,15 @@ class @MLSImporter
 	_syncPhotos: (client, buildingId, listingKey, retry, number) ->
 		client.objects.getPhotos("Property", "Photo", listingKey)
 		.then Meteor.bindEnvironment (photos) =>
-			console.log "MLSImporter:sync:photos:count", photos.length
+			console.log "MLSImporter:sync:photos:count", buildingId, photos.length
 			counter = 1
 			@_dropPhotos buildingId
 			P.map photos, Meteor.bindEnvironment (photo) =>
 				throw new Error("MLS:sync:photo:error", "An error occurred during MLS sync", {data: photo}) if photo.error
 				@_savePhoto buildingId, photo
-				console.log "MLSImporter:sync:photos:processed", counter++
+				#console.log "MLSImporter:sync:photos:processed", counter++
 		.catch (error) ->
-			console.log "An error occurred during MLS request. Retry #{number}", error
+			#console.log "An error occurred during MLS request. Retry #{number}", error
 			retry()
 
 	_dropPhotos: (buildingId) ->
