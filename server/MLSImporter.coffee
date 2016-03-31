@@ -98,5 +98,5 @@ class @MLSImporter
 
 	unpublishInactiveProperties: (results) ->
 		existedNumbers = _.pluck results, "ListingID"
-		affected = Buildings.update({mlsNo: {$nin: existedNumbers}}, {$set: {isPublished: false}}, {multi: true})
+		affected = Buildings.update({mlsNo: {$nin: existedNumbers}, "source.source": "IDX"}, {$set: {isPublished: false}}, {multi: true})
 		console.log "MLSImporter:sync:property:inactive", affected
