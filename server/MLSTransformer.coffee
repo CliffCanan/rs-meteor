@@ -67,7 +67,6 @@
       +obj.Beds
     neighborhood: (obj) ->
       # s.titleize(obj.ListingArea)
-      console.log(s.titleize(obj.Subdivision), NeighborhoodTranslations[obj.Subdivision])
       NeighborhoodTranslations[s.titleize(obj.Subdivision)] or s.titleize(obj.Subdivision)
     neighborhoodSlug: (obj) ->
       # s.titleize(obj.ListingArea)
