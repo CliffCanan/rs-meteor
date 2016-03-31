@@ -67,10 +67,12 @@
       +obj.Beds
     neighborhood: (obj) ->
       # s.titleize(obj.ListingArea)
-      s.titleize(obj.Subdivision)
+      console.log(s.titleize(obj.Subdivision), NeighborhoodTranslations[obj.Subdivision])
+      NeighborhoodTranslations[s.titleize(obj.Subdivision)] or s.titleize(obj.Subdivision)
     neighborhoodSlug: (obj) ->
       # s.titleize(obj.ListingArea)
-      s(obj.Subdivision).titleize().slugify().value()
+      translated = NeighborhoodTranslations[s.titleize(obj.Subdivision)] or s.titleize(obj.Subdivision)
+      s(translated).slugify().value()
     description: (obj) ->
       obj.Remarks
     type: (obj) ->
