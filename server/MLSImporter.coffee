@@ -26,8 +26,7 @@ class @MLSImporter
 		@updateLastUpdatedTimestamp()
 		query = originalQuery
 		if timestamp
-			# TODO CLEAR substract(1, "days")!!!
-			formattedTimestamp = moment(timestamp).utc().subtract(0, "days").format('YYYY-MM-DDTHH:mm:ss')
+			formattedTimestamp = moment(timestamp).utc().format('YYYY-MM-DDTHH:mm:ss')
 			query += ",(SourceModificationTimestamp=#{formattedTimestamp}+)"
 
 		promiseRetry Meteor.bindEnvironment(@_sync.bind(@, query, originalQuery)), @options.retry
