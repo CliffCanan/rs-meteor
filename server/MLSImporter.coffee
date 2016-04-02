@@ -22,6 +22,13 @@ class @MLSImporter
 
 	sync: (query) ->
 		console.log "MLSImporter:sync:start"
+		timestamp = @getLastUpdatedTimestamp()
+		@updateLastUpdatedTimestamp()
+		if timestamp
+			# TODO CLEAR substract(1, "days")!!!
+			formattedTimestamp = moment(timestamp).utc().subtract(0, "days").format('YYYY-MM-DDTHH:mm:ss')
+			query += ",(SourceModificationTimestamp=#{formattedTimestamp}+)"
+
 		promiseRetry Meteor.bindEnvironment(@_sync.bind(@, query)), @options.retry
 
 	_sync: (query, retry, number) ->
@@ -31,12 +38,18 @@ class @MLSImporter
 			#console.log "An error occurred during MLS request (getAutoLogoutClient). Retry #{number}", error
 			retry()
 
+	getLastUpdatedTimestamp: ->
+		Timestamps.findOne({key: "LastUpdated"})?.time
+
+	updateLastUpdatedTimestamp: ->
+		Timestamps.upsert({key: "LastUpdated"}, {$set: {time: moment().utc().toDate()}})
+
 	syncProperties: (query, client) ->
 		promiseRetry Meteor.bindEnvironment(@_syncProperties.bind(@, query, client)), @options.retry
 
 	_syncProperties: (query, client, retry, number) ->
 		client.search.query("Property", "RNT", query,
-#			limit: 1
+#			limit: 4
 #			offset: 1
 			restrictedIndicator: 'HIDDEN'
 		)
@@ -59,8 +72,11 @@ class @MLSImporter
 			P.all promises
 			.then Meteor.bindEnvironment(@unpublishInactiveProperties.bind(@, searchData.results))
 		.catch (error) ->
-			#console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
-			retry()
+			if error.httpStatus is 400 or error.code is "ETIMEDOUT"
+				console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
+				retry()
+
+			console.log "MLS server returns an error. No recover needed", error
 
 	syncPhotos: (client, buildingId, listingKey) ->
 		console.log "MLSImporter:sync:photos:start", listingKey
@@ -73,7 +89,10 @@ class @MLSImporter
 			counter = 1
 			@_dropPhotos buildingId
 			P.map photos, Meteor.bindEnvironment (photo) =>
-				throw new Error("MLS:sync:photo:error", "An error occurred during MLS sync", {data: photo}) if photo.error
+				if photo.error
+					return if photo.error.replyTag is "NO_OBJECT_FOUND"
+					console.log "An error occurred during MLS sync", photo
+					throw new Meteor.Error("MLS:sync:photo:error", "An error occurred during MLS sync", {data: photo})
 				@_savePhoto buildingId, photo
 				#console.log "MLSImporter:sync:photos:processed", counter++
 		.catch (error) ->
