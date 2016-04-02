@@ -51,7 +51,7 @@ class @MLSImporter
 
 	_syncProperties: (query, client, retry, number) ->
 		client.search.query("Property", "RNT", query,
-			limit: 4
+#			limit: 4
 #			offset: 1
 			restrictedIndicator: 'HIDDEN'
 		)
