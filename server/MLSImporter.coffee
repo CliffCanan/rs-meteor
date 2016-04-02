@@ -20,20 +20,22 @@ class @MLSImporter
 			version:'RETS/1.7.2'
 			userAgent: "MRIS Conduit/2.0"
 
-	sync: (query) ->
+	sync: (originalQuery) ->
 		console.log "MLSImporter:sync:start"
 		timestamp = @getLastUpdatedTimestamp()
 		@updateLastUpdatedTimestamp()
+		query = originalQuery
 		if timestamp
 			# TODO CLEAR substract(1, "days")!!!
 			formattedTimestamp = moment(timestamp).utc().subtract(0, "days").format('YYYY-MM-DDTHH:mm:ss')
 			query += ",(SourceModificationTimestamp=#{formattedTimestamp}+)"
 
-		promiseRetry Meteor.bindEnvironment(@_sync.bind(@, query)), @options.retry
+		promiseRetry Meteor.bindEnvironment(@_sync.bind(@, query, originalQuery)), @options.retry
 
-	_sync: (query, retry, number) ->
+	_sync: (query, originalQuery, retry, number) ->
 		RETS.getAutoLogoutClient @settings, Meteor.bindEnvironment (client) =>
 			@syncProperties(query, client)
+			@unpublishInactiveProperties(originalQuery, client)
 		.catch (error) ->
 			#console.log "An error occurred during MLS request (getAutoLogoutClient). Retry #{number}", error
 			retry()
@@ -49,7 +51,7 @@ class @MLSImporter
 
 	_syncProperties: (query, client, retry, number) ->
 		client.search.query("Property", "RNT", query,
-#			limit: 4
+			limit: 4
 #			offset: 1
 			restrictedIndicator: 'HIDDEN'
 		)
@@ -70,7 +72,6 @@ class @MLSImporter
 					console.log "MLSImporter:sync:insert", buildingId
 				@syncPhotos client, buildingId, property.source.listingKey)
 			P.all promises
-			.then Meteor.bindEnvironment(@unpublishInactiveProperties.bind(@, searchData.results))
 		.catch (error) ->
 			if error.httpStatus is 400 or error.code is "ETIMEDOUT"
 				console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
@@ -115,7 +116,18 @@ class @MLSImporter
 		buildingImageId = BuildingImages.insert buildingImage
 		Buildings.update(_id: buildingId, {$addToSet: {images: buildingImageId}})
 
-	unpublishInactiveProperties: (results) ->
-		existedNumbers = _.pluck results, "ListingID"
-		affected = Buildings.update({mlsNo: {$nin: existedNumbers}, "source.source": "IDX"}, {$set: {isPublished: false}}, {multi: true})
-		console.log "MLSImporter:sync:property:inactive", affected
+	unpublishInactiveProperties: (query, client) ->
+		promiseRetry Meteor.bindEnvironment(@_unpublishInactiveProperties.bind(@, query, client)), @options.retry
+
+	_unpublishInactiveProperties: (query, client, retry, number) ->
+		client.search.query("Property", "RNT", query, {restrictedIndicator: 'HIDDEN'})
+		.then Meteor.bindEnvironment (searchData) =>
+			existedNumbers = _.pluck searchData.results, "ListingID"
+			affected = Buildings.update({mlsNo: {$nin: existedNumbers}, "source.source": "IDX", isPublished: true}, {$set: {isPublished: false}}, {multi: true})
+			console.log "MLSImporter:sync:property:inactive", affected
+		.catch (error) ->
+			if error.httpStatus is 400 or error.code is "ETIMEDOUT"
+				console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
+				retry()
+
+			console.log "MLS server returns an error. No recover needed", error
