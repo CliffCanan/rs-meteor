@@ -1,3 +1,21 @@
+Template.city.onRendered ->
+  instance = @
+
+  console.log(Iron.Location.get().path)
+  Session.set("currentPath", Iron.Location.get().path)
+
+  client = new ZeroClipboard($('#copy-url-btn'))
+
+  client.on 'ready', (e) ->
+    console.log '1. zeroclipboard loaded'
+
+    client.on 'aftercopy', (e) ->
+      console.log 'Copied text to clipboard: ' + e.data['text/plain']
+
+  client.on 'error', (e) ->
+    console.log('ZeroClipboard error of type "' + event.name + '": ' + event.message);
+    ZeroClipboard.destroy()
+
 Template.header.helpers
   loggedInUser: ->
     Meteor.user()
@@ -13,6 +31,14 @@ Template.header.helpers
   recommendationsClientName: ->
     clientObject = Session.get("recommendationsClientObject")
     clientObject.name
+
+  isDesktop: ->
+    $(window).width() > 992
+
+  currentUrl: ->
+    path = "https://www.rentscene.com"
+    path += Session.get("currentPath")
+    path
 
 Template.header.onRendered ->
   @autorun ->

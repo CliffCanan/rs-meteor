@@ -1,6 +1,8 @@
 template(name="header")
   +contactUs
+
   header
+
     .header-wrap
       h1.logo-wrap
         a.hide-text(href="/")
@@ -30,6 +32,12 @@ template(name="header")
 
       if canManageClients
         +clientSearchBar
+
+        if isDesktop
+          #copy-url-btn
+            button.btn.btn-sm.btn-default(data-clipboard-text="{{currentUrl}}" title="Click to copy the current URL.")
+              | Copy URL
+              i.fa.fa-copy.m-l-10
 
     if canRecommend
         #recommending-client-banner.alert.alert-success
