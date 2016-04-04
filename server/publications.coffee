@@ -81,6 +81,8 @@ Meteor.publishComposite "buildings", (cityId, query, page) ->
     agroPriceTotalTo: 1
     agroPriceStudioFrom: 1
     agroPriceStudioTo: 1
+    agroPriceBedroom0From: 1
+    agroPriceBedroom0To: 1
     agroPriceBedroom1From: 1
     agroPriceBedroom1To: 1
     agroPriceBedroom2From: 1
