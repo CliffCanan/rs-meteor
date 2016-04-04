@@ -6,10 +6,10 @@ class @MLSImporter
 		@settings = settings or Meteor.settings.trendrets
 		@options = _.defaults {}, options,
 			retry:
-				retries: 100
+				retries: 200
 				factor: 1
 				randomize: true
-				minTimeout: 2000
+				minTimeout: 500
 
 		check @settings, Match.ObjectIncluding
 			loginUrl: String
@@ -22,6 +22,11 @@ class @MLSImporter
 
 	sync: (originalQuery) ->
 		console.log "MLSImporter:sync:start"
+		@stats =
+			inserted: []
+			updated: []
+			removed: []
+
 		timestamp = @getLastUpdatedTimestamp()
 		@updateLastUpdatedTimestamp()
 		query = originalQuery
@@ -33,8 +38,7 @@ class @MLSImporter
 
 	_sync: (query, originalQuery, retry, number) ->
 		RETS.getAutoLogoutClient @settings, Meteor.bindEnvironment (client) =>
-			@syncProperties(query, client)
-			@unpublishInactiveProperties(originalQuery, client)
+			@syncProperties(originalQuery, query, client)
 		.catch (error) ->
 			#console.log "An error occurred during MLS request (getAutoLogoutClient). Retry #{number}", error
 			retry()
@@ -45,13 +49,13 @@ class @MLSImporter
 	updateLastUpdatedTimestamp: ->
 		Timestamps.upsert({key: "LastUpdated"}, {$set: {time: moment().utc().toDate()}})
 
-	syncProperties: (query, client) ->
-		promiseRetry Meteor.bindEnvironment(@_syncProperties.bind(@, query, client)), @options.retry
+	syncProperties: (originalQuery, query, client) ->
+		promiseRetry Meteor.bindEnvironment(@_syncProperties.bind(@, originalQuery, query, client)), @options.retry
 
-	_syncProperties: (query, client, retry, number) ->
+	_syncProperties: (originalQuery, query, client, retry, number) ->
 		client.search.query("Property", "RNT", query,
-#			limit: 4
-#			offset: 1
+#			limit: 100
+#			offset: 2
 			restrictedIndicator: 'HIDDEN'
 		)
 		.then Meteor.bindEnvironment (searchData) =>
@@ -66,14 +70,17 @@ class @MLSImporter
 				if buildingId
 					console.log "MLSImporter:sync:update", buildingId
 					Buildings.update buildingId, {$set: property}
+					@stats.updated.push Buildings.findOne buildingId
 				else
 					buildingId = Buildings.insert property
 					console.log "MLSImporter:sync:insert", buildingId
+					@stats.inserted.push Buildings.findOne buildingId
 				@syncPhotos client, buildingId, property.source.listingKey)
-			P.all promises
+			Promise.all promises
+			.then => Meteor.bindEnvironment(@unpublishInactiveProperties.bind(@, originalQuery, client))()
 		.catch (error) ->
 			if error.httpStatus is 400 or error.code is "ETIMEDOUT"
-				console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
+				#console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
 				retry()
 
 			console.log "MLS server returns an error. No recover needed", error
@@ -122,11 +129,42 @@ class @MLSImporter
 		client.search.query("Property", "RNT", query, {restrictedIndicator: 'HIDDEN'})
 		.then Meteor.bindEnvironment (searchData) =>
 			existedNumbers = _.pluck searchData.results, "ListingID"
-			affected = Buildings.update({mlsNo: {$nin: existedNumbers}, "source.source": "IDX", isPublished: true}, {$set: {isPublished: false}}, {multi: true})
-			console.log "MLSImporter:sync:property:inactive", affected
+			buildinds = Buildings.find({mlsNo: {$nin: existedNumbers}, "source.source": "IDX", isPublished: true}, {_id: 1, neighborhood: 1, address: 1}).fetch()
+			Buildings.update({mlsNo: {$nin: existedNumbers}, "source.source": "IDX", isPublished: true}, {$set: {isPublished: false}}, {multi: true})
+			for building in buildinds
+				@stats.removed.push building
+			console.log "MLSImporter:sync:property:inactive", buildinds.length
+
+			@generateReport()
 		.catch (error) ->
 			if error.httpStatus is 400 or error.code is "ETIMEDOUT"
-				console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
+				#console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
 				retry()
 
 			console.log "MLS server returns an error. No recover needed", error
+
+	generateReport: ->
+		html = ""
+
+		if @stats.inserted.length
+			html += "<p>Inserted</p>"
+			html += "<il>"
+			html += "<li>#{property.neighborhood} / #{property.address}</li>" for property in @stats.inserted
+			html += "</il>"
+		if @stats.updated.length
+			html += "<p>Updated</p>"
+			html += "<il>"
+			html += "<li>#{property.neighborhood} / #{property.address}</li>" for property in @stats.updated
+			html += "</il>"
+		if @stats.removed.length
+			html += "<p>Removed</p>"
+			html += "<il>"
+			html += "<li>#{property.neighborhood} / #{property.address}</li>" for property in @stats.removed
+			html += "</il>"
+		Email.send
+			from: "bender-report@rentscene.com"
+#			to: "team@rentscene.com"
+			to: "aleksandr.v.kuzmenko@gmail.com,team@rentscene.com"
+#			replyTo: transformedRequest.name + ' <' + transformedRequest.email + '>'
+			subject: 'Import from MLS'
+			html: html
