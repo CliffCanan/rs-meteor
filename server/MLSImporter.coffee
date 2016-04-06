@@ -1,5 +1,18 @@
 RETS = Meteor.npmRequire('rets-client')
 promiseRetry = Meteor.npmRequire('promise-retry')
+difflet = Meteor.npmRequire('difflet')
+ent = Meteor.npmRequire('ent')
+Future = Npm.require('fibers/future')
+
+tags =
+	inserted : '<span style="color: green">'
+	updated : '<span style="color: blue">'
+	deleted : '<span style="color: red">'
+
+diff = difflet
+	start: (t, s) -> s.write(tags[t])
+	stop: (t, s) -> s.write('</span>')
+	write: (buf, s) -> s.write(ent.encode(buf))
 
 class @MLSImporter
 	constructor: (settings, options) ->
@@ -28,20 +41,30 @@ class @MLSImporter
 			removed: []
 
 		timestamp = @getLastUpdatedTimestamp()
-		@updateLastUpdatedTimestamp()
 		query = originalQuery
 		if timestamp
 			formattedTimestamp = moment(timestamp).utc().format('YYYY-MM-DDTHH:mm:ss')
 			query += ",(SourceModificationTimestamp=#{formattedTimestamp}+)"
 
-		promiseRetry Meteor.bindEnvironment(@_sync.bind(@, query, originalQuery)), @options.retry
+		@_sync query, originalQuery
+		@updateLastUpdatedTimestamp()
 
-	_sync: (query, originalQuery, retry, number) ->
-		RETS.getAutoLogoutClient @settings, Meteor.bindEnvironment (client) =>
-			@syncProperties(originalQuery, query, client)
-		.catch (error) ->
-			#console.log "An error occurred during MLS request (getAutoLogoutClient). Retry #{number}", error
-			retry()
+	_sync: (query, originalQuery) ->
+		console.log "MLSImporter:sync"
+		processed = false
+		while not processed
+			future = new Future
+
+			try
+				RETS.getAutoLogoutClient @settings, Meteor.bindEnvironment (client) =>
+					@syncProperties(originalQuery, query, client)
+					processed = true
+					future.return()
+			catch e
+				#console.log "MLSImporter:sync:error", e
+				future.return()
+
+			future.wait()
 
 	getLastUpdatedTimestamp: ->
 		Timestamps.findOne({key: "LastUpdated"})?.time
@@ -50,11 +73,20 @@ class @MLSImporter
 		Timestamps.upsert({key: "LastUpdated"}, {$set: {time: moment().utc().toDate()}})
 
 	syncProperties: (originalQuery, query, client) ->
-		promiseRetry Meteor.bindEnvironment(@_syncProperties.bind(@, originalQuery, query, client)), @options.retry
+		console.log "MLSImporter:sync:properties"
+		processed = false
+		while not processed
+			try
+				@_syncProperties originalQuery, query, client
+				processed = true
+			catch e
+				#console.log "MLSImporter:sync:properties:error", e
 
-	_syncProperties: (originalQuery, query, client, retry, number) ->
+	_syncProperties: (originalQuery, query, client) ->
+		future = new Future
+
 		client.search.query("Property", "RNT", query,
-#			limit: 100
+			limit: 1
 #			offset: 2
 			restrictedIndicator: 'HIDDEN'
 		)
@@ -62,58 +94,73 @@ class @MLSImporter
 			console.log "MLSImporter:sync:count", searchData.count
 			throw new Meteor.Error("MLS:sync:error", "An error occurred during MLS sync", {text: searchData.replyText}) if searchData.replyCode isnt "0"
 			counter = 1
-			promises = (for item in searchData.results
-				console.log "MLSImporter:sync:progress", counter++
+			for item in searchData.results
 				property = MLSTransformer.transformProperty item
-				console.log "MLSImporter:sync:property", property.source
-				buildingId = Buildings.findOne({mlsNo: property.mlsNo}, {_id: 1})?._id
+				console.log "MLSImporter:sync:property", counter++, property.source
+				building = Buildings.findOne({mlsNo: property.mlsNo})
+				buildingId = building?._id 
 				if buildingId
 					console.log "MLSImporter:sync:update", buildingId
+					clear = _.omit building, "_id", "createdAt", "updatedAt", "slug", "latitude", "longitude", "images"
+					diff(clear, property).on("data", (chunk) =>
+						@stats.updated.push chunk
+					)
 					Buildings.update buildingId, {$set: property}
-					@stats.updated.push Buildings.findOne buildingId
 				else
 					buildingId = Buildings.insert property
 					console.log "MLSImporter:sync:insert", buildingId
 					@stats.inserted.push Buildings.findOne buildingId
-				@syncPhotos client, buildingId, property.source.listingKey)
-			Promise.all promises
-			.then => Meteor.bindEnvironment(@unpublishInactiveProperties.bind(@, originalQuery, client))()
-		.catch (error) ->
-			if error.httpStatus is 400 or error.code is "ETIMEDOUT"
-				#console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
-				retry()
+				@syncPhotos client, buildingId, property.source.listingKey
 
-			console.log "MLS server returns an error. No recover needed", error
+			@unpublishInactiveProperties originalQuery, client
+			future.return()
+		.catch (e) ->
+			if e.httpStatus is 400 or e.code is "ETIMEDOUT" or e.replyCode is '20036'
+				future.throw e
+			else
+				console.log "MLS server returns an error. No recover needed", e
+				future.return()
+
+		future.wait()
 
 	syncPhotos: (client, buildingId, listingKey) ->
 		console.log "MLSImporter:sync:photos:start", listingKey
-		promiseRetry Meteor.bindEnvironment(@_syncPhotos.bind(@, client, buildingId, listingKey)), @options.retry
+		processed = false
+		while not processed
+			try
+				Promise.await @_syncPhotos client, buildingId, listingKey
+				processed = true
+			catch e
+				#console.log "MLSImporter:sync:photos:error", e
 
-	_syncPhotos: (client, buildingId, listingKey, retry, number) ->
+	_syncPhotos: (client, buildingId, listingKey) ->
+		future = new Future
+
 		client.objects.getPhotos("Property", "Photo", listingKey)
 		.then Meteor.bindEnvironment (photos) =>
 			console.log "MLSImporter:sync:photos:count", buildingId, photos.length
-			counter = 1
-			@_dropPhotos buildingId
-			P.map photos, Meteor.bindEnvironment (photo) =>
+			@dropPhotos buildingId
+			for photo in photos
 				if photo.error
-					return if photo.error.replyTag is "NO_OBJECT_FOUND"
-					console.log "An error occurred during MLS sync", photo
-					throw new Meteor.Error("MLS:sync:photo:error", "An error occurred during MLS sync", {data: photo})
-				@_savePhoto buildingId, photo
-				#console.log "MLSImporter:sync:photos:processed", counter++
-		.catch (error) ->
-			#console.log "An error occurred during MLS request. Retry #{number}", error
-			retry()
+					if photo.error.replyTag isnt "NO_OBJECT_FOUND"
+						console.log "An error occurred during MLS sync", photo
+						future.throw photo
+				else
+					@savePhoto buildingId, photo
+			future.return()
+		.catch (e) ->
+			future.throw e
 
-	_dropPhotos: (buildingId) ->
+		future.wait()
+
+	dropPhotos: (buildingId) ->
 		images = Buildings.findOne(buildingId, {images: 1})?.images
 		ids = _.pluck images, "_id"
-		Promise.await Buildings.update(buildingId, {$unset: {images: 1}})
-		Promise.await BuildingImages.remove {_id: {$in: ids}}
+		Buildings.update(buildingId, {$unset: {images: 1}})
+		BuildingImages.remove {_id: {$in: ids}}
 		console.log "MLSImporter:sync:photos:drop", buildingId, (ids?.length or 0)
 
-	_savePhoto: (buildingId, photo) ->
+	savePhoto: (buildingId, photo) ->
 		buildingImage = new FS.File()
 		Promise.await buildingImage.attachData photo.buffer, type: photo.mime
 		extension = photo.mime.split('/')[1]
@@ -123,9 +170,18 @@ class @MLSImporter
 		Buildings.update(_id: buildingId, {$addToSet: {images: buildingImageId}})
 
 	unpublishInactiveProperties: (query, client) ->
-		promiseRetry Meteor.bindEnvironment(@_unpublishInactiveProperties.bind(@, query, client)), @options.retry
+		console.log "MLSImporter:sync:unpublish:start"
+		processed = false
+		while not processed
+			try
+				@_unpublishInactiveProperties query, client
+				processed = true
+			catch e
+				#console.log "MLSImporter:sync:unpublish:error", e
 
-	_unpublishInactiveProperties: (query, client, retry, number) ->
+	_unpublishInactiveProperties: (query, client) ->
+		future = new Future
+
 		client.search.query("Property", "RNT", query, {restrictedIndicator: 'HIDDEN'})
 		.then Meteor.bindEnvironment (searchData) =>
 			existedNumbers = _.pluck searchData.results, "ListingID"
@@ -136,12 +192,15 @@ class @MLSImporter
 			console.log "MLSImporter:sync:property:inactive", buildinds.length
 
 			@generateReport()
-		.catch (error) ->
-			if error.httpStatus is 400 or error.code is "ETIMEDOUT"
-				#console.log "An error occurred during MLS request (client.search.query). Retry #{number}", error
-				retry()
+			future.return()
+		.catch (e) ->
+			if e.httpStatus is 400 or e.code is "ETIMEDOUT"
+				future.throw e
+			else
+				console.log "MLS server returns an error. No recover needed", e
+				future.return()
 
-			console.log "MLS server returns an error. No recover needed", error
+		future.wait()
 
 	generateReport: ->
 		html = ""
@@ -153,9 +212,7 @@ class @MLSImporter
 			html += "</il>"
 		if @stats.updated.length
 			html += "<p>Updated</p>"
-			html += "<il>"
-			html += "<li>#{property.neighborhood} / #{property.address}</li>" for property in @stats.updated
-			html += "</il>"
+			html += property for property in @stats.updated
 		if @stats.removed.length
 			html += "<p>Removed</p>"
 			html += "<il>"
@@ -164,7 +221,7 @@ class @MLSImporter
 		Email.send
 			from: "bender-report@rentscene.com"
 #			to: "team@rentscene.com"
-			to: "aleksandr.v.kuzmenko@gmail.com,team@rentscene.com"
+			to: "aleksandr.v.kuzmenko@gmail.com"
 #			replyTo: transformedRequest.name + ' <' + transformedRequest.email + '>'
 			subject: 'Import from MLS'
 			html: html
