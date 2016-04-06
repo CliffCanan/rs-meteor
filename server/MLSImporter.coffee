@@ -86,7 +86,7 @@ class @MLSImporter
 		future = new Future
 
 		client.search.query("Property", "RNT", query,
-			limit: 1
+#			limit: 1
 #			offset: 2
 			restrictedIndicator: 'HIDDEN'
 		)
@@ -221,7 +221,7 @@ class @MLSImporter
 		Email.send
 			from: "bender-report@rentscene.com"
 #			to: "team@rentscene.com"
-			to: "aleksandr.v.kuzmenko@gmail.com"
+			to: "aleksandr.v.kuzmenko@gmail.com,team@rentscene.com"
 #			replyTo: transformedRequest.name + ' <' + transformedRequest.email + '>'
 			subject: 'Import from MLS'
 			html: html
