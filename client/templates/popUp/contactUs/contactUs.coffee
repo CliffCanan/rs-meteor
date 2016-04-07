@@ -1,9 +1,13 @@
 Template.contactUs.helpers
   serverError: ->
     Session.get("serverError")
+
   cityName: ->
     if @cityId
       "to " + cities[@cityId].short
+
+  isMobile: ->
+    $(window).width() < 768
 
 Template.contactUs.rendered = ->
 
@@ -44,8 +48,8 @@ Template.contactUs.rendered = ->
           notEmpty:
             message: "Please enter the MAX budget you're willing to pay per month."
           greaterThan:
-            value: 800
-            message: "Most of our units begin at $800/mo, unfortunately."
+            value: 900
+            message: "Most of our units begin at $900/mo, unfortunately."
           lessThan:
             value: 5000
             message: "Most of our units are below $5,000/mo, unfortunately."

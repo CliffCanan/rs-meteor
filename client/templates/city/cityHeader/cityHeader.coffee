@@ -29,11 +29,6 @@ Template.cityHeader.helpers
     cityId = @query.cityId || @cityId
     cities[cityId].long
 
-  #currentNeighborhood: ->
-  #  if neighborhoodsListRaw?
-  #    neighborhoodSlug = @query.neighborhoodSlug || @neighborhoodSlug
-  #    neighborhoodsListRaw[neighborhoodSlug] || ''
-
   neighborhood: ->
     if Session.get "currentNeighborhood"
       n = Session.get "currentNeighborhood"
@@ -191,7 +186,6 @@ Template.cityHeader.events
 
 
   "change .bedroom-type-select select": (event, template) ->
-
     data = template.data
     #$li = $(event.currentTarget)
     #$li.closest(".dropdown").removeClass("open")

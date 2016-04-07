@@ -1,17 +1,22 @@
 Template.review.helpers
   building: ->
     Buildings.findOne(@buildingId)
+
   formatedCreatedAt: ->
     moment(@createdAt).format('MM/DD/YYYY')
+
   formattedBody: ->
     if @body.length > 140
       "#{@body.slice(0, 140).trim()}..."
     else
       @body
+
   isPublished: ->
     @isPublished
+
   showBuildingLink: ->
     Security.canOperateWithBuilding() and not @isPublished
+
   showMoreLink: ->
     if Router.current().route.getName() is 'building'
       true

@@ -25,6 +25,8 @@ Template.checkAvailability.helpers
 
     if (day is not 6 and hour > 7 and hour < 20) then true else false
 
+  isMobile: ->
+    $(window).width() < 768
 
 Template.checkAvailability.rendered = ->
 
@@ -56,14 +58,14 @@ Template.checkAvailability.rendered = ->
 #        validators:
 #          notEmpty:
 #            message: 'Please select your target number of bedrooms'
-      moveInDate:
-        validators:
-          notEmpty:
-            message: 'Please enter your target move-in date.'
-          date:
-            format: "MM/DD/YYYY"
-            min: moment().subtract(1, "d").toDate()
-            message: 'Please select a date in the future!'
+#      moveInDate:
+#        validators:
+#          notEmpty:
+#            message: 'Please enter your target move-in date.'
+#          date:
+#            format: "MM/DD/YYYY"
+#            min: moment().subtract(1, "d").toDate()
+#            message: 'Please select a date in the future!'
 #      city:
 #        validators:
 #          notEmpty:

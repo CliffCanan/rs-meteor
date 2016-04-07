@@ -377,14 +377,19 @@ Router.map ->
       # Base URL seems to be required so images can be loaded via absolute paths
       "baseUrl": ->
         # Return root URL with trailing slash removed
-        process.env.ROOT_URL.slice(0, -1)
+        # CLIFF (3/13/16): this wasn't actually removing a trailing slash, it was removing the 'm'
+        # from the BaseURL of '...rentscene.com', which caused the image to not be displayed in the generated .PDF.
+        # Leaving this comment in case the issue comes up again and the trailing slash re-appears.
+        process.env.ROOT_URL #.slice(0, -1)
 
       "documents": ->
         result = []
         if @documents
           for document in @documents
             loadedDocument = document.getFileRecord()
-            result.push(loadedDocument) if loadedDocument instanceof FS.File and loadedDocument.isImage()
+            if loadedDocument instanceof FS.File and loadedDocument.isImage()
+              console.log("Document found, checkpoint reached!")
+              result.push(loadedDocument)
 
         result
 
@@ -518,6 +523,26 @@ Router.map ->
     onAfterAction: ->
       SEO.set
         title: 'Frequently Asked Questions | FAQ Rent Scene' 
+
+  @route "/discovery",
+    name: "discovery"
+    onBeforeAction: ->
+      Session.set "shouldHideFooter", true
+
+      fname = if @params.query.fname then @params.query.fname else "there"
+      lname = if @params.query.lname then @params.query.lname else "No Last Name"
+      email = if @params.query.email and @params.query.email.indexOf("@") > 2 then @params.query.email else "form-default@nooch.com"
+
+      Session.set "disc_fname", fname
+      Session.set "disc_lname", lname
+      Session.set "disc_email", email
+
+      @next()
+    onAfterAction: ->
+      SEO.set
+        title: 'Apartment Discovery Form | Rent Scene'
+        meta:
+          robots: "noindex"
 
   @route "/(.*)",
     name: "notFound"

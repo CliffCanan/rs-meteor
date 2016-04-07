@@ -357,15 +357,16 @@ if Meteor.isServer
       if building
         buildingId = building._id
 
-        if options and options.force is true
-          if building.images
-            _.each building.images (buildingImage) ->
-              BuildingImages.remove(buildingImage._id);
-          Buildings.remove(buildingId);
-        else
-          message = "Found existing building with id #{buildingId}"
-          console.log message
-          return status: 204, message: message, buildingId: buildingId, mlsNo: property.source.mlsNo
+      if options and options.forceUpdate is true
+        if building.images
+          _.each building.images (buildingImage) ->
+            BuildingImages.remove(buildingImage._id)
+        Buildings.remove(buildingId)
+        property._id = buildingId
+      else
+        message = "Found existing building with id #{buildingId}"
+        console.log message
+        return status: 204, message: message, buildingId: buildingId, mlsNo: property.source.mlsNo
 
       Future = Npm.require('fibers/future')
       fut = new Future()
@@ -395,22 +396,22 @@ if Meteor.isServer
           _.each photos, (photo) ->
             photoFuture = new Future()
 
-            if photo.buffer
-              newFile = new FS.File()
-              Promise.await newFile.attachData photo.buffer, type: photo.mime
-              extension = photo.mime.split('/')[1]
-              fileName = "#{property._id}_#{photo.objectId}.#{extension}"
-              newFile.name(fileName)
-              Meteor.sleep 2000
-              file = Promise.await BuildingImages.insert newFile
-              Buildings.update(_id: buildingId, {$addToSet: {images: file}})
-              Meteor.sleep 2000
-              console.log "Saving #{fileName} - #{i} / #{photos.length} photos."
-              i++
-              Meteor.sleep 2000
-              photoFuture.return('done')
-            else
-              photoFuture.return status: 400, message: photo.error.message, buildingId: property._id, mlsNo: property.source.mlsNo
+          if photo.buffer
+            newFile = new FS.File()
+            Promise.await newFile.attachData photo.buffer, type: photo.mime
+            extension = photo.mime.split('/')[1]
+            fileName = "#{property._id}_#{photo.objectId}.#{extension}"
+            newFile.name(fileName)
+            Meteor.sleep 500
+            file = Promise.await BuildingImages.insert newFile
+            Buildings.update(_id: buildingId, {$addToSet: {images: file}})
+            Meteor.sleep 500
+            console.log "Saving #{fileName} - #{i} / #{photos.length} photos."
+            i++
+            Meteor.sleep 500
+            photoFuture.return('done')
+          else
+            photoFuture.return status: 400, message: photo.error.message, buildingId: property._id, mlsNo: property.source.mlsNo
 
             photoFuture.wait()
 
@@ -427,7 +428,53 @@ if Meteor.isServer
 
       fut.wait()
 
-  "getVimeoVideos": () ->
+  unpublishPropertiesFromIDX: (listingKeys) ->
+    console.log("Unpublishing #{listingKeys.length} from IDX")
+    Properties.update({'source.listingKey': {$in: listingKeys}}, {$set: {isPublished: false, 'source.isNotAvailableInIDX': true}})
+
+  "createClient": (clientName) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    [firstName, lastName] = clientName.split ' '
+    fields =
+      name: clientName
+      firstName: firstName
+      lastName: lastName
+    clientId = ClientRecommendations.insert(fields)
+    clientId: clientId
+    url: Router.routes["clientRecommendations"].path(clientId: clientId)
+
+  "recommendBuilding": (clientId, buildingId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    ClientRecommendations.update(clientId, {$addToSet: {buildingIds: buildingId}})
+
+  "unrecommendBuilding": (clientId, buildingId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    ClientRecommendations.update(clientId, {$pull: {buildingIds: buildingId}})
+
+  "recommendUnit": (clientId, unitId, parentId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    unitObject = {parentId: parentId, unitId: unitId}
+    ClientRecommendations.update(clientId, {$addToSet: {buildingIds: parentId}})
+    ClientRecommendations.update(clientId, {$pull: {'unitIds': {parentId: parentId}}})
+    ClientRecommendations.update(clientId, {$addToSet: {unitIds: unitObject}})
+
+  "unrecommendUnit": (clientId, unitId) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    ClientRecommendations.update(clientId, {$pull: {'unitIds': {unitId: unitId}}})
+
+  "deleteClientRecommendationAndBuildings": (clientId) ->
+    clientRecommendation = ClientRecommendations.findOne(clientId);
+
+    for id in clientRecommendation.buildingIds
+      building = Buildings.findOne(id)
+      if building
+        for imageId in building.images
+          BuildingImages.remove(imageId._id) if imageId?
+        Buildings.remove(id)
+
+    ClientRecommendations.remove(clientId)
+
+  "getVimeoVideos": ->
     @unblock()
     Vimeo = Meteor.npmRequire('vimeo').Vimeo
     vimeo = new Vimeo(Meteor.settings.vimeo.clientId, Meteor.settings.vimeo.clientSecret, Meteor.settings.vimeo.accessToken)
@@ -462,3 +509,125 @@ if Meteor.isServer
       VimeoVideos.upsert({vimeoId: video.vimeoId}, {$set: video})
 
     response.result
+
+  "insertReview": (reviewObject) ->
+    reviewObject.createdAt = new Date()
+    reviewObject.isPublished = false
+
+    if reviewObject.isAnonymousReview
+      reviewObject.isAnonymousReview = true 
+      reviewObject.name = null
+    else
+      reviewObject.isAnonymousReview = false
+
+    reviewItems = []
+    reviewItemsObject = [
+      {label: 'Noise', key: 'noise'}
+      {label: 'Location', key: 'location'}
+      {label: 'Amenities', key: 'amenities'}
+      {label: 'Management', key: 'management'}
+      {label: 'Value', key: 'value'}
+      {label: 'Quality', key: 'quality'}
+    ]
+
+    for item in reviewItemsObject
+      reviewItems.push
+        label: item.label
+        score: reviewObject[item.key]
+
+      reviewObject = _.omit(reviewObject, item.key)
+
+    reviewObject.reviewItems = reviewItems
+
+    BuildingReviews.insert reviewObject
+
+  "updateReview": (reviewObject) ->
+    if reviewObject.isAnonymousReview
+      reviewObject.isAnonymousReview = true 
+      reviewObject.name = null
+    else
+      reviewObject.isAnonymousReview = false
+
+    reviewItems = []
+    reviewItemsObject = [
+      {label: 'Noise', key: 'noise'}
+      {label: 'Location', key: 'location'}
+      {label: 'Amenities', key: 'amenities'}
+      {label: 'Management', key: 'management'}
+      {label: 'Value', key: 'value'}
+      {label: 'Quality', key: 'quality'}
+    ]
+
+    for item in reviewItemsObject
+      reviewItems.push
+        label: item.label
+        score: reviewObject[item.key]
+
+      reviewObject = _.omit(reviewObject, item.key)
+
+    reviewObject.reviewItems = reviewItems
+
+    id = reviewObject.id
+    reviewObject = _.omit(reviewObject, 'id')
+
+    BuildingReviews.update id, {$set: reviewObject}
+
+  "publishReview": (reviewId) ->
+    modifier = {}
+    modifier.$set =
+      isPublished: true
+      publishedAt: new Date()
+      updatedByUserId: this.userId
+
+    BuildingReviews.update reviewId, modifier
+
+  "hideReview": (reviewId) ->
+    modifier = {}
+    modifier.$set =
+      isPublished: false
+      updatedByUserId: this.userId
+
+    BuildingReviews.update reviewId, modifier
+
+  "removeReview": (reviewId) ->
+    modifier = {}
+    modifier.$set =
+      isPublished: false
+      isRemoved: true
+      updatedByUserId: this.userId
+
+    BuildingReviews.update reviewId, modifier
+
+  "processRentalApplicationPassword": (params) ->
+    id = params.id
+    password = params.password
+    rentalApplication = RentalApplications.findOne(id)
+    if rentalApplication
+      if rentalApplication.password is password
+        accessToken = Random.secret()
+        RentalApplications.update(id, {$set: {accessToken: accessToken}})
+        result =
+          success: true
+          accessToken: accessToken
+      else
+        result =
+          success: false
+          message: 'Incorrect password'
+    else
+      result =
+        success: false
+        message: 'Rental application not found'
+
+    result
+
+  "revertRentalApplication": (revisionId) ->
+    previousRentalApplication = RentalApplicationRevisions.findOne(revisionId)
+    parentId = previousRentalApplication.parentId
+    processedRentalApplication = _.omit(previousRentalApplication, ['_id', 'parentId', 'revisionSavedAt'])
+    processedRentalApplication.isNewRevision = true
+    processedRentalApplication.updateNote = "Revert to '#{previousRentalApplication.updateNote}'"
+    RentalApplications.update parentId, $set: processedRentalApplication
+
+  syncMLS: ->
+    importer = new MLSImporter()
+    importer.sync Meteor.settings.trendrets.query

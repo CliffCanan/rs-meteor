@@ -227,11 +227,10 @@ class Building
 #          types.push(1)
 #          postfix = " Bedroom"
 
-        for i in [1..5]
+        for i in [0..5]
           if @["agroPriceBedroom" + i + "From"]
             types.push(i)
 #            postfix = " Bedrooms"
-
         types.join(", ") + " BR"
 
   bedroomTypesArray: ->

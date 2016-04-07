@@ -9,6 +9,13 @@
     "clientSecret": "23c8bc5d0bc4172e1284a1f0d38d6b559a68946e",
     "accessToken": "474b9d11e2ef37bc309cd6c2d53f498c"
   },
+  "trendrets": {
+    "loginUrl": "http://trend.trendrets.com:6103/platinum/login",
+    "username": "TRNRNTSCNE",
+    "password": "L7NiBL",
+    "query": "(County=|PHILADELPHIA-PA),(PostalCode=19103,19102,19146,19147,19146,19107,19130,19123,19104)",
+    "syncTime": "at 4:00 am"
+  },
   "public": {
     "version": "__VERSION__",
     "isDebug": false,

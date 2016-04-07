@@ -45,7 +45,13 @@ template(name="contactUs")
                   | Move-In Date
 
               .col-xs-7.col-sm-6.col-md-5
-                +datepicker(id="contactUsMoveInDate" placeholder="Pick Date" class="move-in-data" name="contactUsMoveInDate")
+                unless isMobile
+                  +datepicker(id="contactUsMoveInDate" placeholder="Pick Date" class="move-in-data" name="contactUsMoveInDate")
+                else
+                  .input-group
+                    .input-group-addon
+                      i.fa.fa-calendar
+                    input.form-control(type="date" id="contactUsMoveInDate" placeholder="Enter Date" name="contactUsMoveInDate")
 
             //-  .col-xs-6
             //-    .form-group
@@ -107,8 +113,8 @@ template(name="contactUs")
                 input.form-control.fg-input#leadphone(name="phoneNumber")
               label.fg-label(for="leadphone") Phone #
 
-            fieldset.form-group.contact-us-field.m-t-20
-              textarea.form-control(name="question" placeholder="Question/Comments", rows="3")
+            fieldset.form-group.contact-us-field.m-t-30
+              textarea.form-control(name="question" placeholder="Question/Comments", rows="{{#if isMobile}}2{{else}}3{{/if}}")
 
             if serverError
               .form-group

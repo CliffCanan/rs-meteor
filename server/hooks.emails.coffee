@@ -17,11 +17,14 @@ CheckAvailabilityRequests.after.insert (userId, request) ->
 
   transformedRequest = share.Transformations.CheckAvailabilityRequest(request)
 
+  #firstName = transformedRequest.name.split(" ")[0].toLowerCase()
+  #firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1)
+
   Email.send
     from: "bender-checkavail@rentscene.com"
     to: emails[transformedRequest.cityId]
     replyTo: transformedRequest.name + ' <' + transformedRequest.email + '>'
-    subject: 'Apartment Inquiry on Rent Scene - Your perfect rental is waiting!'
+    subject: 'Apartment Inquiry on Rent Scene - Your perfect rental is waiting ' +  transformedRequest.name
     html: Spacebars.toHTML({request: transformedRequest, settings: Meteor.settings}, Assets.getText("requests/checkAvailabilityEmail.html"))
 
 
