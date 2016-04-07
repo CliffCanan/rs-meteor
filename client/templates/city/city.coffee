@@ -176,29 +176,37 @@ Template.city.helpers
     Template.instance().buildingsCount.set(buildings.count())
 
     if Template.instance().viewType.get() is 'quickView'
-      processedParents = []
+#      processedParents = []
       parents = buildings.fetch()
-
-      if parents
-        childSelector = {}
-
-        # Remove agro* fields that only applied for parent buildings.
-        _.each (_.keys selector), (key) ->
-          childSelector[key] = selector[key] if key.indexOf('agro') is -1
-
-        childSelector.btype = @query.btype if @query.btype
-        _.each parents, (parent) ->
-          childSelector.parentId = parent._id
-          parent.isParent = true
-
-          children = Buildings.find(childSelector)
-          if children.count()
-            parent.children = children.fetch()
-            parent.hasChildren = true
-
-          processedParents.push parent
-
-        buildings = processedParents
+      groups = _.groupBy parents, "title"
+      buildings = for title, units of groups
+        if units.length > 1
+          title: title
+          isParent: true
+          children: units
+          hasChildren: true
+        else 
+          units[0]
+#      if parents
+#        childSelector = {}
+#
+#        # Remove agro* fields that only applied for parent buildings.
+#        _.each (_.keys selector), (key) ->
+#          childSelector[key] = selector[key] if key.indexOf('agro') is -1
+#
+#        childSelector.btype = @query.btype if @query.btype
+#        _.each parents, (parent) ->
+#          childSelector.parentId = parent._id
+#          parent.isParent = true
+#
+#          children = Buildings.find(childSelector)
+#          if children.count()
+#            parent.children = children.fetch()
+#            parent.hasChildren = true
+#
+#          processedParents.push parent
+#
+#        buildings = processedParents
 
     buildings
 

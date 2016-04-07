@@ -41,6 +41,14 @@ getCurrentClientUnit = (parentId) ->
         return unit = Buildings.findOne unitId
   null
 
+getPriceRange = (building, type) ->
+  fieldName = "agroPrice" + (if type then type.charAt(0).toUpperCase() + type.slice(1) else "Total")
+  fieldNameFrom = fieldName + "From"
+  fieldNameTo = fieldName + "To"
+
+  from: building[fieldNameFrom]
+  to: building[fieldNameTo]
+
 class Building
   constructor: (doc) ->
     _.extend(@, doc)
@@ -235,27 +243,24 @@ class Building
 
   bedroomTypesArray: ->
     types = []
-    postfix = ""
     if @agroPriceStudioFrom
       types.push("Studio")
-    if @agroPriceBedroom1From
-      types.push("1 Bedroom")
-    for i in [2..5]
+    for i in [0..5]
       if @["agroPriceBedroom" + i + "From"]
         types.push("#{i} Bedroom")
     types
 
+  getPriceRange: (type) ->
+    getPriceRange @, type
   displayBuildingPrice: (queryBtype) ->
     if Session.get "showRecommendations"
       unit = getCurrentClientUnit(@_id)
       if unit
         return formatPriceDisplay unit.priceFrom, unit.priceTo if unit.priceFrom
 
-    fieldName = "agroPrice" + (if queryBtype then queryBtype.charAt(0).toUpperCase() + queryBtype.slice(1) else "Total")
-    fieldNameFrom = fieldName + "From"
-    fieldNameTo = fieldName + "To"
-    if @[fieldNameFrom]
-      "$" + accounting.formatNumber(@[fieldNameFrom]) + (if @[fieldNameFrom] is @[fieldNameTo] then "" else "+")
+    range = getPriceRange @, queryBtype
+    if range.from
+      "$" + accounting.formatNumber(range.from) + (if range.from is range.to then "" else "+")
 
   buildingUnits: (limit) ->
     options = {sort: {createdAt: -1, _id: 1}}

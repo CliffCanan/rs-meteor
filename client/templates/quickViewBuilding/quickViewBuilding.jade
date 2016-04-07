@@ -13,8 +13,8 @@ template(name="quickViewBuilding")
             else
               i.fa.fa-star-o
       div.title-wrapper
-        a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
-    td
+        span {{title}}
+    //td
   else
     td
     td
@@ -26,14 +26,25 @@ template(name="quickViewBuilding")
             else
               i.fa.fa-star-o
       div.title-wrapper
-        a(href="{{pathFor route='building' data=processedRouteData}}") {{../title}}
-    td {{title}}  
-  td {{cityId}}
-  td {{btype}}
-  td {{bedroomTypes ../queryBtype}}
+        a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
+    //td
+  //td {{cityId}}
+  //td {{btype}}
+  if isParent
+    td {{availableBedroomTypes}}
+  else
+    td {{bedroomTypes ../queryBtype}}
   td {{bathrooms}}
   td {{getSqft}}
-  td {{securityValue}}
-  td {{laundryValue}}
-  td {{availableAtFormatted}}
-  td {{displayBuildingPrice ../queryBtype}}
+  if isParent
+    td {{availableSecurityValues}}
+    td {{availableLaundryValues}}
+    td
+  else
+    td {{securityValue}}
+    td {{laundryValue}}
+    td {{availableAtFormatted}}
+  if isParent
+    td {{overallPriceRange ../queryBtype}}
+  else
+    td {{displayBuildingPrice ../queryBtype}}
