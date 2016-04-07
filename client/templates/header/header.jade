@@ -32,21 +32,16 @@ template(name="header")
 
       if canManageClients
         +clientSearchBar
-
-        if isDesktop
-          #copy-url-btn
-            button.btn.btn-sm.btn-default(data-clipboard-text="{{currentUrl}}" title="Click to copy the current URL.")
-              | Copy URL
-              i.fa.fa-copy.m-l-10
+        +copyUrlBtn
 
     if canRecommend
         #recommending-client-banner.alert.alert-success
-          | Currently recommending properties for
-          strong
-            | {{recommendationsClientName}}
-          span(style="position:relative;left:-2px") .
+          | Currently recommending properties for <strong>{{recommendationsClientName}}</strong>.
           a#view-recommendations(href="#")
-            | &nbsp;View List So Far
-          | or 
+            | View List So Far
+          | or
+          a#add-listings(href="/city/{{cityId}}")
+            | Add more listings
+          | or
           a#exit-recommendation(href="#")
             | Done Recommending
