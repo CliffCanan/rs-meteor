@@ -56,11 +56,15 @@ Template.header.events
 
   "click #view-recommendations": (event, template) ->
     event.preventDefault()
+    Session.set "showRecommendations", true
     analytics.track "Clicked View Recommendations Btn" unless Meteor.user()
     clientObject = Session.get("recommendationsClientObject")
-    Session.set "showRecommendations", true
     Router.go "clientRecommendations", clientId: clientObject.clientId
     return
+
+  "click #add-listings": (event, template) ->
+    event.preventDefault()
+    Session.set "showRecommendations", false
 
   "click #exit-recommendation": (event, template) ->
     event.preventDefault()

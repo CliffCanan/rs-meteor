@@ -97,20 +97,16 @@ Router.map ->
   @route "recommendations/:clientId",
     name: "clientRecommendations"
     fastRender: true
-    subscriptions: ->
-      if @data? and @data()
-        recommendation = @data()
-
-        firstBuilding = Buildings.findOne(recommendation.buildingIds[0]) if recommendation.buildingIds
-        firstCityId = if firstBuilding then firstBuilding.cityId else 'philadelphia'
-        @params.cityId = if @params.query.cityId then @params.query.cityId else firstCityId
-        []
     waitOn: ->
       Meteor.subscribe "singleClientRecommendation", @params.clientId
     data: ->  
-      clientRecommendations = ClientRecommendations.findOne(@params.clientId)
-      if clientRecommendations
-        _.extend clientRecommendations, @params
+      recommendation = ClientRecommendations.findOne(@params.clientId)
+      if recommendation
+        firstBuilding = Buildings.findOne(recommendation.buildingIds[0]) if recommendation.buildingIds
+        firstCityId = if firstBuilding then firstBuilding.cityId else 'philadelphia'
+        @params.cityId = if @params.query.cityId then @params.query.cityId else firstCityId
+        _.extend recommendation, @params
+        recommendation
     onBeforeAction: ->
       oldData = Session.get("cityPageData")
       if oldData?.cityId isnt @params.cityId

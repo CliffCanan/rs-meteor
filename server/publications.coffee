@@ -181,7 +181,7 @@ Meteor.publish "buildingImages", (buildingId) ->
   else
     @ready
 
-Meteor.publish "city-buildings-count", (cityId, query) ->
+Meteor.publish "city-buildings-count", (cityId, query = {}) ->
   check(cityId, Match.InArray(cityIds))
   selector = {parentId: {$exists: false}, cityId: cityId}
   addQueryFilter(query, selector)
