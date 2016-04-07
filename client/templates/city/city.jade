@@ -146,6 +146,9 @@ template(name="city")
             if quickViewBuildingsReady
               if buildings
                 +cityQuickView(buildings=buildings queryBtype=query.btype)
+                if notAllLoaded
+                  .load-more.loading-btn-wrap.m-b-20
+                    .loading-btn.btn.btn-primary Load More...
               else
                 h3 No buildings matching this criteria.
             else

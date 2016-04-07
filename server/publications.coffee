@@ -218,7 +218,7 @@ Meteor.publish "buildingsQuickView", (cityId, query, page) ->
     }
     fields = _.extend fields, adminFields
 
-  buildingsCursor = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, fields: fields})
+  buildingsCursor = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
   buildings = buildingsCursor.fetch()
 
   cursors = []
