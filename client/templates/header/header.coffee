@@ -1,21 +1,3 @@
-Template.city.onRendered ->
-  instance = @
-
-  console.log(Iron.Location.get().path)
-  Session.set("currentPath", Iron.Location.get().path)
-
-  client = new ZeroClipboard($('#copy-url-btn'))
-
-  client.on 'ready', (e) ->
-    console.log '1. zeroclipboard loaded'
-
-    client.on 'aftercopy', (e) ->
-      console.log 'Copied text to clipboard: ' + e.data['text/plain']
-
-  client.on 'error', (e) ->
-    console.log('ZeroClipboard error of type "' + event.name + '": ' + event.message);
-    ZeroClipboard.destroy()
-
 Template.header.helpers
   loggedInUser: ->
     Meteor.user()
@@ -32,15 +14,17 @@ Template.header.helpers
     clientObject = Session.get("recommendationsClientObject")
     clientObject.name
 
-  isDesktop: ->
-    $(window).width() > 992
-
   currentUrl: ->
     path = "https://www.rentscene.com"
     path += Session.get("currentPath")
     path
 
+  cityId: ->
+    Session.get("cityPageData").cityId
+
 Template.header.onRendered ->
+  Session.set("currentPath", Iron.Location.get().path)
+
   @autorun ->
     height = $('header').height() - 1
     height += 52 if share.canRecommend()
@@ -72,11 +56,15 @@ Template.header.events
 
   "click #view-recommendations": (event, template) ->
     event.preventDefault()
+    Session.set "showRecommendations", true
     analytics.track "Clicked View Recommendations Btn" unless Meteor.user()
     clientObject = Session.get("recommendationsClientObject")
-    Session.set "showRecommendations", true
     Router.go "clientRecommendations", clientId: clientObject.clientId
     return
+
+  "click #add-listings": (event, template) ->
+    event.preventDefault()
+    Session.set "showRecommendations", false
 
   "click #exit-recommendation": (event, template) ->
     event.preventDefault()
