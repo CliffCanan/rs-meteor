@@ -52,9 +52,7 @@
     if available.getTime()
       selector.$or = [{availableAt: {$exists: false}}, {availableAt: {$lte: available}}]
 
-  # Show managed (non-IDX) listing as default.
-  selector['source.source'] = {$ne: 'IDX'}
-  #selector['source.source'] = {$ne: 'IDX'}
-  if query.listingType
-    if query.listingType is 'broker'
-      selector['source.source'] = 'IDX'
+  switch query.listingType
+    when 'broker' then selector['source.source'] = 'IDX'
+    when 'managed' then selector['source.source'] = {$ne: 'IDX'}
+    # when 'all' then do nothing
