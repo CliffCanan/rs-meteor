@@ -12,7 +12,7 @@ Template.clientRecommendations.onRendered ->
       cityId = if params.query.cityId then params.query.cityId else firstCityId
 
       citySubs.subscribe("buildings", cityId, subscriptionQuery, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
-      instance.subscribe("city-buildings-count", params.cityId, subscriptionQuery)
+      instance.subscribe("city-buildings-count", cityId, subscriptionQuery)
 
       clientObject =
         clientId: clientId
