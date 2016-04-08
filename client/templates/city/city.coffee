@@ -354,30 +354,20 @@ Template.city.onRendered ->
   cityData = cities[@data.cityId]
 
   @autorun ->
-    viewType = Template.instance().viewType.get()
     $item = $('#forMap')
-    if viewType is 'quickView'
-      $item.removeClass('is-out')
-      $item.find('.fa').removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-left')
-      $item.find('.btn span').text('Show Map')
-      $item.find('.btn').attr('data-original-title', 'Show map')
+    $('.ext-gallery:not(.hidden)').addClass('hidden')
+    $('.main-city-img-link.hidden').removeClass('hidden')
 
-      $('.page-footer').hide()
-      $('.city-side-bar').hide()
-    else
-      $('.ext-gallery:not(.hidden)').addClass('hidden')
-      $('.main-city-img-link.hidden').removeClass('hidden')
+    $item.addClass('is-out')
+    $item.find('.fa').removeClass('fa-chevron-circle-left').addClass('fa-chevron-circle-right')
+    $item.find('.btn span').text('Hide Map')
+    $item.find('.btn').attr('data-original-title', 'Hide map')
 
-      $item.addClass('is-out')
-      $item.find('.fa').removeClass('fa-chevron-circle-left').addClass('fa-chevron-circle-right')
-      $item.find('.btn span').text('Hide Map')
-      $item.find('.btn').attr('data-original-title', 'Hide map')
-
-      $('.page-footer').show()
-      $('.city-side-bar').show()
+    $('.page-footer').show()
+    $('.city-side-bar').show()
 
 
-  if Template.instance().viewType.get() is 'thumbnails' and $(window).width() > 767
+  if $(window).width() > 767
     map = new google.maps.Map document.getElementById("gmap"),
       zoom: 14
       center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
@@ -410,12 +400,13 @@ Template.city.onRendered ->
 
     citySubs.dep.depend()
 
-    if Template.instance().viewType.get() is 'thumbnails'
-      if $(window).width() > 767 and citySubs.ready()
-        data = Router.current().data()
+    if $(window).width() > 767 and citySubs.ready()
+      data = Router.current().data()
 
-        actualMarkerIds = []
-        @template.__helpers[" buildings"].call(data).forEach (building) ->
+      actualMarkerIds = []
+      @template.__helpers[" buildings"].call(data).forEach (building) ->
+        buildings = building.children or [building]
+        for building in buildings
           if building.latitude and building.longitude
             actualMarkerIds.push(building._id)
 
@@ -449,9 +440,9 @@ Template.city.onRendered ->
                 if marker._id isnt infoWindowId
                   marker.setIcon(defaultIcon)
 
-        for id, marker of markers
-          unless id in actualMarkerIds
-            marker.setMap(null)
+      for id, marker of markers
+        unless id in actualMarkerIds
+          marker.setMap(null)
 
       if cityCircle isnt undefined
         cityCircle.setMap(null)
