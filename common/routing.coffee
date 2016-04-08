@@ -100,7 +100,7 @@ Router.map ->
     fastRender: true
     waitOn: ->
       Meteor.subscribe "singleClientRecommendation", @params.clientId
-    data: ->  
+    data: ->
       recommendation = ClientRecommendations.findOne(@params.clientId)
       if recommendation
         firstBuilding = Buildings.findOne(recommendation.buildingIds[0]) if recommendation.buildingIds

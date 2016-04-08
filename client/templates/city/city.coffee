@@ -93,6 +93,7 @@ Template.city.helpers
     controller = Router.current()
 
     if Session.get "showRecommendations"
+      reactive = true
       if Router.current().route.getName() is "clientRecommendations"
         buildingIds = Router.current().data().buildingIds or []
         selector = {_id: {$in: buildingIds}, $or: [{$and: [{isImportCompleted: {$exists: true}}, {isImportCompleted: true}]}, {isImportCompleted: {$exists: false}}]}
@@ -505,7 +506,7 @@ Template.city.onRendered ->
             bounds.extend markers[i].getPosition()
           map.fitBounds(bounds);
         else
-          currentCityData = cities[data.cityId]
+          currentCityData = cities[Router.current().data().cityId]
           map.setZoom(14)
           map.setCenter new google.maps.LatLng(currentCityData.latitude, currentCityData.longitude)
 
