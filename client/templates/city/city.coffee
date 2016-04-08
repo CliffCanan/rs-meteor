@@ -399,7 +399,7 @@ Template.city.onRendered ->
 
 
 incrementPageNumber = ->
-  if Router.current().route.getName() is "city"
+  if Router.current().route.getName() in ["city", "clientRecommendations"]
     cityPageData = Session.get("cityPageData")
     cityPageData.page++
     Session.set("cityPageData", cityPageData)
