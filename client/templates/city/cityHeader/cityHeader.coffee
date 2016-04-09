@@ -42,12 +42,10 @@ Template.cityHeader.helpers
     share.neighborhoodsInCity cityId
 
   currentListingType: ->
-
-    if @query.listingType and @query.listingType is 'broker'
-      if $(window).width() > 767 then return 'Expanded Listings' else return 'Expanded'
-
-    else
-      if $(window).width() > 767 then return 'Featured' else return 'Featured'
+    switch @query.listingType
+      when 'broker' then (if $(window).width() > 767 then 'Expanded Listings' else 'Expanded')
+      when 'managed' then (if $(window).width() > 767 then 'Featured Listings' else 'Featured')
+      else (if $(window).width() > 767 then 'All Listings' else 'All')
 
   currentBedroomType: ->
     btypes[@query.btype]?.lower ? "Any"
