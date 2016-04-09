@@ -34,7 +34,7 @@ Template.quickViewBuilding.helpers
     diff = moment().diff(moment(@modifiedAt), 'days')
     style = ""
     if diff < 2 then style = "color: green"
-    else if diff < 5 then style = "color: yellow"
+    else if diff < 5 then style = "color: gold"
     else if diff < 10 then style = "color: orange"
     else if diff < 21 then style = "color: red"
     else style = "color: grey"
