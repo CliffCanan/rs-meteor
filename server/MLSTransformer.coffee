@@ -54,6 +54,8 @@
       +obj.HOAFee
     availableAt: (obj) ->
       moment(obj.DateAvailable).toDate()
+    modifiedAt: (obj) ->
+      moment(obj.ModificationTimestamp).toDate()
     bedrooms: (obj) ->
       bedroomsFrom: +obj.Beds
       bedroomsTo: +obj.Beds
@@ -64,7 +66,7 @@
     isFurnished: (obj) ->
       obj.Furnished is 'Yes'
     btype: (obj) ->
-      +obj.Beds
+      if obj.Beds then "bedroom" + obj.Beds else "studio"
     neighborhood: (obj) ->
       # s.titleize(obj.ListingArea)
       NeighborhoodTranslations[s.titleize(obj.Subdivision)] or s.titleize(obj.Subdivision)

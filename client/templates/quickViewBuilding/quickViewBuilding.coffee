@@ -28,6 +28,18 @@ Template.quickViewBuilding.helpers
     getLaundryDescription @laundry
   unitCount: ->
     if @children then @children.length else '-'
+  modifiedAtFormatted: ->
+    if @modifiedAt then "Last synced with MLS " + @modifiedAt.getMonth() + "/" + @modifiedAt.getDate() + "/" +@modifiedAt.getFullYear() else ''
+  availableAtStyle: ->
+    diff = moment().diff(moment(@modifiedAt), 'days')
+    style = ""
+    if diff < 2 then style = "color: green"
+    else if diff < 5 then style = "color: yellow"
+    else if diff < 10 then style = "color: orange"
+    else if diff < 21 then style = "color: red"
+    else style = "color: grey"
+
+    style
   availableAtFormatted: ->
     if @availableAt then @availableAt.getMonth() + "/" + @availableAt.getDate() + "/" +@availableAt.getFullYear() else '-'
   shouldShowRecommendToggle: ->

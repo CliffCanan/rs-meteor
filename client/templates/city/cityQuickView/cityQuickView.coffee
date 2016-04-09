@@ -23,6 +23,8 @@ updateScroll = ->
     Meteor.setTimeout(updateScroll, 100)
 
 Template.cityQuickView.onRendered ->
+  $('[data-toggle="tooltip"]').tooltip()
+
   # We have to force the quick view table to redraw or it won't show up.
   $('.main-city-list-wrap').css('height', '100%')
 

@@ -99,6 +99,8 @@ Meteor.publishComposite "buildings", (cityId, query, page) ->
     bathroomsFrom: 1
     bathroomsTo: 1
     brokerageName: 1
+    availableAt: 1
+    modifiedAt: 1
 
   fields['source.source'] = 1
 
@@ -190,6 +192,7 @@ Meteor.publishComposite "buildingsQuickView", (cityId, query, page) ->
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
     availableAt: 1
+    modifiedAt: 1
     source: 1
 
   if Security.canOperateWithBuilding(@userId)
@@ -405,6 +408,7 @@ Meteor.publish "allBuildingsQuickView", ->
       agroPriceBedroom2From: 1
       agroPriceBedroom2To: 1
       availableAt: 1
+      modifiedAt: 1
 
     Buildings.find({}, {fields: fields})
   else

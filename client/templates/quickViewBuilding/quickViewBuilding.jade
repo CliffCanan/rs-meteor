@@ -43,7 +43,8 @@ template(name="quickViewBuilding")
   else
     td {{securityValue}}
     td {{laundryValue}}
-    td {{availableAtFormatted}}
+    td
+      span(data-toggle="tooltip", title=modifiedAtFormatted style=availableAtStyle) {{availableAtFormatted}}
   if isParent
     td {{overallPriceRange ../queryBtype}}
   else
