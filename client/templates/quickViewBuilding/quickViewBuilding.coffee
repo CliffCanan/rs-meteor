@@ -29,7 +29,6 @@ Template.quickViewBuilding.helpers
   unitCount: ->
     if @children then @children.length else '-'
   modifiedAtFormatted: ->
-    console.log @modifiedAt
     if @modifiedAt then "Last synced with MLS " + (@modifiedAt.getMonth() + 1) + "/" + @modifiedAt.getDate() + "/" +@modifiedAt.getFullYear() else ''
   availableAtStyle: ->
     diff = moment().diff(moment(@modifiedAt), 'days')
@@ -42,7 +41,6 @@ Template.quickViewBuilding.helpers
 
     style
   availableAtFormatted: ->
-    console.log @availableAt
     if @availableAt then (@availableAt.getMonth() + 1) + "/" + @availableAt.getDate() + "/" +@availableAt.getFullYear() else '-'
   shouldShowRecommendToggle: ->
     Security.canManageClients()
