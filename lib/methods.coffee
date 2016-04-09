@@ -253,6 +253,10 @@ Meteor.methods
 
 if Meteor.isServer
   Meteor.methods
+    syncMLS: ->
+      importer = new MLSImporter()
+      importer.sync Meteor.settings.trendrets.query
+
     "importProperties": (data) ->
       console.log "====== importProperties ======"
       console.log "importProperties > data: ", data
@@ -627,7 +631,3 @@ if Meteor.isServer
     processedRentalApplication.isNewRevision = true
     processedRentalApplication.updateNote = "Revert to '#{previousRentalApplication.updateNote}'"
     RentalApplications.update parentId, $set: processedRentalApplication
-
-  syncMLS: ->
-    importer = new MLSImporter()
-    importer.sync Meteor.settings.trendrets.query
