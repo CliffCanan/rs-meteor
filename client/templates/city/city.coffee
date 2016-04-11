@@ -107,6 +107,9 @@ Template.city.helpers
       if Template.instance().viewType.get() is 'thumbnails'
         limit = Session.get("cityBuildingsLimit")
         reactive = true
+      else if Template.instance().viewType.get() is 'quickView'
+        limit = Session.get("cityBuildingsLimit") * 4
+        reactive = true
 
       if @neighborhoodSlug
         selector.neighborhoodSlug = @neighborhoodSlug
@@ -561,6 +564,7 @@ Template.city.events
     incrementPageNumber()
 
   "scroll .main-city-list-wrap": (event, template) ->
+    return if Session.get "showRecommendations"
     $el = $(event.currentTarget)
     $container = $(".main-city-list", $el)
     scrollTop = $el.scrollTop()

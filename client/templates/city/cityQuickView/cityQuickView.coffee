@@ -16,11 +16,9 @@ Template.cityQuickView.onCreated ->
 
 
 updateScroll = ->
-  if citySubs.ready
+  if not Session.get "showRecommendations"
     _.defer ->
       $(".main-city-list-wrap").scrollTop(Session.get("cityScroll"))
-  else
-    Meteor.setTimeout(updateScroll, 100)
 
 Template.cityQuickView.onRendered ->
   $('[data-toggle="tooltip"]').tooltip()
@@ -28,6 +26,8 @@ Template.cityQuickView.onRendered ->
   # We have to force the quick view table to redraw or it won't show up.
   $('.main-city-list-wrap').css('height', '100%')
 
+  setHeights()
+  @autorun => updateScroll()
   instance = @
 
   @autorun =>

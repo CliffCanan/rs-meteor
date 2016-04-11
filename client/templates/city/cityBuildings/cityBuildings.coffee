@@ -1,12 +1,10 @@
 updateScroll = ->
-  if citySubs.ready
+  if not Session.get "showRecommendations"
     _.defer ->
       $(".main-city-list-wrap").scrollTop(Session.get("cityScroll"))
-  else
-    Meteor.setTimeout(updateScroll, 100)
 
 Template.cityBuildings.onRendered ->
-  updateScroll()
+  @autorun => updateScroll()
 
   instance = Template.instance()
 
