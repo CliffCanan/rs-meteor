@@ -435,9 +435,11 @@ Template.city.onRendered ->
                   marker.setIcon(activeIcon)
 
               google.maps.event.addListener marker, "mouseover", do (marker) ->->
+                Session.set("building-#{marker._id}-is-hovered", true)
                 marker.setIcon(activeIcon)
 
               google.maps.event.addListener marker, "mouseout", do (marker) ->->
+                Session.set("building-#{marker._id}-is-hovered", false)
                 if marker._id isnt infoWindowId
                   marker.setIcon(defaultIcon)
 
@@ -545,12 +547,12 @@ Template.city.events
     viewType = $(event.currentTarget).attr('data-value')
     template.viewType.set viewType
 
-  "mouseover .main-city-list li": (event, template) ->
+  "mouseover .main-city-list li, mouseover #quick-view-table tr": (event, template) ->
     marker = markers[@_id]
     if marker
       google.maps.event.trigger(marker, "mouseover")
 
-  "mouseout .main-city-list li": (event, template) ->
+  "mouseout .main-city-list li, mouseout #quick-view-table tr": (event, template) ->
     marker = markers[@_id]
     if marker
       google.maps.event.trigger(marker, "mouseout")

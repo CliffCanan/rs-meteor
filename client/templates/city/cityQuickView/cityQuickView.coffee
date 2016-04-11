@@ -80,10 +80,18 @@ Template.cityQuickView.helpers
     Template.instance().buildingsReady.get()
 
   rowClass: ->
+    hovered = false
     if @hasChildren
-      'tablesorter-hasChildRow info'
+      for child in @children
+        if Session.equals("building-#{child._id}-is-hovered", true)
+          hovered = true
+          break
     else
-      'warning'
+      hovered = Session.equals("building-#{@_id}-is-hovered", true)
+    if @hasChildren
+      "tablesorter-hasChildRow info #{if hovered then "hovered"}"
+    else
+      "warning #{if hovered then "hovered"}"
   
 # Separate events for recommend toggle
 Template.cityQuickView.events
