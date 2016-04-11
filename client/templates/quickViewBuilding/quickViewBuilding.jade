@@ -9,9 +9,9 @@ template(name="quickViewBuilding")
         div.recommend-toggle-wrapper
           a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}", data-isrecommended="{{#if isRecommended}}true{{else}}false{{/if}}")
             if isRecommended
-              i.fa.fa-star
+              i.fa.fa-star.green
             else
-              i.fa.fa-star-o
+              i.fa.fa-star-o.green
       div.title-wrapper
         span {{title}}
     //td
@@ -22,9 +22,9 @@ template(name="quickViewBuilding")
         div.recommend-toggle-wrapper
           a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}", data-isrecommended="{{#if isRecommended}}true{{else}}false{{/if}}")
             if isRecommended
-              i.fa.fa-star
+              i.fa.fa-star.green
             else
-              i.fa.fa-star-o
+              i.fa.fa-star-o.green
       div.title-wrapper
         a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
     //td
