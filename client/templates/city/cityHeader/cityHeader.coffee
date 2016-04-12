@@ -25,6 +25,9 @@ Template.cityHeader.onRendered ->
 
 
 Template.cityHeader.helpers
+  showAllListings: ->
+    Meteor.user().role in ["admin", "super", "staff"]
+
   currentCity: ->
     cityId = @query.cityId || @cityId
     cities[cityId].long
@@ -43,9 +46,9 @@ Template.cityHeader.helpers
 
   currentListingType: ->
     switch @query.listingType
-      when 'broker' then (if $(window).width() > 767 then 'Expanded Listings' else 'Expanded')
+      when 'all' then (if $(window).width() > 767 then 'All Listings' else 'All') # only for admins
       when 'managed' then (if $(window).width() > 767 then 'Featured Listings' else 'Featured')
-      else (if $(window).width() > 767 then 'All Listings' else 'All')
+      else (if $(window).width() > 767 then 'Expanded Listings' else 'Expanded')
 
   currentBedroomType: ->
     btypes[@query.btype]?.lower ? "Any"
