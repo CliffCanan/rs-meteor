@@ -96,6 +96,7 @@ Template.cityQuickView.helpers
 # Separate events for recommend toggle
 Template.cityQuickView.events
   'click a.recommend-toggle': (event, template) ->
+    event.preventDefault()
     if clientObject = Session.get('recommendationsClientObject')
       $target = $(event.target).parent()
       if $target.data('isrecommended') is false
