@@ -103,6 +103,7 @@ Router.map ->
     data: ->
       recommendation = ClientRecommendations.findOne(@params.clientId)
       if recommendation
+        Session.set('clientId', @params.clientId)
         Session.set('recommendationsClientObject', recommendation)
         firstBuilding = Buildings.findOne(recommendation.buildingIds[0]) if recommendation.buildingIds
         firstCityId = if firstBuilding then firstBuilding.cityId else 'philadelphia'
