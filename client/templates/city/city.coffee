@@ -27,7 +27,7 @@ Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
   @quickViewBuildingsReady = new ReactiveVar(null)
-  @viewType = new ReactiveVar('thumbnails')
+  Session.setDefault "viewType", "thumbnails"
   Session.set('adminShowUnpublishedProperties', false)
 
   # Show Contact Us Popup after 20s (tablet/desktop) or 15s (mobile)
@@ -41,7 +41,7 @@ Template.city.onCreated ->
     , delay
 
   @autorun =>
-    if @viewType.get() is 'quickView'
+    if Session.get("viewType") is 'quickView'
       data = Router.current().data()
       params = Router.current().params
       params.query.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
@@ -106,12 +106,13 @@ Template.city.helpers
       selector = {parentId: {$exists: false}, cityId: @cityId}
       selector.isPublished = true if not Session.get('adminShowUnpublishedProperties')
 
-      if Template.instance().viewType.get() is 'thumbnails'
+      viewType = Session.get("viewType")
+      if viewType is 'thumbnails'
         limit = Session.get("cityBuildingsLimit")
-        reactive = true
-      else if Template.instance().viewType.get() is 'quickView'
+      else if viewType is 'quickView'
         limit = Session.get("cityBuildingsLimit") * 4
-        reactive = true
+
+      reactive = true
 
       if @neighborhoodSlug
         selector.neighborhoodSlug = @neighborhoodSlug
@@ -181,7 +182,7 @@ Template.city.helpers
 
     Template.instance().buildingsCount.set(buildings.count())
 
-    if Template.instance().viewType.get() is 'quickView'
+    if Session.get("viewType") is 'quickView'
 #      processedParents = []
       parents = buildings.fetch()
       groups = _.groupBy parents, "title"
@@ -217,12 +218,12 @@ Template.city.helpers
     buildings
 
   currentViewType: ->
-    switch Template.instance().viewType.get()
+    switch Session.get("viewType")
       when 'quickView' then return "Quick view"
       else return "Thumbnails"
 
   showThumbnails: ->
-    Template.instance().viewType.get() is 'thumbnails'
+    Session.get("viewType") is 'thumbnails'
 
   hasAnyFilters: ->
     if Session.get "currentNeighborhood"
@@ -556,7 +557,7 @@ Template.city.events
 
   "click .view-list-wrapper li": (event, template) ->
     viewType = $(event.currentTarget).attr('data-value')
-    template.viewType.set viewType
+    Session.set "viewType", viewType
 
   "mouseover .main-city-list li, mouseover #quick-view-table tr": (event, template) ->
     marker = markers[@_id]
