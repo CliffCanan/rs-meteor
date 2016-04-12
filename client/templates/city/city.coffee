@@ -52,6 +52,7 @@ Template.city.onCreated ->
 Template.city.helpers
   showMap: ->
     Router.current().route.getName() isnt "clientRecommendations"
+
   firstLoad: ->
     citySubs.dep.depend()
     !citySubs.ready() and @firstLoad
@@ -64,6 +65,7 @@ Template.city.helpers
       return true if Session.get('recommendationsClientObject')
       $(".city-page-wrap").removeClass("col-lg-12").addClass("col-lg-12")
     false
+
   showClientRecommendationsName: ->
     Template.city.__helpers[" isClientRecommendationsList"].call(@) and not Security.canManageClients()
 

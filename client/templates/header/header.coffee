@@ -14,13 +14,12 @@ Template.header.helpers
     clientObject = Session.get("recommendationsClientObject")
     clientObject.name
 
-  currentUrl: ->
-    path = "https://www.rentscene.com"
-    path += Session.get("currentPath")
-    path
-
   cityId: ->
     Session.get("cityPageData").cityId
+
+  isDesktop: ->
+    $(window).width() > 1100
+
 
 Template.header.onRendered ->
   Session.set("currentPath", Iron.Location.get().path)

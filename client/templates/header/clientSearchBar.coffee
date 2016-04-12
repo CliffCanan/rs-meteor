@@ -4,6 +4,7 @@ Template.clientSearchBar.onCreated ->
 Template.clientSearchBar.helpers
   showExitRecommendationIcon: ->
     Template.instance().data.type isnt 'session'
+
   clientsSearch: (query, sync, async) ->
     suggestions = ClientRecommendations.find(name: {$regex: new RegExp query, "i"})
     if suggestions.count()
@@ -15,12 +16,14 @@ Template.clientSearchBar.helpers
     else
       sync([
         id: 'new'
-        value: 'Create new'
+        value: 'Create New Client'
       ])
       return
+
   selectedClient: (event, suggestion, datasetName) ->
     instance = Template.instance()
     $target = $(event.target)
+
     if suggestion.id is 'new'
       newClientName = instance.$('.twitter-typeahead pre').html()
       $target.val 'Creating new client...'

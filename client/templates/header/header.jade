@@ -32,7 +32,9 @@ template(name="header")
 
       if canManageClients
         +clientSearchBar(formClass="navbar-form navbar-right")
-        +copyUrlBtn
+
+        if isDesktop
+          +copyUrlBtn
 
     if canRecommend
         #recommending-client-banner.alert.alert-success
