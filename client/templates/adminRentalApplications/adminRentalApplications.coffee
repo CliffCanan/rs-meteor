@@ -32,8 +32,10 @@ Template.adminRentalApplications.events
       , (isConfirm) ->
         if isConfirm
           RentalApplications.remove(appId)
-          swal
-            title: "Application Deleted"
-            text: "That rental application has been deleted successfully."
-            type: "success"
-            confirmButtonColor: "#4588fa"
+
+          toastr.options =
+            "closeButton": true,
+            "newestOnTop": true,
+            "positionClass": "toast-top-right",
+
+          toastr.success('Application Deleted Successfully')

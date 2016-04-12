@@ -7,5 +7,11 @@ Template.copyUrlBtn.onRendered ->
     event.clipboardData.setData "text/plain", link
     event.clipboardData.setData "text/html", link
 
+    toastr.options =
+      "closeButton": true,
+      "positionClass": "toast-top-right",
+
+    toastr.success(link,'URL Copied To Clipboard')
+
 Template.copyUrlBtn.onDestroyed ->
   @ZeroClipboardClient.destroy()
