@@ -14,10 +14,7 @@ Template.clientRecommendations.onRendered ->
       citySubs.subscribe("buildings", cityId, subscriptionQuery, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
       instance.subscribe("city-buildings-count", cityId, subscriptionQuery)
 
-      clientObject =
-        clientId: clientId
-        name: clientRecommendations.name
-
+      clientObject = ClientRecommendations.findOne(Session.get('clientId'))
       Session.set "recommendationsClientObject", clientObject
 
       if Session.get("showRecommendations") isnt false
