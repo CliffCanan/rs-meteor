@@ -20,8 +20,9 @@ template(name="city")
         if clientRecommendationsList
           h4.pull-left.m-t-0 Recommendations for {{currentClientName}}
 
-          unless canRecommend
-            +clientRecommendationsToggle
+          // it seems useless unless "Currently recommending properties for ..." block duplicates this functionality
+          //unless canRecommend
+          //  +clientRecommendationsToggle
 
         .row#filterSearchWrap
           .col-xs-12.col-sm-12.col-md-push-3(class="{{#if canOperateWithBuilding}}col-lg-12{{else}}col-lg-4 col-sm-push-8{{/if}}")
