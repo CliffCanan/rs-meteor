@@ -385,6 +385,12 @@ Template.city.onRendered ->
       maxZoom: 17
       minZoom: 11
 
+    # redraw the map after CSS transition is finished (+ a bit more)
+    # see http://stackoverflow.com/questions/15689656/google-maps-window-only-showing-part-of-the-map
+    setTimeout ->
+      google.maps.event.trigger map, 'resize'
+    , 600
+
     @map = map
     markers = {}
     defaultIcon = new google.maps.MarkerImage("/images/map-marker.png", null, null, null, new google.maps.Size(34, 40))
