@@ -53,9 +53,6 @@ Router.map ->
   @route "/check-availability",
     name: "checkAvailability"
 
-  #@route "/tour-signup",
-  #  name: "tourSignup"
-
   @route "/login",
     name: "login"
     onBeforeAction: ->
