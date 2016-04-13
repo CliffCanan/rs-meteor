@@ -1,7 +1,6 @@
 Template.footer.helpers
   shouldHideFooter: ->
-    if Session.get "shouldHideFooter"
-      return true
+    Session.get("shouldHideFooter") or Session.get("viewType") is "quickView"
 
 Template.footer.rendered = ->
 
