@@ -148,12 +148,32 @@ Template.contactUs.rendered = ->
 
           swal
             title: "Great Success!"
-            text: "Good news - our team is already on the hunt to find the perfect apartment for you.<span class='show m-t-10'>We'll get right back to you and show you the best apartments for your budget and lifestyle.</span>"
+            text: "We have received your info and one of our apartment specialists will get back to you soon!<span class='show m-t-10'>For even quicker help, just answer a few more quick questions about your search so we can find your best matches. Would you like to do that now?<span style='display:block;font-style:italic;font-size:86%'>(2 mins or less!)</span></span>"
             type: "success"
-            showCancelButton: false
+            showCancelButton: true
+            cancelButtonText: "No thanks"
             confirmButtonColor: "#4588fa"
-            confirmButtonText: "Awesome"
+            confirmButtonText: "Let's Do It"
             html: true
+            , (confirm) ->
+              if confirm
+                fullName = json.contactUsName.split(" ")
+                rentAmount = if json.maxMonthlyRent then json.maxMonthlyRent else "0" # 4/13/16 Max rent amount is currently a required field in the Contact Us form
+                moveInDate = if json.contactUsMoveInDate and json.contactUsMoveInDate.length > 3 then json.contactUsMoveInDate else "0" # Move-In Date is NOT currently required, so must check if it exists
+
+                Session.set "disc_fname", fullName[0]
+                Session.set "disc_lname", fullName[fullName.length - 1]
+                Session.set "disc_email", json.contactUsEmail
+                Session.set "disc_rent", rentAmount
+                Session.set "disc_movein", moveInDate
+                Session.set "disc_from", "Contact-Us"
+
+#                routeParams = {}
+#                Router.go("discovery", routeParams, {query: query})
+                query = {}
+                query.local = "1"
+
+                Router.go("discovery", {query: query})
       )
   )
 

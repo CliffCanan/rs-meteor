@@ -524,13 +524,26 @@ Router.map ->
     onBeforeAction: ->
       Session.set "shouldHideFooter", true
 
-      fname = if @params.query.fname then @params.query.fname else "there"
-      lname = if @params.query.lname then @params.query.lname else "No Last Name"
-      email = if @params.query.email and @params.query.email.indexOf("@") > 2 then @params.query.email else "form-default@nooch.com"
+      if @params.query.local and @params.query.local is "1"
+        # If coming from the Contact Us form, all the Session vars are already set in contactUs.coffee,
+        # so they are not passed in the URL, and instead only the parameter 'local=1' is added
 
-      Session.set "disc_fname", fname
-      Session.set "disc_lname", lname
-      Session.set "disc_email", email
+      else
+        fname = if @params.query.fname then @params.query.fname else "there"
+        lname = if @params.query.lname then @params.query.lname else "No Last Name"
+        email = if @params.query.email and @params.query.email.indexOf("@") > 2 then @params.query.email else "form-default@nooch.com"
+
+        rent = if @params.query.rent then @params.query.rent else "0"
+        movein = if @params.query.movein then @params.query.movein else "0"
+        from = if @params.query.from then @params.query.from else "Direct"
+
+        Session.set "disc_fname", fname
+        Session.set "disc_lname", lname
+        Session.set "disc_email", email
+
+        Session.set "disc_rent", rent
+        Session.set "disc_movein", movein
+        Session.set "disc_from", from
 
       @next()
     onAfterAction: ->
