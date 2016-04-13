@@ -23,25 +23,6 @@ Meteor.publishComposite "buildings", (cityId, query, page) ->
   query.to = "" + query.to
   check(cityId, Match.InArray(cityIds))
   check(page, Number)
-  ### check query,
-    btype: Match.Optional(Match.InArray(btypesIds))
-    from: Match.Optional(String)
-    to: Match.Optional(String)
-    q: Match.Optional(String)
-    security: Match.Optional(String)
-    fitnessCenter: Match.Optional(String)
-    pets: Match.Optional(String)
-    laundry: Match.Optional(String)
-    parking: Match.Optional(String)
-    utilities: Match.Optional(String)
-    available: Match.Optional(String)
-    neighborhoodSlug: Match.Optional(String)
-    address: Match.Optional(String)
-    utm_source: Match.Optional(String)
-    utm_medium: Match.Optional(String)
-    utm_content: Match.Optional(String)
-    utm_campaign: Match.Optional(String)
-    listingType: Match.Optional(String) ###
 
   page = parseInt(page)
   unless page > 0
@@ -128,26 +109,11 @@ Meteor.publishComposite "buildingsQuickView", (cityId, query, page) ->
   query.to = "" + query.to
   check(cityId, Match.InArray(cityIds))
   check(page, Number)
-  ###check query,
-    btype: Match.Optional(Match.InArray(btypesIds))
-    from: Match.Optional(String)
-    to: Match.Optional(String)
-    q: Match.Optional(String)
-    security: Match.Optional(String)
-    fitnessCenter: Match.Optional(String)
-    pets: Match.Optional(String)
-    laundry: Match.Optional(String)
-    parking: Match.Optional(String)
-    utilities: Match.Optional(String)
-    available: Match.Optional(String)
-    neighborhoodSlug: Match.Optional(String)
-    address: Match.Optional(String)
-    listingType: Match.Optional(String)###
 
   page = parseInt(page)
   unless page > 0
     page = 1
-  limit = page * (itemsPerPage * 4) # 9 item per page is not enough for Quick Search view
+  limit = page * (itemsPerPage * 3) # 9 items per page is not enough for Quick Search view
 
   selector = {cityId: cityId}
   addQueryFilter(query, selector, @userId, {q: true})

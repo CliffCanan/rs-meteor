@@ -47,7 +47,6 @@ Template.cityQuickView.onRendered ->
         .tablesorterPager
           container: $('.ts-pager')
           cssGoto: '.pagenum'
-#          removeRows: false
           output: '{startRow} - {endRow} out of {filteredRows} Filtered ({totalRows} Total)'
 
         $.tablesorter.filter.bindSearch $table, $('.filter')
