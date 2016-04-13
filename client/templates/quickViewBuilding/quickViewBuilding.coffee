@@ -1,9 +1,9 @@
 getLaundryDescription = (laundry) ->
   switch laundry
     when 0 then "Unknown"
-    when 1 then "In-unit Laundry"
-    when 2 then "Shared Laundry"
-    when 3 then "No Laundry"
+    when 1 then "In-Unit"
+    when 2 then "Shared"
+    when 3 then "None"
 
 getSecurityDescription = (security) ->
   switch security
@@ -17,19 +17,25 @@ Template.quickViewBuilding.helpers
     unless @bedroomsFrom is @bedroomsTo
       value += " - " + @bedroomsTo
     value
+
   bathrooms: ->
     value = @bathroomsFrom
     unless @bathroomsFrom is @bathroomsTo
       value += " - " + @bathroomsTo
     value
+
   securityValue: ->
     getSecurityDescription @security
+
   laundryValue: ->
     getLaundryDescription @laundry
+
   unitCount: ->
     if @children then @children.length else '-'
+
   modifiedAtFormatted: ->
     if @modifiedAt then "Last synced with MLS " + (@modifiedAt.getMonth() + 1) + "/" + @modifiedAt.getDate() + "/" +@modifiedAt.getFullYear() else ''
+
   availableAtStyle: ->
     diff = moment().diff(moment(@modifiedAt), 'days')
     style = ""
@@ -38,18 +44,21 @@ Template.quickViewBuilding.helpers
     else if diff < 10 then style = "color: orange"
     else if diff < 21 then style = "color: red"
     else style = "color: grey"
-
     style
+
   availableAtFormatted: ->
     if @availableAt then (@availableAt.getMonth() + 1) + "/" + @availableAt.getDate() + "/" +@availableAt.getFullYear() else '-'
+
   shouldShowRecommendToggle: ->
     Security.canManageClients()
+
   isRecommended: ->
     if clientRecommendationObject = Session.get('recommendationsClientObject')
       clientRecommendation = ClientRecommendations.findOne(clientRecommendationObject._id)
       if clientRecommendation
         return true if clientRecommendation.buildingIds.indexOf(@_id) > -1
     false
+
   availableBedroomTypes: ->
     types = (child.bedroomTypesArray() for child in @children)
     types = _.uniq _.flatten types
@@ -81,6 +90,7 @@ Template.quickViewBuilding.helpers
     max = _.max _.pluck ranges, "to"
     if min
       "$" + accounting.formatNumber(min) + (if min is max then  "" else "+")
+
 #  displayPriceRange: ->
 #    for child in @children
 #      queryBtype = (Number.isInteger child.btype) ? "bedroom" + child.btype : child.btype

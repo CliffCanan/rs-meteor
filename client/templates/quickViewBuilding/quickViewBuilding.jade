@@ -28,14 +28,16 @@ template(name="quickViewBuilding")
       div.title-wrapper
         a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
     //td
-  //td {{cityId}}
-  //td {{btype}}
+
   if isParent
     td {{availableBedroomTypes}}
   else
     td {{bedroomTypes ../queryBtype}}
+
   td {{bathrooms}}
+
   td {{getSqft}}
+
   if isParent
     td {{availableSecurityValues}}
     td {{availableLaundryValues}}
@@ -45,6 +47,7 @@ template(name="quickViewBuilding")
     td {{laundryValue}}
     td
       span(data-toggle="tooltip", title=modifiedAtFormatted style=availableAtStyle) {{availableAtFormatted}}
+
   if isParent
     td {{overallPriceRange ../queryBtype}}
   else

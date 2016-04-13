@@ -1,11 +1,20 @@
 #quick-view-table
+  @media screen and (min-width: 992px)
+    tr > td:nth-child(2)
+      font-size 16px
+      font-weight bold
+
   .recommend-toggle-wrapper
     float left
     margin-right 5px
     width 8%
+    @media screen and (min-width: 992px)
+      margin-right 8px
+
   .title-wrapper
     float left
     width 84%
+
   a.recommend-toggle
     box-shadow none
     color #000
@@ -26,15 +35,19 @@
     vertical-align middle
     &:nth-child(2)
       text-align left
+
   .tablesorter-hasChildRow
     background: #EEE
+
   .tablesorter-childRow
     td
       display none
     td:nth-child(2) .recommend-toggle-wrapper
       margin-left 15px
-  tr th:nth-child(4), tr td:nth-child(4),
-  tr th:nth-child(5), tr td:nth-child(5)
-    display none !important
+
+//  tr th:nth-child(4), tr td:nth-child(4),
+//  tr th:nth-child(5), tr td:nth-child(5)
+//    display none !important
+
   a.toggle-units
     color #000

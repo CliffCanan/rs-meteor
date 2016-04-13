@@ -9,7 +9,7 @@ Template.copyUrlBtn.onRendered ->
 
     toastr.options =
       "closeButton": true,
-      "positionClass": "toast-top-right",
+      "positionClass": "toast-top-right"
 
     toastr.success(link,'URL Copied To Clipboard')
 

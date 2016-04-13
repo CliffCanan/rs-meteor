@@ -4,9 +4,6 @@ template(name="cityQuickView")
       tr
         th(data-sorter="false")
         th Building
-        //th Unit
-        //th City
-        //th Btypes
         th Beds
         th Baths
         th Sqft
@@ -14,6 +11,7 @@ template(name="cityQuickView")
         th Laundry
         th Available
         th Price
+
     tbody
       each buildings
         tr(class="{{rowClass}}")
@@ -21,6 +19,29 @@ template(name="cityQuickView")
         each children
           tr.tablesorter-childRow
             +quickViewBuilding
+
+    tfoot
+      tr
+        th
+        th Building
+        th Beds
+        th Baths
+        th Sqft
+        th Entry
+        th Laundry
+        th Available
+        th Price
+      tr
+        th.ts-pager.form-horizontal
+          button.btn.first(type="button")
+            i.icon-step.glyphicon glyphicon-step-backward
+          button.btn.prev(type="button")
+            i.icon-step.glyphicon glyphicon-backward
+          span.pagedisplay
+          button.btn.next(type="button")
+            i.icon-step.glyphicon glyphicon-forward
+          button.btn.last(type="button")
+            i.icon-step.glyphicon glyphicon-step-forward
 
   #quick-view-recommend-popup.modal.fade(tabindex='-1', role='dialog', data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog
@@ -37,5 +58,4 @@ template(name="cityQuickView")
           .modal-footer
             a#start-recommending.btn.btn-primary.btn-lg.btn-block
               | Let's Go
-              .fa.fa-spin.fa-refresh.m-l-10.loading(style="display: none;")
               i.fa.fa-chevron-circle-right.m-l-10(aria-hidden='true')
