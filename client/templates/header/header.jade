@@ -38,16 +38,18 @@ template(name="header")
 
     if canRecommend
         #recommending-client-banner.alert.alert-success
-          | Currently recommending properties for <strong>{{recommendationsClientName}}</strong>.
+          span.m-r-10
+            | Currently recommending properties for <strong>{{recommendationsClientName}}</strong>.
 
           if makingRecommendationList
-            a#view-recommendations.btn.btn-sm.btn-success(href="#")
-              i.fa.fa-list-ul
-              | View List So Far
-          else
             a#add-listings.btn.btn-sm.btn-success(href="#")
               i.fa.fa-plus-circle
               | Add More Listings
+
+          else
+            a#view-recommendations.btn.btn-sm.btn-success(href="#")
+              i.fa.fa-list-ul
+              | View List So Far
 
           | or
           a#exit-recommendation.btn.btn-sm.btn-danger(href="#")

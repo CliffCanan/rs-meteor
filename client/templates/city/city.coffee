@@ -579,7 +579,7 @@ Template.city.events
 
     Session.set("cityScroll", scrollTop)
 
-    if citySubs.ready() and scrollTop > ($container.outerHeight() - $el.outerHeight() + 20)
+    if citySubs.ready() and scrollTop > ($container.outerHeight() - $el.outerHeight() + 80)
       if template.view.template.__helpers[" notAllLoaded"].call(template.data)
         incrementPageNumber()
 
