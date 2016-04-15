@@ -20,6 +20,9 @@ Template.header.helpers
   isDesktop: ->
     $(window).width() > 1100
 
+  makingRecommendationList: ->
+    Session.get "showRecommendations"
+
 
 Template.header.onRendered ->
   Session.set("currentPath", Iron.Location.get().path)

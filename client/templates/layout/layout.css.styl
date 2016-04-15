@@ -40,9 +40,9 @@ main
 a
   color #4588fa
   
-  > .fa
-    margin-left 6px
-	margin-right 6px
+  &.btn > .fa
+    margin-left 5px
+	margin-right 5px
 
 i.fa-envelope
   font-size 90%
@@ -71,9 +71,8 @@ button > .fa
 
 .btn-primary
   background-color #4588fa !important
-  text-shadow 0 -1px 0px rgba(0,0,0,.15)
-  @media screen and (min-width: 768px)
-    text-shadow 0 -1px 0px rgba(0,0,0,0.2)
+  &, .btn-success
+    text-shadow 0 -1px 0 rgba(0,0,0,.15)
   &:hover,&:active
     background-color #1f70f9 !important
 
@@ -212,6 +211,13 @@ a.carousel-control .fa
     .open > &
       height auto
 
+
+#toast-container > div
+  opacity 0.9
+  border-radius 12px
+  box-shadow 0px 1px 9px rgba(0,0,0,.45)
+  :hover
+    box-shadow 0 1px 10px rgba(0,0,0,.7)
 
 
 .mb0

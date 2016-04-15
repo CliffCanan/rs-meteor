@@ -524,7 +524,7 @@ Router.map ->
     onBeforeAction: ->
       Session.set "shouldHideFooter", true
 
-      if @params.query.local and @params.query.local is "1"
+      if (@params.query.local and @params.query.local is "1") or (Session.get "disc_from" is "Contact-Us")
         # If coming from the Contact Us form, all the Session vars are already set in contactUs.coffee,
         # so they are not passed in the URL, and instead only the parameter 'local=1' is added
 

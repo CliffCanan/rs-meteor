@@ -169,12 +169,12 @@ Template.contactUs.rendered = ->
                 Session.set "disc_movein", moveInDate
                 Session.set "disc_from", "Contact-Us"
 
-#                routeParams = {}
+                routeParams = {}
 #                Router.go("discovery", routeParams, {query: query})
                 query = {}
                 query.local = "1"
 
-                Router.go("discovery", {query: query})
+                Router.go("discovery", routeParams, {query: query})
       )
   )
 
