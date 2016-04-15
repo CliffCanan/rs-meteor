@@ -58,14 +58,18 @@ Template.header.events
     Session.set "showRecommendations", true
     analytics.track "Clicked View Recommendations Btn" unless Meteor.user()
     clientObject = Session.get("recommendationsClientObject")
-    Router.go "clientRecommendations", clientId: clientObject._id
+    currentRoute = Router.current({reactive: false})
+    path = Router.path "clientRecommendations", {clientId: clientObject._id}, {query: currentRoute.params.query}
+    Router.go path
     return
 
   "click #add-listings": (event, template) ->
     event.preventDefault()
     Session.set "showRecommendations", false
     clientObject = Session.get("recommendationsClientObject")
-    Router.go "clientRecommendations", clientId: clientObject._id
+    currentRoute = Router.current({reactive: false})
+    path = Router.path "clientRecommendations", {clientId: clientObject._id}, {query: currentRoute.params.query}
+    Router.go path
 
   "click #exit-recommendation": (event, template) ->
     event.preventDefault()

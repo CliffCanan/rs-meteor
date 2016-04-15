@@ -22,5 +22,5 @@
     "MONGO_URL": "mongodb://dbAdmin:dbAdminLetMeIn@candidate.67.mongolayer.com:10475,candidate.62.mongolayer.com:10797/rentscene?replicaSet=set-5700dd2edd8d91ff170005ae",
     "MONGO_OPLOG_URL": "mongodb://dbAdmin:dbAdminLetMeIn@candidate.67.mongolayer.com:10475,candidate.62.mongolayer.com:10797/local?authSource=rentscene"
   },
-  "deployCheckWaitTime": 300
+  "deployCheckWaitTime": 450
 }
