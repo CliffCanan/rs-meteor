@@ -4,7 +4,6 @@ template(name="city")
 
   div.p-relative
 
-
     .collapse-toggle-wrap#forMap.is-out
       button.btn(type="button", data-toggle="tooltip", data-placement="auto", title="", data-original-title="Hide map")
         span Hide Map
@@ -20,43 +19,44 @@ template(name="city")
         if clientRecommendationsList
           h4.pull-left.m-t-0 Recommendations for {{currentClientName}}
 
-          // it seems useless unless "Currently recommending properties for ..." block duplicates this functionality
+          // Denis (April 2016): These lines seems useless since unless "Currently recommending properties for ..." block duplicates this functionality
           //unless canRecommend
           //  +clientRecommendationsToggle
 
         .row#filterSearchWrap
-          .col-xs-12.col-sm-12.col-md-push-3(class="{{#if canOperateWithBuilding}}col-lg-12{{else}}col-lg-4 col-sm-push-8{{/if}}")
+
+          .col-xs-12
             .row
 
               if canOperateWithBuilding
-                .col-xs-2.hide-md
-                  button.btn.btn-sm.btn-primary.button-building-insert
-                    i.fa.fa-plus
-                    | Add Listing
 
-                .col-xs-2.col-md-2.filter-wrap.unpublished-property-toggle-wrapper.hide-md
-                  span Toggle Unpublished Properties:
-                  label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
-                    input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
-
-              if canManageClients
-                .col-md-3.col-xs-12
-                  .building-title-search-wrapper(style="{{#unless canOperateWithBuilding}}max-width:100%;{{/unless}}")
-                    input.building-title-search.form-control(type="text", placeholder="Search Buildings", value="{{query.q}}")
-                    i.fa.fa-fw.fa-search
-
-                .col-xs-2.hide-md
+                .col-xs-3.hide-md
                   .view-list-wrapper.dropdown.pull-left
                     button.dropdown-toggle.btn.btn-default(type="button", data-toggle="dropdown")
-                      span.button-text.hide-md {{currentViewType}}
+                      span.button-text {{currentViewType}}
                       span.caret
                     ul.dropdown-menu.list-unstyled
                       li.city-sub-header-item(data-value="thumbnails") Thumbnails
                       li.city-sub-header-item(data-value="quickView") Quick View
 
-          .col-xs-12.col-sm-6.col-sm-pull-6(class="{{#if canOperateWithBuilding}}col-lg-5 col-lg-pull-7{{else}}col-lg-8 col-lg-pull-4{{/if}}")
+                .col-xs-2.hide-md
+                  button.btn.btn-sm.btn-primary.button-building-insert
+                    i.fa.fa-plus
+                    | Add Listing
 
-            if hasAnyFilters
+                .col-xs-2.col-md-3.filter-wrap.unpublished-property-toggle-wrapper.hide-md
+                  span Toggle Unpublished Properties:
+                  label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
+                    input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
+
+              .col-xs-12.col-md-3.pull-right
+                .building-title-search-wrapper
+                  input.building-title-search.form-control(type="text", placeholder="Search Listings", value="{{query.q}}")
+                  i.fa.fa-fw.fa-search
+
+          if hasAnyFilters
+            .col-xs-12
+
               .row.filterRow
                 .col-xs-12
                   .filter-options.pull-left.clearfix

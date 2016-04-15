@@ -6,16 +6,18 @@ template(name="cityQuickView")
         th Building
         th Beds
         th Baths
-        th Sqft
+        //th Sqft
         th Entry
         th Laundry
         th Available
         th Price
+        th
 
     tbody
       each buildings
         tr(class="{{rowClass}}")
           +quickViewBuilding
+
         each children
           tr.tablesorter-childRow
             +quickViewBuilding
@@ -26,22 +28,15 @@ template(name="cityQuickView")
         th Building
         th Beds
         th Baths
-        th Sqft
+        //th Sqft
         th Entry
         th Laundry
         th Available
         th Price
+        th
       tr
         th.ts-pager.form-horizontal
-          button.btn.first(type="button")
-            i.icon-step.glyphicon glyphicon-step-backward
-          button.btn.prev(type="button")
-            i.icon-step.glyphicon glyphicon-backward
           span.pagedisplay
-          button.btn.next(type="button")
-            i.icon-step.glyphicon glyphicon-forward
-          button.btn.last(type="button")
-            i.icon-step.glyphicon glyphicon-step-forward
 
   #quick-view-recommend-popup.modal.fade(tabindex='-1', role='dialog', data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog

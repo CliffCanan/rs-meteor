@@ -121,6 +121,7 @@ class Building
         []
     else
       if @features?.length then @features else @parent()?.features
+
   getAvailableAt: ->
     if @agroIsUnit and @availableAt > new Date()
       @availableAt
@@ -252,6 +253,7 @@ class Building
 
   getPriceRange: (type) ->
     getPriceRange @, type
+
   displayBuildingPrice: (queryBtype) ->
     if Session.get "showRecommendations"
       unit = getCurrentClientUnit(@_id)

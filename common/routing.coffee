@@ -462,8 +462,8 @@ Router.map ->
         meta:
           robots: "noindex"
 
-  @route "/quick-view",
-    name: "quickView"
+#  @route "/quick-view",
+#    name: "quickView"
 
   @route "/autologin/:token",
     name: "autologin"

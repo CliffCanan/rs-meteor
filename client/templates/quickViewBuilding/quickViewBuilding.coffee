@@ -34,7 +34,7 @@ Template.quickViewBuilding.helpers
     if @children then @children.length else '-'
 
   modifiedAtFormatted: ->
-    if @modifiedAt then "Last synced with MLS " + (@modifiedAt.getMonth() + 1) + "/" + @modifiedAt.getDate() + "/" +@modifiedAt.getFullYear() else ''
+    if @modifiedAt then "Last synced with MLS on: " + (@modifiedAt.getMonth() + 1) + "/" + @modifiedAt.getDate() + "/" +@modifiedAt.getFullYear() else ''
 
   availableAtStyle: ->
     diff = moment().diff(moment(@modifiedAt), 'days')
@@ -43,7 +43,7 @@ Template.quickViewBuilding.helpers
     else if diff < 5 then style = "color: gold"
     else if diff < 10 then style = "color: orange"
     else if diff < 21 then style = "color: red"
-    else style = "color: grey"
+    else style = "color: #333"
     style
 
   availableAtFormatted: ->

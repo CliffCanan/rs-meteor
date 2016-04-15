@@ -154,10 +154,11 @@ Template.contactUs.rendered = ->
             cancelButtonText: "No thanks"
             confirmButtonColor: "#4588fa"
             confirmButtonText: "Let's Do It"
+            closeOnConfirm: true
             html: true
             , (confirm) ->
               if confirm
-                fullName = json.contactUsName.split(" ")
+                fullName = json.name.split(" ")
                 rentAmount = if json.maxMonthlyRent then json.maxMonthlyRent else "0" # 4/13/16 Max rent amount is currently a required field in the Contact Us form
                 moveInDate = if json.contactUsMoveInDate and json.contactUsMoveInDate.length > 3 then json.contactUsMoveInDate else "0" # Move-In Date is NOT currently required, so must check if it exists
 

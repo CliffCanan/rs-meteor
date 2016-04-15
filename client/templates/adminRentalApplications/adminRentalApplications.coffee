@@ -26,7 +26,6 @@ Template.adminRentalApplications.events
       type: "warning"
       confirmButtonColor: "#4588fa"
       confirmButtonText: "Delete"
-      closeOnConfirm: false
       showCancelButton: true
       animation: "slide-from-top"
       , (isConfirm) ->

@@ -30,10 +30,10 @@ Template.city.onCreated ->
   Session.setDefault "viewType", "thumbnails"
   Session.set('adminShowUnpublishedProperties', false)
 
-  # Show Contact Us Popup after 20s (tablet/desktop) or 15s (mobile)
+  # Show Contact Us Popup after 22s (tablet/desktop) or 16s (mobile)
   if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
 
-    delay = if $(window).width() < 768 then 15000 else 20000
+    delay = if $(window).width() < 768 then 16000 else 22000
 
     @popupTimeoutHandle = Meteor.setTimeout ->
       unless Session.get("hasSeenContactUsPopup") == true || $('body').hasClass('modal-open') || Session.get("currentPage") == "building"
@@ -80,7 +80,6 @@ Template.city.helpers
   notAllLoaded: ->
     return false if Session.get "showRecommendations"
     Template.instance().buildingsCount.get() < Counts.get("city-buildings-count")
-  # TODO: filter by price depend on btype
 
   buildings: ->
     quickViewBuildingsReady = Template.instance().quickViewBuildingsReady.get()
@@ -219,7 +218,7 @@ Template.city.helpers
 
   currentViewType: ->
     switch Session.get("viewType")
-      when 'quickView' then return "Quick view"
+      when 'quickView' then return "Quick View"
       else return "Thumbnails"
 
   showThumbnails: ->
@@ -577,8 +576,10 @@ Template.city.events
     $el = $(event.currentTarget)
     $container = $(".main-city-list", $el)
     scrollTop = $el.scrollTop()
+
     Session.set("cityScroll", scrollTop)
-    if citySubs.ready() and scrollTop >= $container.outerHeight() - $el.outerHeight()
+
+    if citySubs.ready() and scrollTop > ($container.outerHeight() - $el.outerHeight() + 20)
       if template.view.template.__helpers[" notAllLoaded"].call(template.data)
         incrementPageNumber()
 

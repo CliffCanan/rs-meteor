@@ -1,4 +1,5 @@
 template(name="quickViewBuilding")
+
   if isParent
     td
       if hasChildren
@@ -14,7 +15,7 @@ template(name="quickViewBuilding")
               i.fa.fa-star-o.green
       div.title-wrapper
         span {{title}}
-    //td
+
   else
     td
     td
@@ -27,7 +28,6 @@ template(name="quickViewBuilding")
               i.fa.fa-star-o.green
       div.title-wrapper
         a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
-    //td
 
   if isParent
     td {{availableBedroomTypes}}
@@ -36,7 +36,7 @@ template(name="quickViewBuilding")
 
   td {{bathrooms}}
 
-  td {{getSqft}}
+  //td {{getSqft}}
 
   if isParent
     td {{availableSecurityValues}}
@@ -52,3 +52,10 @@ template(name="quickViewBuilding")
     td {{overallPriceRange ../queryBtype}}
   else
     td {{displayBuildingPrice ../queryBtype}}
+
+  td
+    if getVideo
+      i.fa.fa-video-camera.m-r-10(data-toggle="tooltip", title="Video is available")
+
+    if adminNotes
+      i.fa.fa-sticky-note(data-toggle="tooltip", title=adminNotes)
