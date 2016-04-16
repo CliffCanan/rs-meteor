@@ -149,7 +149,7 @@ template(name="city")
 
             if notAllLoaded
               .load-more.loading-btn-wrap.m-b-20
-                .loading-btn.btn.btn-primary Load More...
+                .btn.loading-btn.btn-primary.btn-sm Load More...
 
           else
             if quickViewBuildingsReady
@@ -157,7 +157,7 @@ template(name="city")
                 +cityQuickView(buildings=buildings queryBtype=query.btype)
                 if notAllLoaded
                   .load-more.loading-btn-wrap.m-b-20
-                    .loading-btn.btn.btn-primary Load More...
+                    .btn.loading-btn.btn-primary.btn-sm Load More...
               else
                 h3 No buildings matching this criteria.
             else
