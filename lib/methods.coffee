@@ -484,7 +484,7 @@ if Meteor.isServer
     vimeo = new Vimeo(Meteor.settings.vimeo.clientId, Meteor.settings.vimeo.clientSecret, Meteor.settings.vimeo.accessToken)
     getVideoParams =
       method: 'GET'
-      path: '/me/videos'
+      path: '/me/videos?per_page=50&filter_embeddable=true'
 
     videos = []
 

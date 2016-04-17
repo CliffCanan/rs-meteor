@@ -7,22 +7,24 @@ template(name="vimeo")
             .span(aria-hidden="true")
               | &times;
           h4.modal-title
-            | Picking video for {{title}}
+            | Picking Video For: <strong>{{title}}</strong>
+
         .modal-body
           .container-fluid.vimeo-container
             .row
               .col-lg-12.col-md-12.col-xs-12
-                input.form-control.input-lg.typeahead(type="text", placeholder="Search videos", autocomplete="false", data-highlight="true", data-source="videosSearch", data-select="selectedVideo", data-template="vimeoResult")
+                input.form-control.input-lg.typeahead(type="text", placeholder="Search Rent Scene's Vimeo Videos", autocomplete="false", data-highlight="true", data-source="videosSearch", data-select="selectedVideo", data-template="vimeoResult")
                 #current-video
                   i.fa.fa-spinner.fa-spin.fa-5x
                   with currentVideo
                     iframe(src="//player.vimeo.com/video/{{vimeoId}}", width="638", height="360" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+
         .modal-footer
           button.btn.btn-default(type="button", data-dismiss="modal")
             | Close
           a#confirm-video.btn.btn-success
             i.fa.fa-check 
-              |  Confirm video
+            | Confirm Video
 
 template(name="vimeoResult")
   div.row
