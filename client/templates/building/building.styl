@@ -75,6 +75,8 @@ main.container
       margin-bottom 20px
       @media screen and (min-width: 992px)
         float right
+      @media screen and (min-width: 1200px)
+        padding-left 40px
 
       .fg-float.buildingTitle .fg-toggled + .fg-label
         top -18px
@@ -259,9 +261,9 @@ main.container
     .form-group
       margin-bottom 20px
       @media screen and (min-width: 768px)
-        margin-bottom 22px
-      @media screen and (min-width: 992px)
         margin-bottom 25px
+      @media screen and (min-width: 992px)
+        margin-bottom 30px
       &.fg-float
         margin-left 0
 
@@ -666,20 +668,20 @@ main.container
   color dimgrey
 
 .add-image-btn,.add-video-btn
-  position: relative;
-  overflow: hidden;
   background-color #fff
   border 1px solid #ddd
+  border-radius 18px
+  box-sizing border-box
+  color #272b30
+  cursor pointer
+  display block
+  font-size 18px
+  overflow: hidden;
+  position: relative;
   text-align center
   width 140px
   height 110px
-  font-size 18px
-  color #272b30
-  display block
-  border-radius 6px
   margin-top 10px
-  cursor pointer
-  box-sizing border-box
   padding-top 10px
   i:first-child
     font-size 25x
@@ -709,13 +711,20 @@ main.container
 .thumbnail-image
   position relative
   margin-top 10px
+  margin-bottom 15px
+
   .fa-video-camera
-    color #FFF
+    color #5894fb
     position absolute
     right 70px
     top 35px
+    text-shadow 0 2px 5px rgba(0,0,0,.3)
 
 .img-thumbnail
+  border none
+  border-radius 18px
+  box-shadow 0 4px 14px -3px rgba(0,0,0,.4)
+  padding 0
   width 140px
   height 110px
   max-width 140px

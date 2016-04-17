@@ -406,12 +406,7 @@ Template.building.events
 
           if query
             Buildings.update({ _id: template.data.building._id}, { $pull: { images: query }})
-            swal
-              title: "Picture Deleted"
-              text: "That picture has been deleted successfully."
-              type: "success"
-              confirmButtonColor: "#4588fa"
-
+            toastr.success('Picture Deleted Successfully')
 
   "change .choose-image-input": grab encapsulate (event, template) ->
     buildingId = @_id
@@ -489,7 +484,10 @@ Template.building.events
       $form.find(".submit-button").prop("disabled", true)
       $form.find(".loading").show()
       Meteor.apply "updateBuilding", [building._id, data], onResultReceived: (error, newUrl) ->
-        unless error
+        if error
+          toastr.error('Error Saving Changes!')
+        else
+          toastr.success('Building Updated Successfully')
           Session.set("editBuildingId", null)
           if newUrl isnt Router.routes["building"].path(building.getRouteData())
             Router.go(newUrl)
@@ -507,6 +505,10 @@ Template.building.events
   "click .publish-building-toggle": (event, template) ->
     building = template.data.building
     Buildings.update(building._id, {$set: {isPublished: !building.isPublished}})
+    if building.isPublished
+      toastr.success('Building Un-published Successfully')
+    else
+      toastr.success('Building Published Successfully')
 
   "change .select-position-defs": (event, template) ->
     $select = $(event.currentTarget)
