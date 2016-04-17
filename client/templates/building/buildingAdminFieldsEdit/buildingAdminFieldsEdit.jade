@@ -29,7 +29,7 @@ template(name="buildingAdminFieldsEdit")
       .col-sm-8
         .form-group.fg-float
           .fg-line
-            textarea.admin-field.form-control.fg-input(type="text", name="adminOfficeHours", disabled="{{Session 'adminSameId'}}", rows="5") {{adminAvailability}}
+            textarea.admin-field.form-control.fg-input(type="text", name="adminOfficeHours", disabled="{{Session 'adminSameId'}}", rows="3") {{adminAvailability}}
           label.fg-label(for="adminOfficeHours") Office Hours:
 
       .col-sm-4
@@ -42,11 +42,11 @@ template(name="buildingAdminFieldsEdit")
       .col-sm-6
         .form-group.fg-float
           .fg-line
-            textarea.admin-field.form-control.fg-input(type="text", name="adminScheduling", rows="5", disabled="{{Session 'adminSameId'}}") {{adminScheduling}}
+            textarea.admin-field.form-control.fg-input(type="text", name="adminScheduling", rows="3", disabled="{{Session 'adminSameId'}}") {{adminScheduling}}
           label.fg-label(for="adminScheduling") Scheduling Instructions:
 
       .col-sm-6
         .form-group.fg-float
           .fg-line
-            textarea.admin-field.form-control.fg-input(type="text", name="adminContact", rows="5", disabled="{{Session 'adminSameId'}}") {{adminContact}}
+            textarea.admin-field.form-control.fg-input(type="text", name="adminContact", rows="3", disabled="{{Session 'adminSameId'}}") {{adminContact}}
           label.fg-label(for="adminContact") Contact Instructions:

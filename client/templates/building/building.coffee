@@ -392,7 +392,6 @@ Template.building.events
       type: "warning"
       confirmButtonColor: "#4588fa"
       confirmButtonText: "Delete"
-      closeOnConfirm: false
       showCancelButton: true
       cancelButtonText: "Cancel"
       showLoaderOnConfirm: true

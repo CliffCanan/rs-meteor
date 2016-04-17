@@ -23,7 +23,7 @@ Router.map ->
     name: "index"
     fastRender: true
     onBeforeAction: ->
-
+      Session.set "shouldHideFooter", false
       Session.setDefault('hasAlrdyConverted', false);
 
       source = (if @params.query.utm_source then @params.query.utm_source else "no source found")
