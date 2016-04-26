@@ -63,7 +63,13 @@ class @MLSImporter
 					processed = true
 					future.return()
 			catch e
-				#console.log "MLSImporter:sync:error", e
+				html = "<h4>Error During IDX Import</h4><p>" + e + "</p>"
+				Email.send
+					from: "rentscene-reports@rentscene.com"
+					to: "cliff@rentscene.com,"
+					subject: 'IDX ERROR on Import from MLS'
+					html: html
+
 				future.return()
 
 			future.wait()
