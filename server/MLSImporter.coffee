@@ -41,7 +41,9 @@ class @MLSImporter
 			removed: []
 
 		timestamp = @getLastUpdatedTimestamp()
+
 		query = originalQuery
+
 		if timestamp
 			formattedTimestamp = moment(timestamp).utc().format('YYYY-MM-DDTHH:mm:ss')
 			query += ",(SourceModificationTimestamp=#{formattedTimestamp}+)"
@@ -74,6 +76,7 @@ class @MLSImporter
 
 	syncProperties: (originalQuery, query, client) ->
 		console.log "MLSImporter:sync:properties"
+
 		processed = false
 		while not processed
 			try
@@ -93,12 +96,17 @@ class @MLSImporter
 		.then Meteor.bindEnvironment (searchData) =>
 			console.log "MLSImporter:sync:count", searchData.count
 			throw new Meteor.Error("MLS:sync:error", "An error occurred during MLS sync", {text: searchData.replyText}) if searchData.replyCode isnt "0"
+
 			counter = 1
+
 			for item in searchData.results
 				property = MLSTransformer.transformProperty item
+
 				console.log "MLSImporter:sync:property", counter++, property.source
+
 				building = Buildings.findOne({mlsNo: property.mlsNo})
 				buildingId = building?._id 
+
 				if buildingId
 					console.log "MLSImporter:sync:update", buildingId
 					clear = _.omit building, "_id", "createdAt", "updatedAt", "slug", "latitude", "longitude", "images"
@@ -110,6 +118,7 @@ class @MLSImporter
 					buildingId = Buildings.insert property
 					console.log "MLSImporter:sync:insert", buildingId
 					@stats.inserted.push Buildings.findOne buildingId
+
 				@syncPhotos client, buildingId, property.source.listingKey
 
 			@unpublishInactiveProperties originalQuery, client
@@ -125,6 +134,7 @@ class @MLSImporter
 
 	syncPhotos: (client, buildingId, listingKey) ->
 		console.log "MLSImporter:sync:photos:start", listingKey
+
 		processed = false
 		while not processed
 			try
@@ -139,7 +149,9 @@ class @MLSImporter
 		client.objects.getPhotos("Property", "Photo", listingKey)
 		.then Meteor.bindEnvironment (photos) =>
 			console.log "MLSImporter:sync:photos:count", buildingId, photos.length
+
 			@dropPhotos buildingId
+
 			for photo in photos
 				if photo.error
 					if photo.error.replyTag isnt "NO_OBJECT_FOUND"
@@ -147,6 +159,7 @@ class @MLSImporter
 						future.throw photo
 				else
 					@savePhoto buildingId, photo
+
 			future.return()
 		.catch (e) ->
 			future.throw e
@@ -206,22 +219,20 @@ class @MLSImporter
 		html = ""
 
 		if @stats.inserted.length
-			html += "<p>Inserted</p>"
+			html += "<h4>Inserted</h4>"
 			html += "<il>"
 			html += "<li>#{property.neighborhood} / #{property.address}</li>" for property in @stats.inserted
 			html += "</il>"
 		if @stats.updated.length
-			html += "<p>Updated</p>"
+			html += "<h4>Updated</h4>"
 			html += property for property in @stats.updated
 		if @stats.removed.length
-			html += "<p>Removed</p>"
+			html += "<h4>Removed</h4>"
 			html += "<il>"
 			html += "<li>#{property.neighborhood} / #{property.address}</li>" for property in @stats.removed
 			html += "</il>"
 		Email.send
 			from: "bender-report@rentscene.com"
-#			to: "team@rentscene.com"
-			to: "aleksandr.v.kuzmenko@gmail.com,team@rentscene.com"
-#			replyTo: transformedRequest.name + ' <' + transformedRequest.email + '>'
+			to: "cliff@rentscene.com,team@rentscene.com"
 			subject: 'Import from MLS'
 			html: html

@@ -1,6 +1,7 @@
 @MLSTransformer =
   transformProperty: (rawProperty) ->
     transformedProperty = {}
+
     _.each MLSTransformer.transformMethods, (fn, key) ->
       result = fn rawProperty
       if _.isObject(result) and not _.isDate(result)
@@ -10,30 +11,44 @@
         transformedProperty[key] = result
 
     transformedProperty.mlsNo = rawProperty.ListingID
+
     transformedProperty.source = 
       mlsNo: rawProperty.ListingID
       listingKey: rawProperty.ListingKey
       source: 'IDX'
+
     transformedProperty
 
   transformMethods:
 #    _id: (obj) ->
 #      obj._id
+
     title: (obj) ->
       obj.BuildingName or s.titleize obj.FullStreetAddress
+
     cityId: (obj) ->
       s.slugify obj.CityName.toLowerCase()
+
     address: (obj) -> 
       # "#{obj.StreetNumber} #{obj.StreetDirPrefix} #{s.titleize obj.StreetName} #{s.titleize obj.StreetSuffix}"
       if obj.AddressExportAllowed is 'N'
         'N/A'
       else
-        s.titleize obj.FullStreetAddress
+        #Cliff (4/25/16): Need to remove any '#' from the address because it screws up the walk score
+        formattedAddress = obj.FullStreetAddress
+
+        if obj.FullStreetAddress.indexOf('#') > -1
+          formattedAddress =  obj.FullStreetAddress.substring(0,obj.FullStreetAddress.indexOf('#'))
+
+        s.titleize formattedAddress
+
     postalCode: (obj) ->
       obj.PostalCode
+
     sqft: (obj) ->
       sqftFrom: +obj.NetSQFT || +obj.LandSqFt
       sqftTo: +obj.NetSQFT || +obj.LandSqFt
+
     prices: (obj) ->
       if obj.Beds is 0
         results =
@@ -49,43 +64,67 @@
           "agroPriceBedroom#{obj.Beds}To": +obj.ListPrice
 
       results
+
     adminAppFee: (obj) ->
       # Need to confirm if this is the right field
+      # CLIFF (4/25/16): IT'S NOT THE RIGHT FIELD - NEED THE "Application Fee" field, not sure what it is in the raw feed...
       +obj.HOAFee
+
     availableAt: (obj) ->
       moment(obj.DateAvailable).toDate()
+
     modifiedAt: (obj) ->
       moment(obj.ModificationTimestamp).toDate()
+
     bedrooms: (obj) ->
       bedroomsFrom: +obj.Beds
       bedroomsTo: +obj.Beds
+
     bathrooms: (obj) ->
       bathrooms = +obj.BathsFull + 0.5 * +obj.BathsHalf
       bathroomsFrom: bathrooms
       bathroomsTo: bathrooms
+
     isFurnished: (obj) ->
       obj.Furnished is 'Yes'
+
     btype: (obj) ->
-      if obj.Beds then "bedroom" + obj.Beds else "studio"
+      if obj.Beds and obj.Beds.toString() is not "0"
+        bedrooms = "bedroom" + obj.Beds
+      else
+        bedrooms = "studio"
+
+      bedrooms
+
     neighborhood: (obj) ->
-      # s.titleize(obj.ListingArea)
-      NeighborhoodTranslations[s.titleize(obj.Subdivision)] or s.titleize(obj.Subdivision)
+      lowercaseHood = obj.Subdivision.toLowerCase()
+
+      #Check if the neighborhood from the IDX feed should be updated to a standardized neighborhood (it'll be capitalized there, so no need to "titleize" again)
+      NeighborhoodTranslations[lowercaseHood] or s.titleize(obj.Subdivision)
+
     neighborhoodSlug: (obj) ->
-      # s.titleize(obj.ListingArea)
-      translated = NeighborhoodTranslations[s.titleize(obj.Subdivision)] or s.titleize(obj.Subdivision)
+      lowercaseHood = obj.Subdivision.toLowerCase()
+
+      translated = NeighborhoodTranslations[lowercaseHood] or s.titleize(obj.Subdivision)
       s(translated).slugify().value()
+
     description: (obj) ->
       obj.Remarks
+
     type: (obj) ->
       obj.Type
+
     design: (obj) ->
       obj.Design
+
     style: (obj) ->
       obj.Stylesmtho
+
     unknownFeatures: (obj) ->
       utilities: 0
       fitnessCenter: 0
       security: 0
+
     laundry: (obj) ->
       inUnit = ["MainFlrLndry", "UpprFlrLndry", "LowFlrLndry", "BsmtLaundry", "Main Floor Laundry", "Basement Laundry"]
       onSite = ["CommonShared", "Common Laundry"]
@@ -95,12 +134,14 @@
       if onSite.indexOf(obj.LaundryType) > -1 then return 2
       if noLaundry.indexOf(obj.LaundryType) > -1 then return 3
       return 0
+
     pets: (obj) ->
       switch obj.PetsAllowed
         when 'Yes' then return 1
         when 'Restricted' then return 2
         when 'No' then return 3
         else return 0  
+
     parking: (obj) ->
       available = ["1-CarParking", "2-CarParking", "3+CarParking", "DrivewayPrk", "Asgn/DeedPrk", "ParkingLot", "Private", "Shared", "ParkingGarage", "1-CarGarage", "2-CarGarage", "3-CarGarage", "4+CarGarage", "Att/BuiltInG", "DetachedGar"]
       none = ["StreetParkng", "PermitParkng", "NoGarage", "Street"]
@@ -117,6 +158,7 @@
 
       return 0
     features: (obj) ->
+
       features = []
       # Features here
 
@@ -141,6 +183,7 @@
       features.join(', ')
 
     adminContact: (obj) ->
+
       output = ''
       if obj.ListAgentFirstName then output += "Listing Agent: #{obj.ListAgentFirstName} #{obj.ListAgentLastName}"
       if obj.AppointmentPhone then output += "\r\nAppointment Phone: #{obj.AppointmentPhone}"
@@ -148,7 +191,9 @@
       if obj.ListOfficeOfficePhone then output += "\r\nOffice Phone: #{obj.ListOfficeOfficePhone}"
 
       output
+
     adminNotes: (obj) ->
+
       output = ''
 
       if obj.ListDate then output += "Date Listed: #{obj.ListDate}"
