@@ -36,5 +36,7 @@ Template.adminRentalApplications.events
             "closeButton": true,
             "newestOnTop": true,
             "positionClass": "toast-top-right",
+            "progressBar": true,
+            "timeOut": "4000",
 
           toastr.success('Application Deleted Successfully')

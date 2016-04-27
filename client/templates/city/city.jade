@@ -151,7 +151,7 @@ template(name="city")
           if clientRecommendationsList
             +cityBuildings(buildings=buildings queryBtype=query.btype)
 
-          if showThumbnails
+          else if showThumbnails
             +cityBuildings(buildings=buildings queryBtype=query.btype)
 
             if notAllLoaded

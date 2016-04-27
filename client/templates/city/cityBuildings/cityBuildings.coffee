@@ -115,6 +115,36 @@ Template.cityBuildings.events
 
     false
 
+  # Added by Cliff (4/28/16)
+  "click .removeFromRecommendList": (event, template) ->
+    event.stopPropagation()
+
+    clientId = Router.current().data().clientId
+    buildingId = @._id
+    buildingIds = Router.current().data().buildingIds || []
+
+    if @._id in buildingIds
+      Meteor.call "unrecommendBuilding", clientId, buildingId
+      toastr.success('Listing Removed')
+    else
+      Meteor.call "recommendBuilding", clientId, buildingId
+
+    false
+
+  # Added by Cliff (4/28/16)
+  "click .favoriteToggle": (event, template) ->
+    event.stopPropagation()
+
+    # WE DON'T HAVE A 'FAVORITES' FUNCTION PER SE, SO JUST SHOWING THE SUCCESS TOASTR FOR NOW..."
+
+    #clientId = Router.current().data().clientId
+    #buildingId = @._id
+    #buildingIds = Router.current().data().buildingIds || []
+
+    toastr.success('Listing Saved!')
+
+    false
+
   "click .check-avail-option": (event, template) ->
     event.stopPropagation()
 

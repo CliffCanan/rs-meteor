@@ -101,14 +101,19 @@ Template.cityQuickView.helpers
 Template.cityQuickView.events
   'click a.recommend-toggle': (event, template) ->
     event.preventDefault()
+
     if clientObject = Session.get('recommendationsClientObject')
       $target = $(event.target).parent()
+
       if $target.data('isrecommended') is false
         Meteor.call "recommendBuilding", clientObject._id, @_id
         $target.data('isrecommended', true)
+        toastr.success('Listing Added')
+
       else if $target.data('isrecommended') is true
         Meteor.call "unrecommendBuilding", clientObject._id, @_id
         $target.data('isrecommended', false)
+        toastr.success('Listing Removed')
     else
       template.initialRecommendBuildingId.set @_id
       $('#quick-view-recommend-popup').modal('toggle')

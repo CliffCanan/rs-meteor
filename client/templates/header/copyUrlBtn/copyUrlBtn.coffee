@@ -10,6 +10,11 @@ Template.copyUrlBtn.onRendered ->
     toastr.options =
       "closeButton": true,
       "positionClass": "toast-top-right"
+      "newestOnTop": true,
+      "progressBar": true,
+      "showDuration": "100",
+      "hideDuration": "400",
+      "timeOut": "3000",
 
     toastr.success(link,'URL Copied To Clipboard')
 

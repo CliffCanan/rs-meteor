@@ -361,7 +361,9 @@ Template.city.onRendered ->
   cityCircle = undefined
 
   @data.firstLoad = false
+
   setHeights()
+
   cityData = cities[@data.cityId]
 
   @autorun ->
@@ -526,6 +528,13 @@ Template.city.onRendered ->
           bounds.extend markers[i].getPosition()
         map.fitBounds(bounds)
 
+  toastr.options =
+    "closeButton": true,
+    "positionClass": "toast-top-right"
+    "progressBar": true,
+    "showDuration": "250",
+    "hideDuration": "800",
+    "timeOut": "4000",
 
 incrementPageNumber = ->
   if Router.current().route.getName() in ["city", "clientRecommendations"]

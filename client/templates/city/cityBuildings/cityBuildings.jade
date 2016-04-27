@@ -80,14 +80,16 @@ template(name="cityBuildings")
                           //img(src="/images/bath.svg")
                           span {{getBathrooms}}
 
+                      li.checkAvail
+                        a.checkAvail-recUnit(href="#")
+                          i.fa.fa-li.fa-calendar(aria-hidden="true")
+                          span Check Availability(data-toggle="tooltip", title="Click to check the availability of this listing")
+
                     .row.m-t-15
 
                       .col-xs-12
                         a.btn.btn-sm.btn-primary(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}")
                           | View Full Listing
-                      //-.col-xs-6
-                      //-  buton.btn.btn-sm.btn-success.checkAvail-recUnit(type="button", data-toggle="tooltip", title="Click to check the availability of this listing")
-                      //-    | Check Availability
 
                     if brokerageName
                       .brokerage-info
@@ -105,9 +107,9 @@ template(name="cityBuildings")
                           span.building-features-text {{.}}
 
             .col-xs-1.listingActionIcons
-              .favoriteToggle(data-toggle="tooltip", title="Favorite this listing")
+              button.favoriteToggle(type="button", data-toggle="tooltip", title="Favorite this listing")
                 i.fa.fa-heart-o
-              .removeFromRecommendList.m-t-15(data-toggle="tooltip", title="Remove this listing from your recommendations")
+              button.removeFromRecommendList.m-t-15(type="button", data-toggle="tooltip", title="Remove this listing from your recommendations")
                 i.fa.fa-times-circle-o
 
       else
