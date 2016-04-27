@@ -46,22 +46,22 @@ template(name="cityBuildings")
                     i.fa.m-r-10(class="{{#if agroIsUnit}}fa-bed{{else}}fa-building{{/if}}")
                     a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}") {{processedTitle}}
 
+                    if neighborhood
+                      span.listingNeighborhood
+                        i.fa.fa-map-marker(aria-hidden="true")
+                        span {{neighborhood}}
+
                   if averageRating
                     .ratingWrap.m-t-5(data-toggle="tooltip", data-placement="top", title="Avg Tenant Rating (out of 10")
                       i.fa.fa-star
                       span.average-rating(itemprop="ratingValue") {{averageRating}}
 
               .row
-                .col-xs-5.col-sm-4.p-l-10.p-r-5
+                .col-xs-12.col-sm-4.p-l-10.p-r-5
 
                   .main-city-info
 
                     ul.fa-ul
-
-                      if neighborhood
-                        li.listingNeighborhood
-                          i.fa.fa-li.fa-map-marker(aria-hidden="true")
-                          span {{neighborhood}}
 
                       li.listingPrice
                         i.fa.fa-li.fa-usd(aria-hidden="true")
@@ -93,7 +93,7 @@ template(name="cityBuildings")
                         span
                           em Listing courtesy of #{brokerageName}
 
-                .col-xs-7.col-sm-8.p-l-10.p-r-0
+                .col-xs-12.col-sm-8.p-l-10.p-r-0
 
                   with getFeatures
 
