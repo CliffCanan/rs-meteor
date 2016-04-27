@@ -1,5 +1,34 @@
 .main-city-list
 
+  li.full-width
+    max-width 100% !important
+    .main-city-item
+      border 1px solid #4588fa
+      border-radius 5px
+      padding 10px
+      transition all .16s ease-out
+      :hover
+        border-color #4588fa
+
+    .main-city-img-link
+      height 165px
+      width 30%
+
+    .listingInfo
+      .ratingWrap
+        right 4%
+
+    .listingActionIcons
+      border-left 1px solid #ddd
+      font-size 24px
+      height 165px
+      padding 25px 5px 0
+      text-align center
+      @media screen and (min-width: 992px)
+        padding-top 40px
+      @media screen and (min-width: 1200px)
+        padding-top 50px
+
   .main-city-item
     .main-city-img-link
 

@@ -13,7 +13,7 @@ template(name="buildingAdminFieldsEdit")
           | {{mlsNo}}
 
     .row
-      .col-sm-8
+      .col-sm-7
         .form-group.fg-float
           .fg-line
             input.admin-field.form-control.fg-input(type="text", name="adminAvailability", value="{{adminAvailability}}", disabled="{{Session 'adminSameId'}}")
@@ -26,7 +26,7 @@ template(name="buildingAdminFieldsEdit")
           label.fg-label(for="adminAppFee") Application Fee:
 
     .row
-      .col-sm-8
+      .col-sm-7
         .form-group.fg-float
           .fg-line
             textarea.admin-field.form-control.fg-input(type="text", name="adminOfficeHours", disabled="{{Session 'adminSameId'}}", rows="3") {{adminAvailability}}

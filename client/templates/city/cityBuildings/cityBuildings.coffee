@@ -70,6 +70,15 @@ Template.cityBuildings.helpers
     if $(window).width() < 1030
       return true
 
+  isRecommendationsList: ->
+    # Added by Cliff (4/26/16): Only want to be true when the CLIENT is viewing the recommendation list
+    # This Helper will determine which type of 'Thumbnail View' to display: regular, or the one I'm now creating for Recommendations.
+    if Router.current().route.getName() is "clientRecommendations" or Session.get('recommendationsClientObject')
+      unless Security.canManageClients()
+        return true
+
+    false
+
 convertTimeToMins = (time) ->
   if time.indexOf("days") == -1
     if time.indexOf("hours") == -1
@@ -117,6 +126,15 @@ Template.cityBuildings.events
     console.log(@)
 
     analytics.track "Clicked Check Availability Btn (Search)", {buildingId: @_id, buildingName: @title, label: @title} unless Meteor.user()
+    $('#checkAvailabilityPopup').modal('show')
+    false
+
+  "click .checkAvail-recUnit": (event, template) ->
+    event.stopPropagation()
+
+    Session.set("currentUnit", @)
+
+    analytics.track "Clicked Check Availability Btn (Recommended Unit)", {buildingId: @_id, buildingName: @title, label: @title} unless Meteor.user()
     $('#checkAvailabilityPopup').modal('show')
     false
 

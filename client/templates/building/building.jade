@@ -163,8 +163,11 @@ template(name="building")
                           label
                             input(type="radio", name="{{name}}", value="{{value}}", checked="{{isChecked}}")
                             | {{text}}
-                      label.show Comment:
-                      input.input-comment.form-control(type="text", name="{{commentName}}", value="{{commentValue}}")
+                      .row
+                        .col-xs-12.col-md-4.col-lg-3
+                          label(style="position:relative; top:4px") Comment:
+                        .col-xs-12.col-md-8.col-lg-9.p-l-10
+                          input.input-comment.form-control(type="text", name="{{commentName}}", value="{{commentValue}}")
 
                   .form-group.clearfix
                     label.col-xs-5.control-label(for="isFurnished") Is Furnished:
@@ -306,7 +309,7 @@ template(name="building")
 
               if isEdit
                 .row
-                  .col-xs-12.col-md-5
+                  .col-xs-12.col-md-5.col-lg-4
                     +buildingParentIdEdit
 
                     .form-group.building-admin-edit
@@ -338,12 +341,12 @@ template(name="building")
                             each btypes
                               option(value="{{key}}", selected="{{condition key 'is' ../btype}}") {{value}}
 
-                      .col-sm-4
+                      .col-sm-6
                         label.building-admin-edit.m-t-20
                           input(type="checkbox", name="isOnMap", value="true", checked="{{isOnMap}}")
-                          span.building-admin-edit-text.building-admin-edit-check Is on map
+                          span.building-admin-edit-text.building-admin-edit-check Is On Map
 
-                    label.building-admin-edit.form-inline
+                    label.building-admin-edit.form-inline.m-t-10
                       span.building-admin-edit-text Position:
                       select.select-position-defs.form-control
                         option(value="10000", selected="{{condition position 'is' 10000}}") Very High (10,000)
@@ -354,7 +357,7 @@ template(name="building")
                         option(value="manual", selected="{{isManualPosition}}") Manual
                       input.form-control.text-right.input-building-postion(class="{{#unless isManualPosition}}hidden{{/unless}}" type="text", name="position", value="{{position}}")
 
-                  .col-xs-12.col-md-7
+                  .col-xs-12.col-md-7.col-lg-8
                     .form-group.fg-float
                       .fg-line
                         textarea.form-control.fg-input(name="description",rows="8") {{{description}}}
@@ -373,7 +376,6 @@ template(name="building")
                 if canRecommend
                   a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
                     i.fa.fa-star
-
 
                 .building-img-wrap#sliderAptImgs
                   each getMedia
@@ -462,14 +464,14 @@ template(name="building")
                         span.building-admin-info-text MLS #:
                         span.building-admin-info-data {{mlsNo}}
                     .building-admin-info
+                      span.building-admin-info-text Application Fee:
+                      span.building-admin-info-data {{adminAppFee}}
+                    .building-admin-info
                       span.building-admin-info-text How to check availability:
                       span.building-admin-info-data {{adminAvailability}}
                     .building-admin-info
                       span.building-admin-info-text Escorted:
                       span.building-admin-info-data {{adminEscorted}}
-                    .building-admin-info
-                      span.building-admin-info-text Application Fee:
-                      span.building-admin-info-data {{adminAppFee}}
                     .building-admin-info
                       span.building-admin-info-text Office Hours:
                       span.building-admin-info-data {{adminAvailability}}

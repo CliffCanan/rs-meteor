@@ -19,9 +19,9 @@ template(name="city")
         if clientRecommendationsList
           h4.pull-left.m-t-0 Recommendations for {{currentClientName}}
 
-          // Denis (April 2016): These lines seems useless since unless "Currently recommending properties for ..." block duplicates this functionality
-          //unless canRecommend
-          //  +clientRecommendationsToggle
+          //- Denis (April 2016): These lines seems useless since unless "Currently recommending properties for ..." block duplicates this functionality
+          //-unless canRecommend
+          //-  +clientRecommendationsToggle
 
         .row#filterSearchWrap
 
@@ -49,10 +49,12 @@ template(name="city")
                   label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
                     input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
-              .col-xs-12.col-md-3.pull-right
-                .building-title-search-wrapper
-                  input.building-title-search.form-control(type="text", placeholder="Search Listings", value="{{query.q}}")
-                  i.fa.fa-fw.fa-search
+              unless clientRecommendationsList
+
+                .col-xs-12.col-md-3.pull-right
+                  .building-title-search-wrapper
+                    input.building-title-search.form-control(type="text", placeholder="Search Listings", value="{{query.q}}")
+                    i.fa.fa-fw.fa-search
 
           if hasAnyFilters
             .col-xs-12
@@ -143,7 +145,12 @@ template(name="city")
 
         if firstLoad
           +loadingSpinner
+
         else
+
+          if clientRecommendationsList
+            +cityBuildings(buildings=buildings queryBtype=query.btype)
+
           if showThumbnails
             +cityBuildings(buildings=buildings queryBtype=query.btype)
 
@@ -153,11 +160,15 @@ template(name="city")
 
           else
             if quickViewBuildingsReady
+
               if buildings
                 +cityQuickView(buildings=buildings queryBtype=query.btype)
+
                 if notAllLoaded
                   .load-more.loading-btn-wrap.m-b-20
-                    .btn.loading-btn.btn-primary.btn-sm Load More...
+                    .btn.loading-btn.btn-primary.btn-sm
+                      | Load More...
+
               else
                 h3 No buildings matching this criteria.
             else

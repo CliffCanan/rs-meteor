@@ -15,6 +15,7 @@ $(window).on("resize", setHeights)
 @setHeights = ->
   $window = $(window)
   windowHeight = $window.outerHeight()
+
   if window.matchMedia("(min-width: 1200px)").matches
     headerHeight = $(".header-wrap").outerHeight()
     filterHeight = $(".city-sub-header").outerHeight()
@@ -22,6 +23,12 @@ $(window).on("resize", setHeights)
   else
     $(".right-bar").outerHeight(windowHeight * 0.6)
     $(".left-bar").css("height", "auto")
+
+  # redraw the map after CSS transition is finished (+ a bit more)
+  # see http://stackoverflow.com/questions/15689656/google-maps-window-only-showing-part-of-the-map
+  setTimeout ->
+    google.maps.event.trigger map, 'resize'
+  , 800
 
 Template.city.onCreated ->
   @data.firstLoad = true
@@ -153,7 +160,6 @@ Template.city.helpers
                 confirmButtonText: "Ok"
                 html: true
             else
-              # analytics.track "Filtered Listings By Location" # This might be duplicative, already tracking when Location Filter form is submitted, while this is on re-loading the page.
               Session.set("cityGeoLocation", [location.lat(), location.lng()])
 
         if Session.get "cityGeoLocation"
@@ -259,7 +265,7 @@ Template.city.helpers
       return '3BR'
     else if query.btype is 'bedroom4'
       return '4BR'
-    else if query.btype is 'studio'
+    else if query.btype is 'studio' or query.btype is 'bedroom0'
       return 'Studio'
     else
       return query.btype
@@ -309,7 +315,6 @@ Template.city.helpers
     i = Template.instance().filterOptions.get()
     i.available
   ###
-
 
   isBizHours: ->
     currentTime = new Date()
@@ -408,7 +413,7 @@ Template.city.onRendered ->
 
   @autorun ->
     if Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients()
-      $('.main-city-list').css marginTop: 52
+      $('.main-city-list').css marginTop: 15
 
     citySubs.dep.depend()
 
