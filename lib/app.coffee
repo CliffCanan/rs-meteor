@@ -55,9 +55,9 @@
   studio:
     lower: "Studio"
     upper: "Studio"
-  bedroom0:
-    lower: "0 BR"
-    upper: "0 Bedroom"
+#  bedroom0:
+#    lower: "0 BR"
+#    upper: "0 Bedroom"
   bedroom1:
     lower: "1 BR"
     upper: "1 Bedroom"

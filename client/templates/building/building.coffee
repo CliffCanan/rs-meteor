@@ -88,7 +88,7 @@ Template.building.helpers
 
   bedroomTypes: (queryBtype) ->
     if queryBtype
-      if queryBtype is "studio"
+      if queryBtype is "studio" or queryBtype is "bedroom0"
         "Studio"
       else if queryBtype is "bedroom1"
         "1 Bedroom"

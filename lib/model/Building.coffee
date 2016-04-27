@@ -217,7 +217,7 @@ class Building
         return btypes[unit.btype]?.upper if unit.btype
 
     if queryBtype
-      if queryBtype is "studio"
+      if queryBtype is "studio" or queryBtype is "bedroom0"
         "Studio"
       else if queryBtype is "bedroom1"
         "1 BR"

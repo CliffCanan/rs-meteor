@@ -82,6 +82,16 @@ Meteor.publishComposite "buildings", (cityId, query, page) ->
     brokerageName: 1
     availableAt: 1
     modifiedAt: 1
+    petsComment: 1
+    parkingComment: 1
+    utilitiesComment: 1
+    laundryComment: 1
+    securityComment: 1
+    isFurnished: 1
+    sqftFrom: 1
+    sqftTo: 1
+    fitnessCenterComment: 1
+    adminAppFee: 1
 
   fields['source.source'] = 1
 
@@ -93,6 +103,7 @@ Meteor.publishComposite "buildings", (cityId, query, page) ->
       adminEscorted: 1
       adminAppFee: 1
       adminAvailability: 1
+      adminOfficeHours: 1
       adminScheduling: 1
       adminContact: 1
       adminNotes: 1
@@ -160,6 +171,7 @@ Meteor.publishComposite "buildingsQuickView", (cityId, query, page) ->
     availableAt: 1
     modifiedAt: 1
     source: 1
+    vimeoId: 1
 
   if Security.canOperateWithBuilding(@userId)
     adminFields = {
@@ -169,6 +181,7 @@ Meteor.publishComposite "buildingsQuickView", (cityId, query, page) ->
       adminEscorted: 1
       adminAppFee: 1
       adminAvailability: 1
+      adminOfficeHours: 1
       adminScheduling: 1
       adminContact: 1
       adminNotes: 1
@@ -375,6 +388,7 @@ Meteor.publish "allBuildingsQuickView", ->
       agroPriceBedroom2To: 1
       availableAt: 1
       modifiedAt: 1
+      vimeoId: 1
 
     Buildings.find({}, {fields: fields})
   else

@@ -27,7 +27,8 @@ template(name="quickViewBuilding")
             else
               i.fa.fa-star-o.green
       div.title-wrapper
-        a(href="{{pathFor route='building' data=processedRouteData}}") {{title}}
+        a(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", data-placement="auto", title="{{address")
+          | {{title}}
 
   if isParent
     td {{availableBedroomTypes}}
@@ -54,8 +55,8 @@ template(name="quickViewBuilding")
     td {{displayBuildingPrice ../queryBtype}}
 
   td
-    if getVideo
-      i.fa.fa-video-camera.m-r-10(data-toggle="tooltip", title="Video is available")
+    if vimeoId
+      i.fa.fa-video-camera.m-r-10.text-success(data-toggle="tooltip", title="Video available")
 
     if adminNotes
-      i.fa.fa-sticky-note(data-toggle="tooltip", title=adminNotes)
+      i.fa.fa-sticky-note.text-primary(data-toggle="tooltip", title=adminNotes)

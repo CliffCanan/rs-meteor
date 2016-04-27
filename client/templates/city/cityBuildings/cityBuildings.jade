@@ -49,7 +49,8 @@ template(name="cityBuildings")
                     if neighborhood
                       span.listingNeighborhood
                         i.fa.fa-map-marker(aria-hidden="true")
-                        span {{neighborhood}}
+                        span(data-toggle="tooltip", data-placement="auto", title="{{address")
+                          | {{neighborhood}}
 
                   if averageRating
                     .ratingWrap.m-t-5(data-toggle="tooltip", data-placement="top", title="Avg Tenant Rating (out of 10")
