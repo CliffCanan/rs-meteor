@@ -11,7 +11,7 @@ template(name="cityBuildings")
 
           .row.main-city-item(itemscope, itemtype="http://schema.org/LocalBusiness")
 
-            a.col-xs-4.col-sm-3.main-city-img-link.p-l-0(href="{{pathFor route='building' data=processedRouteData}}")
+            a.col-xs-3.main-city-img-link.p-l-0(href="{{pathFor route='building' data=processedRouteData}}")
 
               .building-img-wrap.carousel.slide(id="carousel-{{_id}}", data-interval="false", itemscope, itemtype="http://schema.org/ImageGallery")
                 .carousel-inner(role="listbox")
@@ -37,7 +37,7 @@ template(name="cityBuildings")
             //-      i.fa.fa-fw.fa-picture-o
 
 
-            .col-xs-7.col-sm-8.listingInfo
+            .col-xs-8.listingInfo
 
               .row
                 .col-xs-12
@@ -47,52 +47,53 @@ template(name="cityBuildings")
                     a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}") {{processedTitle}}
 
                   if averageRating
-                    .ratingWrap.m-t-5(data-toggle="tooltip", data-placement="auto", title="Average rating - out of 10")
+                    .ratingWrap.m-t-5(data-toggle="tooltip", data-placement="top", title="Avg Tenant Rating (out of 10")
                       i.fa.fa-star
                       span.average-rating(itemprop="ratingValue") {{averageRating}}
 
               .row
-                .col-xs-6.col-sm-5
-                  .main-city-info.clearfix
+                .col-xs-5.col-sm-4.p-l-10.p-r-5
+
+                  .main-city-info
 
                     ul.fa-ul
 
                       if neighborhood
                         li.listingNeighborhood
-                          i.fa.fa-map-marker(aria-hidden="true")
+                          i.fa.fa-li.fa-map-marker(aria-hidden="true")
                           span {{neighborhood}}
 
                       li.listingPrice
-                        i.fa.fa-li.fa-bed(aria-hidden="true")
+                        i.fa.fa-li.fa-usd(aria-hidden="true")
                         span
-                          | Monthly Rent:
+                          //-| Monthly Rent:
                           | {{displayBuildingPrice ../queryBtype}}
 
                       li.listingBeds
-                        i.fa.fa-bed(aria-hidden="true")
+                        i.fa.fa-li.fa-bed(aria-hidden="true")
                         span {{bedroomTypes ../queryBtype}}
 
                       if getBathrooms
                         li.listingBaths
-                          i.fa.fa-venus(aria-hidden="true")
+                          i.fa.fa-li.fa-venus(aria-hidden="true")
                           //img(src="/images/bath.svg")
                           span {{getBathrooms}}
 
                     .row.m-t-15
 
-                      .col-xs-6
-                        a.btn.btn-primary(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}")
+                      .col-xs-12
+                        a.btn.btn-sm.btn-primary(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}")
                           | View Full Listing
-                      .col-xs-6
-                        buton.btn.btn-success.checkAvail-recUnit(type="button", data-toggle="tooltip", title="Click to check the availability of this listing")
-                          | Check Availability
+                      //-.col-xs-6
+                      //-  buton.btn.btn-sm.btn-success.checkAvail-recUnit(type="button", data-toggle="tooltip", title="Click to check the availability of this listing")
+                      //-    | Check Availability
 
                     if brokerageName
                       .brokerage-info
                         span
                           em Listing courtesy of #{brokerageName}
 
-                .col-xs-6.col-sm-7
+                .col-xs-7.col-sm-8.p-l-10.p-r-0
 
                   with getFeatures
 
@@ -108,8 +109,8 @@ template(name="cityBuildings")
               .removeFromRecommendList.m-t-15(data-toggle="tooltip", title="Remove this listing from your recommendations")
                 i.fa.fa-times-circle-o
 
-      //- FOR REGULAR THUMBNAIL VIEW (I.E. NOT RECOMMENDATIONS)
       else
+        //- FOR REGULAR THUMBNAIL VIEW (I.E. NOT RECOMMENDATIONS)
 
         li.col-xs-12.col-sm-6.col-md-4
           .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}", itemscope, itemtype="http://schema.org/LocalBusiness")
@@ -176,7 +177,7 @@ template(name="cityBuildings")
                 a.main-city-item-link(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}", itemprop="name") {{processedTitle}}
 
               if averageRating
-                .ratingWrap.m-t-5(data-toggle="tooltip", data-placement="auto", title="Average rating - out of 10", itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
+                .ratingWrap.m-t-5(data-toggle="tooltip", data-placement="top", title="Avg Tenant Rating (out of 10)", itemprop="aggregateRating", itemscope, itemtype="http://schema.org/AggregateRating")
                   meta(itemprop="worstRating" content="1")
                   meta(itemprop="bestRating" content="10")
                   i.fa.fa-star
