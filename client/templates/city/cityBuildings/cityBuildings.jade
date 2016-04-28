@@ -76,8 +76,7 @@ template(name="cityBuildings")
 
                       if getBathrooms
                         li.listingBaths
-                          i.fa.fa-li.fa-venus(aria-hidden="true")
-                          //img(src="/images/bath.svg")
+                          img(src="/images/bath.svg")
                           span {{getBathrooms}}
 
                       li.checkAvail
@@ -85,7 +84,7 @@ template(name="cityBuildings")
                           i.fa.fa-li.fa-calendar(aria-hidden="true")
                           span(data-toggle="tooltip", title="Click to check the availability for {{processedTitle}}") Check Availability
 
-                    .row.m-t-5
+                    .row(class="{{#if getBathrooms}}m-t-5{{else}}m-t-15{{/if}}")
 
                       .col-xs-12
                         a.btn.btn-sm.btn-primary(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}")

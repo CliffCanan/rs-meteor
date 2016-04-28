@@ -238,7 +238,10 @@ Template.city.helpers
   showThumbnails: ->
     Session.get("viewType") is 'thumbnails'
 
-  showFullWidth: ->
+  isFullWidth: ->
+    Session.get("viewType") is 'fullWidth'
+
+  isQuickView: ->
     Session.get("viewType") is 'fullWidth'
 
   hasAnyFilters: ->
@@ -696,7 +699,9 @@ Template.city.events
     event.stopPropagation()
     Session.set('viewType', 'fullWidth')
 
-
+  "click .showQuickView": (event, template) ->
+    event.stopPropagation()
+    Session.set('viewType', 'quickView')
 
   "keyup .building-title-search": _.debounce((event, template) ->
     event.preventDefault()

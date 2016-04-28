@@ -25,13 +25,15 @@ template(name="city")
                 h4.text-center Picking Recommendations for {{currentClientName}}
 
               else
-                h4.text-center Hi, {{currentClientName}}! &nbsp;Here are your recommended properties:
+                h4.text-center.m-b-20 Hi, {{currentClientName}}! &nbsp;Here are your recommended properties:
 
-            .col-xs-2.col-xs-push-2
-              .btn-group.btn-group-sm
-                a.btn.btn-default.showThumbnailView(data-toggle="tooltip", title="View Thumbnails")
+            .col-xs-2.col-xs-push-2.p-l-5
+              .btn-group.btn-group-sm.pull-right.p-r-5
+                a.btn.btn-default.showThumbnailView(class="{{#if showThumbnails}}active{{/if}}", data-toggle="tooltip", data-placement="bottom", title="View Thumbnails")
                   i.fa.fa-picture-o
-                a.btn.btn-default.showExpandedView(data-toggle="tooltip", title="View Expanded")
+                a.btn.btn-default.showExpandedView(class="{{#if isFullWidth}}active{{/if}}", data-toggle="tooltip", data-placement="bottom", title="View Expanded")
+                  i.fa.fa-list-ul
+                a.btn.btn-default.showQuickView(class="{{#if isQuickView}}active{{/if}}", data-toggle="tooltip", data-placement="bottom", title="Show Quick View")
                   i.fa.fa-list-ul
 
           //- Denis (April 2016): These lines seems useless since unless "Currently recommending properties for ..." block duplicates this functionality
@@ -72,75 +74,77 @@ template(name="city")
                     input.building-title-search.form-control(type="text", placeholder="Search Listings", value="{{query.q}}")
                     i.fa.fa-fw.fa-search
 
-          if hasAnyFilters
-            .col-xs-12
+          unless clientRecommendationsList
+            if hasAnyFilters
+              .col-xs-12
 
-              .row.filterRow
-                .col-xs-12
-                  .filter-options.pull-left.clearfix
-                    if hasNeighborhood
-                      label.label.label-primary.filter-tag(data-tag="neighborhood")
-                        i.fa.fa-check
-                        | {{neighborhood}}
-                        i.fa.fa-times-circle
+                .row.filterRow
+                  .col-xs-12
+                    .filter-options.pull-left.clearfix
+                      if hasNeighborhood
+                        label.label.label-primary.filter-tag(data-tag="neighborhood")
+                          i.fa.fa-check
+                          | {{neighborhood}}
+                          i.fa.fa-times-circle
 
-                    if brTypeExist
-                      label.label.label-primary.filter-tag(data-tag="btype")
-                        i.fa.fa-check
-                        | {{brType}}
-                        i.fa.fa-times-circle
+                      if brTypeExist
+                        label.label.label-primary.filter-tag(data-tag="btype")
+                          i.fa.fa-check
+                          | {{brType}}
+                          i.fa.fa-times-circle
 
-                    if pets
-                      label.label.label-primary.filter-tag(data-tag="pets")
-                        i.fa.fa-check
-                        | Pets
-                        i.fa.fa-times-circle
+                      if pets
+                        label.label.label-primary.filter-tag(data-tag="pets")
+                          i.fa.fa-check
+                          | Pets
+                          i.fa.fa-times-circle
 
-                    if parking
-                      label.label.label-primary.filter-tag(data-tag="parking")
-                        i.fa.fa-check
-                        | Parking
-                        i.fa.fa-times-circle
+                      if parking
+                        label.label.label-primary.filter-tag(data-tag="parking")
+                          i.fa.fa-check
+                          | Parking
+                          i.fa.fa-times-circle
 
-                    if doorman
-                      label.label.label-primary.filter-tag(data-tag="security")
-                        i.fa.fa-check
-                        | Doorman
-                        i.fa.fa-times-circle
+                      if doorman
+                        label.label.label-primary.filter-tag(data-tag="security")
+                          i.fa.fa-check
+                          | Doorman
+                          i.fa.fa-times-circle
 
-                    if fitnessCenter
-                      label.label.label-primary.filter-tag(data-tag="fitnessCenter")
-                        i.fa.fa-check
-                        | Fitness Center
-                        i.fa.fa-times-circle
+                      if fitnessCenter
+                        label.label.label-primary.filter-tag(data-tag="fitnessCenter")
+                          i.fa.fa-check
+                          | Fitness Center
+                          i.fa.fa-times-circle
 
-                    if laundry
-                      label.label.label-primary.filter-tag(data-tag="laundry")
-                        i.fa.fa-check
-                        | In-unit laundry
-                        i.fa.fa-times-circle
+                      if laundry
+                        label.label.label-primary.filter-tag(data-tag="laundry")
+                          i.fa.fa-check
+                          | In-unit laundry
+                          i.fa.fa-times-circle
 
-                    if utilities
-                      label.label.label-primary.filter-tag(data-tag="utilities")
-                        i.fa.fa-check
-                        | Utilities
-                        i.fa.fa-times-circle
+                      if utilities
+                        label.label.label-primary.filter-tag(data-tag="utilities")
+                          i.fa.fa-check
+                          | Utilities
+                          i.fa.fa-times-circle
 
-                    if hasFromPrice
-                      label.label.label-primary.filter-tag(data-tag="from")
-                        i.fa.fa-check
-                        | Min ${{fromPrice}}
-                        i.fa.fa-times-circle
+                      if hasFromPrice
+                        label.label.label-primary.filter-tag(data-tag="from")
+                          i.fa.fa-check
+                          | Min ${{fromPrice}}
+                          i.fa.fa-times-circle
 
-                    if hasToPrice
-                      label.label.label-primary.filter-tag(data-tag="to")
-                        i.fa.fa-check
-                        | Max ${{toPrice}}
-                        i.fa.fa-times-circle
+                      if hasToPrice
+                        label.label.label-primary.filter-tag(data-tag="to")
+                          i.fa.fa-check
+                          | Max ${{toPrice}}
+                          i.fa.fa-times-circle
 
-                    //-if available
-                    //-  label.label.label-primary.filter-tag Available {{available}}
-
+                      //-if available
+                      //-  label.label.label-primary.filter-tag Available {{available}}
+          else
+            br
 
         #mobile-cta.clearfix
           h3 Too busy to search yourself?
@@ -164,7 +168,7 @@ template(name="city")
 
         else
 
-          if showFullWidth
+          if isFullWidth
             +cityBuildings(buildings=buildings queryBtype=query.btype)
 
           else if showThumbnails
