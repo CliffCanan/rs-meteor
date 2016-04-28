@@ -30,9 +30,9 @@ template(name="city")
             .col-xs-2.col-xs-push-2.p-l-5
               .btn-group.btn-group-sm.pull-right.p-r-5
                 a.btn.btn-default.showThumbnailView(class="{{#if showThumbnails}}active{{/if}}", data-toggle="tooltip", data-placement="bottom", title="View Thumbnails")
-                  i.fa.fa-picture-o
+                  i.fa.fa-th-large
                 a.btn.btn-default.showExpandedView(class="{{#if isFullWidth}}active{{/if}}", data-toggle="tooltip", data-placement="bottom", title="View Expanded")
-                  i.fa.fa-list-ul
+                  i.fa.fa-expand
                 a.btn.btn-default.showQuickView(class="{{#if isQuickView}}active{{/if}}", data-toggle="tooltip", data-placement="bottom", title="Show Quick View")
                   i.fa.fa-list-ul
 
@@ -64,7 +64,7 @@ template(name="city")
 
                 .col-xs-2.col-md-3.filter-wrap.unpublished-property-toggle-wrapper.hide-md
                   span Toggle Unpublished Properties:
-                  label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(data-toggle="tooltip", title="Show unpublished properties")
+                  label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(data-toggle="tooltip", data-placement="bottom", title="Show unpublished properties")
                     input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
               unless clientRecommendationsList

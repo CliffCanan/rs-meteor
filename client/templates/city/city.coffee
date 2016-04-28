@@ -242,7 +242,7 @@ Template.city.helpers
     Session.get("viewType") is 'fullWidth'
 
   isQuickView: ->
-    Session.get("viewType") is 'fullWidth'
+    Session.get("viewType") is 'quickView'
 
   hasAnyFilters: ->
     if Session.get "currentNeighborhood"
