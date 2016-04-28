@@ -17,10 +17,22 @@ template(name="city")
       .main-city-list-wrap.left-bar.clearfix.pull-left
 
         if clientRecommendationsList
-          if canManageClients
-            h4.text-center.m-t-5 Recommendations for {{currentClientName}}
-          else
-            h4.text-center Hi, {{currentClientName}}! &nbsp;Here are your recommended properties:
+          .row
+
+            .col-xs-8.col-xs-push-2
+
+              if canManageClients
+                h4.text-center Picking Recommendations for {{currentClientName}}
+
+              else
+                h4.text-center Hi, {{currentClientName}}! &nbsp;Here are your recommended properties:
+
+            .col-xs-2.col-xs-push-2
+              .btn-group.btn-group-sm
+                a.btn.btn-default.showThumbnailView(data-toggle="tooltip", title="View Thumbnails")
+                  i.fa.fa-picture-o
+                a.btn.btn-default.showExpandedView(data-toggle="tooltip", title="View Expanded")
+                  i.fa.fa-list-ul
 
           //- Denis (April 2016): These lines seems useless since unless "Currently recommending properties for ..." block duplicates this functionality
           //-unless canRecommend
@@ -40,6 +52,7 @@ template(name="city")
                       span.caret
                     ul.dropdown-menu.list-unstyled
                       li.city-sub-header-item(data-value="thumbnails") Thumbnails
+                      li.city-sub-header-item(data-value="fullWidth") Full Width
                       li.city-sub-header-item(data-value="quickView") Quick View
 
                 .col-xs-2.hide-md
@@ -49,7 +62,7 @@ template(name="city")
 
                 .col-xs-2.col-md-3.filter-wrap.unpublished-property-toggle-wrapper.hide-md
                   span Toggle Unpublished Properties:
-                  label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(title="Show unpublished properties")
+                  label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(data-toggle="tooltip", title="Show unpublished properties")
                     input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
               unless clientRecommendationsList
@@ -151,7 +164,7 @@ template(name="city")
 
         else
 
-          if clientRecommendationsList
+          if showFullWidth
             +cityBuildings(buildings=buildings queryBtype=query.btype)
 
           else if showThumbnails

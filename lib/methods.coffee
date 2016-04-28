@@ -107,7 +107,9 @@ Meteor.methods
     ClientRecommendations.update(clientId, {$addToSet: {buildingIds: buildingId}})
 
   "unrecommendBuilding": (clientId, buildingId) ->
-    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    # Cliff (4/28/16): commenting out the Admin requirement so that Clients can remove listings they
+    #                  don't like from the recommendation list sent to them.
+    #return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
     ClientRecommendations.update(clientId, {$pull: {buildingIds: buildingId}})
 
   "recommendUnit": (clientId, unitId, parentId) ->

@@ -34,7 +34,14 @@ Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
   @quickViewBuildingsReady = new ReactiveVar(null)
-  Session.setDefault "viewType", "thumbnails"
+
+  if Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients()
+    # Make the default view the Full Width view for Clients viewing Recommendations
+    Session.setDefault "viewType", "fullWidth"
+  else
+    # Otherwise for admins and regular visitors, make Thumbnail View the default
+    Session.setDefault "viewType", "thumbnails"
+
   Session.set('adminShowUnpublishedProperties', false)
 
   # Show Contact Us Popup after 22s (tablet/desktop) or 16s (mobile)
@@ -113,7 +120,7 @@ Template.city.helpers
       selector.isPublished = true if not Session.get('adminShowUnpublishedProperties')
 
       viewType = Session.get("viewType")
-      if viewType is 'thumbnails'
+      if viewType is 'thumbnails' or viewType is 'fullWidth'
         limit = Session.get("cityBuildingsLimit")
       else if viewType is 'quickView'
         limit = Session.get("cityBuildingsLimit") * 4
@@ -225,10 +232,14 @@ Template.city.helpers
   currentViewType: ->
     switch Session.get("viewType")
       when 'quickView' then return "Quick View"
+      when 'fullWidth' then return "Full Width"
       else return "Thumbnails"
 
   showThumbnails: ->
     Session.get("viewType") is 'thumbnails'
+
+  showFullWidth: ->
+    Session.get("viewType") is 'fullWidth'
 
   hasAnyFilters: ->
     if Session.get "currentNeighborhood"
@@ -676,6 +687,16 @@ Template.city.events
       if data.neighborhoodSlug and filterId != "neighborhood"
         routeParams.neighborhoodSlug = data.neighborhoodSlug
       Router.go(routeName, routeParams, {query: query})
+
+  "click .showThumbnailView": (event, template) ->
+    event.stopPropagation()
+    Session.set('viewType', 'thumbnails')
+
+  "click .showExpandedView": (event, template) ->
+    event.stopPropagation()
+    Session.set('viewType', 'fullWidth')
+
+
 
   "keyup .building-title-search": _.debounce((event, template) ->
     event.preventDefault()

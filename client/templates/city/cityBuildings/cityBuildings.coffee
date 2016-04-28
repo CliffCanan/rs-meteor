@@ -8,20 +8,25 @@ Template.cityBuildings.onRendered ->
 
   instance = Template.instance()
 
-  $('[data-toggle="tooltip"]').tooltip() if $(window).width() > 1030
+  Meteor.setTimeout ->
+    $('[data-toggle="tooltip"]').tooltip() if $(window).width() > 1030
+  , 1000
 
   _.defer ->
     $('[data-toggle="tooltip"]').tooltip() if $(window).width() > 1030
 
     unless $.fn.hoverIntent
       $.getScript 'https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js', ->
+
         $(".main-city-list").hoverIntent ->
-          if $(window).width() < 1100
+
+          if $(window).width() < 1100 or (Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients())
             if not $(this).hasClass('images-subscribed')
               $carousel = $(this).find('.carousel')
               building = Blaze.getData(this)
               instance.subscribe "buildingImages", building._id
               $(this).addClass('images-subscribed')
+
         , '.main-city-img-link'
 
 Template.cityBuildings.helpers
@@ -70,14 +75,9 @@ Template.cityBuildings.helpers
     if $(window).width() < 1030
       return true
 
-  isRecommendationsList: ->
-    # Added by Cliff (4/26/16): Only want to be true when the CLIENT is viewing the recommendation list
-    # This Helper will determine which type of 'Thumbnail View' to display: regular, or the one I'm now creating for Recommendations.
-    if Router.current().route.getName() is "clientRecommendations" or Session.get('recommendationsClientObject')
-      unless Security.canManageClients()
-        return true
+  showFullWidthView: ->
+    Session.get("viewType") is 'fullWidth'
 
-    false
 
 convertTimeToMins = (time) ->
   if time.indexOf("days") == -1

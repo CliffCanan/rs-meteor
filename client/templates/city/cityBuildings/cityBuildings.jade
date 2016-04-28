@@ -5,7 +5,7 @@ template(name="cityBuildings")
     each buildings
 
       //- FOR RECOMMENDATIONS VIEW (CLIENT ONLY)
-      if isRecommendationsList
+      if showFullWidthView
 
         li.col-xs-12.full-width
 
@@ -85,7 +85,7 @@ template(name="cityBuildings")
                           i.fa.fa-li.fa-calendar(aria-hidden="true")
                           span(data-toggle="tooltip", title="Click to check the availability for {{processedTitle}}") Check Availability
 
-                    .row.m-t-15
+                    .row.m-t-5
 
                       .col-xs-12
                         a.btn.btn-sm.btn-primary(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", title="Click to see {{processedTitle}}")
@@ -104,6 +104,8 @@ template(name="cityBuildings")
                       li.listingFeature(data-toggle="tooltip", data-placement="top", title="{{commentValue}}")
                         i.fa.fa-li(class="{{iconClass}}")
                         span.building-features-text {{text}}
+                        if commentValue
+                          i.fa.fa-question-circle
 
                     with getFeatures
                       each .
