@@ -4,7 +4,7 @@ template(name="cityBuildings")
 
     each buildings
 
-      //- FOR REGULAR THUMBNAIL VIEW (I.E. NOT RECOMMENDATIONS)
+      //- FOR RECOMMENDATIONS VIEW (CLIENT ONLY)
       if isRecommendationsList
 
         li.col-xs-12.full-width
@@ -83,7 +83,7 @@ template(name="cityBuildings")
                       li.checkAvail
                         a.checkAvail-recUnit(href="#")
                           i.fa.fa-li.fa-calendar(aria-hidden="true")
-                          span Check Availability(data-toggle="tooltip", title="Click to check the availability of this listing")
+                          span(data-toggle="tooltip", title="Click to check the availability for {{processedTitle}}") Check Availability
 
                     .row.m-t-15
 
@@ -98,9 +98,14 @@ template(name="cityBuildings")
 
                 .col-xs-12.col-sm-8.p-l-10.p-r-0
 
-                  with getFeatures
+                  ul.fa-ul.listingFeaturesWrap
 
-                    ul.fa-ul.listingFeaturesWrap
+                    each complexFields
+                      li.listingFeature(data-toggle="tooltip", data-placement="top", title="{{commentValue}}")
+                        i.fa.fa-li(class="{{iconClass}}")
+                        span.building-features-text {{text}}
+
+                    with getFeatures
                       each .
                         li.listingFeature
                           i.fa.fa-li.fa-check.text-primary(aria-hidden="true")

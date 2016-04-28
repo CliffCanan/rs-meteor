@@ -17,7 +17,10 @@ template(name="city")
       .main-city-list-wrap.left-bar.clearfix.pull-left
 
         if clientRecommendationsList
-          h4.pull-left.m-t-0 Recommendations for {{currentClientName}}
+          if canManageClients
+            h4.text-center.m-t-5 Recommendations for {{currentClientName}}
+          else
+            h4.text-center Hi, {{currentClientName}}! &nbsp;Here are your recommended properties:
 
           //- Denis (April 2016): These lines seems useless since unless "Currently recommending properties for ..." block duplicates this functionality
           //-unless canRecommend
@@ -180,3 +183,25 @@ template(name="city")
 
           if showIDXDisclaimer
             +idxDisclaimer
+
+
+  .videoPreviewModal.modal.fade(tabindex='-1', role='dialog', data-backdrop="static")
+    .modal-dialog.modal-lg
+      .modal-content
+
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-label="Close")
+            .span(aria-hidden="true")
+              | &times;
+
+          h4.modal-title Picking Video For: <strong>{{title}}</strong>
+
+        .modal-body
+          .container-fluid.vimeo-container
+            .row
+              .col-xs-12
+                iframe(src="", width="638", height="360" frameborder="0", webkitallowfullscreen,mozallowfullscreen,allowfullscreen)
+
+        .modal-footer
+          button.btn.btn-default(type="button", data-dismiss="modal") Close
+          a#viewListing.btn.btn-primary View Listing

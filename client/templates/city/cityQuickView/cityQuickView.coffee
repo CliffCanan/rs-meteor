@@ -124,3 +124,11 @@ Template.cityQuickView.events
     console.log "Session ID is %s, initial Id is %s", Session.get('clientId'), template.initialRecommendBuildingId.get()
     Meteor.call "recommendBuilding", Session.get('clientId'), template.initialRecommendBuildingId.get()
     Session.set('recommendationsClientObject', clientObject)
+
+  'click .videoExists': (event, template) ->
+    console.log("cityQuickView -> Events: click .videoExists Triggered")
+    console.log(@)
+
+    $('.videoPreviewModal iframe').attr('src',@vimeoId)
+
+    $('.videoPreviewModal').modal('show')

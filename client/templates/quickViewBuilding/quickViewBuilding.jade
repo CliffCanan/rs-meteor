@@ -55,8 +55,10 @@ template(name="quickViewBuilding")
     td {{displayBuildingPrice ../queryBtype}}
 
   td
-    if vimeoId
-      i.fa.fa-video-camera.m-r-10.text-success(data-toggle="tooltip", title="Video available")
+    span.quickViewTableIcons
+      if vimeoId
+        button.videoExists(type="button", data-toggle="tooltip", title="Video available")
+          i.fa.fa-video-camera.m-r-10.text-success
 
-    if adminNotes
-      i.fa.fa-sticky-note.text-primary(data-toggle="tooltip", title=adminNotes)
+      if adminNotes
+        i.fa.fa-sticky-note.text-primary(data-toggle="tooltip", title=adminNotes)

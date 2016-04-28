@@ -123,11 +123,12 @@ Template.cityBuildings.events
     buildingId = @._id
     buildingIds = Router.current().data().buildingIds || []
 
+    console.log(clientId)
+    console.log(buildingId)
+
     if @._id in buildingIds
       Meteor.call "unrecommendBuilding", clientId, buildingId
-      toastr.success('Listing Removed')
-    else
-      Meteor.call "recommendBuilding", clientId, buildingId
+      toastr.error('Listing Removed')
 
     false
 
