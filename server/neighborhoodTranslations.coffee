@@ -15,7 +15,7 @@
 	"art museum (fairmo": "Fairmount"
 	"phila (north)": "North Philly"
 	"phila (south)": "South Philly"
-	"phila (west)": "West Philly"
+	"phila (west)": "West Philadelphia"
 	"center city south": "Center City"
 	"loft district": "Callowhill"
 	"francisville": "Spring Garden"

@@ -92,6 +92,7 @@ Meteor.publishComposite "buildings", (cityId, query, page) ->
     sqftTo: 1
     fitnessCenterComment: 1
     adminAppFee: 1
+    vimeoId: 1
 
   fields['source.source'] = 1
 
