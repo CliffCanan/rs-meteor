@@ -120,6 +120,7 @@ share.user = (fields, userId = Meteor.userId()) ->
 
 share.intval = (value) ->
   parseInt(value, 10) || 0
+
 share.floatval = (value) ->
   parseFloat(value) || 0
 
@@ -161,7 +162,7 @@ if Meteor.isServer
         # Group all properties by city, neighborhood slug and add a total number of properties for each group
         {$group: {_id: {city: '$cityId', neighborhood: '$neighborhood', neighborhoodSlug: '$neighborhoodSlug'}, count: { '$sum': 1 }}}
         # Sort by most properties first
-        {$sort: {name: 1}}
+        {$sort: {_id.neighborhood: 1}}
         # Group them again by city, and have a neighborhoods array with name, slug
         {$group: {_id: '$_id.city', neighborhoods: {$push: {name: '$_id.neighborhood', slug: '$_id.neighborhoodSlug'}}}}
       ])
@@ -183,6 +184,6 @@ share.neighborhoodsInCity = (cityId) ->
 
     if results
       filteredResults = _.reject(results.neighborhoods, (n) ->
-        n is not "" and n.length > 2
+        n.trim() is not "" and n.length > 3
       )
       filteredResults

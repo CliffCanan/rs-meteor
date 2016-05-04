@@ -42,7 +42,9 @@ Template.cityHeader.helpers
 
   neighborhoods: ->
     cityId = @query.cityId || @cityId
-    share.neighborhoodsInCity cityId
+    fullHoodList = share.neighborhoodsInCity cityId
+    console.log(fullHoodList)
+    fullHoodList
 
   currentListingType: ->
     switch @query.listingType
