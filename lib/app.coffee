@@ -158,10 +158,10 @@ if Meteor.isServer
   Meteor.methods
     "neighborhoodsList": ->
       Buildings.aggregate([
-        # Group all properties by city, neighborhood, neighborhood slug and add a total number of properties for each group
-        {$group: {_id: {city: '$cityId', neighborhood: '$neighborhood', neighborhoodSlug: '$neighborhoodSlug'}, count: { '$sum': 1 }}}
+        # Group all properties by city, neighborhood slug and add a total number of properties for each group
+        {$group: {_id: {city: '$cityId', neighborhoodSlug: '$neighborhoodSlug'}, count: { '$sum': 1 }}}
         # Sort by most properties first
-        {$sort: {count: -1}}
+        {$sort: {name: 1}}
         # Group them again by city, and have a neighborhoods array with name, slug
         {$group: {_id: '$_id.city', neighborhoods: {$push: {name: '$_id.neighborhood', slug: '$_id.neighborhoodSlug'}}}}
       ])
@@ -178,9 +178,11 @@ Meteor.call "neighborhoodsList", (err, result) ->
 
 share.neighborhoodsInCity = (cityId) ->
   if context.neighborhoodsList? and context.neighborhoodsList
+
     results = _.findWhere(context.neighborhoodsList, {cityId: cityId})
+
     if results
       filteredResults = _.reject(results.neighborhoods, (n) ->
-        n is not "" and n.length > 1
+        n is not "" and n.length > 2
       )
       filteredResults
