@@ -17,6 +17,7 @@ diff = difflet
 class @MLSImporter
 	constructor: (settings, options) ->
 		@settings = settings or Meteor.settings.trendrets
+		@tries = 20
 		@options = _.defaults {}, options,
 			retry:
 				retries: 200
@@ -53,16 +54,18 @@ class @MLSImporter
 
 	_sync: (query, originalQuery) ->
 		console.log "MLSImporter:sync"
-		processed = false
-		while not processed
+		attempts = @tries
+		while attempts
 			future = new Future
 
 			try
 				RETS.getAutoLogoutClient @settings, Meteor.bindEnvironment (client) =>
 					@syncProperties(originalQuery, query, client)
-					processed = true
+					attempts = 0
 					future.return()
 			catch e
+				console.log "MLSImporter:sync:error Attempts: #{attempts}", e
+				attempts--
 				html = "<h4>Error During IDX Import</h4><p>" + e + "</p>"
 				Email.send
 					from: "rentscene-reports@rentscene.com"
@@ -82,14 +85,14 @@ class @MLSImporter
 
 	syncProperties: (originalQuery, query, client) ->
 		console.log "MLSImporter:sync:properties"
-
-		processed = false
-		while not processed
+		attempts = @tries
+		while attempts
 			try
 				@_syncProperties originalQuery, query, client
-				processed = true
+				attempts = 0
 			catch e
-				#console.log "MLSImporter:sync:properties:error", e
+				attempts--
+				console.log "MLSImporter:sync:properties:error Attempts: #{attempts}", e
 
 	_syncProperties: (originalQuery, query, client) ->
 		future = new Future
@@ -140,14 +143,14 @@ class @MLSImporter
 
 	syncPhotos: (client, buildingId, listingKey) ->
 		console.log "MLSImporter:sync:photos:start", listingKey
-
-		processed = false
-		while not processed
+		attempts = @tries
+		while attempts
 			try
 				Promise.await @_syncPhotos client, buildingId, listingKey
-				processed = true
+				attempts = 0
 			catch e
-				#console.log "MLSImporter:sync:photos:error", e
+				attempts--
+				console.log "MLSImporter:sync:photos:error Attempts: #{attempts}", e
 
 	_syncPhotos: (client, buildingId, listingKey) ->
 		future = new Future
@@ -190,13 +193,14 @@ class @MLSImporter
 
 	unpublishInactiveProperties: (query, client) ->
 		console.log "MLSImporter:sync:unpublish:start"
-		processed = false
-		while not processed
+		attempts = @tries
+		while attempts
 			try
 				@_unpublishInactiveProperties query, client
-				processed = true
+				attempts = 0
 			catch e
-				#console.log "MLSImporter:sync:unpublish:error", e
+				attempts--
+				console.log "MLSImporter:sync:unpublish:error Attempts: #{attempts}", e
 
 	_unpublishInactiveProperties: (query, client) ->
 		future = new Future
