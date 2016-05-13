@@ -56,11 +56,16 @@ template(name="building")
           .row
 
             .building-main-info.col-xs-12.col-md-5.col-lg-4
+
               if isEdit
                 .form-group.fg-float.buildingTitle
                   .fg-line
                     input.form-control.fg-input.building-main-info-title(type="text", name="title", value="{{title}}")
                   label.fg-label(for="title") Building Title
+                .form-group.dateAvailInputWrap
+                  label Date Available
+                  +datepicker(name="availableAt" value=getAvailableAtDate)
+
               else
                 h1.col-xs-12.col-sm-8.col-md-12.building-main-info-title(itemprop="name", class="{{#if averageRating}}trunc{{/if}}")
                   | {{getUnitTitle}}
@@ -82,6 +87,12 @@ template(name="building")
                   span.m-l-5(itemprop="addressLocality") {{cityName}}
                   //-meta(itemprop="postalCode", content="{{postalCode}}") {{postalCode}}
                   //-meta(itemprop="addressCountry", content="USA")
+
+                with getAvailableAt
+                  .m-t-10
+                    strong Date Available: &nbsp;
+                    | {{moment . 'MM/DD/YYYY'}}
+
 
               if isEdit
                 .building-main-price-wrap.col-xs-12.col-sm-5.col-md-12
@@ -177,9 +188,6 @@ template(name="building")
                         option(value="true", selected="{{condition isFurnished 'is' true}}") Yes
                         option(value="false", selected="{{condition isFurnished 'is' false}}") No
 
-                  label Date Available
-                  +datepicker(name="availableAt" value=getAvailableAtForDatepicker)
-
                   .form-group.clearfix
                     label.col-xs-7.control-label(for="isNotAvailable") Is Not Available:
                     .col-xs-5
@@ -215,17 +223,6 @@ template(name="building")
                       i.fa.fa-check.blue-icon
                       span.building-main-prop-text
                         | {{.}}
-
-                  if isNotAvailable
-                    li.building-main-prop.col-xs-6.col-sm-4.col-lg-6
-                      i.fa.fa-times.grey-icon
-                      span.building-main-prop-text Not Currently Available
-                  else
-                    with getAvailableAt
-                      li.building-main-prop.col-xs-6.col-sm-4.col-lg-6
-                        i.fa.fa-check.blue-icon
-                        span.building-main-prop-text
-                          | Available: {{moment . 'MM/DD/YYYY'}}
 
               unless isEdit
                 button.btn.btn-lg.btn-block.btn-primary.building-main-info-btn.m-t-25.check-availability(type="button") Check Availability

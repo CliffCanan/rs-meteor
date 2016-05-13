@@ -14,6 +14,7 @@
 	"art museum area": "Fairmount"
 	"art museum fairmo": "Fairmount"
 	"art museum (fairmo": "Fairmount"
+	"art museum (brandy": "Fairmount"
 	"phila (north)": "North Philadelphia"
 	"phila (south)": "South Philadelphia"
 	"phila (west)": "West Philadelphia"
@@ -34,4 +35,7 @@
 	"independence sq": "Old City"
 	"penn sq": "Center City"
 	"penrose park": "Northern Liberties"
+	"schuylkill southwest": "Graduate Hospital"
+	"temple university": "North Philadelphia"
+	"chinatown": "Center City East"
 }

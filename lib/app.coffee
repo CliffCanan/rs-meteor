@@ -164,7 +164,7 @@ if Meteor.isServer
         # Sort by most properties first
         {$sort: {count: -1}}
         # Group them again by city, and have a neighborhoods array with name, slug
-        {$group: {_id: '$_id.city', neighborhoods: {$push: {name: '$_id.neighborhood', slug: '$_id.neighborhoodSlug'}}}}
+        {$group: {_id: '$_id.city', neighborhoods: {$push: {name: '$_id.neighborhood', slug: '$_id.neighborhoodSlug', count: '$_id.count'}}}}
         #{$sort: {neighborhoods: 1}}
       ])
 
@@ -185,6 +185,6 @@ share.neighborhoodsInCity = (cityId) ->
 
     if results
       filteredResults = _.reject(results.neighborhoods, (n) ->
-        n is not "" and n.trim().length > 2
+        n.name is not "" and n.length > 1
       )
       filteredResults

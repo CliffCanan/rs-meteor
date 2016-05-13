@@ -76,7 +76,7 @@ main.container
       @media screen and (min-width: 992px)
         float right
       @media screen and (min-width: 1200px)
-        padding-left 40px
+        padding-left 20px
 
       .fg-float.buildingTitle .fg-toggled + .fg-label
         top -18px
@@ -98,6 +98,13 @@ main.container
           width 100%
           float none
           padding 0
+
+      .dateAvailInputWrap
+        label
+          float left
+          margin-right 20px
+          position relative
+          top 4px
 
       .avgRating
         background-color #5cb85c
@@ -130,6 +137,8 @@ main.container
         overflow hidden
         white-space nowrap
         text-overflow ellipsis
+        @media screen and (min-width: 992px)
+          float none
 
       .building-main-price-wrap
         clear both

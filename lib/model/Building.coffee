@@ -123,10 +123,10 @@ class Building
       if @features?.length then @features else @parent()?.features
 
   getAvailableAt: ->
-    if @agroIsUnit and @availableAt > new Date()
+    if @availableAt > new Date()
       @availableAt
 
-  getAvailableAtForDatepicker: ->
+  getAvailableAtDate: ->
     moment(@availableAt).format("MM/DD/YYYY")
 
   canApply: ->

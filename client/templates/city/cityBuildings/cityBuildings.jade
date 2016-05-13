@@ -159,6 +159,9 @@ template(name="cityBuildings")
                     .neighborhood-txt
                       i.fa.fa-map-marker
                       span {{neighborhood}}
+                      br
+                  if address
+                    .address-txt {{address}}
 
               .building-img-wrap.carousel.slide(id="carousel-{{_id}}", data-interval="false", itemscope, itemtype="http://schema.org/ImageGallery")
                 .carousel-inner(role="listbox")
