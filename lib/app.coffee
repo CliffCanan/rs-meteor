@@ -185,6 +185,6 @@ share.neighborhoodsInCity = (cityId) ->
 
     if results
       filteredResults = _.reject(results.neighborhoods, (n) ->
-        n.name is not "" and n.length > 1
+        n.name.trim() is "" #or n.length > 1
       )
       filteredResults

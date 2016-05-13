@@ -155,13 +155,13 @@ template(name="cityBuildings")
                     a.btn.view-details-option(href="{{pathFor route='building' data=processedRouteData}}", data-toggle="tooltip", data-placement="bottom", title="View More Details")
                       i.fa.fa-fw.fa-eye
 
-                  if neighborhood
-                    .neighborhood-txt
+                  .neighborhood-txt
+                    if neighborhood
                       i.fa.fa-map-marker
                       span {{neighborhood}}
                       br
-                  if address
-                    .address-txt {{address}}
+                    if address
+                      .address-txt {{address}}
 
               .building-img-wrap.carousel.slide(id="carousel-{{_id}}", data-interval="false", itemscope, itemtype="http://schema.org/ImageGallery")
                 .carousel-inner(role="listbox")
