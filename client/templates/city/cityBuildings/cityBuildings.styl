@@ -25,14 +25,13 @@
       padding-right 5px
 
       .main-city-item-title
+        display inline-block
         font-family 'Montserrat', Helvetica, sans-serif
-        float left
         font-size 16px
         height 18px
         margin 4px 0 10px
         overflow hidden
         padding 0
-        width 100%
         @media screen and (min-width: 768px)
           font-size 17px
         @media screen and (min-width: 1200px)
@@ -184,7 +183,7 @@
           font-weight normal
           letter-spacing .5px
           opacity .3
-          padding 18px
+          padding 18px 6px
           text-align center
           text-transform uppercase
           transition all .25s ease-out
@@ -276,8 +275,9 @@
       width 18px
 
     .ratingWrap
-      position absolute
-      right 9px
+      float right
+      position relative
+      top 3px
 
 .ext-gallery
   #forMap.is-out ~ .city-page-wrap &

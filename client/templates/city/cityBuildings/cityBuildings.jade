@@ -52,8 +52,13 @@ template(name="cityBuildings")
                         span(data-toggle="tooltip", data-placement="auto", title="{{address}}")
                           | {{neighborhood}}
 
+                  with getAvailableAt
+                    .pull-right
+                      strong Date Available: &nbsp;
+                      | {{moment . 'MMM D, YYYY'}}
+
                   if averageRating
-                    .ratingWrap.m-t-5(data-toggle="tooltip", data-placement="top", title="Avg Tenant Rating (out of 10")
+                    .ratingWrap(data-toggle="tooltip", data-placement="top", title="Avg Tenant Rating (out of 10")
                       i.fa.fa-star
                       span.average-rating(itemprop="ratingValue") {{averageRating}}
 
