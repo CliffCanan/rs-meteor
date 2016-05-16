@@ -40,7 +40,7 @@ template(name="cityBuildings")
             .col-xs-8.listingInfo
 
               .row
-                .col-xs-12
+                .col-xs-12.p-r-0
 
                   h2.main-city-item-title
                     i.fa.m-r-10(class="{{#if agroIsUnit}}fa-bed{{else}}fa-building{{/if}}")
@@ -53,7 +53,7 @@ template(name="cityBuildings")
                           | {{neighborhood}}
 
                   if getAvailableAtDate
-                    .pull-right
+                    .pull-right.availableAtDate
                       strong Date Available: &nbsp;
                       | {{getAvailableAtDate}}
 

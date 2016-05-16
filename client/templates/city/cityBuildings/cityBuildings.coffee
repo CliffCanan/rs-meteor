@@ -77,14 +77,7 @@ Template.cityBuildings.helpers
 
   showFullWidthView: ->
     Session.get("viewType") is 'fullWidth'
-###
-  getAvailableAtFullWidthView: ->
-    if @availableAt > new Date()
-      @availableAt
 
-  availableAtFormattedFullWidthView: ->
-    if @availableAt then moment(@availableAt).format("MMM d, YYYY") else '-'
-###
 
 convertTimeToMins = (time) ->
   if time.indexOf("days") == -1
