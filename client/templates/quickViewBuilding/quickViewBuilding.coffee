@@ -34,7 +34,7 @@ Template.quickViewBuilding.helpers
     if @children then @children.length else '-'
 
   modifiedAtFormatted: ->
-    if @modifiedAt then "Last synced with MLS on: " + (@modifiedAt.getMonth() + 1) + "/" + @modifiedAt.getDate() + "/" +@modifiedAt.getFullYear() else ''
+    if @modifiedAt then "Last synced with MLS on: " + (@modifiedAt.getMonth() + 1) + "/" + @modifiedAt.getDate() + "/" +@modifiedAt.getFullYear() else 'Date added manually'
 
   availableAtStyle: ->
     diff = moment().diff(moment(@modifiedAt), 'days')

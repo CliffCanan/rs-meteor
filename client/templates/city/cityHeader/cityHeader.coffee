@@ -43,8 +43,6 @@ Template.cityHeader.helpers
   neighborhoods: ->
     cityId = @query.cityId || @cityId
     fullHoodList = share.neighborhoodsInCity cityId
-    console.log("cityHeader -> Neighborhoods...")
-    console.log(fullHoodList)
     fullHoodList
 
   currentListingType: ->

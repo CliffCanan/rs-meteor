@@ -52,10 +52,10 @@ template(name="cityBuildings")
                         span(data-toggle="tooltip", data-placement="auto", title="{{address}}")
                           | {{neighborhood}}
 
-                  with getAvailableAt
+                  with getAvailableAtFullWidthView
                     .pull-right
                       strong Date Available: &nbsp;
-                      | {{moment . 'MMM D, YYYY'}}
+                      | {{availableAtFormattedFullWidthView}}
 
                   if averageRating
                     .ratingWrap(data-toggle="tooltip", data-placement="top", title="Avg Tenant Rating (out of 10")
