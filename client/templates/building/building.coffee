@@ -421,7 +421,7 @@ Template.building.events
 
       Meteor.setTimeout(() ->
         updateBuilding(buildingId, newObject, item)
-      , 5000)
+      , 3000)
     )
 
   "click .remove-building": grab encapsulate (event, template) ->
