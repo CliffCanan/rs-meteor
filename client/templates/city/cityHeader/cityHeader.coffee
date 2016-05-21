@@ -104,7 +104,7 @@ Template.cityHeader.helpers
   selectedNeighborhood: (event, suggestion, datasetName) ->
     event.preventDefault()
     neighborhoodSlug = suggestion.id
-    data = Template.instance().data
+    data = Template.data
 
     $('[data-toggle="tooltip"]').tooltip() if $(window).width() > 1030
 
