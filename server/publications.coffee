@@ -125,7 +125,7 @@ Meteor.publishComposite "buildingsQuickView", (cityId, query, page) ->
   page = parseInt(page)
   unless page > 0
     page = 1
-  limit = page * (itemsPerPage * 3) # 9 items per page is not enough for Quick Search view
+  limit = page * (itemsPerPage * 4) # 9 items per page is not enough for Quick Search view
 
   selector = {cityId: cityId}
   addQueryFilter(query, selector, @userId, {q: true})

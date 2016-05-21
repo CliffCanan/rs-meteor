@@ -10,9 +10,9 @@ template(name="quickViewBuilding")
         div.recommend-toggle-wrapper
           a.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}", data-isrecommended="{{#if isRecommended}}true{{else}}false{{/if}}")
             if isRecommended
-              i.fa.fa-star.green
+              i.fa.fa-star.green(data-toggle="tooltip", title="Click to un-recommend")
             else
-              i.fa.fa-star-o.green
+              i.fa.fa-star-o.green(data-toggle="tooltip", title="Click to recommend")
       div.title-wrapper
         span {{title}}
 
@@ -37,7 +37,7 @@ template(name="quickViewBuilding")
 
   td {{bathrooms}}
 
-  //td {{getSqft}}
+  td {{getSqft}}
 
   if isParent
     td {{availableSecurityValues}}
@@ -56,9 +56,13 @@ template(name="quickViewBuilding")
 
   td
     span.quickViewTableIcons
-      if vimeoId
+
+      if hasImages
+        i.fa.fa-camera.m-r-10.text-primary(data-toggle="tooltip", title="{{imgCount}} pictures available")
+
+      if hasVideo
         button.videoExists(type="button", data-toggle="tooltip", title="Video available")
           i.fa.fa-video-camera.m-r-10.text-success
 
       if adminNotes
-        i.fa.fa-sticky-note.text-primary(data-toggle="tooltip", title=adminNotes)
+        i.fa.fa-sticky-note.text-danger(data-toggle="tooltip", title=adminNotes)

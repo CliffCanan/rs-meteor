@@ -91,6 +91,18 @@ Template.quickViewBuilding.helpers
     if min
       "$" + accounting.formatNumber(min) + (if min is max then  "" else "+")
 
+  hasVideo: ->
+    return true if @vimeoId else return false
+
+  hasImages: ->
+    return true if @images and @images.length > 0 else return false
+
+  imgCount: ->
+    if @images
+      console.log("Img Count: [" + @images.length + "], Title: [" + @title + "]")
+      return @images.length
+    return 0
+
 #  displayPriceRange: ->
 #    for child in @children
 #      queryBtype = (Number.isInteger child.btype) ? "bedroom" + child.btype : child.btype

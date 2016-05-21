@@ -77,7 +77,7 @@ template(name="cityBuildings")
 
                       li.listingBeds
                         i.fa.fa-li.fa-bed(aria-hidden="true")
-                        span {{bedroomTypes ../queryBtype}}
+                        span {{bedroomTypes}}
 
                       if getBathrooms
                         li.listingBaths
@@ -202,7 +202,7 @@ template(name="cityBuildings")
 
               .main-city-info.clearfix#numBrs
                 i.fa.fa-bed
-                span.main-city-desc {{bedroomTypes ../queryBtype}}
+                span.main-city-desc {{bedroomTypes}} BR
 
               if getBathrooms
                 .main-city-info.clearfix#numBaths

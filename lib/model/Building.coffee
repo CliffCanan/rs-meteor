@@ -219,8 +219,6 @@ class Building
     if queryBtype
       if queryBtype is "studio" or queryBtype is "bedroom0"
         "Studio"
-      else if queryBtype is "bedroom1"
-        "1 BR"
       else
         btypesIds.indexOf(queryBtype) + " BR"
     else
@@ -229,18 +227,14 @@ class Building
       else
         types = []
         postfix = ""
+
         if @agroPriceStudioFrom
           types.push("Studio")
-
-#        if @agroPriceBedroom1From
-#          types.push(1)
-#          postfix = " Bedroom"
 
         for i in [0..5]
           if @["agroPriceBedroom" + i + "From"]
             types.push(i)
-#            postfix = " Bedrooms"
-        types.join(", ") + " BR"
+        types.join(", ")# + " BR"
 
   bedroomTypesArray: ->
     types = []
@@ -314,7 +308,7 @@ class Building
       featuresPrefix = " with "
       featuresSummary = features.join(", ")
 
-    description = "Currently available #{@bedroomTypes()} apartments#{featuresPrefix}#{featuresSummary}. View photos videos, maps and floorplans of units at #{@title} in #{@neighborhood}, #{city}"
+    description = "Currently available #{@bedroomTypes()} BR apartments#{featuresPrefix}#{featuresSummary}. View photos videos, maps and floorplans of units at #{@title} in #{@neighborhood}, #{city}"
 
     if bedrooms.length and bedrooms.length is 1
       availableAt = moment(@availableAt)
