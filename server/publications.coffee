@@ -113,7 +113,7 @@ Meteor.publishComposite "buildings", (cityId, query, page) ->
 
   find: -> Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
   children: [
-    find: (building) -> BuildingImages.find {_id: building.images?[0]?._id}, {fields: 'copies.thumbs': 1}
+    find: (building) -> BuildingImages.find {_id: building.images?[0]?._id}, {fields: 'copies.thumbsSmall': 1}
   ]
 
 Meteor.publishComposite "buildingsQuickView", (cityId, query, page) ->
@@ -191,7 +191,7 @@ Meteor.publishComposite "buildingsQuickView", (cityId, query, page) ->
 
   find: -> Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
   children: [
-    find: (building) -> BuildingImages.find {_id: building.images?[0]?._id}, {fields: 'copies.thumbs': 1}
+    find: (building) -> BuildingImages.find {_id: building.images?[0]?._id}, {fields: 'copies.thumbsSmall': 1}
   ]
 
 Meteor.publish "buildingsSimilar", (buildingId) ->
@@ -234,7 +234,7 @@ Meteor.publish "buildingsSimilar", (buildingId) ->
       imageIds.push _id
 
     if imageIds.length
-      images = BuildingImages.find {_id: $in: imageIds}, {fields: 'copies.thumbs': 1}
+      images = BuildingImages.find {_id: $in: imageIds}, {fields: 'copies.thumbsSmall': 1}
 
   [similarBuildingsCursor, images]
 

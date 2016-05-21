@@ -70,7 +70,7 @@ Template.building.helpers
     building = Buildings.findOne(building.parentId) if building.agroIsUnit and building.parentId
     from = building.agroPriceTotalTo - 300
     to = building.agroPriceTotalTo + 300
-    selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}  
+    selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, isPublished: true, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}  
     Buildings.find(selector, {limit: 4})
 
   buildingUnitsLimited: ->
@@ -222,7 +222,7 @@ Template.building.onRendered ->
     overviewMapControl: true
     mapTypeControl: true
     mapTypeId: google.maps.MapTypeId.ROADMAP
-    maxZoom: 17
+    maxZoom: 18
     minZoom: 11
 
   @map = map
