@@ -92,10 +92,10 @@ Template.quickViewBuilding.helpers
       "$" + accounting.formatNumber(min) + (if min is max then  "" else "+")
 
   hasVideo: ->
-    if @vimeoId return true else return false
+    if @vimeoId then return true else return false
 
   hasImages: ->
-    if @images and @images.length > 0 return true else return false
+    if @images and @images.length > 0 then return true else return false
 
   imgCount: ->
     if @images
