@@ -2,7 +2,7 @@
 
 @BuildingImages = new FS.Collection "images",
   stores: [
-    new FS.Store.FileSystem("images")
+    new FS.Store.FileSystem("images"),
     new FS.Store.FileSystem "thumbs",
       transformWrite: (fileObj, readStream, writeStream) ->
 #        gm(readStream, fileObj.name()).gravity('Center').crop(720, 540, 0, 0).resize("800", null).stream().pipe(writeStream)
