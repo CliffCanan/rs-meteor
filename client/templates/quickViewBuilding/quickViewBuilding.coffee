@@ -34,16 +34,20 @@ Template.quickViewBuilding.helpers
     if @children then @children.length else '-'
 
   modifiedAtFormatted: ->
-    if @modifiedAt then "Last synced with MLS on: " + (@modifiedAt.getMonth() + 1) + "/" + @modifiedAt.getDate() + "/" +@modifiedAt.getFullYear() else 'Date added manually'
+    if @modifiedAt
+      daysAgo = moment().diff(moment(@modifiedAt), 'days')
+      return "Last synced with MLS on: " + (@modifiedAt.getMonth() + 1) + "/" + @modifiedAt.getDate() + "/" + @modifiedAt.getFullYear() + "(" + daysAgo + " days ago)"
+    else
+      return "Date added manually (not from MLS)"
 
   availableAtStyle: ->
     diff = moment().diff(moment(@modifiedAt), 'days')
     style = ""
-    if diff < 2 then style = "color: green"
-    else if diff < 5 then style = "color: gold"
-    else if diff < 10 then style = "color: orange"
+    if diff < 3 then style = "color: green"
+    else if diff < 7 then style = "color: rgb(100,180,0)"
+    else if diff < 14 then style = "color: orange"
     else if diff < 21 then style = "color: red"
-    else style = "color: #333"
+    else style = "color: rgb(130,0,0)"
     style
 
   availableAtFormatted: ->
@@ -99,7 +103,6 @@ Template.quickViewBuilding.helpers
 
   imgCount: ->
     if @images
-      console.log("Img Count: [" + @images.length + "], Title: [" + @title + "]")
       return @images.length
     return 0
 

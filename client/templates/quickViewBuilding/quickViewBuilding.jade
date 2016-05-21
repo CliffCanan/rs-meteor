@@ -58,11 +58,11 @@ template(name="quickViewBuilding")
     span.quickViewTableIcons
 
       if hasImages
-        i.fa.fa-camera.m-r-10.text-primary(data-toggle="tooltip", title="{{imgCount}} pictures available")
+        i.fa.fa-camera.m-r-5.text-primary(data-toggle="tooltip", title="{{imgCount}} pictures available")
 
       if hasVideo
         button.videoExists(type="button", data-toggle="tooltip", title="Video available")
-          i.fa.fa-video-camera.m-r-10.text-success
+          i.fa.fa-video-camera.m-r-5.text-success
 
       if adminNotes
         i.fa.fa-sticky-note.text-danger(data-toggle="tooltip", title=adminNotes)
