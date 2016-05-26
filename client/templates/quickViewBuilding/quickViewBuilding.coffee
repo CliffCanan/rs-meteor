@@ -36,7 +36,7 @@ Template.quickViewBuilding.helpers
   modifiedAtFormatted: ->
     if @modifiedAt
       daysAgo = moment().diff(moment(@modifiedAt), 'days')
-      return "Last synced with MLS on: " + (@modifiedAt.getMonth() + 1) + "/" + @modifiedAt.getDate() + "/" + @modifiedAt.getFullYear() + "(" + daysAgo + " days ago)"
+      return "Last synced with MLS on: " + (@modifiedAt.getMonth() + 1) + "/" + @modifiedAt.getDate() + "/" + @modifiedAt.getFullYear() + " (" + daysAgo + " days ago)"
     else
       return "Date added manually (not from MLS)"
 

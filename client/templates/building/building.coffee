@@ -13,6 +13,20 @@ Template.building.onCreated ->
   @subscribe("buildingReviews", buildingSimilarId)
   @subscribe("buildingsSimilar", buildingSimilarId)
 
+  if Meteor.user()
+    $.getScript '/js/star-rating.min.js', ->
+      $("#adminRating").rating
+        min:1
+        max:10
+        step:0.5
+        size:'md'
+        filledStar: 'fa fa-star'
+        emptyStar: 'fa fa-star-o'
+        showClear: false
+
+    $("#adminRating").rating().on("rating.change", function(event, value, caption) ->
+      toastr.success('Rating: ' + value, 'Building Rated Successfully')
+
 
 Template.building.helpers
   ironRouterHack: ->
@@ -272,13 +286,13 @@ Template.building.onRendered ->
       speed: 600
 
     if $.fn.imgLiquid
-      console.log('Slider init #1 if')
+      #console.log('Slider init #1 if')
       $('#sliderAptImgs .item').imgLiquid
         #fill: false
         verticalAlign: '50%'
       $('#sliderAptImgs .item').css('visibility', 'visible')
     else
-      console.log('Slider init #2 else')
+      #console.log('Slider init #2 else')
       $.getScript '/js/imgLiquid-min.js', ->
         $('#sliderAptImgs .item').imgLiquid
           #fill: false

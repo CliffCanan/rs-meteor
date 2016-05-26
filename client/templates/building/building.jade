@@ -53,6 +53,12 @@ template(name="building")
       form.building-form.content-wrapper.p-t-10
 
         .building-page.clearfix
+
+          if canOperateWithBuilding
+            .row
+              .col-xs-12.buildingAdminRatingWrap
+                input#adminRating.rating-loading(data-show-clear="false", data-show-caption="true")
+
           .row
 
             .building-main-info.col-xs-12.col-md-5.col-lg-4
