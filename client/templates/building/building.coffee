@@ -24,7 +24,7 @@ Template.building.onCreated ->
         emptyStar: 'fa fa-star-o'
         showClear: false
 
-    $("#adminRating").rating().on("rating.change", function(event, value, caption) ->
+    $('#adminRating').rating().on 'rating.change', (event, value, caption) ->
       toastr.success('Rating: ' + value, 'Building Rated Successfully')
 
 
