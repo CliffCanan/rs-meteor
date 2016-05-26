@@ -14,7 +14,7 @@ Template.building.onCreated ->
   @subscribe("buildingsSimilar", buildingSimilarId)
 
 
-Template.building.helpers 
+Template.building.helpers
   ironRouterHack: ->
     Router.current() # reactivity
     editBuildingId = Session.get("editBuildingId")

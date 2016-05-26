@@ -97,7 +97,7 @@
       bedrooms
 
     neighborhood: (obj) ->
-      lowercaseHood = obj.Subdivision.toLowerCase()
+      lowercaseHood = obj.Subdivision.toLowerCase().trim()
 
       #Check if the neighborhood from the IDX feed should be updated to a standardized neighborhood (it'll be capitalized there, so no need to "titleize" again)
       NeighborhoodTranslations[lowercaseHood] or s.titleize(obj.Subdivision)

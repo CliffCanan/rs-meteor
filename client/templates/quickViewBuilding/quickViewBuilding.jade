@@ -44,8 +44,10 @@ template(name="quickViewBuilding")
     td {{availableLaundryValues}}
     td
   else
-    td {{securityValue}}
-    td {{laundryValue}}
+    td
+      span(data-toggle="tooltip", title=securityComment) {{securityValue}}
+    td
+      span(data-toggle="tooltip", title=laundryComment) {{laundryValue}}
     td
       span(data-toggle="tooltip", title=modifiedAtFormatted style=availableAtStyle) {{availableAtFormatted}}
 

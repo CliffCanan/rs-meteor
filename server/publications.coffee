@@ -87,10 +87,10 @@ Meteor.publishComposite "buildings", (cityId, query, page) ->
     utilitiesComment: 1
     laundryComment: 1
     securityComment: 1
+    fitnessCenterComment: 1
     isFurnished: 1
     sqftFrom: 1
     sqftTo: 1
-    fitnessCenterComment: 1
     adminAppFee: 1
     vimeoId: 1
 
@@ -173,6 +173,16 @@ Meteor.publishComposite "buildingsQuickView", (cityId, query, page) ->
     modifiedAt: 1
     source: 1
     vimeoId: 1
+    petsComment: 1
+    parkingComment: 1
+    utilitiesComment: 1
+    laundryComment: 1
+    securityComment: 1
+    fitnessCenterComment: 1
+    brokerageName: 1
+    adminAppFee: 1
+    isFurnished: 1
+
 
   if Security.canOperateWithBuilding(@userId)
     adminFields = {

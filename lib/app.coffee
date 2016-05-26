@@ -145,6 +145,23 @@ share.canRecommend = () ->
   Session.get("recommendationsClientObject") and Security.canManageClients()
 
 share.exitRecommendationsMode = () ->
+
+  swal
+    title: "Send Recommendation Email To Client?"
+    text: "Do you want to send the Client Recommendation Email to [CLIENT NAME]?"
+    type: "warning"
+    confirmButtonColor: "#4588fa"
+    confirmButtonText: "Yes"
+    showCancelButton: true
+    cancelButtonText: "No"
+    showLoaderOnConfirm: true
+    html: true
+    , (isConfirm) ->
+      if isConfirm
+        # SEND EMAIL TEMPLATE HERE
+
+        toastr.success('Email sent successfully to [CLIENT EMAIL]')
+
   if Router.current().data
     Router.go "city", cityId: Router.current().data().cityId
   else
@@ -186,6 +203,6 @@ share.neighborhoodsInCity = (cityId) ->
 
     if results
       filteredResults = _.reject(results.neighborhoods, (n) ->
-        n.name.trim() is "" #or n.length > 1
+        n.name.trim() is "" or n.name.trim() is "None Available" #or n.length > 1
       )
       filteredResults

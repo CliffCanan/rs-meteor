@@ -174,15 +174,20 @@ class Building
     fields = []
     for fieldName in ["laundry", "security", "fitnessCenter", "pets", "parking", "utilities"]
       value = @[fieldName]
+
       unless edit
         value = value or @parent()?[fieldName]
+
       if edit or value
         commentName = fieldName + "Comment"
         comment = @[commentName]
+
         unless edit
           comment = comment or @parent()?[fieldName + "Comment"]
+
         field =
           commentValue: comment
+
         if edit
           field.label = complexFieldsValues[fieldName].label
           values = for v, k in complexFieldsValues[fieldName].values
@@ -238,7 +243,7 @@ class Building
 
   bedroomTypesArray: ->
     types = []
-    if @agroPriceStudioFrom
+    if @agroPriceStudioFrom of @agroPriceBedroom0From
       types.push("Studio")
     for i in [0..5]
       if @["agroPriceBedroom" + i + "From"]
@@ -284,16 +289,19 @@ class Building
 
   metaTags: ->
     bedrooms = @bedroomTypesArray()
-    city = cities[@cityId].human
+    city = cities[@cityId].short
+    neighborhood = if @neighborhood then @neighborhood else ''
     prefix = ''
     suffix = ''
     if bedrooms.length
       if bedrooms.length is 1
-        prefix = "#{bedrooms[0]} - "
+        prefix = '#{bedrooms[0]} Apartment '
       else
-        suffix = ' Rentals'
+        suffix = ' Apartment Rentals in'
 
-    title = "#{prefix}#{@title}#{suffix}, #{city}"
+    title = "#{prefix}#{@title}#{suffix}, #{{neighborhood}} | #{city}"
+    if title.length > 64
+      title = title.substring(0, 65)
 
     features = []
     featuresPrefix = ''
