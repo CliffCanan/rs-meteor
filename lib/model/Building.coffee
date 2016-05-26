@@ -243,7 +243,7 @@ class Building
 
   bedroomTypesArray: ->
     types = []
-    if @agroPriceStudioFrom of @agroPriceBedroom0From
+    if @agroPriceStudioFrom or @agroPriceBedroom0From
       types.push("Studio")
     for i in [0..5]
       if @["agroPriceBedroom" + i + "From"]
@@ -290,14 +290,14 @@ class Building
   metaTags: ->
     bedrooms = @bedroomTypesArray()
     city = cities[@cityId].short
-    neighborhood = if @neighborhood then @neighborhood else ''
+    neighborhood = if @neighborhood then @neighborhood else ""
     prefix = ''
     suffix = ''
     if bedrooms.length
       if bedrooms.length is 1
-        prefix = '#{bedrooms[0]} Apartment '
+        prefix = "#{bedrooms[0]} Apartment "
       else
-        suffix = ' Apartment Rentals in'
+        suffix = " Apartment Rentals in"
 
     title = "#{prefix}#{@title}#{suffix}, #{{neighborhood}} | #{city}"
     if title.length > 64
