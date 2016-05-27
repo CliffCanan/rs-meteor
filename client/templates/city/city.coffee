@@ -43,6 +43,8 @@ Template.city.onCreated ->
     Session.setDefault "viewType", "thumbnails"
 
   Session.set('adminShowUnpublishedProperties', false)
+  cityPageData = Session.get("neighborhoodPageData") or Session.get("cityPageData")
+  Session.set("cityBuildingsLimit", cityPageData.page * 20) if cityPageData
 
   # Show Contact Us Popup after 22s (tablet/desktop) or 16s (mobile)
   if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
@@ -83,23 +85,20 @@ Template.city.helpers
   showClientRecommendationsName: ->
     Template.city.__helpers[" isClientRecommendationsList"].call(@) and not Security.canManageClients()
 
-  loadingThumbnailBuildings: ->
-    citySubs.dep.depend()
-    ready = citySubs.ready()
-    if ready
-      cityPageData = Session.get("neighborhoodPageData") or Session.get("cityPageData")
-      Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage) if cityPageData
-    !ready
+# IT'S NOT USED AT ALL!
+#  loadingThumbnailBuildings: ->
+#    citySubs.dep.depend()
+#    ready = citySubs.ready()
+#    if ready
+#      cityPageData = Session.get("neighborhoodPageData") or Session.get("cityPageData")
+#      Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage) if cityPageData
+#    !ready
 
   notAllLoaded: ->
     return false if Session.get "showRecommendations"
     Template.instance().buildingsCount.get() < Counts.get("city-buildings-count")
 
   buildings: ->
-    quickViewBuildingsReady = Template.instance().quickViewBuildingsReady.get()
-    if quickViewBuildingsReady isnt null and quickViewBuildingsReady is false
-      return []
-
     filtered = []
     buildings = []
     reactive = false
@@ -345,6 +344,9 @@ Template.city.helpers
 
   quickViewBuildingsReady: ->
     Template.instance().quickViewBuildingsReady.get()
+
+  quickViewBuildingsLoading: ->
+    not Template.instance().quickViewBuildingsReady.get()
 
 markers = {}
 

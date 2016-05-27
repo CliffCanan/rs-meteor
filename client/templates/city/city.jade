@@ -180,19 +180,18 @@ template(name="city")
                 .btn.loading-btn.btn-primary.btn-sm Load More...
 
           else
-            if quickViewBuildingsReady
+            if buildings
+              +cityQuickView(buildings=buildings queryBtype=query.btype)
 
-              if buildings
-                +cityQuickView(buildings=buildings queryBtype=query.btype)
+              if notAllLoaded
+                .load-more.loading-btn-wrap.m-b-20
+                  .btn.loading-btn.btn-primary.btn-sm
+                    | Load More...
 
-                if notAllLoaded
-                  .load-more.loading-btn-wrap.m-b-20
-                    .btn.loading-btn.btn-primary.btn-sm
-                      | Load More...
-
-              else
-                h3 No buildings matching this criteria.
             else
+              h3 No buildings matching this criteria.
+
+            if quickViewBuildingsLoading
               +loadingSpinner
 
 
