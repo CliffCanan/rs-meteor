@@ -13,6 +13,9 @@ Meteor.publish "currentUser", ->
 
 wait = Meteor.wrapAsync((sec, cb) -> setTimeout((-> cb(null)), sec * 1000))
 
+onlyWithImages = (selector) ->
+  selector.images = { $exists: true, $ne: [] }
+
 Meteor.publish "allUsers", ->
   unless @userId
     return []
@@ -111,6 +114,9 @@ Meteor.publishComposite "buildings", (cityId, query, page) ->
     }
     fields = _.extend fields, adminFields
 
+  # skip buildings with no images
+  onlyWithImages selector
+
   find: -> Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
   children: [
     find: (building) -> BuildingImages.find {_id: building.images?[0]?._id}, {fields: 'copies.thumbs': 1}
@@ -199,6 +205,9 @@ Meteor.publishComposite "buildingsQuickView", (cityId, query, page) ->
     }
     fields = _.extend fields, adminFields
 
+  # skip buildings with no images
+  onlyWithImages selector
+
   find: -> Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
   children: [
     find: (building) -> BuildingImages.find {_id: building.images?[0]?._id}, {fields: 'copies.thumbsSmall': 1}
@@ -232,6 +241,9 @@ Meteor.publish "buildingsSimilar", (buildingId) ->
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
 
+  # skip buildings with no images
+  onlyWithImages selector
+
   similarBuildingsCursor = Buildings.find(selector, {limit: 4, fields: fields})
   similarBuildings = similarBuildingsCursor.fetch()
 
@@ -252,6 +264,7 @@ Meteor.smartPublish "recommendedBuildings", (buildingIds) ->
   @addDependency "buildings", "images", (building) ->
     _id = building.images?[0]?._id
     if _id then [BuildingImages.find(_id)] else []
+
 
   Buildings.find({_id: {'$in': buildingIds}}, {sort: {position: -1, createdAt: -1, _id: 1}})
 
