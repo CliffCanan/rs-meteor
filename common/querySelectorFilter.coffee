@@ -56,3 +56,17 @@
     when 'broker' then selector['source.source'] = 'IDX'
     when 'managed' then selector['source.source'] = {$ne: 'IDX'}
     # when 'all' then do nothing
+
+@addMapBoundsFilter = (mapBounds, selector) ->
+  if mapBounds.latitudeMin
+    selector.latitude ?= {}
+    selector.latitude.$gt = mapBounds.latitudeMin
+  if mapBounds.longitudeMin
+    selector.longitude ?= {}
+    selector.longitude.$gt = mapBounds.longitudeMin
+  if mapBounds.latitudeMax
+    selector.latitude ?= {}
+    selector.latitude.$lt = mapBounds.latitudeMax
+  if mapBounds.longitudeMax
+    selector.longitude ?= {}
+    selector.longitude.$lt = mapBounds.longitudeMax

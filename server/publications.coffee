@@ -21,7 +21,7 @@ Meteor.publish "allUsers", ->
     return []
   Meteor.users.find()
 
-Meteor.publishComposite "buildings", (cityId, query, page) ->
+Meteor.publishComposite "buildings", (cityId, query, mapBounds, page) ->
   query.from = "" + query.from
   query.to = "" + query.to
   check(cityId, Match.InArray(cityIds))
@@ -35,6 +35,7 @@ Meteor.publishComposite "buildings", (cityId, query, page) ->
   selector = {parentId: {$exists: false}, cityId: cityId}
   addQueryFilter(query, selector, @userId)
   addIsPublishFilter(@userId, selector)
+  addMapBoundsFilter(mapBounds, selector)
 
   # Limit fields to only those needed to display on city listing. Other fields are for building page.
   fields =
@@ -122,7 +123,7 @@ Meteor.publishComposite "buildings", (cityId, query, page) ->
     find: (building) -> BuildingImages.find {_id: building.images?[0]?._id}, {fields: 'copies.thumbs': 1}
   ]
 
-Meteor.publishComposite "buildingsQuickView", (cityId, query, page) ->
+Meteor.publishComposite "buildingsQuickView", (cityId, query, mapBounds, page) ->
   query.from = "" + query.from
   query.to = "" + query.to
   check(cityId, Match.InArray(cityIds))
@@ -136,6 +137,7 @@ Meteor.publishComposite "buildingsQuickView", (cityId, query, page) ->
   selector = {cityId: cityId}
   addQueryFilter(query, selector, @userId, {q: true})
   addIsPublishFilter(@userId, selector)
+  addMapBoundsFilter(mapBounds, selector)
 
   _.each (_.keys selector), (key) ->
     delete selector[key] if key.indexOf('agro') > -1
@@ -277,11 +279,12 @@ Meteor.publish "buildingImages", (buildingId) ->
   else
     @ready
 
-Meteor.publish "city-buildings-count", (cityId, query = {}) ->
+Meteor.publish "city-buildings-count", (cityId, query = {}, mapBounds) ->
   check(cityId, Match.InArray(cityIds))
   selector = {parentId: {$exists: false}, cityId: cityId}
   addQueryFilter(query, selector)
   addIsPublishFilter(@userId, selector)
+  addMapBoundsFilter(mapBounds, selector)
   Counts.publish(@, "city-buildings-count", Buildings.find(selector))
   undefined
 

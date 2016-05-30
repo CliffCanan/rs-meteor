@@ -51,6 +51,12 @@
 
 @cityIds = Object.keys(cities)
 
+@mapBounds =
+  latitudeMin: null
+  longitudeMin: null
+  latitudeMax: null
+  longitudeMax: null
+
 @btypes =
   studio:
     lower: "Studio"

@@ -24,12 +24,6 @@ $(window).on("resize", setHeights)
     $(".right-bar").outerHeight(windowHeight * 0.6)
     $(".left-bar").css("height", "auto")
 
-  # redraw the map after CSS transition is finished (+ a bit more)
-  # see http://stackoverflow.com/questions/15689656/google-maps-window-only-showing-part-of-the-map
-  setTimeout ->
-    google.maps.event.trigger map, 'resize'
-  , 800
-
 Template.city.onCreated ->
   @data.firstLoad = true
   @buildingsCount = new ReactiveVar(0)
@@ -62,7 +56,8 @@ Template.city.onCreated ->
       params = Router.current().params
       params.query.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
 
-      handle = quickViewSubs.subscribe "buildingsQuickView", params.cityId, params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1
+      if Meteor.isClient then mapBoundsDependency.depend()
+      handle = quickViewSubs.subscribe "buildingsQuickView", params.cityId, params.query, mapBounds, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1
       @quickViewBuildingsReady.set handle.ready()
 
 Template.city.helpers
@@ -415,6 +410,22 @@ Template.city.onRendered ->
     setTimeout ->
       google.maps.event.trigger map, 'resize'
     , 600
+
+    window.map = map
+
+    google.maps.event.addListener map, "idle", ->
+      bounds = map.getBounds()
+      sw = bounds.getSouthWest()
+      ne = bounds.getNorthEast()
+      newMapBounds =
+        latitudeMin: sw.lat()
+        longitudeMin: sw.lng()
+        latitudeMax: ne.lat()
+        longitudeMax: ne.lng()
+      if not _.isEqual(mapBounds, newMapBounds)
+        console.log mapBounds, newMapBounds
+        _.extend(mapBounds, newMapBounds) # overwrite the keys without changing the object
+        mapBoundsDependency.changed()
 
     @map = map
     markers = {}

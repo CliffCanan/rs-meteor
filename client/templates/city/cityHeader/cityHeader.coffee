@@ -26,7 +26,8 @@ Template.cityHeader.onRendered ->
 
 Template.cityHeader.helpers
   showAllListings: ->
-    Meteor.user().role in ["admin", "super", "staff"]
+    user = Meteor.user()
+    user and user.role in ["admin", "super", "staff"]
 
   currentCity: ->
     cityId = @query.cityId || @cityId
@@ -273,8 +274,6 @@ Template.cityHeader.events
       query.available = encodeURIComponent(values.available)
     else
       delete query.available
-
-    console.log(query)
 
     analytics.track "Filtered Listings By Features" unless Meteor.user()
 

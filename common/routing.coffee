@@ -122,9 +122,10 @@ Router.map ->
     name: "city"
     fastRender: true
     subscriptions: ->
+      if Meteor.isClient then mapBoundsDependency.depend()
       [
-        citySubs.subscribe("buildings", @params.cityId, @params.query, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
-        Meteor.subscribe("city-buildings-count", @params.cityId, @params.query)
+        citySubs.subscribe("buildings", @params.cityId, @params.query, mapBounds, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
+        Meteor.subscribe("city-buildings-count", @params.cityId, @params.query, mapBounds)
       ]
     data: ->
       return null unless @params.cityId in cityIds
@@ -183,9 +184,10 @@ Router.map ->
       # We need to clone the property or it will be passed by reference
       query = _.clone(@params.query)
       query.neighborhoodSlug = @params.neighborhoodSlug
+      if Meteor.isClient then mapBoundsDependency.depend()
       [
-        citySubs.subscribe("buildings", @params.cityId, query, if Meteor.isClient then Session.get("neighborhoodPageData")?.page or 1 else 1)
-        Meteor.subscribe("city-buildings-count", @params.cityId, query)
+        citySubs.subscribe("buildings", @params.cityId, query, mapBounds, if Meteor.isClient then Session.get("neighborhoodPageData")?.page or 1 else 1)
+        Meteor.subscribe("city-buildings-count", @params.cityId, query, mapBounds)
       ]
     data: ->
       return null unless @params.cityId in cityIds
