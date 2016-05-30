@@ -187,8 +187,7 @@ if Meteor.isServer
         # Sort by most properties first
         {$sort: {neighborhood: -1}}
         # Group them again by city, and have a neighborhoods array with name, slug
-        {$group: {_id: '$_id.city', neighborhoods: {$push: {name: '$_id.neighborhood', slug: '$_id.neighborhoodSlug', count: '$_id.count'}}}}
-        #{$sort: {neighborhoods: 1}}
+        {$group: {_id: '$_id.city', neighborhoods: {$push: {name: '$_id.neighborhood', slug: '$_id.neighborhoodSlug', count: '$count'}}}}
       ])
 
 @neighborhoodsList = {}
