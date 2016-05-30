@@ -263,8 +263,8 @@ if Meteor.isServer
       importer = new MLSImporter()
       importer.sync Meteor.settings.trendrets.query
 
-    "sendRecommendationEmail": (id) ->
-      console.log "Sending recommendation email"
+    "sendRecommendationEmail": (clientId) ->
+      sendRecommendationsFor clientId
 
     "importProperties": (data) ->
       console.log "====== importProperties ======"

@@ -1,10 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta name="viewport" content="width=device-width, initial scale=1.0" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Custom Apartment Recommendation</title>
-    <style>
+﻿    <style>
         @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600);
 
         p {
@@ -25,13 +19,10 @@
             font-family: "Open Sans","Roboto",Helvetica,sans-serif;
         }
 
-            table td {
-                border-collapse: collapse;
-            }
+        table td {
+            border-collapse: collapse;
+        }
     </style>
-</head>
-
-<body style="margin:0px; padding:0px; width:100%; line-height:140%;">
 
     <div style="background:#eee; font-family:'Open Sans', 'Montserrat', Roboto, 'Trebuchet MS', Arial,sans-serif;color:#444;word-wrap:break-word">
 
@@ -60,14 +51,14 @@
                     <td colspan="2" style="width:100%">
                         <div style="margin-top:20px; padding:5px 15px; color:#666666; font-size:24px; font-weight:bold; line-height:130%; text-align:center;">
                             Apartment Matches For
-                            <span style="display:block;color:#4588fa;font-weight:700">$FirstName$ $LastName$</span>
+                            <span style="display:block;color:#4588fa;font-weight:700">{{name}}</span>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" style="width:100%">
                         <div style="text-align:left; padding:0 15px 1px; font-size:16px; line-height:150%; margin:10px auto; max-width:510px;">
-                            <strong>Hi $FirstName$</strong>,
+                            <strong>Hi {{first}}</strong>,
                             <p style="margin: 12px 0;">We found these apartments that meet all the criteria you requested. Apartment hunting is hard, let us make it easier for you!</p>
 							<p style="margin: 12px 0;">Custom note jawn.</p>
 							<p style="margin: 12px 0;">Let me know what you think of these units and we can go from there.</p>
@@ -75,7 +66,7 @@
 							<div style="font-size: 15px;line-height:1.45;">
 								<p style="margin: 0;"><a href="mailto:toria@rentscene" target="_blank" style="text-decoration:none;">toria@rentscene</a></p>
 								<p style="margin: 0;"><strong>Client Services</strong></p>
-								<p style="margin: 0 0 15px;"><em>Philadelphia Specialist<em></p>
+								<p style="margin: 0 0 15px;"><em>Philadelphia Specialist</em></p>
 							</div>
                         </div>
                     </td>
@@ -94,95 +85,11 @@
                 <tr>
                     <td height="30px" align="center" colspan="2"></td>
                 </tr>
-
-                <tr>
-                    <td align="center">
-
-                        <a style="text-decoration:none;" href="https://www.rentscene.com/$RecommendationLink$?utm_source=recommendation-em&utm_medium=email&utm_content=apt1-img&utm_campaign=recommendation-email" target="_blank">
-                            <img src="https://www.nooch.com/landingpageimages/bedroom1.jpg" style="width:85%; height:auto; border-radius: 12px; border: 1px solid #eee" />
-                        </a>
-
-                        <div style="margin:2px auto 0">
-                            <span style="background:green; display:inline-block; width:10px; height:10px; border-radius:5px; margin:0 5px 0 0"></span>
-                            <div style="display:inline-block; font-size:12px; text-transform:uppercase; font-weight:600">A+ TOP MATCH</div>
-                        </div>
-
-                        <div style="width:100%; font-size:14px;">
-                            <ul style="list-style:none; margin: 2px auto; padding:0">
-                                <li><a href="https://www.rentscene.com/$RecommendationLink$?utm_source=recommendation-em&utm_medium=email&utm_content=apt1-title&utm_campaign=recommendation-email" target="_blank" style="font-size:15px; font-weight: bold; text-decoration:none;">2101 Market St</a></li>
-                                <li>$1,700 - $2,200</li>
-                                <li>1 Bedroom</li>
-                            </ul>
-                        </div>
-
-                    </td>
-                    <td align="center">
-
-                        <a style="text-decoration:none;" href="https://www.rentscene.com/$RecommendationLink$?utm_source=recommendation-em&utm_medium=email&utm_content=apt2-img&utm_campaign=recommendation-email" target="_blank">
-                            <img src="https://www.nooch.com/landingpageimages/kitchen.jpg" style="width:85%; height:auto; border-radius: 12px; border: 1px solid #eee" />
-                        </a>
-                        <div style="margin: 2px auto 0">
-                            <span style="background:green; display:inline-block; width:10px; height:10px; border-radius:5px; margin:0 5px 0 0"></span>
-                            <div style="display:inline-block; font-size:12px; text-transform:uppercase; font-weight:600">A+ TOP MATCH</div>
-                        </div>
-
-                        <div style="width:100%; font-size:14px;">
-                            <ul style="list-style:none; margin: 2px auto; padding:0">
-                                <li><a href="https://www.rentscene.com/$RecommendationLink$?utm_source=recommendation-em&utm_medium=email&utm_content=apt2-title&utm_campaign=recommendation-email" target="_blank" style="font-size:15px; font-weight: bold; text-decoration:none;">1910 Chestnut St.</a></li>
-                                <li>$1,500 - $1,900</li>
-                                <li>1 Bedroom</li>
-                            </ul>
-                        </div>
-
-                    </td>
-
-                </tr>
-                <tr>
-                    <td height="25px" align="center" colspan="2"></td>
-                </tr>
-                <tr>
-                    <td align="center">
-
-                        <a style="text-decoration:none;" href="https://www.rentscene.com/$RecommendationLink$?utm_source=recommendation-em&utm_medium=email&utm_content=apt3-title&utm_campaign=recommendation-email" target="_blank">
-                            <img src="https://www.nooch.com/landingpageimages/living-room.jpg" style="width:84%; height:auto; border-radius: 12px; border: 1px solid #eee" />
-                        </a>
-
-                        <div style="margin:2px auto 0">
-                            <span style="background:#4588fa; display:inline-block; width:10px; height:10px; border-radius:5px; margin:0 5px 0 0"></span>
-                            <div style="display:inline-block; font-size:12px; text-transform:uppercase; font-weight:600">A- MATCH</div>
-                        </div>
-
-                        <div style="width:100%; font-size:14px;">
-                            <ul style="list-style:none; margin: 2px auto; padding:0">
-                                <li><a href="https://www.rentscene.com/$RecommendationLink$?utm_source=recommendation-em&utm_medium=email&utm_content=apt3-title&utm_campaign=recommendation-email" target="_blank" style="font-size:15px; font-weight: bold; text-decoration:none;">2101 Market St</a></li>
-                                <li>$1,700 - $2,200</li>
-                                <li>1 Bedroom</li>
-                            </ul>
-                        </div>
-
-                    </td>
-                    <td align="center">
-                        
-                        <a href="https://www.rentscene.com/$RecommendationLink$?utm_source=recommendation-em&utm_medium=email&utm_content=apt4-img&utm_campaign=recommendation-email" target="_blank">
-                            <img src="https://www.nooch.com/landingpageimages/kitchen2.jpg" style="width:84%; height:auto; border-radius: 12px; border: 1px solid #eee" />
-                        </a>
-
-                        <div style="margin: 2px auto 0">
-                            <span style="background:orange; display:inline-block; width:10px; height:10px; border-radius:5px; margin:0 5px 0 0"></span>
-                            <div style="display:inline-block; font-size:12px; text-transform:uppercase; font-weight:600">B MATCH</div>
-                        </div>
-
-                        <div style="width:100%; font-size:14px;">
-                            <ul style="list-style:none; margin: 2px auto; padding:0">
-                                <li><a href="https://www.rentscene.com/$RecommendationLink$?utm_source=recommendation-em&utm_medium=email&utm_content=apt4-title&utm_campaign=recommendation-email" target="_blank" style="font-size:15px; font-weight: bold; text-decoration:none;">1910 Chestnut St.</a></li>
-                                <li>$1,500 - $1,900</li>
-                                <li>1 Bedroom</li>
-                            </ul>
-                        </div>
-
-                    </td>
-                </tr>
-
+                {{#each buildings}}
+                    <tr>
+                            {{{include "requests/aptRecommendationItem.html" .}}}
+                    </tr>
+                {{/each}}
                 <tr>
                     <td height="10px" align="center" colspan="2"></td>
                 </tr>
@@ -328,6 +235,3 @@
             </tbody>
         </table>
     </div>
-
-</body>
-</html>
