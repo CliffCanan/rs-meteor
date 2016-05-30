@@ -10,7 +10,7 @@ accounting = Meteor.npmRequire('accounting')
 			_.each buildings, (building) ->
 				imageIds = _.map (building.images or []), (image) -> image._id
 				building.image = BuildingImages.findOne({_id: {$in: imageIds}})
-				building.imageUrl = Meteor.absoluteUrl() + building.image.url {store: 'thumbs'}
+				building.imageUrl = Meteor.absoluteUrl() + building.image.url().substr(1)
 				data =
 					cityId: building.cityId
 					neighborhoodSlug: building.neighborhoodSlug
