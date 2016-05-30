@@ -1,0 +1,20 @@
+template(name="emailSendingPopup")
+	#email-sending-popup.modal.fade(tabindex='-1', role='dialog', data-backdrop="static", aria-labelledby='myModalLabel', aria-hidden='true')
+		.modal-dialog
+			.modal-content
+				form.send-recommendation-email-form
+					.modal-header
+						button.close(type='button', data-dismiss='modal', aria-label='Close')
+							i.fa.fa-times(aria-hidden='true')
+						h4.modal-title Client's email hasn't been set yet. Enter it here
+
+					.modal-body
+						form(role="search")
+							.form-group.hide-sm
+								input.js-client-address.form-control.typeahead(type="text", placeholder="Email address")
+								.input-error-message
+
+					.modal-footer
+						a#send-recommendation-email.btn.btn-primary.btn-lg.btn-block
+							| Send recommendations
+							i.fa.fa-chevron-circle-right.m-l-10(aria-hidden='true')
