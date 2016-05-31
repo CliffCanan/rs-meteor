@@ -88,10 +88,14 @@
                 {{#each pairs}}
                     <tr>
                     {{#if left}}
+                    <td align="center" style="width: 50%">
                             {{{include "requests/aptRecommendationItem.html" left}}}
+                    </td>
                     {{/if}}
                     {{#if right}}
+                    <td align="center" style="width: 50%">
                             {{{include "requests/aptRecommendationItem.html" right}}}
+                    </td>
                     {{/if}}
                     </tr>
                 {{/each}}
