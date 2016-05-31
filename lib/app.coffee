@@ -182,6 +182,7 @@ if Meteor.isServer
   Meteor.methods
     "neighborhoodsList": ->
       Buildings.aggregate([
+        {$match: {isPublished: true}}
         # Group all properties by city, neighborhood slug and add a total number of properties for each group
         {$group: {_id: {city: '$cityId', neighborhood: '$neighborhood', neighborhoodSlug: '$neighborhoodSlug'}, count: { '$sum': 1 }}}
         # Sort by most properties first
