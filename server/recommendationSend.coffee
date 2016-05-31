@@ -41,9 +41,11 @@ chunk = Meteor.npmRequire('lodash/chunk')
 	pairs = chunk buildings, 2
 	pairs = _.map pairs, (pair) -> {left: pair[0], right: pair[1]}
 
+	recommendationsUrl = Router.url 'clientRecommendations', {clientId}, {}
+
 	name = client.name
 	[first, last] = name.split " "
 
-	html = Spacebars.toHTML({first, name, pairs}, Assets.getText('requests/aptRecommendationEmail.html'))
+	html = Spacebars.toHTML({first, name, pairs, recommendationsUrl}, Assets.getText('requests/aptRecommendationEmail.html'))
 	subject = Meteor.settings.public.emailRecommendations.title
 	Email.send {from, to, subject, html}
