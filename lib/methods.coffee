@@ -253,11 +253,18 @@ Meteor.methods
     processedRentalApplication.updateNote = "Revert to '#{previousRentalApplication.updateNote}'"
     RentalApplications.update parentId, $set: processedRentalApplication
 
+  "setClientEmail": (id, email) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    ClientRecommendations.update(id, {$set: {email: email}})
+
 if Meteor.isServer
   Meteor.methods
     syncMLS: ->
       importer = new MLSImporter()
       importer.sync Meteor.settings.trendrets.query
+
+    "sendRecommendationEmail": (clientId) ->
+      sendRecommendationsFor clientId
 
     "importProperties": (data) ->
       console.log "====== importProperties ======"

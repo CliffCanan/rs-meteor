@@ -10,6 +10,8 @@
   "difflet": "1.0.1",
   "ent": "2.2.0",
   "vimeo": "1.1.4",
+  "lodash": "4.13.1",
   "rets-client": "https://github.com/edmundkwok/rets-client/archive/2f48688138975b350dcc8532495fa0b7be1e1f99.tar.gz",
-  "wkhtmltopdf-selfcontained": "0.1.6"
+  "wkhtmltopdf-selfcontained": "0.1.6",
+  "accounting": "0.4.1"
 }

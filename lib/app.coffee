@@ -157,10 +157,12 @@ share.canRecommend = () ->
   Session.get("recommendationsClientObject") and Security.canManageClients()
 
 share.exitRecommendationsMode = () ->
+  client = Session.get("recommendationsClientObject")
+  name = client.name
 
   swal
     title: "Send Recommendation Email To Client?"
-    text: "Do you want to send the Client Recommendation Email to [CLIENT NAME]?"
+    text: "Do you want to send the Client Recommendation Email to #{name}?"
     type: "warning"
     confirmButtonColor: "#4588fa"
     confirmButtonText: "Yes"
@@ -170,10 +172,29 @@ share.exitRecommendationsMode = () ->
     html: true
     , (isConfirm) ->
       if isConfirm
-        # SEND EMAIL TEMPLATE HERE
+        email = client.email
+        if email
+          id = client._id
+          Meteor.call "sendRecommendationEmail", id, (error) ->
+            if error
+              console.log 'Error has been returned from "sendRecommendationEmail"', error
+              share.notifyRecommendationsEmailError name
+            else
+              share.notifyRecommendationsSuccessfullySent name
+        else 
+          $('#email-sending-popup').modal('show')
+      else
+        share.redirectFromRecommendationsMode()
 
-        toastr.success('Email sent successfully to [CLIENT EMAIL]')
+share.notifyRecommendationsSuccessfullySent = (name) ->
+  share.redirectFromRecommendationsMode()
+  toastr.success "Email sent successfully to #{name}"
 
+share.notifyRecommendationsEmailError = (name) ->
+  #share.redirectFromRecommendationsMode()
+  toastr.error "Email to #{name} couldn't be sent because of server error"
+
+share.redirectFromRecommendationsMode = ->
   if Router.current().data
     Router.go "city", cityId: Router.current().data().cityId
   else
@@ -182,7 +203,6 @@ share.exitRecommendationsMode = () ->
   Session.set "recommendationsClientObject", null
   Session.set "showRecommendations", null
   Session.set 'clientId', null
-  return
 
 if Meteor.isServer
   Meteor.methods
