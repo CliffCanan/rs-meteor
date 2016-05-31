@@ -85,9 +85,14 @@
                 <tr>
                     <td height="30px" align="center" colspan="2"></td>
                 </tr>
-                {{#each buildings}}
+                {{#each pairs}}
                     <tr>
-                            {{{include "requests/aptRecommendationItem.html" .}}}
+                    {{#if left}}
+                            {{{include "requests/aptRecommendationItem.html" left}}}
+                    {{/if}}
+                    {{#if right}}
+                            {{{include "requests/aptRecommendationItem.html" right}}}
+                    {{/if}}
                     </tr>
                 {{/each}}
                 <tr>

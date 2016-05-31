@@ -1,4 +1,5 @@
 accounting = Meteor.npmRequire('accounting')
+chunk = Meteor.npmRequire('lodash/chunk')
 
 @sendRecommendationsFor = (clientId) ->
 	client = ClientRecommendations.findOne clientId
@@ -26,10 +27,14 @@ accounting = Meteor.npmRequire('accounting')
 					building.priceString += "- $" + building.to if building.from isnt building.to
 					building.bedrooms = model.getBedrooms()
 
+
+				pairs = chunk buildings, 2
+				pairs = _.map pairs, (pair) -> {left: pair[0], right: pair[1]}
 				name = client.name
 				[first, last] = name.split " "
 
-				html = Spacebars.toHTML({first, name, buildings}, Assets.getText('requests/aptRecommendationEmail.html'))
+				console.log pairs
+				html = Spacebars.toHTML({first, name, pairs}, Assets.getText('requests/aptRecommendationEmail.html'))
 				Email.send
 					from: "bender-report@rentscene.com"
 					to: client.email
