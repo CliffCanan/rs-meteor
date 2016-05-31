@@ -41,7 +41,7 @@ Template.city.onCreated ->
   Session.set("cityBuildingsLimit", cityPageData.page * 20) if cityPageData
 
   # Show Contact Us Popup after 22s (tablet/desktop) or 16s (mobile)
-  if Router.current().route.getName() != "clientRecommendations" and not Meteor.user()
+  if Router.current().route.getName() != "clientRecommendations" and location.hostname isnt "localhost" and not Meteor.user()
 
     delay = if $(window).width() < 768 then 16000 else 22000
 
@@ -414,6 +414,7 @@ Template.city.onRendered ->
     window.map = map
 
     google.maps.event.addListener map, "idle", ->
+#      console.log "google.maps idle"
       bounds = map.getBounds()
       sw = bounds.getSouthWest()
       ne = bounds.getNorthEast()
@@ -423,7 +424,7 @@ Template.city.onRendered ->
         latitudeMax: ne.lat()
         longitudeMax: ne.lng()
       if not _.isEqual(mapBounds, newMapBounds)
-        console.log mapBounds, newMapBounds
+#        console.log "mapBoundsDependency.changed"
         _.extend(mapBounds, newMapBounds) # overwrite the keys without changing the object
         mapBoundsDependency.changed()
 

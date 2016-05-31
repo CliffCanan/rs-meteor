@@ -163,7 +163,11 @@ Template.cityHeader.events
       $('.toggle-city-header.icon .btn').attr('data-original-title', 'Hide options')
 
   "click #clear-neighborhoods": (event, template) ->
+    resetMapBounds()
     analytics.track "Clicked Clear-Neighborhoods Btn (City Header)" unless Meteor.user()
+
+  "click .neighborhood-link": (event, template) ->
+    resetMapBounds()
 
   "click .listing-type-select li": (event, template) ->
     data = template.data

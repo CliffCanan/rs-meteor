@@ -51,11 +51,17 @@
 
 @cityIds = Object.keys(cities)
 
-@mapBounds =
+@mapBoundsDefaults =
   latitudeMin: null
   longitudeMin: null
   latitudeMax: null
   longitudeMax: null
+
+@mapBounds = _.extend({}, @mapBoundsDefaults)
+
+@resetMapBounds = ->
+  _.extend(mapBounds, mapBoundsDefaults)
+  mapBoundsDependency.changed()
 
 @btypes =
   studio:

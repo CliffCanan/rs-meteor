@@ -326,7 +326,7 @@ Template.building.onRendered ->
   , 1000
 
   # Show Check Availability Popup after 14 seconds
-  if !Meteor.user() and $(window).width() > 768
+  if location.hostname isnt "localhost" and not Meteor.userId() and $(window).width() > 768
     @popupTimeoutHandle = Meteor.setTimeout ->
       unless Session.get("hasSeenCheckAvailabilityPopup") is true || Session.get("hasSeenContactUsPopup") is true
         unless $('body').hasClass('modal-open')
