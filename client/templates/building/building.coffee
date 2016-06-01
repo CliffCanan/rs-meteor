@@ -19,9 +19,9 @@ Template.building.onCreated ->
         min:1
         max:10
         step:0.5
-        size:'md'
-        filledStar: 'fa fa-star'
-        emptyStar: 'fa fa-star-o'
+        size:'sm'
+        filledStar: '<i class="fa fa-star"></i>'
+        emptyStar: '<i class="fa fa-star-o"></i>'
         showClear: false
 
     $('#adminRating').rating().on 'rating.change', (event, value, caption) ->
