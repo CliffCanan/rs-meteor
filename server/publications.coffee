@@ -1,6 +1,9 @@
-addIsPublishFilter = (userId, selector) ->
+addIsPublishedFilter = (userId, selector) ->
   unless Security.canOperateWithBuilding(userId)
     selector.isPublished = true
+
+addWithImagesFilter = (selector) ->
+  selector.images = { $exists: true, $ne: [] }
 
 Meteor.publish "currentUser", ->
   Meteor.users.find {_id: @userId},
@@ -12,9 +15,6 @@ Meteor.publish "currentUser", ->
       "isNew": 1
 
 wait = Meteor.wrapAsync((sec, cb) -> setTimeout((-> cb(null)), sec * 1000))
-
-onlyWithImages = (selector) ->
-  selector.images = { $exists: true, $ne: [] }
 
 Meteor.publish "allUsers", ->
   unless @userId
@@ -34,7 +34,8 @@ Meteor.publishComposite "buildings", (cityId, query, mapBounds, page) ->
 
   selector = {parentId: {$exists: false}, cityId: cityId}
   addQueryFilter(query, selector, @userId)
-  addIsPublishFilter(@userId, selector)
+  addIsPublishedFilter(@userId, selector)
+  addWithImagesFilter(selector)
   addMapBoundsFilter(mapBounds, selector)
 
   # Limit fields to only those needed to display on city listing. Other fields are for building page.
@@ -115,9 +116,6 @@ Meteor.publishComposite "buildings", (cityId, query, mapBounds, page) ->
     }
     fields = _.extend fields, adminFields
 
-  # skip buildings with no images
-  onlyWithImages selector
-
   find: -> Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
   children: [
     find: (building) -> BuildingImages.find {_id: building.images?[0]?._id}, {fields: 'copies.thumbs': 1}
@@ -136,7 +134,8 @@ Meteor.publishComposite "buildingsQuickView", (cityId, query, mapBounds, page) -
 
   selector = {cityId: cityId}
   addQueryFilter(query, selector, @userId, {q: true})
-  addIsPublishFilter(@userId, selector)
+  addIsPublishedFilter(@userId, selector)
+  addWithImagesFilter(selector)
   addMapBoundsFilter(mapBounds, selector)
 
   _.each (_.keys selector), (key) ->
@@ -207,9 +206,6 @@ Meteor.publishComposite "buildingsQuickView", (cityId, query, mapBounds, page) -
     }
     fields = _.extend fields, adminFields
 
-  # skip buildings with no images
-  onlyWithImages selector
-
   find: -> Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
   children: [
     find: (building) -> BuildingImages.find {_id: building.images?[0]?._id}, {fields: 'copies.thumbsSmall': 1}
@@ -221,6 +217,8 @@ Meteor.publish "buildingsSimilar", (buildingId) ->
   from = building.agroPriceTotalTo - 300
   to = building.agroPriceTotalTo + 300
   selector = {_id: {$ne: building._id}, cityId: building.cityId, parentId: {$exists: false}, bathroomsTo: building.bathroomsTo, agroPriceTotalTo: {$gte: from}, agroPriceTotalTo : {$lte: to}}
+
+  addWithImagesFilter(selector)
 
   # Limit fields to only those needed to display on similar properties block
   fields =
@@ -242,9 +240,6 @@ Meteor.publish "buildingsSimilar", (buildingId) ->
     agroPriceBedroom1To: 1
     agroPriceBedroom2From: 1
     agroPriceBedroom2To: 1
-
-  # skip buildings with no images
-  onlyWithImages selector
 
   similarBuildingsCursor = Buildings.find(selector, {limit: 4, fields: fields})
   similarBuildings = similarBuildingsCursor.fetch()
@@ -283,7 +278,7 @@ Meteor.publish "city-buildings-count", (cityId, query = {}, mapBounds) ->
   check(cityId, Match.InArray(cityIds))
   selector = {parentId: {$exists: false}, cityId: cityId}
   addQueryFilter(query, selector)
-  addIsPublishFilter(@userId, selector)
+  addIsPublishedFilter(@userId, selector)
   addMapBoundsFilter(mapBounds, selector)
   Counts.publish(@, "city-buildings-count", Buildings.find(selector))
   undefined
@@ -302,7 +297,7 @@ Meteor.smartPublish "building", (cityId, slug) ->
     [BuildingImages.find({_id: {$in: imageIds}})]
 
   selector = {cityId: String(cityId), slug: String(slug)}
-  # addIsPublishFilter(@userId, selector)
+  # addIsPublishedFilter(@userId, selector)
   buildings = Buildings.find(selector)
 
   # console.log("buildings: ", buildings.fetch())
@@ -325,7 +320,7 @@ Meteor.smartPublish "buildingParent", (cityId, slug) ->
     else
       []
   selector = {_id: childBuilding._id}
-  addIsPublishFilter(@userId, selector)
+  addIsPublishedFilter(@userId, selector)
   [Buildings.find(selector)]
 
 Meteor.publish "buildingReviews", (buildingId) ->
@@ -350,7 +345,7 @@ Meteor.smartPublish "buildingUnits", (cityId, slug) ->
       file._id
     [BuildingImages.find({_id: {$in: imageIds}})]
   selector = {parentId: parentBuilding._id}
-  addIsPublishFilter(@userId, selector)
+  addIsPublishedFilter(@userId, selector)
   [Buildings.find(selector)]
 
 Meteor.smartPublish "buildingAdminSame", (cityId, slug) ->
@@ -368,7 +363,7 @@ Meteor.smartPublish "buildingAdminSame", (cityId, slug) ->
     else
       Buildings.find({_id: building.adminSameId})
   selector = {_id: building._id}
-  addIsPublishFilter(@userId, selector)
+  addIsPublishedFilter(@userId, selector)
   [Buildings.find(selector)]
 
 Meteor.publish "allBuildings", ->
