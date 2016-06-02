@@ -1,3 +1,0 @@
-#!/bin/bash
-
-mup logs -n 100

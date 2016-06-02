@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -eux
+
+(cd $DIRNAME/.. && mup logs -n 100 $@)

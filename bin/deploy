@@ -1,6 +1,14 @@
 #!/bin/bash
 
-DIRNAME=$(cd `dirname $0` && pwd)
+if [ $# -eq 0 ]
+  then
+    echo "ERROR: Provide environment as the first argument (dev or prod)"
+    exit 1
+fi
 
-mup deploy
-$DIRNAME/logs
+ENV=$1
+DIRNAME=$(cd `dirname $0` && pwd)
+MUP_DIRECTORY=$DIRNAME/mup
+
+source $MUP_DIRECTORY/deploy
+source $MUP_DIRECTORY/logs

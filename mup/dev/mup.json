@@ -12,7 +12,7 @@
 //  "nodeVersion": "0.10.40",
   "setupPhantom": false,
   "appName": "rentscene",
-  "app": "../..",
+  "app": ".",
   //  "ssl": {
   //    "pem": "./ssl/bundle.pem"
   //  },

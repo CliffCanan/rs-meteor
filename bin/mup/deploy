@@ -1,0 +1,24 @@
+#!/bin/bash
+
+echo "Building settings.json from settings/ folder..."
+
+SETTINGS_FOLDER=$(cd $DIRNAME/.. && pwd -P)
+SETTINGS_FILE=$SETTINGS_FOLDER/settings.json
+$DIRNAME/merge-settings $ENV > $SETTINGS_FILE
+
+MUP_SOURCE_FOLDER=$(cd $DIRNAME/../mup/$ENV && pwd -P)
+MUP_SOURCE_FILE=$MUP_SOURCE_FOLDER/mup.json
+if [ ! -f $MUP_SOURCE_FILE ]; then
+    echo "ERROR: $MUP_SOURCE_FILE doesn't exist"
+    exit 1
+fi
+
+MUP_DESTINATION_FOLDER=$(cd $DIRNAME/.. && pwd -P)
+MUP_DESTINATION_FILE=$MUP_DESTINATION_FOLDER/mup.json
+echo "Copy $MUP_SOURCE_FILE to $MUP_DESTINATION_FILE..."
+cp $MUP_SOURCE_FILE $MUP_DESTINATION_FILE
+
+(cd $MUP_DESTINATION_FOLDER && mup deploy)
+
+echo "Clear temporary files..."
+rm $MUP_DESTINATION_FILE $SETTINGS_FILE

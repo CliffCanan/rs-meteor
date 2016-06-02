@@ -1,9 +1,5 @@
 {
   "baseUrl": "https://www.rentscene.com",
-  "kadira": {
-    "appId": "43bD3sCzMgC3ApPMt",
-    "appSecret": "380578ae-2c60-4055-9166-1ca0f773ad6d"
-  },
   "vimeo": {
     "clientId": "8c997e332f00ecae0f200cb23d117a56cac00803",
     "clientSecret": "23c8bc5d0bc4172e1284a1f0d38d6b559a68946e",
@@ -17,8 +13,8 @@
     "syncTime": "at 4:00 am"
   },
   "public": {
-    "version": "__VERSION__",
-    "isDebug": false,
+    "version": "c2392c1083289562c4107dc1774989d458f3e271",
+    "isDebug": true,
     "ga": {
       "property": "UA-37790473-1",
       "disabled": false
@@ -35,8 +31,13 @@
       "title": "Rentscene has recommendations for you!"
     },
     "analyticsSettings": {
-      "Google Analytics": {"trackingId": "UA-37790473-1"},
-      "Mixpanel": {"token": "283e4e17cb04be1a047e27cb6c429d4a", "people": true}
+      "Google Analytics": {
+        "trackingId": "UA-37790473-1"
+      },
+      "Mixpanel": {
+        "token": "283e4e17cb04be1a047e27cb6c429d4a",
+        "people": true
+      }
     }
   },
   "private": {
@@ -45,5 +46,9 @@
       "username": "TRNRNTSCNE",
       "password": "L7NiBL"
     }
+  },
+  "kadira": {
+    "appId": "ocgx4JBXAapYy648d",
+    "appSecret": "24837dac-fcce-4d57-946f-7a6b40343e4a"
   }
 }
