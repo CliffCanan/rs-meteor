@@ -93,6 +93,9 @@ Template.city.helpers
     return false if Session.get "showRecommendations"
     Template.instance().buildingsCount.get() < Counts.get("city-buildings-count")
 
+  buildingsCount: ->
+    Counts.get("city-buildings-count") or 0
+
   buildings: ->
     filtered = []
     buildings = []

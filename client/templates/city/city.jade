@@ -74,7 +74,8 @@ template(name="city")
                   .building-title-search-wrapper
                     input.building-title-search.form-control(type="text", placeholder="Search Listings", value="{{query.q}}")
                     i.fa.fa-fw.fa-search
-
+            .row.building-counter
+              span Buildings found: {{buildingsCount}}
           unless clientRecommendationsList
             if hasAnyFilters
               .col-xs-12

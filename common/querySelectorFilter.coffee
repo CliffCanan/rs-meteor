@@ -58,15 +58,17 @@
     # when 'all' then do nothing
 
 @addMapBoundsFilter = (mapBounds, selector) ->
-  if mapBounds.latitudeMin
-    selector.latitude ?= {}
-    selector.latitude.$gt = mapBounds.latitudeMin
-  if mapBounds.longitudeMin
-    selector.longitude ?= {}
-    selector.longitude.$gt = mapBounds.longitudeMin
-  if mapBounds.latitudeMax
-    selector.latitude ?= {}
-    selector.latitude.$lt = mapBounds.latitudeMax
-  if mapBounds.longitudeMax
-    selector.longitude ?= {}
-    selector.longitude.$lt = mapBounds.longitudeMax
+  if mapBounds.latitudeMin isnt mapBounds.latitudeMax
+    if mapBounds.latitudeMin
+      selector.latitude ?= {}
+      selector.latitude.$gt = mapBounds.latitudeMin
+    if mapBounds.latitudeMax
+      selector.latitude ?= {}
+      selector.latitude.$lt = mapBounds.latitudeMax
+  if mapBounds.longitudeMin isnt mapBounds.longitudeMax
+    if mapBounds.longitudeMin
+      selector.longitude ?= {}
+      selector.longitude.$gt = mapBounds.longitudeMin
+    if mapBounds.longitudeMax
+      selector.longitude ?= {}
+      selector.longitude.$lt = mapBounds.longitudeMax

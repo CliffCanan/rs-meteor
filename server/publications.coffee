@@ -5,6 +5,14 @@ addIsPublishedFilter = (userId, selector) ->
 addWithImagesFilter = (selector) ->
   selector.images = { $exists: true, $ne: [] }
 
+getBuildingSelector = (cityId, query, mapBounds) ->
+  selector = {parentId: {$exists: false}, cityId: cityId}
+  addQueryFilter(query, selector, @userId)
+  addIsPublishedFilter(@userId, selector)
+  addWithImagesFilter(selector)
+  addMapBoundsFilter(mapBounds, selector)
+  selector
+
 Meteor.publish "currentUser", ->
   Meteor.users.find {_id: @userId},
     fields:
@@ -32,11 +40,7 @@ Meteor.publishComposite "buildings", (cityId, query, mapBounds, page) ->
     page = 1
   limit = page * itemsPerPage
 
-  selector = {parentId: {$exists: false}, cityId: cityId}
-  addQueryFilter(query, selector, @userId)
-  addIsPublishedFilter(@userId, selector)
-  addWithImagesFilter(selector)
-  addMapBoundsFilter(mapBounds, selector)
+  selector = getBuildingSelector.call @, cityId, query, mapBounds
 
   # Limit fields to only those needed to display on city listing. Other fields are for building page.
   fields =
@@ -276,10 +280,8 @@ Meteor.publish "buildingImages", (buildingId) ->
 
 Meteor.publish "city-buildings-count", (cityId, query = {}, mapBounds) ->
   check(cityId, Match.InArray(cityIds))
-  selector = {parentId: {$exists: false}, cityId: cityId}
-  addQueryFilter(query, selector)
-  addIsPublishedFilter(@userId, selector)
-  addMapBoundsFilter(mapBounds, selector)
+  console.log arguments
+  selector = getBuildingSelector.call @, cityId, query, mapBounds
   Counts.publish(@, "city-buildings-count", Buildings.find(selector))
   undefined
 
