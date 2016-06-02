@@ -1,0 +1,45 @@
+{
+  "baseUrl": "https://www.rentscene.com",
+  "vimeo": {
+    "clientId": "8c997e332f00ecae0f200cb23d117a56cac00803",
+    "clientSecret": "23c8bc5d0bc4172e1284a1f0d38d6b559a68946e",
+    "accessToken": "474b9d11e2ef37bc309cd6c2d53f498c"
+  },
+  "trendrets": {
+    "loginUrl": "http://trend.trendrets.com:6103/platinum/login",
+    "username": "TRNRNTSCNE",
+    "password": "L7NiBL",
+    "query": "(County=|PHILADELPHIA-PA),(PostalCode=19103,19102,19146,19147,19146,19107,19130,19123,19104)",
+    "syncTime": "at 4:00 am"
+  },
+  "public": {
+    "version": "__VERSION__",
+    "isDebug": false,
+    "ga": {
+      "property": "UA-37790473-1",
+      "disabled": false
+    },
+    "mixpanel": {
+      "token": "3b7978e932a7a159f625c1e3c2d59239",
+      "disabled": false
+    },
+    "addThis": {
+      "token": "ra-53a971e6726f30bc"
+    },
+    "emailRecommendations": {
+      "limit": 6,
+      "title": "Rentscene has recommendations for you!"
+    },
+    "analyticsSettings": {
+      "Google Analytics": {"trackingId": "UA-37790473-1"},
+      "Mixpanel": {"token": "283e4e17cb04be1a047e27cb6c429d4a", "people": true}
+    }
+  },
+  "private": {
+    "TrendIDX": {
+      "loginUrl": "http://trend.trendrets.com:6103/platinum/login",
+      "username": "TRNRNTSCNE",
+      "password": "L7NiBL"
+    }
+  }
+}

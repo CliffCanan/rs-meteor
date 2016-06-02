@@ -1,0 +1,9 @@
+{
+  "kadira": {
+    "appId": "ocgx4JBXAapYy648d",
+    "appSecret": "24837dac-fcce-4d57-946f-7a6b40343e4a"
+  },
+  "public": {
+    "isDebug": true
+  }
+}

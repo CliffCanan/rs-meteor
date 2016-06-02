@@ -1,0 +1,54 @@
+#!/bin/bash
+
+set -eux
+set -o pipefail
+
+ENV="$1"
+PLATFORM=${2:-}
+FILES=""
+FILES="$FILES -f settings/all.json"
+FILES="$FILES -f settings/all.specific.json"
+FILES="$FILES -f settings/*$ENV.json"
+
+if [ "$PLATFORM" == "ios" ] && [ -f settings/*$ENV.ios.json ]; then
+  FILES="$FILES -f settings/*$ENV.ios.json"
+fi
+
+if [ "$PLATFORM" == "android" ] && [ -f settings/*$ENV.android.json ]; then
+  FILES="$FILES -f settings/*$ENV.android.json"
+fi
+
+if [ -f settings/*$ENV.specific.json ]; then
+  FILES="$FILES -f settings/*$ENV.specific.json"
+
+  if [ "$PLATFORM" == "ios" ] && [ -f settings/*$ENV.specific.ios.json ]; then
+    FILES="$FILES -f settings/*$ENV.specific.ios.json"
+  fi
+
+  if [ "$PLATFORM" == "android" ] && [ -f settings/*$ENV.specific.android.json ]; then
+    FILES="$FILES -f settings/*$ENV.specific.android.json"
+  fi
+fi
+
+if [ -f settings/*$ENV.local.json ]; then
+  FILES="$FILES -f settings/*$ENV.local.json"
+
+  if [ "$PLATFORM" == "ios" ] && [ -f settings/*$ENV.local.ios.json ]; then
+    FILES="$FILES -f settings/*$ENV.local.ios.json"
+  fi
+
+  if [ "$PLATFORM" == "android" ] && [ -f settings/*$ENV.local.android.json ]; then
+    FILES="$FILES -f settings/*$ENV.local.android.json"
+  fi
+fi
+
+if [ -f $HOME/.fixin/settings/*$ENV.private.json ]; then
+  FILES="$FILES -f $HOME/.fixin/settings/*$ENV.private.json"
+fi
+
+if [ -f $HOME/.spirehq/settings/*$ENV.private.json ]; then
+  FILES="$FILES -f $HOME/.spirehq/settings/*$ENV.private.json"
+fi
+
+# http://trentm.com/json/
+json --deep-merge $FILES | sed s/__VERSION__/$(git rev-parse HEAD)/
