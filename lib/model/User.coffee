@@ -8,6 +8,8 @@ class User
 
 share.Transformations.user = _.partial(share.transform, User)
 
+@Users = Meteor.users
+
 #@Users = new Mongo.Collection("users",
 #  transform: if Meteor.isClient then share.Transformations.User else null
 #)
