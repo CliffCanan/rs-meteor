@@ -27,6 +27,7 @@ wait = Meteor.wrapAsync((sec, cb) -> setTimeout((-> cb(null)), sec * 1000))
 Meteor.publish "allUsers", ->
   unless @userId
     return []
+  # CC9 6/3/16): Only want to return users that have a NAME - what is the syntax for that here?
   Meteor.users.find()
 
 Meteor.publishComposite "buildings", (cityId, query, mapBounds, page) ->
@@ -134,7 +135,7 @@ Meteor.publishComposite "buildingsQuickView", (cityId, query, mapBounds, page) -
   page = parseInt(page)
   unless page > 0
     page = 1
-  limit = page * (itemsPerPage * 4) # 9 items per page is not enough for Quick Search view
+  limit = page * (itemsPerPage * 4)
 
   selector = {cityId: cityId}
   addQueryFilter(query, selector, @userId, {q: true})
