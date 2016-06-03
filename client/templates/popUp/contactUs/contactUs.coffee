@@ -135,9 +135,6 @@ Template.contactUs.rendered = ->
             analytics.track "Submitted Contact Us form"
             analytics.page title: "Submitted Contact Us form", path: '/submit-contact-us-form'
 
-            #-goog_report_conversion()
-
-            #- (Added 12/14/15 by CC)
             fbq "track", "Lead",
               content_name: "contact-us"
               content_category: "LeadGen"
@@ -170,17 +167,12 @@ Template.contactUs.rendered = ->
                 Session.set "disc_from", "Contact-Us"
 
                 routeParams = {}
-#                Router.go("discovery", routeParams, {query: query})
                 query = {}
                 query.local = "1"
 
                 Router.go("discovery", routeParams, {query: query})
       )
   )
-
-$("#contactUsPopup").on "shown.bs.modal", ->
-  console.log("CONTACT US Popup Fired - 133")
-  #$("#contactUsPopup form").formValidation "resetForm", true
 
 
 Template.contactUs.events
@@ -189,7 +181,6 @@ Template.contactUs.events
     Session.set "hasSeenContactUsPopup", true
 
     $("#contactUsPopup #leadphone").mask "(999) 999-9999", placeholder: " "
-    #$("input[name=\"maxMonthlyRent\"]").mask('999?9', {placeholder:" "})
 
     if $(window).width() > 992
       Meteor.setTimeout(() ->

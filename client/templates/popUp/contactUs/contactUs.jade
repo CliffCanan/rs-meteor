@@ -114,7 +114,7 @@ template(name="contactUs")
               label.fg-label(for="leadphone") Phone #
 
             fieldset.form-group.contact-us-field.m-t-30
-              textarea.form-control(name="question" placeholder="Question/Comments", rows="{{#if isMobile}}2{{else}}3{{/if}}")
+              textarea.form-control(name="question" placeholder="Question/Comments", rows="3")
 
             if serverError
               .form-group
@@ -127,6 +127,8 @@ template(name="contactUs")
               i.fa.fa-chevron-circle-right.m-l-10(aria-hidden='true')
 
           .modal-footer
-            div Want to speak with us right now? &nbsp;Call
+            div Want to speak with us right now?
+              br
+              | Call
               a.call-now(href="tel://1-215-995-5890") (215) 995-5890
               span.period .

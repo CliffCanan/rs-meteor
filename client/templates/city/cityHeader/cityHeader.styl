@@ -137,10 +137,11 @@
   .city-sub-header-title
     width 100%
     font-family 'Montserrat', Helvetica, sans-serif
-    font-size 14px
     color #272b30
     font-weight normal
+    overflow-x hidden
     text-align left
+    text-overflow ellipsis
     padding 5px 15px
 
   .city-sub-header-list
@@ -309,7 +310,7 @@
     border-top 0
     @media screen and (min-width: 768px)
       padding 20px 
-      width 410px
+      width 420px
 
     .filter-title
       font-size 15px
@@ -319,6 +320,7 @@
       margin 0 0 10px
 
     .filter-list
+      font-family 'Roboto', 'Helvetica Neue', 'Helvetica', 'Open Sans', sans-serif
       margin 0 -10px
       padding 5px 0
       @media screen and (min-width: 768px)
@@ -340,15 +342,20 @@
       right auto !important
 
   .neighborhoods-section
+    box-shadow 0 4px 12px -1px rgba(0, 0, 0, .3)
+    padding-bottom 10px
+    width 103%
+    @media screen and (max-width: 767px)
+      max-width 450px
     @media screen and (min-width: 768px)
       padding 10px 20px
+      width 470px
     @media screen and (min-width: 992px)
       padding 10px 25px
       width 500px
     @media screen and (min-width: 1200px)
-      width 550px
+      width 610px
 
-    padding-bottom 10px
     ul
       padding-bottom 0
     li

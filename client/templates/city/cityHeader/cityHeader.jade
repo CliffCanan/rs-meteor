@@ -25,13 +25,13 @@ template(name="cityHeader")
             span {{neighborhood}}
 
           form.neighborhoods-section.dropdown-menu.dropdown-menu-left(style="left:0")
-            .row
-              .col-xs-10
+            .clearfix
+              div
                 h4.filter-title.pull-left
                   i.fa.fa-crosshairs.m-r-5
                   | Select A Neighborhood:
 
-              span.pull-right
+              span.pull-right.p-r-5
                 a#clear-neighborhoods(href="/city/#{../cityId}/")
                   span.hide-sm View All
                   i.fa.fa-list-ul.m-l-5

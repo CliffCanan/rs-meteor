@@ -522,10 +522,11 @@ template(name="building")
 
                         .main-city-item-wrap
                           .row
-                            .col-md-9.col-lg-12
-                              p.main-city-item-link {{title}}
-                            .col-md-3.col-lg-12
-                              p.similar-property-price {{displayBuildingPrice ../queryBtype}}
+                            .col-md-9.col-lg-12.p-r-5
+                              span.main-city-item-link {{title}}
+                            .col-md-3.col-lg-12.p-l-0
+                              span.similar-property-price {{displayBuildingPrice ../queryBtype}}
+
             if showIDXDisclaimer
               .col-xs-12.col-sm-7.col-md-8.col-lg-9
                 +idxDisclaimer

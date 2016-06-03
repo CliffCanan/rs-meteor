@@ -1,6 +1,6 @@
 template(name="clientSearchBar")
-  form(role="search", class="{{formClass}}")
-    .form-group.hide-sm
+  form.hide-sm(role="search", class="{{formClass}}")
+    .form-group
       if canRecommend
         if showExitRecommendationIcon
           a#exit-recommendation-from-bar(href="#")
