@@ -28,7 +28,7 @@
     },
     "emailRecommendations": {
       "limit": 6,
-      "title": "Rentscene has recommendations for you!"
+      "title": "Rent Scene has recommendations for you!"
     },
     "analyticsSettings": {
       "Google Analytics": {"trackingId": "UA-37790473-1"},

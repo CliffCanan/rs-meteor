@@ -264,13 +264,14 @@ Meteor.publish "buildingsSimilar", (buildingId) ->
 Meteor.smartPublish "recommendedBuildings", (buildingIds) ->
   @addDependency "buildings", "images", (building) ->
     _id = building.images?[0]?._id
-    if _id then [BuildingImages.find(_id)] else []
 
+    if _id then [BuildingImages.find(_id)] else []
 
   Buildings.find({_id: {'$in': buildingIds}}, {sort: {position: -1, createdAt: -1, _id: 1}})
 
 Meteor.publish "buildingImages", (buildingId) ->
   building = Buildings.findOne(buildingId)
+
   if building.images?
     imageIds = _.map building.images, (file) ->
       file._id
