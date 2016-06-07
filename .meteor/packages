@@ -75,3 +75,4 @@ percolate:synced-cron
 chrismbeckett:toastr
 meteorhacks:zones
 kadira:debug
+iron:middleware-stack@1.1.0
