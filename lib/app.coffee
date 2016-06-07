@@ -207,8 +207,11 @@ share.redirectFromRecommendationsMode = ->
 if Meteor.isServer
   Meteor.methods
     "neighborhoodsList": ->
+      selector = {parentId: {$exists: false}, images: {$exists: true, $ne: []}}
+      selector.isPublished = true if not (Meteor.userId() and Security.canOperateWithBuilding(Meteor.userId()))
+
       Buildings.aggregate([
-        {$match: {isPublished: true, parentId: {$exists: false}, images: {$exists: true, $ne: []}}}
+        {$match: selector}
         # Group all properties by city, neighborhood slug and add a total number of properties for each group
         {$group: {_id: {city: '$cityId', neighborhood: '$neighborhood', neighborhoodSlug: '$neighborhoodSlug'}, count: { '$sum': 1 }}}
         # Sort by most properties first
