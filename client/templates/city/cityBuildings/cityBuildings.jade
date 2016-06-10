@@ -130,7 +130,7 @@ template(name="cityBuildings")
           .main-city-item(class="{{#unless isPublished}}is-not-published{{/unless}}", itemscope, itemtype="http://schema.org/LocalBusiness")
         
             if shouldShowRecommendToggle
-              a.btn.btn-sm.btn-default.recommend-toggle(href="", class="{{#if isRecommended}}active{{/if}}")
+              a.btn.btn-sm.btn-default.recommend-toggle(href="#", class="{{#if isRecommended}}active{{/if}}")
                 if isRecommended
                   | Recommended
                   i.fa.fa-check.text-primary

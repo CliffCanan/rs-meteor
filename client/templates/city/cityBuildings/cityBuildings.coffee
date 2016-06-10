@@ -102,7 +102,7 @@ getAvaiability = (request, directionsService, cb) ->
 
 Template.cityBuildings.events
   "click .recommend-toggle": (event, template) ->
-    event.stopPropagation()
+    event.preventDefault()
 
     clientId = Router.current().data().clientId
     buildingId = @._id
@@ -112,8 +112,6 @@ Template.cityBuildings.events
       Meteor.call "unrecommendBuilding", clientId, buildingId
     else
       Meteor.call "recommendBuilding", clientId, buildingId
-
-    false
 
   # Added by Cliff (4/28/16)
   "click .removeFromRecommendList": (event, template) ->
