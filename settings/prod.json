@@ -4,6 +4,6 @@
     "appSecret": "c39b6fb1-a0ec-4a73-86b2-5739a588b53b"
   },
   "public": {
-    "isDebug": true
+    "isDebug": false
   }
 }
