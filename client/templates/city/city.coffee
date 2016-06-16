@@ -25,7 +25,7 @@ $(window).on("resize", setHeights)
     $(".left-bar").css("height", "auto")
 
 Template.city.onCreated ->
-  @data.firstLoad = true
+  @firstLoad = true
   @buildingsCount = new ReactiveVar(0)
   @quickViewBuildingsReady = new ReactiveVar(null)
 
@@ -59,14 +59,14 @@ Template.city.onCreated ->
       if Meteor.isClient then mapBoundsDependency.depend()
       handle = quickViewSubs.subscribe "buildingsQuickView", params.cityId, params.query, mapBounds, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1
       @quickViewBuildingsReady.set handle.ready()
-
+      
 Template.city.helpers
   showMap: ->
     Router.current().route.getName() isnt "clientRecommendations"
 
   firstLoad: ->
     citySubs.dep.depend()
-    !citySubs.ready() and @firstLoad
+    !citySubs.ready() and Template.instance().firstLoad
 
   isClientRecommendationsList: ->
     if Router.current().route.getName() is "clientRecommendations"
@@ -91,7 +91,8 @@ Template.city.helpers
 
   notAllLoaded: ->
     return false if Session.get "showRecommendations"
-    Template.instance().buildingsCount.get() < Counts.get("city-buildings-count")
+    #Template.instance().buildingsCount.get() < Counts.get("city-buildings-count")
+    true
 
   buildingsCount: ->
     Counts.get("city-buildings-count") or 0
@@ -374,7 +375,7 @@ Template.city.onRendered ->
 
   cityCircle = undefined
 
-  @data.firstLoad = false
+  @firstLoad = false
 
   setHeights()
 
