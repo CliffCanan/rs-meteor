@@ -5,20 +5,22 @@ To start development, first clone the repository in your development machine.
     :::bash
     git clone git@bitbucket.org:rentscene/rs-2.git
 
-There are two Mup configuration files. They are place in:
+# Deployment
+
+The project is deployed with Meteor UP. There are two MUP configuration files:
 
     :::bash
     /mup/dev/mup.json
     /mup/prod/mup.json
 
-In order to deploy current version of the application to development server call this command from the root directory:
+To deploy the project to *development* server, run the following command from the project directory:
 
     :::bash
     ./bin/deploy dev
 
-and if you want to deploy to live site use:
+To deploy the project to *production* server, run the following command from the project directory:
 
     :::bash
     ./bin/deploy prod
 
-It takes about 10 minutes until the script is finished.
+The deployment process takes about 10 minutes.
