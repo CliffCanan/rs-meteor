@@ -125,13 +125,8 @@ Router.map ->
       return [] if Meteor.isClient and not Session.get("cityPageData")
 #      if Meteor.isClient then mapBoundsDependency.depend()
       [
-        citySubs.subscribe("buildings", @params.cityId, @params.query, {}, (if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1), {
-          onReady: -> console.log "onReady buildings", arguments
-
-        })
-#        Meteor.subscribe("city-buildings-count", @params.cityId, @params.query, {}, {
-#          onReady: -> console.log "onReady city-buildings-count", arguments
-#        })
+        citySubs.subscribe("buildings", @params.cityId, @params.query, {}, (if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1))
+        Meteor.subscribe("city-buildings-count", @params.cityId, @params.query, {})
       ]
     data: ->
       return null unless @params.cityId in cityIds

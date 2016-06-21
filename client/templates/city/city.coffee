@@ -91,8 +91,7 @@ Template.city.helpers
 
   notAllLoaded: ->
     return false if Session.get "showRecommendations"
-    #Template.instance().buildingsCount.get() < Counts.get("city-buildings-count")
-    true
+    Template.instance().buildingsCount.get() < Counts.get("city-buildings-count")
 
   buildingsCount: ->
     Counts.get("city-buildings-count") or 0
