@@ -16,6 +16,7 @@ getBuildingSelector = (cityId, query, mapBounds) ->
 Meteor.publish "currentUser", ->
   Meteor.users.find {_id: @userId},
     fields:
+      "role": 1
       "username": 1
       "isAliasedByMixpanel": 1
       "profile": 1
