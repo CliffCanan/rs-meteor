@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -eux
+
+SETTINGS_FOLDER=$(cd $DIRNAME/.. && pwd -P)
+SETTINGS_FILE=$SETTINGS_FOLDER/settings.json
+
+MUP_DESTINATION_FOLDER=$(cd $DIRNAME/.. && pwd -P)
+MUP_DESTINATION_FILE=$MUP_DESTINATION_FOLDER/mup.json
+
+echo "Clear temporary files..."
+rm $MUP_DESTINATION_FILE $SETTINGS_FILE

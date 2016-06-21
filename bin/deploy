@@ -11,4 +11,5 @@ DIRNAME=$(cd `dirname $0` && pwd)
 MUP_DIRECTORY=$DIRNAME/mup
 
 source $MUP_DIRECTORY/deploy
-source $MUP_DIRECTORY/logs
+#source $MUP_DIRECTORY/logs
+source $MUP_DIRECTORY/clear

@@ -19,6 +19,3 @@ echo "Copy $MUP_SOURCE_FILE to $MUP_DESTINATION_FILE..."
 cp $MUP_SOURCE_FILE $MUP_DESTINATION_FILE
 
 (cd $MUP_DESTINATION_FOLDER && mup deploy)
-
-echo "Clear temporary files..."
-rm $MUP_DESTINATION_FILE $SETTINGS_FILE
