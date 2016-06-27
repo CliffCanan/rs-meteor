@@ -145,7 +145,7 @@ Template.contactUs.rendered = ->
 
           swal
             title: "Great Success!"
-            text: "We have received your info and one of our apartment specialists will get back to you soon!<span class='show m-t-10'>For even quicker help, just answer a few more quick questions about your search so we can find your best matches. Would you like to do that now?<span style='display:block;font-style:italic;font-size:86%'>(2 mins or less!)</span></span>"
+            text: "We have received your info and one of our apartment specialists will get back to you soon!<span class='show m-t-10'>For even quicker help, just answer a few more questions about your search so we can find your best matches. Would you like to do that now?<span style='display:block;font-style:italic;font-size:86%'>(2 mins or less!)</span></span>"
             type: "success"
             showCancelButton: true
             cancelButtonText: "No thanks"
