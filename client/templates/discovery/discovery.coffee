@@ -11,7 +11,7 @@ Template.discovery.helpers
   lname: ->
     Session.get "disc_lname"
 
-  email: ->
+  emailAddress: ->
     Session.get "disc_email"
 
   hasemail: ->

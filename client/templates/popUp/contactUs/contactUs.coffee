@@ -93,6 +93,7 @@ Template.contactUs.rendered = ->
         num = json.phoneNumber.replace("(","").replace(")","").replace("-","").replace(" ","").trim()
         num = num.substring(0, 3) + "-" + num.substring(3);
         num = num.substring(0, 7) + "-" + num.substring(7);
+        json.phoneNumber = num
 
 #      json.yes = json.tourOption is "yes"
 #      json.no = json.tourOption is "no"
@@ -100,7 +101,6 @@ Template.contactUs.rendered = ->
 #      json.contactUsTourDate = if json.contactUsTourDate then json.contactUsTourDate else ''
       json.cityId = if cityId then cityId else 'no city id found'
       json.cityName = if cityId then cities[cityId].short else 'no city name found'
-      json.phoneNumber = num
       json.source = Session.get "utm_source"
       json.medium = Session.get "utm_medium"
       json.campaign = Session.get "utm_campaign"
@@ -159,9 +159,10 @@ Template.contactUs.rendered = ->
                 rentAmount = if json.maxMonthlyRent then json.maxMonthlyRent else "0" # 4/13/16 Max rent amount is currently a required field in the Contact Us form
                 moveInDate = if json.contactUsMoveInDate and json.contactUsMoveInDate.length > 3 then json.contactUsMoveInDate else "0" # Move-In Date is NOT currently required, so must check if it exists
 
+                lastName = if fullName.length > 1 then fullName[fullName.length - 1] else ""
                 Session.set "disc_fname", fullName[0]
-                Session.set "disc_lname", fullName[fullName.length - 1]
-                Session.set "disc_email", json.contactUsEmail
+                Session.set "disc_lname", lastName
+                Session.set "disc_email", json.email
                 Session.set "disc_rent", rentAmount
                 Session.set "disc_movein", moveInDate
                 Session.set "disc_from", "Contact-Us"
