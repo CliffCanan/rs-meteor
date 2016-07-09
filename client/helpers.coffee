@@ -34,6 +34,9 @@ Template.registerHelper "getReadableLongDateTime", (date) ->
 Template.registerHelper "getReadableLongDateTimeAlt", (date) ->
   moment(date).format('MMM D, YYYY  |  h:mma')
 
+Template.registerHelper "isMobile", ->
+    $(window).width() < 480
+
 Template.registerHelper "getUser", (userId) ->
   user = Meteor.users.findOne(userId)
   if user

@@ -44,7 +44,7 @@ Template.header.onRendered ->
       cursorcolor: "#404142"
       cursorwidth: "9px"
       zindex: 9999
-      mousescrollstep: 30 # default is 40 (px)
+      mousescrollstep: 34 # default is 40 (px)
       scrollspeed: 42 # default is 60
       autohidemode: "cursor"
       hidecursordelay: 700
