@@ -19,9 +19,10 @@
 
   if query.q
     unless skip.q
+      regexSearch = createTextSearchRegexp(decodeURIComponent(query.q))
+      
       # If Admin, search query should also look in admin fields
       if userId and Security.canOperateWithBuilding(userId)
-        regexSearch = createTextSearchRegexp(decodeURIComponent(query.q))
         selector.$or = [
           {title: regexSearch}
           {mlsNo: regexSearch}
