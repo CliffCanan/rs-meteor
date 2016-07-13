@@ -35,6 +35,7 @@ Template.cityHeaderSlider.rendered = ->
       value = event.value
 
       data = Router.current().data()
+      query = data.query
 
       if (parseInt(query.from) or min) isnt value[0]
         if min is value[0]
