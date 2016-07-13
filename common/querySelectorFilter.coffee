@@ -1,6 +1,8 @@
 @addQueryFilter = (query, selector, userId, skip = {}) ->
   fieldName = "agroPriceTotalFrom"
 
+  andStatements = []
+
   if query.neighborhoodSlug
     selector.neighborhoodSlug = query.neighborhoodSlug
 
@@ -23,7 +25,7 @@
       
       # If Admin, search query should also look in admin fields
       if userId and Security.canOperateWithBuilding(userId)
-        selector.$or = [
+        andStatements.push {$or: [
           {title: regexSearch}
           {mlsNo: regexSearch}
           {adminAvailability: regexSearch}
@@ -33,14 +35,14 @@
           {adminScheduling: regexSearch}
           {adminContact: regexSearch}
           {adminNotes: regexSearch}
-        ]
+        ]}
       else
         # CC (1/30/16): This was only checking the "title", adding a check for address too.
         selector.title
-        selector.$or = [
+        andStatements.push {$or: [
           {title: regexSearch}
           {address: regexSearch}
-        ]
+        ]}
 
   # @see Building.coffee:1 (complexFieldsValues variable)
   selector.pets = {$in: [1, 2]} if query.pets
@@ -53,13 +55,15 @@
   if query.available
     available = new Date(decodeURIComponent(query.available))
     if available.getTime()
-      selector.$or = [{availableAt: {$exists: false}}, {availableAt: {$lte: available}}]
+      andStatements.push {$or: [{availableAt: {$exists: false}}, {availableAt: {$lte: available}}]}
 
   switch query.listingType
     when 'broker' then selector['source.source'] = 'IDX'
     when 'managed' then selector['source.source'] = {$ne: 'IDX'}
     # when 'all' then do nothing
 
+  selector.$and = andStatements if andStatements.length
+  
 @addMapBoundsFilter = (mapBounds, selector) ->
   if mapBounds.latitudeMin isnt mapBounds.latitudeMax
     if mapBounds.latitudeMin
