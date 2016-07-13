@@ -42,11 +42,13 @@
           {address: regexSearch}
         ]
 
-  boolFieldNames = ["fitnessCenter", "security", "laundry", "parking", "pets", "utilities"]
-
-  for boolFieldName in boolFieldNames
-    if query[boolFieldName]
-      selector[boolFieldName] = {$gt: 0}
+  # @see Building.coffee:1 (complexFieldsValues variable)
+  selector.pets = {$in: [1, 2]} if query.pets
+  selector.parking = {$in: [1, 2]} if query.parking
+  selector.laundry = 1 if query.laundry
+  selector.security = 1 if query.security
+  selector.utilities = 1 if query.utilities
+  selector.fitnessCenter = 1 if query.fitnessCenter
 
   if query.available
     available = new Date(decodeURIComponent(query.available))
