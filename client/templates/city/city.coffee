@@ -37,8 +37,6 @@ Template.city.onCreated ->
     Session.setDefault "viewType", "thumbnails"
 
   Session.set('adminShowUnpublishedProperties', false)
-  cityPageData = Session.get("neighborhoodPageData") or Session.get("cityPageData")
-  Session.set("cityBuildingsLimit", cityPageData.page * 20) if cityPageData
 
   # Show Contact Us Popup after 22s (tablet/desktop) or 16s (mobile)
   if Router.current().route.getName() != "clientRecommendations" and location.hostname isnt "localhost" and not Meteor.user()
@@ -80,15 +78,6 @@ Template.city.helpers
   showClientRecommendationsName: ->
     Template.city.__helpers[" isClientRecommendationsList"].call(@) and not Security.canManageClients()
 
-# IT'S NOT USED AT ALL!
-#  loadingThumbnailBuildings: ->
-#    citySubs.dep.depend()
-#    ready = citySubs.ready()
-#    if ready
-#      cityPageData = Session.get("neighborhoodPageData") or Session.get("cityPageData")
-#      Session.set("cityBuildingsLimit", cityPageData.page * itemsPerPage) if cityPageData
-#    !ready
-
   notAllLoaded: ->
     return false if Session.get "showRecommendations"
     Template.instance().buildingsCount.get() < Counts.get("city-buildings-count")
@@ -117,10 +106,6 @@ Template.city.helpers
       selector.isPublished = true if not Session.get('adminShowUnpublishedProperties')
 
       viewType = Session.get("viewType")
-      if viewType is 'thumbnails' or viewType is 'fullWidth'
-        limit = Session.get("cityBuildingsLimit")
-      else if viewType is 'quickView'
-        limit = Session.get("cityBuildingsLimit") * 4
 
       reactive = true
 
@@ -167,7 +152,7 @@ Template.city.helpers
               Session.set("cityGeoLocation", [location.lat(), location.lng()])
 
         if Session.get "cityGeoLocation"
-          buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit})
+          buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}})
           address = Session.get "cityGeoLocation"
 
           buildings.forEach (building) ->
@@ -187,7 +172,7 @@ Template.city.helpers
       else
         Session.set("cityGeoLocation", "")
 
-    buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, reactive: reactive})
+    buildings = Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, reactive: reactive})
 
     Template.instance().buildingsCount.set(buildings.count())
 
