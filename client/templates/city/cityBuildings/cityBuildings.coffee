@@ -145,6 +145,7 @@ Template.cityBuildings.events
     false
 
   "click .check-avail-option": (event, template) ->
+    event.preventDefault()
     event.stopPropagation()
 
     # First close any open galleries on the page
@@ -168,6 +169,7 @@ Template.cityBuildings.events
     false
 
   "click .view-pics-option": (event, template) ->
+    event.preventDefault()
     event.stopPropagation()
 
     # First close any open galleries on the page

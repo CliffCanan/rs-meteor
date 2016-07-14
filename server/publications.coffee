@@ -124,7 +124,10 @@ Meteor.publishComposite "buildings", (cityId, query, mapBounds, page) ->
 
   find: -> Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
   children: [
-    find: (building) -> BuildingImages.find {_id: building.images?[0]?._id}, {fields: 'copies.thumbs': 1}
+    find: (building) ->
+      images = building.images or []
+      imagesIds = _.pluck images, "_id"
+      BuildingImages.find {_id: {$in: imagesIds}}, {fields: 'copies.thumbs': 1}
   ]
 
 Meteor.publishComposite "buildingsQuickView", (cityId, query, mapBounds, page) ->
