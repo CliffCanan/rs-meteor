@@ -158,11 +158,10 @@ share.canRecommend = () ->
 
 share.exitRecommendationsMode = () ->
   client = Session.get("recommendationsClientObject")
-  name = client.name
 
   swal
     title: "Send Recommendation Email To Client?"
-    text: "Do you want to send the Client Recommendation Email to #{name}?"
+    text: "Do you want to send the Client Recommendation Email to #{client.name}?"
     type: "warning"
     confirmButtonColor: "#4588fa"
     confirmButtonText: "Yes"
@@ -172,6 +171,9 @@ share.exitRecommendationsMode = () ->
     html: true
     , (isConfirm) ->
       if isConfirm
+        client = Session.get("recommendationsClientObject") # avoid outer closure
+
+        name = client.name
         email = client.email
         if email
           id = client._id
