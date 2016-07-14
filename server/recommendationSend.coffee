@@ -5,7 +5,7 @@ chunk = Meteor.npmRequire('lodash/chunk')
 	user = Meteor.user()
 	throw new Error('Only authorized user may send a recommendation email.') if not user
 	
-	from = user.emails?[0]?.address
+	from = "Rent Scene <team@rentscene.com>" # user.emails?[0]?.address
 	throw new Error("Admin User #{user._id} needs an email address before sending this email.") if not from
 
 	client = ClientRecommendations.findOne clientId
