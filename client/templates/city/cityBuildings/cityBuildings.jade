@@ -138,22 +138,25 @@ template(name="cityBuildings")
                   | Recommend
                   i.fa.fa-star.text-success
 
-            .ext-gallery.hidden(itemscope, itemtype="http://schema.org/ImageGallery")
-              .close-btn
-                i.fa.fa-close
-
-              #carousel-wide.owl-carousel(itemprop="associatedMedia", itemscope, itemtype="http://schema.org/ImageObject")
-
-                each buildingImages
-                  .item
-                    img(src="{{getThumbnail store='thumbs'}}", itemprop="thumbnail", alt="{{processedTitle}}")
+            .modal.fade(tabindex="-1" role="dialog" aria-hidden="true" class="bs-building-{{_id}}-modal-lg" data-interval="false")
+              .modal-dialog.modal-lg
+                .modal-content
+                  .carousel.slide(id="carousel-popup-{{_id}}" data-ride="carousel")
+                    .carousel-inner
+                      each buildingImages
+                        .item(class="{{#if isFirstImage}}active{{/if}}")
+                          img.img-responsive(src="{{getThumbnail store='thumbs'}}" alt="{{processedTitle}}" style="width:900px")
+                    a.left.carousel-control(href="#carousel-popup-{{_id}}" role="button" data-slide="prev")
+                      span.glyphicon.glyphicon-chevron-left
+                    a.right.carousel-control(href="#carousel-popup-{{_id}}" role="button" data-slide="next")
+                      span.glyphicon.glyphicon-chevron-right
 
 
             a.main-city-img-link(href="{{pathFor route='building' data=processedRouteData}}")
               unless isMobile
                 .action-options.hide-sm
                   .actions-sub-wrap
-                    a.btn.view-pics-option(data-toggle="tooltip", data-placement="bottom", title="View Pictures")
+                    a.btn.view-pics-option(data-toggle="modal", data-target=".bs-building-{{_id}}-modal-lg", title="View Pictures")
                       i.fa.fa-fw.fa-picture-o
                     a.btn.check-avail-option(data-toggle="tooltip", data-placement="bottom", title="Check Availability")
                       i.fa.fa-fw.fa-calendar

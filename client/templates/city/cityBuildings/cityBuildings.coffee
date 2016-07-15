@@ -71,6 +71,9 @@ Template.cityBuildings.helpers
 
     images
 
+  isFirstImage: ->
+    @_index is 0
+    
   isMobile: ->
     if $(window).width() < 1030
       return true
@@ -170,39 +173,8 @@ Template.cityBuildings.events
 
   "click .view-pics-option": (event, template) ->
     event.preventDefault()
-    event.stopPropagation()
-
-    # First close any open galleries on the page
-    $('.ext-gallery').addClass('hidden')
-    $('.main-city-img-link').removeClass('hidden')
-
-    # Then find the parent '.main-city-item' for the clicked Building in order to show the correct gallery
-    parentEl = $(event.currentTarget).closest('.main-city-item')
-
-    gallery = parentEl.find('.ext-gallery')
-    initialImg = parentEl.find('.main-city-img-link')
-
-    gallery.removeClass('hidden')  if gallery.hasClass('hidden')
-    initialImg.addClass('hidden')
-
-    # Now check which horizontal position the clicked building is (there are 3 buildings per row on lg screens...
-    # But since the gallery is absolutely positioned relative to the parent item, it will be too far right for
-    # positions 2 & 3, so need to correct for that here.
-    xPosition = parentEl.offset().left
-    if xPosition > 100
-      correctionAmount = (0 - xPosition + 30).toString()
-      correctionAmount += 'px'
-
-      gallery.css('left',correctionAmount)
 
     analytics.track "Clicked View Pictures (Search)", {buildingId: @_id, buildingName: @title, label: @title} unless Meteor.user()
-
-    # Finally instantiate the Owl Carousel
-    gallery.find('.owl-carousel').owlCarousel
-      items: 3
-      pagination: false
-
-    false
 
   "click .ext-gallery .close-btn": (event, template) ->
     event.stopPropagation()
