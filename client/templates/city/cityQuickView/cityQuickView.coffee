@@ -31,35 +31,34 @@ Template.cityQuickView.onRendered ->
   instance = @
 
   @autorun =>
-    if Template.instance().tablesorterReady.get()
-      Tracker.afterFlush ->
-        $table = $('#quick-view-table').tablesorter
-          theme: "bootstrap"
-          widthFixed: true
-          headerTemplate : '{content} {icon}'
-          widgets: ["uitheme", "filter"]
-          widgetOptions:
-            filter_columnFilters: false
-            filter_reset: '.reset'
-            filter_childRows: true
-            filter_childByColumn: true
-            filter_childWithSibs: false
+    if @data.buildings.length and @tablesorterReady.get()
+      $table = $('#quick-view-table').tablesorter
+        theme: "bootstrap"
+        widthFixed: true
+        headerTemplate : '{content} {icon}'
+        widgets: ["uitheme", "filter"]
+        widgetOptions:
+          filter_columnFilters: false
+          filter_reset: '.reset'
+          filter_childRows: true
+          filter_childByColumn: true
+          filter_childWithSibs: false
 
-        $.tablesorter.filter.bindSearch $table, $('.filter')
+      $.tablesorter.filter.bindSearch $table, $('.filter')
 
-        $('#quick-view-table').removeClass('table-striped')
-        
-        $('#quick-view-table').on 'click', '.toggle-units', ->
-          $(@).closest('tr').nextUntil('tr:not(.tablesorter-childRow)').find('td').toggle()
+      $('#quick-view-table').removeClass('table-striped')
 
-          $i = $(@).find('i')
+      $('#quick-view-table').on 'click', '.toggle-units', ->
+        $(@).closest('tr').nextUntil('tr:not(.tablesorter-childRow)').find('td').toggle()
 
-          if $i.hasClass('fa-plus-square-o')
-            $i.removeClass('fa-plus-square-o')
-            $i.addClass('fa-minus-square-o')
-          else
-            $i.removeClass('fa-minus-square-o')
-            $i.addClass('fa-plus-square-o')
+        $i = $(@).find('i')
+
+        if $i.hasClass('fa-plus-square-o')
+          $i.removeClass('fa-plus-square-o')
+          $i.addClass('fa-minus-square-o')
+        else
+          $i.removeClass('fa-minus-square-o')
+          $i.addClass('fa-plus-square-o')
 
 Template.cityQuickView.helpers
   buildingsProcessed: ->
