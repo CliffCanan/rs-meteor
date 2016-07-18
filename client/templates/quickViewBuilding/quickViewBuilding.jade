@@ -49,7 +49,7 @@ template(name="quickViewBuilding")
     td
       span(data-toggle="tooltip", title=laundryComment) {{laundryValue}}
     td
-      span(data-toggle="tooltip", title=modifiedAtFormatted style=availableAtStyle) {{availableAtFormatted}}
+      i.js-available-at
 
   if isParent
     td {{overallPriceRange ../queryBtype}}
@@ -66,5 +66,4 @@ template(name="quickViewBuilding")
         button.videoExists(type="button", data-toggle="tooltip", title="Video available")
           i.fa.fa-video-camera.m-r-5.text-success
 
-      if adminNotes
-        i.fa.fa-sticky-note.text-danger(data-toggle="tooltip", title=adminNotes)
+      i.js-comments

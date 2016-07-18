@@ -259,6 +259,14 @@ Meteor.methods
 
 if Meteor.isServer
   Meteor.methods
+    setComments: (buildingId, value) ->
+      return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+      Buildings.update(buildingId, {$set: {adminNotes: value}})
+
+    setAvailableAt: (buildingId, value) ->
+      return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+      Buildings.update(buildingId, {$set: {availableAt: value}})
+
     syncMLS: ->
       importer = new MLSImporter()
       importer.sync Meteor.settings.trendrets.query

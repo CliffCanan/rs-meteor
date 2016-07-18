@@ -11,6 +11,67 @@ getSecurityDescription = (security) ->
     when 1 then "Doorman"
     when 2 then "No Doorman"
 
+getTextColorByAge = (age) ->
+  if age < 3 then "green"
+  else if age < 7 then "rgb(100,180,0)"
+  else if age < 14 then "orange"
+  else if age < 21 then "red"
+  else "rgb(130,0,0)"
+
+Template.quickViewBuilding.onRendered ->
+  building = @data
+
+  # configure "admin notes" widget
+  @$('.js-comments').editable
+    value: @data.adminNotes
+    type: 'textarea'
+    display: (value) ->
+      color = if value.length then 'lightgreen' else 'lightgray'
+      $(@).html("<i class='fa fa-sticky-note' title='#{value}' style='color: #{color}'</i>")
+    showbuttons: 'bottom'
+    url: (params) ->
+      value = params.value
+      deferred = new $.Deferred()
+      id = building._id
+      Meteor.call 'setComments', id, value, (error) ->
+        if error
+          console.error error
+          deferred.reject("Unable to save comments")
+        else
+          deferred.resolve()
+      deferred.promise()
+
+  # configure "available at" widget
+  @$('.js-available-at').editable
+    value: @data.availableAt
+    type: 'date'
+    display: (value) ->
+      if value
+        title = "Date added manually (not from MLS)"
+        color = 'black'
+        if building.modifiedAt
+          age = moment().diff(moment(building.modifiedAt), 'days')
+          title =  "Last synced with MLS on: #{moment(building.modifiedAt).format("MM/DD/YYYY")} (#{age} days ago)"
+          color = getTextColorByAge age
+
+        string = moment(value).format("MM/DD/YYYY")
+        $(@).html("<span title='#{title}' style='color:#{color}'>#{string}</span>")
+      else
+        $(@).html "Not set"
+    showbuttons: 'bottom'
+    url: (params) ->
+      value = params.value
+      deferred = new $.Deferred()
+      id = building._id
+      Meteor.call 'setAvailableAt', id, value, (error) ->
+        if error
+          console.error error
+          deferred.reject("Unable to save availableAt")
+        else
+          deferred.resolve()
+      deferred.promise()
+
+
 Template.quickViewBuilding.helpers
   bedrooms: ->
     value = @bedroomsFrom
@@ -32,26 +93,6 @@ Template.quickViewBuilding.helpers
 
   unitCount: ->
     if @children then @children.length else '-'
-
-  modifiedAtFormatted: ->
-    if @modifiedAt
-      daysAgo = moment().diff(moment(@modifiedAt), 'days')
-      return "Last synced with MLS on: " + (@modifiedAt.getMonth() + 1) + "/" + @modifiedAt.getDate() + "/" + @modifiedAt.getFullYear() + " (" + daysAgo + " days ago)"
-    else
-      return "Date added manually (not from MLS)"
-
-  availableAtStyle: ->
-    diff = moment().diff(moment(@modifiedAt), 'days')
-    style = ""
-    if diff < 3 then style = "color: green"
-    else if diff < 7 then style = "color: rgb(100,180,0)"
-    else if diff < 14 then style = "color: orange"
-    else if diff < 21 then style = "color: red"
-    else style = "color: rgb(130,0,0)"
-    style
-
-  availableAtFormatted: ->
-    if @availableAt then (@availableAt.getMonth() + 1) + "/" + @availableAt.getDate() + "/" +@availableAt.getFullYear() else '-'
 
   shouldShowRecommendToggle: ->
     Security.canManageClients()
