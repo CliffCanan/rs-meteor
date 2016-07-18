@@ -68,12 +68,10 @@ template(name="city")
                   label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(data-toggle="tooltip", data-placement="bottom", title="Show unpublished properties")
                     input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
-              unless not canOperateWithBuilding
-
-                .col-xs-12.col-md-3.pull-right
-                  .building-title-search-wrapper
-                    input.building-title-search.form-control(type="text", placeholder="Search Listings", value="{{query.q}}")
-                    i.fa.fa-fw.fa-search
+              .col-xs-12.col-md-3.pull-right
+                .building-title-search-wrapper
+                  input.building-title-search.form-control(type="text", placeholder="Search Listings", value="{{query.q}}")
+                  i.fa.fa-fw.fa-search
             .row.building-counter
               span Buildings found: {{buildingsCount}}
           unless clientRecommendationsList
