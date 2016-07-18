@@ -33,6 +33,9 @@ dateFields = ["availableAt"]
 boolFields = ["isFurnished"]
 
 buildingBeforeSave = (modifier) ->
+  # trim user input fields
+  modifier[field] = modifier[field].trim() for field in ['title', 'neighborhood'] when modifier[field] isnt undefined
+  
   if modifier.features isnt undefined and not _.isArray(modifier.features)
     features = []
     if typeof modifier.features is "string"
