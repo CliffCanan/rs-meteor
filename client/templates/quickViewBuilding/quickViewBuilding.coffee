@@ -42,8 +42,9 @@ Template.quickViewBuilding.onRendered ->
       deferred.promise()
 
   # configure "available at" widget
+  localDate = moment(moment.utc(@data.availableAt).format("YYYY-MM-DD")).toDate() # clear timezone
   @$('.js-available-at').editable
-    value: @data.availableAt
+    value: localDate
     type: 'date'
     display: (value) ->
       if value
