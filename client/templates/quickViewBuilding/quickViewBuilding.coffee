@@ -148,9 +148,12 @@ Template.quickViewBuilding.helpers
       return @images.length
     return 0
 
-#  displayPriceRange: ->
-#    for child in @children
-#      queryBtype = (Number.isInteger child.btype) ? "bedroom" + child.btype : child.btype
-#      fieldName = "agroPrice" + (if queryBtype then queryBtype.charAt(0).toUpperCase() + queryBtype.slice(1) else "Total")
-#      fieldNameFrom = fieldName + "From"
-#      fieldNameTo = fieldName + "To"
+  indexedImages: ->
+    index = 0
+    _.map @images, (image) -> image.index = index++; image
+    
+  isFirstImage: ->
+    @index is 0
+    
+  thumbnailUrl: ->
+    @url {store: "thumbs", auth: false} if @url

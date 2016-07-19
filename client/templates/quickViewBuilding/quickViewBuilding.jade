@@ -60,7 +60,22 @@ template(name="quickViewBuilding")
     span.quickViewTableIcons
 
       if hasImages
-        i.fa.fa-camera.m-r-5.text-primary(data-toggle="tooltip", title="{{imgCount}} pictures available")
+        i.fa.fa-camera.m-r-5.text-primary.js-images(data-toggle="modal" data-target="#gallery-#{_id}" title="{{imgCount}} pictures available")
+        .modal.fade(id="gallery-#{_id}" tabindex="-1" role="dialog")
+          .modal-dialog.modal-lg
+            .modal-content
+              .modal-body
+                .carousel.slide(id="carousel-popup-{{_id}}" data-ride="carousel")
+                  .carousel-inner
+                    each indexedImages
+                      .item(class="{{#if isFirstImage}}active{{/if}}")
+                        img.img-responsive(src="{{thumbnailUrl}}" style="width:900px")
+                  a.left.carousel-control(href="#carousel-popup-{{_id}}" role="button" data-slide="prev")
+                    span.glyphicon.glyphicon-chevron-left
+                  a.right.carousel-control(href="#carousel-popup-{{_id}}" role="button" data-slide="next")
+                    span.glyphicon.glyphicon-chevron-right
+      else
+        i.fa.fa-camera.m-r-5(style="color: grey")
 
       if hasVideo
         button.videoExists(type="button", data-toggle="tooltip", title="Video available")
