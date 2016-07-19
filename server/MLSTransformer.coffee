@@ -24,6 +24,8 @@
 #      obj._id
 
     title: (obj) ->
+      # NEED TO ADD: Check if Title has a "-", as in "2101-17 Chestnut St",
+      #              and remove the "-17" so we save only: "2101 Chestnut St"
       obj.BuildingName or s.titleize obj.FullStreetAddress
 
     cityId: (obj) ->
