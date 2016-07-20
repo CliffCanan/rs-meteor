@@ -156,6 +156,9 @@ else
 share.canRecommend = () ->
   Session.get("recommendationsClientObject") and Security.canManageClients()
 
+share.showClientRecommendationsBar = () ->
+  Session.get("recommendationsClientObject") and not Security.canManageClients() and (Router.current().route.getName() isnt "clientRecommendations")
+
 share.exitRecommendationsMode = () ->
   client = Session.get("recommendationsClientObject")
 

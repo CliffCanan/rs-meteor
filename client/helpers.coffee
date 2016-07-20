@@ -123,7 +123,10 @@ Template.registerHelper "canManageClients", ->
   Security.canManageClients()
 
 Template.registerHelper "canRecommend", ->
-  Session.get("recommendationsClientObject") and Security.canManageClients()
+  share.canRecommend()
+
+Template.registerHelper "showClientRecommendationsBar", ->
+  share.showClientRecommendationsBar()
 
 Template.registerHelper "currentClientName", ->
   if Session.get("recommendationsClientObject")

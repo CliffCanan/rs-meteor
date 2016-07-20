@@ -68,3 +68,12 @@ template(name="header")
           a#exit-recommendation.btn.btn-sm.btn-danger(href="#")
             i.fa.fa-check-circle
             | Done Recommending
+
+    if showClientRecommendationsBar
+        #recommending-client-banner.alert.alert-success
+          span.m-r-10
+            | We have a few buildings <strong>recommended</strong> for you!
+
+          a#view-recommendations.btn.btn-sm.btn-success(href="#")
+            i.fa.fa-list-ul
+            | Take a look

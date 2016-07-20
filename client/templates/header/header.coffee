@@ -29,7 +29,7 @@ Template.header.onRendered ->
 
   @autorun ->
     height = $('header').height() - 1
-    height += 52 if share.canRecommend()
+    height += 52 if share.canRecommend() or share.showClientRecommendationsBar()
 
     $('main').css('margin-top': height)
 
