@@ -1,24 +1,23 @@
 Template.clientSearchBar.onCreated ->
-  @subscribe "ClientRecommendations"
+  @autorun =>
+    clientId = Session.get 'clientId'
+    @subscribe "singleClientRecommendation", clientId
 
 Template.clientSearchBar.helpers
   showExitRecommendationIcon: ->
     Template.instance().data.type isnt 'session'
 
   clientsSearch: (query, sync, async) ->
-    suggestions = ClientRecommendations.find(name: {$regex: new RegExp query, "i"})
-    if suggestions.count()
-      sync(suggestions.fetch().map((it)->
-        id: it._id
-        value: it.name
-      ))
-      return
-    else
-      sync([
-        id: 'new'
-        value: 'Create New Client'
-      ])
-      return
+    Meteor.call "searchClient", query, (error, result) ->
+      if error
+        console.error "Error occurred in clientsSearch", error
+      else
+        if result.length
+          async result
+        else
+          async
+            id: 'new'
+            value: 'Create New Client'
 
   selectedClient: (event, suggestion, datasetName) ->
     instance = Template.instance()

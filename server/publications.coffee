@@ -252,9 +252,6 @@ Meteor.publish "ContactUsRequests", ->
 Meteor.publish "UserLists", ->
   UserLists.find()
 
-Meteor.publish "ClientRecommendations", ->
-  ClientRecommendations.find()
-
 Meteor.publish "singleClientRecommendation", (clientRecommendationId) ->
   ClientRecommendations.find(clientRecommendationId)
 

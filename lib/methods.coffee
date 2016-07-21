@@ -259,6 +259,10 @@ Meteor.methods
 
 if Meteor.isServer
   Meteor.methods
+    searchClient: (query) ->
+      clients = ClientRecommendations.find({name: {$regex: new RegExp query, "i"}}, {fields: {name: 1}, limit: 3, sort: {name: 1}}).fetch()
+      _.map clients, (client) -> {id: client._id, value: client.name}
+  
     setComments: (buildingId, value) ->
       return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
       Buildings.update(buildingId, {$set: {adminNotes: value}})
