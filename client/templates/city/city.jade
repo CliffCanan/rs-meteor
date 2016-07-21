@@ -190,12 +190,8 @@ template(name="city")
             else
               h3 No buildings matching this criteria.
 
-            if quickViewBuildingsLoading
+            if buildingsLoading
               +loadingSpinner
-
-
-          if loadingBuildings
-            +loadingSpinner
 
           if showIDXDisclaimer
             +idxDisclaimer

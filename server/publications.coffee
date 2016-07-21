@@ -1,3 +1,19 @@
+publishedBuildingFields = ['address', 'postalCode', 'cityId', 'title', 'images', 'features', 'isPublished', 'position', 'parentId', 'btype', 'isOnMap', 'latitude',
+  'longitude', 'slug', 'neighborhood', 'neighborhoodSlug', 'fitnessCenter', 'security', 'laundry', 'parking', 'pets', 'utilities',
+  'agroIsUnit', 'agroPriceTotalFrom', 'agroPriceTotalTo', 'agroPriceStudioFrom', 'agroPriceStudioTo', 'agroPriceBedroom0From',
+  'agroPriceBedroom0To', 'agroPriceBedroom1From', 'agroPriceBedroom1To', 'agroPriceBedroom2From', 'agroPriceBedroom2To',
+  'agroPriceBedroom3From', 'agroPriceBedroom3To', 'agroPriceBedroom4From', 'agroPriceBedroom4To', 'agroPriceBedroom5From',
+  'agroPriceBedroom5To', 'agroPriceBedroom6From', 'agroPriceBedroom6To', 'averageRating', 'bathroomsFrom', 'bathroomsTo',
+  'brokerageName', 'availableAt', 'modifiedAt', 'petsComment', 'parkingComment', 'utilitiesComment', 'laundryComment',
+  'securityComment', 'fitnessCenterComment', 'isFurnished', 'sqftFrom', 'sqftTo', 'vimeoId', 'bedroomsFrom', 'bedroomsTo', 'source']
+
+publishedAdminBuildingFields = publishedBuildingFields.concat ['mlsNo', 'adminAvailability', 'adminEscorted', 'adminAppFee', 'adminAvailability', 'adminOfficeHours',
+  'adminScheduling', 'adminContact', 'adminNotes']
+
+appendToSelector = (object, field) -> object[field] = 1; object
+publishedBuildingFieldsSelector = _.reduce publishedBuildingFields, appendToSelector, {}
+publishedAdminBuildingFieldsSelector = _.reduce publishedAdminBuildingFields, appendToSelector, {}
+
 addIsPublishedFilter = (userId, selector) ->
   unless Security.canOperateWithBuilding(userId)
     selector.isPublished = true
@@ -5,10 +21,10 @@ addIsPublishedFilter = (userId, selector) ->
 addWithImagesFilter = (selector) ->
   selector.images = { $exists: true, $ne: [] }
 
-getBuildingSelector = (cityId, query, mapBounds) ->
+getBuildingSelector = (userId, cityId, query, mapBounds) ->
   selector = {parentId: {$exists: false}, cityId: cityId}
-  addQueryFilter(query, selector, @userId)
-  addIsPublishedFilter(@userId, selector)
+  addQueryFilter(query, selector, userId)
+  addIsPublishedFilter(userId, selector)
   addWithImagesFilter(selector)
 #  addMapBoundsFilter(mapBounds, selector)
   selector
@@ -31,191 +47,18 @@ Meteor.publish "allUsers", ->
   # CC9 6/3/16): Only want to return users that have a NAME - what is the syntax for that here?
   Meteor.users.find()
 
-Meteor.publishComposite "buildings", (cityId, query, mapBounds, page) ->
-  query.from = "" + query.from
-  query.to = "" + query.to
-  check(cityId, Match.InArray(cityIds))
-  check(page, Number)
+Meteor.publishComposite "buildings", (cityId, query, mapBounds, page = 1) ->
+  check cityId, Match.InArray(cityIds)
+  check query, Object
+  check mapBounds, Object
+  check page, Number
 
-  page = parseInt(page)
-  unless page > 0
-    page = 1
+  fields = if Security.canOperateWithBuilding @userId then publishedAdminBuildingFieldsSelector else publishedBuildingFieldsSelector
+  selector = getBuildingSelector @userId, cityId, query, mapBounds
+  sort = {position: -1, createdAt: -1, _id: 1}
   limit = page * itemsPerPage
 
-  selector = getBuildingSelector.call @, cityId, query, mapBounds
-
-  # Limit fields to only those needed to display on city listing. Other fields are for building page.
-  fields =
-    address: 1
-    postalCode: 1
-    cityId: 1
-    title: 1
-    images: 1
-    features: 1
-    isPublished: 1
-    position: 1
-    parentId: 1
-    btype: 1
-    isOnMap: 1
-    latitude: 1
-    longitude: 1
-    slug: 1
-    neighborhood: 1
-    neighborhoodSlug: 1
-    fitnessCenter: 1
-    security: 1
-    laundry: 1
-    parking: 1
-    pets: 1
-    utilities: 1
-    agroIsUnit: 1
-    agroPriceTotalFrom: 1
-    agroPriceTotalTo: 1
-    agroPriceStudioFrom: 1
-    agroPriceStudioTo: 1
-    agroPriceBedroom0From: 1
-    agroPriceBedroom0To: 1
-    agroPriceBedroom1From: 1
-    agroPriceBedroom1To: 1
-    agroPriceBedroom2From: 1
-    agroPriceBedroom2To: 1
-    agroPriceBedroom3From: 1
-    agroPriceBedroom3To: 1
-    agroPriceBedroom4From: 1
-    agroPriceBedroom4To: 1
-    agroPriceBedroom5From: 1
-    agroPriceBedroom5To: 1
-    agroPriceBedroom6From: 1
-    agroPriceBedroom6To: 1
-    averageRating: 1
-    bathroomsFrom: 1
-    bathroomsTo: 1
-    brokerageName: 1
-    availableAt: 1
-    modifiedAt: 1
-    petsComment: 1
-    parkingComment: 1
-    utilitiesComment: 1
-    laundryComment: 1
-    securityComment: 1
-    fitnessCenterComment: 1
-    isFurnished: 1
-    sqftFrom: 1
-    sqftTo: 1
-    adminAppFee: 1
-    vimeoId: 1
-
-  fields['source.source'] = 1
-
-  if Security.canOperateWithBuilding(@userId)
-    adminFields = {
-      title: 1
-      mlsNo: 1
-      adminAvailability: 1
-      adminEscorted: 1
-      adminAppFee: 1
-      adminAvailability: 1
-      adminOfficeHours: 1
-      adminScheduling: 1
-      adminContact: 1
-      adminNotes: 1
-    }
-    fields = _.extend fields, adminFields
-
-  find: -> Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
-  children: [
-    find: (building) ->
-      images = building.images or []
-      imagesIds = _.pluck images, "_id"
-      BuildingImages.find {_id: {$in: imagesIds}}, {fields: 'copies': 1}
-  ]
-
-Meteor.publishComposite "buildingsQuickView", (cityId, query, mapBounds, page) ->
-  query.from = "" + query.from
-  query.to = "" + query.to
-  check(cityId, Match.InArray(cityIds))
-  check(page, Number)
-
-  page = parseInt(page)
-  unless page > 0
-    page = 1
-  limit = page * (itemsPerPage * 4)
-
-  selector = {cityId: cityId}
-  addQueryFilter(query, selector, @userId, {q: true})
-  addIsPublishedFilter(@userId, selector)
-  addWithImagesFilter(selector)
-  addMapBoundsFilter(mapBounds, selector)
-
-  _.each (_.keys selector), (key) ->
-    delete selector[key] if key.indexOf('agro') > -1
-
-  # Limit fields to only those needed to display on city listing. Other fields are for building page.
-  fields =
-    cityId: 1
-    title: 1
-    images: 1
-    isPublished: 1
-    position: 1
-    parentId: 1
-    btype: 1
-    isOnMap: 1
-    latitude: 1
-    longitude: 1
-    slug: 1
-    neighborhoodSlug: 1
-    fitnessCenter: 1
-    security: 1
-    laundry: 1
-    parking: 1
-    pets: 1
-    utilities: 1
-    bedroomsFrom: 1
-    bedroomsTo: 1
-    bathroomsFrom: 1
-    bathroomsTo: 1
-    sqftFrom: 1
-    sqftTo: 1
-    agroIsUnit: 1
-    agroPriceTotalFrom: 1
-    agroPriceTotalTo: 1
-    agroPriceStudioFrom: 1
-    agroPriceStudioTo: 1
-    agroPriceBedroom1From: 1
-    agroPriceBedroom1To: 1
-    agroPriceBedroom2From: 1
-    agroPriceBedroom2To: 1
-    availableAt: 1
-    modifiedAt: 1
-    source: 1
-    vimeoId: 1
-    petsComment: 1
-    parkingComment: 1
-    utilitiesComment: 1
-    laundryComment: 1
-    securityComment: 1
-    fitnessCenterComment: 1
-    brokerageName: 1
-    adminAppFee: 1
-    isFurnished: 1
-
-
-  if Security.canOperateWithBuilding(@userId)
-    adminFields = {
-      title: 1
-      mlsNo: 1
-      adminAvailability: 1
-      adminEscorted: 1
-      adminAppFee: 1
-      adminAvailability: 1
-      adminOfficeHours: 1
-      adminScheduling: 1
-      adminContact: 1
-      adminNotes: 1
-    }
-    fields = _.extend fields, adminFields
-
-  find: -> Buildings.find(selector, {sort: {position: -1, createdAt: -1, _id: 1}, limit: limit, fields: fields})
+  find: -> Buildings.find selector, {sort, limit, fields}
   children: [
     find: (building) ->
       images = building.images or []
@@ -289,8 +132,7 @@ Meteor.publish "buildingImages", (buildingId) ->
 
 Meteor.publish "city-buildings-count", (cityId, query = {}, mapBounds) ->
   check(cityId, Match.InArray(cityIds))
-  console.log arguments
-  selector = getBuildingSelector.call @, cityId, query, mapBounds
+  selector = getBuildingSelector @userId, cityId, query, mapBounds
   Counts.publish(@, "city-buildings-count", Buildings.find(selector))
   undefined
 
@@ -380,50 +222,6 @@ Meteor.smartPublish "buildingAdminSame", (cityId, slug) ->
 Meteor.publish "allBuildings", ->
   if Security.canOperateWithBuilding(@userId)
     Buildings.find()
-  else
-    []
-
-Meteor.publish "allBuildingsQuickView", ->
-  if Security.canOperateWithBuilding(@userId)
-    fields =
-      cityId: 1
-      title: 1
-      images: 1
-      isPublished: 1
-      position: 1
-      parentId: 1
-      btype: 1
-      isOnMap: 1
-      latitude: 1
-      longitude: 1
-      slug: 1
-      neighborhoodSlug: 1
-      fitnessCenter: 1
-      security: 1
-      laundry: 1
-      parking: 1
-      pets: 1
-      utilities: 1
-      bedroomsFrom: 1
-      bedroomsTo: 1
-      bathroomsFrom: 1
-      bathroomsTo: 1
-      sqftFrom: 1
-      sqftTo: 1
-      agroIsUnit: 1
-      agroPriceTotalFrom: 1
-      agroPriceTotalTo: 1
-      agroPriceStudioFrom: 1
-      agroPriceStudioTo: 1
-      agroPriceBedroom1From: 1
-      agroPriceBedroom1To: 1
-      agroPriceBedroom2From: 1
-      agroPriceBedroom2To: 1
-      availableAt: 1
-      modifiedAt: 1
-      vimeoId: 1
-
-    Buildings.find({}, {fields: fields})
   else
     []
 

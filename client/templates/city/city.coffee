@@ -27,7 +27,6 @@ $(window).on("resize", setHeights)
 Template.city.onCreated ->
   @firstLoad = true
   @buildingsCount = new ReactiveVar(0)
-  @quickViewBuildingsReady = new ReactiveVar(null)
 
   if Router.current().route.getName() is "clientRecommendations" and not Security.canManageClients()
     # Make the default view the Full Width view for Clients viewing Recommendations
@@ -48,16 +47,6 @@ Template.city.onCreated ->
         $('#contactUsPopup').modal('show')
     , delay
 
-  @autorun =>
-    if Session.get("viewType") is 'quickView'
-      data = Router.current().data()
-      params = Router.current().params
-      params.query.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
-
-      if Meteor.isClient then mapBoundsDependency.depend()
-      handle = quickViewSubs.subscribe "buildingsQuickView", params.cityId, params.query, mapBounds, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1
-      @quickViewBuildingsReady.set handle.ready()
-      
 Template.city.helpers
   showMap: ->
     Router.current().route.getName() isnt "clientRecommendations"
@@ -325,11 +314,8 @@ Template.city.helpers
   isMobileSize: ->
     $(window).width() > 767
 
-  quickViewBuildingsReady: ->
-    Template.instance().quickViewBuildingsReady.get()
-
-  quickViewBuildingsLoading: ->
-    not Template.instance().quickViewBuildingsReady.get()
+  buildingsLoading: ->
+    not citySubs.ready()
 
 markers = {}
 

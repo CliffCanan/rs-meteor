@@ -12,10 +12,7 @@ _.defaults(Match,
       throw new Match.Error("User with ID \"" + value + "\" doesn't exist")
     true
   InArray: (possibleValues) ->
-    Match.Where (value) ->
-      if possibleValues.indexOf(value) == -1
-        throw new Match.Error("Expected one of \""+possibleValues.join("\", \"")+"\"; got \"" + value + "\"")
-      true
+    Match.OneOf.apply(Match, possibleValues)
   UnsignedNumber: Match.Where (value) ->
     check(value, Number)
     if value < 0
