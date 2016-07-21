@@ -19,7 +19,7 @@ template(name="usersPanel")
                     if profile.name
                       tr(data-id="{{_id}}")
                         td {{profile.name}}
-                        td {{emails[0].email}}
+                        td {{email}}
                         td
                           select.form-control.user-role(name="roles" disabled=isStaff)
                             option(value="customer" selected="{{condition role 'is' 'customer'}}") Customer

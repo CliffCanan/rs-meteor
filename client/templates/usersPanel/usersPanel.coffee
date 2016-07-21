@@ -8,6 +8,9 @@ Template.usersPanel.helpers
   isStaff: ->
     Meteor.user().role is "staff"
 
+  email: ->
+    @emails[0]?.address
+    
   users: ->
     Meteor.users.find()
 
