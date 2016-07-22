@@ -70,7 +70,6 @@ promise
 udondan:slick
 underscorestring:underscore.string
 jrudio:bluebird
-reywood:publish-composite
 percolate:synced-cron
 chrismbeckett:toastr
 meteorhacks:zones

@@ -47,7 +47,7 @@ Meteor.publish "allUsers", ->
   # CC9 6/3/16): Only want to return users that have a NAME - what is the syntax for that here?
   Meteor.users.find()
 
-Meteor.publishComposite "buildings", (cityId, query, mapBounds, page = 1) ->
+Meteor.smartPublish "buildings", (cityId, query, mapBounds, page = 1) ->
   check cityId, Match.InArray(cityIds)
   check query, Object
   check mapBounds, Object
@@ -58,13 +58,12 @@ Meteor.publishComposite "buildings", (cityId, query, mapBounds, page = 1) ->
   sort = {position: -1, createdAt: -1, _id: 1}
   limit = page * itemsPerPage
 
-  find: -> Buildings.find selector, {sort, limit, fields}
-  children: [
-    find: (building) ->
-      images = building.images or []
-      image = _.first images
-      BuildingImages.find {_id: image._id}, {fields: 'copies': 1} if image
-  ]
+  @addDependency "buildings", "images", (building) ->
+    images = building.images or []
+    image = _.first images
+    BuildingImages.find {_id: image._id}, {fields: 'copies': 1} if image
+
+  Buildings.find selector, {sort, limit, fields}
 
 Meteor.publish "buildingsSimilar", (buildingId) ->
   building = Buildings.findOne(buildingId)
