@@ -62,8 +62,8 @@ Meteor.publishComposite "buildings", (cityId, query, mapBounds, page = 1) ->
   children: [
     find: (building) ->
       images = building.images or []
-      imagesIds = _.pluck images, "_id"
-      BuildingImages.find {_id: {$in: imagesIds}}, {fields: 'copies': 1}
+      image = _.first images
+      BuildingImages.find {_id: image._id}, {fields: 'copies': 1} if image
   ]
 
 Meteor.publish "buildingsSimilar", (buildingId) ->
@@ -121,14 +121,11 @@ Meteor.smartPublish "recommendedBuildings", (buildingIds) ->
   Buildings.find({_id: {'$in': buildingIds}}, {sort: {position: -1, createdAt: -1, _id: 1}})
 
 Meteor.publish "buildingImages", (buildingId) ->
-  building = Buildings.findOne(buildingId)
+  building = Buildings.findOne(buildingId, {images: 1})
 
-  if building.images?
-    imageIds = _.map building.images, (file) ->
-      file._id
-    return BuildingImages.find({_id: {$in: imageIds}})
-  else
-    @ready
+  images = building.images or []
+  imageIds = _.pluck images, "_id"
+  BuildingImages.find({_id: {$in: imageIds}})
 
 Meteor.publish "city-buildings-count", (cityId, query = {}, mapBounds) ->
   check(cityId, Match.InArray(cityIds))

@@ -3,6 +3,9 @@ updateScroll = ->
     _.defer ->
       $(".main-city-list-wrap").scrollTop(Session.get("cityScroll"))
 
+Template.cityBuildings.onCreated ->
+  @subscribeToBuildingImages = (buildingId) => @subscribe "buildingImages", buildingId
+
 Template.cityBuildings.onRendered ->
   @autorun => updateScroll()
 
@@ -173,6 +176,10 @@ Template.cityBuildings.events
 
   "click .view-pics-option": (event, template) ->
     event.preventDefault()
+
+    # fetch the rest images related to the building
+    buildingId = $(event.currentTarget).attr "data-building-id"
+    template.subscribeToBuildingImages buildingId
 
     analytics.track "Clicked View Pictures (Search)", {buildingId: @_id, buildingName: @title, label: @title} unless Meteor.user()
 
