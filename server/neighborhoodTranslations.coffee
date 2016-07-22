@@ -44,6 +44,7 @@
 	"penn sq": "Center City"
 	"penrose park": "Northern Liberties"
 	"schuylkill southwest": "Graduate Hospital"
+	"southwest ctr city": "Graduate Hospital"
 	"graduate hospital-south of south": "Graduate Hospital"
 	"temple university": "North Philadelphia"
 	"chinatown": "Center City East"

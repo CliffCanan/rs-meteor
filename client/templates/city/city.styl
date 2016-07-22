@@ -171,7 +171,7 @@
 
   .filterRow
     @media screen and (min-width: 768px)
-      margin 0 -5px 15px
+      margin 0 -5px 5px
 
   .filter-options ~ &
     @media screen and (min-width: 992px)
@@ -367,12 +367,8 @@
   position relative
   width 100%
   @media screen and (min-width: 768px)
-    // float right
     margin-bottom 15px
-    margin-right 2%
     padding 0 0 0 5px
-  @media screen and (min-width: 1020px)
-    // max-width 39%
   input
     font-size 15px
     color #272b30
@@ -382,20 +378,17 @@
     @media screen and (max-width: 767px)
       max-width 95%
       margin 0 auto
-
   i
     color #aaa
     position absolute
     top 12px
     left 4.5%
-    font-size 96%
-    opacity 0.9
     @media screen and (min-width: 768px)
       left 13px
 
 .green
-  color: green
+  color green
 
 .building-counter span
   float right
-  padding-right 25px
+  padding 0 0 5px 20px
