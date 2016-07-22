@@ -73,6 +73,14 @@ Template.quickViewBuilding.onRendered ->
       deferred.promise()
 
 
+Template.quickViewBuilding.events
+  "click .js-images": (event, template) ->
+    event.preventDefault()
+
+    # fetch the rest images related to the building
+    buildingId = $(event.currentTarget).attr "data-building-id"
+    subscribeToBuildingImages template, buildingId
+
 Template.quickViewBuilding.helpers
   bedrooms: ->
     value = @bedroomsFrom
