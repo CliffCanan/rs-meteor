@@ -34,32 +34,15 @@ $(window).on("resize", setHeights)
 addFilterByMapButton = (map, template) ->
   controlDiv = document.createElement 'div'
   controlUI = document.createElement 'div'
-  controlUI.style.backgroundColor = '#fff'
-  controlUI.style.border = '2px solid #fff'
-  controlUI.style.borderRadius = '3px'
-  controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)'
-  controlUI.style.cursor = 'pointer'
-  controlUI.style.marginBottom = '22px'
-  controlUI.style.marginLeft = '10px'
-  controlUI.style.textAlign = 'center'
+  controlUI.className = 'filter-by-map'
   controlUI.title = 'Click to filter by map bounds'
   controlDiv.appendChild(controlUI)
 
   controlText = document.createElement 'label'
-  controlText.style.color = 'rgb(25,25,25)'
-  controlText.style.fontFamily = 'Roboto,Arial,sans-serif'
-  controlText.style.fontSize = '12px'
-  controlText.style.lineHeight = '20px'
-  controlText.style.paddingLeft = '5px'
-  controlText.style.paddingRight = '5px'
-  controlText.style.marginBottom = '0'
-  controlText.style['-webkit-user-select'] = 'none'
   controlText.innerHTML = 'Search within the map'
 
   controlInput = document.createElement 'input'
   controlInput.type = 'checkbox'
-  controlInput.style.float = 'left'
-  controlInput.style.marginRight = '5px'
   controlText.appendChild controlInput
 
   controlUI.appendChild controlText
