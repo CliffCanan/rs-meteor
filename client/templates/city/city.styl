@@ -1,12 +1,12 @@
 .filter-by-map
-  background-color rgba(255,255,255,.85)
-  border-radius 3px
+  background-color rgba(255,255,255,.9)
+  border-radius 8px
   box-shadow 0 2px 7px -1px rgba(0,0,0,0.35)
   cursor pointer
-  margin-left 10px
+  margin 10px 0 0 10px
   padding 4px 8px
   @media screen and (min-width: 1200px)
-    padding 6px 8px
+    padding 5px 10px
 
 .filter-by-map > label
   color #222
@@ -15,8 +15,6 @@
   line-height 20px
   margin-bottom 0
   -webkit-user-select none
-  @media screen and (min-width: 1200px)
-    font-size 13px
 
 .filter-by-map > label > input
   float left
@@ -35,20 +33,20 @@
     top 10px
 
   .btn
-    background rgba(255,255,255,.85)
+    background rgba(255,255,255,.9)
     border-top 0
     border-radius 8px
     box-shadow 0 2px 7px -1px rgba(0,0,0,0.35)
     color #333
-    font-size 11px
+    font-family Roboto,Arial,sans-serif
+    font-size 12px
     font-weight 600
     height 28px
     line-height 26px
     padding 1px 8px
     width 94px
-    text-transform uppercase
     @media screen and (min-width: 1200px)
-      height 32px
+      height 30px
       font-size 12px
     i
       margin 0
@@ -67,7 +65,9 @@
       width 75% !important
 
   .filter-options
-    margin 10px 0
+    margin 10px -5px
+    @media screen and (min-width: 768px)
+      margin 10px 5px
     i:first-child
       margin-right 8px
       font-size 80%
@@ -192,10 +192,6 @@
   #filterSearchWrap
     @media screen and (max-width: 767px)
       margin 0 -10px
-
-  .filterRow
-    @media screen and (min-width: 768px)
-      margin 0 -5px 5px
 
   .filter-options ~ &
     @media screen and (min-width: 992px)
@@ -399,20 +395,20 @@
     font-weight bold
     height 38px
     padding-left 32px
-    @media screen and (max-width: 767px)
-      max-width 95%
-      margin 0 auto
+
   i
     color #aaa
     position absolute
     top 12px
-    left 4.5%
+    left 10px
     @media screen and (min-width: 768px)
       left 13px
 
 .green
   color green
 
-.building-counter span
-  float right
-  padding 0 0 5px 20px
+.building-counter
+  margin 0 -5px 10px 0
+  text-align right
+  @media screen and (min-width: 768px)
+    margin 0 5px 15px
