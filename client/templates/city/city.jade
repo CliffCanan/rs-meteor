@@ -83,6 +83,12 @@ template(name="city")
                 .row.filterRow
                   .col-xs-12
                     .filter-options.pull-left.clearfix
+                      if filterByMap
+                        label.label.label-primary.filter-tag(data-tag="filterByMap")
+                          i.fa.fa-check
+                          | Map bounds
+                          i.fa.fa-times-circle
+
                       if hasNeighborhood
                         label.label.label-primary.filter-tag(data-tag="neighborhood")
                           i.fa.fa-check

@@ -26,7 +26,7 @@ getBuildingSelector = (userId, cityId, query, mapBounds) ->
   addQueryFilter(query, selector, userId)
   addIsPublishedFilter(userId, selector)
   addWithImagesFilter(selector)
-#  addMapBoundsFilter(mapBounds, selector)
+  addMapBoundsFilter(mapBounds, selector)
   selector
 
 Meteor.publish "currentUser", ->

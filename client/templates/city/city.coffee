@@ -1,3 +1,10 @@
+@changeMapBounds = _.debounce (newMapBounds) ->
+  _.extend(mapBounds, newMapBounds) # overwrite the keys without changing the object
+
+  filteringByMapEnabled = Router.current().params.query.hasOwnProperty 'filterByMap'
+  mapBoundsDependency.changed() if filteringByMapEnabled
+, 500
+
 @setHeights = _.debounce ->
   $window = $(window)
   windowHeight = $window.outerHeight()
@@ -23,6 +30,55 @@ $(window).on("resize", setHeights)
   else
     $(".right-bar").outerHeight(windowHeight * 0.6)
     $(".left-bar").css("height", "auto")
+
+addFilterByMapButton = (map, template) ->
+  controlDiv = document.createElement 'div'
+  controlUI = document.createElement 'div'
+  controlUI.style.backgroundColor = '#fff'
+  controlUI.style.border = '2px solid #fff'
+  controlUI.style.borderRadius = '3px'
+  controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)'
+  controlUI.style.cursor = 'pointer'
+  controlUI.style.marginBottom = '22px'
+  controlUI.style.marginLeft = '10px'
+  controlUI.style.textAlign = 'center'
+  controlUI.title = 'Click to filter by map bounds'
+  controlDiv.appendChild(controlUI)
+
+  controlText = document.createElement 'label'
+  controlText.style.color = 'rgb(25,25,25)'
+  controlText.style.fontFamily = 'Roboto,Arial,sans-serif'
+  controlText.style.fontSize = '12px'
+  controlText.style.lineHeight = '20px'
+  controlText.style.paddingLeft = '5px'
+  controlText.style.paddingRight = '5px'
+  controlText.style.marginBottom = '0'
+  controlText.style['-webkit-user-select'] = 'none'
+  controlText.innerHTML = 'Search within the map'
+
+  controlInput = document.createElement 'input'
+  controlInput.type = 'checkbox'
+  controlInput.style.float = 'left'
+  controlInput.style.marginRight = '5px'
+  controlText.appendChild controlInput
+
+  controlUI.appendChild controlText
+
+  template.autorun =>
+    enabled = Router.current().params.query.hasOwnProperty 'filterByMap'
+    controlInput.checked = enabled
+
+  controlInput.addEventListener 'change', (event) ->
+    checked = event.target.checked
+    query = template.data.query
+
+    delete query['filterByMap']
+    query['filterByMap'] = true if checked
+    Router.go(Router.current().route.getName(), Router.current().data(), {query})
+
+  controlDiv.index = 1
+  map.controls[google.maps.ControlPosition.LEFT_TOP].push controlDiv
+  controlInput
 
 Template.city.onCreated ->
   @firstLoad = true
@@ -236,6 +292,10 @@ Template.city.helpers
     else
       return "Neighborhoods"
 
+  filterByMap: ->
+    query = Router.current().params.query
+    query.hasOwnProperty('filterByMap')
+
   brTypeExist: ->
     query = Router.current().params.query
     query.hasOwnProperty('btype')
@@ -387,6 +447,8 @@ Template.city.onRendered ->
 
     window.map = map
 
+    addFilterByMapButton map, @
+
     google.maps.event.addListener map, "idle", ->
 #      console.log "google.maps idle"
       bounds = map.getBounds()
@@ -397,10 +459,8 @@ Template.city.onRendered ->
         longitudeMin: sw.lng()
         latitudeMax: ne.lat()
         longitudeMax: ne.lng()
-      if not _.isEqual(mapBounds, newMapBounds)
-#        console.log "mapBoundsDependency.changed"
-        _.extend(mapBounds, newMapBounds) # overwrite the keys without changing the object
-        mapBoundsDependency.changed()
+
+      changeMapBounds newMapBounds if not _.isEqual(mapBounds, newMapBounds)
 
     @map = map
     markers = {}

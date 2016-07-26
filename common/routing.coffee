@@ -123,10 +123,11 @@ Router.map ->
     fastRender: true
     subscriptions: ->
       return [] if Meteor.isClient and not Session.get("cityPageData")
-#      if Meteor.isClient then mapBoundsDependency.depend()
+      if Meteor.isClient then mapBoundsDependency.depend()
+      bounds = if @params.query['filterByMap'] then mapBounds else {}
       [
-        citySubs.subscribe("buildings", @params.cityId, @params.query, {}, (if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1))
-        Meteor.subscribe("city-buildings-count", @params.cityId, @params.query, {})
+        citySubs.subscribe("buildings", @params.cityId, @params.query, bounds, (if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1))
+        Meteor.subscribe("city-buildings-count", @params.cityId, @params.query, bounds)
       ]
     data: ->
       return null unless @params.cityId in cityIds
@@ -186,9 +187,10 @@ Router.map ->
       query = _.clone(@params.query)
       query.neighborhoodSlug = @params.neighborhoodSlug
       if Meteor.isClient then mapBoundsDependency.depend()
+      bounds = if @params.query['filterByMap'] then mapBounds else {}
       [
-        citySubs.subscribe("buildings", @params.cityId, query, mapBounds, if Meteor.isClient then Session.get("neighborhoodPageData")?.page or 1 else 1)
-        Meteor.subscribe("city-buildings-count", @params.cityId, query, mapBounds)
+        citySubs.subscribe("buildings", @params.cityId, query, bounds, if Meteor.isClient then Session.get("neighborhoodPageData")?.page or 1 else 1)
+        Meteor.subscribe("city-buildings-count", @params.cityId, query, bounds)
       ]
     data: ->
       return null unless @params.cityId in cityIds
