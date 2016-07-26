@@ -2,7 +2,6 @@ ContactUsRequests.allow
   insert: share.securityRulesWrapper (userId, request) ->
     checkLength(request, ["name", "email", "bedrooms"])
     check(request,
-      _id: Match.Id
       name: String
       email: String
       phoneNumber: String
@@ -11,21 +10,15 @@ ContactUsRequests.allow
       contactUsMoveInDate: String
       #contactUsTourDate: String
       #tourOption: String
-      city: String
       cityName: String
       cityId: String
       #yes: Boolean
       #no: Boolean
       #notSure: Boolean
       question: String
-      userListId: String
-      agentName: String
-      agentId: String
       source: String
       medium: String
       campaign: String
-      updatedAt: Date
-      createdAt: Date
     )
     true
   update: share.securityRulesWrapper (userId, request, fieldNames, modifier, options) ->

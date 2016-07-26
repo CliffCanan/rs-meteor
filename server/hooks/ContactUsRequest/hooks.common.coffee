@@ -1,8 +1,12 @@
+sanitizeHtml = Meteor.npmRequire('sanitize-html')
+
 ContactUsRequestPreSave = (changes) ->
   now = new Date()
   changes.updatedAt = changes.updatedAt or now
+  changes.name = sanitizeHtml changes.name, {allowedTags: []}
 
 ContactUsRequests.before.insert (userId, ContactUsRequest) ->
+  ContactUsRequestPreSave.call(@, ContactUsRequest)
   user = Meteor.users.findOne({email: ContactUsRequest.email})
   if not user
     userId = Meteor.users.insert({
@@ -53,7 +57,6 @@ ContactUsRequests.before.insert (userId, ContactUsRequest) ->
     updatedAt: now
     createdAt: now
   )
-  ContactUsRequestPreSave.call(@, ContactUsRequest)
   true
 
 ContactUsRequests.before.update (userId, ContactUsRequest, fieldNames, modifier, options) ->
