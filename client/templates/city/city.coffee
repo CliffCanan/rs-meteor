@@ -275,10 +275,6 @@ Template.city.helpers
     else
       return "Neighborhoods"
 
-  filterByMap: ->
-    query = Router.current().params.query
-    query.hasOwnProperty('filterByMap')
-
   brTypeExist: ->
     query = Router.current().params.query
     query.hasOwnProperty('btype')
@@ -412,12 +408,12 @@ Template.city.onRendered ->
     map = new google.maps.Map document.getElementById("gmap"),
       zoom: 14
       center: new google.maps.LatLng(cityData.latitude, cityData.longitude)
-      streetViewControl: false
+      streetViewControl: true
       scaleControl: false
       rotateControl: false
       panControl: false
       overviewMapControl: false
-      mapTypeControl: true
+      mapTypeControl: false
       mapTypeId: google.maps.MapTypeId.ROADMAP
       maxZoom: 17
       minZoom: 11
