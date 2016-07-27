@@ -18,23 +18,23 @@
 
 .filter-by-map > label > input
   float left
-  margin-right 5px
+  margin-right 6px
+  margin-top 3px
 
 #forMap
   display none
-  position absolute
-  top 0
-  z-index 90
-  transition all .4s ease
   @media screen and (min-width: 1200px)
     display block
-    right 3%
+    position absolute
+    top 0
+    transition all .4s ease
+    right 10px
+    z-index 90
   &.is-out
     top 10px
 
   .btn
     background rgba(255,255,255,.9)
-    border-top 0
     border-radius 8px
     box-shadow 0 2px 7px -1px rgba(0,0,0,0.35)
     color #333
@@ -408,7 +408,7 @@
   color green
 
 .building-counter
-  margin 0 -5px 10px 0
+  margin 0 0 10px 0
   text-align right
   @media screen and (min-width: 768px)
-    margin 0 5px 15px
+    margin 10px 5px 15px
