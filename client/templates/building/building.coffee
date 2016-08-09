@@ -16,12 +16,11 @@ Template.building.onCreated ->
   if Meteor.user()
     $.getScript '/js/star-rating.min.js', ->
       $("#adminRating").rating
-#        min: 1
         max: 10
         step: 1
         stars: 10
         size: 'sm'
-        starCaptions: ["Not rated", "One star", "Two stars", "Three stars", "Four stars", "Five stars", "Six stars", "Seven stars", "Eight stars", "Nine stars", "Ten stars"]
+        starCaptions: ["Not Rated", "1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars", "6 Stars", "7 Stars", "8 Stars", "9 Stars", "10 Stars"]
         starCaptionClasses: ['label', 'label label-danger', 'label label-danger', 'label label-warning', 'label label-warning', 'label label-info', 'label label-info', 'label label-primary', 'label label-primary', 'label label-success', 'label label-success']
         filledStar: '<i class="fa fa-star"></i>'
         emptyStar: '<i class="fa fa-star-o"></i>'
@@ -51,29 +50,13 @@ Template.building.helpers
     _.defer ->
       $('[data-toggle="tooltip"]').tooltip()
 
-      ###
-      $carousel = $(".carousel")
-      carousel = $carousel.data("bs.carousel")
-
-      if carousel
-        carousel.pause()
-        carousel.destroy()
-
-      $firstItem = $carousel.find(".item:first")
-
-      if $firstItem.length
-        $firstItem.addClass("active")
-        $carousel.show().carousel()
-      else
-        $carousel.hide()
-      ###
-
     return ""
 
   formattedRatedAt: ->
     date = Template.instance().data.building.ratedAt
     moment(date).format 'MM/DD/YYYY'
 
+  # For Admin Rating (not user rating)
   isRated: ->
     Template.instance().data.building.adminRating
 
@@ -346,7 +329,7 @@ Template.building.onRendered ->
       unless Session.get("hasSeenCheckAvailabilityPopup") is true || Session.get("hasSeenContactUsPopup") is true
         unless $('body').hasClass('modal-open')
           $('.check-availability').trigger('click')
-    , 14000
+    , 16000
 
   @$('.rating-notes').editable
     value: building.ratingNotes
@@ -356,7 +339,7 @@ Template.building.onRendered ->
     placeholder: 'Leave your comments here'
     showbuttons: 'bottom'
     display: (value) ->
-      value =  value or 'Leave your comments here'
+      value =  value or 'Enter building/unit feedback here...'
       $(@).html("<span>#{value}</span>")
     url: (params) ->
       value = params.value
