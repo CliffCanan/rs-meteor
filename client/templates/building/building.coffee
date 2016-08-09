@@ -16,16 +16,24 @@ Template.building.onCreated ->
   if Meteor.user()
     $.getScript '/js/star-rating.min.js', ->
       $("#adminRating").rating
-        min:1
-        max:10
-        step:0.5
-        size:'sm'
+#        min: 1
+        max: 10
+        step: 1
+        stars: 10
+        size: 'sm'
+        starCaptions: ["Not rated", "One star", "Two stars", "Three stars", "Four stars", "Five stars", "Six stars", "Seven stars", "Eight stars", "Nine stars", "Ten stars"]
+        starCaptionClasses: ['label', 'label label-danger', 'label label-danger', 'label label-warning', 'label label-warning', 'label label-info', 'label label-info', 'label label-primary', 'label label-primary', 'label label-success', 'label label-success']
         filledStar: '<i class="fa fa-star"></i>'
         emptyStar: '<i class="fa fa-star-o"></i>'
         showClear: false
-
-    $('#adminRating').rating().on 'rating.change', (event, value, caption) ->
-      toastr.success('Rating: ' + value, 'Building Rated Successfully')
+      .on 'rating.change', (event, value) ->
+        Meteor.call "rateBuilding", building._id, value, (error) ->
+          if error
+            toastr.error("An error received from the server")
+            console.error error
+          else
+            @$('.rating-notes').editable('show')
+            toastr.success('Rating: ' + value, 'Building Rated Successfully')
 
 
 Template.building.helpers
@@ -61,6 +69,13 @@ Template.building.helpers
       ###
 
     return ""
+
+  formattedRatedAt: ->
+    date = Template.instance().data.building.ratedAt
+    moment(date).format 'MM/DD/YYYY'
+
+  isRated: ->
+    Template.instance().data.building.adminRating
 
   getRating: (rating) ->
     if rating == undefined
@@ -332,6 +347,28 @@ Template.building.onRendered ->
         unless $('body').hasClass('modal-open')
           $('.check-availability').trigger('click')
     , 14000
+
+  @$('.rating-notes').editable
+    value: building.ratingNotes
+    type: 'textarea'
+    mode: 'inline'
+    rows: 4
+    placeholder: 'Leave your comments here'
+    showbuttons: 'bottom'
+    display: (value) ->
+      value =  value or 'Leave your comments here'
+      $(@).html("<span>#{value}</span>")
+    url: (params) ->
+      value = params.value
+      deferred = new $.Deferred()
+      id = building._id
+      Meteor.call 'setRatingComments', id, value, (error) ->
+        if error
+          console.error error
+          deferred.reject("Unable to save comments")
+        else
+          deferred.resolve()
+      deferred.promise()
 
 
 Template.building.onDestroyed ->

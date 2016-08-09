@@ -57,8 +57,14 @@ template(name="building")
           if canOperateWithBuilding
             .row
               .col-xs-12.buildingAdminRatingWrap
-                input#adminRating.rating-loading(data-show-clear="false", data-show-caption="true")
-
+                input#adminRating.rating-loading(value=adminRating)
+            .row(style="{{#if isRated}}{{else}}display:none{{/if}}")
+              .row.rated-at-caption
+                .col-xs-12
+                  span Rated at #{formattedRatedAt}
+              .row
+                .col-xs-12
+                  .rating-notes
           .row
 
             .building-main-info.col-xs-12.col-md-5.col-lg-4

@@ -257,6 +257,14 @@ Meteor.methods
     return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
     ClientRecommendations.update(id, {$set: {email: email}})
 
+  rateBuilding: (buildingId, value) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    Buildings.update(buildingId, {$set: {adminRating: value, ratedAt: new Date()}})
+
+  setRatingComments: (buildingId, value) ->
+    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
+    Buildings.update(buildingId, {$set: {ratingNotes: value}})
+
 if Meteor.isServer
   Meteor.methods
     searchClient: (query) ->
