@@ -24,7 +24,6 @@ Template.building.onCreated ->
         starCaptionClasses: ['label', 'label label-danger', 'label label-danger', 'label label-warning', 'label label-warning', 'label label-info', 'label label-info', 'label label-primary', 'label label-primary', 'label label-success', 'label label-success']
         filledStar: '<i class="fa fa-star"></i>'
         emptyStar: '<i class="fa fa-star-o"></i>'
-        showClear: false
       .on 'rating.change', (event, value) ->
         Meteor.call "rateBuilding", building._id, value, (error) ->
           if error
@@ -54,7 +53,7 @@ Template.building.helpers
 
   formattedRatedAt: ->
     date = Template.instance().data.building.ratedAt
-    moment(date).format 'MM/DD/YYYY'
+    moment(date).format 'M/D/YY'
 
   # For Admin Rating (not user rating)
   isRated: ->
