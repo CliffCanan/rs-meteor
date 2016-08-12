@@ -3,6 +3,9 @@
 
   andStatements = []
 
+  if query._id
+    selector._id = query._id
+
   if query.neighborhoodSlug
     selector.neighborhoodSlug = query.neighborhoodSlug
 
