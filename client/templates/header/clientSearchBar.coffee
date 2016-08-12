@@ -15,9 +15,10 @@ Template.clientSearchBar.helpers
         if result.length
           async result
         else
-          async
+          async [
             id: 'new'
             value: 'Create New Client'
+          ]
 
   selectedClient: (event, suggestion, datasetName) ->
     instance = Template.instance()
