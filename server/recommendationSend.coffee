@@ -58,3 +58,5 @@ chunk = Meteor.npmRequire('lodash/chunk')
 	html = Spacebars.toHTML({first, name, pairs, recommendationsUrl}, Assets.getText('requests/aptRecommendationEmail.html'))
 	subject = "Apartment matches for " + name
 	Email.send {from, to, subject, html}
+
+	ClientRecommendations.update(clientId, {$set: {emailSentAt: new Date()}})

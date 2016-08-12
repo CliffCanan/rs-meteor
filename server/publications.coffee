@@ -251,6 +251,9 @@ Meteor.publish "UserLists", ->
 Meteor.publish "singleClientRecommendation", (clientRecommendationId) ->
   ClientRecommendations.find(clientRecommendationId)
 
+Meteor.publish "unhandledClientRecommendations", ->
+  ClientRecommendations.find({emailSentAt: {$exists: false}, token: {$exists: true}})
+
 Meteor.publish "propertyLists", ->
   PropertyLists.find()
 

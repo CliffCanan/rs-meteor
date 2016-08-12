@@ -283,6 +283,10 @@ if Meteor.isServer
       importer = new MLSImporter()
       importer.sync Meteor.settings.trendrets.query
 
+    syncTypeform: ->
+      observer = new TypeformObserver(Meteor.settings['typeform'])
+      observer.execute Meteor.settings['typeform']['formId']
+
     "sendRecommendationEmail": (clientId) ->
       sendRecommendationsFor clientId
 

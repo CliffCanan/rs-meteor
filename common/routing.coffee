@@ -92,6 +92,12 @@ Router.map ->
     onBeforeAction: ->
       @next()
 
+  @route "typeformRecommendations",
+    name: "typeformRecommendations"
+    fastRender: true
+    waitOn: ->
+      Meteor.subscribe "unhandledClientRecommendations"
+
   @route "recommendations/:clientId",
     name: "clientRecommendations"
     fastRender: true

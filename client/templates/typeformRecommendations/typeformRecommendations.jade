@@ -1,0 +1,44 @@
+template(name="typeformRecommendations")
+    +cityHeader
+    each recommendations
+        .typeform-recommendation
+            .typeform-item
+                span.typeform-question What areas of Philadelphia are you most interested in living?
+                span.typeform-answer {{neighborhoods}}
+            .typeform-item
+                span.typeform-question What size apartment are you looking for?
+                span.typeform-answer {{bedroomTypes}}
+            .typeform-item
+                span.typeform-question Do you already have a roommate?
+                span.typeform-answer {{hasRoommate}}
+            .typeform-item
+                span.typeform-question Roommate email address
+                span.typeform-answer {{roommateEmail}}
+            .typeform-item
+                span.typeform-question When would you like to move in to your new apartment?
+                span.typeform-answer {{moveinDate}}
+            .typeform-item
+                span.typeform-question Why did you pick that move-in date?
+                span.typeform-answer {{reasons}}
+            .typeform-item
+                span.typeform-question How flexible is your move-in date?
+                span.typeform-answer {{flexible}}
+            .typeform-item
+                span.typeform-question Are any of the following must-haves?
+                span.typeform-answer {{requirements}}
+            .typeform-item
+                span.typeform-question What is the MOST you want to spend on rent per month?
+                span.typeform-answer {{rent}}
+            .typeform-item
+                span.typeform-question Where are you in your apartment search process?
+                span.typeform-answer {{progress}}
+            .typeform-item
+                span.typeform-question Anything else we should know about your apartment search
+                span.typeform-answer {{details}}
+            .typeform-item
+                span.typeform-question Finally, please enter your email address so we can send you the apartments that match your criteria.
+                span.typeform-answer {{email}}
+            .typeform-item
+                span.typeform-question What is your name, friend?
+                span.typeform-answer {{name}}
+            a(href=linkToRecommendationPage) Go to Client Recommendations

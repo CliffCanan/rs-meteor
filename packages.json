@@ -14,5 +14,6 @@
   "rets-client": "https://github.com/edmundkwok/rets-client/archive/2f48688138975b350dcc8532495fa0b7be1e1f99.tar.gz",
   "wkhtmltopdf-selfcontained": "0.1.6",
   "accounting": "0.4.1",
-  "sanitize-html": "1.13.0"
+  "sanitize-html": "1.13.0",
+  "underscore": "1.8.3"
 }

@@ -41,5 +41,8 @@
       "username": "TRNRNTSCNE",
       "password": "L7NiBL"
     }
+  },
+  "typeform": {
+    "url": "https://api.typeform.com/v1/form/"
   }
 }
