@@ -55,7 +55,11 @@ chunk = Meteor.npmRequire('lodash/chunk')
 	name = client.name
 	[first, last] = name.split " "
 
-	html = Spacebars.toHTML({first, name, pairs, recommendationsUrl}, Assets.getText('requests/aptRecommendationEmail.html'))
+	representative =
+		name: user.name or user.profile?.name
+		email: user.email or _.first(user.emails)?.address
+
+	html = Spacebars.toHTML({first, name, pairs, representative, recommendationsUrl}, Assets.getText('requests/aptRecommendationEmail.html'))
 	subject = "Apartment matches for " + name
 	Email.send {from, to, subject, html}
 
