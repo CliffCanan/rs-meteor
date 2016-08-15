@@ -1,4 +1,5 @@
 Future = Npm.require('fibers/future')
+querystring = Npm.require('querystring')
 _ = Meteor.npmRequire('underscore')
 
 class @TypeformObserver
@@ -97,6 +98,9 @@ class @TypeformObserver
 	handleReply: (data) ->
 		{neighborhoods, bedroomTypes, hasRoommate, roommateEmail, moveinDate, reasons, flexible, requirements, rent, progress, details, email, name, token} = data
 
+		# URL query string
+		filters = {}
+
 		query = {}
 		query.$and = []
 
@@ -106,11 +110,22 @@ class @TypeformObserver
 		btypes.$or = []
 		for bedroomType in bedroomTypes
 			switch (bedroomType)
-				when 'Studio' then btypes.$or.push {agroPriceStudioFrom: {$exists: 1}}
-				when 'Studio / 1 Bedroom' then btypes.$or.push {agroPriceStudioFrom: {$exists: 1}}; btypes.$or.push {agroPriceBedroom1From: {$exists: 1}}
-				when '1 Bedroom' then btypes.$or.push {agroPriceBedroom1From: {$exists: 1}}
-				when '2 Bedroom' then btypes.$or.push {agroPriceBedroom2From: {$exists: 1}}
-				when '3 Bedroom' then btypes.$or.push {agroPriceBedroom3From: {$exists: 1}}
+				when 'Studio'
+					btypes.$or.push {agroPriceStudioFrom: {$exists: 1}}
+					filters['btype'] = 'studio'
+				when 'Studio / 1 Bedroom'
+					btypes.$or.push {agroPriceStudioFrom: {$exists: 1}}
+					btypes.$or.push {agroPriceBedroom1From: {$exists: 1}}
+					filters['btype'] = 'studio' # or "bedroom1"
+				when '1 Bedroom'
+					btypes.$or.push {agroPriceBedroom1From: {$exists: 1}}
+					filters['btype'] = 'bedroom1'
+				when '2 Bedroom'
+					btypes.$or.push {agroPriceBedroom2From: {$exists: 1}}
+					filters['btype'] = 'bedroom2'
+				when '3 Bedroom'
+					btypes.$or.push {agroPriceBedroom3From: {$exists: 1}}
+					filters['btype'] = 'bedroom3'
 				else # do nothing
 		query.$and.push btypes if btypes.$or.length
 
@@ -126,17 +141,26 @@ class @TypeformObserver
 		available.$and.push {availableAt: {$gte: availableFrom.toDate()}}
 		available.$and.push {availableAt: {$lte: availableTo.toDate()}}
 		query.$and.push available
+		filters['available'] = availableTo.format "MM/DD/YYYY"
 
-#		features = {}
-#		features.$and = []
-#		for requirement in requirements
-#			switch requirement
-#				when 'Pet-Friendly' then features.$and.push {pets: {$in: [1, 2]}}
-#				when 'Parking Available' then features.$and.push {parking: {$in: [1, 2]}}
-#				when 'Utilities Included' then features.$and.push {utilities: {$in: [1]}}
-#				when 'Laundry In-Unit' then features.$and.push {laundry: 1}
-#				else # handle the rest options
-#		query.$and.push features if features.$and.length
+		features = {}
+		features.$and = []
+		for requirement in requirements
+			switch requirement
+				when 'Pet-Friendly'
+					features.$and.push {pets: {$in: [1, 2]}}
+					filters['pets'] = true
+				when 'Parking Available'
+					features.$and.push {parking: {$in: [1, 2]}}
+					filters['parking'] = true
+				when 'Utilities Included'
+					features.$and.push {utilities: {$in: [1]}}
+					filters['utilities'] = true
+				when 'Laundry In-Unit'
+					features.$and.push {laundry: 1}
+					filters['laundry'] = true
+				else # handle the rest options
+		query.$and.push features if features.$and.length
 
 		if rent
 			rent = parseInt rent
@@ -152,11 +176,12 @@ class @TypeformObserver
 					else # do nothing
 			prices.$or = {agroPriceTotalFrom: {$lt: rent}} if not prices.$or.length
 			query.$and.push prices
+			filters['to'] = rent
 
 		console.log "Typeform: query for token (#{token})", JSON.stringify query
 
 		buildingIds = _.pluck Buildings.find(query, {limit: 20, fields: {_id: 1}}).fetch(), "_id"
 
 		if not ClientRecommendations.find({token}).count()
-			clientId = ClientRecommendations.insert({token, name, email, buildingIds, data})
+			clientId = ClientRecommendations.insert({token, name, email, buildingIds, data, query: querystring.stringify filters})
 			console.log "Typeform: new Client Id (#{clientId})"

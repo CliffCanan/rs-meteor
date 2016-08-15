@@ -44,5 +44,5 @@ Template.typeformRecommendations.helpers
       when false then "No"
       else "Not Set"
 
-  linkToRecommendationPage: ->
-    Router.path "clientRecommendations", {clientId: @_id}
+  url: ->
+    Router.path "clientRecommendations", {clientId: @_id}, {query: @query}
