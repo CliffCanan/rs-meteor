@@ -566,18 +566,22 @@ Template.building.helpers
 
 Template.building.events
   "click .building-info-wrap .recommend-toggle": (event, template) ->
+    event.preventDefault()
+
     clientObject = Session.get "recommendationsClientObject"
     if clientObject
-      clientId = clientObject.clientId
+      clientId = clientObject.clientId or clientObject._id
       if Template.building.__helpers[" buildingIsRecommended"].call(@) is 0
         Meteor.call 'recommendBuilding', clientId, @._id
       else
         Meteor.call 'unrecommendBuilding', clientId, @._id
 
   "click .building-unit-item .recommend-toggle": (event, template) ->
+    event.preventDefault()
+
     clientObject = Session.get "recommendationsClientObject"
     if clientObject
-      clientId = clientObject.clientId
+      clientId = clientObject.clientId or clientObject._id
       if Template.building.__helpers[" unitIsRecommended"].call(@) is 0
         Meteor.call 'recommendUnit', clientId, @._id, @.parentId
       else

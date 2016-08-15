@@ -480,14 +480,6 @@ if Meteor.isServer
     clientId: clientId
     url: Router.routes["clientRecommendations"].path(clientId: clientId)
 
-  "recommendBuilding": (clientId, buildingId) ->
-    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
-    ClientRecommendations.update(clientId, {$addToSet: {buildingIds: buildingId}})
-
-  "unrecommendBuilding": (clientId, buildingId) ->
-    return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
-    ClientRecommendations.update(clientId, {$pull: {buildingIds: buildingId}})
-
   "recommendUnit": (clientId, unitId, parentId) ->
     return {message: "error", reason: "no permissions", 0} unless Security.canManageClients()
     unitObject = {parentId: parentId, unitId: unitId}
