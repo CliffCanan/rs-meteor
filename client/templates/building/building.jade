@@ -383,10 +383,6 @@ template(name="building")
 
               else
 
-                if canRecommend
-                  a.recommend-toggle(href="#", class="{{#if buildingIsRecommended}}active{{/if}}")
-                    i.fa.fa-star
-
                 .building-img-wrap#sliderAptImgs
                   each getMedia
                     .item
