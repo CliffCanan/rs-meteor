@@ -12,7 +12,7 @@ Template.clientRecommendations.onRendered ->
       cityId = if params.query.cityId then params.query.cityId else firstCityId
 
       mapBoundsDependency.depend()
-      subscriptionQuery = {_id: {$in: clientRecommendations.buildingIds}}
+      subscriptionQuery = {_id: {$in: clientRecommendations.buildingIds}} if Session.get("showRecommendations")
       citySubs.subscribe("buildings", cityId, subscriptionQuery, mapBounds, if Meteor.isClient then Session.get("cityPageData")?.page or 1 else 1)
       instance.subscribe("city-buildings-count", cityId, subscriptionQuery, mapBounds)
 
