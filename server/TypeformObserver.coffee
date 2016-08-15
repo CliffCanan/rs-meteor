@@ -10,7 +10,7 @@ class @TypeformObserver
 			apiKey: String
 			url: String
 
-		@responsePerPage = 2 # maximum
+		#@responsePerPage = 10
 		@tries = 5
 
 	execute: (formId) ->
@@ -21,7 +21,7 @@ class @TypeformObserver
 
 		params =
 			completed: true
-			limit: @responsePerPage
+			#limit: @responsePerPage
 			key: @settings.apiKey
 		params.since = Math.floor(timestamp.time.getTime() / 1000) if timestamp
 
@@ -69,7 +69,7 @@ class @TypeformObserver
 				{fname, lname, email, rent, movein} = hidden
 
 				neighborhoods = values[19135278]
-				bedroomTypes = values[19131647]
+				bedroomType = _.first values[19131647]
 				hasRoommate = _.first values[19178312]
 				roommateEmail = _.first values[19179672]
 
@@ -93,10 +93,10 @@ class @TypeformObserver
 				name = _.first values[25511878] or fname or lname
 
 				console.log "Typeform: result"
-				@handleReply {neighborhoods, bedroomTypes, hasRoommate, roommateEmail, moveinDate, reasons, flexible, requirements, rent, progress, details, email, name, token}
+				@handleReply {neighborhoods, bedroomType, hasRoommate, roommateEmail, moveinDate, reasons, flexible, requirements, rent, progress, details, email, name, token}
 
 	handleReply: (data) ->
-		{neighborhoods, bedroomTypes, hasRoommate, roommateEmail, moveinDate, reasons, flexible, requirements, rent, progress, details, email, name, token} = data
+		{neighborhoods, bedroomType, hasRoommate, roommateEmail, moveinDate, reasons, flexible, requirements, rent, progress, details, email, name, token} = data
 
 		# URL query string
 		filters = {}
@@ -108,25 +108,24 @@ class @TypeformObserver
 
 		btypes = {}
 		btypes.$or = []
-		for bedroomType in bedroomTypes
-			switch (bedroomType)
-				when 'Studio'
-					btypes.$or.push {agroPriceStudioFrom: {$exists: 1}}
-					filters['btype'] = 'studio'
-				when 'Studio / 1 Bedroom'
-					btypes.$or.push {agroPriceStudioFrom: {$exists: 1}}
-					btypes.$or.push {agroPriceBedroom1From: {$exists: 1}}
-					filters['btype'] = 'studio' # or "bedroom1"
-				when '1 Bedroom'
-					btypes.$or.push {agroPriceBedroom1From: {$exists: 1}}
-					filters['btype'] = 'bedroom1'
-				when '2 Bedroom'
-					btypes.$or.push {agroPriceBedroom2From: {$exists: 1}}
-					filters['btype'] = 'bedroom2'
-				when '3 Bedroom'
-					btypes.$or.push {agroPriceBedroom3From: {$exists: 1}}
-					filters['btype'] = 'bedroom3'
-				else # do nothing
+		switch (bedroomType)
+			when 'Studio'
+				btypes.$or.push {agroPriceStudioFrom: {$exists: 1}}
+				filters['btype'] = 'studio'
+			when 'Studio / 1 Bedroom'
+				btypes.$or.push {agroPriceStudioFrom: {$exists: 1}}
+				btypes.$or.push {agroPriceBedroom1From: {$exists: 1}}
+				filters['btype'] = 'studio' # or "bedroom1"
+			when '1 Bedroom'
+				btypes.$or.push {agroPriceBedroom1From: {$exists: 1}}
+				filters['btype'] = 'bedroom1'
+			when '2 Bedroom'
+				btypes.$or.push {agroPriceBedroom2From: {$exists: 1}}
+				filters['btype'] = 'bedroom2'
+			when '3 Bedroom'
+				btypes.$or.push {agroPriceBedroom3From: {$exists: 1}}
+				filters['btype'] = 'bedroom3'
+			else # do nothing
 		query.$and.push btypes if btypes.$or.length
 
 		available = {}
@@ -134,9 +133,15 @@ class @TypeformObserver
 		availableFrom = moment(moveinDate).startOf('day')
 		availableTo = moment(moveinDate).endOf('day')
 		switch flexible
-			when 'Very flexible (+/- 1 month)' then availableFrom.subtract(1, 'month'); availableTo.add(1, 'month')
-			when 'Moderately flexible (+/- 2 weeks)' then availableFrom.subtract(2, 'week'); availableTo.add(2, 'week')
-			when 'Barely flexible (+/- a few days)' then availableFrom.subtract(4, 'day'); availableTo.add(4, 'day')
+			when 'Very flexible (+/- 1 month)'
+				availableFrom.subtract(1, 'month')
+				availableTo.add(1, 'month')
+			when 'Moderately flexible (+/- 2 weeks)'
+				availableFrom.subtract(2, 'week')
+				availableTo.add(2, 'week')
+			when 'Barely flexible (+/- a few days)'
+				availableFrom.subtract(4, 'day')
+				availableTo.add(4, 'day')
 			when 'Not flexible at all' then # do nothing
 		available.$and.push {availableAt: {$gte: availableFrom.toDate()}}
 		available.$and.push {availableAt: {$lte: availableTo.toDate()}}
@@ -166,15 +171,20 @@ class @TypeformObserver
 			rent = parseInt rent
 			prices = {}
 			prices.$or = []
-			for bedroomType in bedroomTypes
-				switch (bedroomType)
-					when 'Studio' then prices.$or.push {agroPriceStudioFrom: {$lt: rent}}
-					when 'Studio / 1 Bedroom' then prices.$or.push {agroPriceStudioFrom: {$lt: rent}}; prices.$or.push {agroPriceBedroom1From: {$lt: rent}}
-					when '1 Bedroom' then prices.$or.push {agroPriceBedroom1From: {$lt: rent}}
-					when '2 Bedroom' then prices.$or.push {agroPriceBedroom2From: {$lt: rent}}
-					when '3 Bedroom' then prices.$or.push {agroPriceBedroom3From: {$lt: rent}}
-					else # do nothing
-			prices.$or = {agroPriceTotalFrom: {$lt: rent}} if not prices.$or.length
+			switch (bedroomType)
+				when 'Studio'
+          prices.$or.push {agroPriceStudioFrom: {$lt: rent}}
+				when 'Studio / 1 Bedroom'
+          prices.$or.push {agroPriceStudioFrom: {$lt: rent}}
+          prices.$or.push {agroPriceBedroom1From: {$lt: rent}}
+				when '1 Bedroom'
+          prices.$or.push {agroPriceBedroom1From: {$lt: rent}}
+				when '2 Bedroom'
+          prices.$or.push {agroPriceBedroom2From: {$lt: rent}}
+				when '3 Bedroom'
+          prices.$or.push {agroPriceBedroom3From: {$lt: rent}}
+				else # do nothing
+			prices.$or.push {agroPriceTotalFrom: {$lt: rent}} if not prices.$or.length
 			query.$and.push prices
 			filters['to'] = rent
 

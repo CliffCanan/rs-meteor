@@ -43,6 +43,7 @@
     }
   },
   "typeform": {
-    "url": "https://api.typeform.com/v1/form/"
+    "url": "https://api.typeform.com/v1/form/",
+    "refresh": "every 5 minutes"
   }
 }
