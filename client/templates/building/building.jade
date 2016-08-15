@@ -27,6 +27,14 @@ template(name="building")
             button.btn.btn-success.add-unit(type="button")
               i.fa.fa-plus
               | Add Unit
+          if canRecommend
+            button.btn.btn-success.recommend-building-toggle(type="button")
+              if buildingIsRecommended
+                i.fa.fa-bookmark-o
+                | Unrecommend
+              else
+                i.fa.fa-bookmark
+                | Recommend
           button.btn.btn-danger.remove-building(type="button")
             i.fa.fa-trash
             | Delete
@@ -258,12 +266,6 @@ template(name="building")
 
                         li.building-unit-item-wrap
                           .building-unit-item(class="{{#unless isPublished}}is-not-published{{/unless}}")
-
-                            if canManageClients
-                              .row
-                                .col-xs-12
-                                  a.recommend-toggle(href="#", class="{{#if unitIsRecommended}}active{{/if}}")
-                                    i.fa.fa-star
 
                             .row
                               .col-xs-12.col-sm-6.unit-img-wrap

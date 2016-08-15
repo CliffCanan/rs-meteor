@@ -555,17 +555,17 @@ Template.building.helpers
   'buildingIsRecommended': ->
     clientObject = Session.get "recommendationsClientObject"
     if clientObject
-      clientId = clientObject.clientId
+      clientId = clientObject.clientId or clientObject._id
       ClientRecommendations.find({_id: clientId, 'buildingIds': @._id}).count()
 
   'unitIsRecommended': ->
     clientObject = Session.get "recommendationsClientObject"
     if clientObject
-      clientId = clientObject.clientId
+      clientId = clientObject.clientId or clientObject._id
       ClientRecommendations.find({_id: clientId, 'unitIds.unitId': @._id}).count()
 
 Template.building.events
-  "click .building-info-wrap .recommend-toggle": (event, template) ->
+  "click .recommend-building-toggle": (event, template) ->
     event.preventDefault()
 
     clientObject = Session.get "recommendationsClientObject"
