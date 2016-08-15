@@ -60,7 +60,7 @@ template(name="quickViewBuilding")
     span.quickViewTableIcons
 
       if hasImages
-        i.fa.fa-camera.m-r-5.text-primary.js-images(data-toggle="modal" data-building-id=_id data-target="#gallery-#{_id}" title="{{imgCount}} pictures available")
+        i.fa.fa-camera.m-r-5.text-primary.js-images(data-toggle="modal" data-target="#gallery-#{_id}" title="{{imgCount}} pictures available")
         .modal.fade(id="gallery-#{_id}" tabindex="-1" role="dialog")
           .modal-dialog.modal-lg
             .modal-content
@@ -81,4 +81,5 @@ template(name="quickViewBuilding")
         button.videoExists(type="button", data-toggle="tooltip", title="Video available")
           i.fa.fa-video-camera.m-r-5.text-success
 
-      i.js-comments
+      i.m-r-5.js-comments
+      i.fa.fa-trash.text-danger.js-delete

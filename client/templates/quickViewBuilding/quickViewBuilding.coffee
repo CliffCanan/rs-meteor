@@ -78,8 +78,30 @@ Template.quickViewBuilding.events
     event.preventDefault()
 
     # fetch the rest images related to the building
-    buildingId = $(event.currentTarget).attr "data-building-id"
+    buildingId = template.data._id
     subscribeToBuildingImages template, buildingId
+
+  "click .js-delete": (event, template) ->
+    event.preventDefault()
+
+    buildingId = template.data._id
+
+    # sorry for this, but I can't just pass the value via closure to the callback for some reason...
+    Session.set "buildingId", buildingId
+
+    swal
+      title: "Delete Building Confirmation"
+      text: "You are about to permanently delete this building - this <strong>cannot be un-done</strong>.  Do you still want to delete this building?"
+      type: "warning"
+      confirmButtonColor: "#4588fa"
+      confirmButtonText: "Delete"
+      closeOnConfirm: true
+      showCancelButton: true
+      cancelButtonText: "Cancel"
+      html: true
+      , (isConfirm) ->
+        buildingId = Session.get "buildingId"
+        Buildings.remove(buildingId) if isConfirm
 
 Template.quickViewBuilding.helpers
   bedrooms: ->
