@@ -37,7 +37,9 @@ Template.clientSearchBar.helpers
           Session.set('clientId', data.clientId)
         else
           $target.val ''
-          Router.go "clientRecommendations", {clientId: data.clientId}, query: {cityId: cityPageData.cityId} unless err
+          query = {}
+          query.cityId = cityPageData.cityId if cityPageData
+          Router.go "clientRecommendations", {clientId: data.clientId}, query: query unless err
     else
       $target.val ''
       if Template.instance().data.type is 'session'
