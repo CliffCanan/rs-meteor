@@ -1,0 +1,7 @@
+{
+  "worker": {
+    "git": "https://github.com/IcyEagle/Meteor-CollectionFS",
+    "version": "f0dcc7fd26c397f12e1e7bdc407e83a55b31a0ff",
+    "path": "packages/worker"
+  }
+}
