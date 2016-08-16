@@ -6,6 +6,9 @@
   if query._id
     selector._id = query._id
 
+  if not query['unpublished']
+    selector.isPublished = true
+
   if query.neighborhoodSlug
     selector.neighborhoodSlug = query.neighborhoodSlug
 

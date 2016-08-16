@@ -74,8 +74,6 @@ Template.city.onCreated ->
     # Otherwise for admins and regular visitors, make Thumbnail View the default
     Session.setDefault "viewType", "thumbnails"
 
-  Session.set('adminShowUnpublishedProperties', false)
-
   # Show Contact Us Popup after 22s (tablet/desktop) or 16s (mobile)
   if Router.current().route.getName() != "clientRecommendations" and location.hostname isnt "localhost" and not Meteor.user()
 
@@ -131,7 +129,7 @@ Template.city.helpers
         selector = {_id: {$in: buildingIds}, isPublished: true}
     else
       selector = {parentId: {$exists: false}, cityId: @cityId}
-      selector.isPublished = true if not Session.get('adminShowUnpublishedProperties')
+      selector.isPublished = true if not query['unpublished']
 
       viewType = Session.get("viewType")
 
@@ -661,8 +659,22 @@ Template.city.events
       Session.set "distanceMode", "bike"
 
   "click #show-unpublished-properties-toggle": (event, template) ->
-    currentValue = Session.get('adminShowUnpublishedProperties')
-    Session.set('adminShowUnpublishedProperties', !currentValue)
+    data = template.data
+    query = data.query or {}
+
+    if query['unpublished']
+      delete query['unpublished']
+    else
+      query['unpublished'] = true
+
+    routeName = Router.current().route.getName()
+    if routeName is "clientRecommendations"
+      Router.go("clientRecommendations", {clientId: Router.current().data().clientId}, {query: query})
+    else
+      routeParams = {}
+      routeParams.cityId = data.cityId if data.cityId
+      routeParams.neighborhoodSlug = data.neighborhoodSlug if data.neighborhoodSlug
+      Router.go(routeName, routeParams, {query: query})
 
   "click .collapse-toggle-wrap#forMap": (event, template) ->
     $item = $(event.currentTarget)

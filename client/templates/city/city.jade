@@ -63,9 +63,11 @@ template(name="city")
                       i.fa.fa-plus
                       | Add Listing
 
-                .col-xs-2.col-md-3.filter-wrap.unpublished-property-toggle-wrapper.hide-md
-                  span Toggle Unpublished Properties:
-                  label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(data-toggle="tooltip", data-placement="bottom", title="Show unpublished properties")
+                .col-xs-2.col-md-3.unpublished-property-toggle-wrapper.hide-md
+                  label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect(for="show-unpublished-properties-toggle" data-toggle="tooltip", data-placement="bottom", title="Show unpublished properties") Toggle Unpublished Properties:
+                  if query.unpublished
+                    input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox" checked)
+                  else
                     input.mdl-switch__input(id="show-unpublished-properties-toggle" type="checkbox")
 
               .col-xs-12.col-md-3.pull-right
