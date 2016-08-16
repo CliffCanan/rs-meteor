@@ -230,6 +230,7 @@ Template.cityHeader.events
       Session.set("travelMode", "bicycling")
 
   "click .selectTime": (event, template) ->
+    event.preventDefault()
     $item = $(event.currentTarget)
     $item.closest(".dropdown").removeClass("open")
     Session.set("selectedTime", $item.attr("id"))
