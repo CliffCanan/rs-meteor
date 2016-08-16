@@ -27,27 +27,31 @@ template(name="building")
             button.btn.btn-success.add-unit(type="button")
               i.fa.fa-plus
               | Add Unit
-          if canRecommend
+
+          if canRecommend and not isEdit
             button.btn.btn-success.recommend-building-toggle(type="button")
               if buildingIsRecommended
-                i.fa.fa-bookmark-o
+                i.fa.fa-times-circle
                 | Unrecommend
               else
-                i.fa.fa-bookmark
+                i.fa.fa-check-circle
                 | Recommend
+
           button.btn.btn-danger.remove-building(type="button")
             i.fa.fa-trash
             | Delete
+
           button.btn.btn-primary.publish-building-toggle(type="button")
-            i.fa(class="{{#if isPublished}}fa-arrow-circle-o-up{{else}}fa-arrow-circle-o-down{{/if}}")
+            i.fa(class="{{#if isPublished}}fa-eye-slash{{else}}fa-cloud-upload{{/if}}")
             if isPublished
               | Unpublish
             else
               | Publish
+
           if isEdit
             button.btn.btn-primary.save-building(type="button")
               i.fa.fa-fw.fa-spin.fa-spinner.loading(style="display: none;")
-              i.fa.fa-check
+              i.fa.fa-floppy-o
               | Save
             button.btn.btn-warning.cancel-building(type="button")
               i.fa.fa-times

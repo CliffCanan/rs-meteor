@@ -493,7 +493,6 @@ Template.building.events
     Session.set("editBuildingId", template.data.building._id)
 
     Meteor.setTimeout ->
-      #console.log("building.coffee -> Timeout block")
       $(".fg-input").each (index) ->
         val = $(this).val()
         if val.length > 0
@@ -503,6 +502,7 @@ Template.building.events
 
   "click .cancel-building": (event, template) ->
     Session.set("editBuildingId", null)
+    toastr.warning('Changes were not saved.', 'Edits Cancelled')
 
   "click .save-building": (event, template) ->
     $('.building-form').submit()
@@ -511,15 +511,16 @@ Template.building.events
     event.preventDefault()
     $form = $(event.currentTarget)
     data = $form.serializeJSON({parseAll: true, checkboxUncheckedValue: false})
+
     if Object.keys(data).length
       building = Buildings.findOne(template.data.building._id)
       $form.find(".submit-button").prop("disabled", true)
       $form.find(".loading").show()
       Meteor.apply "updateBuilding", [building._id, data], onResultReceived: (error, newUrl) ->
         if error
-          toastr.error('Error Saving Changes!')
+          toastr.error('Edits were not saved!', 'Error Saving Changes')
         else
-          toastr.success('Building Updated Successfully')
+          toastr.success('Building Updated Successfully','Saved')
           Session.set("editBuildingId", null)
           if newUrl isnt Router.routes["building"].path(building.getRouteData())
             Router.go(newUrl)
