@@ -30,6 +30,7 @@
       if userId and Security.canOperateWithBuilding(userId)
         andStatements.push {$or: [
           {title: regexSearch}
+          {address: regexSearch}
           {mlsNo: regexSearch}
           {adminAvailability: regexSearch}
           {adminEscorted: regexSearch}
